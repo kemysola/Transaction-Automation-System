@@ -31,5 +31,6 @@ TODO: Explain how other users and developers can contribute to make your code be
 - $ git commit -m "modified README.md in local branch and pushed to staging branch"
 - $ git push
 - $ git checkout Staging
+- ### What needs to be done
 - $ git merge origin/Taiwo
 - $ git push
