@@ -28,9 +28,8 @@ TODO: Explain how other users and developers can contribute to make your code be
 ####   < Do your coding >
 
 - $ git add .
-- $ git commit -m "added  a testfile to push to staging branch"
+- $ git commit -m "modified README.md in local branch and pushed to staging branch"
 - $ git push
-- $ git push origin Staging
 - $ git checkout Staging
 - $ git merge origin/Taiwo
 - $ git push
