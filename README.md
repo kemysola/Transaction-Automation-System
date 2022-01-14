@@ -35,3 +35,5 @@ TODO: Explain how other users and developers can contribute to make your code be
 - $ git merge origin/Taiwo
 - $ git push
  - #### Change coming in from developer's branch
+
+  - #### Developer A has added another line to this README
