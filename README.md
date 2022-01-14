@@ -1,5 +1,3 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
 
 # Getting Started
 TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
@@ -35,3 +33,4 @@ TODO: Explain how other users and developers can contribute to make your code be
 - $ git merge origin/Taiwo
 - $ git push
  - #### Change coming in from developer's branch
+ - #### Change coming in from 2nd developer's branch
