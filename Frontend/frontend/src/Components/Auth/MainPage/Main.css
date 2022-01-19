@@ -1,0 +1,10 @@
+body {
+    background: #173f5f;
+    margin: 0;
+    padding: 0;
+}
+
+.containerMargin {
+    margin-top: 80px;
+    padding-top: 50px;
+}
