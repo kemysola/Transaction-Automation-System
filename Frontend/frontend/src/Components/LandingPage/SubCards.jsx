@@ -13,7 +13,6 @@ export default function SubCards(){
                             <br/>
                            <h5>3290000</h5>
                             </div>
-                           
                         </div>
                     </Col>
                     <Col sm={3}>
