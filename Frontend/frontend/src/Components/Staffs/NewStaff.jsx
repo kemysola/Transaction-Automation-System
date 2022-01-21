@@ -27,7 +27,7 @@ border-radius: 15px;
 `;
 
 
-export default function NewTransactions(){
+export default function NewStaff(){
     return(
         <React.Fragment>
              <FormWrapper>
