@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import {Row,Col} from 'react-bootstrap';
 import Sidenav from '../LandingPage/Sidenav';
-import TransactionCards from './TransactionCards';
+import NewTransactions from './NewTransactions';
 import Databases from './TransactionDatabase';
 
 const ViewWrapper = styled.div`
   background: #eff1f1;
   margin:0;
   padding: 0 10px;
-  height:98vh;
+  
 
 `;
 
@@ -22,7 +22,7 @@ export default function TransactionView(){
                         <Sidenav/>
                     </Col>
                     <Col sm={7}> 
-                    <Databases/>
+                    <NewTransactions/>
                     </Col>
                     <Col sm={1}>  
                     </Col>
