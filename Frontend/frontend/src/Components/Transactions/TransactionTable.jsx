@@ -28,7 +28,7 @@ export default function TableView(){
                         <th>Products</th>
                         <th>Region</th>
                         <th>Management Fees</th>
-                        <th>Mandate Fess</th>
+                        <th>Mandate Fees</th>
                         <th>Update</th>
                     </tr>
                 </thead>

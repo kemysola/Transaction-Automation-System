@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {Row,Col} from 'react-bootstrap';
 import Sidenav from '../LandingPage/Sidenav';
 import TransactionCards from './TransactionCards';
+import Databases from './TransactionDatabase';
 
 const ViewWrapper = styled.div`
   background: #eff1f1;
@@ -21,7 +22,7 @@ export default function TransactionView(){
                         <Sidenav/>
                     </Col>
                     <Col sm={7}> 
-                    <TransactionCards/>
+                    <Databases/>
                     </Col>
                     <Col sm={1}>  
                     </Col>
