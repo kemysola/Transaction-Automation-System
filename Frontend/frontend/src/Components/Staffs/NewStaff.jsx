@@ -7,7 +7,7 @@ const ButtonWrapper = styled.button`
   background: green;
   margin-right:14px;
   border:1px solid  white;
-  padding:5px 35px;
+  padding:6px 35px;
   margin-top: 8px;
   margin-bottom: 8px;
   font-weight:bold;
@@ -22,7 +22,8 @@ padding:0;
 const Container1 = styled.div`
 background:white;
 font-size:12px;
-padding: 1rem 1.5rem;
+padding: 1rem 1rem;
+border-radius: 15px;
 `;
 
 
@@ -32,7 +33,7 @@ export default function NewTransactions(){
              <FormWrapper>
             <Container fluid>
                 <Form action='' method=''> 
-                    <p className='text-info'>Update Staff Information</p>
+                    <p className='text-info' style={{fontWeight:'bold'}}>New Staff</p>
 
 
                 <Container1>
