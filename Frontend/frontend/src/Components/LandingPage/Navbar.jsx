@@ -12,7 +12,7 @@ margin:0;
 
 const SearchBox = styled.div`
 margin-left:  7rem;
-padding:2rem 4rem;
+padding:3rem 4rem;
 text-align:center;
 
 `;
