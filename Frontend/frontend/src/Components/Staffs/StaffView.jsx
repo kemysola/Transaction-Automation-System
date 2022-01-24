@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {Row,Col} from 'react-bootstrap';
 import NewStaff from './NewStaff'
 import Sidenav from '../LandingPage/Sidenav';
+import Navbar from '../LandingPage/Navbar';
 
 const ViewWrapper = styled.div`
   background: #eff1f1;
@@ -14,6 +15,7 @@ const ViewWrapper = styled.div`
 export default function StaffView(){
     return(
         <React.Fragment>
+            <Navbar/>
             <ViewWrapper>
             <Row>
                     <Col sm={3} style={{padding:'10px'}}>

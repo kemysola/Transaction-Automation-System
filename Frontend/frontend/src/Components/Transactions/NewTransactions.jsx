@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form,Container,Row,Col, Stack } from 'react-bootstrap';
 import styled from 'styled-components';
+import Navbar from '../LandingPage/Navbar';
 
 const ButtonWrapper = styled.button`
   color:white;
@@ -26,106 +27,123 @@ padding: 1rem 1rem;
 border-radius: 15px;
 `;
 
+const PWrapper = styled.p`
+color:#1E2F97;
+font-weight:bold;
+`;
 
-export default function NewStaff(){
+export default function NewTransactions(){
     return(
         <React.Fragment>
+         {/* ---------------------- New Transaction Forms ----------- */}
              <FormWrapper>
             <Container fluid>
                 <Form action='' method=''> 
-                    <p className='text-info' style={{fontWeight:'bold'}}>New Staff</p>
-
-
+                <PWrapper>
+                <p>New Transaction</p>
+                </PWrapper>
+                   
+        {/* ---------------New Transaction Form------------------- */}
                 <Container1>
-                <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Client</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder="name@example.com"  id='client'/>
+                <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Client Name</Form.Label>
+                        <Form.Control size="sm" type="text" placeholder=""  id='client'/>
                     </Form.Group>
                     <Row>
                         <Col sm={6}>
-                        <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
+                        <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
                         <Form.Label>Originator</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder="name@example.com"  id='originator'/>
+                        <Form.Control size="sm" type="text" placeholder=""  id='originator'/>
                     </Form.Group>
 
                         </Col>
                         <Col sm={6}>
-                        <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
+                        <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
                         <Form.Label>Transactor</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder="name@example.com"  id='transactor'/>
+                        <Form.Control size="sm" type="text" placeholder=""  id='transactor'/>
                     </Form.Group>
                         </Col>
                     </Row>
 
+                    {/*----------- Deal Profile Fess and Reimbursement ---------------- */}
+
                     <div className='mt-3'>
-                        <p className='text-info'>Deal Profile Fees & Reimbursement</p>
+                        <PWrapper>
+                        <p>Deal Profile Fees & Reimbursement</p>
+                        </PWrapper>
+                        
                         <Row>
                         <Col sm={6}>
-                        <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Amount (NGN)</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder="name@example.com"  id='amount'/>
+                        <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Industry </Form.Label>
+                        <Form.Control size="sm" type="text" placeholder=""  id='industry'/>
                     </Form.Group>
 
                         </Col>
                         <Col sm={6}>
-                        <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Advance(%)</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder="name@example.com"  id='advance'/>
+                        <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Products</Form.Label>
+                        <Form.Control size="sm" type="text" placeholder=""  id='products'/>
                     </Form.Group>
                         </Col>
                     </Row>
 
                     <Row>
                         <Col sm={6}>
-                        <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Guarantee</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder="name@example.com"  id='guarantee'/>
+                        <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Region</Form.Label>
+                        <Form.Control size="sm" type="text" placeholder=""  id='region'/>
                     </Form.Group>
 
                         </Col>
                         <Col sm={6}>
-                        <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Monitoring</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder="name@example.com"  id='monitoring'/>
+                        <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Region</Form.Label>
+                        <Form.Control size="sm" type="text" placeholder=""  id='region'/>
                     </Form.Group>
                         </Col>
                     </Row>
-
                     </div>
 
+                    {/*-------------------- Structuring Fees -------------------------- */}
+
                     <div className='mt-3'>
-                        <p className='text-info'>Structuring Fees</p>
+                        <PWrapper>
+                        <p>Structuring Fees</p>
+                        </PWrapper>
                         <Row>
                         <Col sm={6}>
-                        <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Client</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder="name@example.com"  id='client'/>
+                        <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Amount</Form.Label>
+                        <Form.Control size="sm" type="text" placeholder=""  id='amount'/>
                     </Form.Group>
 
                         </Col>
                         <Col sm={6}>
-                        <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Client</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder="name@example.com"  id='client'/>
+                        <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Advance</Form.Label>
+                        <Form.Control size="sm" type="text" placeholder=""  id='advance'/>
                     </Form.Group>
                         </Col>
                     </Row>
                     <Row>
                         <Col sm={6}>
                         <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Client</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder="name@example.com"  id='client'/>
+                        <Form.Label>Guarantee %</Form.Label>
+                        <Form.Control size="sm" type="text" placeholder=""  id='guarantee'/>
                     </Form.Group>
 
                         </Col>
                         <Col sm={6}>
-                        <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Client</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder="name@example.com"  id='client'/>
+                        <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Monitoring (NGN)</Form.Label>
+                        <Form.Control size="sm" type="text" placeholder=""  id='monitoring'/>
                     </Form.Group>
                         </Col>
                     </Row>
                     </div>
+
+                    {/*-------------------- Radio Buttons ------------------------------ */}
 
                     <div className='radioButtons mt-3 pt-3'>
                         <Row>
@@ -165,28 +183,15 @@ export default function NewStaff(){
                             </Col>
                         </Row>
                     </div>
-
                 </Container1>
-                <br/>
-
-
-                
-
-                
-
-
+              
+              {/* ------------------  Submit Form Button--------------------  */}
                 <ButtonWrapper>
                     Submit
                 </ButtonWrapper>
 
-                <ButtonWrapper>
-                    Cancel
-                </ButtonWrapper>
-
                 </Form>
-
             </Container>
-
             </FormWrapper>
         </React.Fragment>
     )

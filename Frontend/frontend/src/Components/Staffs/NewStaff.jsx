@@ -11,10 +11,25 @@ const ButtonWrapper = styled.button`
   margin-top: 8px;
   margin-bottom: 8px;
   font-weight:bold;
-  font-size:10px;
+  font-size:8px;
   border-radius:10px;
 
 `;
+const CancelWrapper = styled.button`
+  color:green;
+  background: #eff1f1;
+  border-radius:10px;
+  padding:6px 35px;
+  border: 1px solid grey;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  font-size:8px;
+  box-shadow : 5px #eff1f1;
+  font-weight:bold;
+
+
+  `;
+
 const   FormWrapper = styled.div`
 padding:0;
 `;
@@ -26,6 +41,12 @@ padding: 1rem 1rem;
 border-radius: 15px;
 `;
 
+const TitleWrapper = styled.p`
+color:#004481;
+font-weight: normal;
+font-family: 'Roboto', sans-serif;
+`;
+
 
 export default function NewStaff(){
     return(
@@ -33,66 +54,73 @@ export default function NewStaff(){
              <FormWrapper>
             <Container fluid>
                 <Form action='' method=''> 
-                    <p className='text-info' style={{fontWeight:'bold'}}>New Staff</p>
-
-
+                <TitleWrapper>
+                <p>New Staff</p>
+                </TitleWrapper>
                 <Container1>
-                <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
+                <Form.Group className="mb-1 py-2" controlId="exampleForm.ControlInput1">
                         <Form.Label>Name</Form.Label>
-                        <Form.Control size="sm" type="email" placeholder="name@example.com" />
+                        <Form.Control size="sm" type="text" placeholder="John Doe" id='name' />
                     </Form.Group>
 
-                    <Form.Group className="" controlId="exampleForm.ControlInput1">
+                    <Form.Group className="mb-1 py-2" controlId="exampleForm.ControlInput1">
                         <Form.Label>Level</Form.Label>
-                        <Form.Control size="sm" type="email" placeholder="name@example.com" />
+                        <Form.Control size="sm" type="level" placeholder="-" id='level' />
                     </Form.Group>
                     
-                    <Form.Group className="" controlId="exampleForm.ControlInput1">
+                    <Form.Group className="py-2" controlId="exampleForm.ControlInput1">
                         <Form.Label>Has Origination Target?</Form.Label>
-                        <Form.Control size="sm" type="email" placeholder="name@example.com" />
+                        {/*<Form.Control size="sm" type="radio" placeholder="" />*/}
+
+                        {/* --------------------------- Checkbox----------------- */}
+                        <br/>
+                        <div style={{border:'1px solid grey', width:'160px', padding:'5px 10px', lineHeight:'20px', borderRadius:'5px'}}>
+                        <input type='checkbox' /> <span style={{fontWeight:'bold', paddingRight:'20px', paddingLeft:'10px'}}> Yes </span>
+                        <input type='checkbox' /> <span style={{fontWeight:'bold'}}> No </span>
+                        </div>
                     </Form.Group>
                 </Container1>
                 <br/>
 
+{/*------------------------------------ Div --------------------------------------- */}
 
                 <Container1>
                     <p style={{fontWeight:'bold'}}>Targets</p>
+                    <Row>
+                        <Col sm={6}>
+                            <div className='pt-3 mt-1'>
+                                <p>Origination (NGN) </p>
+                                <p>Guarantee Pipeline (NGN) </p>
+                                <p>Green Transaction (NGN) </p>
+                                <p>Amber Transaction (NGN) </p>
+                                </div>
+                        </Col>
+                        <Col sm={6}>
+                            <div>
+                            <div className='py-1'>
+                            <Form.Control type="" placeholder="0" size='sm' />
+                            </div>
+                            <div className='py-1'>
+                            <Form.Control type="" placeholder="0" size='sm' />
+                            </div>
+                            <div className='py-1'>
+                            <Form.Control type="" placeholder="0" size='sm' />
+                            </div>
+                            <div className='py-1'>
+                            <Form.Control type="" placeholder="0" size='sm' />
+                            </div>
 
-                    <Form.Group as={Row} className="mb-1" controlId="formPlaintextEmail">
-                        <Form.Label column sm="3">
-                        <small>Origination (NGN)</small> 
-                        </Form.Label>
-                        <Col sm="9">
-                            <Form.Control type="password" placeholder="Password" size='sm' />
+                            </div>
                         </Col>
-                    </Form.Group>
+                    </Row>
 
-                    <Form.Group as={Row} className="mb-1" controlId="formPlaintextPassword">
-                        <Form.Label column sm="3">
-                            <small>Guarantee Pipeline (NGN)</small>
-                        </Form.Label>
-                        <Col sm="9">
-                            <Form.Control type="password" placeholder="Password" size='sm' />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-1" controlId="formPlaintextPassword">
-                        <Form.Label column sm="3">
-                            <small>Green Transaction (NGN)</small>
-                        </Form.Label>
-                        <Col sm="9">
-                            <Form.Control type="password" placeholder="Password" size='sm' />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="" controlId="formPlaintextPassword">
-                        <Form.Label column sm="3">
-                            <small>Amber Transaction (NGN)</small>
-                        </Form.Label>
-                        <Col sm="9">
-                            <Form.Control type="password" placeholder="Password" size='sm' />
-                        </Col>
-                    </Form.Group>
+                    
+
+                    
                 </Container1>
                 <br/>
+
+                {/* ----------------------------- Close Div ------------------------ */}
 
                 <Container1>
                     <p style={{fontWeight:'bold'}}>Performance Pay</p>
@@ -100,38 +128,39 @@ export default function NewStaff(){
                             <Col sm={4}>
                                 <p>% per milestone</p> 
                             </Col>
+
                             <Col sm={8}>
-                            <Form.Group as={Row} className="mb-1" controlId="formPlaintextEmail">
+                            <Form.Group as={Row} className="mb-1" controlId="">
                         <Form.Label column sm="5">
                             <small>Mandate Letter (NGN)</small>
                         </Form.Label>
                         <Col sm="6">
-                            <Form.Control type="password" placeholder="Password"  size='sm'/>
+                            <Form.Control type="text" placeholder="0"  size='sm' id='mandateLetter'/>
                         </Col>
                     </Form.Group>
 
-                    <Form.Group as={Row} className="mb-1" controlId="formPlaintextPassword">
+                    <Form.Group as={Row} className="mb-1" controlId="">
                         <Form.Label column sm="5">
                         <small>Credit Committee Approval(NGN)</small>
                         </Form.Label>
                         <Col sm="6">
-                            <Form.Control type="password" placeholder="Password"  size='sm'/>
+                            <Form.Control type="" placeholder="0"  size='sm' id='creditCommiteeApproval'/>
                         </Col>
                     </Form.Group>
-                    <Form.Group as={Row} className="mb-1" controlId="formPlaintextPassword">
+                    <Form.Group as={Row} className="mb-1" controlId="">
                         <Form.Label column sm="5">
                         <small>Fee Letter (%)</small>
                         </Form.Label>
                         <Col sm="6">
-                            <Form.Control type="password" placeholder="Password"  size='sm'/>
+                            <Form.Control type="" placeholder="0"  size='sm' id='feeLetter'/>
                         </Col>
                     </Form.Group>
-                    <Form.Group as={Row} className="" controlId="formPlaintextPassword">
+                    <Form.Group as={Row} className="" controlId="">
                         <Form.Label column sm="5">
                         <small>Financial Close (%)</small>
                         </Form.Label>
                         <Col sm="6">
-                            <Form.Control type="password" placeholder="Password" size='sm' />
+                            <Form.Control type="" placeholder="0" size='sm' id='financialClose'/>
                         </Col>
                     </Form.Group>
                     </Col>
@@ -143,9 +172,9 @@ export default function NewStaff(){
                     Submit
                 </ButtonWrapper>
 
-                <ButtonWrapper>
+                <CancelWrapper>
                     Cancel
-                </ButtonWrapper>
+                </CancelWrapper>
 
                 </Form>
 
