@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Row,Col} from 'react-bootstrap';
-import NewStaff from './NewStaff'
+import StaffDatabase from './StaffDatabase'
 import Sidenav from '../LandingPage/Sidenav';
 import Navbar from '../LandingPage/Navbar';
 
@@ -22,7 +22,7 @@ export default function StaffView(){
                         <Sidenav/>
                     </Col>
                     <Col sm={7}> 
-                        <NewStaff/>
+                        <StaffDatabase/>
                     </Col>
                     <Col sm={1}>  
                     </Col>

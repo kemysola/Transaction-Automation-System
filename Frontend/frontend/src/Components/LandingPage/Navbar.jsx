@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Container, Row, Col, Nav, Form} from 'react-bootstrap';
+import {Container, Nav, Form} from 'react-bootstrap';
 import InfraCredit from '../../Images/i.png';
 
 
@@ -35,24 +35,20 @@ export  default function Navbar(){
             <NavbarNav>
                 <Container>
                 <Nav> 
-                {/*------------------------- Logo ---------------------------------------*/}
+            {/*------------------------- Logo ---------------------------------------*/}
 
                 <img src={InfraCredit} alt='logo' width='100'/>
 
-                {/*----------------------------Search box------------------------------- */}
+            {/*----------------------------Search box------------------------------- */}
                 <SearchBox>
-                <Form action='' method=''>
+                <Form action='' method='post'>
                 <input type='text' placeholder='Search' style={{borderRadius:'22px', padding:' 2px 15px', border:'none'}}/>
                 </Form>
                 </SearchBox>
             </Nav>
                 </Container>
-                
-
-               
-                {/*----------------------- Navbar Search Form --------------------- */}
-                
-               
+            {/*----------------------- Navbar Search Form --------------------- */}
+                    
             </NavbarNav>
 
         </React.Fragment>

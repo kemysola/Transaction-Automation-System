@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form,Container,Row,Col, Stack } from 'react-bootstrap';
 import styled from 'styled-components';
-import Navbar from '../LandingPage/Navbar';
 
 const ButtonWrapper = styled.button`
   color:white;
