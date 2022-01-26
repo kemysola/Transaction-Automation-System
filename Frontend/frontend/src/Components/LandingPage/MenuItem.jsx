@@ -2,24 +2,26 @@ import React,{useState} from 'react';
 import styled from 'styled-components';
 import './MenuItem.css';
 
+const MenuItemsStyles= styled.div`
+`
+
 const MenuStyles = styled.div`
-text-decoration:none;
 list-style:none;
+
 
 `;
 
 export default function MenuItem(props){
-    const {name,subMenus, iconClassName} = props;
+    const {name,subMenus, icon} = props;
     const[expand, setExpand] = useState(false)
 
     return(
         <React.Fragment>
+            <MenuItemsStyles>
             <MenuStyles>
             <li>
                 <a onClick={() => setExpand(!expand)}>
-                    <div className='iconDiv'>
-                        <i className={iconClassName}></i>
-                    </div>
+                    <span className={icon}></span>
                     <span>{name}</span>
                     </a>
                    
@@ -39,6 +41,7 @@ export default function MenuItem(props){
             
             </li>
             </MenuStyles>
+            </MenuItemsStyles>
 
         </React.Fragment>
     )
