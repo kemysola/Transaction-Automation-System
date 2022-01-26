@@ -1,10 +1,11 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {Row, Col, Container,Navbar, Nav, NavItem, Button, Stack} from 'react-bootstrap';
 import styled from 'styled-components';
 import InfraCredit from '../../Images/i.png'
+import MenuItem from './MenuItem';
 
 const AppWrapper = styled.div`
-  padding: 1.5rem  3rem;
+  padding: 1.5rem;
   height: 80vh;
   border-right: 1px solid black;
   background: #eff1f1;
@@ -30,35 +31,59 @@ font-weight:bold;
 
 
 const Sidenav =()=>{
+    const menuItems =[
+        {
+        name:'Transactions',
+        to: '/',
+        iconClasName:'',
+        subMenus:[
+            {name:'Transactions'},
+            {name:'New Transactions'},
+
+        ]},
+
+        {
+        name:'Staffs',
+        to: '/',
+        iconClasName:'', 
+        subMenus:[
+            {name:'Staffs'},
+            {name:'New Staffs'},
+
+        ]},
+
+        {
+        name:'Dashboard',
+        to: '/', 
+        iconClasName:'',
+        subMenus:[
+            {name:'Origination Dashboard'},
+            {name:'Management Dashboard'},
+            {name:'Execution Dashboard'},
+
+        ]},
+
+        {
+        name:'Budget',
+        to: '/',
+        iconClasName:''
+    },
+    ]
     return(
         <React.Fragment>
 
             <AppWrapper>
                 <Container>
-                <div>
-                    <Stack gap={4}>
-                        <div>
-                            <Green>
-                            <small>Transactions</small>
-                            </Green>
-                            
-                        </div>
-                        <SideDiv>
-                            <p>All Transactions</p>
-                            <p>New Transactions</p>
-                        </SideDiv>
-                        <div>  
-                            <small>Staff</small>
-                        </div>
-                            <div>
-                            <small>Dashboard</small>
-                            </div>
-                            
-                    </Stack>
-                </div>
-               
-
-
+                {menuItems.map((menuItem, index) => (
+                    <MenuItem key={index}
+                    name={menuItem.name} 
+                    to={menuItem.to}
+                     subMenus={
+                        menuItem.subMenus
+                    }
+                    iconClassName={menuItem.iconClassName}
+                    />
+                ))}
                 </Container>
                
             </AppWrapper>
