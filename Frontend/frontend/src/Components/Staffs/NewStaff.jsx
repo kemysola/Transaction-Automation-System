@@ -26,8 +26,6 @@ const CancelWrapper = styled.button`
   font-size:8px;
   box-shadow : 5px #eff1f1;
   font-weight:bold;
-
-
   `;
 
 const   FormWrapper = styled.div`
