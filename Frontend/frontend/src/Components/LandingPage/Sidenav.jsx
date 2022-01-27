@@ -2,17 +2,13 @@ import React, {useState} from 'react';
 import {Container} from 'react-bootstrap';
 import styled from 'styled-components';
 import MenuItem from './MenuItem';
-import { BsFillCalendar2RangeFill } from "react-icons/bs";
-
-
-
+/*import { BsFillCalendar2RangeFill } from "react-icons/bs";*/
 
 const AppWrapper = styled.div`
-  padding: 1.5rem ;
-  height:60vh;
-  border-right: 1px solid black;
-  background: #eff1f1;
-  overflow:hidden;
+    padding: 1.5rem ;
+    border-right: 1px solid black;
+    background: #eff1f1;
+    overflow:hidden;
 
 `;
 
@@ -21,6 +17,10 @@ color:#32CD32;
 font-weight:bold;
 `;
 
+const PowerDiv = styled.div`
+margin-top:4rem;
+padding:4em 0;
+`;
 
 
 const Sidenav =()=>{
@@ -28,8 +28,9 @@ const Sidenav =()=>{
         {
         name:'Transactions',
         to: '/',
-        icon:"jam:dashboard",
+        iconClassName:"jam:dashboard",
         subMenus:[
+            {icon:"bi bi-wallet2"},
             {name:'Transactions'},
             {name:'New Transactions'},
 
@@ -38,8 +39,9 @@ const Sidenav =()=>{
         {
         name:'Staffs',
         to: '/',
-        icon:'bi bi-calendar4-event', 
+
         subMenus:[
+            {icon:"bi bi-people-fill"},
             {name:'Staffs'},
             {name:'New Staffs'},
 
@@ -48,8 +50,8 @@ const Sidenav =()=>{
         {
         name:'Dashboard',
         to: '/', 
-        icon:'bi bi-calendar4-event',
         subMenus:[
+            {icon:"bi bi-speedometer2"},
             {name:'Origination Dashboard'},
             {name:'Management Dashboard'},
             {name:'Execution Dashboard'},
@@ -59,8 +61,13 @@ const Sidenav =()=>{
         {
         name:'Budget',
         to: '/',
-        icon:''
-    },
+        subMenus:[
+            {icon:"bi bi-wallet"},
+            {name:'Origination Dashboard'},
+            {name:'Management Dashboard'},
+            {name:'Execution Dashboard'},
+
+        ]},
     ]
     return(
         <React.Fragment>
@@ -70,7 +77,7 @@ const Sidenav =()=>{
                 {menuItems.map((menuItem, index) => (
                     <MenuItem key={index}
                     name={menuItem.name} 
-                    icon={menuItem.icon}
+                    
                     to={menuItem.to}
                      subMenus={
                         menuItem.subMenus
@@ -78,7 +85,15 @@ const Sidenav =()=>{
                     
                     />
                 ))}
+
+                <PowerDiv>
+                <i class="bi bi-power" style={{color:'red'}} ></i>
+                <span style={{color:'#1184C2'}}>  Log Out</span>
+                </PowerDiv>
+
                 </Container>
+            
+                
                
             </AppWrapper>
         </React.Fragment>

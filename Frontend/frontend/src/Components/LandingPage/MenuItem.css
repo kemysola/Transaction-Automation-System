@@ -12,13 +12,23 @@
 
 .sideMenuItems.active {
     max-height: 200px;
-    padding: 10px 20px;
+    padding: 5px 20px;
     margin: 10px;
-    left: 8px;
+    left: 3px;
     position: relative;
 }
 
 .iconns {
     color: red;
     background: blue;
+}
+
+.menuHover:hover {
+    font-weight: bolder;
+}
+
+.sideMenuItems small:hover {
+    font-weight: 600;
+    border-left: 1px solid black;
+    padding-left: 2px;
 }
