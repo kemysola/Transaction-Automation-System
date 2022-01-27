@@ -1,26 +1,19 @@
 import React, {useState} from 'react';
-import {Row, Col, Container,Navbar, Nav, NavItem, Button, Stack} from 'react-bootstrap';
+import {Container} from 'react-bootstrap';
 import styled from 'styled-components';
-import InfraCredit from '../../Images/i.png'
 import MenuItem from './MenuItem';
+import { BsFillCalendar2RangeFill } from "react-icons/bs";
+
+
+
 
 const AppWrapper = styled.div`
-  padding: 1.5rem;
-  height: 80vh;
+  padding: 1.5rem ;
+  height:60vh;
   border-right: 1px solid black;
   background: #eff1f1;
+  overflow:hidden;
 
-`;
-
-const SideDiv = styled.div`
-background:white;
-padding:10px 15px;
-margin: 5px;
-border-radius: 14px;
-color:#1184C2;
-font-size:12px;
-line-height:8px;
-font-family: 'Roboto', sans-serif;
 `;
 
 const Green = styled.small`
@@ -35,7 +28,7 @@ const Sidenav =()=>{
         {
         name:'Transactions',
         to: '/',
-        iconClasName:'',
+        icon:"jam:dashboard",
         subMenus:[
             {name:'Transactions'},
             {name:'New Transactions'},
@@ -45,7 +38,7 @@ const Sidenav =()=>{
         {
         name:'Staffs',
         to: '/',
-        iconClasName:'', 
+        icon:'bi bi-calendar4-event', 
         subMenus:[
             {name:'Staffs'},
             {name:'New Staffs'},
@@ -55,7 +48,7 @@ const Sidenav =()=>{
         {
         name:'Dashboard',
         to: '/', 
-        iconClasName:'',
+        icon:'bi bi-calendar4-event',
         subMenus:[
             {name:'Origination Dashboard'},
             {name:'Management Dashboard'},
@@ -66,7 +59,7 @@ const Sidenav =()=>{
         {
         name:'Budget',
         to: '/',
-        iconClasName:''
+        icon:''
     },
     ]
     return(
@@ -77,11 +70,12 @@ const Sidenav =()=>{
                 {menuItems.map((menuItem, index) => (
                     <MenuItem key={index}
                     name={menuItem.name} 
+                    icon={menuItem.icon}
                     to={menuItem.to}
                      subMenus={
                         menuItem.subMenus
                     }
-                    iconClassName={menuItem.iconClassName}
+                    
                     />
                 ))}
                 </Container>

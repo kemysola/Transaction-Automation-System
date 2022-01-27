@@ -6,6 +6,8 @@ import Main from './Components/Auth/MainPage/Main';
 import UpdateStaffs from './Components/Staffs/UpdateStaffs';
 import TransactionCards from './Components/Transactions/TransactionCards';
 import NewTransactions from './Components/Transactions/NewTransactions';
+import TransactionView from './Components/Transactions/TransactionView'
+import './App.css'
 
 
 export default function App() {
