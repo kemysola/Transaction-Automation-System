@@ -12,12 +12,12 @@ export default function App() {
    
     return (
         <React.Fragment>
-            {/* <StaffView /> */}
+            <StaffView />
             {/* <Landing /> */}
             {/* <Main /> */}
             {/* <UpdateStaffs /> */}
             {/* <TransactionCards /> */}
-            <NewTransactions />
+            {/* <NewTransactions /> */}
             
         </React.Fragment>
     );

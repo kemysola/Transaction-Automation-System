@@ -1,9 +1,11 @@
 import React from 'react';
 
 
-const StaffDatabase =()=>{
+const StaffDatabase = () => {
     return(
-        <React.Fragment></React.Fragment>
+      <React.Fragment>
+            
+      </React.Fragment>
 
     )
 }
