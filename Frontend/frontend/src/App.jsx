@@ -13,14 +13,14 @@ import './App.css'
 export default function App() {
    
     return (
-        <React.Fragment>
-            <StaffView />
+        <>
+            {/* <StaffView /> */}
             {/* <Landing /> */}
             {/* <Main /> */}
             {/* <UpdateStaffs /> */}
             {/* <TransactionCards /> */}
             {/* <NewTransactions /> */}
-            
-        </React.Fragment>
+            <TransactionView />            
+        </>
     );
 }

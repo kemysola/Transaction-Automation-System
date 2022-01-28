@@ -12,7 +12,7 @@ list-style:none;
 `;
 
 export default function MenuItem(props){
-    const {name,subMenus, icon} = props;
+    const {name,subMenus, iconClassName} = props;
     const[expand, setExpand] = useState(false)
 
     return(
@@ -21,7 +21,7 @@ export default function MenuItem(props){
             <MenuStyles>
             <li>
                 <a onClick={() => setExpand(!expand)}>
-                    <span className={icon}></span>
+                    <span className={iconClassName}></span>
                     <span>{name}</span>
                     </a>
                    

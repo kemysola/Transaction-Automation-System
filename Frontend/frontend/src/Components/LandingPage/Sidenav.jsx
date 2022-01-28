@@ -5,8 +5,6 @@ import MenuItem from './MenuItem';
 import { BsFillCalendar2RangeFill } from "react-icons/bs";
 
 
-
-
 const AppWrapper = styled.div`
   padding: 1.5rem ;
   height:60vh;
@@ -21,14 +19,12 @@ color:#32CD32;
 font-weight:bold;
 `;
 
-
-
 const Sidenav =()=>{
     const menuItems =[
         {
         name:'Transactions',
         to: '/',
-        icon:"jam:dashboard",
+        iconClassName:"jam:dashboard",
         subMenus:[
             {name:'Transactions'},
             {name:'New Transactions'},
@@ -38,7 +34,7 @@ const Sidenav =()=>{
         {
         name:'Staffs',
         to: '/',
-        icon:'bi bi-calendar4-event', 
+        iconClassName:'bi bi-calendar4-event', 
         subMenus:[
             {name:'Staffs'},
             {name:'New Staffs'},
@@ -48,7 +44,7 @@ const Sidenav =()=>{
         {
         name:'Dashboard',
         to: '/', 
-        icon:'bi bi-calendar4-event',
+        iconClassName:'bi bi-calendar4-event',
         subMenus:[
             {name:'Origination Dashboard'},
             {name:'Management Dashboard'},
@@ -59,7 +55,7 @@ const Sidenav =()=>{
         {
         name:'Budget',
         to: '/',
-        icon:''
+        iconClassName:''
     },
     ]
     return(
