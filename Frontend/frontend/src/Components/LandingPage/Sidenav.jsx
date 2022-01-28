@@ -5,7 +5,6 @@ import MenuItem from './MenuItem';
 /*import { BsFillCalendar2RangeFill } from "react-icons/bs";*/
 
 const AppWrapper = styled.div`
-    padding: 1.5rem ;
     border-right: 1px solid black;
     background: #eff1f1;
     overflow:hidden;
@@ -18,8 +17,6 @@ font-weight:bold;
 `;
 
 const PowerDiv = styled.div`
-margin-top:4rem;
-padding:4em 0;
 `;
 
 
@@ -72,8 +69,9 @@ const Sidenav =()=>{
     return(
         <React.Fragment>
 
-            <AppWrapper>
                 <Container>
+                <AppWrapper>
+
                 {menuItems.map((menuItem, index) => (
                     <MenuItem key={index}
                     name={menuItem.name} 
@@ -90,12 +88,13 @@ const Sidenav =()=>{
                 <i class="bi bi-power" style={{color:'red'}} ></i>
                 <span style={{color:'#1184C2'}}>  Log Out</span>
                 </PowerDiv>
+                </AppWrapper>
+
 
                 </Container>
             
                 
                
-            </AppWrapper>
         </React.Fragment>
     )
     

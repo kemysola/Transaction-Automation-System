@@ -5,12 +5,10 @@ import './MenuItem.css';
 
 
 const MenuItemsStyles= styled.div`
-
 `
 
 const MenuStyles = styled.div`
 list-style:none;
-
 
 `;
 
@@ -30,7 +28,6 @@ export default function MenuItem(props){
             <MenuStyles>
             <li>
 {/*-------------------------------- Use React state to collapse sidebar submenus ---------------- */}
-
                 <a onClick={() => setExpand(!expand)}>
                     <i class={ icon } ></i>
                     <span> {name} </span>
