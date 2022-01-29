@@ -2,18 +2,13 @@ import React, {useState} from 'react';
 import {Container} from 'react-bootstrap';
 import styled from 'styled-components';
 import MenuItem from './MenuItem';
-/*import { BsFillCalendar2RangeFill } from "react-icons/bs";*/
 
 const AppWrapper = styled.div`
     border-right: 1px solid black;
     background: #eff1f1;
     overflow:hidden;
+    padding-top:10px;
 
-`;
-
-const Green = styled.small`
-color:#32CD32;
-font-weight:bold;
 `;
 
 const PowerDiv = styled.div`
@@ -80,7 +75,6 @@ const Sidenav =()=>{
                      subMenus={
                         menuItem.subMenus
                     }
-                    
                     />
                 ))}
 
@@ -89,15 +83,9 @@ const Sidenav =()=>{
                 <span style={{color:'#1184C2'}}>  Log Out</span>
                 </PowerDiv>
                 </AppWrapper>
-
-
-                </Container>
-            
-                
-               
+                </Container>             
         </React.Fragment>
     )
-    
 }
 export default Sidenav;
     
