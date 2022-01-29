@@ -7,12 +7,11 @@ import styled from 'styled-components'
 const BodyContainer = styled.div`
 margin:-0.22px;
 width:100vw;
-height:100vh;
+height:120vh;
 background: #eff1f1;
 overflow:hidden;
 
 `
-
 
 
 
