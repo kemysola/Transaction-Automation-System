@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {Row,Col} from 'react-bootstrap';
 import Sidenav from '../LandingPage/Sidenav';
-import NewTransactions from './NewTransactions';
+import TransactionCards from './TransactionCards';
 import Navbar from '../LandingPage/Navbar';
 
 
@@ -23,7 +23,7 @@ export default function TransactionView(){
                     <Sidenav/>
                 </Col>
                 <Col sm={7}>
-                    <NewTransactions/>
+                    <TransactionCards/>
                 </Col>
                 <Col sm={1}>  
                 </Col>
