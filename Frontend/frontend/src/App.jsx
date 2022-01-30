@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 import styled from 'styled-components'
-import TransactionView from './Components/Transactions/TransactionView'
+import StaffView from './Components/Staffs/StaffView'
 
 const BodyContainer = styled.div`
 margin:-0.22px;
@@ -20,7 +20,7 @@ export default function App() {
     return (
         <BodyContainer>
         <React.Fragment>
-            <TransactionView/>
+            <StaffView/>
             
             
         </React.Fragment>
