@@ -33,7 +33,7 @@ export default function TableView() {
   return (
     <React.Fragment>
       <ContainerWrapper>
-        <Stack classname="d-flex justify-content-between" direction="horizontal" gap={3} responsive >
+        <Stack classname="d-flex justify-content-between" direction="horizontal" gap={3}>
           <div>All (5) </div>
           <div className="vr" />
           <div>Trash (0) </div>

@@ -1,21 +1,21 @@
 import React from 'react';
-import { Form,Container,Row,Col } from 'react-bootstrap';
+import { Form, Container, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
 
 const ButtonWrapper = styled.button`
   color:white;
   background: green;
   margin-right:14px;
-  border:1px solid  white;
+  border:1px solid white;
   padding:2px 35px;
   margin-top: 2px;
   margin-bottom: 2px;
   font-weight:bold;
   font-size:10px;
   border-radius:10px;
-
 `;
-const   FormWrapper = styled.div`
+
+const FormWrapper = styled.div`
 padding:0;
 font-size:2px;
 margin:0;
@@ -29,6 +29,7 @@ border-radius: 15px;
 width:50vw;
 margin:0;
 `;
+
 const CancelWrapper = styled.button`
   color:green;
   background: #eff1f1;
@@ -41,7 +42,6 @@ const CancelWrapper = styled.button`
   box-shadow : 5px #eff1f1;
   font-weight:bold;
   `;
-
 
 export default function UpdateStaffs(){
     return(
@@ -63,14 +63,13 @@ export default function UpdateStaffs(){
                         <Form.Group className="" controlId="exampleForm.ControlInput1">
                             <Form.Label style={{fontWeight:'bold'}} className="pt-2">Has Origination Target?</Form.Label>
                             <br/>
-                            <div style={{border:'1px solid grey', width:'160px', padding:'5px 10px', lineHeight:'20px', borderRadius:'5px'}}>
-                                <input type='checkbox' /> <span style={{fontWeight:'bold', paddingRight:'20px', paddingLeft:'10px'}}> Yes </span>
-                                <input type='checkbox' /> <span style={{fontWeight:'bold'}}> No </span>
+                            <div size="sm" style={{border:'1px solid grey', width:'130px', padding:'5px 10px', lineHeight:'20px', borderRadius:'5px'}}>
+                                <input type='radio' value="Yes" name="target" /> <span style={{fontWeight:'bold', paddingRight:'20px', paddingLeft:'10px'}}> Yes </span>
+                                <input type='radio' value="No" name="target" /> <span style={{fontWeight:'bold'}}> No </span>
                             </div>
                         </Form.Group>
                     </Container1>
                     <br/>
-
 
                     <Container1 style={{marginBottom:'3px',paddingBottom:'10px', fontSize:'8px'}}>
                         <p style={{fontWeight:'bold', fontSize:'10px'}}>Targets</p>
