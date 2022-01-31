@@ -23,7 +23,6 @@ overflow:hidden;
 
 
 export default function App() {
-   
     return (
         <BodyContainer>
         <React.Fragment>

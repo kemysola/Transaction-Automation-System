@@ -8,15 +8,12 @@ const AppWrapper = styled.div`
     border-right: 1px solid black;
     background: #eff1f1;
     overflow:hidden;
-
 `;
 
 const Green = styled.small`
 color:#32CD32;
 font-weight:bold;
 `;
-
-
 
 const Sidenav = () => {
     const menuItems = [
@@ -76,10 +73,10 @@ const Sidenav = () => {
                     }/>
                 ))}
 
-                <PowerDiv>
+                {/* <PowerDiv> */}
                     <i class="bi bi-power" style={{color:'red'}} ></i>
                     <span style={{color:'#1184C2'}}>  Log Out</span>
-                </PowerDiv>
+                {/* </PowerDiv> */}
             </AppWrapper>
             </Container> 
         </React.Fragment>
