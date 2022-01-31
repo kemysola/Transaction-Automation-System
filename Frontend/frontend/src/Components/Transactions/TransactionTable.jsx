@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const ContainerWrapper = styled.div`
 font-size:10px;
-margin-top: 2rem;
+margin-top: 0.55rem;
 background:white;
 padding: 1rem 2rem;
 border-radius: 15px;
@@ -40,7 +40,7 @@ export default function TableView() {
           <div className="vr" />
           <div>
             Bulk Actions
-            <Button className='rounded-pill' size='sm' style={{backgroundColor: "green", border:'none'}}>Apply</Button>
+            <Button className='rounded-pill' size='sm' style={{backgroundColor: "green", border:'none', marginLeft: '1em'}}>Apply</Button>
           </div>
           <Button className='rounded-pill' size='sm'>Download</Button>
           <Search />

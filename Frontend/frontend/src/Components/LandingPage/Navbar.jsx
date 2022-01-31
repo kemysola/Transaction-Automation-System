@@ -6,8 +6,8 @@ import InfraCredit from '../../Images/i.png';
 
 const NavbarNav = styled.div`
 background:#eff1f1;
-padding:5px 15px;
-margin-bottom:1px;
+padding:1px 15px;
+margin-bottom:0.1px;
 display:grid;
 grid-template-columns:0.81fr 1.78fr 0.38fr;
 justify-content:center;
