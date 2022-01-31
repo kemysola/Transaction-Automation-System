@@ -5,7 +5,7 @@ import TableView from './TransactionTable';
 
 
 const Paragraph = styled.p`
-font-size:18px;
+font-size:15px;
 font-weight:light;
 `;
 
@@ -18,8 +18,8 @@ export default function TransactionCards(){
                 <p>All Transactions</p>
                 </Paragraph>
                 <Row>
-                    <Col sm={6}>
-                        <Card>
+                    <Col sm={6} className='py-3'>
+                        <Card  style={{height:'85px'}}>
                         <Card.Body>
                         <Card.Title>
                             <small>Lorem, ipsum dolor</small>
@@ -33,8 +33,8 @@ export default function TransactionCards(){
                         </Card>
 
                     </Col>
-                    <Col sm={6}>
-                        <Card>
+                    <Col sm={6} className='py-3'>
+                        <Card style={{height:'85px'}}>
                         <Card.Body>
                         <Card.Title>
                             <small>Lorem, ipsum dolor</small>
