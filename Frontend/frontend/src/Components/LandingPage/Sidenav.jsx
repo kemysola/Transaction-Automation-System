@@ -18,55 +18,52 @@ const PowerDiv = styled.div`
 const Sidenav =()=>{
     const menuItems =[
         {
-        name:'Transactions',
-        to: '/',
-        iconClassName:"jam:dashboard",
-        subMenus:[
-            {icon:"bi bi-wallet2"},
-            {name:'Transactions'},
-            {name:'New Transactions'},
+            name: 'Transactions',
+            to: '/',
+            iconClassName:"jam:dashboard",
+            subMenus:[
+                {icon:"bi bi-wallet2"},
+                {name:'Transactions'},
+                {name:'New Transactions'},
 
         ]},
 
         {
-        name:'Staffs',
-        to: '/',
-
-        subMenus:[
-            {icon:"bi bi-people-fill"},
-            {name:'Staffs'},
-            {name:'New Staffs'},
-
-        ]},
-
-        {
-        name:'Dashboard',
-        to: '/', 
-        subMenus:[
-            {icon:"bi bi-speedometer2"},
-            {name:'Origination Dashboard'},
-            {name:'Management Dashboard'},
-            {name:'Execution Dashboard'},
+            name: 'Staffs',
+            to: '/',
+            subMenus:[
+                {icon:"bi bi-people-fill"},
+                {name:'Staffs'},
+                {name:'New Staffs'},
 
         ]},
 
         {
-        name:'Budget',
-        to: '/',
-        subMenus:[
-            {icon:"bi bi-wallet"},
-            {name:'Origination Dashboard'},
-            {name:'Management Dashboard'},
-            {name:'Execution Dashboard'},
+            name:'Dashboard',
+            to: '/', 
+            subMenus:[
+                {icon:"bi bi-speedometer2"},
+                {name:'Origination Dashboard'},
+                {name:'Management Dashboard'},
+                {name:'Execution Dashboard'},
 
+        ]},
+
+        {
+            name:'Budget',
+            to: '/',
+            subMenus:[
+                {icon:"bi bi-wallet"},
+                {name:'Origination Dashboard'},
+                {name:'Management Dashboard'},
+                {name:'Execution Dashboard'},
         ]},
     ]
+
     return(
         <React.Fragment>
-
-                <Container>
-                <AppWrapper>
-
+            <Container>
+            <AppWrapper>
                 {menuItems.map((menuItem, index) => (
                     <MenuItem key={index}
                     name={menuItem.name} 

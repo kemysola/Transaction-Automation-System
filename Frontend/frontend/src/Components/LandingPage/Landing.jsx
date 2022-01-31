@@ -1,6 +1,6 @@
 import React from 'react';
 import {Container,Row,Col} from 'react-bootstrap';
-import MainCards from './MainCards';
+import MainCards from './mainCards';
 import Sidenav from './Sidenav';
 import styled from 'styled-components';
 import SubCards from './SubCards';
