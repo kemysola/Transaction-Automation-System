@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form,Container,Row,Col } from 'react-bootstrap';
+import { Form, Container, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
 
 const ButtonWrapper = styled.button`
@@ -15,7 +15,7 @@ const ButtonWrapper = styled.button`
   border-radius:10px;
 
 `;
-const   FormWrapper = styled.div`
+const FormWrapper = styled.div`
 padding:0;
 font-size:2px;
 margin:0;
@@ -42,13 +42,10 @@ const CancelWrapper = styled.button`
   font-weight:bold;
   `;
 
-
-
-
 export default function NewStaffs(){
     return(
         <React.Fragment>
-             <FormWrapper>
+            <FormWrapper>
             <Container fluid>
                 <Form action='' method='post'> 
 
@@ -71,9 +68,9 @@ export default function NewStaffs(){
                         <Form.Group className="" controlId="exampleForm.ControlInput1">
                             <Form.Label style={{fontWeight:'bold'}} className="pt-2">Has Origination Target?</Form.Label>
                             <br/>
-                            <div style={{border:'1px solid grey', width:'160px', padding:'5px 10px', lineHeight:'20px', borderRadius:'5px'}}>
-                                <input type='checkbox' /> <span style={{fontWeight:'bold', paddingRight:'20px', paddingLeft:'10px'}}> Yes </span>
-                                <input type='checkbox' /> <span style={{fontWeight:'bold'}}> No </span>
+                            <div size="sm" style={{border:'1px solid grey', width:'130px', padding:'5px 10px', lineHeight:'20px', borderRadius:'5px'}}>
+                                <input type='radio' value="Yes" name="target" /> <span style={{fontWeight:'bold', paddingRight:'20px', paddingLeft:'10px'}}> Yes </span>
+                                <input type='radio' value="No" name='target' /> <span style={{fontWeight:'bold'}}> No </span>
                             </div>
                         </Form.Group>
                     </Container1>

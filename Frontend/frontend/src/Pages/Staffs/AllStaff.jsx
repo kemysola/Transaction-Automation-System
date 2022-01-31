@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Row,Col} from 'react-bootstrap';
-import Sidenav from '../LandingPage/Sidenav';
-import Navbar from '../LandingPage/Navbar';
-import NewStaff from './NewStaff';
-import StaffDatabase from './StaffDatabase';
+import Sidenav from '../../Components/LandingPage/Sidenav';
+import Navbar from '../../Components/LandingPage/Navbar';
+import StaffDatabase from '../../Components/Staffs/StaffDatabase';
 
 const ViewWrapper = styled.div`
   background: #eff1f1;
@@ -12,7 +11,7 @@ const ViewWrapper = styled.div`
   padding: 0 10px;
 `;
 
-export default function StaffView(){
+export default function AllStaff() {
     return(
         <React.Fragment>
             <Navbar/>
@@ -22,15 +21,13 @@ export default function StaffView(){
                     <Sidenav/>
                 </Col>
                 <Col sm={7}> 
-                    <NewStaff/>
-                    {/* <StaffDatabase/> */}
+                    <StaffDatabase/>
                 </Col>
                 {/* <Col sm={1}></Col> */}
                 </Row>
             </ViewWrapper>
 
         </React.Fragment>
-
     )
 }
 
