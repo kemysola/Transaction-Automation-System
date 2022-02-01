@@ -10,14 +10,16 @@ import TransactionView from './Components/Transactions/TransactionView'
 import NewStaffs from './Components/Staffs/NewStaff';
 import StaffDatabase from './Components/Staffs/StaffDatabase';
 import AllStaff from './Pages/Staffs/AllStaff';
-import UpdateStaff from './Pages/Staffs/UpdateStaff'
+import UpdateStaff from './Pages/Staffs/UpdateStaff';
+import NewTransaction from './Pages/Transactions/NewTransaction';
 import './App.css'
 import styled from 'styled-components'
 
 const BodyContainer = styled.div`
 margin:-0.22px;
 width:100vw;
-height:130vh;
+height:auto;
+min-height:100vh;
 background: #eff1f1;
 overflow:hidden;
 `
@@ -28,9 +30,11 @@ export default function App() {
         <React.Fragment>
             {/* <NewStaffs/> */}
             {/* <StaffView /> */}
-            {/* <TransactionView /> */}
-            <AllStaff />
+            {/* <AllStaff /> */}
             {/* <StaffDatabase /> */}
+
+            {/* <TransactionView /> */}
+            <NewTransaction />
             
         </React.Fragment>
         </BodyContainer>
