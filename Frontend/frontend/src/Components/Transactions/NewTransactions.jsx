@@ -164,24 +164,24 @@ export default function NewTransactions(){
                             <Col sm={6} style={{display:'grid', justifyContent:'right',paddingRight:'1rem'}}>
                                 <Stack>
                                     <div className='radioBtn'>
-                                       <span style={{paddingRight:'1em'}}><input type='radio' className='text-success'/></span>
-                                        <input type='radio'/>
+                                       <span style={{paddingRight:'1em'}}><input type='radio' className='text-success' name='first'/></span>
+                                        <input type='radio' name='first'/>
                                     </div>
                                     <div>
-                                    <span style={{paddingRight:'1em'}}><input type='radio'/></span>
-                                        <input type='radio'/>
+                                    <span style={{paddingRight:'1em'}}><input type='radio' name='second' /></span>
+                                        <input type='radio' name='second'/>
                                     </div>
                                     <div>
-                                    <span style={{paddingRight:'1em'}}><input type='radio'/></span>
-                                        <input type='radio'/>
+                                    <span style={{paddingRight:'1em'}}><input type='radio' name='third' /></span>
+                                        <input type='radio' name='third' />
                                     </div>
                                     <div>
-                                    <span style={{paddingRight:'1em'}}><input type='radio'/></span>
-                                        <input type='radio'/>
+                                    <span style={{paddingRight:'1em'}}><input type='radio' name='fourth' /></span>
+                                        <input type='radio' name='fourth' />
                                     </div>
                                     <div className='mb-1'>
-                                    <span style={{paddingRight:'1em'}}><input type='radio'/></span>
-                                        <input type='radio'/>
+                                    <span style={{paddingRight:'1em'}}><input type='radio' name='fifth' /></span>
+                                        <input type='radio' name='fifth' />
                                     </div>
                                 </Stack>
                             </Col>

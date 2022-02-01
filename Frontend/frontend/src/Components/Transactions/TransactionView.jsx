@@ -10,8 +10,6 @@ import Navbar from '../LandingPage/Navbar';
 const ViewWrapper = styled.div`
   margin:0;
   padding: 0 10px;
-  
-
 `;
 
 export default function TransactionView(){
@@ -32,7 +30,6 @@ export default function TransactionView(){
                 </Row>
             </ViewWrapper>
         </React.Fragment>
-
     )
 }
 
