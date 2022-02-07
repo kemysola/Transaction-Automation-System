@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Container, Nav, Form} from 'react-bootstrap';
+// import { FaBars } from 'react-icons/fa';
 import InfraCredit from '../../Images/i.png';
 
 
@@ -12,9 +13,9 @@ display:grid;
 grid-template-columns:0.81fr 1.78fr 0.38fr;
 justify-content:center;
 `
+// handleToggleSidebar
 
-
-export  default function Navbar(){
+export  default function Navbar() {
     return(
         <React.Fragment>
             <NavbarNav>
@@ -22,6 +23,11 @@ export  default function Navbar(){
                 <div>
                 <img src={InfraCredit} alt='logo' width='90'/>
                 </div>
+            
+            {/* ------------------------  Toggle Sidebar --------------------------------- */}
+            {/* <div className="btn-toggle" onClick={() => handleToggleSidebar(true)}>
+                <FaBars />
+            </div> */}
             
             {/*-------------------------  Search Div ------------------------------------ */}
                 
@@ -49,5 +55,4 @@ export  default function Navbar(){
 
         </React.Fragment>
     )
-
 }

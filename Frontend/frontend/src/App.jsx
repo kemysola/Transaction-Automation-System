@@ -29,12 +29,12 @@ export default function App() {
         <BodyContainer>
         <React.Fragment>
             {/* <NewStaffs/> */}
-            {/* <StaffView /> */}
+            <StaffView />
             {/* <AllStaff /> */}
             {/* <StaffDatabase /> */}
 
             {/* <TransactionView /> */}
-            <NewTransaction />
+            {/* <NewTransaction /> */}
             
         </React.Fragment>
         </BodyContainer>
