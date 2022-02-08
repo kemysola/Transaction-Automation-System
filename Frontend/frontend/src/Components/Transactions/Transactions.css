@@ -1,0 +1,9 @@
+.submitBtn {
+    padding: 2 10px;
+    border: 3px solid white;
+    color: yellow;
+}
+
+.roundedCorners {
+    border-radius: 50%;
+}
