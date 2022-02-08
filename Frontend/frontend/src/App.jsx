@@ -12,6 +12,7 @@ import StaffDatabase from './Components/Staffs/StaffDatabase';
 import AllStaff from './Pages/Staffs/AllStaff';
 import UpdateStaff from './Pages/Staffs/UpdateStaff';
 import NewTransaction from './Pages/Transactions/NewTransaction';
+import UpdateTransaction from './Pages/Transactions/UpdateTransaction';
 import './App.css'
 import styled from 'styled-components'
 
@@ -29,12 +30,13 @@ export default function App() {
         <BodyContainer>
         <React.Fragment>
             {/* <NewStaffs/> */}
-            <StaffView />
+            {/* <StaffView /> */}
             {/* <AllStaff /> */}
             {/* <StaffDatabase /> */}
 
             {/* <TransactionView /> */}
             {/* <NewTransaction /> */}
+            <UpdateTransaction />
             
         </React.Fragment>
         </BodyContainer>
