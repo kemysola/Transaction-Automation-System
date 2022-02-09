@@ -1,3 +1,7 @@
 .subCardsContainer {
-    margin-top: 8rem;
+    margin-top: 3rem;
+    margin-bottom: 4.6rem;
+    padding: 0.88rem 0;
+    background: white;
+    border-radius: 10px;
 }
