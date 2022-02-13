@@ -1,0 +1,28 @@
+{
+  "name": "incr",
+  "version": "1.0.0",
+  "description": "InCr Backend services",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https:"
+  },
+  "author": "Taiwo Akinde",
+  "license": "ISC",
+ 
+  "homepage": "",
+  "dependencies": {
+    "@azure/msal-node": "^1.5.0",
+    "adal-node": "^0.2.3",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^10.0.0",
+    "dynamics-web-api": "^1.7.4",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.7.1"
+  }
+}
