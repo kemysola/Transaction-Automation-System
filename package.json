@@ -12,9 +12,7 @@
   },
   "author": "Taiwo Akinde",
   "license": "ISC",
-  "bugs": {
-    "url": ""
-  },
+ 
   "homepage": "",
   "dependencies": {
     "@azure/msal-node": "^1.5.0",
