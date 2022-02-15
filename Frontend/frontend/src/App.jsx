@@ -40,7 +40,11 @@ export default function App() {
     },[])*/}
 
     return (
-        <div>
+        // <BodyContainer>
+        <React.Fragment>
+            <NewStaffs/>
+            {/* <StaffView /> */}
+        {/* <div> */}
                     {/*{initialState.length > 0 && initialState.map(e => <li>e</li>)}*/}
                     <Router>
                         <Switch>
@@ -61,9 +65,11 @@ export default function App() {
 
             {/* <TransactionView /> */}
             {/* <NewTransaction /> */}
+            {/* <UpdateTransaction /> */}
             {/*<UpdateTransaction />*/}
             
-            
-        </div>
-    );
+            {/* </BodyContainer> */}
+        </React.Fragment>
+    ) 
+    
 }
