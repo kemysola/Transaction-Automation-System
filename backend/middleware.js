@@ -69,10 +69,11 @@ const verifyUser = async (req, res, next) => {
           RETURNING *`
           const res_ = await client.query(update_db, user_data)                   
           await client.query('COMMIT')
-    
+
           res.json({
               status: (res.statusCode = 200),
               message: "Your Account is now Active",
+              userEmail: res_.rows[0]['email']
             });
         }
     } catch (err) {

@@ -77,11 +77,6 @@ router.post("/onboard", verifyTokenAndAdmin, async (req, res) => {
     const decryptedEmail = CryptoJS.AES.decrypt(encryptedEmail, process.env.PASSWORD_SECRET_PASSPHRASE).toString(CryptoJS.enc.Utf8);
     const oneTimePassword = CryptoJS.AES.decrypt(res_.rows[0].password, process.env.PASSWORD_SECRET_PASSPHRASE).toString(CryptoJS.enc.Utf8);
 
-    // console.log('Original Generated One Time Password:  ' + one_time_password)
-    // console.log('Encrypted Generated One Time Password:  ' + res_.rows[0].password)
-    // console.log('Decrypted Generated One Time Password:  ' + oneTimePassword)
-    // console.log('Encrypted Email:  ' + encryptedEmail)
-    // console.log('Decrypted Email:  ' + decryptedEmail)
 
     const userEmail = res_.rows[0].email;
     const actvToken = res_.rows[0].activationcode
@@ -111,7 +106,7 @@ router.post("/onboard", verifyTokenAndAdmin, async (req, res) => {
 });
 
 
-// One-Time-Password Reset and Account Activation
+// Account Activation and One-Time-Password Reset 
 router.get("/confirm/:confirmationCode", verifyUser)
 
 
@@ -171,6 +166,38 @@ router.put('/update/:user_email', verifyTokenAndAuthorization,async (req, res) =
     }
 
 });
+
+// One-Time-Password Reset
+router.put('/oneTimePasswordReset/', async (req, res) => {
+  const client = await pool.connect();
+  try {
+
+      const user_rec = { oldPassword, newPassword, email} = req.body;
+      const user_data = [CryptoJS.AES.encrypt(user_rec.newPassword, process.env.PASSWORD_SECRET_PASSPHRASE ).toString(), user_rec.email]
+      
+      await client.query('BEGIN')
+      const update_db = 
+      `UPDATE TB_TRS_USERS
+       SET  	password = $1
+       WHERE email = $2
+      RETURNING *`
+      const res_ = await client.query(update_db, user_data)                   
+      await client.query('COMMIT')
+
+      res.json({
+          status: (res.statusCode = 200),
+          message: "Password Reset Successfully",
+        });
+       
+  } catch (e) {
+      await client.query('ROLLBACK')
+      res.status(403).json({ Error: e.stack });
+  }finally{
+      client.release()
+    }
+
+});
+
 
 
 // User Registration Endpoint[This registration should be done by a user with admin right, new user will reset password on first login]
