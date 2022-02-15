@@ -39,6 +39,7 @@ CREATE TABLE TB_TRS_USERS(
 
     status VARCHAR DEFAULT 'Inactive',
     record_entry VARCHAR,
+    activationCode VARCHAR
     PRIMARY KEY(email)
 );
 
@@ -72,7 +73,8 @@ CREATE TABLE TB_TRS_USERS_AUDIT(
     originator INT, --Added 2022Feb03(client wants to capture performance for Originators )
 
     status VARCHAR,
-    record_entry VARCHAR
+    record_entry VARCHAR,
+    activationCode VARCHAR
 );
 
 CREATE OR REPLACE FUNCTION FUNC_TRS_USERS_AUDIT() RETURNS TRIGGER AS $TB_TRS_USERS_AUDIT$

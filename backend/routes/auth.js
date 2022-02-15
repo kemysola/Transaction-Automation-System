@@ -13,8 +13,8 @@ router.post("/app/login", async (req, res) => {
       "SELECT * FROM TB_TRS_USERS WHERE email = $1",
       [req.body.email]
     );
-
-      if (user) {
+      
+      if (user && user.status !== 'Active') {
       const hashedPassword = CryptoJS.AES.decrypt(
         user.rows[0]["password"],
         process.env.PASSWORD_SECRET_PASSPHRASE
@@ -45,6 +45,8 @@ router.post("/app/login", async (req, res) => {
       } else {
         res.status(403).json({ Error: "Wrong Password" });
       }
+    }else{
+      return res.status(401).send({message: "Please Verify your Email"});
     }
   } catch (err) {
     console.error(err.stack);
@@ -113,7 +115,7 @@ router.get('/app/login', (req, res) => {
     };
 
     cca.acquireTokenByCode(tokenRequest).then((response) => {
-        console.log("\nResponse: \n:", response);
+        // console.log("\nResponse: \n:", response);
         res.sendStatus(200);
     }).catch((error) => {
         console.log(error);
