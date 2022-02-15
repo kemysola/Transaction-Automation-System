@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken")
+const pool = require("./database");
+const CryptoJS = require("crypto-js");
 
 // Token Verification: verifies that a valid token is sent from client
 const verifyToken = (req, res, next) => {
@@ -46,5 +48,41 @@ const verifyTokenAndAdmin = (req, res, next) => {
     })
 };
 
-module.exports = { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin }
+
+// This method verifies there is a user with the sent activationCode in the database
+const verifyUser = async (req, res, next) => {
+    const client = await pool.connect()
+    try {
+        const user = await client.query(
+        "SELECT * FROM TB_TRS_USERS WHERE activationcode = $1", [req.params.confirmationCode]
+        );
+  
+        if (user) {
+        
+          const user_data = [req.params.confirmationCode]
+          
+          await client.query('BEGIN')
+          const update_db = 
+          `UPDATE TB_TRS_USERS
+           SET  status = 'Active'
+           WHERE activationcode = $1
+          RETURNING *`
+          const res_ = await client.query(update_db, user_data)                   
+          await client.query('COMMIT')
+    
+          res.json({
+              status: (res.statusCode = 200),
+              message: "Your Account is now Active",
+            });
+        }
+    } catch (err) {
+        console.error(err.stack);
+        res.status(404).json({ Error: "Invalid Email Address" });
+    }finally{
+        client.release()
+  }
+  
+  };
+
+module.exports = { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin, verifyUser }
 

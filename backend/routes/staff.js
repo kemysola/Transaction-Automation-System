@@ -1,7 +1,9 @@
 const router = require("express").Router();
 const pool = require("../database");
 const CryptoJS = require("crypto-js");
-const {verifyTokenAndAdmin, verifyTokenAndAuthorization} = require("../middleware");
+const nodemailer = require("../maildaemon");
+const jwt = require("jsonwebtoken");
+const {verifyTokenAndAdmin, verifyTokenAndAuthorization, verifyUser} = require("../middleware");
 
 // This method computes the Financial Close for every user by using the mandate-letter, credit-committee and Fee-Letter values
 // - it will be a global formula and its values can only be set/modified by the admin: 2022-01-21
@@ -15,6 +17,21 @@ const funcFinancialClose = (originator, mandateLetter, creditCommittee, feeLette
   
 };
 
+/* Function to generate One-Time-Password*/
+function generateP() {
+  var pass = '';
+  var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' + 
+          'abcdefghijklmnopqrstuvwxyz0123456789@#$';
+    
+  for (i = 1; i <= 8; i++) {
+      var char = Math.floor(Math.random()
+                  * str.length + 1);
+        
+      pass += str.charAt(char)
+  }
+    
+  return pass;
+}
 
 // User Registration Endpoint[This registration should be done by a user with admin right, new user will reset password on first login]
 router.post("/onboard", verifyTokenAndAdmin, async (req, res) => {
@@ -22,43 +39,81 @@ router.post("/onboard", verifyTokenAndAdmin, async (req, res) => {
   try {
     
     // Destrucuring the request body to grab required fields
-    const new_user = { email, password, firstName, lastName, level, hasOriginationTarget, originationAmount, guaranteePipeline, greenTransaction,
+    const new_user = { email, firstName, lastName, level, hasOriginationTarget, originationAmount, guaranteePipeline, greenTransaction,
       amberTransaction, originator, mandateLetter, creditCommiteeApproval, feeLetter, status, isadmin} = req.body;
 
+    // create confirmation token for account activation: 2022-Feb-15th
+    const activationToken = jwt.sign(
+      {
+        Email: new_user.email
+      },
+      process.env.JWT_SEC_KEY,
+      { expiresIn: "1d" }
+    );
+
+    // 
+    const one_time_password = generateP()
+
     const user_data = [ 
-      new_user.email, CryptoJS.AES.encrypt(new_user.password, process.env.PASSWORD_SECRET_PASSPHRASE ).toString(),
+      new_user.email, CryptoJS.AES.encrypt(one_time_password, process.env.PASSWORD_SECRET_PASSPHRASE ).toString(),
       new_user.firstName, new_user.lastName, new_user.level, new_user.hasOriginationTarget, new_user.originationAmount,
       new_user.guaranteePipeline, new_user.greenTransaction, new_user.amberTransaction, new_user.originator, new_user.mandateLetter,
       new_user.creditCommiteeApproval, new_user.feeLetter, 
       funcFinancialClose(new_user.originator, new_user.mandateLetter,  new_user.creditCommiteeApproval, new_user.feeLetter), 
-      req.user.Email, new_user.status, new_user.isadmin
+      req.user.Email, new_user.status, new_user.isadmin, activationToken
     ]
 
     await client.query('BEGIN')
     const write_to_db = 
       `INSERT INTO TB_TRS_USERS(email, password, firstName, lastName, level, hasOriginationTarget, originationAmount, guaranteePipeline,
-        greenTransaction, amberTransaction, originator, mandateLetter, creditCommiteeApproval, feeLetter, financialClose, record_entry, status, isadmin
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18) RETURNING *`
+        greenTransaction, amberTransaction, originator, mandateLetter, creditCommiteeApproval, feeLetter, financialClose, record_entry, status, isadmin, activationCode
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19) RETURNING *`
 
     const res_ = await client.query(write_to_db, user_data)              
     
     await client.query('COMMIT')
     
+    const encryptedEmail = CryptoJS.AES.encrypt(new_user.email, process.env.PASSWORD_SECRET_PASSPHRASE ).toString()
+    const decryptedEmail = CryptoJS.AES.decrypt(encryptedEmail, process.env.PASSWORD_SECRET_PASSPHRASE).toString(CryptoJS.enc.Utf8);
+    const oneTimePassword = CryptoJS.AES.decrypt(res_.rows[0].password, process.env.PASSWORD_SECRET_PASSPHRASE).toString(CryptoJS.enc.Utf8);
+
+    // console.log('Original Generated One Time Password:  ' + one_time_password)
+    // console.log('Encrypted Generated One Time Password:  ' + res_.rows[0].password)
+    // console.log('Decrypted Generated One Time Password:  ' + oneTimePassword)
+    // console.log('Encrypted Email:  ' + encryptedEmail)
+    // console.log('Decrypted Email:  ' + decryptedEmail)
+
+    const userEmail = res_.rows[0].email;
+    const actvToken = res_.rows[0].activationcode
+    const user = res_.rows[0].firstname + ' ' + res_.rows[0].lastname 
+    console.log(actvToken)
+    nodemailer.sendConfirmationEmail(
+      'InfraCredit',
+      userEmail,
+      actvToken,
+      oneTimePassword,
+      user
+    );
+
     res.json({
       status: (res.statusCode = 200),
       message: "User Created Successfully",
-      user: res_.rows[0],
-
+      user: res_.rows[0],      
     });
 
   } catch (e) {
     await client.query('ROLLBACK')
     res.status(403).json({ Error: e.stack });
-    // throw e
+
   }finally{
     client.release()
   }
 });
+
+
+// One-Time-Password Reset and Account Activation
+router.get("/confirm/:confirmationCode", verifyUser)
+
 
 // update user records
 router.put('/update/:user_email', verifyTokenAndAuthorization,async (req, res) => {
@@ -92,10 +147,20 @@ router.put('/update/:user_email', verifyTokenAndAuthorization,async (req, res) =
           dealInfo: res_.rows[0],
     
         });
-      // Update the values for originator, mandateLetter, creditCommiteeApproval, feeLetter for performance pay globally if an admin modifies them
+
+      // Update the management approved values for originator, mandateLetter, creditCommiteeApproval, feeLetter under performance pay section - globally if an admin modifies them
       // These values are set by an admin and effected globally 
         if(req.user.isadmin){
           // do update for entire database
+          await client.query('BEGIN')
+          const update_db = 
+          `UPDATE TB_TRS_USERS
+          SET  	originator = $9, 
+          mandateLetter = $10, creditCommiteeApproval = $11, feeLetter = $12, financialClose = $13
+          RETURNING *`
+          const res_ = await client.query(update_db, user_data)                   
+          await client.query('COMMIT')
+
         }
 
   } catch (e) {
