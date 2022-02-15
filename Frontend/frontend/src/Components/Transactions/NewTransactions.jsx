@@ -1,6 +1,8 @@
 import React from 'react';
 import { Form,Container,Row,Col, Stack } from 'react-bootstrap';
 import styled from 'styled-components';
+import Services from '../../Services/Service';
+import StaffDatabase from '../Staffs/StaffDatabase';
 
 const ButtonWrapper = styled.button`
   color:white;
@@ -15,7 +17,7 @@ const ButtonWrapper = styled.button`
   border-radius:10px;
 
 `;
-const   FormWrapper = styled.div`
+const FormWrapper = styled.div`
 margin:0;
 font-size:5px;
 padding:0;
@@ -36,167 +38,423 @@ margin:0;
 padding: 0;
 `;
 
-export default function NewTransactions(){
+const AddDeal = () => {
+    const initialDealState = {
+        "clientName": "",
+        "originator": "",
+        "transactor": "",
+        "industry": "", 
+        "product": "",
+        "region": "",
+        "dealSize": 0,
+        "coupon": 0,
+        "tenor": 0,
+        "moratorium": 0,
+        "repaymentFrequency": "Semi-Annually",
+        "amortizationStyle": "Annuity",
+        "mandateLetter": 20211203,
+        "creditApproval": 20211203,
+        "feeLetter": null,
+        "expectedClose": null,
+        "actualClose": null,
+        "greenA": false, 
+        "greenB": false,
+        "greenC": false,
+        "greenD": false,
+        "greenE": false,
+        "greenF": false,
+        "amberA": false, 
+        "amberB": false, 
+        "amberC": false, 
+        "amberD": false, 
+        "amberE": false, 
+        "redA": true, 
+        "redB": true, 
+        "redC": true, 
+        "redD": false, 
+        "redE": false, 
+        "structuringFeeAmount": 0,
+        "structuringFeeAdvance": 0,
+        "structuringFeeFinal": 50,
+    };
+
+    const [deal, setDeal] = useState(initialDealState);
+    const [submitted, setSubmitted] = useState(false);
+
+    const handleInputChange = event => { // function to save user data to deal state
+        const { name, value } = event.target;
+        setStaff({ ...StaffDatabase, [name]: value });
+    }
+
+    const saveStaff = (e)
+
+
     return(
         <React.Fragment>
          {/* ---------------------- New Transaction Forms ----------- */}
-             <FormWrapper>
-            <Container fluid style={{marginTop:'0'}}>
-                <Form action='' method=''> 
-                <PWrapper>
-                <p>New Transaction</p>
-                </PWrapper>
-                   
-        {/* ---------------New Transaction Form------------------- */}
-                <Container1>
-                <Form.Group className="mb-0 mt-1 pt-1 pb-1" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Client Name</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder=""  id='client'/>
+            <FormWrapper>
+                <Container fluid style={{marginTop:'0'}}>
+                    <Form> 
+                    <PWrapper>
+                        <h5>Add New Transaction</h5>
+                    </PWrapper>
+                    
+            {/* ---------------New Transaction Form------------------- */}
+            <Container1>
+                <Row>
+                  <Col sm={4}>
+                    <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                      <Form.Label>Client Name</Form.Label>
+                      <Form.Control size="sm" type="text" placeholder=""  id='client'/>
                     </Form.Group>
-                    <Row>
-                        <Col sm={6}>
-                        <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Originator</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder=""  id='originator'/>
+                  </Col>
+
+                  <Col sm={4}>
+                    <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                      <Form.Label>Originator</Form.Label>
+                      <Form.Control size="sm" type="text" placeholder=""  id='originator'/>
                     </Form.Group>
+                  </Col>
 
-                        </Col>
-                        <Col sm={6}>
-                        <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Transactor</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder=""  id='transactor'/>
+                  <Col sm={4}>
+                    <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                      <Form.Label>Transactor</Form.Label>
+                      <Form.Control size="sm" type="text" placeholder=""  id='transactor'/>
                     </Form.Group>
-                        </Col>
-                    </Row>
+                  </Col>
+                </Row>
 
-                    {/*----------- Deal Profile Fess and Reimbursement ---------------- */}
+                  {/*----------- Deal Profile Fess and Reimbursement ---------------- */}
 
-                    <div className=''>
-                        <PWrapper>
-                        <p className="pt-1">Deal Profile Fees & Reimbursement</p>
-                        </PWrapper>
-                        
-                        <Row>
-                        <Col sm={6} className='my-0 py-0'>
-                        <Form.Group className="" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Industry </Form.Label>
-                        <Form.Control size="sm" type="text" placeholder=""  id='industry'/>
-                    </Form.Group>
+                <div className='mt-2'>
+                  <PWrapper>
+                    <h6 className="pt-1 mt-1" style={{fontSize: "13px"}}>Deal Profile Fees & Reimbursement</h6>
+                  </PWrapper>
+                    
+                  <Row>
+                    <Col sm={4} className='my-0 py-0'>
+                      <Form.Group className="">
+                        <Form.Label>Industry</Form.Label>
+                        <Form.Select size="sm" id='industry' required>
+                          <option>Select</option>
+                          <option value="1">On-grid Power</option>
+                          <option value="2">Off-grid Power</option>
+                          <option value="3">Agric Infra.</option>
+                          <option value="4">Gas</option>
+                          <option value="5">Transportation</option>
+                          <option value="6">Inputs to Infra.</option>
+                          <option value="7">Affordable Housing</option>
+                          <option value="8">Education Infra.</option>
+                          <option value="9">Healthcare</option>
+                          <option value="10">Water/Waste</option>
+                          <option value="11">ICT/Telecoms</option>
+                        </Form.Select>
+                      </Form.Group>
+                    </Col>
 
-                        </Col>
-                        <Col sm={6}>
-                        <Form.Group className="" controlId="exampleForm.ControlInput1">
+                    <Col sm={4}>
+                      <Form.Group className="">
                         <Form.Label>Products</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder=""  id='products'/>
-                    </Form.Group>
-                        </Col>
-                    </Row>
+                        <Form.Select size="sm" id='products' required>
+                          <option>Select</option>
+                          <option value="1">Public Bond</option>
+                          <option value="2">Private Bond (Clean Energy)</option>
+                          <option value="3">Contingent Refi. Gte.</option>
+                          <option value="4">Annuity PPP</option>
+                          <option value="5">Blended Finance</option>
+                          <option value="6">Private Bond (Other)</option>
+                        </Form.Select>
+                      </Form.Group>
+                    </Col>
 
-                    <Row>
-                        <Col sm={6}>
-                        <Form.Group className="pt-1" controlId="exampleForm.ControlInput1">
+                    <Col sm={4}>
+                      <Form.Group className="">
                         <Form.Label>Region</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder=""  id='region'/>
-                    </Form.Group>
+                        <Form.Select size="sm" id='region' required>
+                          <option>Select</option>
+                          <option value="1">SW</option>
+                          <option value="2">SE</option>
+                          <option value="3">SS</option>
+                          <option value="4">NW</option>
+                          <option value="5">NE</option>
+                          <option value="6">NC</option>
+                        </Form.Select>
+                      </Form.Group>
+                    </Col>
+                  </Row>
 
-                        </Col>
-                        <Col sm={6}>
-                        <Form.Group className="pt-1" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Region</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder=""  id='region'/>
-                    </Form.Group>
-                        </Col>
-                    </Row>
-                    </div>
+                  <Row className='mt-1'>
+                    <Col sm={3}>
+                      <Form.Group className="pt-1">
+                        <Form.Label>Deal Size (NGN)</Form.Label>
+                        <Form.Control size="sm" type="text" placeholder=""  id='dealSize'/>
+                      </Form.Group>
+                    </Col>
 
-                    {/*-------------------- Structuring Fees -------------------------- */}
+                    <Col sm={3}>
+                      <Form.Group className="pt-1">
+                        <Form.Label>Coupon(%)</Form.Label>
+                        <Form.Control size="sm" type="text" placeholder=""  id='coupon'/>
+                      </Form.Group>
+                    </Col>
 
-                    <div className=''>
-                        <PWrapper>
-                        <p className="pt-1">Structuring Fees</p>
-                        </PWrapper>
-                        <Row>
-                        <Col sm={6} className='my-0 py-0'>
-                        <Form.Group className="" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Amount</Form.Label>
+                    <Col sm={3}>
+                      <Form.Group className="pt-1">
+                        <Form.Label>Tenor(yrs)</Form.Label>
+                        <Form.Control size="sm" type="text" placeholder=""  id='temor'/>
+                      </Form.Group>
+                    </Col>
+
+                    <Col sm={3}>
+                      <Form.Group className="pt-1">
+                        <Form.Label>Moratorium(yrs)</Form.Label>
+                        <Form.Control size="sm" type="text" placeholder=""  id='moratorium'/>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  <Row className='mt-1' >
+                    <Col sm={4}>
+                      <Form.Group className="">
+                        <Form.Label>Repayment Frequency</Form.Label>
+                        <Form.Select size="sm" id='frequency'>
+                          <option>Select</option>
+                          <option value="1">Monthly</option>
+                          <option value="2">Quarterly</option>
+                          <option value="3">Semi-Annually</option>
+                          <option value="4">Annually</option>
+                        </Form.Select>
+                      </Form.Group>
+                    </Col>
+
+                    <Col sm={4}>
+                      <Form.Group className="">
+                        <Form.Label>Amortisation Style</Form.Label>
+                        <Form.Select size="sm" id='amortisationStyle'>
+                          <option>Select</option>
+                          <option value="1">Annuity</option>
+                          <option value="2">Straight-Line</option>
+                        </Form.Select>
+                      </Form.Group>
+                    </Col>
+
+                    <Col sm={4}>
+                      <Form.Group className="pt-1">
+                        <Form.Label>Mandate Letter</Form.Label>
+                        <Form.Control size="sm" type="date" placeholder=""  id='mandateLetter'/>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  <Row className='mt-1' >
+                    <Col sm={3}>
+                      <Form.Group className="pt-1">
+                        <Form.Label>Credit Approval</Form.Label>
+                        <Form.Control size="sm" type="date" placeholder=""  id='creditApproval'/>
+                      </Form.Group>
+                    </Col>
+
+                    <Col sm={3}>
+                      <Form.Group className="pt-1">
+                        <Form.Label>Fee Letter</Form.Label>
+                        <Form.Control size="sm" type="date" placeholder=""  id='feeLetter'/>
+                      </Form.Group>
+                    </Col>
+
+                    <Col sm={3}>
+                      <Form.Group className="pt-1">
+                        <Form.Label>Excepted Close</Form.Label>
+                        <Form.Control size="sm" type="date" placeholder=""  id='expectedClose'/>
+                      </Form.Group>
+                    </Col>
+
+                    <Col sm={3}>
+                      <Form.Group className="pt-1">
+                        <Form.Label>Actual Close</Form.Label>
+                        <Form.Control size="sm" type="date" placeholder=""  id='actualClose'/>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                </div>
+
+                  {/*-------------------- Structuring Fees -------------------------- */}
+                <div className='mt-2'>
+                  <PWrapper>
+                    <h6 className="pt-1" style={{fontSize: "13px"}}>Structuring Fees</h6>
+                  </PWrapper>
+
+                  <Row>
+                    <Col sm={4} className='my-0 py-0'>
+                      <Form.Group>
+                        <Form.Label>Amount(NGN)</Form.Label>
                         <Form.Control size="sm" type="text" placeholder=""  id='amount'/>
-                    </Form.Group>
+                      </Form.Group>
+                    </Col>
 
-                        </Col>
-                        <Col sm={6} className='my-0 py-0'>
-                        <Form.Group className="" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Advance</Form.Label>
+                    <Col sm={4} className='my-0 py-0'>
+                      <Form.Group>
+                        <Form.Label>Advance(%)</Form.Label>
                         <Form.Control size="sm" type="text" placeholder=""  id='advance'/>
-                    </Form.Group>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col sm={6} className='my-0 py-0'>
-                        <Form.Group className="pt-1" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Guarantee %</Form.Label>
+                      </Form.Group>
+                    </Col>
+
+                    <Col sm={4} className='my-0 py-0'>
+                      <Form.Group>
+                        <Form.Label>Final(%)</Form.Label>
+                        <Form.Control size="sm" type="text" placeholder='30%' id='final' disabled/>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col sm={4} className='my-0 py-0'>
+                      <Form.Group className="pt-1">
+                        <Form.Label>Guarantee (%)</Form.Label>
                         <Form.Control size="sm" type="text" placeholder=""  id='guarantee'/>
-                    </Form.Group>
+                      </Form.Group>
+                    </Col>
 
-                        </Col>
-                        <Col sm={6} className='my-0 py-0'>
-                        <Form.Group className="pt-1" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Monitoring (NGN)</Form.Label>
+                    <Col sm={4} className='my-0 py-0'>
+                      <Form.Group className="pt-1">
+                        <Form.Label>Monitoring(NGN)</Form.Label>
                         <Form.Control size="sm" type="text" placeholder=""  id='monitoring'/>
+                      </Form.Group>
+                    </Col>
+
+                    <Col sm={4} className='my-0 py-0'>
+                      <Form.Group className="pt-1">
+                        <Form.Label>Reimbursible(NGN)</Form.Label>
+                        <Form.Control size="sm" type="text" placeholder=""  id='reimbursible'/>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                </div>
+
+                  {/*-------------------- Radio Buttons ------------------------------ */}
+
+                <div className='mt-2' id='dealCategory'>
+                  <PWrapper>
+                    <h6 className="pt-1" style={{fontSize: "13px"}}>Deal Category</h6>
+                  </PWrapper>
+
+                  <div id='greenCategory'>
+                    <PWrapper>
+                      <h6 className="pt-1" style={{fontSize: "10px", color: "green"}}>Green Category</h6>
+                    </PWrapper>
+
+                    <Form.Group>
+                      <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committee approval:</Form.Label>
+                      <Form.Check inline label="Yes" type="radio" name="greenA" />
+                      <Form.Check inline label="No" type="radio" name="greenA" />
                     </Form.Group>
-                        </Col>
-                    </Row>
-                    </div>
 
-                    {/*-------------------- Radio Buttons ------------------------------ */}
+                    <Form.Group>
+                      <Form.Label style={{paddingRight: "1rem"}}>Guarantee Document in agreed form:</Form.Label>
+                      <Form.Check inline label="Yes" type="radio" name="greenB" />
+                      <Form.Check inline label="No" type="radio" name="greenB" />
+                    </Form.Group>
 
-                    <div className='radioButtons mt-1 pt-2'>
-                        <Row>
-                            <Col sm={6} className='my-0 py-0'>
-                                <Stack>
-                                    <div>Lorem ipsum dolor sit amet.</div>
-                                    <div>Lorem ipsum dolor sit amet.</div>
-                                    <div>Lorem ipsum dolor sit amet.</div>
-                                    <div>Lorem ipsum dolor sit amet.</div>
-                                    <div>Lorem ipsum dolor sit amet.</div>
+                    <Form.Group>
+                      <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond Issue appointed or selected:</Form.Label>
+                      <Form.Check inline label="Yes" type="radio" name="greenC" />
+                      <Form.Check inline label="No" type="radio" name="greenC" />
+                    </Form.Group>
 
-                                </Stack>
-                            </Col>
-                            <Col sm={6} style={{display:'grid', justifyContent:'right',paddingRight:'1rem'}}>
-                                <Stack>
-                                    <div className='radioBtn'>
-                                       <span style={{paddingRight:'1em'}}><input type='radio' className='text-success' name='first'/></span>
-                                        <input type='radio' name='first'/>
-                                    </div>
-                                    <div>
-                                    <span style={{paddingRight:'1em'}}><input type='radio' name='second' /></span>
-                                        <input type='radio' name='second'/>
-                                    </div>
-                                    <div>
-                                    <span style={{paddingRight:'1em'}}><input type='radio' name='third' /></span>
-                                        <input type='radio' name='third' />
-                                    </div>
-                                    <div>
-                                    <span style={{paddingRight:'1em'}}><input type='radio' name='fourth' /></span>
-                                        <input type='radio' name='fourth' />
-                                    </div>
-                                    <div className='mb-1'>
-                                    <span style={{paddingRight:'1em'}}><input type='radio' name='fifth' /></span>
-                                        <input type='radio' name='fifth' />
-                                    </div>
-                                </Stack>
-                            </Col>
-                        </Row>
-                    </div>
-                </Container1>
-              
-              {/* ------------------  Submit Form Button--------------------  */}
-                <ButtonWrapper>
-                    Submit
-                </ButtonWrapper>
+                    <Form.Group>
+                      <Form.Label style={{paddingRight: "1rem"}}>Already filed or expected filing with SEC (or equivalent Exchange) within 6 weeks:</Form.Label>
+                      <Form.Check inline label="Yes" type="radio" name="greenD" />
+                      <Form.Check inline label="No" type="radio" name="greenD" />
+                    </Form.Group>
 
-                </Form>
-            </Container>
+                    <Form.Group>
+                      <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs to Financial Close have been satisfactorily met or committed by the Client for completion on or before Financial Close:</Form.Label>
+                      <Form.Check inline label="Yes" type="radio" name="greenE" />
+                      <Form.Check inline label="No" type="radio" name="greenE" />
+                    </Form.Group>
+
+                    <Form.Group>
+                      <Form.Label style={{paddingRight: "1rem"}}>Financial Close expected within 3-6 months:</Form.Label>
+                      <Form.Check inline label="Yes" type="radio" name="greenF" />
+                      <Form.Check inline label="No" type="radio" name="greenF" />
+                    </Form.Group>
+                  </div>
+
+                  <div id='amberCategory'>
+                    <PWrapper>
+                      <h6 className="pt-1" style={{fontSize: "10px", color: "#FFC200"}}>Amber Category</h6>
+                    </PWrapper>
+
+                    <Form.Group>
+                      <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
+                      <Form.Check inline label="Yes" type="radio" name="amberA" />
+                      <Form.Check inline label="No" type="radio" name="amberA" />
+                    </Form.Group>
+
+                    <Form.Group>
+                      <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committe approval:</Form.Label>
+                      <Form.Check inline label="Yes" type="radio" name="amberB" />
+                      <Form.Check inline label="No" type="radio" name="amberB" />
+                    </Form.Group>
+
+                    <Form.Group>
+                      <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond issue appointed or selected:</Form.Label>
+                      <Form.Check inline label="Yes" type="radio" name="amberC" />
+                      <Form.Check inline label="No" type="radio" name="amberC" />
+                    </Form.Group>
+
+                    <Form.Group>
+                      <Form.Label style={{paddingRight: "1rem"}}>Fee Letter and/or Guarantee Documentation expected to be negotiated and/or signed within 8 weeks:</Form.Label>
+                      <Form.Check inline label="Yes" type="radio" name="amberD" />
+                      <Form.Check inline label="No" type="radio" name="amberD" />
+                    </Form.Group>
+
+                    <Form.Group>
+                      <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs with timelines for completion agreed with the client:</Form.Label>
+                      <Form.Check inline label="Yes" type="radio" name="amberE" />
+                      <Form.Check inline label="No" type="radio" name="amberE" />
+                    </Form.Group>
+                  </div>
+
+                  <div id='redCategory'>
+                    <PWrapper>
+                      <h6 className="pt-1" style={{fontSize: "10px", color: "red"}}>Red Category</h6>
+                    </PWrapper>
+
+                    <Form.Group>
+                      <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
+                      <Form.Check inline label="Yes" type="radio" name="redA" />
+                      <Form.Check inline label="No" type="radio" name="redA" />
+                    </Form.Group>
+
+                    <Form.Group>
+                      <Form.Label style={{paddingRight: "1rem"}}>Due dilligence ongoing:</Form.Label>
+                      <Form.Check inline label="Yes" type="radio" name="redB" />
+                      <Form.Check inline label="No" type="radio" name="redB" />
+                    </Form.Group>
+
+                    <Form.Group>
+                      <Form.Label style={{paddingRight: "1rem"}}>Pending Credit Committee approval:</Form.Label>
+                      <Form.Check inline label="Yes" type="radio" name="redC" />
+                      <Form.Check inline label="No" type="radio" name="redC" />
+                    </Form.Group>
+                  </div>
+                </div>
+              </Container1>
+                
+                {/* ------------------  Submit Form Button--------------------  */}
+                    <ButtonWrapper>
+                        Submit
+                    </ButtonWrapper>
+
+                    <ButtonWrapper style={{backgroundColor:"grey"}} >
+                        Cancel
+                    </ButtonWrapper>
+
+                    </Form>
+                </Container>
             </FormWrapper>
         </React.Fragment>
     )
-}
+};
+
+export default AddDeal;

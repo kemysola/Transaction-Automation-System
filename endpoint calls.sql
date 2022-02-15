@@ -112,7 +112,7 @@ BODY =>
     "repaymentFrequency": "Semi-Annually",
     "amortizationStyle": "Annuity",
     "mandateLetter": 20211203,
-    "creditApproval": null,
+    "creditApproval": 20211203,
     "feeLetter": null,
     "expectedClose": null,
     "actualClose": null,
