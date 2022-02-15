@@ -150,3 +150,6 @@ BODY =>
     "email":"superadmin@infracredit.com",
     "password":"superadmin"
 }
+
+LANDING PAGE: [http://localhost:5000/api/v1/auth/]
+METHOD = GET

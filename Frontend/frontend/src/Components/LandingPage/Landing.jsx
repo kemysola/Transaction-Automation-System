@@ -1,13 +1,11 @@
 import React from 'react';
 import {Container,Row,Col} from 'react-bootstrap';
-import MainCards from './mainCards';
+import MainCards from './MainCards';
 import Sidenav from './Sidenav';
 import styled from 'styled-components';
-import SubCards from './SubCards';
+import Navbar from './Navbar';
 
 const LandingWrapper = styled.div`
-  background: #eff1f1;
-  height:98vh;
   margin:0;
   padding: 0 10px;
 
@@ -17,6 +15,7 @@ const LandingWrapper = styled.div`
 const Landing =()=>{
     return(
         <React.Fragment>
+            <Navbar/>
             <LandingWrapper>
             <Row>
                     <Col sm={3} style={{padding:'10px'}}>
