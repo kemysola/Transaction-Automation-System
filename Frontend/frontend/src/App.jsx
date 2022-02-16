@@ -2,9 +2,11 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link} from 'react-router-dom'
 import {useState, useEffect} from 'react';
-import { BrowserRouter as Router, Switch,Route, useLocation } from 'react-router-dom';
+import { Switch,Route, useLocation } from 'react-router-dom';
+import Main from './Components/Auth/MainPage/Main';
+import Landing from './Components/LandingPage/Landing'
+
 /*import StaffView from './Components/Staffs/StaffView';
-//import Landing from './Components/LandingPage/Landing';
 import Main from './Components/Auth/MainPage/Main';
 import UpdateStaffs from './Components/Staffs/UpdateStaffs';
 import TransactionCards from './Components/Transactions/TransactionCards';
@@ -31,44 +33,19 @@ width:auto;
 `
 */
 export default function App() {
-    {/*const [initialState, setInitialState] = useState();
-
-    useEffect(() => {
-  fetch('https://login.windows.net').then(res => {
-      return res.json()
-  }).then(jsonResponse => setInitialState(jsonResponse))
-    },[])*/}
-
     return (
-        // <BodyContainer>
         <React.Fragment>
-            <NewStaffs/>
-            {/* <StaffView /> */}
-        {/* <div> */}
-                    {/*{initialState.length > 0 && initialState.map(e => <li>e</li>)}*/}
-                    <Router>
                         <Switch>
-                        <Route path="/" exact>
-                        {window.location.replace("https://login.windows.net")}
+                        <Route exact path="/">
+                            <Main/>
                         </Route>
-                        
+                        <Route path='/landing'>
+                            <Landing/>
+                        </Route>
+                        <Route path='/reset'>
+                            
+                        </Route>
                         </Switch>
-                    </Router>
-
-        {/*<BodyContainer>*/}
-        {/*</BodyContainer>*/}
-
-{/*<Landing/>  */}          
-           {/*<StaffView />*/}
-            {/* <AllStaff /> */}
-            {/* <StaffDatabase /> */}
-
-            {/* <TransactionView /> */}
-            {/* <NewTransaction /> */}
-            {/* <UpdateTransaction /> */}
-            {/*<UpdateTransaction />*/}
-            
-            {/* </BodyContainer> */}
         </React.Fragment>
     ) 
     
