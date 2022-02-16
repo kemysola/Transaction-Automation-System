@@ -9,7 +9,7 @@ const staffRegRoute = require("./backend/routes/staff");
 const transactionRoute = require("./backend/routes/transaction");
 const reportsRoute = require("./backend/routes/reports");
 
-dotenv.config()
+dotenv.config();
 const app_port = process.env.APP_SERVER_PORT;
 
 // Middlewares
@@ -27,6 +27,9 @@ try {
     console.error(err)
 }
 
+process.on('unhandledRejection', (reason, promise) => {
+    console.log('Unhandled Rejection at:', reason.stack || reason)
+});
 
 app.listen(app_port || 5001, () => {
     console.log(`InfraCreditTRS Server Listening on Port: ${app_port}`)

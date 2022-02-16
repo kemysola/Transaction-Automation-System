@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Button, Table, Stack, Form} from 'react-bootstrap';
+import { useTable } from "react-table";
 import styled from 'styled-components';
+import Service from "../../Services/Service";
 
 const ContainerWrapper = styled.div`
 font-size:10px;
@@ -29,7 +31,74 @@ const Search = () => {
   )
 }
 
-export default function TableView() {
+const DealsTable = (props) => {
+  const [deals, setDeals] = useState([]);
+  const dealsRef = useRef();
+  dealsRef.current = deals;
+
+  useEffect(() => {
+    retrieveDeals();
+  }, []); 
+
+  const retrieveDeals = () => {
+    Service.getAllDeals()
+      .then((response) => {
+        setDeals(response.data.deals);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  // const refreshList = () => {
+  //   retrieveDeals();
+  // };
+
+  const columns = useMemo(
+    () => [
+      {
+        Header: "Client",
+        accessor: "clientName",
+      },
+      {
+        Header: "Originator",
+        accessor: "originator",
+      },
+      {
+        Header: "Transactor",
+        accessor: "transactor",
+      },
+      {
+        Header: "TransactionLegalLead",
+        accessor: "transactionLegalLead",
+      },
+      {
+        Header: "Industry",
+        accessor: "industry",
+      },
+      {
+        Header: "Deal Size",
+        accessor: "dealSize",
+      },
+      {
+        Header: "Mandate Letter",
+        accessor: "mandateLetter",
+      },
+    ],
+    []
+  );
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+  } = useTable({
+    columns,
+    data: deals,
+  });
+
   return (
     <React.Fragment>
       <ContainerWrapper>
@@ -45,8 +114,43 @@ export default function TableView() {
           <Button className='rounded-pill' size='sm'>Download</Button>
           <Search />
         </Stack>
+
+        <div className="col-md-12 list">
+        <table
+          className="table table-striped table-bordered responsive"
+          {...getTableProps()}
+        >
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps()}>
+                    {column.render("Header")}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row, i) => {
+              prepareRow(row);
+              console.log(row)
+              console.log(i)
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
         
-        <Table striped responsive hover>
+        {/* <Table striped responsive hover>
           <thead>
             <tr>
               <th><input type='checkbox'/></th>
@@ -100,7 +204,9 @@ export default function TableView() {
               <td>17-01-2022</td>
             </tr>
           </tbody>
-        </Table>
+        </Table> */}
       </ContainerWrapper>
     </React.Fragment>
 )}
+
+export default DealsTable;

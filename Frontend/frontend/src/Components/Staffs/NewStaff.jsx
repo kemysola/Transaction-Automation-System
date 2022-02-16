@@ -62,19 +62,7 @@ const AddStaff = () => {
         financialClose: 0,
     };
 
-    // const staffNumberState ={
-    //     originationAmount:0,
-    //     // guaranteePipeline: 0,
-    //     // greenTransaction: 0,
-    //     // amberTransaction: 0,
-    //     // mandateLetter: 0,
-    //     // creditCommiteeApproval: 0,
-    //     // feeLetter: 0,
-    //     // financialClose: 0,
-    // }
-
     const [staff, setStaff] = useState(initialStaffState);
-    // const [number, setNumber] = useState(staffNumberState);
     const [submitted, setSubmitted] = useState(false);
 
     const handleInputChange = event => { // function to assign user's input to staff state
@@ -82,17 +70,10 @@ const AddStaff = () => {
         setStaff({ ...staff, [name]: value });
     };
 
-    // const handleNumberChange = event => { // function to assign user's input to staff state
-    //     const { name, value } =  event.target.valueAs;
-    //     // const numValue = Number(event.target.value);
-    //     setNumber({ ...number, [name]: value });
-    //     console.log(typeof(originationAmount))
-    // };
-
     const saveStaff = (e) => { // function to save user data and post to db
         e.preventDefault()
 
-        var data =  { // store user's input in a variable called data
+        let data =  { // store user's input in a variable called data
             "email": "johnnnyddd.doe@infracredit.com", 
             "password": "password", 
             "firstName": "John2", 
@@ -109,8 +90,6 @@ const AddStaff = () => {
             "feeLetter": +staff.feeLetter,
             // financialClose: staff.financialClose,
         };
-
-        console.log(typeof(originationAmount))
 
         console.log(data);
         setSubmitted(true)
