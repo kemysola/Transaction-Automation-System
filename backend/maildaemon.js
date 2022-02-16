@@ -19,11 +19,11 @@ transport.sendMail({
     from: name,
     to: email,
     subject: "Welcome to InfraCredit Transaction Reporting System",
-    html: `<h1>Email Confirmation</h1>
-        <h2>Hello ${username}</h2>
-        <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
-        <a href=http://localhost:5000/api/v1/staff/confirm/${confirmationCode}> Click here</a>
-        <p>Please login with your Email: ${email} with One-Time-Password: <strong> ${otp} </strong></p>
+    html: `<h2>Account Activation</h2>
+        <h3>Hello ${username}</h3>
+        <p>You have now been successfully setup on the Transaction Reporting System.</p>
+        <p>Please confirm your email by clicking on the following link <a href=http://localhost:5000/api/v1/staff/confirm/${confirmationCode}> Click here</a> </p>
+        <p>Please login with your Email: ${email} with One-Time-Password: <strong> ${otp} </strong> Note: Activation Link will expire in 24 hours</p>
         </div>`,
 }).catch(err => console.log(err));
 };

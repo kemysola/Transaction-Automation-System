@@ -1,11 +1,14 @@
+/*
+This module is responsible for authorizing users on the application and authenticating users agains Azure Active Directory
+*/
+
 const router = require("express").Router();
 const pool = require("../database");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 const msal = require('@azure/msal-node');
 
-// User Login Endpoint - This module is responsible for authenticating users on the application
-// This endpoint should be called after user is authenticated on Azure Active Directory (Handled below)
+
 router.post("/app/login", async (req, res) => {
   const client = await pool.connect()
   try {
