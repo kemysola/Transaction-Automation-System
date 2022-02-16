@@ -39,8 +39,8 @@ export default function App() {
             {/* <NewStaffs/> */}
             {/* <StaffView /> */}
 
-            {/* <TransactionView /> */}
-            <NewTransaction />
+            <TransactionView />
+            {/* <NewTransaction /> */}
             {/* <UpdateTransaction /> */}
             {/*<UpdateTransaction />*/}
             

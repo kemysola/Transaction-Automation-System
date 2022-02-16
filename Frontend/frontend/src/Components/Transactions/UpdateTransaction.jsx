@@ -46,7 +46,8 @@ export default function UpdateTransactions() {
   const product = useRef("");
   const region = useRef("")
 
-  const { id } = useParams()
+  // const { id } = useParams()
+  const id = 3
 
   console.log(id)
   console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
@@ -62,7 +63,7 @@ export default function UpdateTransactions() {
   
  function postData() {
  // e.preventDefault();
-   console.log("ttttttttttttttttttttttttttttttttttttt")
+   console.log("ttttttttttttttt")
     Service.updateDeal(id, data)
   }
   
@@ -419,7 +420,7 @@ export default function UpdateTransactions() {
               </Container1>
           
                 {/* ------------------  Submit Form Button -----------*/}
-              <ButtonWrapper className='d-flex justify-content-end' onSubmit={postData}>
+              <ButtonWrapper className='d-flex justify-content-end' onClick={postData}>
                 Submit
               </ButtonWrapper>
 
