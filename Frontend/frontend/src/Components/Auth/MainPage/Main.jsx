@@ -1,5 +1,5 @@
 import React from 'react';
-import UserLogin from '../Login/UserLogin';
+import UserForm from '../Login/UserForm';
 import './Main.css';
 import logo1  from '../../../Images/logo.jpg'
 import { Row, Container ,Col, Stack} from 'react-bootstrap';
@@ -27,7 +27,7 @@ const Main =()=>{
                             </Container>
                     </Col>
                     <Col sm ={6} lg={5} md={'auto'} className='justify-content-end' style={{width:'500px',marginTop:'30px'}}>
-                    <UserLogin/>
+                    <UserForm/>
                     </Col>
                 </Row>     
                 </Container>
