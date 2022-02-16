@@ -145,6 +145,11 @@ CREATE TABLE TB_INFRCR_TRANSACTION(
     structuringFeeAmount MONEY DEFAULT 00.0000,
     structuringFeeAdvance INT,
     structuringFeeFinal INT,
+
+    guaranteeFee INT,
+    monitoringFee MONEY,
+    reimbursible MONEY,
+
     record_entry VARCHAR,
     --Transaction Category
     deal_category VARCHAR,
@@ -175,39 +180,46 @@ CREATE TABLE TB_INFRCR_TRANSACTION_AUDIT(
     coupon INT,
     tenor INT,
     moratorium INT,
-    repaymentFrequency VARCHAR,
+    repaymentFrequency VARCHAR ,
     amortizationStyle VARCHAR,
     mandateLetter DATE,
     --Milestone Dates
-    creditApproval DATE ,
+    creditApproval DATE,
     feeLetter DATE,
     expectedClose DATE,
     actualClose DATE,
     --Deal Category Info
-    greenA BOOLEAN, 
-    greenB BOOLEAN,
-    greenC BOOLEAN,
-    greenD BOOLEAN,
-    greenE BOOLEAN,
-    greenF BOOLEAN,
-    amberA BOOLEAN, 
-    amberB BOOLEAN, 
-    amberC BOOLEAN, 
-    amberD BOOLEAN, 
-    amberE BOOLEAN, 
-    redA BOOLEAN, 
-    redB BOOLEAN, 
-    redC BOOLEAN, 
-    redD BOOLEAN, 
-    redE BOOLEAN,
+    greenA BOOLEAN , 
+    greenB BOOLEAN ,
+    greenC BOOLEAN ,
+    greenD BOOLEAN ,
+    greenE BOOLEAN ,
+    greenF BOOLEAN ,
+    amberA BOOLEAN , 
+    amberB BOOLEAN , 
+    amberC BOOLEAN , 
+    amberD BOOLEAN , 
+    amberE BOOLEAN , 
+    redA BOOLEAN , 
+    redB BOOLEAN , 
+    redC BOOLEAN , 
+    redD BOOLEAN , 
+    redE BOOLEAN , 
     --Fees and Reimbursible
-    structuringFeeAmount MONEY,
+    structuringFeeAmount MONEY
     structuringFeeAdvance INT,
     structuringFeeFinal INT,
+
+    guaranteeFee INT,
+    monitoringFee MONEY,
+    reimbursible MONEY,
+
+    record_entry VARCHAR,
+    --Transaction Category
     deal_category VARCHAR,
     notes VARCHAR,
-    closed BOOLEAN,
-    record_entry VARCHAR
+    closed BOOLEAN DEFAULT FALSE,
+
 );
 
 CREATE OR REPLACE FUNCTION FUNC_TRS_TRANSACTION_AUDIT() RETURNS TRIGGER AS $TB_INFRCR_TRANSACTION_AUDIT$

@@ -175,20 +175,35 @@ router.put('/oneTimePasswordReset/', async (req, res) => {
       const user_rec = { oldPassword, newPassword, email} = req.body;
       const user_data = [CryptoJS.AES.encrypt(user_rec.newPassword, process.env.PASSWORD_SECRET_PASSPHRASE ).toString(), user_rec.email]
       
-      await client.query('BEGIN')
-      const update_db = 
-      `UPDATE TB_TRS_USERS
-       SET  	password = $1
-       WHERE email = $2
-      RETURNING *`
-      const res_ = await client.query(update_db, user_data)                   
-      await client.query('COMMIT')
+      const user = await client.query("SELECT * FROM TB_TRS_USERS WHERE email = $1", [req.body.email] );
+        
+        if (user) {
+            const hashedPassword = CryptoJS.AES.decrypt(user.rows[0]["password"], process.env.PASSWORD_SECRET_PASSPHRASE);
+            const password = hashedPassword.toString(CryptoJS.enc.Utf8);
 
-      res.json({
-          status: (res.statusCode = 200),
-          message: "Password Reset Successfully",
-        });
-       
+          // Confirm that the client and database passwords match
+          if (oldPassword === password) {
+
+            await client.query('BEGIN')
+              const update_db = 
+              `UPDATE TB_TRS_USERS
+              SET  	password = $1
+              WHERE email = $2
+              RETURNING *`
+              const res_ = await client.query(update_db, user_data)                   
+            await client.query('COMMIT')
+
+            res.json({
+                status: (res_.statusCode = 200),
+                message: "Password Reset Successfully",
+              });
+          }else{
+            res.json({
+              status: (res.statusCode = 403),
+              message: "Invalid One-Time-Password, Please check your email and try again!",
+            });
+          }
+    }
   } catch (e) {
       await client.query('ROLLBACK')
       res.status(403).json({ Error: e.stack });
