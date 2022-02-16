@@ -6,7 +6,8 @@ const Url ='';
 export default function PasswordReset(){
     const [data, setData] = useState({
         oldPassword:"",
-        newPassword:""
+        newPassword:"",
+        confirmPassword:""
     });
 
     const handleChange = (e) =>{
@@ -21,7 +22,8 @@ export default function PasswordReset(){
         e.preventDefault();
         const Data = {
             oldPassword: data.oldPassword,
-            newPassword:data.newPassword
+            newPassword:data.newPassword,
+            confirmPassword: data.confirmPassword
         };
 
         await axios.put(Url, Data)
