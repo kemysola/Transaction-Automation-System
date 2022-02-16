@@ -1,21 +1,15 @@
 import React from 'react';
 import UserForm from '../Login/UserForm';
 import './Main.css';
-// import logo1  from '../../../Images/logo1.png'
+import logo1  from '../../../Images/logo.jpg'
 import { Row, Container ,Col, Stack} from 'react-bootstrap';
-import styled from 'styled-components';
 
-const BodyDiv = styled.div`
-box-sizing:border-box;
-margin:0;
-padding:0.11rem 3rem;
-`
 
 const Main =()=>{
     return(
-        <BodyDiv>
+        <div className='bodyBackground'>
             <Container fluid>
-                <Row>
+          <Row>
                     <Col sm ={6} lg={7}>
                     <div className='my-0'>
                                 <img src={logo1} alt='whiteLogo' width='120'/>
@@ -32,13 +26,13 @@ const Main =()=>{
                                 </div>
                             </Container>
                     </Col>
-                    <Col sm ={6} lg={5} md={'auto'} className='justify-content-end'>
+                    <Col sm ={6} lg={5} md={'auto'} className='justify-content-end' style={{width:'500px',marginTop:'30px'}}>
                     <UserForm/>
                     </Col>
                 </Row>     
                 </Container>
 
-        </BodyDiv>
+        </div>
 
     )
 }

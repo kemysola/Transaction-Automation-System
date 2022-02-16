@@ -16,7 +16,7 @@ export default function SubCards(){
                         <div className='py-1'>
                             <div style={{borderRight: '1px solid black'}}>
                                 <p className='d-flex justify-content-end ' style={{marginRight:'1rem'}} ><BiReceipt/></p>
-                            <small className='text-center text-info' >Transactions</small>
+                            <small style={{color: '#1184C2'}} >Transactions</small>
                             <br/>
                            <h5>3290000</h5>
                             </div>
@@ -26,7 +26,7 @@ export default function SubCards(){
                     <div className='py-1'>
                         <div style={{borderRight: '1px solid black'}}>
                         <p className='d-flex justify-content-end ' style={{marginRight:'1rem'}} ><GrGroup/></p>
-                        <small className='text-center text-info' >Staffs</small>
+                        <small style={{color: '#1184C2'}} >Staffs</small>
                            <h5>3290000</h5>
                         </div>
                            
@@ -36,7 +36,7 @@ export default function SubCards(){
                     <div className='py-1'>
                         <div style={{borderRight: '1px solid black'}}>
                         <p className='d-flex justify-content-end ' style={{marginRight:'1rem'}} ><FaRegHandshake/></p>
-                        <small className='text-center text-info' >Deals</small>
+                        <small style={{color: '#1184C2'}} >Deals</small>
                            <h5>3290000</h5>
                         </div>
                     </div>
@@ -45,7 +45,7 @@ export default function SubCards(){
                     <div className='py-1'>
                     <div style={{borderRight: '1px solid black'}}>
                     <p className='d-flex justify-content-end ' style={{marginRight:'1rem'}} >< CgCalculator/></p>
-                        <small className='text-center text-info' >Budget</small>
+                        <small style={{color: '#1184C2'}} >Budget</small>
                            <h5>3290000</h5>
                         </div>
                            

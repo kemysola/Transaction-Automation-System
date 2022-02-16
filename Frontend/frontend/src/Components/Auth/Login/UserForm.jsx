@@ -2,6 +2,7 @@ import React ,{useState} from 'react';
 import { Form,Stack, Container, Row, Col} from 'react-bootstrap';
 import styled from 'styled-components';
 import axios from 'axios'
+import Service from '../../../Services/Service';
 
 
 const BorderDiv = styled.div`
@@ -15,30 +16,45 @@ padding: 0.11rem 1.5rem;
 
 
 const UserForm =()=>{
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(true)
+    const[submitted, setSubmitted] = useState(false)
+    const [data, setData] = useState({
+        email:"",
+        password:""
+    });
+
+
+    const handleChange =(e) =>{
+        const value = e.target.value;
+        setData({
+            ...data,
+            [e.target.name] : value
+        });
+
+    };
 
     const handleSubmit = async(e) =>{
         e.preventDefault();
-        setError(false)
-        try{
-            const res = await axios.get('',{
-                email,
-                password,
+        const Data = {
+            email: data.email,
+            password:data.password
+        };
+        console.log(data)
+        setSubmitted(true)
+
+        Service.LoginStaff(data)
+            .then(response => {
+                console.log(response.message)
+                setSubmitted(true)
+            })
+            .catch(error => {
+                console.log(error)
             });
-            res.data && window.location.replace("/")
-        }catch (err){
-            setError(true)
-        }
-        
-    }
-        
+    };
 
     return (
         <Container>
             <BorderDiv>
-                <Form action='/app/login' method='post' onSubmit={handleSubmit}>
+                <Form  onSubmit={handleSubmit}>
                     <Row>
                         <Col sm={12}>
                         <Stack className='py-2 mt-1'>
@@ -48,8 +64,9 @@ const UserForm =()=>{
                         <Form.Label className=''>Email Address</Form.Label>
                         <Form.Control size="sm" 
                         type="email" 
-                        placeholder="Email"
-                        onChange={e=>setEmail(e.target.value)}
+                        name='email'
+                        value={data.email}
+                        onChange={handleChange}
                         />
                     </Form.Group>
                         </Col>
@@ -65,8 +82,9 @@ const UserForm =()=>{
                             </Row>
                          <Form.Control size="sm" 
                          type="password" 
-                         placeholder="password"
-                         onChange={e=>setPassword(e.target.value)}
+                         name='password'
+                         value={data.password}
+                         onChange={handleChange}
                          />
                     </Form.Group>
                         </Col>
@@ -79,12 +97,10 @@ const UserForm =()=>{
                         </Col>
                         <Col sm={12} className='py-2 mt-3'>
                         <Form.Group className="mb-3 text-light" controlId="exampleForm.ControlInput1">
-                         <Form.Control size="sm" type="Button" placeholder="Login" className=''  value='Login' style={{background:'#4cab48', color:'white', fontWeight:'light'}}/>
+                         <Form.Control size="sm" type="submit" placeholder="Login" className=''  value='Login' style={{background:'#4cab48', color:'white', fontWeight:'light'}}/>
                     </Form.Group>
                         </Col>
-                    {
-                    error && <p>Something went wrong, Please try again.</p>
-                    }
+                   
 
                     </Row>
                 </Form>
