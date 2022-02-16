@@ -40,8 +40,8 @@ export default function App() {
             {/* <StaffView /> */}
 
             {/* <TransactionView /> */}
-            {/* <NewTransaction /> */}
-            <UpdateTransaction />
+            <NewTransaction />
+            {/* <UpdateTransaction /> */}
             {/*<UpdateTransaction />*/}
             
         </React.Fragment>

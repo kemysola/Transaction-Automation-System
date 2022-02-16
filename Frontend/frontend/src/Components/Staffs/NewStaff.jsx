@@ -73,7 +73,7 @@ const AddStaff = () => {
     const saveStaff = (e) => { // function to save user data and post to db
         e.preventDefault()
 
-        var data =  { // store user's input in a variable called data
+        let data =  { // store user's input in a variable called data
             "email": "johnnnyddd.doe@infracredit.com", 
             "password": "password", 
             "firstName": "John2", 
