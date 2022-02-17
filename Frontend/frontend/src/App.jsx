@@ -16,6 +16,7 @@ import UpdateStaff from './Pages/Staffs/UpdateStaff';
 import NewTransaction from './Pages/Transactions/NewTransaction';
 import UpdateTransaction from './Pages/Transactions/UpdateTransaction';
 import AllStaff from './Pages/Staffs/AllStaff';
+import './App.css';
 
 
 

@@ -43,7 +43,7 @@ const StaffTable = () => {
             props.history.push("/update/" + id)
         }
 
-        
+
 
 
         const columns = useMemo(
@@ -144,62 +144,6 @@ const StaffTable = () => {
           </tbody>
         </table>
       </div>
-        
-    {/*<Table>
-        <thead>
-            <tr>
-                <th><input type='checkbox'/></th>
-                <th>S/N</th>
-                <th>Products</th>
-                <th>Region</th>
-                <th>Management Fees</th>
-                <th>Mandate Fees</th>
-                <th>Update</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><input type='checkbox'/></td>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                 
-            </tr>
-            <tr>
-                <td><input type='checkbox'/></td>
-                <td>2</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                
-            </tr>
-            <tr>
-                <td><input type='checkbox'/></td>
-                <td>3</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                
-            </tr>
-            <tr>
-                <td><input type='checkbox'/></td>
-                <td>4</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                
-            </tr>
-        </tbody>
-    </Table>*/}
     </ContainerWrapper>
     </React.Fragment>
   );
