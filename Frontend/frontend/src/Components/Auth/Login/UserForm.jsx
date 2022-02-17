@@ -3,6 +3,7 @@ import { Form,Stack, Container, Row, Col} from 'react-bootstrap';
 import styled from 'styled-components';
 import axios from 'axios'
 import Service from '../../../Services/Service';
+import {isEmail} from 'validator'
 
 
 const BorderDiv = styled.div`
@@ -16,6 +17,18 @@ padding: 0.11rem 1.5rem;
 
 
 const UserForm =()=>{
+
+    const required = (value) => {
+        if (!value) {
+          return (
+            <div className="invalid-feedback d-block">
+              This field is required!
+            </div>
+          );
+        }
+      };
+
+
     const[submitted, setSubmitted] = useState(false)
     const [data, setData] = useState({
         email:"",
@@ -67,6 +80,8 @@ const UserForm =()=>{
                         name='email'
                         value={data.email}
                         onChange={handleChange}
+                        validation={[required]}
+
                         />
                     </Form.Group>
                         </Col>
@@ -85,6 +100,7 @@ const UserForm =()=>{
                          name='password'
                          value={data.password}
                          onChange={handleChange}
+                         validation={[required]}
                          />
                     </Form.Group>
                         </Col>
