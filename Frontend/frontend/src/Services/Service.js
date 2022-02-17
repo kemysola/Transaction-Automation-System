@@ -1,5 +1,14 @@
 import axios from '../http-common';
 
+const LoginStaff = data => {
+    return axios.post("app/login", data)
+}
+
+const PasswordReset = (id, data) => {
+    return axios.put(`staff/update/${id}`, data);
+}  
+
+
 const registerStaff = data => { // register new staff
     return axios.post("staff/onboard", data);
 };
@@ -31,6 +40,7 @@ const getAllDeals = () => { // get all deals, for privileged users only
 };
 
 export default {
+    LoginStaff,
     registerStaff,
     updateStaff,
     createDeal,

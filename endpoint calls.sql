@@ -98,25 +98,26 @@ REGISTER NEW DEAL: [http://localhost:5000/api/v1/transaction/createdeal]
 METHOD = POST
 BODY =>
 
-{ 
-    "clientName": "United Oils Ltd",
-    "originator": "John2 Doe",
-    "transactor": "John2 Doe",
-    "industry": "Power", 
-    "product": "Generator",
-    "region": "NE",
-    "dealSize": 1000000,
+{
+    "clientName": "Exalz Holdings",
+    "originator": "James Chukwuma",
+    "transactor": "Daniels Chidiebere",
+    "transactionLegalLead": "AbdulAfiz Odogwu",
+    "industry": "Energy", 
+    "product": "CRG",
+    "region": "SE",
+    "dealSize": 110000000,
     "coupon": 0,
-    "tenor": 5,
+    "tenor": 10,
     "moratorium": 0,
-    "repaymentFrequency": "Semi-Annually",
+    "repaymentFrequency": "Annually",
     "amortizationStyle": "Annuity",
     "mandateLetter": 20211203,
-    "creditApproval": null,
-    "feeLetter": null,
+    "creditApproval": 20211203,
+    "feeLetter": 20211203,
     "expectedClose": null,
     "actualClose": null,
-    "greenA": false, 
+    "greenA": false,
     "greenB": false,
     "greenC": false,
     "greenD": false,
@@ -127,15 +128,19 @@ BODY =>
     "amberC": false, 
     "amberD": false, 
     "amberE": false, 
-    -- The first three items in the RED bucket are always true
     "redA": true, 
     "redB": true, 
     "redC": true, 
     "redD": false, 
     "redE": false, 
-    "structuringFeeAmount": 100000,
+    "structuringFeeAmount": 3,
     "structuringFeeAdvance": 5,
-    "structuringFeeFinal": 5
+    "structuringFeeFinal": 5,
+    "guaranteeFee": 2,
+    "monitoringFee": 5000.00,
+    "reimbursible": 8000.90,
+    "notes": "",
+    "closed": false
 }
 
 LOGIN: [http://localhost:5000/api/v1/auth/app/login]

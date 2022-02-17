@@ -1,7 +1,7 @@
 import React from 'react';
 import {Container,Row,Col} from 'react-bootstrap';
 import MainCards from './MainCards';
-import Sidenav from './Sidenav';
+import SideNav2 from './SideNav2';
 import styled from 'styled-components';
 import Navbar from './Navbar';
 
@@ -19,7 +19,7 @@ const Landing =()=>{
             <LandingWrapper>
             <Row>
                     <Col sm={3} style={{padding:'10px'}}>
-                        <Sidenav/>
+                        <SideNav2/>
                     </Col>
                     <Col sm={7}> 
                         <MainCards/> 

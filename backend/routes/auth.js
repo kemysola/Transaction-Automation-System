@@ -1,11 +1,14 @@
+/*
+This module is responsible for authorizing users on the application and authenticating users agains Azure Active Directory
+*/
+
 const router = require("express").Router();
 const pool = require("../database");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 const msal = require('@azure/msal-node');
 
-// User Login Endpoint - This module is responsible for authenticating users on the application
-// This endpoint should be called after user is authenticated on Azure Active Directory (Handled below)
+
 router.post("/app/login", async (req, res) => {
   const client = await pool.connect()
   try {
@@ -13,8 +16,8 @@ router.post("/app/login", async (req, res) => {
       "SELECT * FROM TB_TRS_USERS WHERE email = $1",
       [req.body.email]
     );
-
-      if (user) {
+      
+      if (user && user.status !== 'Active') {
       const hashedPassword = CryptoJS.AES.decrypt(
         user.rows[0]["password"],
         process.env.PASSWORD_SECRET_PASSPHRASE
@@ -45,6 +48,8 @@ router.post("/app/login", async (req, res) => {
       } else {
         res.status(403).json({ Error: "Wrong Password" });
       }
+    }else{
+      return res.status(401).send({message: "Please Verify your Email"});
     }
   } catch (err) {
     console.error(err.stack);
@@ -113,7 +118,7 @@ router.get('/app/login', (req, res) => {
     };
 
     cca.acquireTokenByCode(tokenRequest).then((response) => {
-        console.log("\nResponse: \n:", response);
+        // console.log("\nResponse: \n:", response);
         res.sendStatus(200);
     }).catch((error) => {
         console.log(error);

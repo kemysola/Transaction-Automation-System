@@ -1,21 +1,19 @@
 import React from 'react';
-import UserForm from '../Login/UserForm';
+import UserLogin from '../Login/UserLogin';
 import './Main.css';
+<<<<<<< HEAD
 import logo1  from '../../../Images/i.png'
+=======
+import logo1  from '../../../Images/logo.jpg'
+>>>>>>> 07f61a74257785455386d439fccfbd828f45fd61
 import { Row, Container ,Col, Stack} from 'react-bootstrap';
-import styled from 'styled-components';
 
-const BodyDiv = styled.div`
-box-sizing:border-box;
-margin:0;
-padding:0.11rem 3rem;
-`
 
 const Main =()=>{
     return(
-        <BodyDiv>
+        <div className='bodyBackground'>
             <Container fluid>
-                <Row>
+          <Row>
                     <Col sm ={6} lg={7}>
                     <div className='my-0'>
                                 <img src={logo1} alt='whiteLogo' width='120'/>
@@ -32,13 +30,13 @@ const Main =()=>{
                                 </div>
                             </Container>
                     </Col>
-                    <Col sm ={6} lg={5} md={'auto'} className='justify-content-end'>
-                    <UserForm/>
+                    <Col sm ={6} lg={5} md={'auto'} className='justify-content-end' style={{width:'500px',marginTop:'30px'}}>
+                    <UserLogin/>
                     </Col>
                 </Row>     
                 </Container>
 
-        </BodyDiv>
+        </div>
 
     )
 }
