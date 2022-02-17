@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Row,Col} from 'react-bootstrap';
-import Sidenav from '../LandingPage/Sidenav';
+import SideNav2 from '../LandingPage/SideNav2';
 import TransactionTable from './TransactionTable';
 import TransactionCards from './TransactionCards';
 import Navbar from '../LandingPage/Navbar';
@@ -18,16 +18,15 @@ export default function TransactionView(){
             <Navbar/>
             <ViewWrapper>
             <Row>
-                <Col sm={3} style={{padding:'5px'}}>
-                    <Sidenav/>
+                <Col sm={2} style={{padding:'5px'}}>
+                    <SideNav2/>
                 </Col>
                 <Col sm={8}>
                     <TransactionCards/>
                     {/* <TransactionTable/> */}
                 </Col>
-                {/* <Col sm={1}>  
-                </Col> */}
-                </Row>
+
+            </Row>
             </ViewWrapper>
         </React.Fragment>
     )

@@ -16,6 +16,7 @@ import UpdateStaff from './Pages/Staffs/UpdateStaff';
 import NewTransaction from './Pages/Transactions/NewTransaction';
 import UpdateTransaction from './Pages/Transactions/UpdateTransaction';
 import AllStaff from './Pages/Staffs/AllStaff';
+import './App.css';
 
 
 
@@ -32,13 +33,13 @@ export default function App() {
                 <Route exact path ='/login'>
                     <UserForm/>
                 </Route>
-                <Route exact path='/transaction?id'>
+                <Route exact path='/transaction'>
                     <TransactionView/>
                 </Route>
                 <Route exact path='/staff_.id?user'>
                     <StaffView/>
                 </Route>
-                <Route exact path='/new_transactions._id?user'>
+                <Route exact path='/new_transactions?user'>
                     <NewTransactions/>
                 </Route>
                 <Route exact path='/staffs?admin'>
@@ -46,9 +47,6 @@ export default function App() {
                 </Route>
                 <Route exact path='/update._{user.id}'>
                     <UpdateStaffs/>
-                </Route>
-                <Route exact path='/update._{user.id}'>
-                    <NewTransactions/>
                 </Route>
                 <Route path='/update_transactions?user'>
                     <UpdateTransaction/>

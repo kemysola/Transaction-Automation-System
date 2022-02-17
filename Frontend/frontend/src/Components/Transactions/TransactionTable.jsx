@@ -108,11 +108,11 @@ const DealsTable = (props) => {
         accessor: "clientname",
       },
       {
-        Header: "Originator",
+        Header: "ORIGINATOR",
         accessor: "originator",
       },
       {
-        Header: "Transactor",
+        Header: "TRANSACTOR",
         accessor: "transactor",
       },
       {
@@ -120,7 +120,7 @@ const DealsTable = (props) => {
         accessor: "transactionlegallead",
       },
       {
-        Header: "Industry",
+        Header: "INDUSTRY",
         accessor: "industry",
       },
       {
@@ -248,25 +248,42 @@ const DealsTable = (props) => {
   return (
     <React.Fragment>
       <ContainerWrapper>
-        <Stack classname="d-flex justify-content-between" direction="horizontal" gap={3}>
-          <div>All (5) </div>
-          <div className="vr" />
-          <div>Trash (0) </div>
-          <div className="vr" />
-          <div>
+        <Row>
+          <Col sm={4}className='d-flex justify-content-between'  >
+          <small style={{fontSize:'12px',paddingTop:'10px'}}>
+            All (5)
+            </small>
+          <a className="vr" />
+          <small style={{fontSize:'12px',paddingTop:'10px'}}>
+            Trash (0) 
+            </small>
+          <div
+          className="vr" />
+          <small style={{fontSize:'12px',paddingTop:'10px'}}>
             Bulk Actions
-            <Button className='rounded-pill' size='sm' style={{backgroundColor: "green", border:'none', marginLeft: '1em'}}>Apply</Button>
-          </div>
-          <Button className='rounded-pill' size='sm'>Download</Button>
-          <Search />
-        </Stack>
-
-        <div className="col-md-12 mt-2 list">
+            </small>
+          </Col>
+          <Col sm={12} lg={4} className='d-flex justify-content-center'>
+          <Button className=' ' size='md' style={{backgroundColor: "green", border:'none', marginRight: '1em',padding:'5px'}}>           Apply
+          </Button>
+          <Button className='py-0' size='sm'>
+            Download
+          </Button>
+          </Col>
+          <Col sm={12} lg={4}>
+          <form className='pt-1'>
+          <input type="search" placeholder="Search" aria-label="Search" className='' style={{outline:'none',border:'1px solid black',padding:'4.5px', marginTop:'7px'}}/>
+          <Button className='py-0 btn-outline-none text-dark btn-light' style={{border:'1px solid black',padding:'none'}} >Search</Button>
+          </form>
+          </Col>
+        </Row>
+        
+        <div className="table-responsive mt-2 pt-2">
         <table
-          className="table table-striped table-bordered"
+          className="table py-3 mt-3  table-hover table striped  align-middle table-bordered"
           {...getTableProps()}
         >
-          <thead>
+          <thead className=''>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
@@ -277,7 +294,7 @@ const DealsTable = (props) => {
               </tr>
             ))}
           </thead>
-          <tbody {...getTableBodyProps()}>
+          <tbody {...getTableBodyProps()} className='table-bordered'>
             {rows.map((row, i) => {
               prepareRow(row);
               console.log(row)
