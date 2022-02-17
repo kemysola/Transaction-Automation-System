@@ -98,20 +98,12 @@ REGISTER NEW DEAL: [http://localhost:5000/api/v1/transaction/createdeal]
 METHOD = POST
 BODY =>
 
-<<<<<<< HEAD
-{ 
-=======
 {
->>>>>>> 976818e50fa25753441dff26639aa87b14d3cacc
     "clientName": "Exalz Holdings",
     "originator": "James Chukwuma",
     "transactor": "Daniels Chidiebere",
     "transactionLegalLead": "AbdulAfiz Odogwu",
-<<<<<<< HEAD
-    "industry": "Energy",
-=======
     "industry": "Energy", 
->>>>>>> 976818e50fa25753441dff26639aa87b14d3cacc
     "product": "CRG",
     "region": "SE",
     "dealSize": 110000000,
@@ -131,21 +123,6 @@ BODY =>
     "greenD": false,
     "greenE": false,
     "greenF": false,
-<<<<<<< HEAD
-    "amberA": false,
-    "amberB": false,
-    "amberC": false,
-    "amberD": false,
-    "amberE": false,
-    "redA": true,
-    "redB": true,
-    "redC": true,
-    "redD": false,
-    "redE": false,
-    "structuringFeeAmount": 3,
-    "structuringFeeAdvance": 5,
-    "structuringFeeFinal": 5,
-=======
     "amberA": false, 
     "amberB": false, 
     "amberC": false, 
@@ -162,7 +139,6 @@ BODY =>
     "guaranteeFee": 2,
     "monitoringFee": 5000.00,
     "reimbursible": 8000.90,
->>>>>>> 976818e50fa25753441dff26639aa87b14d3cacc
     "notes": "",
     "closed": false
 }

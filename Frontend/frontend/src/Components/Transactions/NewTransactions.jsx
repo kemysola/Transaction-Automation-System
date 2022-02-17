@@ -76,7 +76,9 @@ const AddDeal = () => {
         redE: false, 
         structuringFeeAmount: 0,
         structuringFeeAdvance: 0,
-        // structuringFeeFinal: 0,
+        guaranteeFee: 0,
+        monitoringFee: 0,
+        reimbursible: 0,
         notes: "",
         closed: false
     };
@@ -130,7 +132,9 @@ const AddDeal = () => {
         "redE": deal.redE, 
         "structuringFeeAmount": +deal.structuringFeeAmount,
         "structuringFeeAdvance": +deal.structuringFeeAdvance,
-        // "structuringFeeFinal": +deal.structuringFeeFinal,
+        "guaranteeFee": +deal.guaranteeFee,
+        "monitoringFee": +deal.monitoringFee,
+        "reimbursible": +deal.reimbursible,
         "notes": "",
         "closed": false
       };
@@ -392,21 +396,21 @@ const AddDeal = () => {
                     <Col sm={4} className='my-0 py-0'>
                       <Form.Group className="pt-1">
                         <Form.Label>Guarantee (%)</Form.Label>
-                        <Form.Control size="sm" type="text" name='guarantee'/>
+                        <Form.Control size="sm" type="number" value={deal.guaranteeFee} onChange={handleInputChange} name='guaranteeFee'/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={4} className='my-0 py-0'>
                       <Form.Group className="pt-1">
                         <Form.Label>Monitoring(NGN)</Form.Label>
-                        <Form.Control size="sm" type="text" name='monitoring'/>
+                        <Form.Control size="sm" type="number" value={deal.monitoringFee} onChange={handleInputChange} name='monitoringFee'/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={4} className='my-0 py-0'>
                       <Form.Group className="pt-1">
                         <Form.Label>Reimbursible(NGN)</Form.Label>
-                        <Form.Control size="sm" type="text" name='reimbursible'/>
+                        <Form.Control size="sm" type="number" value={deal.reimbursible} onChange={handleInputChange} name='reimbursible'/>
                       </Form.Group>
                     </Col>
                   </Row>

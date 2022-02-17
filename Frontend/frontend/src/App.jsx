@@ -23,39 +23,39 @@ import './App.css';
 export default function App() {
     return (
         <React.Fragment>
-                        <Switch>
-                        <Route exact path="/">
-                            <Main/>
-                        </Route>
-                        <Route path='/landing'>
-                            <Landing/>
-                        </Route>
-                        <Route exact path ='/login'>
-                            <UserForm/>
-                        </Route>
-                        <Route exact path='/transaction'>
-                            <TransactionView/>
-                        </Route>
-                        <Route exact path='/staff_.id?user'>
-                            <StaffView/>
-                        </Route>
-                        <Route exact path='/new_transactions?user'>
-                            <NewTransactions/>
-                        </Route>
-                        <Route exact path='/staffs?admin'>
-                            <StaffDatabase/>
-                        </Route>
-                        <Route exact path='/update._{user.id}'>
-                            <UpdateStaffs/>
-                        </Route>
-                        <Route path='/update_transactions?user'>
-                            <UpdateTransaction/>
-                        </Route>
-                        <Route path='all_staffs'>
-                            <AllStaff/>
-                        </Route>
-                        
-                        </Switch>
+            <Switch>
+                <Route exact path="/">
+                    <Main/>
+                </Route>
+                <Route path='/landing'>
+                    <Landing/>
+                </Route>
+                <Route exact path ='/login'>
+                    <UserForm/>
+                </Route>
+                <Route exact path='/transaction'>
+                    <TransactionView/>
+                </Route>
+                <Route exact path='/staff_.id?user'>
+                    <StaffView/>
+                </Route>
+                <Route exact path='/new_transactions?user'>
+                    <NewTransactions/>
+                </Route>
+                <Route exact path='/staffs?admin'>
+                    <StaffDatabase/>
+                </Route>
+                <Route exact path='/update._{user.id}'>
+                    <UpdateStaffs/>
+                </Route>
+                <Route path='/update_transactions'>
+                    <UpdateTransaction/>
+                </Route>
+                <Route path='all_staffs'>
+                    <AllStaff/>
+                </Route>
+                
+            </Switch>
         </React.Fragment>
     ) 
     

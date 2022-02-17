@@ -25,9 +25,8 @@ export default function TransactionView(){
                     <TransactionCards/>
                     {/* <TransactionTable/> */}
                 </Col>
-                {/*<Col sm={2}>  
-                </Col>8*/}
-                </Row>
+
+            </Row>
             </ViewWrapper>
         </React.Fragment>
     )
