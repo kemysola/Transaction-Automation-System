@@ -1,5 +1,5 @@
 import React, { useState, useRef} from "react";
-import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { isEmail } from "validator";
 import CheckButton from "react-validation/build/button";
 import AuthService from "../../../Services/auth.Service";
@@ -41,7 +41,7 @@ const required = (value) => {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
-    const history = useHistory();
+    const location = useLocation();
 
     const onChangeEmail = (e) => {
       const email = e.target.value;
@@ -61,7 +61,7 @@ const required = (value) => {
         if (checkBtn.current.context._errors.length === 0) {
           AuthService.login(email, password).then(
             () => {
-              history('/landing');
+              location('/landing');
               window.location.reload();
             },
             (error) => {
@@ -80,12 +80,13 @@ const required = (value) => {
     }
   };
     return (
-        <Container>
+        <Container className='bg-light py-3'>
                 <Form onSubmit={handleLogin} ref={form}>
-                    <Row>
+                    <Row className='py-3 mt-3'>
                         <Col sm={12}>
                         <label className=''>Email Address</label>
-                        <Input size="sm" 
+                        <br/>
+                        <Input size="md" 
                         type="email" 
                         name="email"
                         value={email}
@@ -95,6 +96,7 @@ const required = (value) => {
                         </Col>
                         <Col sm ={12}>
                         <label >Password</label>
+                        <br/>
                         <small className='d-flex justify-content-end'>Forgot Your Password?</small>
                          <Input
                           size="sm" 
