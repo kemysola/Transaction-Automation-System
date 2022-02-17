@@ -193,7 +193,8 @@ router.get('/all_deals', verifyTokenAndAdmin, async (req, res) => {
 select deal where deal id === supplied deal id and originator or transactor is current user
 */
 
-router.put('/update/:dealID', verifyTokenAndAuthorization,async (req, res) => {
+router.put('/update/:dealID', verifyTokenAndAuthorization, async (req, res) => {
+    console.log('I got to 1')
     const client = await pool.connect();
     try {
 
@@ -222,6 +223,7 @@ router.put('/update/:dealID', verifyTokenAndAuthorization,async (req, res) => {
                                 updated_rec.amberD, updated_rec.amberE, updated_rec.product), updated_rec.transactionLegalLead, updated_rec.notes, updated_rec.closed
                         ]
         await client.query('BEGIN')
+        console.log('I got to 2')
         const update_db = 
         `UPDATE TB_INFRCR_TRANSACTION
          SET clientName = $1, originator = $2, transactor = $3, industry = $4, product = $5,region = $6,
@@ -232,7 +234,8 @@ router.put('/update/:dealID', verifyTokenAndAuthorization,async (req, res) => {
             structuringFeeAdvance = $35,  structuringFeeFinal = $36, record_entry = $38, deal_category = $39, transactionLegalLead = $40, notes = $41, closed = $42
             WHERE transID = $37
         RETURNING *`
-        const res_ = await client.query(update_db, updated)                   
+        const res_ = await client.query(update_db, updated) 
+        console.log('I got to 3')
         await client.query('COMMIT')
         
         // convert notes field to list
