@@ -1,7 +1,7 @@
 import React from 'react';
 import UserForm from '../Login/UserForm';
 import './Main.css';
-import logo1  from '../../../Images/logo1.png'
+import logo1  from '../../../Images/i.png'
 import { Row, Container ,Col, Stack} from 'react-bootstrap';
 import styled from 'styled-components';
 

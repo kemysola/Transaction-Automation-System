@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Form, Container, Row, Col, Stack } from 'react-bootstrap';
 import styled from 'styled-components';
+import { useParams } from "react-router-dom";
+import Service from "../../Services/Service"
 
 const ButtonWrapper = styled.button`
   color:white;
@@ -36,6 +38,59 @@ const PWrapper = styled.p`
 `;
 
 export default function UpdateTransactions() {
+
+  const clientName = useRef("");
+  const originator = useRef("");
+  const transactor = useRef("");
+  const industry = useRef("");
+  const product = useRef("");
+  const region = useRef("")
+  const dealSize = useRef("");
+  const coupon = useRef("");
+  const tenor = useRef("");
+  const moratorium = useRef("");
+  const repaymentFreq = useRef("");
+  const amortisationStyle = useRef("");
+  const mandateLetter = useRef("");
+  const creditApproval = useRef("");
+  const feeLetter = useRef("");
+  const exceptedClose = useRef("");
+  const actualClose = useRef("");
+  const amount = useRef("");
+  const advance = useRef("");
+  const final = useRef("");
+  const guarantee = useRef("");
+  const monitoring = useRef("");
+  const reimbursible = useRef("");
+  const transactionCreditApproval = useRef("");
+  const gurantee = useRef("");
+  // const creditApproval = useRef("");
+  // const feeLetter = useRef("");
+  // const exceptedClose = useRef("");
+  // const actualClose = useRef("");
+  // const amount = useRef("");
+
+
+  
+  
+  function postData(e) {
+    e.preventDefault()
+
+    const id  = 1
+  
+  const data = {
+    clientName: clientName.current.value,
+    originator: originator.current.value,
+    transactor: transactor.current.value,
+    industry: industry.current.value, 
+    product: product.current.value,
+    region: region.current.value,
+  }
+    console.log("VVVVVVVVVVVVVVVVVVVVVVV")
+    console.log(data)
+    Service.updateDeal(id, data)
+  }
+
   return (
     <React.Fragment>
       {/* ---------------------- Update Transaction Forms ----------- */}
@@ -52,21 +107,21 @@ export default function UpdateTransactions() {
                   <Col sm={4}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Client Name</Form.Label>
-                      <Form.Control size="sm" type="text" placeholder=""  id='client'/>
+                    <Form.Control size="sm" type="text" placeholder="" id='client' ref={clientName}/>
                     </Form.Group>
                   </Col>
 
                   <Col sm={4}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Originator</Form.Label>
-                      <Form.Control size="sm" type="text" placeholder=""  id='originator'/>
+                    <Form.Control size="sm" type="text" placeholder="" id='originator' ref={originator}/>
                     </Form.Group>
                   </Col>
 
                   <Col sm={4}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Transactor</Form.Label>
-                      <Form.Control size="sm" type="text" placeholder=""  id='transactor'/>
+                      <Form.Control size="sm" type="text" placeholder=""  id='transactor' ref={transactor}/>
                     </Form.Group>
                   </Col>
                 </Row>
@@ -389,7 +444,7 @@ export default function UpdateTransactions() {
               </Container1>
           
                 {/* ------------------  Submit Form Button -----------*/}
-              <ButtonWrapper className='d-flex justify-content-end'>
+              <ButtonWrapper type="submit" className='d-flex justify-content-end' onClick={postData}>
                 Submit
               </ButtonWrapper>
 
