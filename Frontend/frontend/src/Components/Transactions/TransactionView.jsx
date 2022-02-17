@@ -21,12 +21,12 @@ export default function TransactionView(){
                 <Col sm={3} style={{padding:'5px'}}>
                     <Sidenav/>
                 </Col>
-                <Col sm={7}>
+                <Col sm={8}>
                     <TransactionCards/>
                     {/* <TransactionTable/> */}
                 </Col>
-                <Col sm={1}>  
-                </Col>
+                {/* <Col sm={1}>  
+                </Col> */}
                 </Row>
             </ViewWrapper>
         </React.Fragment>
