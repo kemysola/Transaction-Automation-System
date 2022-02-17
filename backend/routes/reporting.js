@@ -49,7 +49,7 @@ router.get('/:start_date/:end_date/:client_name', verifyTokenAndAuthorization, a
                 })
             }
         }else{
-            // if no deal id is specified
+            // if no customer/client name is specified
             const report_query = await client.query(
                 `
                 WITH REPORTING AS(
@@ -90,5 +90,35 @@ router.get('/:start_date/:end_date/:client_name', verifyTokenAndAuthorization, a
       }
 
 });
+
+
+// This endpoint will retrieve views for various reporting - as defined in the dashboards
+// It takes in view name - each view will represent all or 
+router.get('report_by_name/:name',verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+        const report_name = req.params.name;
+        const reportQuery = await client.query(
+            "SELECT * FROM $1", [report_name]);
+        if (reportQuery) { 
+            res.report_value = reportQuery
+
+            res.status(200).send({
+                status: (res.statusCode = 200),
+                report_rows: reportQuery.rows
+            })
+        }
+        
+    } catch (e) {
+        console.log(e)
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+
+});
+
+
 
 module.exports = router;
