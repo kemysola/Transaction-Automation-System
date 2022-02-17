@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Button, Table, Stack, Form} from 'react-bootstrap';
+import { Button, Table, Stack, Form,Row,Col} from 'react-bootstrap';
 import { useTable } from "react-table";
 import styled from 'styled-components';
 import Service from "../../Services/Service";
@@ -57,31 +57,31 @@ const DealsTable = (props) => {
   const columns = useMemo(
     () => [
       {
-        Header: "Client",
+        Header: "CLIENT",
         accessor: "clientName",
       },
       {
-        Header: "Originator",
+        Header: "ORIGINATOR",
         accessor: "originator",
       },
       {
-        Header: "Transactor",
+        Header: "TRANSACTOR",
         accessor: "transactor",
       },
       {
-        Header: "TransactionLegalLead",
+        Header: "TRANSACTION LEGAL LEAD",
         accessor: "transactionLegalLead",
       },
       {
-        Header: "Industry",
+        Header: "INDUSTRY",
         accessor: "industry",
       },
       {
-        Header: "Deal Size",
+        Header: "DEAL SIZE",
         accessor: "dealSize",
       },
       {
-        Header: "Mandate Letter",
+        Header: "MANDATE LETTER",
         accessor: "mandateLetter",
       },
     ],
@@ -102,25 +102,42 @@ const DealsTable = (props) => {
   return (
     <React.Fragment>
       <ContainerWrapper>
-        <Stack classname="d-flex justify-content-between" direction="horizontal" gap={3}>
-          <div>All (5) </div>
-          <div className="vr" />
-          <div>Trash (0) </div>
-          <div className="vr" />
-          <div>
+        <Row>
+          <Col sm={4}className='d-flex justify-content-between'  >
+          <small style={{fontSize:'12px',paddingTop:'10px'}}>
+            All (5)
+            </small>
+          <a className="vr" />
+          <small style={{fontSize:'12px',paddingTop:'10px'}}>
+            Trash (0) 
+            </small>
+          <div
+          className="vr" />
+          <small style={{fontSize:'12px',paddingTop:'10px'}}>
             Bulk Actions
-            <Button className='rounded-pill' size='sm' style={{backgroundColor: "green", border:'none', marginLeft: '1em'}}>Apply</Button>
-          </div>
-          <Button className='rounded-pill' size='sm'>Download</Button>
-          <Search />
-        </Stack>
-
-        <div className="col-md-12 list">
+            </small>
+          </Col>
+          <Col sm={12} lg={4} className='d-flex justify-content-center'>
+          <Button className=' ' size='md' style={{backgroundColor: "green", border:'none', marginRight: '1em',padding:'5px'}}>           Apply
+          </Button>
+          <Button className='py-0' size='sm'>
+            Download
+          </Button>
+          </Col>
+          <Col sm={12} lg={4}>
+          <form className='pt-1'>
+          <input type="search" placeholder="Search" aria-label="Search" className='' style={{outline:'none',border:'1px solid black',padding:'4.5px', marginTop:'7px'}}/>
+          <Button className='py-0 btn-outline-none text-dark btn-light' style={{border:'1px solid black',padding:'none'}} >Search</Button>
+          </form>
+          </Col>
+        </Row>
+        
+        <div className="table-responsive mt-2 pt-2">
         <table
-          className="table table-striped table-bordered responsive"
+          className="table py-3 mt-3  table-hover table striped  align-middle table-bordered"
           {...getTableProps()}
         >
-          <thead>
+          <thead className=''>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
@@ -131,7 +148,7 @@ const DealsTable = (props) => {
               </tr>
             ))}
           </thead>
-          <tbody {...getTableBodyProps()}>
+          <tbody {...getTableBodyProps()} className='table-bordered'>
             {rows.map((row, i) => {
               prepareRow(row);
               console.log(row)
@@ -148,63 +165,7 @@ const DealsTable = (props) => {
             })}
           </tbody>
         </table>
-      </div>
-        
-        {/* <Table striped responsive hover>
-          <thead>
-            <tr>
-              <th><input type='checkbox'/></th>
-              <th>S/N</th>
-              <th>Products</th>
-              <th>Region</th>
-              <th>Management Fees</th>
-              <th>Mandate Fees</th>
-              <th>Update</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td><input type='checkbox'/></td>
-              <td>1</td>
-              <td>Product Name</td>
-              <td>Oyo</td>
-              <td>120,000,000,000</td>
-              <td>120,000,000,000</td>
-              <td>17-01-2022</td>
-            </tr>
-
-            <tr>
-              <td><input type='checkbox'/></td>
-              <td>2</td>
-              <td>Product Name</td>
-              <td>Ogun</td>
-              <td>120,000,000,000</td>
-              <td>120,000,000,000</td>
-              <td>17-01-2022</td>
-            </tr>
-
-            <tr>
-              <td><input type='checkbox'/></td>
-              <td>3</td>
-              <td>Product Name</td>
-              <td>Osun</td>
-              <td>120,000,000,000</td>
-              <td>120,000,000,000</td>
-              <td>17-01-2022</td>
-            </tr>
-
-            <tr>
-              <td><input type='checkbox'/></td>
-              <td>4</td>
-              <td>Product Name</td>
-              <td>Kano</td>
-              <td>120,000,000,000</td>
-              <td>120,000,000,000</td>
-              <td>17-01-2022</td>
-            </tr>
-          </tbody>
-        </Table> */}
+      </div>   
       </ContainerWrapper>
     </React.Fragment>
 )}
