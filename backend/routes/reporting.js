@@ -4,32 +4,40 @@ const {verifyTokenAndAuthorization} = require("../middleware");
 
 
 // This resource expects three parameters[start_date: the begining period of the report, end_date:the last period of the report, deal_id if there is a specific deal of interest]
+// INSTRUCTION: all parameters must be specified or null for dates and empty string for client_name if client_name is not available(in the case of spooling all deals using dates) - if "Null" date is specified
+// the current date is passed at the database layer.
 router.get('/:start_date/:end_date/:client_name', verifyTokenAndAuthorization, async (req, res) => {
-    console.log('Confused')
+
     const client = await pool.connect();
 
     const reporting_params = {start_date, end_date, client_name } = req.params
-    console.log(reporting_params)
+
 
     try {
         // if a client name is specified
-        if (client_name){
+        if ( client_name !== "''"){
                         
             const report_query = await client.query(
                 `
                 WITH REPORTING AS(
-                    SELECT 
-                         MAX(DATE(STAMP)) OVER(PARTITION BY DATE(STAMP) ORDER BY DATE(STAMP) DESC) AS CREATE_DT 
+                    SELECT
+                        ROW_NUMBER() OVER(PARTITION BY TRANSID) AS POS,CLIENTNAME, CREATEDATE AS CREATE_DT
+                        ,MAX(DATE(STAMP)) OVER(PARTITION BY TRANSID, DATE(STAMP) ORDER BY STAMP DESC) AS LAST_UPDATE
                         ,OPERATION,STAMP,ORIGINATOR,TRANSACTOR,TRANSACTIONLEGALLEAD,INDUSTRY,PRODUCT,REGION,DEALSIZE,COUPON,TENOR,MORATORIUM
                         ,REPAYMENTFREQUENCY,AMORTIZATIONSTYLE,MANDATELETTER,CREDITAPPROVAL,FEELETTER
                         ,EXPECTEDCLOSE,ACTUALCLOSE,STRUCTURINGFEEAMOUNT,STRUCTURINGFEEFINAL,GUARANTEEFEE
                         ,MONITORINGFEE,REIMBURSIBLE,DEAL_CATEGORY,NOTES,CLOSED
                     FROM TB_INFRCR_TRANSACTION_AUDIT
                 )
-                SELECT * 
+                SELECT 
+                    CLIENTNAME,CREATE_DT, LAST_UPDATE,OPERATION,ORIGINATOR,TRANSACTOR,TRANSACTIONLEGALLEAD,INDUSTRY,
+                    PRODUCT,REGION,DEALSIZE,COUPON,TENOR,MORATORIUM,REPAYMENTFREQUENCY,AMORTIZATIONSTYLE,
+                    MANDATELETTER,CREDITAPPROVAL,FEELETTER,EXPECTEDCLOSE,ACTUALCLOSE,STRUCTURINGFEEAMOUNT,
+                    STRUCTURINGFEEFINAL,GUARANTEEFEE,MONITORINGFEE,REIMBURSIBLE,DEAL_CATEGORY,NOTES,CLOSED 
                 FROM REPORTING
                 WHERE DATE(CREATE_DT) BETWEEN COALESCE($1,CURRENT_DATE) AND COALESCE($2,CURRENT_DATE)
                 AND CLIENTNAME = $3
+                AND POS = 1;
                 `,[start_date, end_date, client_name]
                 );
 
@@ -45,17 +53,23 @@ router.get('/:start_date/:end_date/:client_name', verifyTokenAndAuthorization, a
             const report_query = await client.query(
                 `
                 WITH REPORTING AS(
-                    SELECT 
-                         MAX(DATE(STAMP)) OVER(PARTITION BY DATE(STAMP) ORDER BY DATE(STAMP) DESC) AS CREATE_DT 
+                    SELECT
+                        ROW_NUMBER() OVER(PARTITION BY TRANSID) AS POS,CLIENTNAME, CREATEDATE AS CREATE_DT
+                        ,MAX(DATE(STAMP)) OVER(PARTITION BY TRANSID, DATE(STAMP) ORDER BY STAMP DESC) AS LAST_UPDATE
                         ,OPERATION,STAMP,ORIGINATOR,TRANSACTOR,TRANSACTIONLEGALLEAD,INDUSTRY,PRODUCT,REGION,DEALSIZE,COUPON,TENOR,MORATORIUM
                         ,REPAYMENTFREQUENCY,AMORTIZATIONSTYLE,MANDATELETTER,CREDITAPPROVAL,FEELETTER
                         ,EXPECTEDCLOSE,ACTUALCLOSE,STRUCTURINGFEEAMOUNT,STRUCTURINGFEEFINAL,GUARANTEEFEE
                         ,MONITORINGFEE,REIMBURSIBLE,DEAL_CATEGORY,NOTES,CLOSED
                     FROM TB_INFRCR_TRANSACTION_AUDIT
                 )
-                SELECT * 
+                SELECT 
+                    CLIENTNAME,CREATE_DT, LAST_UPDATE,OPERATION,ORIGINATOR,TRANSACTOR,TRANSACTIONLEGALLEAD,INDUSTRY,
+                    PRODUCT,REGION,DEALSIZE,COUPON,TENOR,MORATORIUM,REPAYMENTFREQUENCY,AMORTIZATIONSTYLE,
+                    MANDATELETTER,CREDITAPPROVAL,FEELETTER,EXPECTEDCLOSE,ACTUALCLOSE,STRUCTURINGFEEAMOUNT,
+                    STRUCTURINGFEEFINAL,GUARANTEEFEE,MONITORINGFEE,REIMBURSIBLE,DEAL_CATEGORY,NOTES,CLOSED 
                 FROM REPORTING
                 WHERE DATE(CREATE_DT) BETWEEN COALESCE($1,CURRENT_DATE) AND COALESCE($2,CURRENT_DATE)
+                AND POS = 1;
                 `,[start_date, end_date]
                 );
             
@@ -76,37 +90,5 @@ router.get('/:start_date/:end_date/:client_name', verifyTokenAndAuthorization, a
       }
 
 });
-
-
-
-// // This endpoint will retrieve views for various reporting
-// // It takes in view name - view names to be gotten from the data dictionary for this application
-// router.get('/:name',verifyTokenAndAuthorization, async (req, res) => {
-//     const client = await pool.connect();
-
-//     try {
-//         const report_name = req.params.name;
-//         const reportQuery = await client.query(
-//             "SELECT * FROM $1", [report_name]);
-//         if (reportQuery) { 
-//             res.report_value = reportQuery
-
-//             res.status(200).send({
-//                 status: (res.statusCode = 200),
-//                 report_rows: reportQuery.rows
-//             })
-//         }
-        
-//     } catch (e) {
-//         console.log(e)
-//         res.status(403).json({ Error: e.stack });
-//     }finally{
-//         client.release()
-//       }
-
-// });
-
-
-
 
 module.exports = router;
