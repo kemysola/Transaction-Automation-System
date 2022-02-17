@@ -1,5 +1,5 @@
 import React, { useState, useRef} from "react";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { isEmail } from "validator";
 import CheckButton from "react-validation/build/button";
 import AuthService from "../../../Services/auth.Service";
@@ -8,6 +8,7 @@ import axios from 'axios'
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import {Container,Row,Col} from 'react-bootstrap';
+import { useHistory } from "react-router-dom";
 
 
 

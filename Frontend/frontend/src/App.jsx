@@ -48,7 +48,7 @@ export default function App() {
                 <Route exact path='/update._{user.id}'>
                     <UpdateStaffs/>
                 </Route>
-                <Route path='/update_transactions?user'>
+                <Route path='/update_transactions'>
                     <UpdateTransaction/>
                 </Route>
                 <Route path='all_staffs'>

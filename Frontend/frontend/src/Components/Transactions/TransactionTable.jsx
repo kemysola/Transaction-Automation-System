@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Button, Table, Stack, Form} from 'react-bootstrap';
+import { Button, Row, Col} from 'react-bootstrap';
 import { useTable, useResizeColumns, useFlexLayout, useRowSelect } from "react-table";
 import { FiEdit } from "react-icons/fi";
 import styled from 'styled-components';
@@ -75,11 +75,9 @@ const DealsTable = (props) => {
   };
 
   const openDeal = (rowIndex) => {
-    console.log("oyaaaaaa", rowIndex)
-    const id = dealsRef.current[rowIndex].index;
+    // const id = dealsRef.current[rowIndex][6];
     // console.log("transid", dealsRef.current[rowIndex].original.transid)
-    console.log("rowid",  id)
-    history.push("/update_transactions?" + id);
+    history.push("/update_transactions?" + rowIndex);
   };
 
   const columns = useMemo(
@@ -92,8 +90,7 @@ const DealsTable = (props) => {
         width: 35,
         maxWidth: 35,
         Cell: (props) => {
-          const rowIdx = props.row.id;
-          console.log("rowindex", rowIdx)
+          const rowIdx = props.row.original['transid']
           return (
             <div>
               <span onClick={() => openDeal(rowIdx)}>
@@ -297,8 +294,8 @@ const DealsTable = (props) => {
           <tbody {...getTableBodyProps()} className='table-bordered'>
             {rows.map((row, i) => {
               prepareRow(row);
-              console.log(row)
-              console.log(i)
+              // console.log(row.original['transid'])
+
               return (
                 <tr {...row.getRowProps()}>
                   {row.cells.map((cell) => {
