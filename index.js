@@ -14,6 +14,7 @@ const app_port = process.env.APP_SERVER_PORT;
 
 // Middlewares
 app.use(cors()); //Review need in project
+
 app.use(express.json()); //To get access to client's request.body as json object
 
 // Implemeting all endpoints

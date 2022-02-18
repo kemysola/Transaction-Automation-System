@@ -53,12 +53,27 @@ const IndeterminateCheckbox = React.forwardRef(
 const DealsTable = (props) => {
   const history = useHistory();
   const [deals, setDeals] = useState([]);
+  const [uniqueDeal, setUniqueDeal] = useState([]);
   const dealsRef = useRef();
   dealsRef.current = deals;
 
   useEffect(() => {
     retrieveDeals();
   }, []); 
+
+  useEffect(() => {
+    // Service.getDealById(id)
+    //   .then((res) => {
+    //     const resp = res.data.dealInfo;
+    //     setUniqueDeal(resp);
+    //     console.log(setUniqueDeal)
+    //     console.log("unique lomoooo", uniqueDeal)
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
+    retrieveUniqueDeal();
+  }, []);
 
   const retrieveDeals = () => {
     Service.getAllDeals()
@@ -70,14 +85,38 @@ const DealsTable = (props) => {
       });
   };
 
+  const retrieveUniqueDeal = (id) => {
+    Service.getDealById(id)
+      .then((res) => res.json())
+      .then((res) => {
+        const resp = res.data.dealInfo;
+        setUniqueDeal(res);
+        console.log(resp)
+        console.log("unique lomoooo", res, uniqueDeal)
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+
+  };
+
   const refreshList = () => {
     retrieveDeals();
   };
 
   const openDeal = (rowIndex) => {
-    // const id = dealsRef.current[rowIndex][6];
-    // console.log("transid", dealsRef.current[rowIndex].original.transid)
-    history.push("/update_transactions?" + rowIndex);
+    retrieveUniqueDeal(rowIndex);
+
+    // console.log("unique 2", uniqueDeal)
+
+    history.push({
+      pathname: "/update_transactions",
+      search: "?" + rowIndex,
+      state: uniqueDeal,
+    });
+
+    // console.log("unique 3", uniqueDeal)
+
   };
 
   const columns = useMemo(
@@ -93,7 +132,7 @@ const DealsTable = (props) => {
           const rowIdx = props.row.original['transid']
           return (
             <div>
-              <span onClick={() => openDeal(rowIdx)}>
+              <span onClick={() => openDeal(rowIdx)} style={{cursor: "pointer"}} >
                 <FiEdit/>
               </span>
             </div>
