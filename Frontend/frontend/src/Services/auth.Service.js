@@ -16,13 +16,12 @@ const login = async(email, password) => {
             password,
         })
         .then((response) => {
-            if (response.data.email) {
-                localStorage.setItem("email", JSON.stringify(response.data));
+            if (response.data.token) {
                 localStorage.setItem("user", JSON.stringify(response.data));
-
-
+                //window.location.href='https://login.windows.net'
             }
             return response.data;
+
         });
 };
 const logout = () => {
