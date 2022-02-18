@@ -140,7 +140,7 @@ export default function UpdateTransactions() {
                 
           {/* --------------- Update Transaction Form ------------- */}
               <Container1>
-                <Row>
+                <Row className='mt-1'>
                   <Col sm={4}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Client Name</Form.Label>
@@ -162,9 +162,15 @@ export default function UpdateTransactions() {
                     </Form.Group>
                   </Col>
                 </Row>
+                <br/>
+                <br/>
+                </Container1>
+                <br/>
+                <br/>
 
                   {/*----------- Deal Profile Fess and Reimbursement ---------------- */}
-
+<Container1>
+<br/>
                 <div className='mt-2'>
                   <PWrapper>
                     <h6 className="pt-1 mt-1" style={{fontSize: "13px"}}>Deal Profile Fees & Reimbursement</h6>
@@ -223,28 +229,28 @@ export default function UpdateTransactions() {
                   </Row>
 
                   <Row className='mt-1'>
-                    <Col sm={3}>
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Deal Size (NGN)</Form.Label>
                       <Form.Control size="sm" type="text" placeholder="" id='dealSize' ref={dealSize}/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={3}>
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Coupon(%)</Form.Label>
                         <Form.Control size="sm" type="text" placeholder=""  id='coupon' ref={coupon}/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={3}>
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Tenor(yrs)</Form.Label>
                       <Form.Control size="sm" type="text" placeholder="" id='temor' ref={tenor}/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={3}>
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Moratorium(yrs)</Form.Label>
                         <Form.Control size="sm" type="text" placeholder=""  id='moratorium' ref={moratorium}/>
@@ -285,29 +291,29 @@ export default function UpdateTransactions() {
                     </Col>
                   </Row>
 
-                  <Row className='mt-1' >
-                    <Col sm={3}>
+                  <Row className='mt-1 pt-3' >
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Credit Approval</Form.Label>
                       <Form.Control size="sm" type="date" placeholder="" id='creditApproval' ref={creditApproval}/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={3}>
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Fee Letter</Form.Label>
                       <Form.Control size="sm" type="date" placeholder="" id='feeLetter' ref={feeLetter}/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={3}>
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Excepted Close</Form.Label>
                       <Form.Control size="sm" type="date" placeholder="" id='expectedClose' ref={exceptedClose}/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={3}>
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Actual Close</Form.Label>
                       <Form.Control size="sm" type="date" placeholder="" id='actualClose' ref={actualClose}/>
@@ -315,58 +321,63 @@ export default function UpdateTransactions() {
                     </Col>
                   </Row>
                 </div>
+                <br/>
+                </Container1>
 
                   {/*-------------------- Structuring Fees -------------------------- */}
+              
                 <div className='mt-2'>
                   <PWrapper>
                     <h6 className="pt-1" style={{fontSize: "13px"}}>Structuring Fees</h6>
                   </PWrapper>
 
+                  <Container1>
+                    <br/>
                   <Row>
-                    <Col sm={4} className='my-0 py-0'>
+                    <Col sm={6} className='my-0 py-0'>
                       <Form.Group>
                         <Form.Label>Amount(NGN)</Form.Label>
                       <Form.Control size="sm" type="text" placeholder="" id='amount' ref={amount}/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={4} className='my-0 py-0'>
+                    <Col sm={6} className='my-0 py-0'>
                       <Form.Group>
                         <Form.Label>Advance(%)</Form.Label>
                       <Form.Control size="sm" type="text" placeholder="" id='advance' ref={advance}/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={4} className='my-0 py-0'>
+                    <Col sm={6} className='my-0 py-0'>
                       <Form.Group>
                         <Form.Label>Final(%)</Form.Label>
                       <Form.Control size="sm" type="text" placeholder='30%' id='final' disabled ref={final}/>
                       </Form.Group>
                     </Col>
-                  </Row>
-
-                  <Row>
-                    <Col sm={4} className='my-0 py-0'>
+                 
+                    <Col sm={6} className='my-0 py-0'>
                       <Form.Group className="pt-1">
                         <Form.Label>Guarantee (%)</Form.Label>
                       <Form.Control size="sm" type="text" placeholder="" id='guarantee' ref={guarantee}/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={4} className='my-0 py-0'>
+                    <Col sm={6} className='my-0 py-0'>
                       <Form.Group className="pt-1">
                         <Form.Label>Monitoring(NGN)</Form.Label>
                       <Form.Control size="sm" type="text" placeholder="" id='monitoring' ref={monitoring}/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={4} className='my-0 py-0'>
+                    <Col sm={6} className='my-0 pb-2'>
                       <Form.Group className="pt-1">
                         <Form.Label>Reimbursible(NGN)</Form.Label>
                       <Form.Control size="sm" type="text" placeholder="" id='reimbursible' ref={reimbursible}/>
                       </Form.Group>
                     </Col>
                   </Row>
+                  <br/>
+                  </Container1>
                 </div>
 
                   {/*-------------------- Radio Buttons ------------------------------ */}
@@ -375,6 +386,8 @@ export default function UpdateTransactions() {
                   <PWrapper>
                     <h6 className="pt-1" style={{fontSize: "13px"}}>Deal Category</h6>
                   </PWrapper>
+{/*<Container1>
+  <br/>
 
                   <div id='greenCategory'>
                     <PWrapper>
@@ -411,12 +424,171 @@ export default function UpdateTransactions() {
                       <Form.Check inline label="No" type="radio" name="greenE" ref={greenE}/>
                     </Form.Group>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Financial Close expected within 3-6 months:</Form.Label>
+                    <Form.Group >
+                      <Form.Label style={{paddingRight: "1rem"}}>Financial Close expected within 3-6 months:</Form.Label>            
+                      <div className='d-flex align-items-end'>
                     <Form.Check inline label="Yes" type="radio" name="greenF" ref={greenF}/>
                     <Form.Check inline label="No" type="radio" name="greenF" ref={greenF}/>
+                    </div>
                     </Form.Group>
                   </div>
+                  <br/>
+</Container1>*/}
+
+          <br/>
+        <Container1>
+        <div id='greenCategory'>
+                    <PWrapper>
+                      <h6 className="pt-1" style={{fontSize: "10px", color: "green"}}>Green Category</h6>
+                    </PWrapper>
+          <Form.Group>
+          <Row>
+            <Col sm={12}>
+            <Form.Group>
+            <Row>
+              <Col>
+              
+            
+                      <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committee approval:</Form.Label>
+               </Col>  
+               <Col>    
+                    <Form.Check inline label="Yes" type="radio" name="greenA" ref={greenA}/>
+                      <Form.Check inline label="No" type="radio" name="greenA" ref={greenA}/>
+                     
+              </Col>
+              </Row>
+              
+                     
+                    </Form.Group>
+                  
+            </Col>
+
+            {/*--------------------------------------------- b --------------- */}
+            <Col sm={12}>
+            <Form.Group>
+            <Row>
+              <Col>
+              
+            
+              <Form.Label style={{paddingRight: "1rem"}}>Guarantee Document in agreed form:</Form.Label>
+               </Col>  
+               <Col>    
+               <Form.Check inline label="Yes" type="radio" name="greenB" ref={greenB}/>
+                      <Form.Check inline label="No" type="radio" name="greenB" ref={greenB} />
+                     
+              </Col>
+              </Row>
+              
+                     
+                    </Form.Group>
+                  
+            </Col>
+
+
+            {/**------------------------------------------------- */}
+            <Col sm={12}>
+            <Form.Group>
+            <Row>
+              <Col>
+              <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond Issue appointed or selected:</Form.Label>
+               </Col>  
+               <Col>    
+                    <Form.Check inline label="Yes" type="radio" name="greenC" ref={greenC}/>
+                      <Form.Check inline label="No" type="radio" name="greenC" ref={greenC}/>
+                     
+              </Col>
+              </Row>
+              
+                     
+                    </Form.Group>
+                  
+            </Col>
+
+            {/*------------------------------------------ */}
+            <Col sm={12}>
+            <Form.Group>
+            <Row>
+              <Col>
+              <Form.Label style={{paddingRight: "1rem"}}>Already filed or expected filing with SEC (or equivalent Exchange) within 6 weeks:</Form.Label>
+               </Col>  
+               <Col>    
+                    <Form.Check inline label="Yes" type="radio" name="greenD" ref={greenD}/>
+                      <Form.Check inline label="No" type="radio" name="greenD" ref={greenD}/>
+                     
+              </Col>
+              </Row>
+              
+                     
+                    </Form.Group>
+                  
+            </Col>
+
+
+            {/*-------------------------------------------------------- */}
+            <Col sm={12}>
+            <Form.Group>
+            <Row>
+              <Col>
+              
+            
+              <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs to Financial Close have been satisfactorily met or committed by the Client for completion on or before Financial Close:</Form.Label>
+               </Col>  
+               <Col>    
+                    <Form.Check inline label="Yes" type="radio" name="greenE" ref={greenE}/>
+                      <Form.Check inline label="No" type="radio" name="greenE" ref={greenE}/>
+                     
+              </Col>
+              </Row>
+              
+                     
+                    </Form.Group>
+                  
+            </Col>
+
+
+            {/*-------------------------------------------------- */}
+            <Col sm={12}>
+            <Form.Group>
+            <Row>
+              <Col>
+              
+            
+              <Form.Label style={{paddingRight: "1rem"}}>Financial Close expected within 3-6 months:</Form.Label>            
+               </Col>  
+               <Col>    
+                    <Form.Check inline label="Yes" type="radio" name="greenF" ref={greenF}/>
+                      <Form.Check inline label="No" type="radio" name="greenF" ref={greenF}/>
+                     
+              </Col>
+              </Row>
+              
+                     
+                    </Form.Group>
+                  
+            </Col>
+
+
+            
+         {/*------------------------------------e  */}   
+          </Row>
+          </Form.Group>
+          </div>
+        </Container1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                   <div id='amberCategory'>
                     <PWrapper>
@@ -478,7 +650,6 @@ export default function UpdateTransactions() {
                     </Form.Group>
                   </div>
                 </div>
-              </Container1>
           
                 {/* ------------------  Submit Form Button -----------*/}
               <ButtonWrapper type="submit" className='d-flex justify-content-end' onClick={postData}>
