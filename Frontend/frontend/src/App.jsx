@@ -30,9 +30,6 @@ export default function App() {
                 <Route path='/landing'>
                     <Landing/>
                 </Route>
-                <Route exact path ='/login'>
-                    <UserForm/>
-                </Route>
                 <Route exact path='/transaction'>
                     <TransactionView/>
                 </Route>
