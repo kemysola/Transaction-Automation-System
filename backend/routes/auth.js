@@ -66,7 +66,7 @@ AADParameters = {
   tenant : process.env.tenant,
   authorityHostUrl : 'https://login.windows.net',
   clientId : process.env.clientID,
-  redirectUri: 'http://localhost:5000/api/v1/auth/app/login', //This url must be registerd during application registration in Azure (Reference in resources.md file)
+  redirectUri: 'http://localhost:3000/login', //'http://localhost:5000/api/v1/auth/app/login', //This url must be registerd during application registration in Azure (Reference in resources.md file)
   clientSecret: process.env.value
 };
 
