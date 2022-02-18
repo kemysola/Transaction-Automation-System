@@ -22,8 +22,6 @@ const createDeal = data => { // create new deal/transaction
 };
 
 const updateDeal = (id, data) => { // update deal information
-    console.log('wwwwwwwww', data)
-    console.log("yyyyyyyyyyyyyyy", id)
     return axios.put(`transaction/update/${id}`, data);
 };
 

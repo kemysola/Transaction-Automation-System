@@ -1,11 +1,7 @@
 import React from 'react';
 import UserLogin from '../Login/UserLogin';
 import './Main.css';
-<<<<<<< HEAD
-import logo1  from '../../../Images/i.png'
-=======
 import logo1  from '../../../Images/logo.jpg'
->>>>>>> 07f61a74257785455386d439fccfbd828f45fd61
 import { Row, Container ,Col, Stack} from 'react-bootstrap';
 
 

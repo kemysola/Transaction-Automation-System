@@ -62,21 +62,29 @@ export default function UpdateTransactions() {
   const guarantee = useRef("");
   const monitoring = useRef("");
   const reimbursible = useRef("");
-  const transactionCreditApproval = useRef("");
-  const gurantee = useRef("");
-  // const creditApproval = useRef("");
-  // const feeLetter = useRef("");
-  // const exceptedClose = useRef("");
-  // const actualClose = useRef("");
-  // const amount = useRef("");
+  const greenA = useRef("");
+  const greenB = useRef("");
+  const greenC = useRef("");
+  const greenD = useRef("");
+  const greenE = useRef("");
+  const greenF = useRef("");
+  const amberA = useRef("");
+  const amberB = useRef("");
+  const amberC = useRef("");
+  const amberD = useRef("");
+  const amberE = useRef("");
+  const redA = useRef("");
+  const redB = useRef("");
+  const redC = useRef("");
 
+  //const { id } = useParams()
+  
+  let id = window.location.search.split("?")[1]
 
-  
-  
+  console.log(id)
+
   function postData(e) {
     e.preventDefault()
-
-    const id  = 1
   
   const data = {
     clientName: clientName.current.value,
@@ -85,9 +93,38 @@ export default function UpdateTransactions() {
     industry: industry.current.value, 
     product: product.current.value,
     region: region.current.value,
+    dealSize: +dealSize.current.value,
+    coupon: +coupon.current.value,
+    tenor: +tenor.current.value,
+    moratorium: +moratorium.current.value,
+    repaymentFrequency: repaymentFreq.current.value,
+    amortisationStyle: amortisationStyle.current.value,
+    mandateLetter: new Date(mandateLetter.current.value),
+    creditApproval: new Date(creditApproval.current.value),
+    feeLetter: new Date(feeLetter.current.value),
+    expectedClose: new Date(exceptedClose.current.value),
+    actualClose: new Date(actualClose.current.value),
+    structuringFeeAmount: +amount.current.value,
+    structuringFeeAdvance: +advance.current.value,
+    structuringFeeFinal: +final.current.value,
+    guarantee: +guarantee.current.value,
+    monitoring: +monitoring.current.value,
+    reimbursible: +reimbursible.current.value,
+    greenA: greenA.current.value,
+    greenB: greenB.current.value,
+    greenC: greenC.current.value,
+    greenD: greenD.current.value,
+    greenE: greenE.current.value,
+    amberA: amberA.current.value,
+    amberB: amberB.current.value,
+    amberC: amberC.current.value,
+    amberD: amberD.current.value,
+    amberE: amberE.current.value,
+    redA: redA.current.value,
+    redB: redB.current.value,
+    redC: redC.current.value,
+    notes: []
   }
-    console.log("VVVVVVVVVVVVVVVVVVVVVVV")
-    console.log(data)
     Service.updateDeal(id, data)
   }
 
@@ -137,7 +174,7 @@ export default function UpdateTransactions() {
                     <Col sm={4} className='my-0 py-0'>
                       <Form.Group className="">
                         <Form.Label>Industry</Form.Label>
-                        <Form.Select size="sm" id='industry' required>
+                        <Form.Select size="sm" id='industry' required ref={industry}>
                           <option>Select</option>
                           <option value="1">On-grid Power</option>
                           <option value="2">Off-grid Power</option>
@@ -157,7 +194,7 @@ export default function UpdateTransactions() {
                     <Col sm={4}>
                       <Form.Group className="">
                         <Form.Label>Products</Form.Label>
-                        <Form.Select size="sm" id='products' required>
+                        <Form.Select size="sm" id='products' required ref={product}>
                           <option>Select</option>
                           <option value="1">Public Bond</option>
                           <option value="2">Private Bond (Clean Energy)</option>
@@ -172,7 +209,7 @@ export default function UpdateTransactions() {
                     <Col sm={4}>
                       <Form.Group className="">
                         <Form.Label>Region</Form.Label>
-                        <Form.Select size="sm" id='region' required>
+                        <Form.Select size="sm" id='region' required ref={region}>
                           <option>Select</option>
                           <option value="1">SW</option>
                           <option value="2">SE</option>
@@ -189,28 +226,28 @@ export default function UpdateTransactions() {
                     <Col sm={3}>
                       <Form.Group className="pt-1">
                         <Form.Label>Deal Size (NGN)</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder=""  id='dealSize'/>
+                      <Form.Control size="sm" type="text" placeholder="" id='dealSize' ref={dealSize}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={3}>
                       <Form.Group className="pt-1">
                         <Form.Label>Coupon(%)</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder=""  id='coupon'/>
+                        <Form.Control size="sm" type="text" placeholder=""  id='coupon' ref={coupon}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={3}>
                       <Form.Group className="pt-1">
                         <Form.Label>Tenor(yrs)</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder=""  id='temor'/>
+                      <Form.Control size="sm" type="text" placeholder="" id='temor' ref={tenor}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={3}>
                       <Form.Group className="pt-1">
                         <Form.Label>Moratorium(yrs)</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder=""  id='moratorium'/>
+                        <Form.Control size="sm" type="text" placeholder=""  id='moratorium' ref={moratorium}/>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -219,7 +256,7 @@ export default function UpdateTransactions() {
                     <Col sm={4}>
                       <Form.Group className="">
                         <Form.Label>Repayment Frequency</Form.Label>
-                        <Form.Select size="sm" id='frequency'>
+                        <Form.Select size="sm" id='frequency' ref={repaymentFreq}>
                           <option>Select</option>
                           <option value="1">Monthly</option>
                           <option value="2">Quarterly</option>
@@ -232,7 +269,7 @@ export default function UpdateTransactions() {
                     <Col sm={4}>
                       <Form.Group className="">
                         <Form.Label>Amortisation Style</Form.Label>
-                        <Form.Select size="sm" id='amortisationStyle'>
+                        <Form.Select size="sm" id='amortisationStyle' ref={amortisationStyle}>
                           <option>Select</option>
                           <option value="1">Annuity</option>
                           <option value="2">Straight-Line</option>
@@ -243,7 +280,7 @@ export default function UpdateTransactions() {
                     <Col sm={4}>
                       <Form.Group className="pt-1">
                         <Form.Label>Mandate Letter</Form.Label>
-                        <Form.Control size="sm" type="date" placeholder=""  id='mandateLetter'/>
+                      <Form.Control size="sm" type="date" placeholder="" id='mandateLetter' ref={mandateLetter}/>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -252,28 +289,28 @@ export default function UpdateTransactions() {
                     <Col sm={3}>
                       <Form.Group className="pt-1">
                         <Form.Label>Credit Approval</Form.Label>
-                        <Form.Control size="sm" type="date" placeholder=""  id='creditApproval'/>
+                      <Form.Control size="sm" type="date" placeholder="" id='creditApproval' ref={creditApproval}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={3}>
                       <Form.Group className="pt-1">
                         <Form.Label>Fee Letter</Form.Label>
-                        <Form.Control size="sm" type="date" placeholder=""  id='feeLetter'/>
+                      <Form.Control size="sm" type="date" placeholder="" id='feeLetter' ref={feeLetter}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={3}>
                       <Form.Group className="pt-1">
                         <Form.Label>Excepted Close</Form.Label>
-                        <Form.Control size="sm" type="date" placeholder=""  id='expectedClose'/>
+                      <Form.Control size="sm" type="date" placeholder="" id='expectedClose' ref={exceptedClose}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={3}>
                       <Form.Group className="pt-1">
                         <Form.Label>Actual Close</Form.Label>
-                        <Form.Control size="sm" type="date" placeholder=""  id='actualClose'/>
+                      <Form.Control size="sm" type="date" placeholder="" id='actualClose' ref={actualClose}/>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -289,21 +326,21 @@ export default function UpdateTransactions() {
                     <Col sm={4} className='my-0 py-0'>
                       <Form.Group>
                         <Form.Label>Amount(NGN)</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder=""  id='amount'/>
+                      <Form.Control size="sm" type="text" placeholder="" id='amount' ref={amount}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={4} className='my-0 py-0'>
                       <Form.Group>
                         <Form.Label>Advance(%)</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder=""  id='advance'/>
+                      <Form.Control size="sm" type="text" placeholder="" id='advance' ref={advance}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={4} className='my-0 py-0'>
                       <Form.Group>
                         <Form.Label>Final(%)</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder='30%' id='final' disabled/>
+                      <Form.Control size="sm" type="text" placeholder='30%' id='final' disabled ref={final}/>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -312,21 +349,21 @@ export default function UpdateTransactions() {
                     <Col sm={4} className='my-0 py-0'>
                       <Form.Group className="pt-1">
                         <Form.Label>Guarantee (%)</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder=""  id='guarantee'/>
+                      <Form.Control size="sm" type="text" placeholder="" id='guarantee' ref={guarantee}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={4} className='my-0 py-0'>
                       <Form.Group className="pt-1">
                         <Form.Label>Monitoring(NGN)</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder=""  id='monitoring'/>
+                      <Form.Control size="sm" type="text" placeholder="" id='monitoring' ref={monitoring}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={4} className='my-0 py-0'>
                       <Form.Group className="pt-1">
                         <Form.Label>Reimbursible(NGN)</Form.Label>
-                        <Form.Control size="sm" type="text" placeholder=""  id='reimbursible'/>
+                      <Form.Control size="sm" type="text" placeholder="" id='reimbursible' ref={reimbursible}/>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -346,38 +383,38 @@ export default function UpdateTransactions() {
 
                     <Form.Group>
                       <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committee approval:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="greenA" />
-                      <Form.Check inline label="No" type="radio" name="greenA" />
+                    <Form.Check inline label="Yes" type="radio" name="greenA" ref={greenA}/>
+                      <Form.Check inline label="No" type="radio" name="greenA" ref={greenA}/>
                     </Form.Group>
 
                     <Form.Group>
                       <Form.Label style={{paddingRight: "1rem"}}>Guarantee Document in agreed form:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="greenB" />
-                      <Form.Check inline label="No" type="radio" name="greenB" />
+                    <Form.Check inline label="Yes" type="radio" name="greenB" ref={greenB}/>
+                      <Form.Check inline label="No" type="radio" name="greenB" ref={greenB} />
                     </Form.Group>
 
                     <Form.Group>
                       <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond Issue appointed or selected:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="greenC" />
-                      <Form.Check inline label="No" type="radio" name="greenC" />
+                    <Form.Check inline label="Yes" type="radio" name="greenC" ref={greenC}/>
+                    <Form.Check inline label="No" type="radio" name="greenC" ref={greenC}/>
                     </Form.Group>
 
                     <Form.Group>
                       <Form.Label style={{paddingRight: "1rem"}}>Already filed or expected filing with SEC (or equivalent Exchange) within 6 weeks:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="greenD" />
-                      <Form.Check inline label="No" type="radio" name="greenD" />
+                    <Form.Check inline label="Yes" type="radio" name="greenD" ref={greenD}/>
+                    <Form.Check inline label="No" type="radio" name="greenD" ref={greenD}/>
                     </Form.Group>
 
                     <Form.Group>
                       <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs to Financial Close have been satisfactorily met or committed by the Client for completion on or before Financial Close:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="greenE" />
-                      <Form.Check inline label="No" type="radio" name="greenE" />
+                    <Form.Check inline label="Yes" type="radio" name="greenE" ref={greenE}/>
+                      <Form.Check inline label="No" type="radio" name="greenE" ref={greenE}/>
                     </Form.Group>
 
                     <Form.Group>
                       <Form.Label style={{paddingRight: "1rem"}}>Financial Close expected within 3-6 months:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="greenF" />
-                      <Form.Check inline label="No" type="radio" name="greenF" />
+                    <Form.Check inline label="Yes" type="radio" name="greenF" ref={greenF}/>
+                    <Form.Check inline label="No" type="radio" name="greenF" ref={greenF}/>
                     </Form.Group>
                   </div>
 
