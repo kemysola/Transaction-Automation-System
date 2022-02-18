@@ -70,6 +70,7 @@ AADParameters = {
   clientSecret: process.env.value
 };
 
+
 const {tenant, authorityHostUrl, clientId, clientSecret, redirectUri} = AADParameters
 
 const config = {

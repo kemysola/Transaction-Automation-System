@@ -3,23 +3,25 @@ const API_URL = "http://localhost:3000/api/test/";
 
 
 const register = (username, email, password) => {
-    return axios.post('/app/login' + "signup", {
+    return axios.post('auth/app/login' + "signup", {
         username,
         email,
         password,
     });
 };
 const login = async(email, password) => {
-    return await axios
+    return await axios   
         .post("app/login", {
             email,
             password,
         })
         .then((response) => {
-            if (response.data.email) {
-                localStorage.setItem("email", JSON.stringify(response.data));
+            if (response.data.token) {
+                localStorage.setItem("user", JSON.stringify(response.data));
+                //window.location.href='https://login.windows.net'
             }
             return response.data;
+
         });
 };
 const logout = () => {

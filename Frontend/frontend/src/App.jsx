@@ -10,11 +10,12 @@ import  UserForm from './Components/Auth/Login/UserLogin'
 import TransactionView from './Components/Transactions/TransactionView'
 import UpdateStaffs from './Components/Staffs/UpdateStaffs';
 import StaffView from './Components/Staffs/StaffView';
-import NewTransactions from './Components/Transactions/NewTransactions';
+//import NewTransactions from './Components/Transactions/NewTransactions';
 import StaffDatabase from './Components/Staffs/StaffDatabase';
 import UpdateStaff from './Pages/Staffs/UpdateStaff';
-import NewTransaction from './Pages/Transactions/NewTransaction';
 import UpdateTransaction from './Pages/Transactions/UpdateTransaction';
+import NewTransaction from './Pages/Transactions/NewTransaction';
+
 import AllStaff from './Pages/Staffs/AllStaff';
 import './App.css';
 
@@ -30,17 +31,14 @@ export default function App() {
                 <Route path='/landing'>
                     <Landing/>
                 </Route>
-                <Route exact path ='/login'>
-                    <UserForm/>
-                </Route>
                 <Route exact path='/transaction'>
                     <TransactionView/>
                 </Route>
                 <Route exact path='/staff_.id?user'>
                     <StaffView/>
                 </Route>
-                <Route exact path='/new_transactions?user'>
-                    <NewTransactions/>
+                <Route exact path='/new_transactions'>
+                    <NewTransaction/>
                 </Route>
                 <Route exact path='/staffs?admin'>
                     <StaffDatabase/>
