@@ -5,7 +5,6 @@ import Services from '../../Services/Service';
 import StaffDatabase from '../Staffs/StaffDatabase';
 
 const ButtonWrapper = styled.button`
-  color:white;
   background: green;
   margin-right:14px;
   border:1px solid  white;
@@ -163,13 +162,13 @@ const AddDeal = () => {
         <React.Fragment>
          {/* ---------------------- New Transaction Forms ----------- */}
             <FormWrapper>
-                <Container fluid style={{marginTop:'0'}}>
+              <Container>
                 {submitted ? (
-                    <Container1>
-                        {/* <p style={{fontWeight:'bold',fontSize:'12px', color:'darkblue'}}>You submitted successfully!</p> */}
-                        <p style={{fontWeight:'bold',fontSize:'12px', color:'darkblue', marginTop:'1rem'}}>{response}</p>
+                        <div>
+                          <p style={{fontWeight:'bold',fontSize:'12px', color:'darkblue', marginTop:'1rem'}}>{response}</p>
                         <ButtonWrapper onClick={newDeal}>Add New Deal</ButtonWrapper>
-                    </Container1>
+                        </div>
+                   
 
                 ) : (
 
@@ -180,38 +179,46 @@ const AddDeal = () => {
                     
             {/* ---------------New Transaction Form------------------- */}
             <Container1>
+<br/>
                 <Row>
-                  <Col sm={3}>
+                  <Col sm={6}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Client Name</Form.Label>
                       <Form.Control size="sm" type="text" value={deal.clientName} onChange={handleInputChange} name='clientName'/>
                     </Form.Group>
                   </Col>
 
-                  <Col sm={3}>
+                  <Col sm={6}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Originator</Form.Label>
                       <Form.Control size="sm" type="text" value={deal.originator} onChange={handleInputChange} name='originator'/>
                     </Form.Group>
                   </Col>
 
-                  <Col sm={3}>
+                  <Col sm={6}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Transactor</Form.Label>
                       <Form.Control size="sm" type="text" value={deal.transactor} onChange={handleInputChange} name='transactor'/>
                     </Form.Group>
                   </Col>
 
-                  <Col sm={3}>
+                  <Col sm={6}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Transactor Legal Lead</Form.Label>
                       <Form.Control size="sm" type="text" value={deal.transactionLegalLead} onChange={handleInputChange} name='transactionLegalLead'/>
                     </Form.Group>
                   </Col>
                 </Row>
+                <br/>
+                <br/>
+                </Container1>
+
+                <br/>
+                <br/>
+
 
                   {/*----------- Deal Profile Fess and Reimbursement ---------------- */}
-
+<Container1>
                 <div className='mt-2'>
                   <PWrapper>
                     <h6 className="pt-1 mt-1" style={{fontSize: "13px"}}>Deal Profile Fees & Reimbursement</h6>
@@ -270,28 +277,28 @@ const AddDeal = () => {
                   </Row>
 
                   <Row className='mt-1'>
-                    <Col sm={3}>
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Deal Size (NGN)</Form.Label>
                         <Form.Control size="sm" type="number" value={deal.dealSize} onChange={handleInputChange} name='dealSize'/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={3}>
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Coupon(%)</Form.Label>
                         <Form.Control size="sm" type="number" value={deal.coupon} onChange={handleInputChange} name='coupon'/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={3}>
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Tenor(yrs)</Form.Label>
                         <Form.Control size="sm" type="number" value={deal.tenor} onChange={handleInputChange}  name='tenor'/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={3}>
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Moratorium(yrs)</Form.Label>
                         <Form.Control size="sm" type="number" value={deal.moratorium} onChange={handleInputChange} name='moratorium'/>
@@ -299,7 +306,8 @@ const AddDeal = () => {
                     </Col>
                   </Row>
 
-                  <Row className='mt-1' >
+                  <Row className='mt-1 pt-3' >
+
                     <Col sm={4}>
                       <Form.Group className="">
                         <Form.Label>Repayment Frequency</Form.Label>
@@ -332,29 +340,35 @@ const AddDeal = () => {
                     </Col>
                   </Row>
 
-                  <Row className='mt-1' >
-                    <Col sm={3}>
+
+
+
+
+
+
+                  <Row className='mt-1 pt-3' >
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Credit Approval</Form.Label>
                         <Form.Control size="sm" type="date" value={deal.creditApproval} onChange={handleInputChange} name='creditApproval'/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={3}>
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Fee Letter</Form.Label>
                         <Form.Control size="sm" type="date" value={deal.feeLetter} onChange={handleInputChange} name='feeLetter'/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={3}>
+                    <Col sm={6} className='pt-3'>
                       <Form.Group className="pt-1">
                         <Form.Label>Excepted Close</Form.Label>
                         <Form.Control size="sm" type="date" value={deal.expectedClose} onChange={handleInputChange} name='expectedClose'/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={3}>
+                    <Col sm={6} className='pt-3'>
                       <Form.Group className="pt-1">
                         <Form.Label>Actual Close</Form.Label>
                         <Form.Control size="sm" type="date" value={deal.actualClose} onChange={handleInputChange} name='actualClose'/>
@@ -362,8 +376,17 @@ const AddDeal = () => {
                     </Col>
                   </Row>
                 </div>
+                <br/>
+                <br/>
+                </Container1>
+                <br/>
+                <br/>
+
 
                   {/*-------------------- Structuring Fees -------------------------- */}
+                  <br/>
+                  <br/>
+                  <Container1>
                 <div className='mt-2'>
                   <PWrapper>
                     <h6 className="pt-1" style={{fontSize: "13px"}}>Structuring Fees</h6>
@@ -392,6 +415,12 @@ const AddDeal = () => {
                     </Col>
                   </Row>
 
+
+
+
+
+
+
                   <Row>
                     <Col sm={4} className='my-0 py-0'>
                       <Form.Group className="pt-1">
@@ -415,14 +444,17 @@ const AddDeal = () => {
                     </Col>
                   </Row>
                 </div>
+                <br/>
+                <br/>
+                </Container1>
 
                   {/*-------------------- Radio Buttons ------------------------------ */}
-
                 <div className='mt-2' name='dealCategory'>
                   <PWrapper>
                     <h6 className="pt-1" style={{fontSize: "13px"}}>Deal Category</h6>
                   </PWrapper>
 
+                  <Container1>
                   <div name='greenCategory'>
                     <PWrapper>
                       <h6 className="pt-1" style={{fontSize: "10px", color: "green"}}>Green Category</h6>
@@ -464,6 +496,16 @@ const AddDeal = () => {
                       <Form.Check inline label="No" type="radio" name="greenF" value={deal.greenF} onChange={handleInputChange} defaultChecked />
                     </Form.Group>
                   </div>
+                  <br/>
+                  <br/>
+                  </Container1>
+                  <br/>
+                    <br/>
+
+
+
+
+                  <Container1>
 
                   <div name='amberCategory'>
                     <PWrapper>
@@ -500,7 +542,13 @@ const AddDeal = () => {
                       <Form.Check inline label="No" type="radio" name="amberE" value={deal.amberE} onChange={handleInputChange} defaultChecked />
                     </Form.Group>
                   </div>
+                  </Container1>
+                  <br/>
+                  <br/>
 
+
+
+<Container1>
                   <div name='redCategory'>
                     <PWrapper>
                       <h6 className="pt-1" style={{fontSize: "10px", color: "red"}}>Red Category</h6>
@@ -524,8 +572,11 @@ const AddDeal = () => {
                       <Form.Check inline label="No" type="radio" name="redC" value={deal.redC} onChange={handleInputChange} />
                     </Form.Group>
                   </div>
+                  </Container1>
+
+
                 </div>
-              </Container1>
+              
                 
                 {/* ------------------  Submit Form Button--------------------  */}
                     <ButtonWrapper onClick={saveDeal}>
@@ -535,10 +586,9 @@ const AddDeal = () => {
                     <ButtonWrapper style={{backgroundColor:"grey"}} >
                         Cancel
                     </ButtonWrapper>
-
                     </Form>
                   )};
-                </Container>
+                  </Container>
             </FormWrapper>
         </React.Fragment>
     )
