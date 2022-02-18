@@ -36,7 +36,7 @@ export default function App() {
                 <Route exact path='/staff_.id?user'>
                     <StaffView/>
                 </Route>
-                <Route exact path='/new_transactions?user'>
+                <Route exact path='/new_transactions'>
                     <NewTransactions/>
                 </Route>
                 <Route exact path='/staffs?admin'>
