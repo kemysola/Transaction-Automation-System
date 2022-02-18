@@ -26,10 +26,10 @@ CREATE TABLE TB_TRS_USERS(
     level VARCHAR(3),
     --Employee Bussiness Performance Data
     hasOriginationTarget BOOLEAN DEFAULT FALSE,
-    originationAmount MONEY DEFAULT 00.0000,
-    guaranteePipeline MONEY DEFAULT 00.0000,
-    greenTransaction MONEY DEFAULT 00.0000,
-    amberTransaction MONEY DEFAULT 00.0000,
+    originationAmount  NUMERIC DEFAULT 00.0000,
+    guaranteePipeline  NUMERIC DEFAULT 00.0000,
+    greenTransaction  NUMERIC DEFAULT 00.0000,
+    amberTransaction  NUMERIC DEFAULT 00.0000,
     --Employee Performance Pay Data
     mandateLetter INT DEFAULT 0,
     creditCommiteeApproval INT DEFAULT 0,
@@ -61,10 +61,10 @@ CREATE TABLE TB_TRS_USERS_AUDIT(
     level VARCHAR(3),
     --Employee Bussiness Performance Data
     hasOriginationTarget BOOLEAN,
-    originationAmount MONEY,
-    guaranteePipeline MONEY,
-    greenTransaction MONEY,
-    amberTransaction MONEY,
+    originationAmount  NUMERIC,
+    guaranteePipeline  NUMERIC,
+    greenTransaction  NUMERIC,
+    amberTransaction  NUMERIC,
     --Employee Performance Pay Data
     mandateLetter INT,
     creditCommiteeApproval INT,
@@ -102,7 +102,9 @@ AFTER INSERT OR UPDATE OR DELETE ON TB_TRS_USERS
 
 
 --This table serves as the central repository for all deals
+
 CREATE TABLE TB_INFRCR_TRANSACTION(
+    createDate DATE DEFAULT CURRENT_DATE,
     transID INT GENERATED ALWAYS AS IDENTITY,
     clientName VARCHAR NOT NULL,
     originator VARCHAR NOT NULL,
@@ -112,7 +114,7 @@ CREATE TABLE TB_INFRCR_TRANSACTION(
     industry VARCHAR NOT NULL, 
     product VARCHAR NOT NULL,
     region VARCHAR(2) NOT NULL,
-    dealSize MONEY NOT NULL,
+    dealSize NUMERIC DEFAULT 00.0000,
     coupon INT,
     tenor INT,
     moratorium INT,
@@ -142,13 +144,13 @@ CREATE TABLE TB_INFRCR_TRANSACTION(
     redD BOOLEAN DEFAULT FALSE, 
     redE BOOLEAN DEFAULT FALSE, 
     --Fees and Reimbursible
-    structuringFeeAmount MONEY DEFAULT 00.0000,
+    structuringFeeAmount NUMERIC DEFAULT 00.0000,
     structuringFeeAdvance INT,
     structuringFeeFinal INT,
 
     guaranteeFee INT,
-    monitoringFee MONEY,
-    reimbursible MONEY,
+    monitoringFee NUMERIC DEFAULT 00.0000,
+    reimbursible NUMERIC DEFAULT 00.0000,
 
     record_entry VARCHAR,
     --Transaction Category
@@ -159,6 +161,7 @@ CREATE TABLE TB_INFRCR_TRANSACTION(
     PRIMARY KEY(transID)
 );
 
+
 --###################[TRANSACTION AUDITITNG BLOCK START]###################
 
 --This trigger propagates all user CUD operations on TB_INFRCR_TRANSACTION table
@@ -167,6 +170,7 @@ CREATE TABLE TB_INFRCR_TRANSACTION_AUDIT(
     stamp             timestamp NOT NULL,
     performed_by            text      NOT NULL,
     
+    createDate DATE DEFAULT CURRENT_DATE,
     transID INT,
     clientName VARCHAR,
     originator VARCHAR,
@@ -176,7 +180,7 @@ CREATE TABLE TB_INFRCR_TRANSACTION_AUDIT(
     industry VARCHAR, 
     product VARCHAR,
     region VARCHAR(2),
-    dealSize MONEY,
+    dealSize NUMERIC,
     coupon INT,
     tenor INT,
     moratorium INT,
@@ -206,19 +210,19 @@ CREATE TABLE TB_INFRCR_TRANSACTION_AUDIT(
     redD BOOLEAN , 
     redE BOOLEAN , 
     --Fees and Reimbursible
-    structuringFeeAmount MONEY
+    structuringFeeAmount NUMERIC,
     structuringFeeAdvance INT,
     structuringFeeFinal INT,
 
     guaranteeFee INT,
-    monitoringFee MONEY,
-    reimbursible MONEY,
+    monitoringFee NUMERIC,
+    reimbursible NUMERIC,
 
     record_entry VARCHAR,
     --Transaction Category
     deal_category VARCHAR,
     notes VARCHAR,
-    closed BOOLEAN DEFAULT FALSE,
+    closed BOOLEAN DEFAULT FALSE
 
 );
 
@@ -239,7 +243,7 @@ CREATE OR REPLACE FUNCTION FUNC_TRS_TRANSACTION_AUDIT() RETURNS TRIGGER AS $TB_I
     END;
 $TB_INFRCR_TRANSACTION_AUDIT$ LANGUAGE plpgsql;
 
-CREATE TRIGGER TR_TRS_USERS_AUDIT
+CREATE TRIGGER TR_TRS_TRANSACTION_AUDIT
 AFTER INSERT OR UPDATE OR DELETE ON TB_INFRCR_TRANSACTION
     FOR EACH ROW EXECUTE FUNCTION FUNC_TRS_TRANSACTION_AUDIT();
 

@@ -158,3 +158,9 @@ BODY =>
 
 LANDING PAGE: [http://localhost:5000/api/v1/auth/]
 METHOD = GET
+
+REPORTING BY DATE PAGE: [http://localhost:5000/api/v1/report/2022-02-17/2022-02-17/''] #When no client_name is not specified
+METHOD = GET
+
+REPORTING BY DATE PAGE: [http://localhost:5000/api/v1/report/2022-02-17/2022-02-17/Exalz Holdings] #When client_name is specified
+METHOD = GET
