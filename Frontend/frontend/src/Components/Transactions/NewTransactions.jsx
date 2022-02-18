@@ -277,28 +277,28 @@ const AddDeal = () => {
                   </Row>
 
                   <Row className='mt-1'>
-                    <Col sm={3}>
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Deal Size (NGN)</Form.Label>
                         <Form.Control size="sm" type="number" value={deal.dealSize} onChange={handleInputChange} name='dealSize'/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={3}>
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Coupon(%)</Form.Label>
                         <Form.Control size="sm" type="number" value={deal.coupon} onChange={handleInputChange} name='coupon'/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={3}>
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Tenor(yrs)</Form.Label>
                         <Form.Control size="sm" type="number" value={deal.tenor} onChange={handleInputChange}  name='tenor'/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={3}>
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Moratorium(yrs)</Form.Label>
                         <Form.Control size="sm" type="number" value={deal.moratorium} onChange={handleInputChange} name='moratorium'/>
@@ -306,7 +306,7 @@ const AddDeal = () => {
                     </Col>
                   </Row>
 
-                  <Row className='mt-1' >
+                  <Row className='mt-1 pt-3' >
 
                     <Col sm={4}>
                       <Form.Group className="">
@@ -346,29 +346,29 @@ const AddDeal = () => {
 
 
 
-                  <Row className='mt-1' >
-                    <Col sm={3}>
+                  <Row className='mt-1 pt-3' >
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Credit Approval</Form.Label>
                         <Form.Control size="sm" type="date" value={deal.creditApproval} onChange={handleInputChange} name='creditApproval'/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={3}>
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Fee Letter</Form.Label>
                         <Form.Control size="sm" type="date" value={deal.feeLetter} onChange={handleInputChange} name='feeLetter'/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={3}>
+                    <Col sm={6} className='pt-3'>
                       <Form.Group className="pt-1">
                         <Form.Label>Excepted Close</Form.Label>
                         <Form.Control size="sm" type="date" value={deal.expectedClose} onChange={handleInputChange} name='expectedClose'/>
                       </Form.Group>
                     </Col>
 
-                    <Col sm={3}>
+                    <Col sm={6} className='pt-3'>
                       <Form.Group className="pt-1">
                         <Form.Label>Actual Close</Form.Label>
                         <Form.Control size="sm" type="date" value={deal.actualClose} onChange={handleInputChange} name='actualClose'/>
