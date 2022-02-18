@@ -11,7 +11,7 @@ const register = (username, email, password) => {
 };
 const login = async(email, password) => {
     return await axios   
-        .post("app/login", {
+        .post("auth/app/login", {
             email,
             password,
         })
