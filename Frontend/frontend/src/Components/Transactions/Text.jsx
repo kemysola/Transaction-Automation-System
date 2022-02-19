@@ -145,7 +145,6 @@ return (
 {/* ----------------------------------------- Client Data ------------------------------------ */}
 		<Tab eventKey="first" title="TRANSACTION">
         <br/>
-        <Container>
         <Container1>
             <Container>
                 <Row className='mt-3 pt-3'>
@@ -172,10 +171,13 @@ return (
                 </Row>
                 <br/>
                 <br/>
+           
+                
                 </Container>
                 </Container1>
-                </Container>
+             
 		</Tab>
+        
 {/*------------------------------------------ End Tab -------------------------------------- */}
 
 {/*--------------------------------------- Deal Profile Fees and Reimbursement -------------- */}
@@ -405,8 +407,11 @@ return (
 {/*----------------------------------------------     ----------------------- --------------- */}
 
         <Tab eventKey="seventh" title="DEAL CATEGORY"  style={{fontSize:'12px'}}>
-        <Tabs defaultActiveKey="first">
+            <br/>
+          
+        <Tabs defaultActiveKey="first" className='text-secondary'>
         <Tab eventKey="first" title="RED TRANSACTION CATEGORY" >
+            <br/>
         <Container1>
         <div id='redCategory' className='pt-2 mt-1 mb-3 pb-3'>
             <br/>
