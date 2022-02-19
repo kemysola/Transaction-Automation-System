@@ -16,6 +16,7 @@ import UpdateStaff from './Pages/Staffs/UpdateStaff';
 import UpdateTransaction from './Pages/Transactions/UpdateTransaction';
 import NewTransaction from './Pages/Transactions/NewTransaction';
 import {useHistory, Redirect} from 'react-router-dom';
+import Text from './Components/Transactions/Text'
 
 
 import AllStaff from './Pages/Staffs/AllStaff';
@@ -59,6 +60,9 @@ export default function App() {
                 </Route>
                 <Route path='all_staffs'>
                     <AllStaff/>
+                </Route>
+                <Route path='/texting'>
+                   <Text/>
                 </Route>
                 
             </Switch>

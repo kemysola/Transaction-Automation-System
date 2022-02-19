@@ -1,4 +1,4 @@
-import React, { useState, useRef} from "react";
+import React, { useState, useRef, useEffect} from "react";
 import { useLocation,Redirect } from "react-router-dom";
 import { isEmail } from "validator";
 import CheckButton from "react-validation/build/button";
@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import axios from 'axios'
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
-import {Container,Row,Col,Stack, Form as ReactForm} from 'react-bootstrap';
+import {Container,Row,Col,Stack, Form as ReactForm, Spinner, Button} from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
 
 
@@ -42,9 +42,17 @@ const required = (value) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const [checked, setChecked] = useState(false);
     const [message, setMessage] = useState("");
     const location = useLocation();
 
+
+    useEffect(() => {
+      // storing input name
+     
+      localStorage.setItem("user", JSON.stringify(email));
+    },[email]);
+  
     const onChangeEmail = (e) => {
       const email = e.target.value;
       setEmail(email);
@@ -57,29 +65,32 @@ const required = (value) => {
 
       const handleLogin = (e) => {
         e.preventDefault();
-        setMessage("");
+       setMessage("");
         setLoading(true);
         form.current.validateAll();
         if (checkBtn.current.context._errors.length === 0) {
           AuthService.login(email, password).then(
             () => {
+              console.log('good')
               history.push('/landing')
               window.location.reload();
             },
             (error) => {
               const resMessage =
-                /*(error.response &&
+                (error.response &&
                   error.response.data &&
                   error.response.data.message) ||
                 error.message ||
-                error.toString();*/
+                error.toString();
               setLoading(false);
-              setMessage('User not found');
-
+              setMessage('Ooops! User Not Found');
             }
           );
         } else {
             setLoading(false);
+           
+            
+          
 
     }
   };
@@ -147,7 +158,8 @@ const required = (value) => {
                         <Col sm={12} className=''>
                         <ReactForm.Group>
                             <br></br>
-                           <input type='checkbox'/>
+                           <input type='checkbox'  onChange={(e) => setChecked(e.target.checked)}/>
+                           {" "}
                            <p className='' style={{display:'inline'}}> Remember Me</p>
                        </ReactForm.Group>
                         </Col>
@@ -160,22 +172,27 @@ const required = (value) => {
                                
                          <div className="">
                              <br/>
+                           {loading && (
+                <div>
+                  <Spinner animation="border" variant="success" />
+                  <Spinner animation="border" variant="success" />
+
+                </div>
+                           )}
 
             <ReactForm.Group className=''>
             <ReactForm.Control size="sm" type='submit' disabled={loading} style={{background:'#4cab48', color:'white', fontWeight:'light'}}/>
-            {loading && (
-                <span className="spinner-border spinner-border-sm"></span>
-              )}
+            
               <br/>
 
             {message && (
             <div className="form-group">
-              <div className="secondary alert-light" role="alert">
+              <div className="secondary alert-danger" role="alert">
                 {message}
               </div>
             </div>
           )}
-            {/*<button className="btn btn-primary btn-block" disabled={loading}>
+         {/*<button className="btn btn-primary btn-block" disabled={loading}>
               {loading && (
                 <span className="spinner-border spinner-border-sm"></span>
               )}
@@ -193,7 +210,7 @@ const required = (value) => {
             </div>
           )}*/}
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
-              </Form>
+              </Form>    
               </BorderDiv>
     </Container>
     )}

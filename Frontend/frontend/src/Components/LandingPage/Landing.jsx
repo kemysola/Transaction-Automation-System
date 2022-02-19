@@ -13,6 +13,7 @@ const LandingWrapper = styled.div`
 
 
 const Landing =()=>{
+    
     return(
         <React.Fragment>
             <Navbar/>
