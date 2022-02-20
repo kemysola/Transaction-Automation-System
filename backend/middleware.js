@@ -70,11 +70,17 @@ const verifyUser = async (req, res, next) => {
           const res_ = await client.query(update_db, user_data)                   
           await client.query('COMMIT')
 
+          res.setHeader("Activated-Email",res_.rows[0]['email']);
+          res.setHeader("Activation-Status",res.statusCode = 200);
+          res.setHeader("Activation-Message","Your Account is now Active");
+
+        //   res.redirect('http://localhost:3000/login');
           res.json({
               status: (res.statusCode = 200),
               message: "Your Account is now Active",
               userEmail: res_.rows[0]['email']
             });
+          
         }
     } catch (err) {
         console.error(err.stack);

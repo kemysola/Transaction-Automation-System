@@ -81,7 +81,7 @@ router.post("/onboard", verifyTokenAndAdmin, async (req, res) => {
     const userEmail = res_.rows[0].email;
     const actvToken = res_.rows[0].activationcode
     const user = res_.rows[0].firstname + ' ' + res_.rows[0].lastname 
-    console.log(actvToken)
+  
     nodemailer.sendConfirmationEmail(
       'InfraCredit',
       userEmail,

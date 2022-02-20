@@ -62,22 +62,19 @@ router.post("/app/login", async (req, res) => {
 
 
 // User Authentication with Azure Active Directory
-AADParameters = {
+const AADParameters = {
   tenant : process.env.tenant,
   authorityHostUrl : 'https://login.windows.net',
   clientId : process.env.clientID,
-  redirectUri: 'http://localhost:3000/login', //'http://localhost:5000/api/v1/auth/app/login', //This url must be registerd during application registration in Azure (Reference in resources.md file)
+  redirectUri: 'http://localhost:5000/api/v1/auth/app/login',//'http://localhost:3000/login', //, //This url must be registerd during application registration in Azure (Reference in resources.md file)
   clientSecret: process.env.value
 };
 
-
-const {tenant, authorityHostUrl, clientId, clientSecret, redirectUri} = AADParameters
-
 const config = {
   auth: {
-      clientId,
-      authority: authorityHostUrl + '/' + tenant,
-      clientSecret
+      clientId: AADParameters.clientId,
+      authority: AADParameters.authorityHostUrl + '/' + AADParameters.tenant,
+      clientSecret: AADParameters.clientSecret
   },
   system: {
       loggerOptions: {
@@ -100,27 +97,26 @@ const cca = new msal.ConfidentialClientApplication(config);
 router.get('/', (req, res) => {
     const authCodeUrlParameters = {
         scopes: ["user.read"],
-        redirectUri: "http://localhost:5000/api/v1/auth/app/login",
+        redirectUri:AADParameters.redirectUri
     };
-
     // get url to sign user in and consent to scopes needed for application
     cca.getAuthCodeUrl(authCodeUrlParameters).then((response) => {
         res.redirect(response);
-    }).catch((error) => {
-      console.log(JSON.stringify(error))
-    });
+    }).catch((error) => {console.log(JSON.stringify(error))});
 });
 
 router.get('/app/login', (req, res) => {
     const tokenRequest = {
         code: req.query.code,
         scopes: ["user.read"],
-        redirectUri,
+        redirectUri:AADParameters.redirectUri,
     };
-
     cca.acquireTokenByCode(tokenRequest).then((response) => {
         // console.log("\nResponse: \n:", response);
-        res.sendStatus(200);
+        let user = {email:response.account.username}
+        res.setHeader("User-Email",user.email);
+        res.redirect('http://localhost:3000/login');
+        // res.sendStatus(200);
     }).catch((error) => {
         console.log(error);
     });
