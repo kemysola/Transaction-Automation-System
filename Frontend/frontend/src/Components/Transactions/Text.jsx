@@ -1,3 +1,5 @@
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
 import React, { useRef, useState } from 'react';
 import { Form, Container, Row, Col, Stack } from 'react-bootstrap';
 import styled from 'styled-components';
@@ -128,7 +130,7 @@ export default function UpdateTransactions() {
     Service.updateDeal(id, data)
   }
 
-  return (
+return (
     <React.Fragment>
       {/* ---------------------- Update Transaction Forms ----------- */}
         <FormWrapper>
@@ -136,26 +138,31 @@ export default function UpdateTransactions() {
             <Form> 
               <PWrapper>
                 <h5>Update Transaction</h5>
-              </PWrapper>
-                
-          {/* --------------- Update Transaction Form ------------- */}
-              <Container1>
-                <Row className='mt-1'>
-                  <Col sm={4}>
+              </PWrapper>      
+	<div> 
+       
+    <Tabs defaultActiveKey="first" style={{fontSize:'12px'}}>
+{/* ----------------------------------------- Client Data ------------------------------------ */}
+		<Tab eventKey="first" title="TRANSACTION">
+        <br/>
+        <Container1>
+            <Container>
+                <Row className='mt-3 pt-3'>
+                  <Col sm={12}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Client Name</Form.Label>
                     <Form.Control size="sm" type="text" placeholder="" id='client' ref={clientName}/>
                     </Form.Group>
                   </Col>
 
-                  <Col sm={4}>
+                  <Col sm={12}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Originator</Form.Label>
                     <Form.Control size="sm" type="text" placeholder="" id='originator' ref={originator}/>
                     </Form.Group>
                   </Col>
 
-                  <Col sm={4}>
+                  <Col sm={12}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Transactor</Form.Label>
                       <Form.Control size="sm" type="text" placeholder=""  id='transactor' ref={transactor}/>
@@ -164,13 +171,21 @@ export default function UpdateTransactions() {
                 </Row>
                 <br/>
                 <br/>
+           
+                
+                </Container>
                 </Container1>
-                <br/>
+             
+		</Tab>
+        
+{/*------------------------------------------ End Tab -------------------------------------- */}
+
+{/*--------------------------------------- Deal Profile Fees and Reimbursement -------------- */}
+		<Tab eventKey="second" title="DEAL PROFILE FEES & REIMBURSEMENT">
+            <br/>
+            <Container1>
                 <br/>
 
-                  {/*----------- Deal Profile Fess and Reimbursement ---------------- */}
-<Container1>
-<br/>
                 <div className='mt-2'>
                   <PWrapper>
                     <h6 className="pt-1 mt-1" style={{fontSize: "13px"}}>Deal Profile Fees & Reimbursement</h6>
@@ -323,14 +338,15 @@ export default function UpdateTransactions() {
                 </div>
                 <br/>
                 </Container1>
+	
+		</Tab>
+{/*---------------------------------------------- End Tab ----------------------------------- */}
 
-                  {/*-------------------- Structuring Fees -------------------------- */}
-              
-                <div className='mt-2'>
-                  <PWrapper>
-                    <h6 className="pt-1" style={{fontSize: "13px"}}>Structuring Fees</h6>
-                  </PWrapper>
+{/*------------------------------------------------ Structuring Fees ------------------------- */}
 
+		<Tab eventKey="third" title="STRUCTURING FEES">
+        <div className='mt-2'>
+                
                   <Container1>
                     <br/>
                   <Row>
@@ -379,188 +395,56 @@ export default function UpdateTransactions() {
                   <br/>
                   </Container1>
                 </div>
+		</Tab>
 
-                  {/*-------------------- Radio Buttons ------------------------------ */}
 
-                <div className='mt-2' id='dealCategory'>
-                  <PWrapper>
-                    <h6 className="pt-1" style={{fontSize: "13px"}}>Deal Category</h6>
-                  </PWrapper>
-{/*<Container1>
-  <br/>
+{/*--------------------------------------------- End Tab --------------------------------- */}
 
-                  <div id='greenCategory'>
+            <ButtonWrapper type="submit" className='d-flex justify-content-end' onClick={postData}>
+                Submit
+            </ButtonWrapper>
+
+{/*----------------------------------------------     ----------------------- --------------- */}
+
+        <Tab eventKey="seventh" title="DEAL CATEGORY"  style={{fontSize:'12px'}}>
+            <br/>
+          
+        <Tabs defaultActiveKey="first" className='text-secondary'>
+        <Tab eventKey="first" title="RED TRANSACTION CATEGORY" >
+            <br/>
+        <Container1>
+        <div id='redCategory' className='pt-2 mt-1 mb-3 pb-3'>
+            <br/>
                     <PWrapper>
-                      <h6 className="pt-1" style={{fontSize: "10px", color: "green"}}>Green Category</h6>
+                      <h6 className="pt-1" style={{fontSize: "10px", color: "red"}}>Red Category</h6>
                     </PWrapper>
 
                     <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committee approval:</Form.Label>
-                    <Form.Check inline label="Yes" type="radio" name="greenA" ref={greenA}/>
-                      <Form.Check inline label="No" type="radio" name="greenA" ref={greenA}/>
+                      <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
+                      <Form.Check inline label="Yes" type="radio" name="redA" />
+                      <Form.Check inline label="No" type="radio" name="redA" />
                     </Form.Group>
 
                     <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Guarantee Document in agreed form:</Form.Label>
-                    <Form.Check inline label="Yes" type="radio" name="greenB" ref={greenB}/>
-                      <Form.Check inline label="No" type="radio" name="greenB" ref={greenB} />
+                      <Form.Label style={{paddingRight: "1rem"}}>Due dilligence ongoing:</Form.Label>
+                      <Form.Check inline label="Yes" type="radio" name="redB" />
+                      <Form.Check inline label="No" type="radio" name="redB" />
                     </Form.Group>
 
                     <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond Issue appointed or selected:</Form.Label>
-                    <Form.Check inline label="Yes" type="radio" name="greenC" ref={greenC}/>
-                    <Form.Check inline label="No" type="radio" name="greenC" ref={greenC}/>
-                    </Form.Group>
-
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Already filed or expected filing with SEC (or equivalent Exchange) within 6 weeks:</Form.Label>
-                    <Form.Check inline label="Yes" type="radio" name="greenD" ref={greenD}/>
-                    <Form.Check inline label="No" type="radio" name="greenD" ref={greenD}/>
-                    </Form.Group>
-
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs to Financial Close have been satisfactorily met or committed by the Client for completion on or before Financial Close:</Form.Label>
-                    <Form.Check inline label="Yes" type="radio" name="greenE" ref={greenE}/>
-                      <Form.Check inline label="No" type="radio" name="greenE" ref={greenE}/>
-                    </Form.Group>
-
-                    <Form.Group >
-                      <Form.Label style={{paddingRight: "1rem"}}>Financial Close expected within 3-6 months:</Form.Label>            
-                      <div className='d-flex align-items-end'>
-                    <Form.Check inline label="Yes" type="radio" name="greenF" ref={greenF}/>
-                    <Form.Check inline label="No" type="radio" name="greenF" ref={greenF}/>
-                    </div>
+                      <Form.Label style={{paddingRight: "1rem"}}>Pending Credit Committee approval:</Form.Label>
+                      <Form.Check inline label="Yes" type="radio" name="redC" />
+                      <Form.Check inline label="No" type="radio" name="redC" />
                     </Form.Group>
                   </div>
-                  <br/>
-</Container1>*/}
+                  
+                  </Container1>
+        </Tab>
 
-          <br/>
+{/*------------------------------------- ------------------------- ------------------------- */}
+        <Tab eventKey="eigth" title="AMBER TRANSACTION CATEGORY">
         <Container1>
-        <div id='greenCategory'>
-                    <PWrapper>
-                      <h6 className="pt-1" style={{fontSize: "10px", color: "green"}}>Green Category</h6>
-                    </PWrapper>
-          <Form.Group>
-          <Row>
-            <Col sm={12}>
-            <Form.Group>
-            <Row>
-              <Col>
-                      <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committee approval:</Form.Label>
-               </Col>  
-               <Col>    
-                    <Form.Check inline label="Yes" type="radio" name="greenA" ref={greenA}/>
-                      <Form.Check inline label="No" type="radio" name="greenA" ref={greenA}/>
-                     
-              </Col>
-              </Row>  
-                    </Form.Group>  
-            </Col>
-
-            {/*--------------------------------------------- b --------------- */}
-            <Col sm={12}>
-            <Form.Group>
-            <Row>
-              <Col>
-              <Form.Label style={{paddingRight: "1rem"}}>Guarantee Document in agreed form:</Form.Label>
-               </Col>  
-               <Col>    
-               <Form.Check inline label="Yes" type="radio" name="greenB" ref={greenB}/>
-                      <Form.Check inline label="No" type="radio" name="greenB" ref={greenB} />         
-              </Col>
-              </Row>  
-                    </Form.Group>
-                  
-            </Col>
-
-
-            {/**------------------------------------------------- */}
-            <Col sm={12}>
-            <Form.Group>
-            <Row>
-              <Col>
-              <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond Issue appointed or selected:</Form.Label>
-               </Col>  
-               <Col>    
-                    <Form.Check inline label="Yes" type="radio" name="greenC" ref={greenC}/>
-                      <Form.Check inline label="No" type="radio" name="greenC" ref={greenC}/>  
-              </Col>
-              </Row> 
-                    </Form.Group>
-                  
-            </Col>
-
-            {/*------------------------------------------ */}
-            <Col sm={12}>
-            <Form.Group>
-            <Row>
-              <Col>
-              <Form.Label style={{paddingRight: "1rem"}}>Already filed or expected filing with SEC (or equivalent Exchange) within 6 weeks:</Form.Label>
-               </Col>  
-               <Col>    
-                    <Form.Check inline label="Yes" type="radio" name="greenD" ref={greenD}/>
-                      <Form.Check inline label="No" type="radio" name="greenD" ref={greenD}/>
-                     
-              </Col>
-              </Row>    
-                    </Form.Group>
-                  
-            </Col>
-
-
-            {/*-------------------------------------------------------- */}
-            <Col sm={12}>
-            <Form.Group>
-            <Row>
-              <Col>
-              <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs to Financial Close have been satisfactorily met or committed by the Client for completion on or before Financial Close:</Form.Label>
-               </Col>  
-               <Col>    
-                    <Form.Check inline label="Yes" type="radio" name="greenE" ref={greenE}/>
-                      <Form.Check inline label="No" type="radio" name="greenE" ref={greenE}/>  
-              </Col>
-              </Row>
-                    </Form.Group>
-                  
-            </Col>
-            {/*-------------------------------------------------- */}
-            <Col sm={12}>
-            <Form.Group>
-            <Row>
-              <Col>
-          <Form.Label style={{paddingRight: "1rem"}}>Financial Close expected within 3-6 months:</Form.Label>            
-               </Col>  
-               <Col>    
-                    <Form.Check inline label="Yes" type="radio" name="greenF" ref={greenF}/>
-                      <Form.Check inline label="No" type="radio" name="greenF" ref={greenF}/>
-              </Col>
-              </Row>      
-                    </Form.Group>
-                  
-            </Col>
-         {/*------------------------------------e  */}   
-          </Row>
-          </Form.Group>
-          </div>
-        </Container1>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                  <div id='amberCategory'>
+        <div id='amberCategory'>
                     <PWrapper>
                       <h6 className="pt-1" style={{fontSize: "10px", color: "#FFC200"}}>Amber Category</h6>
                     </PWrapper>
@@ -595,40 +479,123 @@ export default function UpdateTransactions() {
                       <Form.Check inline label="No" type="radio" name="amberE" />
                     </Form.Group>
                   </div>
-
-                  <div id='redCategory'>
+                  </Container1>
+        </Tab>
+{/*-------------------------------------- --------------------------------------------------- */}
+        <Tab eventKey="ninthth" title="GREEN TRANSACTION CATEGORY">
+        <Container1>
+        <div id='greenCategory'>
                     <PWrapper>
-                      <h6 className="pt-1" style={{fontSize: "10px", color: "red"}}>Red Category</h6>
+                      <h6 className="pt-1" style={{fontSize: "10px", color: "green"}}>Green Category</h6>
                     </PWrapper>
+          <Form.Group>
+          <Row>
+            <Col sm={12}>
+            <Form.Group>
+            <Row>
+              <Col>
+                      <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committee approval:</Form.Label>
+               </Col>  
+               <Col>    
+                    <Form.Check inline label="Yes" type="radio" name="greenA" ref={greenA}/>
+                      <Form.Check inline label="No" type="radio" name="greenA" ref={greenA}/> 
+              </Col>
+              </Row>  
+                    </Form.Group>  
+            </Col>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="redA" />
-                      <Form.Check inline label="No" type="radio" name="redA" />
+{/*--------------------------------------------- -------------------------- --------------- */}
+            <Col sm={12}>
+            <Form.Group>
+            <Row>
+              <Col>
+              <Form.Label style={{paddingRight: "1rem"}}>Guarantee Document in agreed form:</Form.Label>
+               </Col>  
+               <Col>    
+               <Form.Check inline label="Yes" type="radio" name="greenB" ref={greenB}/>
+                      <Form.Check inline label="No" type="radio" name="greenB" ref={greenB} />         
+              </Col>
+              </Row>  
                     </Form.Group>
+                  
+            </Col>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Due dilligence ongoing:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="redB" />
-                      <Form.Check inline label="No" type="radio" name="redB" />
+
+{/**---------------------------------------------------------------------------------------- */}
+            <Col sm={12}>
+            <Form.Group>
+            <Row>
+              <Col>
+              <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond Issue appointed or selected:</Form.Label>
+               </Col>  
+               <Col>    
+                    <Form.Check inline label="Yes" type="radio" name="greenC" ref={greenC}/>
+                      <Form.Check inline label="No" type="radio" name="greenC" ref={greenC}/>  
+              </Col>
+              </Row> 
                     </Form.Group>
+                  
+            </Col>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Pending Credit Committee approval:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="redC" />
-                      <Form.Check inline label="No" type="radio" name="redC" />
+{/*--------------------------------------------------------------------------------------- */}
+            <Col sm={12}>
+            <Form.Group>
+            <Row>
+              <Col>
+              <Form.Label style={{paddingRight: "1rem"}}>Already filed or expected filing with SEC (or equivalent Exchange) within 6 weeks:</Form.Label>
+               </Col>  
+               <Col>    
+                    <Form.Check inline label="Yes" type="radio" name="greenD" ref={greenD}/>
+                      <Form.Check inline label="No" type="radio" name="greenD" ref={greenD}/>
+                     
+              </Col>
+              </Row>    
                     </Form.Group>
-                  </div>
-                </div>
-          
-                {/* ------------------  Submit Form Button -----------*/}
-              <ButtonWrapper type="submit" className='d-flex justify-content-end' onClick={postData}>
-                Submit
-              </ButtonWrapper>
-
-            </Form>
-          </Container>
-        </FormWrapper>
-    </React.Fragment>
-  )
+                  
+            </Col>
+{/*---------------------------------------------------------------------------------------- */}
+            <Col sm={12}>
+            <Form.Group>
+            <Row>
+              <Col>
+              <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs to Financial Close have been satisfactorily met or committed by the Client for completion on or before Financial Close:</Form.Label>
+               </Col>  
+               <Col>    
+                    <Form.Check inline label="Yes" type="radio" name="greenE" ref={greenE}/>
+                      <Form.Check inline label="No" type="radio" name="greenE" ref={greenE}/>  
+              </Col>
+              </Row>
+                    </Form.Group>
+                  
+            </Col>
+{/*-------------------------------------------------------------------------------------- */}
+            <Col sm={12}>
+            <Form.Group>
+            <Row>
+              <Col>
+          <Form.Label style={{paddingRight: "1rem"}}>Financial Close expected within 3-6 months:</Form.Label>            
+               </Col>  
+               <Col>    
+                    <Form.Check inline label="Yes" type="radio" name="greenF" ref={greenF}/>
+                      <Form.Check inline label="No" type="radio" name="greenF" ref={greenF}/>
+              </Col>
+              </Row>      
+                    </Form.Group>
+                  
+            </Col>
+{/*-------------------------------------------------------------------------------------------- */}   
+          </Row>
+          </Form.Group>
+          </div>
+        </Container1>
+        </Tab>
+        </Tabs>
+        </Tab>   
+	    </Tabs>
+	    </div>
+        </Form>
+    </Container>
+    </FormWrapper>
+</React.Fragment>
+);
 }
