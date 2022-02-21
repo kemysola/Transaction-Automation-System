@@ -62,7 +62,7 @@ export default function App() {
                 <Route path='all_staffs'>
                     <AllStaff/>
                 </Route>
-                <Route path='/texting'>
+                <Route path='/Pages'>
                   <Text/>
                 </Route>
                 

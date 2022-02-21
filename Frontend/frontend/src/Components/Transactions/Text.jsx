@@ -40,7 +40,6 @@ const PWrapper = styled.p`
 `;
 
 export default function UpdateTransactions() {
-
   const clientName = useRef("");
   const originator = useRef("");
   const transactor = useRef("");
@@ -170,12 +169,9 @@ return (
                   </Col>
                 </Row>
                 <br/>
-                <br/>
-           
-                
+                <br/>      
                 </Container>
-                </Container1>
-             
+                </Container1> 
 		</Tab>
         
 {/*------------------------------------------ End Tab -------------------------------------- */}
@@ -185,7 +181,6 @@ return (
             <br/>
             <Container1>
                 <br/>
-
                 <div className='mt-2'>
                   <PWrapper>
                     <h6 className="pt-1 mt-1" style={{fontSize: "13px"}}>Deal Profile Fees & Reimbursement</h6>
@@ -346,12 +341,16 @@ return (
 
 		<Tab eventKey="third" title="STRUCTURING FEES">
         <div className='mt-2'>
+
                 
                   <Container1>
+
                     <br/>
                   <Row>
                     <Col sm={6} className='my-0 py-0'>
                       <Form.Group>
+                      <button href='#greenTransaction'>Prev</button>
+
                         <Form.Label>Amount(NGN)</Form.Label>
                       <Form.Control size="sm" type="text" placeholder="" id='amount' ref={amount}/>
                       </Form.Group>
@@ -400,10 +399,7 @@ return (
 
 {/*--------------------------------------------- End Tab --------------------------------- */}
 
-            <ButtonWrapper type="submit" className='d-flex justify-content-end' onClick={postData}>
-                Submit
-            </ButtonWrapper>
-
+           
 {/*----------------------------------------------     ----------------------- --------------- */}
 
         <Tab eventKey="seventh" title="DEAL CATEGORY"  style={{fontSize:'12px'}}>
@@ -415,6 +411,7 @@ return (
         <Container1>
         <div id='redCategory' className='pt-2 mt-1 mb-3 pb-3'>
             <br/>
+
                     <PWrapper>
                       <h6 className="pt-1" style={{fontSize: "10px", color: "red"}}>Red Category</h6>
                     </PWrapper>
@@ -566,6 +563,7 @@ return (
               </Col>
               </Row>
                     </Form.Group>
+
                   
             </Col>
 {/*-------------------------------------------------------------------------------------- */}
@@ -578,6 +576,11 @@ return (
                <Col>    
                     <Form.Check inline label="Yes" type="radio" name="greenF" ref={greenF}/>
                       <Form.Check inline label="No" type="radio" name="greenF" ref={greenF}/>
+
+                      <ButtonWrapper type="submit" className='d-flex justify-content-end' onClick={postData}>
+                Submit
+            </ButtonWrapper>
+
               </Col>
               </Row>      
                     </Form.Group>
@@ -599,3 +602,4 @@ return (
 </React.Fragment>
 );
 }
+
