@@ -18,22 +18,18 @@ import NewTransaction from './Pages/Transactions/NewTransaction';
 import {useHistory, Redirect} from 'react-router-dom';
 import Text from './Pages/Transactions/Text';
 import NewText from './Pages/Transactions/NewText';
-
-
-
-
 import AllStaff from './Pages/Staffs/AllStaff';
 import './App.css';
 
 
 
 export default function App() {
-   // const history = useHistory()
-    //useEffect(() =>{
-        //window.location.href='https://login.windows.net'
-        //Redirect('/login')
+   const history = useHistory()
+    useEffect(() =>{
+        window.location.href='https://login.windows.net'
+    
        
-    //}, [])
+   }, [])
     return (
         <React.Fragment>
             <Switch>

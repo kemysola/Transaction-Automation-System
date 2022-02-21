@@ -391,9 +391,6 @@ const AddDeal = () => {
 
 </Tab>
 
-
-
-
 <Tab eventKey="third" title="STRUCTURING FEES">
     <br/>
     <br/>
