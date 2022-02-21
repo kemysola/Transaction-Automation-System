@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Card, Row, Col,Stack, Container} from 'react-bootstrap';
 import styled from 'styled-components';
 import SubCards from './SubCards';
@@ -11,6 +11,15 @@ import {Link} from 'react-router-dom'
 
 
 const MainCards =()=>{
+    const [user, setUser] = useState()
+    useEffect(() =>{
+        localStorage.getItem('user');
+
+    },[user])
+
+
+
+
     return(
         <React.Fragment>
             <Container>

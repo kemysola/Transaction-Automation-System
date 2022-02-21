@@ -15,17 +15,25 @@ import StaffDatabase from './Components/Staffs/StaffDatabase';
 import UpdateStaff from './Pages/Staffs/UpdateStaff';
 import UpdateTransaction from './Pages/Transactions/UpdateTransaction';
 import NewTransaction from './Pages/Transactions/NewTransaction';
-
+import {useHistory, Redirect} from 'react-router-dom';
+import Text from './Pages/Transactions/Text';
+import NewText from './Pages/Transactions/NewText';
 import AllStaff from './Pages/Staffs/AllStaff';
 import './App.css';
 
 
 
 export default function App() {
+   const history = useHistory()
+    useEffect(() =>{
+        window.location.href='https://login.windows.net'
+    
+       
+   }, [])
     return (
         <React.Fragment>
             <Switch>
-                <Route exact path="/">
+                <Route exact path="/login">
                     <Main/>
                 </Route>
                 <Route path='/landing'>
@@ -52,7 +60,12 @@ export default function App() {
                 <Route path='all_staffs'>
                     <AllStaff/>
                 </Route>
-                
+                <Route path='/Pages'>
+                  <Text/>
+                </Route>
+                <Route path='/newPages'>
+                  <NewText/>
+                </Route>
             </Switch>
         </React.Fragment>
     ) 
