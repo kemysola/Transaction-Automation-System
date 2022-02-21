@@ -128,7 +128,8 @@ export default function UpdateTransactions() {
   }
     Service.updateDeal(id, data)
   }
-
+  
+  
 return (
     <React.Fragment>
       {/* ---------------------- Update Transaction Forms ----------- */}
@@ -349,8 +350,6 @@ return (
                   <Row>
                     <Col sm={6} className='my-0 py-0'>
                       <Form.Group>
-                      <button href='#greenTransaction'>Prev</button>
-
                         <Form.Label>Amount(NGN)</Form.Label>
                       <Form.Control size="sm" type="text" placeholder="" id='amount' ref={amount}/>
                       </Form.Group>

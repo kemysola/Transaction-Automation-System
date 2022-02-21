@@ -17,6 +17,8 @@ import UpdateTransaction from './Pages/Transactions/UpdateTransaction';
 import NewTransaction from './Pages/Transactions/NewTransaction';
 import {useHistory, Redirect} from 'react-router-dom';
 import Text from './Pages/Transactions/Text';
+import NewText from './Pages/Transactions/NewText';
+
 
 
 
@@ -65,7 +67,9 @@ export default function App() {
                 <Route path='/Pages'>
                   <Text/>
                 </Route>
-                
+                <Route path='/newPages'>
+                  <NewText/>
+                </Route>
             </Switch>
         </React.Fragment>
     ) 
