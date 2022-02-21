@@ -15,21 +15,18 @@ import StaffDatabase from './Components/Staffs/StaffDatabase';
 import UpdateStaff from './Pages/Staffs/UpdateStaff';
 import UpdateTransaction from './Pages/Transactions/UpdateTransaction';
 import NewTransaction from './Pages/Transactions/NewTransaction';
+import MgtView from './Components/Dashboard/Management/ManagementView';
 import {useHistory, Redirect} from 'react-router-dom';
 import Text from './Pages/Transactions/Text';
 import NewText from './Pages/Transactions/NewText';
 import AllStaff from './Pages/Staffs/AllStaff';
 import './App.css';
+import axios from 'axios'
 
 
 
 export default function App() {
-   const history = useHistory()
-    useEffect(() =>{
-        window.location.href='https://login.windows.net'
-    
-       
-   }, [])
+  
     return (
         <React.Fragment>
             <Switch>
@@ -65,6 +62,9 @@ export default function App() {
                 </Route>
                 <Route path='/newPages'>
                   <NewText/>
+                </Route>
+                <Route path='/dashboard'>
+                    <MgtView/>
                 </Route>
             </Switch>
         </React.Fragment>

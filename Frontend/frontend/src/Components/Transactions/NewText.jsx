@@ -169,14 +169,14 @@ const AddDeal = () => {
             {submitted ? (
                         <div>
                           <p style={{fontWeight:'bold',fontSize:'12px', color:'darkblue', marginTop:'1rem'}}>{response}</p>
-                        <ButtonWrapper onClick={newDeal}>Add New Deal</ButtonWrapper>
+                        <ButtonWrapper onClick={newDeal}>New Deal</ButtonWrapper>
                         </div>
                    
 
                 ) : (
                     <Form> 
                     <PWrapper>
-                        <h5>Add New Transaction</h5>
+                        <h5>New Transaction</h5>
                     </PWrapper>
                     
             {/* ---------------New Transaction Form------------------- */}
