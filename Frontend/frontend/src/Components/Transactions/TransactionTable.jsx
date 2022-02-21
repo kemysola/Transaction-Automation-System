@@ -61,19 +61,19 @@ const DealsTable = (props) => {
     retrieveDeals();
   }, []); 
 
-  useEffect(() => {
-    // Service.getDealById(id)
-    //   .then((res) => {
-    //     const resp = res.data.dealInfo;
-    //     setUniqueDeal(resp);
-    //     console.log(setUniqueDeal)
-    //     console.log("unique lomoooo", uniqueDeal)
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
-    retrieveUniqueDeal();
-  }, []);
+  // useEffect(() => {
+  //   // Service.getDealById(id)
+  //   //   .then((res) => {
+  //   //     const resp = res.data.dealInfo;
+  //   //     setUniqueDeal(resp);
+  //   //     console.log(setUniqueDeal)
+  //   //     console.log("unique lomoooo", uniqueDeal)
+  //   //   })
+  //   //   .catch((e) => {
+  //   //     console.log(e);
+  //   //   });
+  //   retrieveUniqueDeal();
+  // }, []);
 
   const retrieveDeals = () => {
     Service.getAllDeals()
@@ -85,27 +85,27 @@ const DealsTable = (props) => {
       });
   };
 
-  const retrieveUniqueDeal = (id) => {
-    Service.getDealById(id)
-      .then((res) => res.json())
-      .then((res) => {
-        const resp = res.data.dealInfo;
-        setUniqueDeal(res);
-        console.log(resp)
-        console.log("unique lomoooo", res, uniqueDeal)
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  // const retrieveUniqueDeal = (id) => {
+  //   Service.getDealById(id)
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       const resp = res.data.dealInfo;
+  //       setUniqueDeal(res);
+  //       console.log(resp)
+  //       console.log("unique lomoooo", res, uniqueDeal)
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
 
-  };
+  // };
 
   const refreshList = () => {
     retrieveDeals();
   };
 
   const openDeal = (rowIndex) => {
-    retrieveUniqueDeal(rowIndex);
+    // retrieveUniqueDeal(rowIndex);
 
     // console.log("unique 2", uniqueDeal)
 
