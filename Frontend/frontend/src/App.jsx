@@ -39,14 +39,14 @@ export default function App() {
                 <Route exact path='/transaction'>
                     <TransactionView/>
                 </Route>
-                <Route exact path='/staff_.id?user'>
+                <Route exact path='/staff'>
                     <StaffView/>
                 </Route>
                 <Route exact path='/new_transactions'>
                     <NewTransaction/>
                 </Route>
-                <Route exact path='/staffs?admin'>
-                    <StaffDatabase/>
+                <Route exact path='/staffs'>
+                    <AllStaff/>
                 </Route>
                 <Route exact path='/update._{user.id}'>
                     <UpdateStaffs/>
@@ -54,7 +54,7 @@ export default function App() {
                 <Route path='/update_transactions'>
                     <UpdateTransaction/>
                 </Route>
-                <Route path='all_staffs'>
+                <Route path='staffview'>
                     <AllStaff/>
                 </Route>
                 <Route path='/Pages'>
