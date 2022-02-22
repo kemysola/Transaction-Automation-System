@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link} from 'react-router-dom'
 import {useState, useEffect} from 'react';
-import { Switch,Route, useLocation } from 'react-router-dom';
+import { Switch,Route, useLocation , useHistory} from 'react-router-dom';
 import Main from './Components/Auth/MainPage/Main';
 import Landing from './Components/LandingPage/Landing'
 import  UserLogin from './Components/Auth/Login/UserLogin'
@@ -16,7 +16,7 @@ import UpdateStaff from './Pages/Staffs/UpdateStaff';
 import UpdateTransaction from './Pages/Transactions/UpdateTransaction';
 import NewTransaction from './Pages/Transactions/NewTransaction';
 import MgtView from './Components/Dashboard/Management/ManagementView';
-import {useHistory, Redirect} from 'react-router-dom';
+import { Redirect} from 'react-router-dom';
 import Text from './Pages/Transactions/Text';
 import NewText from './Pages/Transactions/NewText';
 import AllStaff from './Pages/Staffs/AllStaff';
@@ -26,10 +26,9 @@ import axios from 'axios'
 
 
 export default function App() {
+    const history = useHistory()
     useEffect(() =>{
-        window.location.href('http://localhost/5000/api/v1/auth'
-        
-
+        window.location.assign('http://localhost/5000/api/v1/auth')
     },[])
   
     return (
