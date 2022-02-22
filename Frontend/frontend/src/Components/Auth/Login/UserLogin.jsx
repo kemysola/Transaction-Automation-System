@@ -53,7 +53,7 @@ const required = (value) => {
     useEffect(() => {
       localStorage.setItem("user", JSON.stringify(email));
     },[email]);
-    console.log(email)
+    //console.log(email)
   
     const onChangeEmail = (e) => {
       //const email = e.target.value;
