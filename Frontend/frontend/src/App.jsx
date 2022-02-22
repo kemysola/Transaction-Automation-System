@@ -27,7 +27,7 @@ import axios from 'axios'
 
 export default function App() {
     useEffect(() =>{
-        //window.location.href('http://localhost/5000/api/v1/auth'
+        window.location.href('http://localhost/5000/api/v1/auth'
         
 
     },[])
