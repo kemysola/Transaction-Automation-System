@@ -25,11 +25,11 @@ import './App.css';
 
 export default function App() {
    const history = useHistory()
-    useEffect(() =>{
+    /*useEffect(() =>{
         window.location.href='https://login.windows.net'
     
        
-   }, [])
+   }, [])*/
     return (
         <React.Fragment>
             <Switch>
