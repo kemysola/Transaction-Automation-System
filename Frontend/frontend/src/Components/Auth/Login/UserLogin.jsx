@@ -35,25 +35,29 @@ const required = (value) => {
     }
   };
 
-  const UserLogin = () => {
+  const UserLogin = (props) => {
+    //destructure props and use the user variable
+    const {user} = props;
     const history = useHistory()
     const form = useRef();
     const checkBtn = useRef()
-    const [email, setEmail] = useState("");
+    const email = user;
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [checked, setChecked] = useState(false);
     const [message, setMessage] = useState("");
     const location = useLocation();
+    
 
 
     useEffect(() => {
       localStorage.setItem("user", JSON.stringify(email));
     },[email]);
+    console.log(email)
   
     const onChangeEmail = (e) => {
-      const email = e.target.value;
-      setEmail(email);
+      //const email = e.target.value;
+      //setEmail(email);
     };
 
     const onChangePassword = (e) => {
@@ -63,6 +67,7 @@ const required = (value) => {
 
       const handleLogin = (e) => {
         e.preventDefault();
+        console.log(email)
        setMessage("");
         setLoading(true);
         form.current.validateAll();
@@ -95,9 +100,28 @@ const required = (value) => {
     return (
         <Container className=''>
           <BorderDiv>
-                <Form onSubmit={handleLogin} ref={form}>
+        {/* ----------------- Test the header by passing props ------------- */}
+            <input value={user}/>
+           
+                {/*<Form onSubmit={handleLogin} ref={form}>
 
-                    <Row className='py-2 mt-2'>
+                    
+
+                        <Col sm={12}>
+                        <label className=''>Email Address</label>
+                        <br/>
+                        <Input size="md" 
+                        //type="email" 
+                       // name="email"
+                        value={user}
+                        //onChange={onChangeEmail}
+                        //validations={[required]}
+                        style={{width:'100%'}}
+                        />
+                        </Col>
+    <br/>*/}
+                        <Form onSubmit={handleLogin} ref={form}>
+                        <Row className='py-2 mt-2'>
                     <Stack className='py-2 mt-1'>
                             <article style={{fontSize:'18px',fontWeight:'bold'}} className='pt-3 pb-1 mb-1'>Sign In</article>
                         </Stack>
@@ -105,21 +129,11 @@ const required = (value) => {
                         <ReactForm group>
 
                         </ReactForm>
-
                         <Col sm={12}>
                         <label className=''>Email Address</label>
                         <br/>
-                        <Input size="md" 
-                        type="email" 
-                        name="email"
-                        value={email}
-                        onChange={onChangeEmail}
-                        validations={[required]}
-                        style={{width:'100%'}}
-                        />
-                        </Col>
-                        <br/>
-
+                        <input value={user} style={{width:'100%'}}/>
+            </Col>
                         <Col sm ={12}>
                         <ReactForm.Group className="mb-2 pt-3 mt-1" controlId="exampleForm.ControlInput1">
                         <Row>

@@ -28,7 +28,7 @@ import axios from 'axios'
 export default function App() {
     const history = useHistory()
     useEffect(() =>{
-        window.location.assign('http://localhost/5000/api/v1/auth')
+        //window.location.assign('http://localhost/5000/api/v1/auth')
     },[])
   
     return (
