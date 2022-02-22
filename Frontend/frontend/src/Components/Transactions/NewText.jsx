@@ -459,19 +459,20 @@ const AddDeal = () => {
 </Tab>
 
 
-
+{/*----------------------------------------------- Deal Category ---------------------------------- */}
 
 <Tab eventKey="seventh" title="DEAL CATEGORY"  style={{fontSize:'12px'}}>
     <br/>
     <Tabs defaultActiveKey="first" className='text-secondary'>
     <Tab eventKey="first" title="RED TRANSACTION CATEGORY" >
+      <br/>
     <Container1>
-                  <div name='redCategory'>
+                  <div name='redCategory' className='py-3'>
                     <PWrapper>
-                      <h6 className="pt-1" style={{fontSize: "10px", color: "red"}}>Red Category</h6>
+                      <h6 className="pt-1" style={{fontSize: "10px", color: "red"}}>RED CATEGORY</h6>
                     </PWrapper>
 
-                    <Form.Group>
+                   {/* <Form.Group>
                       <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
                       <Form.Check inline label="Yes" type="radio" name="redA" value={deal.redA} onChange={handleInputChange} defaultChecked/>
                       <Form.Check inline label="No" type="radio" name="redA" value={deal.redA} onChange={handleInputChange} />
@@ -487,7 +488,80 @@ const AddDeal = () => {
                       <Form.Label style={{paddingRight: "1rem"}}>Pending Credit Committee approval:</Form.Label>
                       <Form.Check inline label="Yes" type="radio" name="redC" value={deal.redC} onChange={handleInputChange} defaultChecked/>
                       <Form.Check inline label="No" type="radio" name="redC" value={deal.redC} onChange={handleInputChange} />
-                    </Form.Group>
+                   </Form.Group>*/}
+                  </div>
+                  <div className='pb-2'>
+                    <Row>
+
+                      <Col  sm={12}  >
+                        <Col className='mb-3'>
+                        <Form.Group>
+                        <Row>
+                     
+                          <Col sm={6}>
+                          <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
+                          </Col>
+                          <Col sm={6}>
+                          <Form.Check inline label="Yes" type="radio" name="redA" value={deal.redA} onChange={handleInputChange} defaultChecked/>
+                          <Form.Check inline label="No" type="radio" name="redA" value={deal.redA} onChange={handleInputChange} />
+                        </Col>
+                        </Row>
+                        </Form.Group>
+                      </Col>
+
+                      <Col className='mb-3'>
+                      <Form.Group>
+                      <Row>
+                        <Col sm={6}>
+                        <Form.Label style={{paddingRight: "1rem"}}>Due dilligence ongoing:</Form.Label>
+
+                        </Col>
+                        <Col sm={6}>
+                        <Form.Check inline label="Yes" type="radio" name="redB" value={deal.redB} onChange={handleInputChange} defaultChecked/>
+                        <Form.Check inline label="No" type="radio" name="redB" value={deal.redB} onChange={handleInputChange} />  
+                        </Col>
+                      </Row>
+                      </Form.Group>
+                      </Col>
+
+
+
+                      <Col>
+                      <Form.Group>
+                      <Row>
+                        <Col sm={6}>
+                        <Form.Label style={{paddingRight: "1rem"}}>Pending Credit Committee approval:</Form.Label>
+                        </Col>
+
+                        <Col sm={6}>
+                        <Form.Check inline label="Yes" type="radio" name="redC" value={deal.redC} onChange={handleInputChange} defaultChecked/>
+                        <Form.Check inline label="No" type="radio" name="redC" value={deal.redC} onChange={handleInputChange} />
+                        </Col>
+                      </Row>
+                      </Form.Group>
+                      
+                      </Col>
+
+                        
+
+                    
+
+
+
+                      
+                     
+                      
+                    
+                        
+                      
+                  
+                      
+                      
+                      
+                     
+                      </Col>
+                    </Row>
+                    
                   </div>
                   </Container1>
 
