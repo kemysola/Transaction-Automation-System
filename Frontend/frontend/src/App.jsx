@@ -15,21 +15,18 @@ import StaffDatabase from './Components/Staffs/StaffDatabase';
 import UpdateStaff from './Pages/Staffs/UpdateStaff';
 import UpdateTransaction from './Pages/Transactions/UpdateTransaction';
 import NewTransaction from './Pages/Transactions/NewTransaction';
+import MgtView from './Components/Dashboard/Management/ManagementView';
 import {useHistory, Redirect} from 'react-router-dom';
 import Text from './Pages/Transactions/Text';
 import NewText from './Pages/Transactions/NewText';
 import AllStaff from './Pages/Staffs/AllStaff';
 import './App.css';
+import axios from 'axios'
 
 
 
 export default function App() {
-   const history = useHistory()
-    /*useEffect(() =>{
-        window.location.href='https://login.windows.net'
-    
-       
-   }, [])*/
+  
     return (
         <React.Fragment>
             <Switch>
@@ -42,14 +39,14 @@ export default function App() {
                 <Route exact path='/transaction'>
                     <TransactionView/>
                 </Route>
-                <Route exact path='/staff_.id?user'>
+                <Route exact path='/staff'>
                     <StaffView/>
                 </Route>
                 <Route exact path='/new_transactions'>
                     <NewTransaction/>
                 </Route>
-                <Route exact path='/staffs?admin'>
-                    <StaffDatabase/>
+                <Route exact path='/staffs'>
+                    <AllStaff/>
                 </Route>
                 <Route exact path='/update._{user.id}'>
                     <UpdateStaffs/>
@@ -57,7 +54,7 @@ export default function App() {
                 <Route path='/update_transactions'>
                     <UpdateTransaction/>
                 </Route>
-                <Route path='all_staffs'>
+                <Route path='staffview'>
                     <AllStaff/>
                 </Route>
                 <Route path='/Pages'>
@@ -65,6 +62,9 @@ export default function App() {
                 </Route>
                 <Route path='/newPages'>
                   <NewText/>
+                </Route>
+                <Route path='/dashboard'>
+                    <MgtView/>
                 </Route>
             </Switch>
         </React.Fragment>

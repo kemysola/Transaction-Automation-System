@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Row,Col} from 'react-bootstrap';
-import Sidenav from '../../Components/LandingPage/Sidenav';
+import SideNav2 from '../../Components/LandingPage/SideNav2';
 import Navbar from '../../Components/LandingPage/Navbar';
 import StaffDatabase from '../../Components/Staffs/StaffDatabase';
 
@@ -18,7 +18,7 @@ export default function AllStaff() {
             <ViewWrapper>
             <Row>
                 <Col sm={3} style={{padding:'10px'}}>
-                    <Sidenav/>
+                    <SideNav2/>
                 </Col>
                 <Col sm={7}> 
                     <StaffDatabase/>

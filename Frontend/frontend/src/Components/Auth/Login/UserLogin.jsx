@@ -48,8 +48,6 @@ const required = (value) => {
 
 
     useEffect(() => {
-      // storing input name
-     
       localStorage.setItem("user", JSON.stringify(email));
     },[email]);
   

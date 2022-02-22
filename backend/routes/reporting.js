@@ -40,13 +40,33 @@ router.get('/:start_date/:end_date/:client_name', verifyTokenAndAuthorization, a
                 AND POS = 1;
                 `,[start_date, end_date, client_name]
                 );
-
-            if (report_query.rows) { 
+                // console.log(report_query.rows.length)
+            if (report_query.rows.length > 0) { 
     
                 res.status(200).send({
                     status: (res.statusCode = 200),
                     records: report_query.rows
                 })
+            }else{
+                const report_query = await client.query(
+                    `
+                    SELECT
+                            CLIENTNAME, CREATEDATE AS CREATE_DT
+                            ,ORIGINATOR,TRANSACTOR,TRANSACTIONLEGALLEAD,INDUSTRY,PRODUCT,REGION,DEALSIZE,COUPON,TENOR,MORATORIUM
+                            ,REPAYMENTFREQUENCY,AMORTIZATIONSTYLE,MANDATELETTER,CREDITAPPROVAL,FEELETTER
+                            ,EXPECTEDCLOSE,ACTUALCLOSE,STRUCTURINGFEEAMOUNT,STRUCTURINGFEEFINAL,GUARANTEEFEE
+                            ,MONITORINGFEE,REIMBURSIBLE,DEAL_CATEGORY,NOTES,CLOSED
+                        FROM TB_INFRCR_TRANSACTION
+                        WHERE CLIENTNAME = $1
+                        `,[client_name]
+                );
+                if (report_query.rows) { 
+    
+                    res.status(200).send({
+                        status: (res.statusCode = 200),
+                        records: report_query.rows
+                    })
+                }
             }
         }else{
             // if no customer/client name is specified
@@ -73,12 +93,31 @@ router.get('/:start_date/:end_date/:client_name', verifyTokenAndAuthorization, a
                 `,[start_date, end_date]
                 );
             
-            if (report_query.rows) { 
+            if (report_query.rows.length > 0) { 
     
                 res.status(200).send({
                     status: (res.statusCode = 200),
                     records: report_query.rows
                 })
+            }else{
+                const report_query = await client.query(
+                    `
+                    SELECT
+                            CLIENTNAME, CREATEDATE AS CREATE_DT
+                            ,ORIGINATOR,TRANSACTOR,TRANSACTIONLEGALLEAD,INDUSTRY,PRODUCT,REGION,DEALSIZE,COUPON,TENOR,MORATORIUM
+                            ,REPAYMENTFREQUENCY,AMORTIZATIONSTYLE,MANDATELETTER,CREDITAPPROVAL,FEELETTER
+                            ,EXPECTEDCLOSE,ACTUALCLOSE,STRUCTURINGFEEAMOUNT,STRUCTURINGFEEFINAL,GUARANTEEFEE
+                            ,MONITORINGFEE,REIMBURSIBLE,DEAL_CATEGORY,NOTES,CLOSED
+                        FROM TB_INFRCR_TRANSACTION
+                        `
+                );
+                if (report_query.rows) { 
+    
+                    res.status(200).send({
+                        status: (res.statusCode = 200),
+                        records: report_query.rows
+                    })
+                }
             }
         }
         

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Row,Col} from 'react-bootstrap';
-import Sidenav from '../../LandingPage/Sidenav';
+import SideNav2 from '../../LandingPage/SideNav2';
 import Navbar from '../../LandingPage/Navbar';
 import Progress from './Cards/Progress';
 
@@ -20,7 +20,7 @@ export default function MgtView(){
             <ViewWrapper>
             <Row>
                     <Col sm={3} style={{padding:'10px'}}>
-                        <Sidenav/>
+                        <SideNav2/>
                     </Col>
                     <Col sm={7}> 
                         <Progress/>
