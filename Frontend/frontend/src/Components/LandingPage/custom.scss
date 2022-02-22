@@ -6,13 +6,12 @@ $sidebar-color: #b3b8d4;
 $highlight-color: white;
 $icon-bg-color: rgba(255, 255, 255, 0.05);
 $icon-size: 35px;
-
 @import '~react-pro-sidebar/dist/scss/styles.scss';
-
 #header {
     position: relative;
     // width: 260px;
 }
+
 #header .closemenu {
     color: black;
     position: absolute;
@@ -25,52 +24,63 @@ $icon-size: 35px;
     top: 32.5px;
     cursor: pointer;
 }
+
 #header .pro-sidebar {
     width: 100%;
     min-width: 100%;
     height: auto;
     min-height: 100vh;
 }
+
 #header .pro-sidebar.collapsed {
     width: 80px;
     min-width: 80px;
 }
+
 #header .pro-sidebar-inner {
     background-color: #eff1f1;
     box-shadow: 0.5px 0.866px 2px 0px rgba(0, 0, 0, 0.15);
 }
+
 #header .pro-sidebar-inner .pro-sidebar-layout {
     overflow-y: hidden;
     height: 100vh;
 }
+
 #header .pro-sidebar-inner .pro-sidebar-layout .logotext p {
-    font-size: 20px;
+    font-size: 14px;
     padding: 0 20px;
-    color:#1184C2;
+    color: #1184C2;
     font-weight: bold;
 }
+
 #header .pro-sidebar-inner .pro-sidebar-layout ul {
     padding: 0 5px;
 }
+
 #header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item {
-    color:#1184C2;
+    color: #1184C2;
     margin: 10px 0px;
     font-weight: bold;
 }
+
 #header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item .pro-icon-wrapper {
     background-color: #c0c0c0;
     color: #000;
     border-radius: 3px;
 }
+
 #header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item .pro-icon-wrapper .pro-item-content {
     background-color: #eff1f1;
     color: #000;
 }
+
 #header .logo {
     padding: 20px;
 }
+
 @media only screen and (max-width: 720px) {
     //html {
     //    overflow: hidden;
-   // }
+    // }
 }

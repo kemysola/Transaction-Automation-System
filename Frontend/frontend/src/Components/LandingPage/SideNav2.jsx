@@ -73,9 +73,9 @@ const Sidenav = () => {
         </SidebarHeader>
 {/* -------------------------------------- Transactions SideNav with React RouterLink ------------ */}
 
-        <SidebarContent>
+        <SidebarContent >
           <Menu iconShape="round">
-            <SubMenu title='Transactions' icon={<BsWallet2 />}>
+            <SubMenu title='Transactions' icon={<BsWallet2 />} >
               <MenuItem className="subMenu" >
                 <Link to ='/transaction' style={{color:'#237cbf'}}>
                 All Transactions</Link>
@@ -83,6 +83,10 @@ const Sidenav = () => {
               <MenuItem className="subMenu">
                 <Link to ='/newPages' style={{color:'#237cbf'}}
                 >New Transactions</Link>
+                </MenuItem>
+                <MenuItem className="subMenu" >
+                <Link to ='/transaction' style={{color:'#237cbf'}}>
+                Update Transaction</Link>
                 </MenuItem>
             </SubMenu>
 
