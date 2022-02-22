@@ -5,6 +5,17 @@ import logo1  from '../../../Images/logo.jpg'
 import { Row, Container ,Col, Stack} from 'react-bootstrap';
 
 const Main =()=>{
+    useEffect(() =>{
+        //window.location.href('http://localhost/5000/api/v1/auth')
+        console.log('hi')
+        fetch('http/3000/login').then((response) =>{
+            console.log(response)
+            console.log(response.headers)
+        })
+        
+
+    },[])
+  
     return(
         <div className='bodyBackground'>
             <Container fluid>

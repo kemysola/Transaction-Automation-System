@@ -26,6 +26,16 @@ import axios from 'axios'
 
 
 export default function App() {
+    useEffect(() =>{
+        //window.location.href('http://localhost/5000/api/v1/auth')
+        console.log('hi')
+        fetch('http://localhost/5000/api/v1/auth').then((response) =>{
+            console.log(response)
+            console.log(response.headers)
+        })
+        
+
+    },[])
   
     return (
         <React.Fragment>
