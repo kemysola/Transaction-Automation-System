@@ -10,7 +10,9 @@ const Main =()=>{
         console.log('hi')
         fetch('http/3000/login').then((response) =>{
             console.log(response)
+            console.log(response.status)
             console.log(response.headers)
+            
         })
         
 
@@ -18,6 +20,7 @@ const Main =()=>{
   
     return(
         <div className='bodyBackground'>
+        
             <Container fluid>
           <Row>
                     <Col sm ={6} lg={7}>
