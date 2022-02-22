@@ -3,6 +3,8 @@ import { Form,Container,Row,Col, Stack } from 'react-bootstrap';
 import styled from 'styled-components';
 import Services from '../../Services/Service';
 import StaffDatabase from '../Staffs/StaffDatabase';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
 
 const ButtonWrapper = styled.button`
   background: green;
@@ -157,52 +159,59 @@ const AddDeal = () => {
       setDeal(initialDealState);
       setSubmitted(false);
     };
-
+    
     return(
         <React.Fragment>
-         {/* ---------------------- New Transaction Forms ----------- */}
-            <FormWrapper>
-              <Container>
-                {submitted ? (
+      {/* ---------------------- Update Transaction Forms ----------- */}
+        <FormWrapper>
+          <Container fluid style={{marginTop:'0'}}>
+          
+            {submitted ? (
                         <div>
                           <p style={{fontWeight:'bold',fontSize:'12px', color:'darkblue', marginTop:'1rem'}}>{response}</p>
-                        <ButtonWrapper onClick={newDeal}>Add New Deal</ButtonWrapper>
+                        <ButtonWrapper onClick={newDeal}>New Deal</ButtonWrapper>
                         </div>
                    
 
                 ) : (
-
                     <Form> 
                     <PWrapper>
-                        <h5>Add New Transaction</h5>
+                        <h5>New Transaction</h5>
                     </PWrapper>
                     
             {/* ---------------New Transaction Form------------------- */}
-            <Container1>
+            
+<br/>
+<div>
+<Tabs defaultActiveKey="first" style={{fontSize:'12px'}}>
+<Tab eventKey="first" title="CLIENT">
+    <br/>
+    <br/>
+<Container1>
 <br/>
                 <Row>
-                  <Col sm={6}>
+                  <Col sm={12}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Client Name</Form.Label>
                       <Form.Control size="sm" type="text" value={deal.clientName} onChange={handleInputChange} name='clientName'/>
                     </Form.Group>
                   </Col>
 
-                  <Col sm={6}>
+                  <Col sm={12}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Originator</Form.Label>
                       <Form.Control size="sm" type="text" value={deal.originator} onChange={handleInputChange} name='originator'/>
                     </Form.Group>
                   </Col>
 
-                  <Col sm={6}>
+                  <Col sm={12}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Transactor</Form.Label>
                       <Form.Control size="sm" type="text" value={deal.transactor} onChange={handleInputChange} name='transactor'/>
                     </Form.Group>
                   </Col>
 
-                  <Col sm={6}>
+                  <Col sm={12}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Transactor Legal Lead</Form.Label>
                       <Form.Control size="sm" type="text" value={deal.transactionLegalLead} onChange={handleInputChange} name='transactionLegalLead'/>
@@ -212,12 +221,14 @@ const AddDeal = () => {
                 <br/>
                 <br/>
                 </Container1>
-
-                <br/>
-                <br/>
+</Tab>
 
 
-                  {/*----------- Deal Profile Fess and Reimbursement ---------------- */}
+
+
+<Tab eventKey="second" title="DEAL PROFILE FESS & REIMBURSEMENTS">
+    <br/>
+    <br/>
 <Container1>
                 <div className='mt-2'>
                   <PWrapper>
@@ -339,13 +350,6 @@ const AddDeal = () => {
                       </Form.Group>
                     </Col>
                   </Row>
-
-
-
-
-
-
-
                   <Row className='mt-1 pt-3' >
                     <Col sm={6}>
                       <Form.Group className="pt-1">
@@ -383,10 +387,14 @@ const AddDeal = () => {
                 <br/>
 
 
-                  {/*-------------------- Structuring Fees -------------------------- */}
-                  <br/>
-                  <br/>
-                  <Container1>
+
+
+</Tab>
+
+<Tab eventKey="third" title="STRUCTURING FEES">
+    <br/>
+    <br/>
+<Container1>
                 <div className='mt-2'>
                   <PWrapper>
                     <h6 className="pt-1" style={{fontSize: "13px"}}>Structuring Fees</h6>
@@ -448,150 +456,297 @@ const AddDeal = () => {
                 <br/>
                 </Container1>
 
-                  {/*-------------------- Radio Buttons ------------------------------ */}
-                <div className='mt-2' name='dealCategory'>
-                  <PWrapper>
-                    <h6 className="pt-1" style={{fontSize: "13px"}}>Deal Category</h6>
-                  </PWrapper>
+</Tab>
 
-                  <Container1>
-                  <div name='greenCategory'>
+
+{/*----------------------------------------------- Deal Category ---------------------------------- */}
+
+<Tab eventKey="seventh" title="DEAL CATEGORY"  style={{fontSize:'12px'}}>
+    <br/>
+    <Tabs defaultActiveKey="first" className='text-secondary'>
+    <Tab eventKey="first" title="RED TRANSACTION CATEGORY" >
+      <br/>
+    <Container1>
+                  <div name='redCategory' className='py-3'>
                     <PWrapper>
-                      <h6 className="pt-1" style={{fontSize: "10px", color: "green"}}>Green Category</h6>
+                      <h6 className="pt-1" style={{fontSize: "10px", color: "red"}}>RED CATEGORY</h6>
                     </PWrapper>
+                  </div>
+                  <div className='pb-2'>
+                    <Row>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committee approval:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="greenA" value={deal.greenA} onChange={handleInputChange} />
-                      <Form.Check inline label="No" type="radio" name="greenA" value={deal.greenA} onChange={handleInputChange} defaultChecked />
-                    </Form.Group>
+                      <Col  sm={12}  >
+                        <Col className='mb-3'>
+                        <Form.Group>
+                        <Row>
+                     
+                          <Col sm={6}>
+                          <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
+                          </Col>
+                          <Col sm={6}>
+                          <Form.Check inline label="Yes" type="radio" name="redA" value={deal.redA} onChange={handleInputChange} defaultChecked/>
+                          <Form.Check inline label="No" type="radio" name="redA" value={deal.redA} onChange={handleInputChange} />
+                        </Col>
+                        </Row>
+                        </Form.Group>
+                      </Col>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Guarantee Document in agreed form:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="greenB" value={deal.greenB} onChange={handleInputChange} />
-                      <Form.Check inline label="No" type="radio" name="greenB" value={deal.greenB} onChange={handleInputChange} defaultChecked />
-                    </Form.Group>
+                      <Col className='mb-3'>
+                      <Form.Group>
+                      <Row>
+                        <Col sm={6}>
+                        <Form.Label style={{paddingRight: "1rem"}}>Due dilligence ongoing:</Form.Label>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond Issue appointed or selected:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="greenC" value={deal.greenC} onChange={handleInputChange} />
-                      <Form.Check inline label="No" type="radio" name="greenC" value={deal.greenC} onChange={handleInputChange} defaultChecked />
-                    </Form.Group>
+                        </Col>
+                        <Col sm={6}>
+                        <Form.Check inline label="Yes" type="radio" name="redB" value={deal.redB} onChange={handleInputChange} defaultChecked/>
+                        <Form.Check inline label="No" type="radio" name="redB" value={deal.redB} onChange={handleInputChange} />  
+                        </Col>
+                      </Row>
+                      </Form.Group>
+                      </Col>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Already filed or expected filing with SEC (or equivalent Exchange) within 6 weeks:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="greenD" value={deal.greenD} onChange={handleInputChange} />
+
+
+                      <Col>
+                      <Form.Group>
+                      <Row>
+                        <Col sm={6}>
+                        <Form.Label style={{paddingRight: "1rem"}}>Pending Credit Committee approval:</Form.Label>
+                        </Col>
+
+                        <Col sm={6}>
+                        <Form.Check inline label="Yes" type="radio" name="redC" value={deal.redC} onChange={handleInputChange} defaultChecked/>
+                        <Form.Check inline label="No" type="radio" name="redC" value={deal.redC} onChange={handleInputChange} />
+                        </Col>
+                      </Row>
+                      </Form.Group>
+                      </Col>
+                      </Col>
+                    </Row>
+                  </div>
+                  </Container1>
+    </Tab>
+
+    <Tab eventKey="eigth" title="AMBER TRANSACTION CATEGORY">
+    <Container1>
+
+<div name='amberCategory'>
+  <PWrapper>
+    <br/>
+    <h6 className="pt-1" style={{fontSize: "10px", color: "#FFC200"}}>AMBER CATEGORY</h6>
+  </PWrapper>
+<div>
+  <Row>
+    <Col sm={12}>
+      <Col className='pb-3'>
+      <Form.Group>
+      <Row>
+        <Col sm={6}>
+        <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
+        </Col>
+        <Col sm={6}>
+        <Form.Check inline label="Yes" type="radio" name="amberA" value={deal.amberA} onChange={handleInputChange} />
+        <Form.Check inline label="No" type="radio" name="amberA" value={deal.amberA} onChange={handleInputChange} defaultChecked />
+        </Col>
+      </Row>
+      </Form.Group>
+      </Col>
+
+      <Col className='pb-3'>
+      <Form.Group>
+        <Row>
+          <Col sm={6}>
+          <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committe approval:</Form.Label>
+          </Col>
+          <Col sm={6}>
+          <Form.Check inline label="Yes" type="radio" name="amberB" value={deal.amberB} onChange={handleInputChange} />
+          <Form.Check inline label="No" type="radio" name="amberB" value={deal.amberB} onChange={handleInputChange} defaultChecked />
+
+          </Col>
+        </Row>
+      </Form.Group>
+      </Col>
+
+  <Col className='pb-3'>
+  <Form.Group>
+    <Row>
+    <Col sm={6}>
+    <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond issue appointed or selected:</Form.Label>
+    </Col>
+    <Col sm={6}>
+    <Form.Check inline label="Yes" type="radio" name="amberC" value={deal.amberC} onChange={handleInputChange} />
+    <Form.Check inline label="No" type="radio" name="amberC" value={deal.amberC} onChange={handleInputChange} defaultChecked />
+    </Col> 
+    </Row>
+  </Form.Group>
+  </Col>
+    </Col>
+  </Row>
+</div>
+  
+  <Col className='pb-3'>
+  <Form.Group>
+    <Row>
+      <Col sm={6}>
+      <Form.Label style={{paddingRight: "1rem"}}>Fee Letter and/or Guarantee Documentation expected to be negotiated and/or signed within 8 weeks:</Form.Label>
+      </Col>
+
+      <Col sm={6}>
+      <Form.Check inline label="Yes" type="radio" name="amberD" value={deal.amberD} onChange={handleInputChange} />
+       <Form.Check inline label="No" type="radio" name="amberD" value={deal.amberD} onChange={handleInputChange} defaultChecked />
+      </Col>
+    </Row>
+  </Form.Group>
+  </Col>
+
+ <Col className='pb-2'>
+ <Form.Group>
+   <Row>
+     <Col sm={6}>
+     <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs with timelines for completion agreed with the client:</Form.Label>
+     </Col>
+     <Col sm={6}>
+     <Form.Check inline label="Yes" type="radio" name="amberE" value={deal.amberE} onChange={handleInputChange} />
+    <Form.Check inline label="No" type="radio" name="amberE" value={deal.amberE} onChange={handleInputChange} defaultChecked />
+     </Col>
+   </Row>
+ </Form.Group>
+ </Col>
+
+</div>
+</Container1>
+    </Tab>
+
+
+
+<Tab eventKey="ninthth" title="GREEN TRANSACTION CATEGORY">
+  <Container1>
+  <div name='greenCategory'>
+        
+  <PWrapper>
+    <br/>
+    <h6 className="pt-1" style={{fontSize: "10px", color: "green"}}>
+      GREEN CATEGORY
+    </h6>
+  </PWrapper>
+<div>
+  <Row>
+    <Col sm={12}>
+      <Col className='pb-2'>
+      <Form.Group>
+        <Row>
+          <Col sm={6}>
+          <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committee approval:</Form.Label>
+
+          </Col >
+          <Col sm={6}>
+          <Form.Check inline label="Yes" type="radio" name="greenA" value={deal.greenA} onChange={handleInputChange} />
+          <Form.Check inline label="No" type="radio" name="greenA" value={deal.greenA} onChange={handleInputChange} defaultChecked />
+          </Col>
+        </Row>
+      </Form.Group>
+      </Col>
+
+      <Col className='pb-2'>
+      <Form.Group>
+        <Row>
+          <Col sm={6}>
+          <Form.Label style={{paddingRight: "1rem"}}>Guarantee Document in agreed form:</Form.Label>
+          </Col>
+          <Col sm={6}>
+          <Form.Check inline label="Yes" type="radio" name="greenB" value={deal.greenB} onChange={handleInputChange} />
+          <Form.Check inline label="No" type="radio" name="greenB" value={deal.greenB} onChange={handleInputChange} defaultChecked />
+          </Col>
+        </Row>
+      </Form.Group>
+      </Col>
+
+      <Col className='pb-2'>
+      <Form.Group>
+        <Row>
+          <Col sm={6}>
+          <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond Issue appointed or selected:</Form.Label>
+          </Col>
+          <Col sm={6}>
+          <Form.Check inline label="Yes" type="radio" name="greenC" value={deal.greenC} onChange={handleInputChange} />
+          <Form.Check inline label="No" type="radio" name="greenC" value={deal.greenC} onChange={handleInputChange} defaultChecked />
+          </Col>
+        </Row>
+      </Form.Group>
+      </Col>
+
+      <Col className='pb-2'>
+      <Form.Group>
+        <Row>
+          <Col sm={6}>
+          <Form.Label style={{paddingRight: "1rem"}}>Already filed or expected filing with SEC (or equivalent Exchange) within 6 weeks:</Form.Label>
+          </Col>
+
+          <Col sm={6}>
+          <Form.Check inline label="Yes" type="radio" name="greenD" value={deal.greenD} onChange={handleInputChange} />
                       <Form.Check inline label="No" type="radio" name="greenD" value={deal.greenD} onChange={handleInputChange} defaultChecked />
-                    </Form.Group>
-
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs to Financial Close have been satisfactorily met or committed by the Client for completion on or before Financial Close:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="greenE" value={deal.greenE} onChange={handleInputChange} />
-                      <Form.Check inline label="No" type="radio" name="greenE" value={deal.greenE} onChange={handleInputChange} defaultChecked />
-                    </Form.Group>
-
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Financial Close expected within 3-6 months:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="greenF" value={deal.greenF} onChange={handleInputChange} />
-                      <Form.Check inline label="No" type="radio" name="greenF" value={deal.greenF} onChange={handleInputChange} defaultChecked />
-                    </Form.Group>
-                  </div>
-                  <br/>
-                  <br/>
-                  </Container1>
-                  <br/>
-                    <br/>
+          </Col>
+        </Row>
+      </Form.Group>
+      </Col>
 
 
+      <Col className='pb-2'>
+      <Form.Group>
+        <Row>
+          <Col sm={6}>
+            <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs to Financial Close have been satisfactorily met or committed by the Client for completion on or before Financial Close:</Form.Label>
+          </Col>
+
+          <Col sm={6}>
+          <Form.Check inline label="Yes" type="radio" name="greenE" value={deal.greenE} onChange={handleInputChange} />
+          <Form.Check inline label="No" type="radio" name="greenE" value={deal.greenE} onChange={handleInputChange} defaultChecked />
+          </Col>
+        </Row>
+      </Form.Group>
+      </Col>
 
 
-                  <Container1>
+      <Col className='pb-2'>
+      <Form.Group>
+        <Row>
+          <Col sm={6}>
+          <Form.Label style={{paddingRight: "1rem"}}>Financial Close expected within 3-6 months:</Form.Label>
+          </Col>
+          <Col sm={6}>
+          <Form.Check inline label="Yes" type="radio" name="greenF" value={deal.greenF} onChange={handleInputChange} />
+          <Form.Check inline label="No" type="radio" name="greenF" value={deal.greenF} onChange={handleInputChange} defaultChecked />
+          </Col>
+        </Row>
+      </Form.Group>
+      </Col>
+    </Col>
+  </Row>
+</div>
+  </div>
+  <br/>
+   <br/>
+ <ButtonWrapper onClick={saveDeal}>
+    Submit
+  </ButtonWrapper>
 
-                  <div name='amberCategory'>
-                    <PWrapper>
-                      <h6 className="pt-1" style={{fontSize: "10px", color: "#FFC200"}}>Amber Category</h6>
-                    </PWrapper>
-
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="amberA" value={deal.amberA} onChange={handleInputChange} />
-                      <Form.Check inline label="No" type="radio" name="amberA" value={deal.amberA} onChange={handleInputChange} defaultChecked />
-                    </Form.Group>
-
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committe approval:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="amberB" value={deal.amberB} onChange={handleInputChange} />
-                      <Form.Check inline label="No" type="radio" name="amberB" value={deal.amberB} onChange={handleInputChange} defaultChecked />
-                    </Form.Group>
-
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond issue appointed or selected:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="amberC" value={deal.amberC} onChange={handleInputChange} />
-                      <Form.Check inline label="No" type="radio" name="amberC" value={deal.amberC} onChange={handleInputChange} defaultChecked />
-                    </Form.Group>
-
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Fee Letter and/or Guarantee Documentation expected to be negotiated and/or signed within 8 weeks:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="amberD" value={deal.amberD} onChange={handleInputChange} />
-                      <Form.Check inline label="No" type="radio" name="amberD" value={deal.amberD} onChange={handleInputChange} defaultChecked />
-                    </Form.Group>
-
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs with timelines for completion agreed with the client:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="amberE" value={deal.amberE} onChange={handleInputChange} />
-                      <Form.Check inline label="No" type="radio" name="amberE" value={deal.amberE} onChange={handleInputChange} defaultChecked />
-                    </Form.Group>
-                  </div>
-                  </Container1>
-                  <br/>
-                  <br/>
-
-
-
-<Container1>
-                  <div name='redCategory'>
-                    <PWrapper>
-                      <h6 className="pt-1" style={{fontSize: "10px", color: "red"}}>Red Category</h6>
-                    </PWrapper>
-
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="redA" value={deal.redA} onChange={handleInputChange} defaultChecked/>
-                      <Form.Check inline label="No" type="radio" name="redA" value={deal.redA} onChange={handleInputChange} />
-                    </Form.Group>
-
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Due dilligence ongoing:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="redB" value={deal.redB} onChange={handleInputChange} defaultChecked/>
-                      <Form.Check inline label="No" type="radio" name="redB" value={deal.redB} onChange={handleInputChange} />
-                    </Form.Group>
-
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Pending Credit Committee approval:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="redC" value={deal.redC} onChange={handleInputChange} defaultChecked/>
-                      <Form.Check inline label="No" type="radio" name="redC" value={deal.redC} onChange={handleInputChange} />
-                    </Form.Group>
-                  </div>
-                  </Container1>
-
-
-                </div>
+  <ButtonWrapper style={{backgroundColor:"grey"}} >
+      Cancel
+    </ButtonWrapper>
+ </Container1>
+    </Tab>
+    </Tabs>
+</Tab>
+</Tabs>
+</div>
+</Form>
+)}
               
-                
-                {/* ------------------  Submit Form Button--------------------  */}
-                    <ButtonWrapper onClick={saveDeal}>
-                        Submit
-                    </ButtonWrapper>
-
-                    <ButtonWrapper style={{backgroundColor:"grey"}} >
-                        Cancel
-                    </ButtonWrapper>
-                    </Form>
-                  )};
-                  </Container>
-            </FormWrapper>
-        </React.Fragment>
+</Container>  
+</FormWrapper>  
+ </React.Fragment>
     )
-};
+}
 
 export default AddDeal;

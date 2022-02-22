@@ -10,40 +10,44 @@ import  UserForm from './Components/Auth/Login/UserLogin'
 import TransactionView from './Components/Transactions/TransactionView'
 import UpdateStaffs from './Components/Staffs/UpdateStaffs';
 import StaffView from './Components/Staffs/StaffView';
-import NewTransactions from './Components/Transactions/NewTransactions';
+//import NewTransactions from './Components/Transactions/NewTransactions';
 import StaffDatabase from './Components/Staffs/StaffDatabase';
 import UpdateStaff from './Pages/Staffs/UpdateStaff';
-import NewTransaction from './Pages/Transactions/NewTransaction';
 import UpdateTransaction from './Pages/Transactions/UpdateTransaction';
+import NewTransaction from './Pages/Transactions/NewTransaction';
+import MgtView from './Components/Dashboard/Management/ManagementView';
+import {useHistory, Redirect} from 'react-router-dom';
+import Text from './Pages/Transactions/Text';
+import NewText from './Pages/Transactions/NewText';
 import AllStaff from './Pages/Staffs/AllStaff';
 import './App.css';
+import axios from 'axios'
 
 
 
 export default function App() {
+  
     return (
         <React.Fragment>
             <Switch>
-                <Route exact path="/">
+                
+                <Route exact path="/login">
                     <Main/>
                 </Route>
                 <Route path='/landing'>
                     <Landing/>
                 </Route>
-                <Route exact path ='/login'>
-                    <UserForm/>
-                </Route>
                 <Route exact path='/transaction'>
                     <TransactionView/>
                 </Route>
-                <Route exact path='/staff_.id?user'>
+                <Route exact path='/staff'>
                     <StaffView/>
                 </Route>
-                <Route exact path='/new_transactions?user'>
-                    <NewTransactions/>
+                <Route exact path='/new_transactions'>
+                    <NewTransaction/>
                 </Route>
-                <Route exact path='/staffs?admin'>
-                    <StaffDatabase/>
+                <Route exact path='/staffs'>
+                    <AllStaff/>
                 </Route>
                 <Route exact path='/update._{user.id}'>
                     <UpdateStaffs/>
@@ -51,10 +55,18 @@ export default function App() {
                 <Route path='/update_transactions'>
                     <UpdateTransaction/>
                 </Route>
-                <Route path='all_staffs'>
+                <Route path='staffview'>
                     <AllStaff/>
                 </Route>
-                
+                <Route path='/Pages'>
+                  <Text/>
+                </Route>
+                <Route path='/newPages'>
+                  <NewText/>
+                </Route>
+                <Route path='/dashboard'>
+                    <MgtView/>
+                </Route>
             </Switch>
         </React.Fragment>
     ) 

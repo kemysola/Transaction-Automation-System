@@ -47,42 +47,48 @@ METHOD = PUT
 BODY =>
 
 { 
-    "clientName": "United Oils Ltd",
-    "originator": "John2 Doe",
-    "transactor": "John2 Doe",
-    "industry": "Power", 
-    "product": "Generator",
-    "region": "NE",
-    "dealSize": 5000000,
+    "clientName": "Exalz Holdings",
+    "originator": "James Chukwuma",
+    "transactor": "Daniels Chidiebere",
+    "transactionLegalLead": "AbdulAfiz Odogwu",
+    "industry": "Energy", 
+    "product": "CRG",
+    "region": "SE",
+    "dealSize": 110000000,
     "coupon": 0,
-    "tenor": 5,
+    "tenor": 10,
     "moratorium": 0,
-    "repaymentFrequency": "Semi-Annually",
+    "repaymentFrequency": "Annually",
     "amortizationStyle": "Annuity",
     "mandateLetter": 20211203,
-    "creditApproval": null,
-    "feeLetter": null,
+    "creditApproval": 20211203,
+    "feeLetter": 20211203,
     "expectedClose": null,
     "actualClose": null,
-    "greenA": true, 
-    "greenB": true,
-    "greenC": true,
-    "greenD": true,
-    "greenE": true,
-    "greenF": true,
-    "amberA": true, 
-    "amberB": true, 
-    "amberC": true, 
-    "amberD": true, 
-    "amberE": true, 
+    "greenA": false,
+    "greenB": false,
+    "greenC": false,
+    "greenD": false,
+    "greenE": false,
+    "greenF": false,
+    "amberA": false, 
+    "amberB": false, 
+    "amberC": false, 
+    "amberD": false, 
+    "amberE": false, 
     "redA": true, 
     "redB": true, 
     "redC": true, 
-    "redD": true, 
-    "redE": true, 
-    "structuringFeeAmount": 100000,
+    "redD": false, 
+    "redE": false, 
+    "structuringFeeAmount": 3,
     "structuringFeeAdvance": 5,
-    "structuringFeeFinal": 5
+    "structuringFeeFinal": 5,
+    "guaranteeFee": 2,
+    "monitoringFee": 5000.00,
+    "reimbursible": 8000.90,
+    "notes": "",
+    "closed": false
 }
 
 GET DEAL BY ID: [http://localhost:5000/api/v1/transaction/item/3]
@@ -157,4 +163,10 @@ BODY =>
 }
 
 LANDING PAGE: [http://localhost:5000/api/v1/auth/]
+METHOD = GET
+
+REPORTING BY DATE PAGE: [http://localhost:5000/api/v1/report/2022-02-17/2022-02-17/''] #When no client_name is not specified
+METHOD = GET
+
+REPORTING BY DATE PAGE: [http://localhost:5000/api/v1/report/2022-02-17/2022-02-17/Exalz Holdings] #When client_name is specified
 METHOD = GET

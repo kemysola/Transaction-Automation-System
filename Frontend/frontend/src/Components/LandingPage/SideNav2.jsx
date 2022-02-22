@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {Link} from 'react-router-dom'
 //react pro sidebar components
 
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, SidebarContent} from "react-pro-sidebar";
@@ -70,23 +71,57 @@ const Sidenav = () => {
             )}
           </div>
         </SidebarHeader>
+{/* -------------------------------------- Transactions SideNav with React RouterLink ------------ */}
 
-        <SidebarContent>
+        <SidebarContent >
           <Menu iconShape="round">
-            <SubMenu title='Transactions' icon={<BsWallet2 />}>
-              <MenuItem className="subMenu" >All Transactions</MenuItem>
-              <MenuItem className="subMenu">New Transactions</MenuItem>
+            <SubMenu title='Transactions' icon={<BsWallet2 />} >
+              <MenuItem className="subMenu" >
+                <Link to ='/transaction' style={{color:'#237cbf'}}>
+                All Transactions</Link>
+                </MenuItem>
+              <MenuItem className="subMenu">
+                <Link to ='/newPages' style={{color:'#237cbf'}}
+                >New Transactions</Link>
+                </MenuItem>
+                <MenuItem className="subMenu" >
+                <Link to ='/transaction' style={{color:'#237cbf'}}>
+                Update Transaction</Link>
+                </MenuItem>
             </SubMenu>
+
+{/* -------------------------------- Staffs SideNav with React RouterLink -------------------- */}
+
 
             <SubMenu title='Staff' icon={<ImUsers />}>
-              <MenuItem className="subMenu">All Staff</MenuItem>
-              <MenuItem className="subMenu">New Staff</MenuItem>
+              <MenuItem className="subMenu">
+              <Link to ='/staffs' style={{color:'#237cbf'}}>
+                All Staff
+              </Link>
+              </MenuItem>
+              <MenuItem className="subMenu">
+              <Link to ='/staff' style={{color:'#237cbf'}}>
+                New Staff
+              </Link>
+                </MenuItem>
             </SubMenu>
-
+{/* -------------------------------------- Dashboard SideNav with React RouterLink ------------ */}
             <SubMenu title='Dashboard' icon={<GoDashboard />}>
-              <MenuItem className="subMenu">Management Dashboard</MenuItem>
-              <MenuItem className="subMenu">Execution Dashboard</MenuItem>
-              <MenuItem className="subMenu">Origination Dashboard</MenuItem>
+              <MenuItem className="subMenu">
+              <Link to ='/dashboard' style={{color:'#237cbf'}}>
+                Management Dashboard
+              </Link>
+                </MenuItem>
+              <MenuItem className="subMenu">
+              <Link to ='/dashboard' style={{color:'#237cbf'}}>
+                Execution Dashboard
+              </Link>
+              </MenuItem>
+              <MenuItem className="subMenu">
+             <Link to ='/dashboard' style={{color:'#237cbf'}}>
+              Origination Dashboard
+              </Link>
+              </MenuItem>
             </SubMenu>
 
             <MenuItem icon={<HiOutlineCalculator />}>Budget</MenuItem>

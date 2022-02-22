@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Card, Row, Col,Stack, Container} from 'react-bootstrap';
 import styled from 'styled-components';
 import SubCards from './SubCards';
@@ -11,6 +11,15 @@ import {Link} from 'react-router-dom'
 
 
 const MainCards =()=>{
+    const [user, setUser] = useState()
+    useEffect(() =>{
+        localStorage.getItem('user');
+
+    },[user])
+
+
+
+
     return(
         <React.Fragment>
             <Container>
@@ -25,7 +34,7 @@ const MainCards =()=>{
                     <Col sm ={4} className='my-2'>
                         <div  className="bg-light py-2">
                             <li className='text-center' style={{fontWeight:'bold',listStyleType:'none'}}>
-                            <Link to='' style={{textDecoration:"none", color:'#1184c2'}}>
+                            <Link to='#' style={{textDecoration:"none", color:'#1184c2'}}>
                                 Budget Manager
                                 </Link>
                             </li>
@@ -39,7 +48,7 @@ const MainCards =()=>{
                     <div  className="bg-light py-2">
                             <li className='text-center' style={{ fontWeight:'bold',listStyleType:'none'}}>
     
-                            <Link to='' style={{textDecoration:"none",color: '#1184C2'}}>
+                            <Link to='/dashboard' style={{textDecoration:"none",color: '#1184C2'}}>
                                 Analytics Module
                                 </Link>
                             </li>
@@ -53,7 +62,7 @@ const MainCards =()=>{
                     <Col sm ={4} className='my-2'>
                     <div  className="bg-light py-2">
                             <li className='text-center' style={{fontWeight:'bold',listStyleType:'none'}}>
-                                <Link to='' style={{textDecoration:"none",color: '#1184C2'}}>
+                                <Link to='/newPages' style={{textDecoration:"none",color: '#1184C2'}}>
                                 Deal Manager
                                 </Link>
                             </li>

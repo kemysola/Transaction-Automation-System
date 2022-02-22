@@ -1,9 +1,8 @@
-import React from 'react';
+import React ,{useEffect}from 'react';
 import UserLogin from '../Login/UserLogin';
 import './Main.css';
 import logo1  from '../../../Images/logo.jpg'
 import { Row, Container ,Col, Stack} from 'react-bootstrap';
-
 
 const Main =()=>{
     return(
