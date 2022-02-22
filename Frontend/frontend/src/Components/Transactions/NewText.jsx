@@ -167,28 +167,27 @@ const AddDeal = () => {
           <Container fluid style={{marginTop:'0'}}>
           
             {submitted ? (
-                        <div>
-                          <p style={{fontWeight:'bold',fontSize:'12px', color:'darkblue', marginTop:'1rem'}}>{response}</p>
-                        <ButtonWrapper onClick={newDeal}>New Deal</ButtonWrapper>
-                        </div>
-                   
+              <div>
+                <p style={{fontWeight:'bold',fontSize:'12px', color:'darkblue', marginTop:'1rem'}}>{response}</p>
+              <ButtonWrapper onClick={newDeal}>New Deal</ButtonWrapper>
+              </div>
 
-                ) : (
-                    <Form> 
-                    <PWrapper>
-                        <h5>New Transaction</h5>
-                    </PWrapper>
+            ) : (
+              <Form> 
+                <PWrapper>
+                  <h5>New Transaction</h5>
+                </PWrapper>
                     
             {/* ---------------New Transaction Form------------------- */}
             
-<br/>
-<div>
-<Tabs defaultActiveKey="first" style={{fontSize:'12px'}}>
-<Tab eventKey="first" title="CLIENT">
-    <br/>
-    <br/>
-<Container1>
-<br/>
+                <br/>
+                <div>
+                <Tabs defaultActiveKey="first" style={{fontSize:'12px'}}>
+                <Tab eventKey="first" title="CLIENT">
+                    <br/>
+                    <br/>
+                <Container1>
+                <br/>
                 <Row>
                   <Col sm={12}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
