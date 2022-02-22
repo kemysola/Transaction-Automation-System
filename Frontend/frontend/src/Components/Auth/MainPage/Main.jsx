@@ -27,7 +27,7 @@ const Main =()=>{
         <div className='bodyBackground'>
         {/* Store the data in an html tag , which would be passed as a props to the login better still pass it to the form as a props durectly */}
             {/* This p tag holding the state would be erased once i have gotten the User-Email from the backend */}
-            <p>{user}</p>
+        
         
             <Container fluid>
                 
