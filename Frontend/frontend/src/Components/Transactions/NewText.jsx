@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import { Form, Container, Row, Col, Stack } from 'react-bootstrap';
+import { Form, Container, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
 import Services from '../../Services/Service';
-import StaffDatabase from '../Staffs/StaffDatabase';
 
 const ButtonWrapper = styled.button`
   background: green;
@@ -271,7 +270,7 @@ const AddDeal = () => {
                       </Row>
                       <br />
                       <br />
-                      <button onClick={e => toNextTab(e)} style={{ display: 'block' }}>Next </button>
+                      <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock' }}>Next </button>
                     </Container1>
 
 
@@ -434,8 +433,8 @@ const AddDeal = () => {
                       </div>
                       <br />
                       <br />
-                      <button onClick={e => toPrevTab(e)} style={{ display: 'block' }}> Prev</button>
-                      <button onClick={e => toNextTab(e)} style={{ display: 'block' }}>Next</button>
+                      <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock' }}> Prev</button>
+                      <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock' }}>Next</button>
                     </Container1>
                     <br />
                     <br />
@@ -499,8 +498,8 @@ const AddDeal = () => {
                       </div>
                       <br />
                       <br />
-                      <button onClick={e => toPrevTab(e)} style={{ display: 'block' }}> Prev</button>
-                      <button onClick={e => toNextTab(e)} style={{ display: 'block' }}>Next</button>
+                      <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock' }}> Prev</button>
+                      <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock' }}>Next</button>
                     </Container1>
 
                   </Tab>
