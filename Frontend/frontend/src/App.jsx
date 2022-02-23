@@ -1,35 +1,28 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Link} from 'react-router-dom'
-import {useState, useEffect} from 'react';
-import { Switch,Route, useLocation } from 'react-router-dom';
+import { Switch,Route} from 'react-router-dom';
 import Main from './Components/Auth/MainPage/Main';
 import Landing from './Components/LandingPage/Landing'
-import  UserLogin from './Components/Auth/Login/UserLogin'
-import  UserForm from './Components/Auth/Login/UserLogin'
 import TransactionView from './Components/Transactions/TransactionView'
 import UpdateStaffs from './Components/Staffs/UpdateStaffs';
 import StaffView from './Components/Staffs/StaffView';
-//import NewTransactions from './Components/Transactions/NewTransactions';
-import StaffDatabase from './Components/Staffs/StaffDatabase';
-import UpdateStaff from './Pages/Staffs/UpdateStaff';
 import UpdateTransaction from './Pages/Transactions/UpdateTransaction';
 import NewTransaction from './Pages/Transactions/NewTransaction';
 import MgtView from './Components/Dashboard/Management/ManagementView';
-import {useHistory, Redirect} from 'react-router-dom';
 import Text from './Pages/Transactions/Text';
 import NewText from './Pages/Transactions/NewText';
 import AllStaff from './Pages/Staffs/AllStaff';
 import './App.css';
-import axios from 'axios'
-
+import Home from './Components/Home'
 
 export default function App() {
-  
     return (
         <React.Fragment>
             <Switch>
-                <Route exact path="/login">
+            <Route exact path='/' >
+                <Home/>
+            </Route>
+            <Route exact path="/login">
                     <Main/>
                 </Route>
                 <Route path='/landing'>
@@ -67,6 +60,5 @@ export default function App() {
                 </Route>
             </Switch>
         </React.Fragment>
-    ) 
-    
-}
+    ) ;
+};

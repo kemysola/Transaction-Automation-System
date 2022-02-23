@@ -84,10 +84,6 @@ const Sidenav = () => {
                 <Link to ='/newPages' style={{color:'#237cbf'}}
                 >New Transactions</Link>
                 </MenuItem>
-                <MenuItem className="subMenu" >
-                <Link to ='/transaction' style={{color:'#237cbf'}}>
-                Update Transaction</Link>
-                </MenuItem>
             </SubMenu>
 
 {/* -------------------------------- Staffs SideNav with React RouterLink -------------------- */}

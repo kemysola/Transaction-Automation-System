@@ -412,74 +412,156 @@ return (
           
         <Tabs defaultActiveKey="first" className='text-secondary'>
         <Tab eventKey="first" title="RED TRANSACTION CATEGORY" >
-            <br/>
         <Container1>
         <div id='redCategory' className='pt-2 mt-1 mb-3 pb-3'>
-            <br/>
-
                     <PWrapper>
-                      <h6 className="pt-1" style={{fontSize: "10px", color: "red"}}>Red Category</h6>
+                      <br/>
+                      <h6 className="pt-1" style={{fontSize: "10px", color: "red"}}>RED CATEGORY</h6>
                     </PWrapper>
+<Row>
+  <Col sm ={12}>
+    <Col>
+    <Form.Group>
+      <Row>
+        <Col sm={6}>
+        <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
+        </Col>
+        <Col sm={6}>
+        <Form.Check inline label="Yes" type="radio" name="redA" />
+        <Form.Check inline label="No" type="radio" name="redA" />
+        </Col>
+      </Row>
+    </Form.Group>
+    </Col>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="redA" />
-                      <Form.Check inline label="No" type="radio" name="redA" />
-                    </Form.Group>
+    <Col>
+    <Form.Group>
+      <Row>
+        <Col sm={6}>
+        <Form.Label style={{paddingRight: "1rem"}}>Due dilligence ongoing:</Form.Label>
+        </Col>
+        <Col sm={6}>
+        <Form.Check inline label="Yes" type="radio" name="redB" />
+      <Form.Check inline label="No" type="radio" name="redB" />
+        </Col>
+      </Row>
+    </Form.Group>
+    </Col>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Due dilligence ongoing:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="redB" />
-                      <Form.Check inline label="No" type="radio" name="redB" />
-                    </Form.Group>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Pending Credit Committee approval:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="redC" />
-                      <Form.Check inline label="No" type="radio" name="redC" />
-                    </Form.Group>
-                  </div>
-                  
-                  </Container1>
-        </Tab>
+    <Col>
+    <Form.Group>
+      <Row>
+        <Col sm={6}>
+        <Form.Label style={{paddingRight: "1rem"}}>Pending Credit Committee approval:</Form.Label>
+        </Col>
+        <Col sm={6}>
+        <Form.Check inline label="Yes" type="radio" name="redC" />
+        <Form.Check inline label="No" type="radio" name="redC" />
+        </Col>
+      </Row>
+    </Form.Group>
+    </Col>
+  </Col>
+</Row>  
+</div>              
+</Container1>
+ </Tab>
 
 {/*------------------------------------- ------------------------- ------------------------- */}
         <Tab eventKey="eigth" title="AMBER TRANSACTION CATEGORY">
         <Container1>
         <div id='amberCategory'>
                     <PWrapper>
-                      <h6 className="pt-1" style={{fontSize: "10px", color: "#FFC200"}}>Amber Category</h6>
+                      <br/>
+                      <h6 className="pt-1" style={{fontSize: "10px", color: "#FFC200"}}>AMBER CATEGORY</h6>
                     </PWrapper>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="amberA" />
-                      <Form.Check inline label="No" type="radio" name="amberA" />
-                    </Form.Group>
+                    <div>
+                      <Row>
+                        <Col>
+                        <Col>
+                        <Form.Group>
+                          <Row>
+                            <Col sm={6}>
+                            <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
+                            </Col>
+                            <Col sm={6}>
+                            <Form.Check inline label="Yes" type="radio" name="amberA" />
+                            <Form.Check inline label="No" type="radio" name="amberA" />
+                            </Col>
+                          </Row>
+                        </Form.Group>
+                        </Col>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committe approval:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="amberB" />
-                      <Form.Check inline label="No" type="radio" name="amberB" />
-                    </Form.Group>
+                        <Col>
+                        <Form.Group>
+                          <Row>
+                            <Col sm={6}>
+                              <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committe approval:</Form.Label>
+                            </Col>
+                            <Col sm={6}>
+                            <Form.Check inline label="Yes" type="radio" name="amberB" />
+                            <Form.Check inline label="No" type="radio" name="amberB" />
+                            </Col>
+                          </Row>
+                        </Form.Group>
+                        </Col>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond issue appointed or selected:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="amberC" />
-                      <Form.Check inline label="No" type="radio" name="amberC" />
-                    </Form.Group>
+                        <Col>
+                        <Form.Group>
+                          <Row>
+                            <Col sm={6}>
+                            <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond issue appointed or selected:</Form.Label>
+                      
+                            </Col>
+                            <Col sm={6}>
+                            <Form.Check inline label="Yes" type="radio" name="amberC" />
+                            <Form.Check inline label="No" type="radio" name="amberC" />
+                            </Col>
+                          </Row>
+                        </Form.Group>
+                        </Col>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Fee Letter and/or Guarantee Documentation expected to be negotiated and/or signed within 8 weeks:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="amberD" />
-                      <Form.Check inline label="No" type="radio" name="amberD" />
-                    </Form.Group>
+                        <Col>
+                        <Form.Group>
+                          <Row>
+                            <Col sm={6}></Col>
+                            <Col sm={6}></Col>
+                          </Row>
+                        </Form.Group>
+                        </Col>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs with timelines for completion agreed with the client:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" name="amberE" />
-                      <Form.Check inline label="No" type="radio" name="amberE" />
-                    </Form.Group>
+                        <Col>
+                        <Form.Group>
+                          <Row>
+                            <Col sm={6}>
+                            <Form.Label style={{paddingRight: "1rem"}}>Fee Letter and/or Guarantee Documentation expected to be negotiated and/or signed within 8 weeks:</Form.Label>
+                            </Col>
+                            <Col sm={6}>
+                            <Form.Check inline label="Yes" type="radio" name="amberD" />
+                            <Form.Check inline label="No" type="radio" name="amberD" />
+                            </Col>
+                          </Row>
+                        </Form.Group>
+                        </Col>
+
+                        <Col>
+                        <Form.Group>
+                          <Row>
+                            <Col sm={6}>
+                            <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs with timelines for completion agreed with the client:</Form.Label>
+                            </Col>
+                            <Col sm={6}>
+                            <Form.Check inline label="Yes" type="radio" name="amberE" />
+                            <Form.Check inline label="No" type="radio" name="amberE" />
+                            </Col>
+                          </Row>
+                        </Form.Group>
+                        </Col>
+                        </Col>
+                      </Row>
+                    </div>                            
                   </div>
                   </Container1>
         </Tab>
@@ -488,7 +570,8 @@ return (
         <Container1>
         <div id='greenCategory'>
                     <PWrapper>
-                      <h6 className="pt-1" style={{fontSize: "10px", color: "green"}}>Green Category</h6>
+                      <br/>
+                      <h6 className="pt-1" style={{fontSize: "10px", color: "green"}}>GREEN CATEGORY</h6>
                     </PWrapper>
           <Form.Group>
           <Row>
