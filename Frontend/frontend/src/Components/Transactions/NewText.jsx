@@ -87,15 +87,31 @@ const AddDeal = () => {
     const [deal, setDeal] = useState(initialDealState);
     const [submitted, setSubmitted] = useState(false);
     const [response, setResponse] = useState(false);
+    const [noteList, setNoteList] = useState([{note: ""}])
 
     const handleInputChange = event => { // function to save user data to deal state
         const { name, value } = event.target;
         setDeal({ ...deal, [name]: value });
-    }
+  }
+  
+
+  const handleNoteChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...noteList];
+    list[index][name] = value;
+    setNoteList(list);
+  };
+
+  const handleNoteAdd = () => {
+    setNoteList([...noteList, { note: "" }]);
+  };
 
     const saveDeal = (e) => { // function to save users data and post to db
       e.preventDefault()
 
+      let allNotes = noteList.map(({ note }) => note)
+      let note = allNotes.join("|")
+      console.log(note)
       let data = { // store user's inpt in a variable called data
         "clientName": deal.clientName,
         "originator": deal.originator,
@@ -136,11 +152,12 @@ const AddDeal = () => {
         "guaranteeFee": +deal.guaranteeFee,
         "monitoringFee": +deal.monitoringFee,
         "reimbursible": +deal.reimbursible,
-        "notes": "",
+        "notes": note,
         "closed": false
       };
 
       console.log(data);
+    
       setSubmitted(true)
 
       Services.createDeal(data)
@@ -157,6 +174,7 @@ const AddDeal = () => {
 
     const newDeal = () => {
       setDeal(initialDealState);
+      setNoteList([{note: ""}])
       setSubmitted(false);
     };
     
@@ -217,6 +235,24 @@ const AddDeal = () => {
                       <Form.Control size="sm" type="text" value={deal.transactionLegalLead} onChange={handleInputChange} name='transactionLegalLead'/>
                     </Form.Group>
                   </Col>
+                  
+                  {/* <Col sm={12}>
+                    <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                      <Form.Label>Note</Form.Label> <button>Add</button>
+                      <Form.Control size="sm" type="text" name='note'/>
+                    </Form.Group>   
+                  </Col> */}
+                            
+                  <Col sm={12}>
+                    <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                      <Form.Label>Note</Form.Label> <button type = "button" onClick={handleNoteAdd}>Add</button>
+                                {noteList.map((singleNote, index) => (
+                                  <Form.Control size="sm" type="text" value={singleNote.note} name='note'  onChange={(e) => handleNoteChange(e, index)}
+                                  required/>
+                                ))}     
+                    </Form.Group>   
+                  </Col>
+                            
                 </Row>
                 <br/>
                 <br/>
