@@ -185,28 +185,27 @@ const AddDeal = () => {
           <Container fluid style={{marginTop:'0'}}>
           
             {submitted ? (
-                        <div>
-                          <p style={{fontWeight:'bold',fontSize:'12px', color:'darkblue', marginTop:'1rem'}}>{response}</p>
-                        <ButtonWrapper onClick={newDeal}>New Deal</ButtonWrapper>
-                        </div>
-                   
+              <div>
+                <p style={{fontWeight:'bold',fontSize:'12px', color:'darkblue', marginTop:'1rem'}}>{response}</p>
+              <ButtonWrapper onClick={newDeal}>New Deal</ButtonWrapper>
+              </div>
 
-                ) : (
-                    <Form> 
-                    <PWrapper>
-                        <h5>New Transaction</h5>
-                    </PWrapper>
+            ) : (
+              <Form> 
+                <PWrapper>
+                  <h5>New Transaction</h5>
+                </PWrapper>
                     
             {/* ---------------New Transaction Form------------------- */}
             
-<br/>
-<div>
-<Tabs defaultActiveKey="first" style={{fontSize:'12px'}}>
-<Tab eventKey="first" title="CLIENT">
-    <br/>
-    <br/>
-<Container1>
-<br/>
+                <br/>
+                <div>
+                <Tabs defaultActiveKey="first" style={{fontSize:'12px'}}>
+                <Tab eventKey="first" title="CLIENT">
+                    <br/>
+                    <br/>
+                <Container1>
+                <br/>
                 <Row>
                   <Col sm={12}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
@@ -262,7 +261,7 @@ const AddDeal = () => {
 
 
 
-<Tab eventKey="second" title="DEAL PROFILE FESS & REIMBURSEMENTS">
+<Tab eventKey="second" title="DEAL PROFILE FEES & REIMBURSEMENTS">
     <br/>
     <br/>
 <Container1>
@@ -705,8 +704,8 @@ const AddDeal = () => {
           <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond Issue appointed or selected:</Form.Label>
           </Col>
           <Col sm={6}>
-          <Form.Check inline label="Yes" type="radio" name="greenC" value={deal.greenC} onChange={handleInputChange} />
-          <Form.Check inline label="No" type="radio" name="greenC" value={deal.greenC} onChange={handleInputChange} defaultChecked />
+          <Form.Check inline label="Yes" type="radio" name="greenC" value={deal.greenC} onChange={handleInputChange}  required/>
+          <Form.Check inline label="No" type="radio" name="greenC" value={deal.greenC} onChange={handleInputChange}  />
           </Col>
         </Row>
       </Form.Group>
@@ -737,7 +736,7 @@ const AddDeal = () => {
 
           <Col sm={6}>
           <Form.Check inline label="Yes" type="radio" name="greenE" value={deal.greenE} onChange={handleInputChange} />
-          <Form.Check inline label="No" type="radio" name="greenE" value={deal.greenE} onChange={handleInputChange} defaultChecked />
+          <Form.Check inline label="No" type="radio" name="greenE" value={deal.greenE} onChange={handleInputChange} required />
           </Col>
         </Row>
       </Form.Group>
@@ -777,9 +776,13 @@ const AddDeal = () => {
 </Tabs>
 </div>
 </Form>
+
+
+
 )}
               
 </Container>  
+
 </FormWrapper>  
  </React.Fragment>
     )
