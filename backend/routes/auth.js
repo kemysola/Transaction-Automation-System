@@ -7,7 +7,7 @@ const pool = require("../database");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 const msal = require('@azure/msal-node');
-
+const querystring = require('querystring'); 
 
 router.post("/app/login", async(req, res) => {
     const client = await pool.connect()
@@ -76,7 +76,7 @@ const config = {
     system: {
         loggerOptions: {
             loggerCallback(loglevel, message, containsPii) {
-                console.log(message);
+                // console.log(message);
             },
             piiLoggingEnabled: false,
             logLevel: msal.LogLevel.Verbose,
@@ -109,11 +109,11 @@ router.get('/app/login', (req, res) => {
         redirectUri: AADParameters.redirectUri,
     };
     cca.acquireTokenByCode(tokenRequest).then((response) => {
-        // console.log("\nResponse: \n:", response);
+        // console.log("\nTheResponse: \n:", response);
         let user = { email: response.account.username }
-        res.setHeader("User-Email", user.email);
-        res.redirect('http://localhost:3000/login');
-        // res.sendStatus(200);
+        const query = querystring.stringify({"user":response.account.username, "token":response.accessToken});
+        res.redirect('http://localhost:3000/login?'+query);
+
     }).catch((error) => {
         console.log(error);
     });

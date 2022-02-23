@@ -7,21 +7,25 @@ import { Row, Container ,Col, Stack} from 'react-bootstrap';
 const Main =()=>{
     //create state variables to handle the http response and save them
 
-    const [user, setUser] = useState()
+    // const [user, setUser] = useState()
 
     // use a useEffect hook to render the endpoint on a componentDidMount
 
-    useEffect(() =>{
-        //fetch data from the response header and save it in a react state 
+    // const query_ = useLocation().search
+    // const name = new URLSearchParams(query_).get('user')
+    // console.log(name)   
 
-        fetch('http/3000/login').then((response) =>{
-            const body = response;
-            console.log(body)
-            setUser(response.status)
+    // useEffect(() =>{
+    //     //fetch data from the response header and save it in a react state 
+
+    //     fetch('http/3000/login').then((response) =>{
+    //         const body = response;
+    //         console.log(body)
+    //         setUser(response.status)
            
             
-        })
-    },[])
+    //     })
+    // },[])
   
     return(
         <div className='bodyBackground'>
@@ -51,7 +55,7 @@ const Main =()=>{
                     </Col>
                     <Col sm ={6} lg={5} md={'auto'} className='justify-content-end' style={{width:'500px',marginTop:'30px'}}>
                    {/** Here we pass the user state storing the data as a props to the login */}
-                    <UserLogin user={user}/>
+                    <UserLogin />
                     </Col>
                 </Row>     
                 </Container>
