@@ -15,7 +15,6 @@ import AllStaff from './Pages/Staffs/AllStaff';
 import './App.css';
 import Home from './Components/Home'
 
-
 export default function App() {
     return (
         <React.Fragment>

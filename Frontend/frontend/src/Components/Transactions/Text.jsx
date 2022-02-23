@@ -139,9 +139,9 @@ return (
               <PWrapper>
                 <h5>Update Transaction</h5>
               </PWrapper>      
-	<div> 
+	    <div> 
        
-    <Tabs defaultActiveKey="first" style={{fontSize:'12px'}}>
+      <Tabs defaultActiveKey="first" style={{fontSize:'12px'}}>
 {/* ----------------------------------------- Client Data ------------------------------------ */}
 		<Tab eventKey="first" title="TRANSACTION">
         <br/>
@@ -166,6 +166,12 @@ return (
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Transactor</Form.Label>
                       <Form.Control size="sm" type="text" placeholder=""  id='transactor' ref={transactor}/>
+                    </Form.Group>
+                  </Col>
+                  <Col sm={12}>
+                    <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                      <Form.Label>Transaction Legal Lead</Form.Label>
+                      <Form.Control size="sm" type="text" placeholder=""  id='transactionLegalLead' ref={transactor}/>
                     </Form.Group>
                   </Col>
                 </Row>

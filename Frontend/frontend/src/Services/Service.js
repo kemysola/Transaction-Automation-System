@@ -8,7 +8,6 @@ const PasswordReset = (id, data) => {
     return axios.put(`staff/update/${id}`, data);
 }  
 
-
 const registerStaff = data => { // register new staff
     return axios.post("staff/onboard", data);
 };
