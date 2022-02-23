@@ -82,6 +82,7 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
     });
 
   } catch (e) {
+    console.log(e)
     await client.query('ROLLBACK')
     res.status(403).json({ Error: e.stack });
     // throw e
