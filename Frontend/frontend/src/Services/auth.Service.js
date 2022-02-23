@@ -10,6 +10,7 @@ const register = (username, email, password) => {
     });
 };
 const login = async(email, password) => {
+    console.log(email)
     return await axios   
         .post("auth/app/login", {
             email,
