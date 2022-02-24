@@ -4,20 +4,20 @@ import styled from 'styled-components';
 import Services from '../../Services/Service';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-
-
+import {Form, Container, Row, Col } from 'react-bootstrap';
+import styled from 'styled-components';
 
 const ButtonWrapper = styled.button`
   color:white;
   background: green;
   margin-right:14px;
   border:1px solid  white;
+  padding:2px 35px;
+  margin-top: 2px;
+  margin-bottom: 2px;
   font-weight:bold;
-  font-size:13px;
+  font-size:10px;
   border-radius:10px;
-  padding:'2px 20px', 
-  margin:10px,
-  borderRadius:'8px'
 `;
 const FormWrapper = styled.div`
 padding:0;
@@ -27,7 +27,7 @@ margin:0;
 
 const Container1 = styled.div`
 background:white;
-font-size:10px;
+font-size:12px;
 padding: 3px 10px;
 border-radius: 15px;
 width:50vw;
@@ -45,7 +45,7 @@ const CancelWrapper = styled.button`
   box-shadow : 5px #eff1f1;
   font-weight:bold;
   `;
-const PWrapper = styled.p`
+  const PWrapper = styled.p`
 color:#1E2F97;
 font-weight:bold;
 font-size:11px;
@@ -53,7 +53,7 @@ margin:0;
 padding: 0;
 `;
 
-export default function NewStaff() {
+export default function NewStaff(){
     const initialStaffState = {
         email: "john3.doe@infracredit.com",
         password: "password",
@@ -121,6 +121,8 @@ export default function NewStaff() {
     };
 
     const [activeTab, setActiveTab] = useState('first');
+
+
     function toNextTab(e) {
         e.preventDefault();
         handleTabChange();
@@ -128,10 +130,19 @@ export default function NewStaff() {
 
     function toPrevTab(e) {
         e.preventDefault();
-        handlePrevChange();
+        handleTabChange();
     }
-    
-    
+
+    function toNextTabs(e) {
+        e.preventDefault();
+        changeTabs();
+    }
+
+    function changeTabs() {
+        if (dealActiveTab === 'sixth') {
+            setDealActiveTab('seventh');
+        }
+    }
 
     function handleTabChange() {
         if (activeTab === 'first') {
@@ -146,8 +157,7 @@ export default function NewStaff() {
         if (activeTab === 'fourth') {
             setActiveTab('sixth');
         }
-
-    }
+    };
 
     function handlePrevChange() {
         if (activeTab === 'second') {
@@ -162,14 +172,13 @@ export default function NewStaff() {
 
     }
 
-    
     return (
         <React.Fragment>
             <FormWrapper>
                 <Container fluid>
                     {submitted ? (
                         <Container1>
-                            <p style={{ fontWeight: 'bold', fontSize: '16px', color: 'darkblue' }}>You submitted successfully!</p>
+                            <p style={{ fontWeight: 'bold', fontSize: '12px', color: 'darkblue' }}>You submitted successfully!</p>
                             <ButtonWrapper onClick={newStaff}>Add New Staff</ButtonWrapper>
                         </Container1>
 
@@ -178,15 +187,15 @@ export default function NewStaff() {
 
                             {/*----------------------------- Title -------------------------------------------------- */}
                             <PWrapper>
-                                <h5>New Staffs</h5>
+                                <h5>New Transaction</h5>
                             </PWrapper>
                             <br />
                             <div>
-                                <Tabs activeKey={activeTab} onSelect={(k) => handleTabChange} style={{ fontSize: '13px' }}>
-                                    <Tab eventKey="first" title="STAFFS">
+                                <Tabs activeKey={activeTab} onSelect={(k) => handleTabChange} style={{ fontSize: '12px' }}>
+                                    <Tab eventKey="first" title="CLIENT">
                                         <br />
                                         <br />
-                                        <Container1 style={{ marginBottom: '3px', paddingBottom: '10px'}}>
+                                        <Container1 style={{ marginBottom: '3px', paddingBottom: '10px', fontSize: '8px' }}>
                                             <Form.Group className="mb-0">
                                                 <Form.Label style={{ fontWeight: 'bold' }} className="pt-1">Name</Form.Label>
                                                 <Form.Control size="sm" type="" placeholder="John Doe" value={staff.name} name='Name' onChange={handleInputChange} />
@@ -205,12 +214,12 @@ export default function NewStaff() {
                                                 </div>
                                             </Form.Group>
                                             <br />
-                                            <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock' ,fontSize: '13px',padding:'2px 10px', margin:'10px'}}>Next </button>
+                                            <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock' }}>Next </button>
                                         </Container1>
                                         <br />
                                     </Tab>
                                     <Tab eventKey="second" title="TARGETS">
-                                        <Container1 style={{ marginBottom: '3px', paddingBottom: '10px'}}>
+                                        <Container1 style={{ marginBottom: '3px', paddingBottom: '10px', fontSize: '8px' }}>
                                             <p style={{ fontWeight: 'bold', fontSize: '10px' }}>Targets</p>
                                             <Row>
                                                 <Col sm={6}>
@@ -239,79 +248,71 @@ export default function NewStaff() {
                                                     </div>
                                                 </Col>
                                             </Row>
-                                            <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock',fontSize: '13px',padding:'2px 10px', margin:'10px' }}> Prev</button>
-                                            <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock',fontSize: '13px',padding:'2px 10px', margin:'10px' }}>Next</button>
                                         </Container1>
-                                   
-                                    <br />
-                                </Tab>
-                                <Tab eventKey="third" title="PERFORMANCE PAY">
-                                    <Container1 style={{ marginBottom: '2px', paddingBottom: '6px'}}>
-                                        <p style={{ fontWeight: 'bold', fontSize: '10px' }}>PERFORMANCE PAY</p>
-                                        <Row>
-                                            <Col sm={4}>
-                                                <p style={{ fontWeight: 'bold' }}>% per milestone</p>
-                                            </Col>
+                                        <br />
+                                    </Tab>
+                                    <Tab eventKey="third" title="PERFORMANCE PAY">
+                                        <Container1 style={{ marginBottom: '2px', paddingBottom: '6px', fontSize: '8px' }}>
+                                            <p style={{ fontWeight: 'bold', fontSize: '10px' }}>PERFORMANCE PAY</p>
+                                            <Row>
+                                                <Col sm={4}>
+                                                    <p style={{ fontWeight: 'bold' }}>% per milestone</p>
+                                                </Col>
 
-                                            <Col sm={8}>
-                                                <Form.Group as={Row} className="mb-1">
-                                                    <Form.Label column sm="5">
-                                                        <small style={{ fontWeight: 'bold' }}>Mandate Letter (NGN)</small>
-                                                    </Form.Label>
-                                                    <Col sm="6">
-                                                        <Form.Control type="number" placeholder="0" size='sm' id='mandateLetter' value={staff.mandateLetter} name='mandateLetter' onChange={handleInputChange} />
-                                                    </Col>
-                                                </Form.Group>
+                                                <Col sm={8}>
+                                                    <Form.Group as={Row} className="mb-1">
+                                                        <Form.Label column sm="5">
+                                                            <small style={{ fontWeight: 'bold' }}>Mandate Letter (NGN)</small>
+                                                        </Form.Label>
+                                                        <Col sm="6">
+                                                            <Form.Control type="number" placeholder="0" size='sm' id='mandateLetter' value={staff.mandateLetter} name='mandateLetter' onChange={handleInputChange} />
+                                                        </Col>
+                                                    </Form.Group>
 
-                                                <Form.Group as={Row} className="mb-1">
-                                                    <Form.Label column sm="5">
-                                                        <small style={{ fontWeight: 'bold' }}>Credit Committee Approval(NGN)</small>
-                                                    </Form.Label>
-                                                    <Col sm="6">
-                                                        <Form.Control type="number" placeholder="0" size='sm' id='creditCommiteeApproval' value={staff.creditCommiteeApproval} name='creditCommiteeApproval' onChange={handleInputChange} />
-                                                    </Col>
-                                                </Form.Group>
-                                                <Form.Group as={Row} className="mb-1">
-                                                    <Form.Label column sm="5">
-                                                        <small style={{ fontWeight: 'bold' }}>Fee Letter (%)</small>
-                                                    </Form.Label>
-                                                    <Col sm="6">
-                                                        <Form.Control type="number" placeholder="0" size='sm' id='feeLetter' value={staff.feeLetter} name='feeLetter' onChange={handleInputChange} />
-                                                    </Col>
-                                                </Form.Group>
-                                                <Form.Group as={Row} className="">
-                                                    <Form.Label column sm="5">
-                                                        <small style={{ fontWeight: 'bold' }}>Financial Close (%)</small>
-                                                    </Form.Label>
-                                                    <Col sm="6">
-                                                        <Form.Control type="number" placeholder="0" size='sm' id='financialClose' value={staff.financialClose} name='financialClose' onChange={handleInputChange} />
-                                                    </Col>
-                                                </Form.Group>
-                                            </Col>
-                                        </Row>
-                                        
-                                        <br/>
-                                    <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock',fontSize: '13px', padding:'2px 20px', margin:'10px', background:'green',color:'white' , borderRadius:'8px'}}>
-                                         Prev
-                                    </button>
-                                    </Container1>
-                                    <ButtonWrapper onClick={saveStaff} >
-                                            Submit
-                                        </ButtonWrapper>
+                                                    <Form.Group as={Row} className="mb-1">
+                                                        <Form.Label column sm="5">
+                                                            <small style={{ fontWeight: 'bold' }}>Credit Committee Approval(NGN)</small>
+                                                        </Form.Label>
+                                                        <Col sm="6">
+                                                            <Form.Control type="number" placeholder="0" size='sm' id='creditCommiteeApproval' value={staff.creditCommiteeApproval} name='creditCommiteeApproval' onChange={handleInputChange} />
+                                                        </Col>
+                                                    </Form.Group>
+                                                    <Form.Group as={Row} className="mb-1">
+                                                        <Form.Label column sm="5">
+                                                            <small style={{ fontWeight: 'bold' }}>Fee Letter (%)</small>
+                                                        </Form.Label>
+                                                        <Col sm="6">
+                                                            <Form.Control type="number" placeholder="0" size='sm' id='feeLetter' value={staff.feeLetter} name='feeLetter' onChange={handleInputChange} />
+                                                        </Col>
+                                                    </Form.Group>
+                                                    <Form.Group as={Row} className="">
+                                                        <Form.Label column sm="5">
+                                                            <small style={{ fontWeight: 'bold' }}>Financial Close (%)</small>
+                                                        </Form.Label>
+                                                        <Col sm="6">
+                                                            <Form.Control type="number" placeholder="0" size='sm' id='financialClose' value={staff.financialClose} name='financialClose' onChange={handleInputChange} />
+                                                        </Col>
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
+                                            <ButtonWrapper onClick={saveStaff} >
+                                                Submit
+                                            </ButtonWrapper>
 
-                                        <CancelWrapper>
-                                            Cancel
-                                        </CancelWrapper>
-                                </Tab>
-                            </Tabs>
-                        </div>
+                                            <CancelWrapper>
+                                                Cancel
+                                            </CancelWrapper>
+                                        </Container1>
+                                    </Tab>
+                                </Tabs>
+                            </div>
                         </Form>
                     )};
-            </Container>
-        </FormWrapper>
+                </Container>
+            </FormWrapper>
 
-            {/*------------------------------------------ Close Form ----------------------------------------- */ }
-        </React.Fragment >
+            {/*------------------------------------------ Close Form ----------------------------------------- */}
+        </React.Fragment>
     )
 }
 

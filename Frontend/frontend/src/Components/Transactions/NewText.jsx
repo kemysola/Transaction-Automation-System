@@ -90,40 +90,53 @@ const AddDeal = () => {
   const [noteList, setNoteList] = useState([{ note: "" }])
 
   function toNextTab(e) {
-    e.preventDefault();
-    handleTabChange();
+        e.preventDefault();
+        handleTabChange();
+    }
+
+    function toPrevTab(e) {
+        e.preventDefault();
+        handlePrevChange();
+    }
+    function toNextTabs(e) {
+        e.preventDefault();
+        changeTabs();
+    }
+
+    function changeTabs() {
+        if (dealActiveTab === 'sixth') {
+            setDealActiveTab('seventh');
+        }
+    }
+
+    function handleTabChange() {
+        if (activeTab === 'first') {
+            setActiveTab('second');
+        }
+        if (activeTab === 'second') {
+            setActiveTab('third');
+        }
+        if (activeTab === 'third') {
+            setActiveTab('fourth');
+        }
+        if (activeTab === 'fourth') {
+            setActiveTab('sixth');
+        }
+
+    }
+    function handlePrevChange() {
+      if (activeTab === 'second') {
+          setActiveTab('first');
+      }
+      if (activeTab === 'third') {
+          setActiveTab('second');
+      }
+      if (activeTab === 'fourth') {
+          setActiveTab('third');
+      }
+
   }
 
-  function toPrevTab(e) {
-    e.preventDefault();
-    handleTabChange();
-  }
-
-  function toNextTabs(e) {
-    e.preventDefault();
-    changeTabs();
-  }
-
-  function changeTabs() {
-    if (dealActiveTab === 'sixth') {
-      setDealActiveTab('seventh');
-    }
-  }
-
-  function handleTabChange() {
-    if (activeTab === 'first') {
-      setActiveTab('second');
-    }
-    if (activeTab === 'second') {
-      setActiveTab('third');
-    }
-    if (activeTab === 'third') {
-      setActiveTab('fourth');
-    }
-    if (activeTab === 'fourth') {
-      setActiveTab('sixth');
-    }
-  };
 
     const handleInputChange = event => { // function to save user data to deal state
       const { name, value } = event.target;
