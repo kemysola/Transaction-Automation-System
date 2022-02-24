@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Container} from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container } from 'react-bootstrap';
 import styled from 'styled-components';
 import MenuItem from './MenuItem';
 
@@ -15,74 +15,78 @@ const PowerDiv = styled.div`
 `;
 
 
-const Sidenav =()=>{
-    const menuItems =[
+const Sidenav = () => {
+    const menuItems = [
         {
             name: 'Transactions',
             to: '/',
-            iconClassName:"jam:dashboard",
-            subMenus:[
-                {icon:"bi bi-wallet2"},
-                {name:'Transactions'},
-                {name:'New Transactions'},
+            iconClassName: "jam:dashboard",
+            subMenus: [
+                { icon: "bi bi-wallet2" },
+                { name: 'Transactions' },
+                { name: 'New Transactions' },
 
-        ]},
+            ]
+        },
 
         {
             name: 'Staffs',
             to: '/',
-            subMenus:[
-                {icon:"bi bi-people-fill"},
-                {name:'Staffs'},
-                {name:'New Staffs'},
+            subMenus: [
+                { icon: "bi bi-people-fill" },
+                { name: 'Staffs' },
+                { name: 'New Staffs' },
 
-        ]},
-
-        {
-            name:'Dashboard',
-            to: '/', 
-            subMenus:[
-                {icon:"bi bi-speedometer2"},
-                {name:'Origination Dashboard'},
-                {name:'Management Dashboard'},
-                {name:'Execution Dashboard'},
-
-        ]},
+            ]
+        },
 
         {
-            name:'Budget',
+            name: 'Dashboard',
             to: '/',
-            subMenus:[
-                {icon:"bi bi-wallet"},
-                {name:'Origination Dashboard'},
-                {name:'Management Dashboard'},
-                {name:'Execution Dashboard'},
-        ]},
+            subMenus: [
+                { icon: "bi bi-speedometer2" },
+                { name: 'Origination Dashboard' },
+                { name: 'Management Dashboard' },
+                { name: 'Execution Dashboard' },
+
+            ]
+        },
+
+        {
+            name: 'Budget',
+            to: '/',
+            subMenus: [
+                { icon: "bi bi-wallet" },
+                { name: 'Origination Dashboard' },
+                { name: 'Management Dashboard' },
+                { name: 'Execution Dashboard' },
+            ]
+        },
     ]
 
-    return(
+    return (
         <React.Fragment>
             <Container>
-            <AppWrapper>
-                {menuItems.map((menuItem, index) => (
-                    <MenuItem key={index}
-                    name={menuItem.name} 
-                    
-                    to={menuItem.to}
-                     subMenus={
-                        menuItem.subMenus
-                    }
-                    />
-                ))}
+                <AppWrapper>
+                    {menuItems.map((menuItem, index) => (
+                        <MenuItem key={index}
+                            name={menuItem.name}
 
-                <PowerDiv>
-                <i class="bi bi-power" style={{color:'red'}} ></i>
-                <span style={{color:'#1184C2'}}>  Log Out</span>
-                </PowerDiv>
+                            to={menuItem.to}
+                            subMenus={
+                                menuItem.subMenus
+                            }
+                        />
+                    ))}
+
+                    <PowerDiv>
+                        <i class="bi bi-power" style={{ color: 'red' }} ></i>
+                        <span style={{ color: '#1184C2' }}>  Log Out</span>
+                    </PowerDiv>
                 </AppWrapper>
-                </Container>             
+            </Container>
         </React.Fragment>
     )
 }
 export default Sidenav;
-    
+
