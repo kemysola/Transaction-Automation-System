@@ -56,7 +56,13 @@ router.post("/app/login", async(req, res) => {
     }
 });
 
-
+// Destroys the session to log out the user.
+router.get("/app/logout", function(req, res) {
+    req.session.destroy(() => {
+     req.logout();
+     res.redirect("/app/login"); //Inside a callback… bulletproof!
+    });
+   });
 
 // User Authentication with Azure Active Directory
 const AADParameters = {
