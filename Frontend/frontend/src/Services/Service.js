@@ -30,6 +30,7 @@ const getDealById = id => { // get deal by id, for privileged users
 
 const getMyDeals = () => { // get current users deals
     return axios.get("transaction/my_deals");
+    // console.log("header is" + axios.)
 };
 
 const getAllDeals = () => { // get all deals, for privileged users only
