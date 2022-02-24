@@ -1,13 +1,18 @@
 import React from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 const API_URL =""
 const LogOut = async(user)=>{
-        localStorage.removeItem("user");
-        return await axios.post(API_URL + "signout").then((response) => {
-          return response.data;
-        });    
-    
+  const history = useHistory();
+  localStorage.removeItem("user");
+  localStorage.removeItem("token");
+  return await axios.post(API_URL + "signout").then((response) => {
+    return response.data;
+  });  
+    <Redirect to ={{  pathname: "/login"}}/>
+  
+
 }
 
 export default LogOut;

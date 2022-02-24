@@ -78,7 +78,7 @@ const IndeterminateCheckbox = React.forwardRef(
 const DealsTable = (props) => {
   const history = useHistory();
   const [deals, setDeals] = useState([]);
-  const [uniqueDeal, setUniqueDeal] = useState([]);
+  const [search, setSearch] = useState('');
   const dealsRef = useRef();
   dealsRef.current = deals;
 
@@ -87,7 +87,7 @@ const DealsTable = (props) => {
   }, []); 
 
   const retrieveDeals = () => {
-    Service.getAllDeals()
+    Service.getMyDeals()
       .then((response) => {
         setDeals(response.data.deals);
       })
@@ -95,6 +95,8 @@ const DealsTable = (props) => {
         console.log(e);
       });
   };
+
+  console.log(localStorage.getItem('token'))
 
   const refreshList = () => {
     retrieveDeals();
@@ -104,9 +106,18 @@ const DealsTable = (props) => {
     history.push({
       pathname: "/update_transactions",
       search: "?" + rowIndex,
-      state: uniqueDeal,
     });
   };
+
+  // const handleSearch = (event) => {
+  //   setSearch(event.target.value);
+  // };
+
+  // const data = {
+  //   deals: deals.filter((item) => 
+  //     item.name.includes(search)
+  //   ),
+  // }
 
   const columns = useMemo(
     () => [
@@ -300,10 +311,10 @@ const DealsTable = (props) => {
           </Button>
           </Col>
           <Col sm={12} lg={4}>
-          <form className='pt-1'>
-          <input type="search" placeholder="Search" aria-label="Search" className='' style={{outline:'none',border:'1px solid black',padding:'4.5px', marginTop:'7px'}}/>
-          <Button className='py-0 btn-outline-none text-dark btn-light' style={{border:'1px solid black',padding:'none'}} >Search</Button>
-          </form>
+            <form className='pt-1'>
+              <input type="search" placeholder="Search" aria-label="Search" style={{outline:'none',border:'1px solid black',padding:'4.5px', marginTop:'7px', marginRight: '2px'}}/>
+              <Button className='py-0 btn-outline-none text-dark btn-light' style={{border:'1px solid black',padding:'none'}} >Search</Button>
+            </form>
           </Col>
         </Row>
         
@@ -311,6 +322,7 @@ const DealsTable = (props) => {
           <table
             className="table py-3 mt-3  table-hover table striped  align-middle table-bordered"
             {...getTableProps()}
+            // data={data}
           >
             <thead className=''>
               {headerGroups.map((headerGroup) => (

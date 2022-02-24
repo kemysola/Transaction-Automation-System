@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import authService from '../../Services/auth.Service';
 //react pro sidebar components
 
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, SidebarContent} from "react-pro-sidebar";
@@ -10,14 +11,14 @@ import { GoDashboard } from "react-icons/go";
 import { HiOutlineCalculator } from "react-icons/hi";
 import { FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
 import { BsWallet2 } from "react-icons/bs";
-import { FaList, FaRegHeart } from "react-icons/fa";
+// import { FaList, FaRegHeart } from "react-icons/fa";
 
-// import { FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
+// // import { FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
 
-import { RiPencilLine } from "react-icons/ri";
-import { BiCog } from "react-icons/bi";
-import { SiApacheairflow } from "react-icons/si";
-import { GiAbstract050 } from "react-icons/gi";
+// import { RiPencilLine } from "react-icons/ri";
+// import { BiCog } from "react-icons/bi";
+// import { SiApacheairflow } from "react-icons/si";
+// import { GiAbstract050 } from "react-icons/gi";
 
 //sidebar css from react-pro-sidebar module
 import "react-pro-sidebar/dist/css/styles.css";
@@ -126,7 +127,7 @@ const Sidenav = () => {
 
         <SidebarFooter>
           <Menu iconShape="circle">
-            <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
+            <MenuItem icon={<FiLogOut />} onClick={authService.logout}>Logout</MenuItem>
           </Menu>
         </SidebarFooter>
       </ProSidebar>
