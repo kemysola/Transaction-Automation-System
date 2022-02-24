@@ -171,12 +171,12 @@ export default function NewStaff() {
 
                             {/*----------------------------- Title -------------------------------------------------- */}
                             <PWrapper>
-                                <p>NEW STAFFS</p>
+                                <p>NEW STAFF</p>
                             </PWrapper>
                             <br />
                             <div>
                                 <Tabs activeKey={activeTab} onSelect={(k) => handleTabChange} style={{ fontSize: '13px' }}>
-                                    <Tab eventKey="first" title="STAFFS">
+                                    <Tab eventKey="first" title="STAFF">
                                         <br />
                                         <br />
                                         <Container1 style={{ marginBottom: '3px', paddingBottom: '10px' }}>
