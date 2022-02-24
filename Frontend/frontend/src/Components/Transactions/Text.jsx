@@ -1,9 +1,8 @@
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import React, { useRef, useState } from 'react';
-import { Form, Container, Row, Col, Stack } from 'react-bootstrap';
+import { Form, Container, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
-import { useParams } from "react-router-dom";
 import Service from "../../Services/Service"
 
 const ButtonWrapper = styled.button`
