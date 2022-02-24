@@ -235,6 +235,14 @@ const DealsTable = (props) => {
         Header: "Reimbursible Expense",
         accessor: "reimbursible",
       },
+      {
+        Header: "Notes",
+        accessor: "notes",
+      },
+      {
+        Header: "Closed",
+        accessor: "closed",
+      },
     ],
     []
   );
@@ -333,7 +341,7 @@ const DealsTable = (props) => {
           <tbody {...getTableBodyProps()} className='table-bordered'>
             {rows.map((row, i) => {
               prepareRow(row);
-              // console.log(row.original['transid'])
+              console.log(row.original.notes)
 
               return (
                 <tr {...row.getRowProps()}>
@@ -352,5 +360,7 @@ const DealsTable = (props) => {
       </ContainerWrapper>
     </React.Fragment>
 )}
+
+
 
 export default DealsTable;

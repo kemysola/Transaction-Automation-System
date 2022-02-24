@@ -81,7 +81,7 @@ export default function UpdateTransactions() {
   
   let id = window.location.search.split("?")[1]
 
-  console.log(id)
+  
 
   function postData(e) {
     e.preventDefault()
