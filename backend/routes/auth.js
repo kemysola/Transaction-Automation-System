@@ -11,6 +11,7 @@ const querystring = require('querystring');
 
 router.post("/app/login", async(req, res) => {
     const client = await pool.connect()
+    
     try {
         const user = await client.query(
             "SELECT * FROM TB_TRS_USERS WHERE email = $1", [req.body.email]
@@ -49,14 +50,19 @@ router.post("/app/login", async(req, res) => {
             return res.status(401).send({ message: "Please Verify your Email" });
         }
     } catch (err) {
-        console.error(err.stack);
-        res.status(404).json({ Error: "Invalid Email Address" });
+        res.status(404).json({ Error: "Invalid Email Address", ErrorDetail: err.stack });
     } finally {
         client.release()
     }
 });
 
-
+// Destroys the session to log out the user.
+router.get("/app/logout", function(req, res) {
+    req.session.destroy(() => {
+     req.logout();
+     res.redirect("/app/login"); //Inside a callback… bulletproof!
+    });
+   });
 
 // User Authentication with Azure Active Directory
 const AADParameters = {
@@ -76,7 +82,6 @@ const config = {
     system: {
         loggerOptions: {
             loggerCallback(loglevel, message, containsPii) {
-                // console.log(message);
             },
             piiLoggingEnabled: false,
             logLevel: msal.LogLevel.Verbose,
@@ -110,9 +115,13 @@ router.get('/app/login', (req, res) => {
     };
     cca.acquireTokenByCode(tokenRequest).then((response) => {
         // console.log("\nTheResponse: \n:", response);
-        let user = { email: response.account.username }
-        const query = querystring.stringify({"user":response.account.username, "token":response.accessToken});
-        res.redirect('http://localhost:3000/login?'+query);
+        // let user = { email: response.account.username }
+        // const query = querystring.stringify({"user":response.account.username, "token":response.accessToken});
+        // res.redirect('http://localhost:3000/login?'+query);
+        const paramsString = {"user":response.account.username, "token":response.accessToken};
+        let searchParams = new URLSearchParams(paramsString);
+
+        res.redirect('http://localhost:3000/login?'+searchParams);
 
     }).catch((error) => {
         console.log(error);

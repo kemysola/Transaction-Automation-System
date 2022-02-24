@@ -40,7 +40,7 @@ router.get('/:start_date/:end_date/:client_name', verifyTokenAndAuthorization, a
                 AND POS = 1;
                 `,[start_date, end_date, client_name]
                 );
-                // console.log(report_query.rows.length)
+    
             if (report_query.rows.length > 0) { 
     
                 res.status(200).send({
@@ -122,7 +122,6 @@ router.get('/:start_date/:end_date/:client_name', verifyTokenAndAuthorization, a
         }
         
     } catch (e) {
-        console.log(e)
         res.status(403).json({ Error: e.stack });
     }finally{
         client.release()
@@ -150,7 +149,6 @@ router.get('report_by_name/:name',verifyTokenAndAuthorization, async (req, res) 
         }
         
     } catch (e) {
-        console.log(e)
         res.status(403).json({ Error: e.stack });
     }finally{
         client.release()

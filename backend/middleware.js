@@ -13,12 +13,9 @@ const verifyToken = (req, res, next) => {
             if (err) res.status(403).json({ Error: "Token is not valid!" })
             req.user = user; //assigns a user object to request - this can be accessed the same way req.body and req.params can be accessed
             next(); //This commands the process to jump out of this function and return to the calling-route to continue other actions
-            
-            // console.log(req.user);
         })
     } else {
-        return res.status(401).json({ Error: "You're not authroized"})
-        
+        return res.status(401).json({ Error: "You're not authroized"})  
     }
 };
 
@@ -39,6 +36,7 @@ const verifyTokenAndAuthorization = (req, res, next) => {
 
 //verifies that there is token and the user is admin(for all admin-only resources)
 const verifyTokenAndAdmin = (req, res, next) => {
+
     verifyToken(req, res, () => {
         if (req.user.Admin) {
             next();
@@ -83,8 +81,7 @@ const verifyUser = async (req, res, next) => {
           
         }
     } catch (err) {
-        console.error(err.stack);
-        res.status(404).json({ Error: "Invalid Email Address" });
+        res.status(404).json({ Error: "Invalid Email Address", ErrorDetail:err.stack });
     }finally{
         client.release()
   }
