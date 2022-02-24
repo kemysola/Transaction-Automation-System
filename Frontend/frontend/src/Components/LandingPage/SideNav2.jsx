@@ -30,6 +30,8 @@ const Sidenav = () => {
     menuToggle ? setMenuToggle(false) : setMenuToggle(true);
   }
 
+  const user = JSON.parse(localStorage.getItem('user'))
+
   return (
     <>
       <div id="header">
@@ -47,7 +49,7 @@ const Sidenav = () => {
               onClick={sidebarToggle}
             >
               {/* Icon change using menucollapse state */}
-              <p>{menuCollapse ? <ImUser /> : `Hi, ${localStorage.getItem('user.name')}`}</p>
+              <p>{menuCollapse ? <ImUser /> : `Hi, ${user.name}`}</p>
             </div>
 
             <div className="closemenu" onClick={menuIconClick}>

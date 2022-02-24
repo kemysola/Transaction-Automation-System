@@ -1,10 +1,10 @@
-import React, { useRef, useState } from 'react';
-import { Form, Container, Row, Col } from 'react-bootstrap';
+import React, { useRef, useState, useEffect } from 'react';
+import { Form, Container, Row, Col, Alert } from 'react-bootstrap';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import styled from 'styled-components';
 import Service from "../../Services/Service"
-import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 const ButtonWrapper = styled.button`
@@ -19,7 +19,7 @@ const ButtonWrapper = styled.button`
   font-size:10px;
   border-radius:10px;
 `;
-const   FormWrapper = styled.div`
+const FormWrapper = styled.div`
   margin:0;
   font-size:5px;
   padding:0;
@@ -85,7 +85,10 @@ export default function UpdateTransactions() {
   const [deal, setDeal] = useState([]);
   const [status, setStatus] = useState(false);
   const [noteList, setNoteList] = useState([{ note: "" }])
-  
+  const [activeTab, setActiveTab] = useState('first');
+  const [dealActiveTab, setDealActiveTab] = useState('deal');
+  const history = useHistory();
+
   const handleNoteChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...noteList];
@@ -117,6 +120,54 @@ export default function UpdateTransactions() {
     setDeal(data.data.dealInfo);
     setStatus(true)
   } ;
+
+  function toNextTab(e) {
+    e.preventDefault();
+    handleTabChange();
+}
+
+function toPrevTab(e) {
+    e.preventDefault();
+    handlePrevChange();
+}
+function toNextTabs(e) {
+    e.preventDefault();
+    changeTabs();
+}
+
+function changeTabs() {
+    if (dealActiveTab === 'sixth') {
+        setDealActiveTab('seventh');
+    }
+}
+
+function handleTabChange() {
+    if (activeTab === 'first') {
+        setActiveTab('second');
+    }
+    if (activeTab === 'second') {
+        setActiveTab('third');
+    }
+    if (activeTab === 'third') {
+        setActiveTab('fourth');
+    }
+    if (activeTab === 'fourth') {
+        setActiveTab('sixth');
+    }
+
+}
+
+function handlePrevChange() {
+    if (activeTab === 'second') {
+        setActiveTab('first');
+    }
+    if (activeTab === 'third') {
+        setActiveTab('second');
+    }
+    if (activeTab === 'fourth') {
+        setActiveTab('third');
+    }
+}
 
   function postData(e) {
     e.preventDefault()
@@ -165,7 +216,22 @@ export default function UpdateTransactions() {
     }
 
       Service.updateDeal(id, data)
-    
+        .then((response) => {
+          alert(response.data.message)
+          history.push({
+            pathname: "/transaction",
+          });
+          // <Alert variant="danger" onClose={() => setShow(false)} dismissible>{response.data.message}</Alert>
+          
+          // setUpdated(response.data.message)
+          // setSubmitted(true)
+        })
+        .catch(error => {
+          alert("Failed to Update Deal")
+        })
+
+
+      
     }
 
   return (
@@ -181,7 +247,7 @@ export default function UpdateTransactions() {
 
               <div> 
        
-      <Tabs defaultActiveKey="first" style={{fontSize:'12px'}}>
+      <Tabs activeKey={activeTab} onSelect={(k) => handleTabChange} style={{fontSize:'12px'}}>
 {/* ----------------------------------------- Client Data ------------------------------------ */}
 		<Tab eventKey="first" title="TRANSACTION">
         <br/>
@@ -191,7 +257,7 @@ export default function UpdateTransactions() {
                   <Col sm={12}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Client Name</Form.Label>
-                    <Form.Control size="sm" type="text" defaultValue={deal[0].clientname} id='client' ref={clientName} disabled/>
+                    <Form.Control size="sm" type="text" defaultValue={deal[0].clientname} id='client' ref={clientName} required disabled/>
                     </Form.Group>
                   </Col>
 
@@ -226,8 +292,9 @@ export default function UpdateTransactions() {
                     </Col>
                           
                 </Row>
-                <br/>
-                <br/>      
+                <br />
+                  <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock' }}>Next </button>
+                <br />      
                 </Container>
                 </Container1> 
 		</Tab>
@@ -300,7 +367,7 @@ export default function UpdateTransactions() {
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Deal Size (NGN)</Form.Label>
-                      <Form.Control size="sm" type="text" defaultValue={deal[0].dealsize} id='dealSize' ref={dealSize}/>
+                      <Form.Control size="sm" type="text" defaultValue={deal[0].dealsize} id='dealSize' ref={dealSize} required/>
                       </Form.Group>
                     </Col>
 
@@ -354,7 +421,7 @@ export default function UpdateTransactions() {
                     <Col sm={4}>
                       <Form.Group className="pt-1">
                         <Form.Label>Mandate Letter</Form.Label>
-                      <Form.Control size="sm" type="date" defaultValue={deal[0].mandateletter} id='mandateLetter' ref={mandateLetter}/>
+                      <Form.Control size="sm" type="date" defaultValue={deal[0].mandateletter} id='mandateLetter' ref={mandateLetter} required/>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -390,6 +457,8 @@ export default function UpdateTransactions() {
                   </Row>
                 </div>
                 <br/>
+                <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock' }}> Prev</button>
+                <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock' }}>Next</button>
                 </Container1>
 	
 		</Tab>
@@ -448,6 +517,8 @@ export default function UpdateTransactions() {
                     </Col>
                   </Row>
                   <br/>
+                  <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock' }}> Prev</button>
+                  <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock' }}>Next</button>
                   </Container1>
                 </div>
 		</Tab>
@@ -456,11 +527,11 @@ export default function UpdateTransactions() {
            
 {/*----------------------------------------------     ----------------------- --------------- */}
 
-        <Tab eventKey="seventh" title="DEAL CATEGORY"  style={{fontSize:'12px'}}>
+        <Tab eventKey="fourth" title="DEAL CATEGORY"  style={{fontSize:'12px'}}>
             <br/>
           
-        <Tabs defaultActiveKey="first" className='text-secondary'>
-        <Tab eventKey="first" title="RED TRANSACTION CATEGORY" >
+        <Tabs defaultActiveKey="first1" className='text-secondary'>
+        <Tab eventKey="first1" title="RED TRANSACTION CATEGORY" >
             <br/>
         <Container1>
         <div id='redCategory' className='pt-2 mt-1 mb-3 pb-3'>
@@ -516,7 +587,7 @@ export default function UpdateTransactions() {
         </Tab>
 
 {/*------------------------------------- ------------------------- ------------------------- */}
-        <Tab eventKey="eigth" title="AMBER TRANSACTION CATEGORY">
+        <Tab  eventKey="second1" title="AMBER TRANSACTION CATEGORY">
         <Container1>
         <div id='amberCategory' className='pt-2 mt-1 mb-3 pb-3'>
                     <PWrapper>
@@ -596,7 +667,7 @@ export default function UpdateTransactions() {
                   </Container1>
         </Tab>
 {/*-------------------------------------- --------------------------------------------------- */}
-        <Tab eventKey="ninthth" title="GREEN TRANSACTION CATEGORY">
+        <Tab eventKey="green" title="GREEN TRANSACTION CATEGORY">
         <Container1>
           <div id='greenCategory' className='pt-2 mt-1 mb-2 pb-2'>
             <PWrapper>
@@ -695,7 +766,7 @@ export default function UpdateTransactions() {
                       <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greenf === true} name="greenF" ref={greenF}/>
                         <Form.Check inline label="No" type="radio"defaultChecked={deal[0].greenf === false} name="greenF" ref={greenF}/>
 
-                        <ButtonWrapper type="submit" className='d-flex justify-content-end' onClick={postData}>
+              <ButtonWrapper type="submit" className='d-flex justify-content-end' onClick={postData}>
                   Submit
               </ButtonWrapper>
 
@@ -711,9 +782,15 @@ export default function UpdateTransactions() {
         </Container1>
         </Tab>
         </Tabs>
+        <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock' }}> Prev</button>
+        {/* <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock' }}> Next</button> */}
         </Tab>   
 	    </Tabs>
 	    </div>
+
+      <ButtonWrapper type="submit" className='d-flex justify-content-end' onClick={postData}>
+          Submit
+      </ButtonWrapper>
 
             </Form>
 

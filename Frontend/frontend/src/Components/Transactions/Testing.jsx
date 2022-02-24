@@ -89,7 +89,6 @@ export default function UpdateTransactions() {
         if (activeTab === 'fourth') {
             setActiveTab('third');
         }
-
     }
     const clientName = useRef("");
     const originator = useRef("");
