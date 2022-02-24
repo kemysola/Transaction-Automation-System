@@ -1,9 +1,8 @@
 import React, { useRef, useState } from 'react';
-import { Form, Container, Row, Col, Stack, Alert } from 'react-bootstrap';
+import { Form, Container, Row, Col } from 'react-bootstrap';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import styled from 'styled-components';
-import { useParams } from "react-router-dom";
 import Service from "../../Services/Service"
 import { useEffect } from 'react';
 import axios from 'axios';
@@ -80,7 +79,6 @@ export default function UpdateTransactions() {
   const redA = useRef("");
   const redB = useRef("");
   const redC = useRef("");
-
   
   let id = window.location.search.split("?")[1]
 
@@ -108,7 +106,7 @@ export default function UpdateTransactions() {
     const data = await axios.get(
       `http://localhost:5000/api/v1/transaction/item/${id}`,
       {headers: {
-        token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6ImE5ZDYxNjY1LTQxNTgtNDRlOC05NGQ2LTIwMjY5Zjc5YTNiZSIsIkVtYWlsIjoic3VwZXJhZG1pbkBpbmZyYWNyZWRpdC5jb20iLCJTdGF0dXMiOiJBY3RpdmUiLCJBZG1pbiI6dHJ1ZSwiaWF0IjoxNjQ1NzAwOTA5LCJleHAiOjE2NDU3ODczMDl9.cC-xObcPmYLzEJ0BtiTxalJGLAo_80dZFma8aaajH8s",
+        token: `Bearer ${localStorage.getItem('token')}`,
         'Content-type': 'application/json; charset=utf-8',
       }}
     ).catch((e) => {
@@ -454,9 +452,7 @@ export default function UpdateTransactions() {
                 </div>
 		</Tab>
 
-
 {/*--------------------------------------------- End Tab --------------------------------- */}
-
            
 {/*----------------------------------------------     ----------------------- --------------- */}
 
@@ -469,184 +465,248 @@ export default function UpdateTransactions() {
         <Container1>
         <div id='redCategory' className='pt-2 mt-1 mb-3 pb-3'>
             <br/>
-
                     <PWrapper>
                       <h6 className="pt-1" style={{fontSize: "10px", color: "red"}}>Red Category</h6>
                     </PWrapper>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].reda === true} name="redA" />
-                      <Form.Check inline label="No" type="radio" defaultChecked={deal[0].reda === false} name="redA" />
-                    </Form.Group>
+                    <Col sm={12}>
+                      <Form.Group>
+                        <Row>
+                          <Col>
+                            <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
+                          </Col>
+                          <Col>
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].reda === true} name="redA"/>
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].reda === false} name="redA"/>
+                          </Col>
+                        </Row>
+                      </Form.Group>
+                    </Col>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Due dilligence ongoing:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].redb === true} name="redB" />
-                      <Form.Check inline label="No" type="radio" defaultChecked={deal[0].redb === false} name="redB" />
-                    </Form.Group>
+                    <Col sm={12}>
+                      <Form.Group>
+                        <Row>
+                          <Col>
+                            <Form.Label style={{paddingRight: "1rem"}}>Due dilligence ongoing:</Form.Label>
+                          </Col>
+                          <Col>
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].redb === true} name="redB"/>
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].redb === false} name="redB"/>
+                          </Col>
+                        </Row>
+                      </Form.Group>
+                    </Col>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Pending Credit Committee approval:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].redc === true} name="redC" />
-                      <Form.Check inline label="No" type="radio" defaultChecked={deal[0].redc === false} name="redC" />
-                    </Form.Group>
+                    <Col sm={12}>
+                      <Form.Group>
+                        <Row>
+                          <Col>
+                            <Form.Label style={{paddingRight: "1rem"}}>Pending Credit Committee approval:</Form.Label>
+                          </Col>
+                          <Col>
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].redc === true} name="redC"/>
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].redc === false} name="redC"/>
+                          </Col>
+                        </Row>
+                      </Form.Group>
+                    </Col>
+
                   </div>
-                  
                   </Container1>
         </Tab>
 
 {/*------------------------------------- ------------------------- ------------------------- */}
         <Tab eventKey="eigth" title="AMBER TRANSACTION CATEGORY">
         <Container1>
-        <div id='amberCategory'>
+        <div id='amberCategory' className='pt-2 mt-1 mb-3 pb-3'>
                     <PWrapper>
                       <h6 className="pt-1" style={{fontSize: "10px", color: "#FFC200"}}>Amber Category</h6>
                     </PWrapper>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].ambera === true} name="amberA" />
-                      <Form.Check inline label="No" type="radio" defaultChecked={deal[0].ambera === false} name="amberA" />
-                    </Form.Group>
+                    <Col sm={12}>
+                      <Form.Group>
+                        <Row>
+                          <Col>
+                            <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
+                          </Col>
+                          <Col>
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].ambera === true} name="amberA" />
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].ambera === false} name="amberA" />
+                          </Col>
+                        </Row>
+                      </Form.Group>
+                    </Col>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committe approval:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberb === true} name="amberB" />
-                      <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberb === false} name="amberB" />
-                    </Form.Group>
+                    <Col sm={12}>
+                      <Form.Group>
+                        <Row>
+                          <Col>
+                            <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committe approval:</Form.Label>
+                          </Col>
+                          <Col>
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberb === true} name="amberB" />
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberb === false} name="amberB" />
+                          </Col>
+                        </Row>
+                      </Form.Group>
+                    </Col>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond issue appointed or selected:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberc === true} name="amberC" />
-                      <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberc === false} name="amberC" />
-                    </Form.Group>
+                    <Col sm={12}>
+                      <Form.Group>
+                        <Row>
+                          <Col>
+                            <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond issue appointed or selected:</Form.Label>
+                          </Col>
+                          <Col>
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberc === true} name="amberC" />
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberc === false} name="amberC" />
+                          </Col>
+                        </Row>
+                      </Form.Group>
+                    </Col>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>Fee Letter and/or Guarantee Documentation expected to be negotiated and/or signed within 8 weeks:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberd === true} name="amberD" />
-                      <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberd === false} name="amberD" />
-                    </Form.Group>
+                    <Col sm={12}>
+                      <Form.Group>
+                        <Row>
+                          <Col>
+                            <Form.Label style={{paddingRight: "1rem"}}>Fee Letter and/or Guarantee Documentation expected to be negotiated and/or signed within 8 weeks:</Form.Label>
+                          </Col>
+                          <Col>
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberd === true} name="amberD" />
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberd === false} name="amberD" />
+                          </Col>
+                        </Row>
+                      </Form.Group>
+                    </Col>
 
-                    <Form.Group>
-                      <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs with timelines for completion agreed with the client:</Form.Label>
-                      <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].ambere === true} name="amberE" />
-                      <Form.Check inline label="No" type="radio" defaultChecked={deal[0].ambere === false} name="amberE" />
-                    </Form.Group>
+                    <Col sm={12}>
+                      <Form.Group>
+                        <Row>
+                          <Col>
+                            <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs with timelines for completion agreed with the client:</Form.Label>
+                          </Col>
+                          <Col>
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].ambere === true} name="amberE" />
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].ambere === false} name="amberE" />
+                          </Col>
+                        </Row>
+                      </Form.Group>
+                    </Col>
                   </div>
                   </Container1>
         </Tab>
 {/*-------------------------------------- --------------------------------------------------- */}
         <Tab eventKey="ninthth" title="GREEN TRANSACTION CATEGORY">
         <Container1>
-        <div id='greenCategory'>
-                    <PWrapper>
-                      <h6 className="pt-1" style={{fontSize: "10px", color: "green"}}>Green Category</h6>
-                    </PWrapper>
-          <Form.Group>
-          <Row>
-            <Col sm={12}>
+          <div id='greenCategory' className='pt-2 mt-1 mb-2 pb-2'>
+            <PWrapper>
+              <h6 className="pt-1" style={{fontSize: "10px", color: "green"}}>Green Category</h6>
+            </PWrapper>
+
             <Form.Group>
             <Row>
-              <Col>
-                    <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committee approval:</Form.Label>
-               </Col>  
-               <Col>    
-                    <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greena === true} name="greenA" ref={greenA}/>
-                      <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greena === false} name="greenA" ref={greenA}/> 
+              <Col sm={12}>
+              <Form.Group>
+              <Row>
+                <Col>
+                  <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committee approval:</Form.Label>
+                </Col>  
+                <Col>    
+                  <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greena === true} name="greenA" ref={greenA}/>
+                  <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greena === false} name="greenA" ref={greenA}/> 
+                </Col>
+                </Row>  
+                </Form.Group>  
               </Col>
-              </Row>  
-                    </Form.Group>  
-            </Col>
 
-{/*--------------------------------------------- -------------------------- --------------- */}
-            <Col sm={12}>
-            <Form.Group>
-            <Row>
-              <Col>
-              <Form.Label style={{paddingRight: "1rem"}}>Guarantee Document in agreed form:</Form.Label>
-               </Col>  
-               <Col>    
-               <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greenb === true} name="greenB" ref={greenB}/>
-                      <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greenb === false} name="greenB" ref={greenB} />         
+  {/*--------------------------------------------- -------------------------- --------------- */}
+              <Col sm={12}>
+              <Form.Group>
+              <Row>
+                <Col>
+                <Form.Label style={{paddingRight: "1rem"}}>Guarantee Document in agreed form:</Form.Label>
+                </Col>  
+                <Col>    
+                <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greenb === true} name="greenB" ref={greenB}/>
+                        <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greenb === false} name="greenB" ref={greenB} />         
+                </Col>
+                </Row>  
+                      </Form.Group>
+                    
               </Col>
-              </Row>  
-                    </Form.Group>
-                  
-            </Col>
 
 
-{/**---------------------------------------------------------------------------------------- */}
-            <Col sm={12}>
-            <Form.Group>
-            <Row>
-              <Col>
-              <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond Issue appointed or selected:</Form.Label>
-               </Col>  
-               <Col>    
-                    <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greenc === true} name="greenC" ref={greenC}/>
-                      <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greenc === false} name="greenC" ref={greenC}/>  
+  {/**---------------------------------------------------------------------------------------- */}
+              <Col sm={12}>
+              <Form.Group>
+              <Row>
+                <Col>
+                <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond Issue appointed or selected:</Form.Label>
+                </Col>  
+                <Col>    
+                      <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greenc === true} name="greenC" ref={greenC}/>
+                        <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greenc === false} name="greenC" ref={greenC}/>  
+                </Col>
+                </Row> 
+                      </Form.Group>
+                    
               </Col>
-              </Row> 
-                    </Form.Group>
-                  
-            </Col>
 
-{/*--------------------------------------------------------------------------------------- */}
-            <Col sm={12}>
-            <Form.Group>
-            <Row>
-              <Col>
-              <Form.Label style={{paddingRight: "1rem"}}>Already filed or expected filing with SEC (or equivalent Exchange) within 6 weeks:</Form.Label>
-               </Col>  
-               <Col>    
-                    <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greend === true} name="greenD" ref={greenD}/>
-                      <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greend === false} name="greenD" ref={greenD}/>
-                     
+  {/*--------------------------------------------------------------------------------------- */}
+              <Col sm={12}>
+              <Form.Group>
+              <Row>
+                <Col>
+                <Form.Label style={{paddingRight: "1rem"}}>Already filed or expected filing with SEC (or equivalent Exchange) within 6 weeks:</Form.Label>
+                </Col>  
+                <Col>    
+                      <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greend === true} name="greenD" ref={greenD}/>
+                        <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greend === false} name="greenD" ref={greenD}/>
+                      
+                </Col>
+                </Row>    
+                      </Form.Group>
+                    
               </Col>
-              </Row>    
-                    </Form.Group>
-                  
-            </Col>
-{/*---------------------------------------------------------------------------------------- */}
-            <Col sm={12}>
-            <Form.Group>
-            <Row>
-              <Col>
-              <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs to Financial Close have been satisfactorily met or committed by the Client for completion on or before Financial Close:</Form.Label>
-               </Col>  
-               <Col>    
-                    <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greene === true} name="greenE" ref={greenE}/>
-                      <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greene === false} name="greenE" ref={greenE}/>  
+  {/*---------------------------------------------------------------------------------------- */}
+              <Col sm={12}>
+              <Form.Group>
+              <Row>
+                <Col>
+                <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs to Financial Close have been satisfactorily met or committed by the Client for completion on or before Financial Close:</Form.Label>
+                </Col>  
+                <Col>    
+                      <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greene === true} name="greenE" ref={greenE}/>
+                        <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greene === false} name="greenE" ref={greenE}/>  
+                </Col>
+                </Row>
+                      </Form.Group>
+
+                    
               </Col>
-              </Row>
-                    </Form.Group>
+  {/*-------------------------------------------------------------------------------------- */}
+              <Col sm={12}>
+              <Form.Group>
+              <Row>
+                <Col>
+            <Form.Label style={{paddingRight: "1rem"}}>Financial Close expected within 3-6 months:</Form.Label>            
+                </Col>  
+                <Col>    
+                      <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greenf === true} name="greenF" ref={greenF}/>
+                        <Form.Check inline label="No" type="radio"defaultChecked={deal[0].greenf === false} name="greenF" ref={greenF}/>
 
-                  
-            </Col>
-{/*-------------------------------------------------------------------------------------- */}
-            <Col sm={12}>
-            <Form.Group>
-            <Row>
-              <Col>
-          <Form.Label style={{paddingRight: "1rem"}}>Financial Close expected within 3-6 months:</Form.Label>            
-               </Col>  
-               <Col>    
-                    <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greenf === true} name="greenF" ref={greenF}/>
-                      <Form.Check inline label="No" type="radio"defaultChecked={deal[0].greenf === false} name="greenF" ref={greenF}/>
+                        <ButtonWrapper type="submit" className='d-flex justify-content-end' onClick={postData}>
+                  Submit
+              </ButtonWrapper>
 
-                      <ButtonWrapper type="submit" className='d-flex justify-content-end' onClick={postData}>
-                Submit
-            </ButtonWrapper>
-
+                </Col>
+                </Row>      
+                      </Form.Group>
+                    
               </Col>
-              </Row>      
-                    </Form.Group>
-                  
-            </Col>
-{/*-------------------------------------------------------------------------------------------- */}   
-          </Row>
-          </Form.Group>
+  {/*-------------------------------------------------------------------------------------------- */}   
+            </Row>
+            </Form.Group>
           </div>
         </Container1>
         </Tab>

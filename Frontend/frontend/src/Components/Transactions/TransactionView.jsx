@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{useState} from 'react';
+// import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import {Row,Col} from 'react-bootstrap';
 import SideNav2 from '../LandingPage/SideNav2';
@@ -13,6 +14,12 @@ const ViewWrapper = styled.div`
 `;
 
 export default function TransactionView(){
+//     const location = useLocation();
+
+//   const query_ = useLocation().search;
+//   const name = new URLSearchParams(query_).get("token");
+//     console.log(name)
+
     return(
         <React.Fragment>
             <Navbar/>
