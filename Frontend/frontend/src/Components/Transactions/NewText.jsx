@@ -40,7 +40,10 @@ padding: 0;
 const AddDeal = () => {
   const [activeTab, setActiveTab] = useState('first');
   const [dealActiveTab, setDealActiveTab] = useState('deal');
-
+  const [deal, setDeal] = useState(initialDealState);
+  const [submitted, setSubmitted] = useState(false);
+  const [response, setResponse] = useState(false);
+  const [noteList, setNoteList] = useState([{ note: "" }])
 
   function toNextTab(e) {
     e.preventDefault();
@@ -76,10 +79,6 @@ const AddDeal = () => {
       setActiveTab('sixth');
     }
 
-    const [deal, setDeal] = useState(initialDealState);
-    const [submitted, setSubmitted] = useState(false);
-    const [response, setResponse] = useState(false);
-    const [noteList, setNoteList] = useState([{ note: "" }])
 
     const handleInputChange = event => { // function to save user data to deal state
       const { name, value } = event.target;
