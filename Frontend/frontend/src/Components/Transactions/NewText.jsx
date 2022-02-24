@@ -38,9 +38,56 @@ margin:0;
 padding: 0;
 `;
 const AddDeal = () => {
+  const initialDealState = {
+    clientName: "",
+    originator: "",
+    transactor: "",
+    transactionLegalLead: "",
+    industry: "", 
+    product: "",
+    region: "",
+    dealSize: 0,
+    coupon: 0,
+    tenor: 0,
+    moratorium: 0,
+    repaymentFrequency: "Semi-Annually",
+    amortizationStyle: "Annuity",
+    mandateLetter: null,
+    creditApproval: null,
+    feeLetter: null,
+    expectedClose: null,
+    actualClose: null,
+    greenA: false, 
+    greenB: false,
+    greenC: false,
+    greenD: false,
+    greenE: false,
+    greenF: false,
+    amberA: false, 
+    amberB: false, 
+    amberC: false, 
+    amberD: false, 
+    amberE: false, 
+    redA: true, 
+    redB: true, 
+    redC: true, 
+    redD: false, 
+    redE: false, 
+    structuringFeeAmount: 0,
+    structuringFeeAdvance: 0,
+    guaranteeFee: 0,
+    monitoringFee: 0,
+    reimbursible: 0,
+    notes: "",
+    closed: false
+  };
+
   const [activeTab, setActiveTab] = useState('first');
   const [dealActiveTab, setDealActiveTab] = useState('deal');
-
+  const [deal, setDeal] = useState(initialDealState);
+  const [submitted, setSubmitted] = useState(false);
+  const [response, setResponse] = useState(false);
+  const [noteList, setNoteList] = useState([{ note: "" }])
 
   function toNextTab(e) {
     e.preventDefault();
@@ -49,8 +96,9 @@ const AddDeal = () => {
 
   function toPrevTab(e) {
     e.preventDefault();
-    handlePrevChange();
+    handleTabChange();
   }
+
   function toNextTabs(e) {
     e.preventDefault();
     changeTabs();
@@ -75,17 +123,12 @@ const AddDeal = () => {
     if (activeTab === 'fourth') {
       setActiveTab('sixth');
     }
-
-    const [deal, setDeal] = useState(initialDealState);
-    const [submitted, setSubmitted] = useState(false);
-    const [response, setResponse] = useState(false);
-    const [noteList, setNoteList] = useState([{ note: "" }])
+  };
 
     const handleInputChange = event => { // function to save user data to deal state
       const { name, value } = event.target;
       setDeal({ ...deal, [name]: value });
     }
-  
 
     const handleNoteChange = (e, index) => {
       const { name, value } = e.target;
@@ -757,8 +800,6 @@ const AddDeal = () => {
 
         </FormWrapper>
       </React.Fragment>
-
     )
-  }
-}
-export default AddDeal
+  };
+export default AddDeal;
