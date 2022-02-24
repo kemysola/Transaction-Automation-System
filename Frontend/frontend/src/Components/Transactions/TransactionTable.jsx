@@ -235,6 +235,14 @@ const DealsTable = (props) => {
         Header: "Reimbursible Expense",
         accessor: "reimbursible",
       },
+      {
+        Header: "Notes",
+        accessor: "notes",
+      },
+      {
+        Header: "Closed",
+        accessor: "closed",
+      },
     ],
     []
   );
@@ -402,5 +410,7 @@ const DealsTable = (props) => {
       </ContainerWrapper>
     </React.Fragment>
 )}
+
+
 
 export default DealsTable;

@@ -16,12 +16,12 @@ export default function TransactionCards() {
             <Card className={styles.roundedCorners}>
               <Card.Body>
                 <Card.Title className="d-flex justify-content-between">
-                    <small>Lorem, ipsum dolor </small> 
+                    <small>Total Transaction </small> 
                     <FaCoins /> 
                 </Card.Title>
 
                 <Card.Text className='text-info'>
-                    <h4>123,000,000,000</h4>
+                    <h4>Total Transaction</h4>
                 </Card.Text>
               </Card.Body>
             </Card>

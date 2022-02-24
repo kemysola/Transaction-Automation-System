@@ -2,6 +2,7 @@
     position: absolute;
     width: 270px;
 }
+
 #header .closemenu {
     color: black;
     position: absolute;
@@ -14,62 +15,76 @@
     top: 32.5px;
     cursor: pointer;
 }
+
 #header .logotext {
     /* padding: 20px; */
     cursor: pointer;
 }
+
 #header .pro-sidebar {
     width: 100%;
     min-width: 100%;
     height: auto;
     min-height: 100vh;
 }
+
 #header .pro-sidebar.collapsed {
     width: 80px;
     min-width: 80px;
 }
+
 #header .pro-sidebar-inner {
     background-color: #eff1f1;
     box-shadow: 0.5px 0.866px 2px 0px rgba(0, 0, 0, 0.15);
 }
+
 #header .pro-sidebar-inner .pro-sidebar-layout {
     overflow-y: hidden;
     height: 100vh;
 }
+
 #header .pro-sidebar-inner .pro-sidebar-layout .logotext p {
     font-size: 20px;
     padding: 0 20px;
     color: darkblue;
     font-weight: bold;
 }
+
 #header .pro-sidebar-inner .pro-sidebar-layout ul {
     padding: 0 5px;
 }
+
 #header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item {
     color: darkblue;
     margin: 10px 0px;
     font-weight: bold;
 }
+
 #header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item .pro-icon-wrapper {
     background-color: #c0c0c0;
     color: #000;
     border-radius: 3px;
 }
+
 #header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item .pro-icon-wrapper .pro-item-content {
     background-color: #eff1f1;
     color: #000;
 }
+
 #header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item .pro-inner-list-item ul {
     background-color: white;
 }
+
 #header .subMenu {
     background-color: #c0c0c0;
     /* color: #000; */
     border-radius: 3px;
 }
+
 #header .logo {
     padding: 20px;
 }
+
 @media only screen and (max-width: 720px) {
     html {
         overflow: hidden;

@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import authService from '../../Services/auth.Service';
 //react pro sidebar components
 
-import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, SidebarContent} from "react-pro-sidebar";
+import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, SidebarContent } from "react-pro-sidebar";
 //icons from react icons
 
 import { ImUser, ImUsers } from "react-icons/im";
@@ -44,70 +44,62 @@ const Sidenav = () => {
   }
 
   return (
-  <>
-    <div id="header">
+    <>
+      <div id="header">
 
-      {/* collapsed props to change menu size using menucollapse state */}
-      <ProSidebar 
-        collapsed={menuCollapse}
-        toggled={menuToggle}
-        breakPoint="md"
+        {/* collapsed props to change menu size using menucollapse state */}
+        <ProSidebar
+          collapsed={menuCollapse}
+          toggled={menuToggle}
+          breakPoint="md"
         // onToggle={handleToggleSidebar}
-      >
-        <SidebarHeader>
-          <div 
-            className="logotext" 
-            onClick={sidebarToggle}
-          >
-            {/* Icon change using menucollapse state */}
-            <p>{menuCollapse ? <ImUser /> : 'Hi, User' }</p>
-          </div>
+        >
+          <SidebarHeader>
+            <div
+              className="logotext"
+              onClick={sidebarToggle}
+            >
+              {/* Icon change using menucollapse state */}
+              <p>{menuCollapse ? <ImUser /> : 'Hi, User'}</p>
+            </div>
 
-          <div className="closemenu" onClick={menuIconClick}>
-            {/* changing menu collapse icon on click */}
-            {menuCollapse ? (
-              <FiArrowRightCircle/>
-            ) : (
-              <FiArrowLeftCircle/>
-            )}
-          </div>
-        </SidebarHeader>
-{/* -------------------------------------- Transactions SideNav with React RouterLink ------------ */}
+            <div className="closemenu" onClick={menuIconClick}>
+              {/* changing menu collapse icon on click */}
+              {menuCollapse ? (
+                <FiArrowRightCircle />
+              ) : (
+                <FiArrowLeftCircle />
+              )}
+            </div>
+          </SidebarHeader>
+          {/* -------------------------------------- Transactions SideNav with React RouterLink ------------ */}
 
-        <SidebarContent >
-          <Menu iconShape="round">
-            <SubMenu title='Transactions' icon={<BsWallet2 />} >
-              <MenuItem className="subMenu" >
-                <Link to ='/transaction' style={{color:'#237cbf'}}>
-                All Transactions</Link>
+          <SidebarContent >
+            <Menu iconShape="round">
+              <SubMenu title='Transactions' icon={<BsWallet2 />} >
+                <MenuItem className="subMenu" >
+                  <Link to='/transaction' style={{ color: '#237cbf' }}>
+                    All Transactions</Link>
                 </MenuItem>
-              <MenuItem className="subMenu">
-                <Link to ='/newPages' style={{color:'#237cbf'}}
-                >New Transactions</Link>
+                <MenuItem className="subMenu">
+                  <Link to='/newPages' style={{ color: '#237cbf' }}
+                  >New Transactions</Link>
                 </MenuItem>
-            </SubMenu>
+              </SubMenu>
 
-{/* -------------------------------- Staffs SideNav with React RouterLink -------------------- */}
+              {/* -------------------------------- Staffs SideNav with React RouterLink -------------------- */}
 
 
-            <SubMenu title='Staff' icon={<ImUsers />}>
-              <MenuItem className="subMenu">
-              <Link to ='/staffs' style={{color:'#237cbf'}}>
-                All Staff
-              </Link>
-              </MenuItem>
-              <MenuItem className="subMenu">
-              <Link to ='/staff' style={{color:'#237cbf'}}>
-                New Staff
-              </Link>
+              <SubMenu title='Staff' icon={<ImUsers />}>
+                <MenuItem className="subMenu">
+                  <Link to='/staffs' style={{ color: '#237cbf' }}>
+                    All Staff
+                  </Link>
                 </MenuItem>
-            </SubMenu>
-{/* -------------------------------------- Dashboard SideNav with React RouterLink ------------ */}
-            <SubMenu title='Dashboard' icon={<GoDashboard />}>
-              <MenuItem className="subMenu">
-              <Link to ='/dashboard' style={{color:'#237cbf'}}>
-                Management Dashboard
-              </Link>
+                <MenuItem className="subMenu">
+                  <Link to='/staff' style={{ color: '#237cbf' }}>
+                    New Staff
+                  </Link>
                 </MenuItem>
               <MenuItem className="subMenu">
               <Link to ='/dashboard' style={{color:'#237cbf'}}>
