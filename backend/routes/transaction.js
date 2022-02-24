@@ -82,7 +82,6 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
     });
 
   } catch (e) {
-    console.log(e)
     await client.query('ROLLBACK')
     res.status(403).json({ Error: e.stack });
     // throw e
@@ -114,7 +113,6 @@ router.get('/item/:deal',verifyTokenAndAdmin, async (req, res) => {
         }
         
     } catch (e) {
-        console.log(e)
         res.status(403).json({ Error: e.stack });
     }finally{
         client.release()
@@ -148,7 +146,6 @@ router.get('/my_deals', verifyTokenAndAuthorization, async (req, res) => {
         }
         
     } catch (e) {
-        console.log(e)
         res.status(403).json({ Error: e.stack });
     }finally{
         client.release()
@@ -178,7 +175,6 @@ router.get('/all_deals', verifyTokenAndAdmin, async (req, res) => {
         }
         
     } catch (e) {
-        console.log(e)
         res.status(403).json({ Error: e.stack });
     }finally{
         client.release()
@@ -250,7 +246,6 @@ router.put('/update/:dealID', verifyTokenAndAuthorization, async (req, res) => {
           });
         
     } catch (e) {
-        console.log("################", e)
         await client.query('ROLLBACK')
         res.status(403).json({ Error: e.stack });
     }finally{

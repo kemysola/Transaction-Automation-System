@@ -111,7 +111,7 @@ const AddDeal = () => {
 
       let allNotes = noteList.map(({ note }) => note)
       let note = allNotes.join("|")
-      console.log(note)
+      
       let data = { // store user's inpt in a variable called data
         "clientName": deal.clientName,
         "originator": deal.originator,
@@ -155,19 +155,15 @@ const AddDeal = () => {
         "notes": note,
         "closed": false
       };
-
-      console.log(data);
     
       setSubmitted(true)
 
       Services.createDeal(data)
         .then(res => {
-          console.log(res.data.message)
           setResponse(res.data.message)
           setSubmitted(true)
         })
         .catch(error => {
-          console.log(error)
           setResponse("Failed to Create Deal. Please Try Again")
         });
     };

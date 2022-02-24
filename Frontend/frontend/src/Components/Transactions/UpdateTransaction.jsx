@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Form, Container, Row, Col, Stack } from 'react-bootstrap';
+import { Form, Container, Row, Col, Stack, Alert } from 'react-bootstrap';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import styled from 'styled-components';
@@ -86,6 +86,18 @@ export default function UpdateTransactions() {
 
   const [deal, setDeal] = useState([]);
   const [status, setStatus] = useState(false);
+  const [noteList, setNoteList] = useState([{ note: "" }])
+  
+  const handleNoteChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...noteList];
+    list[index][name] = value;
+    setNoteList(list);
+  };
+
+  const handleNoteAdd = () => {
+    setNoteList([...noteList, { note: "" }]);
+  };
 
   useEffect(() => {
     retrieveDeal();
@@ -96,21 +108,23 @@ export default function UpdateTransactions() {
     const data = await axios.get(
       `http://localhost:5000/api/v1/transaction/item/${id}`,
       {headers: {
-        token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6IjE4ODJhY2JhLTdkNWYtNDI1ZS04ODFiLTM5Zjk5NDg5NTYyNCIsIkVtYWlsIjoic3VwZXJhZG1pbkBpbmZyYWNyZWRpdC5jb20iLCJTdGF0dXMiOiJBY3RpdmUiLCJBZG1pbiI6dHJ1ZSwiaWF0IjoxNjQ1NTI5MDUyLCJleHAiOjE2NDU2MTU0NTJ9.ixdX5BDnbw9gwKIEFUYeryPa6CfKZGd5JdK1WCDgWN4",
+        token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6ImE5ZDYxNjY1LTQxNTgtNDRlOC05NGQ2LTIwMjY5Zjc5YTNiZSIsIkVtYWlsIjoic3VwZXJhZG1pbkBpbmZyYWNyZWRpdC5jb20iLCJTdGF0dXMiOiJBY3RpdmUiLCJBZG1pbiI6dHJ1ZSwiaWF0IjoxNjQ1NzAwOTA5LCJleHAiOjE2NDU3ODczMDl9.cC-xObcPmYLzEJ0BtiTxalJGLAo_80dZFma8aaajH8s",
         'Content-type': 'application/json; charset=utf-8',
       }}
     ).catch((e) => {
       console.log(e);
     });
-
     // set the deal and status state
+    setNoteList(data.data.dealInfo[0].notes)
     setDeal(data.data.dealInfo);
     setStatus(true)
   } ;
 
   function postData(e) {
     e.preventDefault()
-  
+    let allNotes = noteList.map(({ note }) => note)
+    let note = allNotes.join("|")
+
     const data = {
       clientName: clientName.current.value,
       originator: originator.current.value,
@@ -149,9 +163,11 @@ export default function UpdateTransactions() {
       redA: redA.current.value,
       redB: redB.current.value,
       redC: redC.current.value,
-      notes: []
+      notes: note
     }
+
       Service.updateDeal(id, data)
+    
     }
 
   return (
@@ -200,6 +216,17 @@ export default function UpdateTransactions() {
                       <Form.Control size="sm" type="text" defaultValue={deal[0].transactionlegallead} id='transactionLegalLead' ref={transactionLegalLead}/>
                     </Form.Group>
                   </Col>
+                  
+                  <Col sm={12}>
+                    <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                      <Form.Label>Note</Form.Label> <button type = "button" onClick={handleNoteAdd}>Add</button>
+                                {noteList.map((singleNote, index) => (
+                                  <Form.Control style={{ margin: '0.8em' }} size="sm" type="text" defaultValue={singleNote} value={singleNote.note} name='note'  onChange={(e) => handleNoteChange(e, index)}
+                                  required/>
+                                ))}     
+                    </Form.Group>   
+                    </Col>
+                          
                 </Row>
                 <br/>
                 <br/>      
