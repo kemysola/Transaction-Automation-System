@@ -24,10 +24,7 @@ const MainCards = () => {
         <React.Fragment>
             <Container>
                 <div className='title'>
-                    <p style={{ color: '#1184c2' }}>Hi Admin, Welcome
-                        <br />
-                        Back
-                    </p>
+                    <p style={{ color: '#1184c2', fontWeight:"13px" }}>Welcome Back</p>
                 </div>
 
                 <Row >

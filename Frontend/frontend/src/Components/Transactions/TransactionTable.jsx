@@ -96,8 +96,6 @@ const DealsTable = (props) => {
       });
   };
 
-  console.log(localStorage.getItem('token'))
-
   const refreshList = () => {
     retrieveDeals();
   };
@@ -350,7 +348,14 @@ const DealsTable = (props) => {
                   <tr {...row.getRowProps()}>
                     {row.cells.map((cell) => {
                       return (
-                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                        <td 
+                          {...cell.getCellProps()}
+                          style={{
+                            color: "Red",
+                          }}
+                        >
+                          {cell.render("Cell")}
+                        </td>
                       );
                     })}
                   </tr>

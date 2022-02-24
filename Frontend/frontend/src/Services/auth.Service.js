@@ -33,7 +33,7 @@ const logout = () => {
      //   return response.data;
     // });
     window.location.reload()
-    window.location.href='/login';
+    window.location.href='/';
     
 };
 const getCurrentUser = () => {
