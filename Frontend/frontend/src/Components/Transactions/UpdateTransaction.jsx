@@ -120,7 +120,9 @@ export default function UpdateTransactions() {
 
   function postData(e) {
     e.preventDefault()
+    console.log("#", noteList)
     let allNotes = noteList.map(({ note }) => note)
+    console.log("###", allNotes)
     let note = allNotes.join("|")
 
     const data = {
