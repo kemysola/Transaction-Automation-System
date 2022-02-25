@@ -147,12 +147,12 @@ const DealsTable = (props) => {
         // disableResizing: true,
       },
       {
-        Header: "ORIGINATOR",
+        Header: "Originator",
         accessor: "originator",
         // disableResizing: true,
       },
       {
-        Header: "TRANSACTOR",
+        Header: "Transactor",
         accessor: "transactor",
         // disableResizing: true,
       },
@@ -161,7 +161,7 @@ const DealsTable = (props) => {
         accessor: "transactionlegallead",
       },
       {
-        Header: "INDUSTRY",
+        Header: "Industry",
         accessor: "industry",
       },
       {
@@ -285,7 +285,7 @@ const DealsTable = (props) => {
         {
           id: 'selection',
           disableResizing: true,
-          minWidth: 35,
+          minWidth: 20,
           width: 35,
           maxWidth: 35,
           // The header can use the table's getToggleAllRowsSelectedProps method
