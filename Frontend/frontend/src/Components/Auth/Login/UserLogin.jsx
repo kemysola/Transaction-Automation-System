@@ -17,6 +17,7 @@ import {
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
+
 const BorderDiv = styled.div`
   border-radius: 12px;
   background: white;

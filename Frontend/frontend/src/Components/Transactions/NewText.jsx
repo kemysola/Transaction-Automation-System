@@ -7,14 +7,13 @@ import Services from '../../Services/Service';
 
 const ButtonWrapper = styled.button`
   background: green;
-  margin-right:14px;
   border:1px solid  white;
-  padding:6px 35px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  font-weight:bold;
-  font-size:10px;
-  border-radius:10px;
+  padding:12px 21px;
+  margin-top: 3px;
+  margin-right:3px;
+  font-size:11px;
+  border-radius:2px;
+  color:white;
 
 `;
 const FormWrapper = styled.div`
@@ -37,6 +36,7 @@ font-size:11px;
 margin:0;
 padding: 0;
 `;
+
 const AddDeal = () => {
   const initialDealState = {
     clientName: "",
@@ -98,9 +98,16 @@ const AddDeal = () => {
     e.preventDefault();
     handlePrevChange();
   }
-  
+  function toNextTabs(e) {
+    e.preventDefault();
+    changeTabs();
+  }
 
-  
+  function changeTabs() {
+    if (dealActiveTab === 'sixth') {
+      setDealActiveTab('seventh');
+    }
+  }
 
   function handleTabChange() {
     if (activeTab === 'first') {
@@ -130,17 +137,7 @@ const AddDeal = () => {
 
   }
 
-  const [error, setError] = useState()
-  //validate green transactions.....
-  const validate = (e) => {
-    let name = e.target.name;
-    let errors = error
-    if (!e.target.checked) {
-      errors[name] = true;
-      setError({ errors: errors })
-    }
-  }
-
+  
 
 
   const handleInputChange = event => { // function to save user data to deal state
@@ -248,8 +245,6 @@ const AddDeal = () => {
               <div>
                 <Tabs activeKey={activeTab} onSelect={(k) => handleTabChange} style={{ fontSize: '12px' }}>
                   <Tab eventKey="first" title="CLIENT">
-                    <br />
-                    <br />
                     <Container1>
                       <br />
                       <Row>
@@ -301,8 +296,6 @@ const AddDeal = () => {
 
 
                   <Tab eventKey="second" title="DEAL PROFILE FEES & REIMBURSEMENTS">
-                    <br />
-                    <br />
                     <Container1>
                       <div className='mt-2'>
                         <PWrapper>
@@ -528,10 +521,6 @@ const AddDeal = () => {
                   </Tab>
 
                   <Tab eventKey="fourth" title="DEAL CATEGORY" style={{ fontSize: '12px' }}>
-                    <br />
-                    <Tabs defaultActiveKey="first1" className='text-secondary'>
-                      <Tab eventKey="first1" title="RED TRANSACTION CATEGORY" >
-                        <br />
                         <Container1>
                           <div name='redCategory' className='py-3'>
                             <PWrapper>
@@ -550,7 +539,7 @@ const AddDeal = () => {
                                         <Form.Label style={{ paddingRight: "1rem" }}>Mandate Letter signed:</Form.Label>
                                       </Col>
                                       <Col sm={6}>
-                                        <Form.Check inline label="Yes" type="radio" name="redA" value={deal.redA} onChange={handleInputChange} defaultChecked />
+                                        <Form.Check inline label="Yes" type="radio" name="redA" value={deal.redA} onChange={handleInputChange} />
                                         <Form.Check inline label="No" type="radio" name="redA" value={deal.redA} onChange={handleInputChange} />
                                       </Col>
                                     </Row>
@@ -565,7 +554,7 @@ const AddDeal = () => {
 
                                       </Col>
                                       <Col sm={6}>
-                                        <Form.Check inline label="Yes" type="radio" name="redB" value={deal.redB} onChange={handleInputChange} defaultChecked />
+                                        <Form.Check inline label="Yes" type="radio" name="redB" value={deal.redB} onChange={handleInputChange}  />
                                         <Form.Check inline label="No" type="radio" name="redB" value={deal.redB} onChange={handleInputChange} />
                                       </Col>
                                     </Row>
@@ -582,7 +571,7 @@ const AddDeal = () => {
                                       </Col>
 
                                       <Col sm={6}>
-                                        <Form.Check inline label="Yes" type="radio" name="redC" value={deal.redC} onChange={handleInputChange} defaultChecked />
+                                        <Form.Check inline label="Yes" type="radio" name="redC" value={deal.redC} onChange={handleInputChange}  />
                                         <Form.Check inline label="No" type="radio" name="redC" value={deal.redC} onChange={handleInputChange} />
                                       </Col>
                                     </Row>
@@ -593,14 +582,14 @@ const AddDeal = () => {
                           </div>
                           <br />
                         </Container1>
-                      </Tab>
+                     
 
-                      <Tab eventKey="second1" title="AMBER TRANSACTION CATEGORY">
-                        <Container1>
+                      
+                        <Container1 className='mt-2 pt-3'>
 
                           <div name='amberCategory'>
                             <PWrapper>
-                              <br />
+                            
                               <h6 className="pt-1" style={{ fontSize: "10px", color: "#FFC200" }}>AMBER CATEGORY</h6>
                             </PWrapper>
                             <div>
@@ -614,7 +603,7 @@ const AddDeal = () => {
                                         </Col>
                                         <Col sm={6}>
                                           <Form.Check inline label="Yes" type="radio" name="amberA" value={deal.amberA} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="amberA" value={deal.amberA} onChange={handleInputChange} defaultChecked />
+                                          <Form.Check inline label="No" type="radio" name="amberA" value={deal.amberA} onChange={handleInputChange}  />
                                         </Col>
                                       </Row>
                                     </Form.Group>
@@ -628,7 +617,7 @@ const AddDeal = () => {
                                         </Col>
                                         <Col sm={6}>
                                           <Form.Check inline label="Yes" type="radio" name="amberB" value={deal.amberB} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="amberB" value={deal.amberB} onChange={handleInputChange} defaultChecked />
+                                          <Form.Check inline label="No" type="radio" name="amberB" value={deal.amberB} onChange={handleInputChange}  />
 
                                         </Col>
                                       </Row>
@@ -643,7 +632,7 @@ const AddDeal = () => {
                                         </Col>
                                         <Col sm={6}>
                                           <Form.Check inline label="Yes" type="radio" name="amberC" value={deal.amberC} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="amberC" value={deal.amberC} onChange={handleInputChange} defaultChecked />
+                                          <Form.Check inline label="No" type="radio" name="amberC" value={deal.amberC} onChange={handleInputChange}  />
                                         </Col>
                                       </Row>
                                     </Form.Group>
@@ -661,7 +650,7 @@ const AddDeal = () => {
 
                                   <Col sm={6}>
                                     <Form.Check inline label="Yes" type="radio" name="amberD" value={deal.amberD} onChange={handleInputChange} />
-                                    <Form.Check inline label="No" type="radio" name="amberD" value={deal.amberD} onChange={handleInputChange} defaultChecked />
+                                    <Form.Check inline label="No" type="radio" name="amberD" value={deal.amberD} onChange={handleInputChange} />
                                   </Col>
                                 </Row>
                               </Form.Group>
@@ -675,7 +664,7 @@ const AddDeal = () => {
                                   </Col>
                                   <Col sm={6}>
                                     <Form.Check inline label="Yes" type="radio" name="amberE" value={deal.amberE} onChange={handleInputChange} />
-                                    <Form.Check inline label="No" type="radio" name="amberE" value={deal.amberE} onChange={handleInputChange} defaultChecked />
+                                    <Form.Check inline label="No" type="radio" name="amberE" value={deal.amberE} onChange={handleInputChange}/>
                                   </Col>
                                 </Row>
                               </Form.Group>
@@ -683,12 +672,12 @@ const AddDeal = () => {
 
                           </div>
                         </Container1>
-                      </Tab>
+                      
 
 
 
-                      <Tab eventKey="green" title="GREEN TRANSACTION CATEGORY">
-                        <Container1>
+                      
+                        <Container1 className='mt-2 pt-3'>
                           <div name='greenCategory'>
 
                             <PWrapper>
@@ -708,8 +697,9 @@ const AddDeal = () => {
 
                                         </Col >
                                         <Col sm={6}>
-                                          <Form.Check inline label="Yes" type="radio" name="greenA" value={deal.greenA} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="greenA" value={deal.greenA} onChange={handleInputChange} defaultChecked />
+                                          <Form.Check inline label="Yes" type="radio" name="greenA" value={deal.greenA} onChange={handleInputChange}  />
+                                          <Form.Check inline label="No" type="radio" name="greenA" value={deal.greenA} onChange={handleInputChange} />
+                                        
                                         </Col>
                                       </Row>
                                     </Form.Group>
@@ -723,7 +713,7 @@ const AddDeal = () => {
                                         </Col>
                                         <Col sm={6}>
                                           <Form.Check inline label="Yes" type="radio" name="greenB" value={deal.greenB} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="greenB" value={deal.greenB} onChange={handleInputChange} defaultChecked />
+                                          <Form.Check inline label="No" type="radio" name="greenB" value={deal.greenB} onChange={handleInputChange}  />
                                         </Col>
                                       </Row>
                                     </Form.Group>
@@ -737,7 +727,7 @@ const AddDeal = () => {
                                         </Col>
                                         <Col sm={6}>
                                           <Form.Check inline label="Yes" type="radio" name="greenC" value={deal.greenC} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="greenC" value={deal.greenC} onChange={handleInputChange} defaultChecked />
+                                          <Form.Check inline label="No" type="radio" name="greenC" value={deal.greenC} onChange={handleInputChange} />
                                         </Col>
                                       </Row>
                                     </Form.Group>
@@ -752,7 +742,7 @@ const AddDeal = () => {
 
                                         <Col sm={6}>
                                           <Form.Check inline label="Yes" type="radio" name="greenD" value={deal.greenD} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="greenD" value={deal.greenD} onChange={handleInputChange} defaultChecked />
+                                          <Form.Check inline label="No" type="radio" name="greenD" value={deal.greenD} onChange={handleInputChange} />
                                         </Col>
                                       </Row>
                                     </Form.Group>
@@ -768,7 +758,7 @@ const AddDeal = () => {
 
                                         <Col sm={6}>
                                           <Form.Check inline label="Yes" type="radio" name="greenE" value={deal.greenE} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="greenE" value={deal.greenE} onChange={handleInputChange} defaultChecked />
+                                          <Form.Check inline label="No" type="radio" name="greenE" value={deal.greenE} onChange={handleInputChange}  />
                                         </Col>
                                       </Row>
                                     </Form.Group>
@@ -795,20 +785,19 @@ const AddDeal = () => {
                           <br />
                           <br />
                         </Container1>
-                      </Tab>
-                    </Tabs>
+                  
                     <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button>
                   </Tab>
                   
 
 
                 </Tabs>
-                <div>
+                <div className='d-flex justify-content-end'>
                 <ButtonWrapper onClick={saveDeal} >
                     Submit
                   </ButtonWrapper>
 
-                  <ButtonWrapper style={{ backgroundColor: "grey" }} >
+                  <ButtonWrapper style={{ backgroundColor: "grey", color:'white'}} >
                     Cancel
                   </ButtonWrapper>
                   </div>
