@@ -204,6 +204,7 @@ function handlePrevChange() {
       greenC: greenC.current.value,
       greenD: greenD.current.value,
       greenE: greenE.current.value,
+      greenF: greenF.current.value,
       amberA: amberA.current.value,
       amberB: amberB.current.value,
       amberC: amberC.current.value,
@@ -221,17 +222,10 @@ function handlePrevChange() {
           history.push({
             pathname: "/transaction",
           });
-          // <Alert variant="danger" onClose={() => setShow(false)} dismissible>{response.data.message}</Alert>
-          
-          // setUpdated(response.data.message)
-          // setSubmitted(true)
         })
         .catch(error => {
           alert("Failed to Update Deal")
-        })
-
-
-      
+        })      
     }
 
   return (
@@ -283,7 +277,7 @@ function handlePrevChange() {
                   
                   <Col sm={12}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                      <Form.Label>Note</Form.Label> <button type = "button" onClick={handleNoteAdd}>Add</button>
+                      <Form.Label>Note</Form.Label> <button type = "button" style={{fontSize: '10px', padding: '2px 10px', margin: '8px', background: 'steelblue', color: 'white', borderRadius: '3px'}} onClick={handleNoteAdd}>+</button>
                                 {noteList.map((singleNote, index) => (
                                   <Form.Control style={{ margin: '0.8em' }} size="sm" type="text" defaultValue={singleNote} value={singleNote.note} name='note'  onChange={(e) => handleNoteChange(e, index)}
                                   required/>
@@ -293,8 +287,7 @@ function handlePrevChange() {
                           
                 </Row>
                 <br />
-                  <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock' }}>Next </button>
-                <br />      
+                <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next </button>
                 </Container>
                 </Container1> 
 		</Tab>
@@ -421,7 +414,8 @@ function handlePrevChange() {
                     <Col sm={4}>
                       <Form.Group className="pt-1">
                         <Form.Label>Mandate Letter</Form.Label>
-                      <Form.Control size="sm" type="date" defaultValue={deal[0].mandateletter} id='mandateLetter' ref={mandateLetter} required/>
+                      {/* <Form.Control size="sm" type="date" defaultValue={deal[0].mandateletter} id='mandateLetter' ref={mandateLetter} required/> */}
+                      <Form.Control size="sm" type="date" defaultValue={new Date(deal[0].mandateletter).toISOString().split('T')[0] || null} id='mandateLetter' ref={mandateLetter} required/>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -430,35 +424,39 @@ function handlePrevChange() {
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Credit Approval</Form.Label>
-                      <Form.Control size="sm" type="date" defaultValue={deal[0].creditapproval} id='creditApproval' ref={creditApproval}/>
+                        {/* defaultValue={new Date(deal[0].creditApproval).toISOString().split('T')[0] || null} */}
+                      <Form.Control size="sm" type="date" id='creditApproval' ref={creditApproval}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Fee Letter</Form.Label>
-                      <Form.Control size="sm" type="date" defaultValue={deal[0].feeletter} id='feeLetter' ref={feeLetter}/>
+                        {/* defaultValue={new Date(deal[0].feeLetter).toISOString().split('T')[0] || null}  */}
+                      <Form.Control size="sm" type="date" id='feeLetter' ref={feeLetter}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Excepted Close</Form.Label>
-                      <Form.Control size="sm" type="date" defaultValue={deal[0].exceptedclose} id='expectedClose' ref={exceptedClose}/>
+                        {/* defaultValue={new Date(deal[0].expectedClose).toISOString().split('T')[0] || null} */}
+                      <Form.Control size="sm" type="date"  id='expectedClose' ref={exceptedClose}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Actual Close</Form.Label>
-                      <Form.Control size="sm" type="date" defaultValue={deal[0].actualclose} id='actualClose' ref={actualClose}/>
+                        {/* defaultValue={new Date(deal[0].actualClose).toISOString().split('T')[0] || null} */}
+                      <Form.Control size="sm" type="date"  id='actualClose' ref={actualClose}/>
                       </Form.Group>
                     </Col>
                   </Row>
                 </div>
                 <br/>
-                <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock' }}> Prev</button>
-                <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock' }}>Next</button>
+                <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button>
+                <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button>
                 </Container1>
 	
 		</Tab>
@@ -517,8 +515,8 @@ function handlePrevChange() {
                     </Col>
                   </Row>
                   <br/>
-                  <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock' }}> Prev</button>
-                  <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock' }}>Next</button>
+                  <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button>
+                  <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button>
                   </Container1>
                 </div>
 		</Tab>
@@ -547,8 +545,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].reda === true} name="redA"/>
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].reda === false} name="redA"/>
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].reda === true} name="redA" ref={redA}/>
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].reda === false} name="redA" ref={redA}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -561,8 +559,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Due dilligence ongoing:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].redb === true} name="redB"/>
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].redb === false} name="redB"/>
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].redb === true} name="redB" ref={redB}/>
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].redb === false} name="redB" ref={redB}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -575,8 +573,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Pending Credit Committee approval:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].redc === true} name="redC"/>
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].redc === false} name="redC"/>
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].redc === true} name="redC" ref={redC}/>
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].redc === false} name="redC" ref={redC}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -601,8 +599,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].ambera === true} name="amberA" />
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].ambera === false} name="amberA" />
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].ambera === true} name="amberA" ref={amberA}/>
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].ambera === false} name="amberA" ref={amberA}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -615,8 +613,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committe approval:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberb === true} name="amberB" />
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberb === false} name="amberB" />
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberb === true} name="amberB" ref={amberB}/>
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberb === false} name="amberB" ref={amberB}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -629,8 +627,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond issue appointed or selected:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberc === true} name="amberC" />
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberc === false} name="amberC" />
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberc === true} name="amberC" ref={amberC}/>
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberc === false} name="amberC" ref={amberC}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -643,8 +641,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Fee Letter and/or Guarantee Documentation expected to be negotiated and/or signed within 8 weeks:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberd === true} name="amberD" />
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberd === false} name="amberD" />
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberd === true} name="amberD" ref={amberD}/>
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberd === false} name="amberD" ref={amberD}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -657,8 +655,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs with timelines for completion agreed with the client:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].ambere === true} name="amberE" />
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].ambere === false} name="amberE" />
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].ambere === true} name="amberE" ref={amberE}/>
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].ambere === false} name="amberE" ref={amberE}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -698,8 +696,8 @@ function handlePrevChange() {
                 <Form.Label style={{paddingRight: "1rem"}}>Guarantee Document in agreed form:</Form.Label>
                 </Col>  
                 <Col>    
-                <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greenb === true} name="greenB" ref={greenB}/>
-                        <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greenb === false} name="greenB" ref={greenB} />         
+                  <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greenb === true} name="greenB" ref={greenB}/>
+                  <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greenb === false} name="greenB" ref={greenB} />         
                 </Col>
                 </Row>  
                       </Form.Group>
@@ -764,11 +762,7 @@ function handlePrevChange() {
                 </Col>  
                 <Col>    
                       <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greenf === true} name="greenF" ref={greenF}/>
-                        <Form.Check inline label="No" type="radio"defaultChecked={deal[0].greenf === false} name="greenF" ref={greenF}/>
-
-              <ButtonWrapper type="submit" className='d-flex justify-content-end' onClick={postData}>
-                  Submit
-              </ButtonWrapper>
+                      <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greenf === false} name="greenF" ref={greenF}/>
 
                 </Col>
                 </Row>      
@@ -782,14 +776,14 @@ function handlePrevChange() {
         </Container1>
         </Tab>
         </Tabs>
-        <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock' }}> Prev</button>
-        {/* <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock' }}> Next</button> */}
+        <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button>
+        {/* <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button> */}
         </Tab>   
 	    </Tabs>
 	    </div>
 
       <ButtonWrapper type="submit" className='d-flex justify-content-end' onClick={postData}>
-          Submit
+          Update
       </ButtonWrapper>
 
             </Form>
