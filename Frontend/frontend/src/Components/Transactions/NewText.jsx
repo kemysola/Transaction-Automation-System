@@ -137,6 +137,18 @@ const AddDeal = () => {
 
   }
 
+  const [error, setError] = useState()
+  //validate green transactions.....
+  const validate = (e) => {
+    let name = e.target.name;
+    let errors = error
+    if (!e.target.checked) {
+      errors[name] = true;
+      setError({ errors: errors })
+    }
+  }
+
+
 
   const handleInputChange = event => { // function to save user data to deal state
     const { name, value } = event.target;
@@ -778,7 +790,7 @@ const AddDeal = () => {
                                         </Col>
                                         <Col sm={6}>
                                           <Form.Check inline label="Yes" type="radio" name="greenF" value={deal.greenF} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="greenF" value={deal.greenF} onChange={handleInputChange} defaultChecked />
+                                          <Form.Check inline label="No" type="radio" name="greenF" value={deal.greenF} onChange={handleInputChange} />
                                         </Col>
                                       </Row>
                                     </Form.Group>
@@ -789,20 +801,24 @@ const AddDeal = () => {
                           </div>
                           <br />
                           <br />
-                          <ButtonWrapper onClick={saveDeal}>
-                            Submit
-                          </ButtonWrapper>
-
-                          <ButtonWrapper style={{ backgroundColor: "grey" }} >
-                            Cancel
-                          </ButtonWrapper>
                         </Container1>
                       </Tab>
                     </Tabs>
                     <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button>
                   </Tab>
+                  
+
 
                 </Tabs>
+                <div>
+                <ButtonWrapper onClick={saveDeal} >
+                    Submit
+                  </ButtonWrapper>
+
+                  <ButtonWrapper style={{ backgroundColor: "grey" }} >
+                    Cancel
+                  </ButtonWrapper>
+                  </div>
               </div>
             </Form>
           )}
