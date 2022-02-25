@@ -169,6 +169,12 @@ function handlePrevChange() {
     }
 }
 
+  function handleBack() {
+    history.push({
+      pathname: "/transaction",
+    });
+  }
+
   function postData(e) {
     e.preventDefault()
     let allNotes = noteList.map(({ note }) => note)
@@ -781,6 +787,10 @@ function handlePrevChange() {
         </Tab>   
 	    </Tabs>
 	    </div>
+
+      <ButtonWrapper type="submit" className='d-flex justify-content-end' onClick={handleBack}>
+          Back
+      </ButtonWrapper>
 
       <ButtonWrapper type="submit" className='d-flex justify-content-end' onClick={postData}>
           Update

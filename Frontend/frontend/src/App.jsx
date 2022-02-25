@@ -14,7 +14,7 @@ import NewText from './Pages/Transactions/NewText';
 import AllStaff from './Pages/Staffs/AllStaff';
 import './App.css';
 import Home from './Components/Home'
-import Testing from './Components/Transactions/Testing'
+// import Testing from './Components/Transactions/Testing'
 
 export default function App() {
     return (
@@ -59,9 +59,9 @@ export default function App() {
                 <Route path='/dashboard'>
                     <MgtView />
                 </Route>
-                <Route path='/ing'>
+                {/* <Route path='/ing'>
                     <Testing />
-                </Route>
+                </Route> */}
             </Switch>
         </React.Fragment>
     );
