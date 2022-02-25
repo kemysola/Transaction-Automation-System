@@ -98,16 +98,9 @@ const AddDeal = () => {
     e.preventDefault();
     handlePrevChange();
   }
-  function toNextTabs(e) {
-    e.preventDefault();
-    changeTabs();
-  }
+  
 
-  function changeTabs() {
-    if (dealActiveTab === 'sixth') {
-      setDealActiveTab('seventh');
-    }
-  }
+  
 
   function handleTabChange() {
     if (activeTab === 'first') {
