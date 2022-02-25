@@ -14,7 +14,7 @@ const funcDealCategory = (greenA, greenB, greenC, greenD, greenE, greenF, amberA
         if( greenA == true &&  greenB == true && greenC == true && greenD == true && greenE == true && greenF == true && product !== 'CRG'){
             return 'Green'
         }else if( amberA == true &&  amberB == true && amberC == true && amberD == true && amberE == true && product !== 'CRG'){
-            return 'Amber'
+            return 'Yellow'
         }else{
             return 'Red'
         }
