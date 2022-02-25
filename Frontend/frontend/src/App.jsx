@@ -7,7 +7,7 @@ import TransactionView from './Components/Transactions/TransactionView'
 import UpdateStaffs from './Components/Staffs/UpdateStaffs';
 import StaffView from './Components/Staffs/StaffView';
 import UpdateTransaction from './Pages/Transactions/UpdateTransaction';
-import NewTransaction from './Pages/Transactions/NewTransaction';
+// import NewTransaction from './Pages/Transactions/NewTransaction';
 import MgtView from './Components/Dashboard/Management/ManagementView';
 import Text from './Pages/Transactions/Text';
 import NewText from './Pages/Transactions/NewText';
@@ -35,9 +35,9 @@ export default function App() {
                 <Route exact path='/staff'>
                     <StaffView />
                 </Route>
-                <Route exact path='/new_transactions'>
+                {/* <Route exact path='/new_transactions'>
                     <NewTransaction />
-                </Route>
+                </Route> */}
                 <Route exact path='/staffs'>
                     <AllStaff />
                 </Route>

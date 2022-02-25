@@ -96,8 +96,6 @@ const DealsTable = (props) => {
       });
   };
 
-  console.log(localStorage.getItem('token'))
-
   const refreshList = () => {
     retrieveDeals();
   };
@@ -108,6 +106,10 @@ const DealsTable = (props) => {
       search: "?" + rowIndex,
     });
   };
+
+  // const color = deals[0].deal_category
+
+  // console.log("deal category is ", deals[0].deal_category)
 
   // const handleSearch = (event) => {
   //   setSearch(event.target.value);
@@ -142,14 +144,17 @@ const DealsTable = (props) => {
       {
         Header: "Client",
         accessor: "clientname",
+        // disableResizing: true,
       },
       {
         Header: "ORIGINATOR",
         accessor: "originator",
+        // disableResizing: true,
       },
       {
         Header: "TRANSACTOR",
         accessor: "transactor",
+        // disableResizing: true,
       },
       {
         Header: "Transaction Legal Lead",
@@ -247,13 +252,28 @@ const DealsTable = (props) => {
     []
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, prepareRow,
+  const getTrProps = (row, i) => {
+    if (row){
+      return {
+        style: {
+          // background: "green",
+          color: `${deals[i].deal_category}`
+        }
+      }
+    }
+    return {
+      style: {}
+    };
+  }
+
+  const { getTableProps, getTableBodyProps, getRowProps, headerGroups, prepareRow,
           page, canPreviousPage, canNextPage, pageOptions, pageCount, gotoPage,
           nextPage, previousPage, setPageSize, state: { pageIndex, pageSize}, } = useTable(
     {
       columns,
       data: deals,
       initialState: { pageIndex: 0 },
+      getRowProps: getTrProps()
     },
     useResizeColumns,
     useFlexLayout,
@@ -329,6 +349,7 @@ const DealsTable = (props) => {
         <div className="table-responsive mt-2 pt-2">
           <table
             className="table py-3 mt-3  table-hover table striped  align-middle table-bordered"
+            id='myTable'
             {...getTableProps()}
             // data={data}
           >
@@ -343,19 +364,35 @@ const DealsTable = (props) => {
                 </tr>
               ))}
             </thead>
-            <tbody {...getTableBodyProps()} className='table-bordered'>
+            <tbody {...getTableBodyProps()} className='table-bordered' 
+            >
               {page.map((row, i) => {
                 prepareRow(row);
                 return (
-                  <tr {...row.getRowProps()}>
+                  <tr {...row.getRowProps(getTrProps(row, i))}
+                  >
                     {row.cells.map((cell) => {
                       return (
-                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                      );
+                        <td 
+                          {...cell.getCellProps(
+                            // cell => ({
+                            //   style: {
+                            //     color: `${deals[i].deal_category}`,
+                            //   },
+                            // })
+                          )}
+                          // style={{
+                          //   color: `${deals[i].deal_category}`
+                          // }}
+                        >
+                          {cell.render("Cell")}
+                        </td>
+                      )
                     })}
                   </tr>
-                );
-              })}
+                )
+              }
+              )}
             </tbody>
           </table>
         </div>

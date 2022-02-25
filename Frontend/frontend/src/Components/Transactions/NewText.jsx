@@ -743,8 +743,8 @@ const AddDeal = () => {
                                           <Form.Label style={{ paddingRight: "1rem" }}>Professional Parties to the Bond Issue appointed or selected:</Form.Label>
                                         </Col>
                                         <Col sm={6}>
-                                          <Form.Check inline label="Yes" type="radio" name="greenC" value={deal.greenC} onChange={handleInputChange} required />
-                                          <Form.Check inline label="No" type="radio" name="greenC" value={deal.greenC} onChange={handleInputChange} />
+                                          <Form.Check inline label="Yes" type="radio" name="greenC" value={deal.greenC} onChange={handleInputChange} />
+                                          <Form.Check inline label="No" type="radio" name="greenC" value={deal.greenC} onChange={handleInputChange} defaultChecked />
                                         </Col>
                                       </Row>
                                     </Form.Group>
@@ -775,7 +775,7 @@ const AddDeal = () => {
 
                                         <Col sm={6}>
                                           <Form.Check inline label="Yes" type="radio" name="greenE" value={deal.greenE} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="greenE" value={deal.greenE} onChange={handleInputChange} required />
+                                          <Form.Check inline label="No" type="radio" name="greenE" value={deal.greenE} onChange={handleInputChange} defaultChecked />
                                         </Col>
                                       </Row>
                                     </Form.Group>

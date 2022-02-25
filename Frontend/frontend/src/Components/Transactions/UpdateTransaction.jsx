@@ -1,10 +1,10 @@
-import React, { useRef, useState } from 'react';
-import { Form, Container, Row, Col } from 'react-bootstrap';
+import React, { useRef, useState, useEffect } from 'react';
+import { Form, Container, Row, Col, Alert } from 'react-bootstrap';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import styled from 'styled-components';
 import Service from "../../Services/Service"
-import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 const ButtonWrapper = styled.button`
@@ -19,7 +19,7 @@ const ButtonWrapper = styled.button`
   font-size:10px;
   border-radius:10px;
 `;
-const   FormWrapper = styled.div`
+const FormWrapper = styled.div`
   margin:0;
   font-size:5px;
   padding:0;
@@ -85,7 +85,10 @@ export default function UpdateTransactions() {
   const [deal, setDeal] = useState([]);
   const [status, setStatus] = useState(false);
   const [noteList, setNoteList] = useState([{ note: "" }])
-  
+  const [activeTab, setActiveTab] = useState('first');
+  const [dealActiveTab, setDealActiveTab] = useState('deal');
+  const history = useHistory();
+
   const handleNoteChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...noteList];
@@ -117,6 +120,54 @@ export default function UpdateTransactions() {
     setDeal(data.data.dealInfo);
     setStatus(true)
   } ;
+
+  function toNextTab(e) {
+    e.preventDefault();
+    handleTabChange();
+}
+
+function toPrevTab(e) {
+    e.preventDefault();
+    handlePrevChange();
+}
+function toNextTabs(e) {
+    e.preventDefault();
+    changeTabs();
+}
+
+function changeTabs() {
+    if (dealActiveTab === 'sixth') {
+        setDealActiveTab('seventh');
+    }
+}
+
+function handleTabChange() {
+    if (activeTab === 'first') {
+        setActiveTab('second');
+    }
+    if (activeTab === 'second') {
+        setActiveTab('third');
+    }
+    if (activeTab === 'third') {
+        setActiveTab('fourth');
+    }
+    if (activeTab === 'fourth') {
+        setActiveTab('sixth');
+    }
+
+}
+
+function handlePrevChange() {
+    if (activeTab === 'second') {
+        setActiveTab('first');
+    }
+    if (activeTab === 'third') {
+        setActiveTab('second');
+    }
+    if (activeTab === 'fourth') {
+        setActiveTab('third');
+    }
+}
 
   function postData(e) {
     e.preventDefault()
@@ -153,6 +204,7 @@ export default function UpdateTransactions() {
       greenC: greenC.current.value,
       greenD: greenD.current.value,
       greenE: greenE.current.value,
+      greenF: greenF.current.value,
       amberA: amberA.current.value,
       amberB: amberB.current.value,
       amberC: amberC.current.value,
@@ -165,7 +217,15 @@ export default function UpdateTransactions() {
     }
 
       Service.updateDeal(id, data)
-    
+        .then((response) => {
+          alert(response.data.message)
+          history.push({
+            pathname: "/transaction",
+          });
+        })
+        .catch(error => {
+          alert("Failed to Update Deal")
+        })      
     }
 
   return (
@@ -181,7 +241,7 @@ export default function UpdateTransactions() {
 
               <div> 
        
-      <Tabs defaultActiveKey="first" style={{fontSize:'12px'}}>
+      <Tabs activeKey={activeTab} onSelect={(k) => handleTabChange} style={{fontSize:'12px'}}>
 {/* ----------------------------------------- Client Data ------------------------------------ */}
 		<Tab eventKey="first" title="TRANSACTION">
         <br/>
@@ -191,7 +251,7 @@ export default function UpdateTransactions() {
                   <Col sm={12}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Client Name</Form.Label>
-                    <Form.Control size="sm" type="text" defaultValue={deal[0].clientname} id='client' ref={clientName} disabled/>
+                    <Form.Control size="sm" type="text" defaultValue={deal[0].clientname} id='client' ref={clientName} required disabled/>
                     </Form.Group>
                   </Col>
 
@@ -217,7 +277,7 @@ export default function UpdateTransactions() {
                   
                   <Col sm={12}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                      <Form.Label>Note</Form.Label> <button type = "button" onClick={handleNoteAdd}>Add</button>
+                      <Form.Label>Note</Form.Label> <button type = "button" style={{fontSize: '10px', padding: '2px 10px', margin: '8px', background: 'steelblue', color: 'white', borderRadius: '3px'}} onClick={handleNoteAdd}>+</button>
                                 {noteList.map((singleNote, index) => (
                                   <Form.Control style={{ margin: '0.8em' }} size="sm" type="text" defaultValue={singleNote} value={singleNote.note} name='note'  onChange={(e) => handleNoteChange(e, index)}
                                   required/>
@@ -226,8 +286,8 @@ export default function UpdateTransactions() {
                     </Col>
                           
                 </Row>
-                <br/>
-                <br/>      
+                <br />
+                <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next </button>
                 </Container>
                 </Container1> 
 		</Tab>
@@ -300,7 +360,7 @@ export default function UpdateTransactions() {
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Deal Size (NGN)</Form.Label>
-                      <Form.Control size="sm" type="text" defaultValue={deal[0].dealsize} id='dealSize' ref={dealSize}/>
+                      <Form.Control size="sm" type="text" defaultValue={deal[0].dealsize} id='dealSize' ref={dealSize} required/>
                       </Form.Group>
                     </Col>
 
@@ -354,7 +414,8 @@ export default function UpdateTransactions() {
                     <Col sm={4}>
                       <Form.Group className="pt-1">
                         <Form.Label>Mandate Letter</Form.Label>
-                      <Form.Control size="sm" type="date" defaultValue={deal[0].mandateletter} id='mandateLetter' ref={mandateLetter}/>
+                      {/* <Form.Control size="sm" type="date" defaultValue={deal[0].mandateletter} id='mandateLetter' ref={mandateLetter} required/> */}
+                      <Form.Control size="sm" type="date" defaultValue={new Date(deal[0].mandateletter).toISOString().split('T')[0] || null} id='mandateLetter' ref={mandateLetter} required/>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -363,33 +424,39 @@ export default function UpdateTransactions() {
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Credit Approval</Form.Label>
-                      <Form.Control size="sm" type="date" defaultValue={deal[0].creditapproval} id='creditApproval' ref={creditApproval}/>
+                        {/* defaultValue={new Date(deal[0].creditApproval).toISOString().split('T')[0] || null} */}
+                      <Form.Control size="sm" type="date" id='creditApproval' ref={creditApproval}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Fee Letter</Form.Label>
-                      <Form.Control size="sm" type="date" defaultValue={deal[0].feeletter} id='feeLetter' ref={feeLetter}/>
+                        {/* defaultValue={new Date(deal[0].feeLetter).toISOString().split('T')[0] || null}  */}
+                      <Form.Control size="sm" type="date" id='feeLetter' ref={feeLetter}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Excepted Close</Form.Label>
-                      <Form.Control size="sm" type="date" defaultValue={deal[0].exceptedclose} id='expectedClose' ref={exceptedClose}/>
+                        {/* defaultValue={new Date(deal[0].expectedClose).toISOString().split('T')[0] || null} */}
+                      <Form.Control size="sm" type="date"  id='expectedClose' ref={exceptedClose}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Actual Close</Form.Label>
-                      <Form.Control size="sm" type="date" defaultValue={deal[0].actualclose} id='actualClose' ref={actualClose}/>
+                        {/* defaultValue={new Date(deal[0].actualClose).toISOString().split('T')[0] || null} */}
+                      <Form.Control size="sm" type="date"  id='actualClose' ref={actualClose}/>
                       </Form.Group>
                     </Col>
                   </Row>
                 </div>
                 <br/>
+                <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button>
+                <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button>
                 </Container1>
 	
 		</Tab>
@@ -448,6 +515,8 @@ export default function UpdateTransactions() {
                     </Col>
                   </Row>
                   <br/>
+                  <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button>
+                  <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button>
                   </Container1>
                 </div>
 		</Tab>
@@ -456,11 +525,11 @@ export default function UpdateTransactions() {
            
 {/*----------------------------------------------     ----------------------- --------------- */}
 
-        <Tab eventKey="seventh" title="DEAL CATEGORY"  style={{fontSize:'12px'}}>
+        <Tab eventKey="fourth" title="DEAL CATEGORY"  style={{fontSize:'12px'}}>
             <br/>
           
-        <Tabs defaultActiveKey="first" className='text-secondary'>
-        <Tab eventKey="first" title="RED TRANSACTION CATEGORY" >
+        <Tabs defaultActiveKey="first1" className='text-secondary'>
+        <Tab eventKey="first1" title="RED TRANSACTION CATEGORY" >
             <br/>
         <Container1>
         <div id='redCategory' className='pt-2 mt-1 mb-3 pb-3'>
@@ -476,8 +545,8 @@ export default function UpdateTransactions() {
                             <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].reda === true} name="redA"/>
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].reda === false} name="redA"/>
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].reda === true} name="redA" ref={redA}/>
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].reda === false} name="redA" ref={redA}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -490,8 +559,8 @@ export default function UpdateTransactions() {
                             <Form.Label style={{paddingRight: "1rem"}}>Due dilligence ongoing:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].redb === true} name="redB"/>
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].redb === false} name="redB"/>
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].redb === true} name="redB" ref={redB}/>
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].redb === false} name="redB" ref={redB}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -504,8 +573,8 @@ export default function UpdateTransactions() {
                             <Form.Label style={{paddingRight: "1rem"}}>Pending Credit Committee approval:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].redc === true} name="redC"/>
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].redc === false} name="redC"/>
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].redc === true} name="redC" ref={redC}/>
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].redc === false} name="redC" ref={redC}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -516,7 +585,7 @@ export default function UpdateTransactions() {
         </Tab>
 
 {/*------------------------------------- ------------------------- ------------------------- */}
-        <Tab eventKey="eigth" title="AMBER TRANSACTION CATEGORY">
+        <Tab  eventKey="second1" title="AMBER TRANSACTION CATEGORY">
         <Container1>
         <div id='amberCategory' className='pt-2 mt-1 mb-3 pb-3'>
                     <PWrapper>
@@ -530,8 +599,8 @@ export default function UpdateTransactions() {
                             <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].ambera === true} name="amberA" />
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].ambera === false} name="amberA" />
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].ambera === true} name="amberA" ref={amberA}/>
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].ambera === false} name="amberA" ref={amberA}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -544,8 +613,8 @@ export default function UpdateTransactions() {
                             <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committe approval:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberb === true} name="amberB" />
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberb === false} name="amberB" />
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberb === true} name="amberB" ref={amberB}/>
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberb === false} name="amberB" ref={amberB}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -558,8 +627,8 @@ export default function UpdateTransactions() {
                             <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond issue appointed or selected:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberc === true} name="amberC" />
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberc === false} name="amberC" />
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberc === true} name="amberC" ref={amberC}/>
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberc === false} name="amberC" ref={amberC}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -572,8 +641,8 @@ export default function UpdateTransactions() {
                             <Form.Label style={{paddingRight: "1rem"}}>Fee Letter and/or Guarantee Documentation expected to be negotiated and/or signed within 8 weeks:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberd === true} name="amberD" />
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberd === false} name="amberD" />
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberd === true} name="amberD" ref={amberD}/>
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberd === false} name="amberD" ref={amberD}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -586,8 +655,8 @@ export default function UpdateTransactions() {
                             <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs with timelines for completion agreed with the client:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].ambere === true} name="amberE" />
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].ambere === false} name="amberE" />
+                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].ambere === true} name="amberE" ref={amberE}/>
+                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].ambere === false} name="amberE" ref={amberE}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -596,7 +665,7 @@ export default function UpdateTransactions() {
                   </Container1>
         </Tab>
 {/*-------------------------------------- --------------------------------------------------- */}
-        <Tab eventKey="ninthth" title="GREEN TRANSACTION CATEGORY">
+        <Tab eventKey="green" title="GREEN TRANSACTION CATEGORY">
         <Container1>
           <div id='greenCategory' className='pt-2 mt-1 mb-2 pb-2'>
             <PWrapper>
@@ -627,8 +696,8 @@ export default function UpdateTransactions() {
                 <Form.Label style={{paddingRight: "1rem"}}>Guarantee Document in agreed form:</Form.Label>
                 </Col>  
                 <Col>    
-                <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greenb === true} name="greenB" ref={greenB}/>
-                        <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greenb === false} name="greenB" ref={greenB} />         
+                  <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greenb === true} name="greenB" ref={greenB}/>
+                  <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greenb === false} name="greenB" ref={greenB} />         
                 </Col>
                 </Row>  
                       </Form.Group>
@@ -693,11 +762,7 @@ export default function UpdateTransactions() {
                 </Col>  
                 <Col>    
                       <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greenf === true} name="greenF" ref={greenF}/>
-                        <Form.Check inline label="No" type="radio"defaultChecked={deal[0].greenf === false} name="greenF" ref={greenF}/>
-
-                        <ButtonWrapper type="submit" className='d-flex justify-content-end' onClick={postData}>
-                  Submit
-              </ButtonWrapper>
+                      <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greenf === false} name="greenF" ref={greenF}/>
 
                 </Col>
                 </Row>      
@@ -711,9 +776,15 @@ export default function UpdateTransactions() {
         </Container1>
         </Tab>
         </Tabs>
+        <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button>
+        {/* <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button> */}
         </Tab>   
 	    </Tabs>
 	    </div>
+
+      <ButtonWrapper type="submit" className='d-flex justify-content-end' onClick={postData}>
+          Update
+      </ButtonWrapper>
 
             </Form>
 
