@@ -21,6 +21,8 @@ const createDeal = data => { // create new deal/transaction
 };
 
 const updateDeal = (id, data) => { // update deal information
+    console.log("data is", data)
+    console.log("data is", typeof(data.greenA))
     return axios.put(`transaction/update/${id}`, data);
 };
 

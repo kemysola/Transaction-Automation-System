@@ -368,6 +368,8 @@ const DealsTable = (props) => {
             >
               {page.map((row, i) => {
                 prepareRow(row);
+                console.log("row is", row)
+                console.log("i is", i)
                 return (
                   <tr {...row.getRowProps(getTrProps(row, i))}
                   >

@@ -175,6 +175,18 @@ function handlePrevChange() {
     });
   }
 
+  let str2bool = (value) => {
+    if (value && typeof value === "string") {
+         if (value.toLowerCase() === "true") return true;
+         if (value.toLowerCase() === "false") return false;
+    }
+    return value;
+ }
+
+ function handleRadioChange(e) {
+  str2bool(e.target.value)
+ }
+
   function postData(e) {
     e.preventDefault()
     let allNotes = noteList.map(({ note }) => note)
@@ -205,23 +217,23 @@ function handlePrevChange() {
       guaranteeFee: +guarantee.current.value,
       monitoringFee: +monitoring.current.value,
       reimbursible: +reimbursible.current.value,
-      greenA: greenA.current.value,
-      greenB: greenB.current.value,
-      greenC: greenC.current.value,
-      greenD: greenD.current.value,
-      greenE: greenE.current.value,
-      greenF: greenF.current.value,
-      amberA: amberA.current.value,
-      amberB: amberB.current.value,
-      amberC: amberC.current.value,
-      amberD: amberD.current.value,
-      amberE: amberE.current.value,
-      redA: redA.current.value,
-      redB: redB.current.value,
-      redC: redC.current.value,
+      greenA: JSON.parse(greenA.current.checked),
+      greenB: JSON.parse(greenB.current.checked),
+      greenC: JSON.parse(greenC.current.checked),
+      greenD: JSON.parse(greenD.current.checked),
+      greenE: JSON.parse(greenE.current.checked),
+      greenF: JSON.parse(greenF.current.checked),
+      amberA: JSON.parse(amberA.current.checked),
+      amberB: JSON.parse(amberB.current.checked),
+      amberC: JSON.parse(amberC.current.checked),
+      amberD: JSON.parse(amberD.current.checked),
+      amberE: JSON.parse(amberE.current.checked),
+      redA: JSON.parse(redA.current.checked),
+      redB: JSON.parse(redB.current.checked),
+      redC: JSON.parse(redC.current.checked),
       notes: note
     }
-
+      console.log('weeee', redA.current.checked)
       Service.updateDeal(id, data)
         .then((response) => {
           alert(response.data.message)
@@ -287,6 +299,7 @@ function handlePrevChange() {
                                 {noteList.map((singleNote, index) => (
                                   <Form.Control style={{ margin: '0.8em' }} size="sm" type="text" defaultValue={singleNote} value={singleNote.note} name='note'  onChange={(e) => handleNoteChange(e, index)}
                                   required/>
+                                  // <Form.Control></Form.Control>
                                 ))}     
                     </Form.Group>   
                     </Col>
@@ -420,7 +433,6 @@ function handlePrevChange() {
                     <Col sm={4}>
                       <Form.Group className="pt-1">
                         <Form.Label>Mandate Letter</Form.Label>
-                      {/* <Form.Control size="sm" type="date" defaultValue={deal[0].mandateletter} id='mandateLetter' ref={mandateLetter} required/> */}
                       <Form.Control size="sm" type="date" defaultValue={new Date(deal[0].mandateletter).toISOString().split('T')[0] || null} id='mandateLetter' ref={mandateLetter} required/>
                       </Form.Group>
                     </Col>
@@ -551,8 +563,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].reda === true} name="redA" ref={redA}/>
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].reda === false} name="redA" ref={redA}/>
+                            <Form.Check inline label="Yes" type="radio" value={str2bool(true)} defaultChecked={deal[0].reda === true} name="redA" ref={redA}/>
+                            <Form.Check inline label="No" type="radio" value={str2bool(false)} defaultChecked={deal[0].reda === false} name="redA" ref={redA}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -565,8 +577,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Due dilligence ongoing:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].redb === true} name="redB" ref={redB}/>
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].redb === false} name="redB" ref={redB}/>
+                            <Form.Check inline label="Yes" type="radio" value={str2bool(true)} defaultChecked={deal[0].redb === true} name="redB" ref={redB}/>
+                            <Form.Check inline label="No" type="radio" value={str2bool(false)} defaultChecked={deal[0].redb === false} name="redB" ref={redB}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -579,8 +591,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Pending Credit Committee approval:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].redc === true} name="redC" ref={redC}/>
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].redc === false} name="redC" ref={redC}/>
+                            <Form.Check inline label="Yes" type="radio" value={str2bool(true)} defaultChecked={deal[0].redc === true} name="redC" ref={redC}/>
+                            <Form.Check inline label="No" type="radio" value={str2bool(false)} defaultChecked={deal[0].redc === false} name="redC" ref={redC}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -605,8 +617,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].ambera === true} name="amberA" ref={amberA}/>
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].ambera === false} name="amberA" ref={amberA}/>
+                            <Form.Check inline label="Yes" type="radio" value={str2bool(true)} defaultChecked={deal[0].ambera === true} name="amberA" ref={amberA}/>
+                            <Form.Check inline label="No" type="radio" value={str2bool(false)} defaultChecked={deal[0].ambera === false} name="amberA" ref={amberA}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -619,8 +631,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committe approval:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberb === true} name="amberB" ref={amberB}/>
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberb === false} name="amberB" ref={amberB}/>
+                            <Form.Check inline label="Yes" type="radio" value={str2bool(true)} defaultChecked={deal[0].amberb === true} name="amberB" ref={amberB}/>
+                            <Form.Check inline label="No" type="radio" value={str2bool(false)} defaultChecked={deal[0].amberb === false} name="amberB" ref={amberB}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -633,8 +645,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond issue appointed or selected:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberc === true} name="amberC" ref={amberC}/>
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberc === false} name="amberC" ref={amberC}/>
+                            <Form.Check inline label="Yes" type="radio" value={str2bool(true)} defaultChecked={deal[0].amberc === true} name="amberC" ref={amberC}/>
+                            <Form.Check inline label="No" type="radio" value={str2bool(false)} defaultChecked={deal[0].amberc === false} name="amberC" ref={amberC}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -647,8 +659,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Fee Letter and/or Guarantee Documentation expected to be negotiated and/or signed within 8 weeks:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].amberd === true} name="amberD" ref={amberD}/>
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].amberd === false} name="amberD" ref={amberD}/>
+                            <Form.Check inline label="Yes" type="radio" value={str2bool(true)} defaultChecked={deal[0].amberd === true} name="amberD" ref={amberD}/>
+                            <Form.Check inline label="No" type="radio" value={str2bool(false)} defaultChecked={deal[0].amberd === false} name="amberD" ref={amberD}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -661,8 +673,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs with timelines for completion agreed with the client:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].ambere === true} name="amberE" ref={amberE}/>
-                            <Form.Check inline label="No" type="radio" defaultChecked={deal[0].ambere === false} name="amberE" ref={amberE}/>
+                            <Form.Check inline label="Yes" type="radio" value={str2bool(true)} defaultChecked={deal[0].ambere === true} name="amberE" ref={amberE}/>
+                            <Form.Check inline label="No" type="radio" value={str2bool(false)} defaultChecked={deal[0].ambere === false} name="amberE" ref={amberE}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -687,8 +699,8 @@ function handlePrevChange() {
                   <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committee approval:</Form.Label>
                 </Col>  
                 <Col>    
-                  <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greena === true} name="greenA" ref={greenA}/>
-                  <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greena === false} name="greenA" ref={greenA}/> 
+                  <Form.Check inline label="Yes" type="radio" value={str2bool(true)} defaultChecked={deal[0].greena === true} name="greenA" ref={greenA}/>
+                  <Form.Check inline label="No" type="radio" value={str2bool(false)} defaultChecked={deal[0].greena === false} name="greenA" ref={greenA}/> 
                 </Col>
                 </Row>  
                 </Form.Group>  
@@ -702,8 +714,8 @@ function handlePrevChange() {
                 <Form.Label style={{paddingRight: "1rem"}}>Guarantee Document in agreed form:</Form.Label>
                 </Col>  
                 <Col>    
-                  <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greenb === true} name="greenB" ref={greenB}/>
-                  <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greenb === false} name="greenB" ref={greenB} />         
+                  <Form.Check inline label="Yes" type="radio" value={str2bool(true)} defaultChecked={deal[0].greenb === true} name="greenB" ref={greenB}/>
+                  <Form.Check inline label="No" type="radio" value={str2bool(false)} defaultChecked={deal[0].greenb === false} name="greenB" ref={greenB} />         
                 </Col>
                 </Row>  
                       </Form.Group>
@@ -719,8 +731,8 @@ function handlePrevChange() {
                 <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond Issue appointed or selected:</Form.Label>
                 </Col>  
                 <Col>    
-                      <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greenc === true} name="greenC" ref={greenC}/>
-                        <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greenc === false} name="greenC" ref={greenC}/>  
+                      <Form.Check inline label="Yes" type="radio" value={str2bool(true)} defaultChecked={deal[0].greenc === true} name="greenC" ref={greenC}/>
+                        <Form.Check inline label="No" type="radio" value={str2bool(false)} defaultChecked={deal[0].greenc === false} name="greenC" ref={greenC}/>  
                 </Col>
                 </Row> 
                       </Form.Group>
@@ -735,8 +747,8 @@ function handlePrevChange() {
                 <Form.Label style={{paddingRight: "1rem"}}>Already filed or expected filing with SEC (or equivalent Exchange) within 6 weeks:</Form.Label>
                 </Col>  
                 <Col>    
-                      <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greend === true} name="greenD" ref={greenD}/>
-                        <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greend === false} name="greenD" ref={greenD}/>
+                      <Form.Check inline label="Yes" type="radio" value={str2bool(true)} defaultChecked={deal[0].greend === true} name="greenD" ref={greenD}/>
+                        <Form.Check inline label="No" type="radio" value={str2bool(false)} defaultChecked={deal[0].greend === false} name="greenD" ref={greenD}/>
                       
                 </Col>
                 </Row>    
@@ -751,8 +763,8 @@ function handlePrevChange() {
                 <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs to Financial Close have been satisfactorily met or committed by the Client for completion on or before Financial Close:</Form.Label>
                 </Col>  
                 <Col>    
-                      <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greene === true} name="greenE" ref={greenE}/>
-                        <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greene === false} name="greenE" ref={greenE}/>  
+                      <Form.Check inline label="Yes" type="radio" value={str2bool(true)} defaultChecked={deal[0].greene === true} name="greenE" ref={greenE}/>
+                        <Form.Check inline label="No" type="radio" value={str2bool(false)} defaultChecked={deal[0].greene === false} name="greenE" ref={greenE}/>  
                 </Col>
                 </Row>
                       </Form.Group>
@@ -767,9 +779,8 @@ function handlePrevChange() {
             <Form.Label style={{paddingRight: "1rem"}}>Financial Close expected within 3-6 months:</Form.Label>            
                 </Col>  
                 <Col>    
-                      <Form.Check inline label="Yes" type="radio" defaultChecked={deal[0].greenf === true} name="greenF" ref={greenF}/>
-                      <Form.Check inline label="No" type="radio" defaultChecked={deal[0].greenf === false} name="greenF" ref={greenF}/>
-
+                      <Form.Check inline label="Yes" type="radio" value={str2bool(true)} defaultChecked={deal[0].greenf === true} name="greenF" ref={greenF}/>
+                      <Form.Check inline label="No" type="radio" value={str2bool(false)} defaultChecked={deal[0].greenf === false} name="greenF" ref={greenF}/>
                 </Col>
                 </Row>      
                       </Form.Group>
@@ -788,13 +799,16 @@ function handlePrevChange() {
 	    </Tabs>
 	    </div>
 
-      <ButtonWrapper type="submit" className='d-flex justify-content-end' onClick={handleBack}>
+      
+    <div style={{ display: 'inlineblock'}}>
+      <ButtonWrapper type="submit" className='d-flex justify-content-end'  onClick={handleBack}>
           Back
       </ButtonWrapper>
 
       <ButtonWrapper type="submit" className='d-flex justify-content-end' onClick={postData}>
           Update
       </ButtonWrapper>
+      </div>
 
             </Form>
 
