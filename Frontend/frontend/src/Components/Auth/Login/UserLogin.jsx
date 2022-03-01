@@ -55,7 +55,6 @@ const UserLogin = () => {
   const onChangePassword = (e) => {
     const password = e.target.value;
     setPassword(password);
-    console.log("password =" + password);
   };
 
   const handleLogin = (e) => {
