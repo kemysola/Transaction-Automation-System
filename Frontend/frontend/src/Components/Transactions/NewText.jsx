@@ -137,9 +137,6 @@ const AddDeal = () => {
 
   }
 
-  
-
-
   const handleInputChange = event => { // function to save user data to deal state
     const { name, value } = event.target;
     setDeal({ ...deal, [name]: value });
