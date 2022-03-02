@@ -12,8 +12,8 @@ const registerStaff = data => { // register new staff
     return axios.post("staff/onboard", data);
 };
 
-const updateStaff = (id, data) => { // update staff information
-    return axios.put(`staff/update/${id}`, data);
+const updateStaff = (email, data) => { // update staff information
+    return axios.put(`staff/update/${email}`, data);
 };
 
 const createDeal = data => { // create new deal/transaction

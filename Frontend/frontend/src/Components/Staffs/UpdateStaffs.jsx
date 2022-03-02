@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Container, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
+import Service from '../../Services/Service';
 
 const ButtonWrapper = styled.button`
   color:white;
@@ -44,33 +45,67 @@ const CancelWrapper = styled.button`
   `;
 
 export default function UpdateStaffs() {
-    const [firstName, setFirstName] = ('');
-    const [lastName, setLastName] = ('');
-    const [level, setLevel] = ('');
-    const [originationTarget, setOriginationTarget] = useState('');
-    const [origination, setOrigination] = useState('');
-    const [guaranteePipeline, setGuaranteePipeline] = useState('');
-    const [amberTransaction, setAmberTransaction] = useState('');
-    const [greenTransaction, setGreenTransaction] = useState('')
-    const [originator, setOriginator] = useState('')
-    const [originationAmount, setOriginationAmount] = useState('')
-    const [cca, setCca] = useState('')
-    const [mandate, setMandate] = useState('')
-    const [feeLetter, SetFeeLetter] = useState('')
-    const [financialClose, setFinancialClose] = useState('')
 
+    const initialDataState = {
+        firstName: "",
+        lastName: "",
+        level: "",
+        originator: "",
+        hasOriginationTarget: "",
+        originationAmount: "",
+        guaranteePipeline: "",
+        greenTransaction: "",
+        amberTransaction: "",
+        mandateLetter: "",
+        creditCommitteApproval: "",
+        feeLetter: "",
+    }
 
+    const [data, setData] = useState(initialDataState)
+    
+    const handleInputChange = event => { // function to save user data to data state
+        const { name, value } = event.target;
+        setData({ ...data, [name]: value });
+      }
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (firstName === '') {
+        if (data.firstName === '') {
             return false;
 
         }
-        if (lastName === '') {
+        if (data.lastName === '') {
             return false;
         }
+
+        let user_email = 'delatbaba@gmail.com'
+
+
+        let reqData = {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            level: data.level,
+            // originator: +data.originator,
+            hasOriginationTarget: 1,
+            originationAmount: +data.originationAmount,
+            guaranteePipeline: +data.guaranteePipeline,
+            greenTransaction: +data.greenTransaction,
+            amberTransaction: +data.amberTransaction,
+            // mandateLetter: +data.mandateLetter,
+            creditCommitteApproval: +data.creditCommitteApproval,
+            // feeLetter: +data.feeLetter
+        }
+
+        Service.updateStaff(user_email, reqData)
+            .then((response) => {
+                console.log(response)
+                alert(response.data.message)
+            })
+            .catch(error => {
+                console.log("#######", error)
+                alert("Failed to Update Deal")
+              }) 
     };
 
     useEffect(() => {
@@ -82,7 +117,7 @@ export default function UpdateStaffs() {
         <React.Fragment>
             <FormWrapper>
                 <Container fluid>
-                    <Form action='/update/:user_email' method='Post' onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit}>
                         <p style={{ fontWeight: 'bold', fontSize: '12px', color: 'darkblue' }}>Update Staff</p>
 
                         {/*------------------------------------- Container Div ------------------------ */}
@@ -96,7 +131,10 @@ export default function UpdateStaffs() {
                                     type="text"
                                     placeholder="John Doe"
                                     id='firstName'
-                                    onChange={firstName} />
+                                    value={data.firstName}
+                                    onChange={handleInputChange}
+                                    name="firstName"
+                                />
                             </Form.Group>
                             {/*----------------------------------  Form ------------------------------------ */}
                             <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
@@ -105,7 +143,9 @@ export default function UpdateStaffs() {
                                     type="text"
                                     placeholder="John Doe"
                                     id='lastName'
-                                    onChange={lastName} />
+                                    value={data.lastName}
+                                    onChange={handleInputChange}
+                                    name="lastName"/>
                             </Form.Group>
 
                             {/*--------------------------------- Form ----------------------------------------- */}
@@ -115,10 +155,12 @@ export default function UpdateStaffs() {
                                     type="text"
                                     placeholder="level"
                                     id='level'
-                                    onChange={level} />
+                                    value={data.level}
+                                    onChange={handleInputChange}
+                                    name="level" />
                             </Form.Group>
                             {
-                                !level && <p>Please enter your level</p>
+                                !data.level && <p>Please enter your level</p>
                             }
 
                             {/*------------------------------- Form -------------------------------------------- */}
@@ -131,14 +173,14 @@ export default function UpdateStaffs() {
                                         value="Yes"
                                         name="target"
                                         id='hasOriginationTarget'
-                                        onChange={originationTarget}
+                                        onChange={data.hasOriginationTarget}
                                     />
                                     <span style={{ fontWeight: 'bold', paddingRight: '20px', paddingLeft: '10px' }}> Yes </span>
                                     <input type='radio'
                                         value="No"
                                         name="target"
                                         id='hasOriginationTarget'
-                                        onChange={originationTarget}
+                                        onChange={data.hasOriginationTarget}
                                     />
                                     <span style={{ fontWeight: 'bold' }}> No </span>
                                 </div>
@@ -165,10 +207,12 @@ export default function UpdateStaffs() {
                                                 placeholder="0"
                                                 size='sm'
                                                 id='originationAmount'
-                                                onChange={originationAmount}
+                                                value={data.originationAmount}
+                                                onChange={handleInputChange}
+                                                name="originationAmount"
                                             />
                                             {
-                                                !originationAmount && <p>
+                                                !data.originationAmount && <p>
                                                     Kindly enter an amount
                                                 </p>
                                             }
@@ -178,9 +222,12 @@ export default function UpdateStaffs() {
                                                 placeholder="0"
                                                 size='sm'
                                                 id='guaranteePipeline'
-                                                onChange={guaranteePipeline} />
+                                                value={data.guaranteePipeline}
+                                                onChange={handleInputChange}
+                                                name="guaranteePipeline"
+                                            />
                                             {
-                                                !guaranteePipeline && <p>Kindly fill</p>
+                                                !data.guaranteePipeline && <p>Kindly fill</p>
                                             }
                                         </div>
                                         <div className='py-1'>
@@ -188,9 +235,11 @@ export default function UpdateStaffs() {
                                                 placeholder="0"
                                                 size='sm'
                                                 id='greenTransaction'
-                                                onChange={greenTransaction}
+                                                value={data.greenTransaction}
+                                                onChange={handleInputChange}
+                                                name="greenTransaction"
                                             />
-                                            {!greenTransaction && <p>Kindly fill</p>}
+                                            {!data.greenTransaction && <p>Kindly fill</p>}
                                         </div>
 
                                         <div className='py-1'>
@@ -198,7 +247,9 @@ export default function UpdateStaffs() {
                                                 placeholder="0"
                                                 size='sm'
                                                 id='amberTransaction'
-                                                onChange={amberTransaction}
+                                                value={data.amberTransaction}
+                                                onChange={handleInputChange}
+                                                name="amberTransaction"
                                             />
                                         </div>
 
@@ -225,7 +276,15 @@ export default function UpdateStaffs() {
                                             <small style={{ fontWeight: 'bold' }}>Originator</small>
                                         </Form.Label>
                                         <Col sm="6">
-                                            <Form.Control type="text" placeholder="0" size='sm' id='originator' />
+                                            <Form.Control
+                                                type="text"
+                                                placeholder="0"
+                                                size='sm'
+                                                id='originator'
+                                                value={data.originator}
+                                                onChange={handleInputChange}
+                                                name="originator"
+                                            />
                                         </Col>
                                     </Form.Group>
 
@@ -240,10 +299,13 @@ export default function UpdateStaffs() {
                                                 placeholder="0"
                                                 size='sm'
                                                 id='mandateLetter'
-                                                onChange={mandate} />
+                                                value={data.mandateLetter}
+                                                onChange={handleInputChange}
+                                                name="mandateLetter"
+                                            />
                                         </Col>
                                         {
-                                            !mandate && <p>Kindly fill </p>
+                                            !data.mandateLetter && <p>Kindly fill </p>
                                         }
                                     </Form.Group>
 
@@ -258,10 +320,13 @@ export default function UpdateStaffs() {
                                                 placeholder="0"
                                                 size='sm'
                                                 id='creditCommiteeApproval'
-                                                onChange={cca} />
+                                                value={data.creditCommitteApproval}
+                                                onChange={handleInputChange}
+                                                name="creditCommitteApproval"
+                                            />
                                         </Col>
                                         {
-                                            !cca && <p>Kindly fill </p>
+                                            !data.creditCommitteApproval && <p>Kindly fill </p>
                                         }
                                     </Form.Group>
 
@@ -276,7 +341,10 @@ export default function UpdateStaffs() {
                                                 placeholder="0"
                                                 size='sm'
                                                 id='feeLetter'
-                                                onChange={feeLetter} />
+                                                value={data.feeLetter}
+                                                onChange={handleInputChange}
+                                                name="feeLetter"
+                                            />
                                         </Col>
                                     </Form.Group>
 
@@ -290,7 +358,10 @@ export default function UpdateStaffs() {
                                                 placeholder="0"
                                                 size='sm'
                                                 id='financialClose'
-                                                onChange={financialClose} />
+                                                value={data.financialClose}
+                                                onChange={handleInputChange}
+                                                name="financialClose"
+                                            />
                                         </Col>
                                     </Form.Group>
                                 </Col>

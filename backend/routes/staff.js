@@ -159,6 +159,7 @@ router.put('/update/:user_email', verifyTokenAndAuthorization,async (req, res) =
         }
 
   } catch (e) {
+      console.log(e)
       await client.query('ROLLBACK')
       res.status(403).json({ Error: e.stack });
   }finally{
