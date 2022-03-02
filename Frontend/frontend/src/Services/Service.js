@@ -12,8 +12,8 @@ const registerStaff = data => { // register new staff
     return axios.post("staff/onboard", data);
 };
 
-const updateStaff = (id, data) => { // update staff information
-    return axios.put(`staff/update/${id}`, data);
+const updateStaff = (email, data) => { // update staff information
+    return axios.put(`staff/update/${email}`, data);
 };
 
 const createDeal = data => { // create new deal/transaction
@@ -39,6 +39,10 @@ const getAllDeals = () => { // get all deals, for privileged users only
     return axios.get("transaction/all_deals");
 };
 
+const getAllStaff = () => { // get all staff, for privileged users only
+    return axios.get("staff/all_staff");
+};
+
 export default {
     LoginStaff,
     registerStaff,
@@ -47,5 +51,6 @@ export default {
     updateDeal,
     getDealById,
     getMyDeals,
-    getAllDeals
+    getAllDeals,
+    getAllStaff
 };

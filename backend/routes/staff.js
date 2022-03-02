@@ -159,6 +159,7 @@ router.put('/update/:user_email', verifyTokenAndAuthorization,async (req, res) =
         }
 
   } catch (e) {
+      console.log(e)
       await client.query('ROLLBACK')
       res.status(403).json({ Error: e.stack });
   }finally{
@@ -250,6 +251,8 @@ router.post("/first_onboard", async (req, res) => {
 
     });
 
+    
+
   } catch (e) {
     await client.query('ROLLBACK')
     res.status(403).json({ Error: e.stack });
@@ -259,4 +262,32 @@ router.post("/first_onboard", async (req, res) => {
   }
 });
 
+/*Fetch all Deals(Priviledged Users only) */
+router.get('/all_staff', verifyTokenAndAdmin, async (req, res) => {
+  const client = await pool.connect();
+
+  try {
+      const all_staff = await client.query(
+          `SELECT * FROM TB_TRS_USERS
+          `);
+
+      if (all_staff) { 
+         
+          res.status(200).send({
+              status: (res.statusCode = 200),
+              staff: all_staff.rows
+          })
+      }
+      
+  } catch (e) {
+      res.status(403).json({ Error: e.stack });
+  }finally{
+      client.release()
+    }
+
+});
+
 module.exports = router;
+
+
+
