@@ -15,6 +15,7 @@ import AllStaff from './Pages/Staffs/AllStaff';
 import './App.css';
 import Home from './Components/Home'
 // import Testing from './Components/Transactions/Testing'
+import StaffTable from './Components/Staffs/StaffTable';
 
 export default function App() {
     return (
@@ -61,6 +62,10 @@ export default function App() {
                 </Route>
                 {/* <Route path='/ing'>
                     <Testing />
+                </Route> */}
+
+                {/* <Route path='/stafftable'>
+                    <StaffTable />
                 </Route> */}
             </Switch>
         </React.Fragment>

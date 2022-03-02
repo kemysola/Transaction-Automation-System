@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Container, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
 import Service from '../../Services/Service';
+import { useHistory } from 'react-router-dom';
 
 const ButtonWrapper = styled.button`
   color:white;
@@ -62,6 +63,7 @@ export default function UpdateStaffs() {
     }
 
     const [data, setData] = useState(initialDataState)
+    const history = useHistory();
     
     const handleInputChange = event => { // function to save user data to data state
         const { name, value } = event.target;
@@ -79,7 +81,7 @@ export default function UpdateStaffs() {
             return false;
         }
 
-        let user_email = 'delatbaba@gmail.com'
+        let user_email = window.location.search.split("?")[1]
 
 
         let reqData = {
@@ -101,9 +103,11 @@ export default function UpdateStaffs() {
             .then((response) => {
                 console.log(response)
                 alert(response.data.message)
+                history.push({
+                    pathname: "/staffs",
+                  });
             })
             .catch(error => {
-                console.log("#######", error)
                 alert("Failed to Update Deal")
               }) 
     };

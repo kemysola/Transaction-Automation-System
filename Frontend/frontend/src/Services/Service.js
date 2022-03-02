@@ -39,6 +39,10 @@ const getAllDeals = () => { // get all deals, for privileged users only
     return axios.get("transaction/all_deals");
 };
 
+const getAllStaff = () => { // get all staff, for privileged users only
+    return axios.get("staff/all_staff");
+};
+
 export default {
     LoginStaff,
     registerStaff,
@@ -47,5 +51,6 @@ export default {
     updateDeal,
     getDealById,
     getMyDeals,
-    getAllDeals
+    getAllDeals,
+    getAllStaff
 };
