@@ -10,7 +10,8 @@ const ContainerWrapper = styled.div`
     font-size:10px;
     margin-top: 2rem;
     background:white;
-    padding:2rem;
+    width:70vw;
+    padding: 2rem;
     border-radius: 15px;`;
 
 const StaffTable = () => {
@@ -42,7 +43,6 @@ const StaffTable = () => {
 
   const updateStaff = (rowIndex) => {
     // const id = staffRef.current[rowIndex].id;
-    console.log("####",staff)
     // history.push("/update/" + id)
     history.push({
       pathname: "/update",
