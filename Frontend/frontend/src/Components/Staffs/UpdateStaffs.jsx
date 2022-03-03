@@ -3,6 +3,8 @@ import { Form, Container, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
 import Service from '../../Services/Service';
 import { useHistory } from 'react-router-dom';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
 
 const ButtonWrapper = styled.button`
   color:white;
@@ -112,6 +114,46 @@ export default function UpdateStaffs() {
               }) 
     };
 
+    const [activeTab, setActiveTab] = useState('first')
+
+    function toNextTab(e) {
+        e.preventDefault();
+        handleTabChange();
+    }
+
+    function toPrevTab(e) {
+        e.preventDefault();
+        handlePrevChange();
+    }
+
+    function handleTabChange() {
+        if (activeTab === 'first') {
+            setActiveTab('second');
+        }
+        if (activeTab === 'second') {
+            setActiveTab('third');
+        }
+        if (activeTab === 'third') {
+            setActiveTab('fourth');
+        }
+        if (activeTab === 'fourth') {
+            setActiveTab('sixth');
+        }
+    }
+
+    function handlePrevChange() {
+        if (activeTab === 'second') {
+            setActiveTab('first');
+        }
+        if (activeTab === 'third') {
+            setActiveTab('second');
+        }
+        if (activeTab === 'fourth') {
+            setActiveTab('third');
+        }
+
+    }
+
     useEffect(() => {
 
 
@@ -120,12 +162,16 @@ export default function UpdateStaffs() {
     return (
         <React.Fragment>
             <FormWrapper>
+                
                 <Container fluid>
                     <Form onSubmit={handleSubmit}>
                         <p style={{ fontWeight: 'bold', fontSize: '12px', color: 'darkblue' }}>Update Staff</p>
 
                         {/*------------------------------------- Container Div ------------------------ */}
-
+                        <Tabs activeKey={activeTab} onSelect={(k) => handleTabChange} style={{ fontSize: '13px' }}>
+                            <Tab eventKey="first" title="STAFF">
+                                <br />
+                                <br />
                         <Container1 style={{ marginBottom: '3px', paddingBottom: '10px', fontSize: '8px' }}>
 
                             {/*----------------------------------- Form ----------------------------------- */}
@@ -189,10 +235,13 @@ export default function UpdateStaffs() {
                                     <span style={{ fontWeight: 'bold' }}> No </span>
                                 </div>
                             </Form.Group>
-                        </Container1>
+                                <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button>
+                            </Container1>
+                            <br />
+                        </Tab>
                         <br />
                         {/*---------------------------------- Container Div ----------------------------- */}
-
+                        <Tab eventKey="second" title="TARGETS">
                         <Container1 style={{ marginBottom: '3px', paddingBottom: '10px', fontSize: '8px' }}>
                             <p style={{ fontWeight: 'bold', fontSize: '10px' }}>Targets</p>
                             <Row>
@@ -260,11 +309,17 @@ export default function UpdateStaffs() {
                                     </div>
                                 </Col>
                             </Row>
+                        
+                            <br />
+                            <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Prev</button>
+                            <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button>
                         </Container1>
+
                         <br />
+                    </Tab>
 
                         {/* ----------------------------- Close Div ------------------------ */}
-
+                    <Tab eventKey="third" title="PERFORMANCE PAY">
                         <Container1 style={{ marginBottom: '2px', paddingBottom: '6px', fontSize: '8px' }}>
                             <p style={{ fontWeight: 'bold', fontSize: '10px' }}>Performance Pay</p>
                             <Row>
@@ -378,6 +433,8 @@ export default function UpdateStaffs() {
                         <CancelWrapper>
                             Cancel
                         </CancelWrapper>
+                     </Tab>
+                    </Tabs>
                     </Form>
                 </Container>
             </FormWrapper>
