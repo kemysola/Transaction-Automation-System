@@ -11,8 +11,6 @@ const ContainerWrapper = styled.div`
     border-radius: 15px;`;
 
 const StaffTable = () => {
-
-
   const [staff, setStaff] = useState([]);
   const [searchStaff, setSetSearch] = useState("")
   const staffRef = useRef();
@@ -42,9 +40,6 @@ const StaffTable = () => {
     const id = staffRef.current[rowIndex].id;
     props.history.push("/update/" + id)
   }
-
-
-
 
   const columns = useMemo(
     () => [
@@ -77,7 +72,6 @@ const StaffTable = () => {
             <div>
               <span onClick={() => openStaff(rowIdx)}>Open</span>
               <span onClick={() => deleteStaff(rowIdx)}>Delete</span>
-
             </div>
           )
         }
@@ -97,11 +91,6 @@ const StaffTable = () => {
     columns,
     data: deals,
   });
-
-
-
-
-
 
   return (
     <React.Fragment>
@@ -150,4 +139,3 @@ const StaffTable = () => {
 };
 
 export default StaffTable;
-

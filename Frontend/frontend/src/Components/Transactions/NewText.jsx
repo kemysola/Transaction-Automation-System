@@ -137,6 +137,8 @@ const AddDeal = () => {
 
   }
 
+
+
   const handleInputChange = event => { // function to save user data to deal state
     const { name, value } = event.target;
     setDeal({ ...deal, [name]: value });
@@ -203,8 +205,6 @@ const AddDeal = () => {
       "closed": false
     };
 
-    setSubmitted(true)
-
     Services.createDeal(data)
       .then(res => {
         setResponse(res.data.message)
@@ -212,6 +212,7 @@ const AddDeal = () => {
       })
       .catch(error => {
         setResponse("Failed to Create Deal. Please Try Again")
+        setSubmitted(true)
       });
   };
 
@@ -223,7 +224,7 @@ const AddDeal = () => {
 
   return (
     <React.Fragment>
-      {/* ---------------------- Update Transaction Forms ----------- */}
+      {/* ---------------------- New Transaction Forms ----------- */}
       <FormWrapper>
         <Container fluid style={{ marginTop: '0' }}>
 
