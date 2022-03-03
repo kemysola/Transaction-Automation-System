@@ -19,6 +19,7 @@ const ButtonWrapper = styled.button`
   font-size:10px;
   border-radius:10px;
 `;
+
 const FormWrapper = styled.div`
   margin:0;
   font-size:5px;
@@ -98,6 +99,12 @@ export default function UpdateTransactions() {
 
   const handleNoteAdd = () => {
     setNoteList([...noteList, { note: "" }]);
+  };
+
+  const handleNoteRemove = (index) => {
+    const list = [...noteList];
+    list.splice(index, 1);
+    setNoteList(list);
   };
 
   useEffect(() => {
@@ -293,17 +300,23 @@ function handlePrevChange() {
                     </Form.Group>
                   </Col>
                   
+                  {/* <div className="d-flex"> */}
+                  
                   <Col sm={12}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                      <Form.Label>Note</Form.Label> <button type = "button" style={{fontSize: '10px', padding: '2px 10px', margin: '8px', background: 'steelblue', color: 'white', borderRadius: '3px'}} onClick={handleNoteAdd}>+</button>
-                                {noteList.map((singleNote, index) => (
-                                  <Form.Control style={{ margin: '0.8em' }} size="sm" type="text" defaultValue={singleNote} value={singleNote.note} name='note'  onChange={(e) => handleNoteChange(e, index)}
-                                  required/>
-                                  // <Form.Control></Form.Control>
-                                ))}     
-                    </Form.Group>   
-                    </Col>
-                          
+                      <Form.Label>Note</Form.Label> <button type = "button" style={{fontSize: '10px', padding: '2px 10px', margin: '8px', background: 'steelblue', color: 'white', borderRadius: '3px'}} onClick={handleNoteAdd}>+</button> 
+                              {noteList.map((singleNote, index) => (
+                                   <div class="input-group">
+                                    <Form.Control style={{ margin: '0.8em', width: '60%' }} size="sm" type="text" defaultValue={singleNote} value={singleNote.note} name='note'  onChange={(e) => handleNoteChange(e, index)}
+                                    required /> 
+                                    <button type = "button" style={{fontSize: '10px', padding: '2px 10px', margin: '8px', background: 'steelblue', color: 'white', borderRadius: '3px'}} onClick={handleNoteRemove}>x</button> 
+                                  </div>
+                              ))} 
+                    </Form.Group>  
+
+                                   
+                  </Col>
+
                 </Row>
                 <br />
                 <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next </button>

@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { Table } from 'react-bootstrap';
 import styled from 'styled-components';
 import { useTable } from 'react-table'
+import { useHistory } from 'react-router-dom';
+import { FiEdit } from 'react-icons/fi';
+import Service from '../../Services/Service';
 
 const ContainerWrapper = styled.div`
     font-size:10px;
@@ -11,6 +14,7 @@ const ContainerWrapper = styled.div`
     border-radius: 15px;`;
 
 const StaffTable = () => {
+  const history = useHistory();
   const [staff, setStaff] = useState([]);
   const [searchStaff, setSetSearch] = useState("")
   const staffRef = useRef();
@@ -23,7 +27,7 @@ const StaffTable = () => {
   const retrieveStaff = () => {
     Service.getAllStaff()
       .then((response) => {
-        setStaff(response.data.deals);
+        setStaff(response.data.staff);
       })
       .catch((e) => {
         console.log(e);
@@ -32,13 +36,18 @@ const StaffTable = () => {
 
   const openStaff = (rowIndex) => {
     const id = staffRef.current[rowIndex].id;
-    props.history.push("/staff/" + id)
+    history.push("/staff/" + id)
 
   };
 
   const updateStaff = (rowIndex) => {
-    const id = staffRef.current[rowIndex].id;
-    props.history.push("/update/" + id)
+    // const id = staffRef.current[rowIndex].id;
+    console.log("####",staff)
+    // history.push("/update/" + id)
+    history.push({
+      pathname: "/update",
+      search: "?" + rowIndex,
+    });
   }
 
   const columns = useMemo(
@@ -48,30 +57,68 @@ const StaffTable = () => {
         accessor: "id",
       },
       {
-        Header: "Product",
-        accessor: "Product",
+        Header: "Name",
+        accessor: "firstname",
+        Cell: ({row, value}) => (
+          <span>{`${row.original.firstname} ${row.original.lastname}`}</span>
+        )
       },
       {
-        Header: "Region",
-        accessor: "Region",
+        Header: "Level",
+        accessor: "level",
       },
       {
-        Header: "Management Fee",
-        accessor: "Management Fee",
+        Header: "Has Target",
+        accessor: "hasoriginationtarget",
       },
       {
-        Header: "Mandate Fee",
-        accessor: "Mandate Fee",
+        Header: "Fee Letter",
+        accessor: "feeletter",
       },
       {
-        Header: "Actions",
-        accessor: "dealSize",
+        Header: "Financial Close",
+        accessor: "financialclose",
+      },
+      {
+        Header: "Origination Amount",
+        accessor: "originationamount",
+      },
+      {
+        Header: "Guarantee Pipeline",
+        accessor: "guaranteepipeline",
+      },
+      {
+        Header: "Green Transaction",
+        accessor: "greentransaction",
+      },
+      {
+        Header: "Amber Transaction",
+        accessor: "ambertransaction",
+      },
+      {
+        Header: "Mandate Letter",
+        accessor: "mandateletter",
+      },
+      {
+        Header: "Credit Committe Approval",
+        accessor: "creditcommitteapproval",
+      },
+      {
+        Header: "Edit",
+        accessor: "edit",
+        disableResizing: true,
+        minWidth: 35,
+        width: 35,
+        maxWidth: 35,
         Cell: (props) => {
-          const rowIdx = props.row.id;
+          const rowIdx = props.row.original['email'];
           return (
             <div>
-              <span onClick={() => openStaff(rowIdx)}>Open</span>
-              <span onClick={() => deleteStaff(rowIdx)}>Delete</span>
+               <div>
+              <span onClick={() =>  updateStaff(rowIdx)} style={{cursor: "pointer"}}>
+                <FiEdit/>
+              </span>
+            </div>
             </div>
           )
         }
@@ -89,8 +136,10 @@ const StaffTable = () => {
     prepareRow,
   } = useTable({
     columns,
-    data: deals,
+    data: staff,
   });
+
+
 
   return (
     <React.Fragment>
