@@ -17,6 +17,9 @@ import Home from './Components/Home'
 // import Testing from './Components/Transactions/Testing'
 import StaffTable from './Components/Staffs/StaffTable';
 import Verify from './Components/Auth/Verify';
+import PasswordReset from './Components/Auth/Reset/Reset';
+import Reset from './Components/Auth/StaffReset/Verify';
+
 export default function App() {
     return (
         <React.Fragment>
@@ -70,6 +73,12 @@ export default function App() {
                 {/* <Route path='/stafftable'>
                     <StaffTable />
                 </Route> */}
+                <Route  path='/reset'>
+                   <Reset/>
+                </Route>
+                <Route path='/reset_password'>
+                    <PasswordReset/>
+                </Route>
             </Switch>
         </React.Fragment>
     );
