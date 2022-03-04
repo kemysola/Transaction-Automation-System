@@ -16,7 +16,7 @@ import './App.css';
 import Home from './Components/Home'
 // import Testing from './Components/Transactions/Testing'
 import StaffTable from './Components/Staffs/StaffTable';
-
+import Verify from './Components/Auth/Verify';
 export default function App() {
     return (
         <React.Fragment>
@@ -59,6 +59,9 @@ export default function App() {
                 </Route>
                 <Route path='/dashboard'>
                     <MgtView />
+                </Route>
+                <Route path='/verify'>
+                    <Verify/>
                 </Route>
                 {/* <Route path='/ing'>
                     <Testing />
