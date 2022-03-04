@@ -1,39 +1,74 @@
 import React, {useState, useRef} from 'react';
-import axios from 'axios';
+import axios from '../../../http-common';
+import AuthService from '../../../Services/auth.Service';
+import {useParams} from 'react-router-dom'
 
-const Url ='';
 
+const user = JSON.parse(localStorage.getItem('user'))
 export default function PasswordReset(){
+    const [error, setError] = useState()
+    const [oldPassword, setOldPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
     const [data, setData] = useState({
         oldPassword:"",
         newPassword:"",
         confirmPassword:""
     });
 
-    const handleChange = (e) =>{
+    /*const handleChange = (e) =>{
         const value = e.target.value;
         setData({
             ...data,
             [e.target.name] : value
         });
 
-    }
+    }*/
+    const {id} = useParams()
+
+    const onChangePassword = (e) => {
+        const OldPassword = e.target.value;
+        setOldPassword(OldPassword);
+        console.log(oldPassword)
+      };
+
+      const onChangeNewPassword = (e) => {
+        const newPassword = e.target.value;
+        setNewPassword(newPassword);
+        console.log(newPassword)
+      };
+
+    /*const validate = () =>{
+        if(newPassword !== confirmPassword){
+            return false;
+        }
+    }*/
     const handleSubmit = async(e) =>{
         e.preventDefault();
-        const Data = {
-            oldPassword: data.oldPassword,
+       /* if(data.oldPassword ==''){
+            return false;
+
+        }
+        if(data.newPassword ==''){
+            return false;
+
+        }*/
+
+        //let email = "dakemilola@gmail.com"
+        //console.log(email)
+
+        /*const reqData = {
+            password: data.oldPassword,
             newPassword:data.newPassword,
             confirmPassword: data.confirmPassword
         };
+        console.log(data.oldPassword)*/
+        
+        await AuthService.updatePassword(user,oldPassword,newPassword).then((res) =>{
+            console.log(res)
+            
+            
 
-        await axios.put(Url, Data)
-        .then(response  => {
-            console.log('Changed Password Successfully')
         })
-        .catch(error => {
-            console.log(response.error)
-        })
-
 
     }
     return(
@@ -41,21 +76,23 @@ export default function PasswordReset(){
             <div>
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <label for='old password'>Old Password</label>
+                        <label for='password'>Password</label>
                         <input
                         type="password"
-                        value={data.oldPassword}
+                        value={oldPassword}
                         name='oldPassword'
-                        onChange={handleChange}
+                        onChange={onChangePassword}
                         />
-                        <label for='old password'>Old Password</label>
+                        <label for='old password'>New Password</label>
                         <input
                         type="password"
-                        value={data.newPassword}
+                        value={newPassword}
                         name='newPassword'
-                        onChange={handleChange}
+                        onChange={onChangeNewPassword}
                         />
                     </div>
+                    <button>Reset</button>
+                    <p>{user}</p>
                 </form>
             </div>
         </React.Fragment>
