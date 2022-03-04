@@ -1,46 +1,100 @@
-import React,{useState, useEffect} from 'react';
-import axios from '../../../http-common'
-import { useLocation } from 'react-router';
+import React, {useState, useRef} from 'react';
+import axios from '../../../http-common';
+import AuthService from '../../../Services/auth.Service';
+import {useParams} from 'react-router-dom'
 
 
+const user = JSON.parse(localStorage.getItem('user'))
+export default function PasswordReset(){
+    const [error, setError] = useState()
+    const [oldPassword, setOldPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [data, setData] = useState({
+        oldPassword:"",
+        newPassword:"",
+        confirmPassword:""
+    });
 
-export default function Reset() {
-    const [message, setMessage] = useState()
-    const [email, setEmail] = useState()
-    /*try{
-        axios.get('staff/confirm/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImRha2VtaWxvbGFAZ21haWwuY29tIiwiaWF0IjoxNjQ2MzE4NDI2LCJleHAiOjE2NDY0MDQ4MjZ9.k9v9Z_E7sNvcB_qa92zsGySfoN6vPnR2qfgM0mU0BVI').then((res) => {
-            console.log(res.data.userEmail)
-            console.log(res.data.message)
-        })
-        
+    /*const handleChange = (e) =>{
+        const value = e.target.value;
+        setData({
+            ...data,
+            [e.target.name] : value
+        });
 
-    }catch(err){
-        console.log(err)
     }*/
+    const {id} = useParams()
 
-    useEffect(() => {
-        axios.get('staff/confirm/:confirmationCode').then((res) => {
-            console.log(res.data.userEmail)
-            console.log(res.data.message)
-            const email = res.data.userEmail
-            const message = res.data.message
-            setMessage(message)
-            setEmail(email)
-        })
-    },[])
-   
-  return (
-    <div>
-        <h1 style={{color:'black'}}>Hello 
-        <bold style={{color:'red'}}> {email}, </bold>
-        <br/>
-        {message}.
-        <br/>
-        <br/>
-        You are required to change your password to Login to the Application.
-        </h1>
-        <button>Reset Password</button>
+    const onChangePassword = (e) => {
+        const OldPassword = e.target.value;
+        setOldPassword(OldPassword);
+        console.log(oldPassword)
+      };
+
+      const onChangeNewPassword = (e) => {
+        const newPassword = e.target.value;
+        setNewPassword(newPassword);
+        console.log(newPassword)
+      };
+
+    /*const validate = () =>{
+        if(newPassword !== confirmPassword){
+            return false;
+        }
+    }*/
+    const handleSubmit = async(e) =>{
+        e.preventDefault();
+       /* if(data.oldPassword ==''){
+            return false;
+
+        }
+        if(data.newPassword ==''){
+            return false;
+
+        }*/
+
+        //let email = "dakemilola@gmail.com"
+        //console.log(email)
+
+        /*const reqData = {
+            password: data.oldPassword,
+            newPassword:data.newPassword,
+            confirmPassword: data.confirmPassword
+        };
+        console.log(data.oldPassword)*/
         
-    </div>
-  )
+        await AuthService.updatePassword(user,oldPassword,newPassword).then((res) =>{
+            console.log(res)
+            
+            
+
+        })
+
+    }
+    return(
+        <React.Fragment>
+            <div>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label for='password'>Password</label>
+                        <input
+                        type="password"
+                        value={oldPassword}
+                        name='oldPassword'
+                        onChange={onChangePassword}
+                        />
+                        <label for='old password'>New Password</label>
+                        <input
+                        type="password"
+                        value={newPassword}
+                        name='newPassword'
+                        onChange={onChangeNewPassword}
+                        />
+                    </div>
+                    <button>Reset</button>
+                    <p>{user}</p>
+                </form>
+            </div>
+        </React.Fragment>
+    )
 }

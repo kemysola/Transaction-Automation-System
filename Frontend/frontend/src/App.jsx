@@ -17,7 +17,7 @@ import Home from './Components/Home'
 // import Testing from './Components/Transactions/Testing'
 import StaffTable from './Components/Staffs/StaffTable';
 import PasswordReset from './Components/Auth/Reset/Reset';
-import Reset from './Components/Auth/StaffReset/Reset';
+import Reset from './Components/Auth/StaffReset/Verify';
 
 export default function App() {
     return (
