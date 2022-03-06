@@ -47,7 +47,7 @@ export default function Navbar() {
                     <i class="bi bi-bell" style={{ padding: '0 2px' }}></i> <span></span>
                     <i class="bi bi-person"  style={{ padding: '0 3px', background: 'green', color: 'white', borderRadius: '20px' }}> 
                     </i>
-                    <a href='/reset_password'>a</a>
+                    <a href='/resetyourpassword'>a</a>
                     
 
 

@@ -36,8 +36,8 @@ const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
 
-const updatePassword = (data) => {
-  return axios.put('staff/oneTimePasswordReset/');
+const updatePassword = (email,data) => {
+  return axios.put(`staff/oneTimePasswordReset/${email}`, data);;
 };
 
 const AuthService = {
