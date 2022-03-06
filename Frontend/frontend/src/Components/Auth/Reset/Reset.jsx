@@ -1,10 +1,11 @@
 import React, {useState, useRef} from 'react';
 import axios from '../../../http-common';
-import AuthService from '../../../Services/auth.Service';
+import ResetService from '../../../Services/reset.Services';
 import {useParams} from 'react-router-dom'
 
 
 const user = JSON.parse(localStorage.getItem('user'))
+
 export default function PasswordReset(){
     const [error, setError] = useState()
     const [oldPassword, setOldPassword] = useState("");
@@ -34,7 +35,7 @@ export default function PasswordReset(){
     const handleSubmit = async(e) =>{
         e.preventDefault();
       
-        await AuthService.updatePassword(user,oldPassword,newPassword).then((res) =>{
+        await ResetService.resetPassword(user,oldPassword,newPassword).then((res) =>{
             console.log(res)
             
             

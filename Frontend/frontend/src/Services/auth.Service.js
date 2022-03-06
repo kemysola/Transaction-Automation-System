@@ -36,8 +36,18 @@ const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
 
-const updatePassword = (email,data) => {
-  return axios.put(`staff/oneTimePasswordReset/${email}`, data);;
+const updatePassword = async(oldPassword,newPassword,email) => {
+  return await  axios.put('staff/oneTimePasswordReset/',{
+    email,
+    oldPassword,
+    newPassword
+  }).then((response) => {
+    if (response.data.token) {
+      //localStorage.setItem("token", response.data.token);
+      console.log(response)
+    }
+    return response.data.email;
+  });
 };
 
 const AuthService = {

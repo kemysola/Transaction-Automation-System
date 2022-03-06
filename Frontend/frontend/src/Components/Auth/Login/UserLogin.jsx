@@ -46,11 +46,11 @@ const UserLogin = () => {
 
   const query_ = useLocation().search;
   const name = new URLSearchParams(query_).get("user");
-  const email = { name };
+  const email =  { name };
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(email));
-  }, [email]);
+  }, [UserLogin]);
 
   const onChangePassword = (e) => {
     const password = e.target.value;
@@ -59,9 +59,6 @@ const UserLogin = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-
-    console.log("Email =" + email.name);
-
     setMessage("");
     setLoading(true);
     form.current.validateAll();
@@ -79,7 +76,7 @@ const UserLogin = () => {
             error.message ||
             error.toString();
           setLoading(false);
-          setMessage("Ooops! User Not Found");
+          setMessage(resMessage);
         }
       );
     } else {
@@ -186,6 +183,7 @@ const UserLogin = () => {
           <br />
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
+        <div className='alert'>{setMessage}</div>
       </BorderDiv>
     </Container>
   );
