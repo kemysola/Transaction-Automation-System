@@ -15,14 +15,7 @@ export default function PasswordReset(){
         confirmPassword:""
     });
 
-    /*const handleChange = (e) =>{
-        const value = e.target.value;
-        setData({
-            ...data,
-            [e.target.name] : value
-        });
-
-    }*/
+    
     const {id} = useParams()
 
     const onChangePassword = (e) => {
@@ -37,32 +30,10 @@ export default function PasswordReset(){
         console.log(newPassword)
       };
 
-    /*const validate = () =>{
-        if(newPassword !== confirmPassword){
-            return false;
-        }
-    }*/
+    
     const handleSubmit = async(e) =>{
         e.preventDefault();
-       /* if(data.oldPassword ==''){
-            return false;
-
-        }
-        if(data.newPassword ==''){
-            return false;
-
-        }*/
-
-        //let email = "dakemilola@gmail.com"
-        //console.log(email)
-
-        /*const reqData = {
-            password: data.oldPassword,
-            newPassword:data.newPassword,
-            confirmPassword: data.confirmPassword
-        };
-        console.log(data.oldPassword)*/
-        
+      
         await AuthService.updatePassword(user,oldPassword,newPassword).then((res) =>{
             console.log(res)
             
