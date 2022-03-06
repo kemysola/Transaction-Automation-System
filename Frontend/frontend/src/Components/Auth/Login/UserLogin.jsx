@@ -50,7 +50,7 @@ const UserLogin = () => {
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(email));
-  }, [UserLogin]);
+  }, [email]);
 
   const onChangePassword = (e) => {
     const password = e.target.value;
