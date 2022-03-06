@@ -18,7 +18,8 @@ import Home from './Components/Home'
 import StaffTable from './Components/Staffs/StaffTable';
 import Verify from './Components/Auth/Verify';
 import PasswordReset from './Components/Auth/Reset/Reset';
-import Reset from './Components/Auth/StaffReset/Verify';
+import Reset from './Components/Auth/StaffReset/Reset';
+
 
 export default function App() {
     return (
@@ -73,7 +74,7 @@ export default function App() {
                 {/* <Route path='/stafftable'>
                     <StaffTable />
                 </Route> */}
-                <Route  path='/reset'>
+                <Route  path='/resetyourpassword'>
                    <Reset/>
                 </Route>
                 <Route path='/reset_password'>
