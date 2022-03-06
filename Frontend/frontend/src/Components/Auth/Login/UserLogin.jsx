@@ -46,11 +46,11 @@ const UserLogin = () => {
 
   const query_ = useLocation().search;
   const name = new URLSearchParams(query_).get("user");
-  const email =  { name };
+  const email =  'dakemilola@gmail.com' //{ name };
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(email));
-  }, [UserLogin]);
+  }, [email]);
 
   const onChangePassword = (e) => {
     const password = e.target.value;
@@ -63,7 +63,7 @@ const UserLogin = () => {
     setLoading(true);
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.login(email.name, password).then(
+      AuthService.login(email, password).then(
         () => {
           history.push("/landing");
           window.location.reload();
@@ -76,7 +76,7 @@ const UserLogin = () => {
             error.message ||
             error.toString();
           setLoading(false);
-          setMessage(resMessage);
+          setMessage('Invalid Log in Credentials');
         }
       );
     } else {
@@ -101,7 +101,7 @@ const UserLogin = () => {
             <Col sm={12}>
               <label className="">Email Address</label>
               <br />
-              <input value={email.name} style={{ width: "100%" }} />
+              <input value={email} style={{ width: "100%" }} />
             </Col>
             <Col sm={12}>
               <ReactForm.Group
