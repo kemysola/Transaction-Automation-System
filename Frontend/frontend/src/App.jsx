@@ -17,7 +17,7 @@ import Home from './Components/Home'
 // import Testing from './Components/Transactions/Testing'
 import StaffTable from './Components/Staffs/StaffTable';
 import Verify from './Components/Auth/Verify';
-import PasswordReset from './Components/Auth/Reset/Reset';
+import PasswordReset from './Components/Auth/Reset/PasswordReset';
 import Reset from './Components/Auth/StaffReset/Reset';
 
 
