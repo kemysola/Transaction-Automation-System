@@ -16,7 +16,8 @@ import './App.css';
 import Home from './Components/Home'
 // import Testing from './Components/Transactions/Testing'
 import StaffTable from './Components/Staffs/StaffTable';
-import PasswordReset from './Components/Auth/Reset/Reset';
+import Verify from './Components/Auth/Verify';
+import PasswordReset from './Components/Auth/Reset/PasswordReset';
 import Reset from './Components/Auth/StaffReset/Reset';
 
 
@@ -62,6 +63,9 @@ export default function App() {
                 </Route>
                 <Route path='/dashboard'>
                     <MgtView />
+                </Route>
+                <Route path='/verify'>
+                    <Verify/>
                 </Route>
                 {/* <Route path='/ing'>
                     <Testing />
