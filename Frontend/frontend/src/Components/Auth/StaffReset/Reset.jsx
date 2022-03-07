@@ -35,6 +35,10 @@ export default function Reset() {
   const [message, setMessage] = useState("");
 
   //Use effect to handle the useRef hook
+  useEffect(() => {
+    handleSubmit()
+
+  },[user.name])
 
   const onChangePassword = (e) => {
     const oldPassword = e.target.value;
@@ -61,9 +65,9 @@ export default function Reset() {
       return;
     }
 
-    await AuthService.updatePassword(oldPassword, newPassword, user).then(
+    await AuthService.updatePassword(oldPassword, newPassword, user.name).then(
       () => {
-        history.push("/login");
+        history.push("/");
         window.location.reload();
       },
       (error) => {
@@ -107,7 +111,7 @@ export default function Reset() {
                       <input
                         type="email"
                         name="name"
-                        value={user}
+                        value={user.name}
                         style={{ width: "30%" }}
                       />
                     </Col>
