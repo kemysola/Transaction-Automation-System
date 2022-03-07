@@ -109,7 +109,7 @@ export default function NewStaff() {
                 setSubmitted(true)
             })
             .catch(error => {
-                console.log(error)
+                
                 setResponse("Failed to Create User. Please Try Again")
                 setSubmitted(true)
             });
