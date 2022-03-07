@@ -15,7 +15,7 @@ import AllStaff from './Pages/Staffs/AllStaff';
 import './App.css';
 import Home from './Components/Home'
 import Testing from './Components/Transactions/transTest'
-// import Testing from './Components/Transactions/Testing'
+import Staffer from './Components/staffRedo/newStaff'
 import StaffTable from './Components/Staffs/StaffTable';
 
 export default function App() {
@@ -64,6 +64,9 @@ export default function App() {
                 <Route path='/ing'>
                     <Testing />
                 </Route> 
+                <Route path='/oya'>
+                    <Staffer />
+                </Route>
 
                 {/* <Route path='/stafftable'>
                     <StaffTable />
