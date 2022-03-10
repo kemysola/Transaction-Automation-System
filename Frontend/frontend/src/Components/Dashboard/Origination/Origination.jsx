@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {Row,Col} from 'react-bootstrap'
 import SideNav from '../../LandingPage/SideNav2';
 import Navbar from '../../LandingPage/Navbar';
-import Card from './Cards/Cards';
+//import Card from '../../Cards/Cards';
 
 const ViewWrapper = styled.div`
   background: #eff1f1;
@@ -22,7 +22,7 @@ const Origination =()=> {
                     <SideNav/>
                 </Col>
                 <Col sm={8}>
-                    <Card/>
+                    {/*<Card/>*/}
                 </Col>
             </Row>
 
