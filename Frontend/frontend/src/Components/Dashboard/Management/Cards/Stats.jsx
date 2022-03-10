@@ -102,11 +102,22 @@ export default function Stats(){
         );
     };
 
+    const customTooltip = ({active, payload, label}) => {
+        if (active && payload && payload.length) {
+            return (
+                <div className='custom-tooltip'>
+                    <p className='label'>{`${payload[0].name} : N${payload[0].value.toLocaleString('en-US')}`}</p>
+                </div>
+            );
+        }
+        return null;
+    };
+
     return(
         <React.Fragment>
     {/*---------------------------- Div ------------------------------------------- */}
             <PieDiv>
-                <Container fliud>
+                <Container fluid>
                     <Row >
                     <Col sm={6} className='bg-light pt-1' style={{borderRadius:'10px'}}>
                         <div>
@@ -130,7 +141,7 @@ export default function Stats(){
                                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                     ))}
                                 </Pie>
-                                <Tooltip />
+                                <Tooltip content={customTooltip} />
                             </PieChart>
                         </div>
                     </Col>
