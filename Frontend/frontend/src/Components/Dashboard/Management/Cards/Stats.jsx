@@ -4,6 +4,7 @@ import {Container,Row,Col} from 'react-bootstrap';
 import { PieChart, Pie, Cell, Tooltip} from 'recharts';
 import map from '../../../../Images/map.png';
 import Service from '../../../../Services/Service';
+import { Chart } from "react-google-charts";
 import './../style.css';
 
 const PieDiv = styled.div`
@@ -31,6 +32,22 @@ export default function Stats(){
             });
     };
 
+    const mapData = [
+        ["", "population%"],
+        ["NG", 2],
+        ["NG", 3]
+      ];
+
+    const mapOptions = {
+        region: "NG", // Africa
+        displayMode: 'text',
+        magnifyingGlass: {enable: true, zoomFactor: 30},
+        resolution: 'provinces',
+        colorAxis: { colors: ["#00853f", "white", "#e31b23"] },
+        backgroundColor: "white",
+        defaultColor: "#f5f5f5"
+    };
+    
     var red = data.reduce(function (filtered, arr) {
         if (arr.deal_category === 'Red') {
             var someNewValue = arr.dealsize
@@ -143,9 +160,15 @@ export default function Stats(){
                                 </div>
                             </Col>
                             <Col sm={8}>
-                                <div className='py-2'>
-                                    <img src={map} alt='map' height='150'/>    
-                                </div>
+                                
+                                <Chart
+                                    chartType="GeoChart"
+                                    width="400px"
+                                    height="400px"
+                                    data={mapData}
+                                    options={mapOptions}
+                                />   
+                            
                             </Col>
                         </Row>
                     </Col>

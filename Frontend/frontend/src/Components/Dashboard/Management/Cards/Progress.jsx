@@ -40,7 +40,6 @@ export default function Progress(){
         });
     };
   
-    console.log("I am the data", data)
     
     let option1 = data.reduce(function(filtered, arr) {
   
@@ -551,22 +550,6 @@ export default function Progress(){
                             <Bar dataKey='value' stackId="a" fill='#82ca9d'/>
                         </BarChart>
 
-                        {/* <ProgressBarDiv>
-
-                            <div>
-                                <p>Oil and Gas</p>
-                                <p>Transport</p>
-                                <p>Power</p>
-                                <p>Construction</p>
-                            </div>
-                            <div>
-                            <ProgressBar variant="success" now={60}  className='mb-3'/>
-                            <ProgressBar variant="success" now={50} className='mb-3'/>
-                            <ProgressBar variant="success" now={40} style={{marginBottom:'15px'}}/>
-                            <ProgressBar variant="success" now={20} className='mb-1'/>
-                            </div>
-
-                        </ProgressBarDiv> */}
                         </div>
                     
 
