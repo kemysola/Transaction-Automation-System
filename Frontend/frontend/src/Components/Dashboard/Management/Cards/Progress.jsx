@@ -508,12 +508,15 @@ export default function Progress(){
 
     return(
         <React.Fragment>
-            <Stats/>
+          <div style={{marginLeft:' 0.75rem',marginRight:' 1.9rem'}}>
+          <Stats/>
+          </div>
+            
             <Container fluid>
                 <Row style={{marginTop:'5px '}}>
                     <Col sm={12} lg={6} className="my-1">
                         <div style={{background:'white',padding:'10px',marginTop:'3px', borderRadius:'1px'}} > 
-                        <p style={{fontSize:'15px', paddingLeft:'12px'}}>INDUSTRY</p>
+                        <p style={{fontSize:'15px', paddingLeft:'12px',fontWeight:'bold'}}>INDUSTRY</p>
 
 
                         <BarChart
@@ -540,9 +543,7 @@ export default function Progress(){
                 {/*------------------------ Column ------------------------------- */}
                 <Col sm={12} lg={6} className="my-1">
                         <div style={{background:'white', paddingTop:'10px',marginTop:'3px',borderRadius:'1px',height:'65.1vh'}} > 
-                            <p style={{ fontSize: '12px', paddingLeft: '12px' }}>PRODUCT</p>
-                            
-
+                            <p style={{ fontSize: '15px', paddingLeft: '10px', fontWeight:'bold' }}>PRODUCT</p>
                         <BarChart
                             width={400}
                             height={270}
