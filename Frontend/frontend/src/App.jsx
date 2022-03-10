@@ -9,6 +9,7 @@ import StaffView from './Components/Staffs/StaffView';
 import UpdateTransaction from './Pages/Transactions/UpdateTransaction';
 // import NewTransaction from './Pages/Transactions/NewTransaction';
 import MgtView from './Components/Dashboard/Management/ManagementView';
+import Origination from './Components/Dashboard/Origination/Origination';
 import Text from './Pages/Transactions/Text';
 import NewText from './Pages/Transactions/NewText';
 import AllStaff from './Pages/Staffs/AllStaff';
@@ -63,6 +64,9 @@ export default function App() {
                 </Route>
                 <Route path='/dashboard'>
                     <MgtView />
+                </Route>
+                <Route path='/org-dashboard'>
+                    <Origination />
                 </Route>
                 <Route path='/ing'>
                     <Testing />

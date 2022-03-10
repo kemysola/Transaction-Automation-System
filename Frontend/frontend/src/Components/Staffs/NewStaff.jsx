@@ -109,7 +109,6 @@ export default function NewStaff() {
                 setSubmitted(true)
             })
             .catch(error => {
-                
                 setResponse("Failed to Create User. Please Try Again")
                 setSubmitted(true)
             });
