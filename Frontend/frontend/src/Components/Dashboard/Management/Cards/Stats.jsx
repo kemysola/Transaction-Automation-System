@@ -123,31 +123,36 @@ export default function Stats(){
         <React.Fragment>
     {/*---------------------------- Div ------------------------------------------- */}
             <PieDiv>
-                <Container fliud>
-                    <Row >
-                    <Col sm={6} className='bg-light pt-1' style={{borderRadius:'10px'}}>
-                        <div>
-                            <p style={{color:'darkblue', fontWeight:'bold',fontSize:'10px'}}>
+                <Container fliud className='mb-3'>
+                    <Row  >
+                    <Col sm={6} className='bg-light pt-1 ' style={{borderRadius:'1px'}}>
+                        <div className='d-flex justify-content-center '>
+                            <p style={{color:'black', fontWeight:'bold',fontSize:'13px'}}>
                                 DEAL CATEGORY
                             </p>
-                            <PieChart width={200} height={200}>
+                            <PieChart width={300} height={300}>
                                 <Pie
                                     data={chartData}
                                     dataKey="value"
                                     nameKey="name"
-                                    cx="50%" cy="50%"
+                                    cx="40%" cy="50%"
                                     fill="#8884d8" 
-                                    innerRadius={50} 
-                                    outerRadius={80}
-                                    paddingAngle={5}
+                                    innerRadius={60} 
+                                    outerRadius={100}
+                                    paddingAngle={1}
                                     labelLine={false}
                                     label={renderCustomizedLabel}
+                                    
                                 >
                                     {data.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]}/>
+
                                     ))}
+                                    
                                 </Pie>
+
                                 <Tooltip />
+
                             </PieChart>
                         </div>
                     </Col>
