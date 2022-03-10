@@ -311,20 +311,34 @@ export default function Progress(){
             value: option4Total
         },
         {
-            name: "Transportation",
+            name: "Transport",
             value: option5Total
         },
         {
             name: "Inputs to Infra",
             value: option6Total
-        }
+        },
+            {
+                name: "Affordable Housing",
+                value: option7Total
+            },
+            {
+                name: "Education Infra",
+                value: option8Total
+            }, {
+                name: "Healthcare",
+                value: option9Total
+            },
+            {
+                name: "Water/Waste",
+                value: option10Total
+            },
+            {
+                name: "ICT/Telecoms",
+                value: option11Total
+            }
     
     ]
-    
-    console.log("Girl", option1Total, option2Total, option3Total)
-    
-    console.log("Chart Values", chartData)
-    
 
     return(
         <React.Fragment>
@@ -342,7 +356,7 @@ export default function Progress(){
 
                         <BarChart
                             width={300}
-                            height={150}
+                            height={400} 
                             data={chartData}
                             layout='vertical'
                         >
