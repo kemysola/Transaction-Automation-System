@@ -340,6 +340,173 @@ export default function Progress(){
     
     ]
 
+///////////////////////////////PRODUCT
+  
+    
+    let productOption1 = data.reduce(function(filtered, arr) {
+  
+      if (arr.product === 'Public Bond') {
+  
+         let someNewValue = arr.dealsize
+  
+         filtered.push(someNewValue);
+  
+      }
+  
+      return filtered;
+  
+    }, []);
+  
+  
+  
+    let productOption2 = data.reduce(function(filtered, arr) {
+  
+      if (arr.product === 'Blended Finance') {
+  
+         let someNewValue = arr.dealsize
+  
+         filtered.push(someNewValue);
+  
+      }
+  
+      return filtered;
+  
+    }, []);
+  
+  
+  
+    let productOption3 = data.reduce(function(filtered, arr) {
+  
+      if (arr.product === 'Contingent Refi. Gte.') {
+  
+         let someNewValue = arr.dealsize
+  
+         filtered.push(someNewValue);
+  
+      }
+  
+      return filtered;
+  
+    }, []);
+  
+    let productOption4 = data.reduce(function(filtered, arr) {
+  
+      if (arr.product === 'Private Bond (Clean Energy)') {
+  
+         let someNewValue = arr.dealsize
+  
+         filtered.push(someNewValue);
+  
+      }
+  
+      return filtered;
+  
+    }, []);
+  
+  
+  
+    let productOption5 = data.reduce(function(filtered, arr) {
+  
+      if (arr.product === 'Private Bond (Other)') {
+  
+         let someNewValue = arr.dealsize
+  
+         filtered.push(someNewValue);
+  
+      }
+  
+      return filtered;
+  
+    }, []);
+  
+  
+  
+    let productOption6 = data.reduce(function(filtered, arr) {
+  
+      if (arr.product === 'Annity PPP') {
+  
+         let someNewValue = arr.dealsize
+  
+         filtered.push(someNewValue);
+  
+      }
+  
+      return filtered;
+  
+    }, []);
+  
+
+  
+    let productOption1Total = productOption1.reduce(function(tot, arr) {
+  
+      return tot + parseFloat(arr);
+  
+    }, 0)
+  
+  
+  
+    let productOption2Total = productOption2.reduce(function(tot, arr) {
+  
+      return tot + parseFloat(arr);
+  
+    }, 0)
+  
+  
+  
+    let productOption3Total = productOption3.reduce(function(tot, arr) {
+  
+      return tot + parseFloat(arr);
+  
+    }, 0)
+  
+    let productOption4Total = productOption4.reduce(function(tot, arr) {
+  
+      return tot + parseFloat(arr);
+  
+    }, 0)
+  
+  
+  
+    let productOption5Total = productOption5.reduce(function(tot, arr) {
+  
+      return tot + parseFloat(arr);
+  
+    }, 0)
+  
+  
+  
+    let productOption6Total = productOption6.reduce(function(tot, arr) {
+  
+      return tot + parseFloat(arr);
+  
+    }, 0)
+  
+  
+    const productChartData = [{
+        name: "Public Bond",
+        value: productOption1Total
+        },
+        {
+            name: "Blended Finance",
+            value: productOption2Total
+        }, {
+            name: "Contigent Refi. Gte.",
+            value: productOption3Total
+        },
+        {
+            name: "Private Bond (Clean Energy)",
+            value: productOption4Total
+        },
+        {
+            name: "Private Bond (Other)",
+            value: productOption5Total
+        },
+        {
+            name: "Annuity PPP",
+            value: productOption6Total
+        },
+    ]
+
     return(
         <React.Fragment>
             <Stats/>
@@ -348,10 +515,6 @@ export default function Progress(){
                     <Col sm={12} lg={6} className="my-3">
                         <div style={{background:'white',padding:'10px',marginTop:'3px', borderRadius:'10px'}} > 
                         <p style={{fontSize:'12px', paddingLeft:'12px'}}>INDUSTRY</p>
-
-                        {/* <BarChart width={150} height={40} data={chartData}>
-                            <Bar dataKey="value" fill="#8884d8" />
-                        </BarChart> */}
 
 
                         <BarChart
@@ -366,9 +529,30 @@ export default function Progress(){
                             <Bar dataKey='value' stackId="a" fill='#82ca9d'/>
                         </BarChart>
   
+
+                        </div>
+                    
+
+                    </Col>
+                {/*------------------------ Column ------------------------------- */}
+                <Col sm={12} lg={6} className="my-3">
+                        <div style={{background:'white', padding:'10px',marginTop:'3px',borderRadius:'10px'}} > 
+                            <p style={{ fontSize: '12px', paddingLeft: '12px' }}>PRODUCT</p>
                             
-{/* 
-                        <ProgressBarDiv>
+
+                        <BarChart
+                            width={300}
+                            height={400} 
+                            data={productChartData}
+                            layout='vertical'
+                        >
+                            {/* <CartesianGrid strokeDasharray="3 3" /> */}
+                            <XAxis type='number' hide />
+                            <YAxis type='category' dataKey='name' tickLine={false} axisLine={false} style={{fontSize: '0.5rem', fontFamily: 'Arial',}}/>
+                            <Bar dataKey='value' stackId="a" fill='#82ca9d'/>
+                        </BarChart>
+
+                        {/* <ProgressBarDiv>
 
                             <div>
                                 <p>Oil and Gas</p>
@@ -384,32 +568,6 @@ export default function Progress(){
                             </div>
 
                         </ProgressBarDiv> */}
-
-                        </div>
-                    
-
-                    </Col>
-                {/*------------------------ Column ------------------------------- */}
-                <Col sm={12} lg={6} className="my-3">
-                        <div style={{background:'white', padding:'10px',marginTop:'3px',borderRadius:'10px'}} > 
-                        <p style={{fontSize:'12px', paddingLeft:'12px'}}>PRODUCT</p>
-
-                        <ProgressBarDiv>
-
-                            <div>
-                                <p>Oil and Gas</p>
-                                <p>Transport</p>
-                                <p>Power</p>
-                                <p>Construction</p>
-                            </div>
-                            <div>
-                            <ProgressBar variant="success" now={60}  className='mb-3'/>
-                            <ProgressBar variant="success" now={50} className='mb-3'/>
-                            <ProgressBar variant="success" now={40} style={{marginBottom:'15px'}}/>
-                            <ProgressBar variant="success" now={20} className='mb-1'/>
-                            </div>
-
-                        </ProgressBarDiv>
                         </div>
                     
 
