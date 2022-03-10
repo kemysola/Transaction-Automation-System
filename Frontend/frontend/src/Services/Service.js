@@ -43,6 +43,10 @@ const getAllStaff = () => { // get all staff, for privileged users only
     return axios.get("staff/all_staff");
 };
 
+const getClient = () => { // get client name when not specified, for privileged users only
+    return axios.get("/report/2022-02-17/2022-02-17/''");
+};
+
 export default {
     LoginStaff,
     registerStaff,
@@ -52,5 +56,6 @@ export default {
     getDealById,
     getMyDeals,
     getAllDeals,
-    getAllStaff
+    getAllStaff,
+    getClient
 };
