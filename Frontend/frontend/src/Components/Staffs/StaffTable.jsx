@@ -50,9 +50,6 @@ const StaffTable = () => {
     });
   }
 
-
-
-
   const columns = useMemo(
     () => [
       {
@@ -191,4 +188,3 @@ const StaffTable = () => {
 };
 
 export default StaffTable;
-

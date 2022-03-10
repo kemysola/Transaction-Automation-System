@@ -78,8 +78,7 @@ export default function NewStaff() {
         setTarget(event.target.value);
     };
 
-    // console.log("staff state is", staff)
-    console.log("target is", target)
+    // console.log("target is", target)
 
     const saveStaff = (e) => { // function to save user data and post to db
         e.preventDefault()
@@ -99,11 +98,10 @@ export default function NewStaff() {
             "creditCommiteeApproval": +staff.creditCommiteeApproval,
             "feeLetter": +staff.feeLetter,
             "status": "Inactive",
-            "isAdmin": target
+            "isAdmin": null
         };
 
-        console.log(data);
-        // setSubmitted(true)
+        // console.log(data);
 
         Services.registerStaff(data)
             .then(response => {
@@ -111,13 +109,14 @@ export default function NewStaff() {
                 setSubmitted(true)
             })
             .catch(error => {
-                
                 setResponse("Failed to Create User. Please Try Again")
+                setSubmitted(true)
             });
     };
 
     const newStaff = () => {
         setStaff(initialStaffState);
+        setTarget(null);
         setSubmitted(false);
     };
 
@@ -167,7 +166,7 @@ export default function NewStaff() {
                 <Container fluid>
                     {submitted ? (
                         <Container1>
-                            <p style={{ fontWeight: 'bold', fontSize: '16px', color: 'darkblue', marginTop: '1rem' }}>{response}</p>
+                            <p style={{ fontWeight: 'bold', fontSize: '12px', color: 'darkblue', marginTop: '1rem' }}>{response}</p>
                             <ButtonWrapper onClick={newStaff}>Add New Staff</ButtonWrapper>
                         </Container1>
 

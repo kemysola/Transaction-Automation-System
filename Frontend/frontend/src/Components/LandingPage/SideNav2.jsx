@@ -100,16 +100,17 @@ const Sidenav = () => {
                   </Link>
                 </MenuItem> 
 
-              <MenuItem className="subMenu">
-              <Link to ='/dashboard' style={{color:'#237cbf'}}>
-                Execution Dashboard
-              </Link>
-              </MenuItem>
-              <MenuItem className="subMenu">
-             <Link to ='/dashboard' style={{color:'#237cbf'}}>
-              Origination Dashboard
-              </Link>
-              </MenuItem>
+                <MenuItem className="subMenu">
+                  <Link to ='/dashboard' style={{color:'#237cbf'}}>
+                    Execution Dashboard
+                  </Link>
+                </MenuItem>
+
+                <MenuItem className="subMenu">
+                  <Link to ='/org-dashboard' style={{color:'#237cbf'}}>
+                    Origination Dashboard
+                  </Link>
+                </MenuItem>
             </SubMenu>
 
             <MenuItem icon={<HiOutlineCalculator />}>Budget</MenuItem>

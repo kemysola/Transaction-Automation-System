@@ -78,7 +78,7 @@ const IndeterminateCheckbox = React.forwardRef(
 const DealsTable = (props) => {
   const history = useHistory();
   const [deals, setDeals] = useState([]);
-  const [search, setSearch] = useState('');
+  // const [search, setSearch] = useState('');
   const dealsRef = useRef();
   dealsRef.current = deals;
 
