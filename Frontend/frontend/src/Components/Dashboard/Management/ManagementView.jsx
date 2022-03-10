@@ -25,11 +25,10 @@ export default function MgtView() {
                     <Col sm={3} style={{padding:'10px'}}>
                         <SideNav2/>
                     </Col>
-                    <Col sm={7}> 
+                    <Col sm={9}> 
                         <Progress/>
                     </Col>
-                    <Col sm={1}>  
-                    </Col>
+                   
                 </Row>
             </ViewWrapper>
 
