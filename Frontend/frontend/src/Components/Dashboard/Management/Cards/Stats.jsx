@@ -158,10 +158,10 @@ export default function Stats(){
                     </Col>
 
                     <Col sm={6}>
-                        <Row className='bg-light pt-1' style={{margin:'5px 2px',borderRadius:'10px'}}>
+                        <Row className='bg-light pt-1' style={{margin:'5px 2px',borderRadius:'1px'}}>
                             <Col sm={4}>
                                 <div>
-                                <p style={{color:'darkblue',fontWeight:'bold', fontSize:'10px'}}>REGION</p>
+                                <p style={{color:'black',fontWeight:'bold', fontSize:'13px'}}>REGION</p>
                                 </div>
                             </Col>
                             <Col sm={8}>
