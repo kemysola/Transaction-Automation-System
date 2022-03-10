@@ -15,10 +15,11 @@ import NewText from './Pages/Transactions/NewText';
 import AllStaff from './Pages/Staffs/AllStaff';
 import './App.css';
 import Home from './Components/Home'
-import Testing from './Components/Transactions/transTest'
-import Staffer from './Components/staffRedo/newStaff'
+// import Testing from './Components/Transactions/Testing'
+import Execution from './Components/Dashboard/Execution/Execution'
 import StaffTable from './Components/Staffs/StaffTable';
-import PasswordReset from './Components/Auth/Reset/Reset';
+import Verify from './Components/Auth/Verify';
+import PasswordReset from './Components/Auth/Reset/PasswordReset';
 import Reset from './Components/Auth/StaffReset/Reset';
 
 
@@ -68,7 +69,13 @@ export default function App() {
                 <Route path='/org-dashboard'>
                     <Origination />
                 </Route>
-                <Route path='/ing'>
+                <Route path='/execution'>
+                    <Execution />
+                </Route>
+                <Route path='/verify'>
+                    <Verify/>
+                </Route>
+                {/* <Route path='/ing'>
                     <Testing />
                 </Route> 
                 <Route path='/oya'>

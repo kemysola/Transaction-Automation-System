@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "../../../http-common";
 import AuthService from "../../../Services/auth.Service";
+import ResetService from "../../../Services/reset.Services";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import { useHistory } from "react-router-dom";
@@ -17,33 +18,37 @@ const required = (value) => {
     );
   }
 };
-export default function Reset() {
+export default function PasswordReset() {
   const history = useHistory();
   const form = useRef();
   const [error, setError] = useState();
-  const [oldPassword, setOldPassword] = useState("");
+  const [password, setpassword] = useState("");
+  const [email, setEmail] = useState("")
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [validPassword, setValidPassword] = useState("");
   const [validMatch, setValidMatch] = useState(false);
   const [data, setData] = useState({
-    oldPassword: "",
+    password: "",
     newPassword: "",
-    confirmPassword: "",
+    // confirmPassword: "",
+    email: ""
   });
 
   const [message, setMessage] = useState("");
 
   //Use effect to handle the useRef hook
-  useEffect(() => {
-    handleSubmit()
-
-  },[user.name])
+    
+  const onChangeEmail = (e) => {
+    const email = e.target.value;
+    setEmail(email);
+    console.log(email);
+  };
 
   const onChangePassword = (e) => {
-    const oldPassword = e.target.value;
-    setOldPassword(oldPassword);
-    console.log(oldPassword);
+    const password = e.target.value;
+    setpassword(password);
+    console.log(password);
   };
 
   const onChangeNewPassword = (e) => {
@@ -58,16 +63,16 @@ export default function Reset() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+      e.preventDefault();
     form.current.validateAll();
     if (newPassword !== confirmPassword) {
       setMessage("no passwords do not match");
       return;
     }
 
-    await AuthService.updatePassword(oldPassword, newPassword, user.name).then(
+    await ResetService.passwordReset(password, newPassword, email).then(
       () => {
-        history.push("/");
+        history.push("/login");
         window.location.reload();
       },
       (error) => {
@@ -110,8 +115,9 @@ export default function Reset() {
 
                       <input
                         type="email"
-                        name="name"
-                        value={user.name}
+                        name="email"
+                        value={email}
+                        onChange={onChangeEmail}
                         style={{ width: "30%" }}
                       />
                     </Col>
@@ -120,8 +126,8 @@ export default function Reset() {
                       <label htmlFor="Password">Password:</label>
                       <Input
                         type="password"
-                        value={oldPassword}
-                        name="oldPassword"
+                        value={password}
+                        name="password"
                         onChange={onChangePassword}
                         validations={[required]}
                         style={{ width: "30%" }}
