@@ -97,7 +97,7 @@ export default function Stats(){
                 textAnchor={x > cx ? "start" : "end"}
                 dominantBaseline="central"
             >
-                {`${(percent * 100).toFixed(0)}%`}
+            {`${(percent * 100).toFixed(2)}%`}
             </text>
         );
     };
@@ -105,8 +105,8 @@ export default function Stats(){
     const customTooltip = ({active, payload, label}) => {
         if (active && payload && payload.length) {
             return (
-                <div className='custom-tooltip'>
-                    <p className='label'>{`${payload[0].name} : N${payload[0].value.toLocaleString('en-US')}`}</p>
+                <div className='custom-tooltip' style={{backgroundColor: "white", height: "30px", padding: "2px 2px"}}>
+                    <p className='label'>{`${payload[0].name} : ₦${payload[0].value.toLocaleString('en-US')}`}</p>
                 </div>
             );
         }
@@ -116,7 +116,7 @@ export default function Stats(){
     return(
         <React.Fragment>
     {/*---------------------------- Div ------------------------------------------- */}
-            <PieDiv>
+            {/* <PieDiv> */}
                 <Container fluid>
                     <Row >
                     <Col sm={6} className='bg-light pt-1' style={{borderRadius:'10px'}}>
@@ -134,8 +134,9 @@ export default function Stats(){
                                     innerRadius={50} 
                                     outerRadius={80}
                                     paddingAngle={5}
-                                    labelLine={false}
-                                    label={renderCustomizedLabel}
+                                    // labelLine={false}
+                                    // label={renderCustomizedLabel}
+                                    label
                                 >
                                     {data.map((entry, index) => (
                                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -162,9 +163,9 @@ export default function Stats(){
                     </Col>
 
                     </Row>
-                    </Container>
+                </Container>
 
-            </PieDiv>
+            {/* </PieDiv> */}
 
         </React.Fragment>
     )
