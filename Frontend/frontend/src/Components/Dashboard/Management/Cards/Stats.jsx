@@ -84,6 +84,10 @@ export default function Stats(){
         return tot + parseFloat(arr);
     }, 0)
 
+    var sumTotal = data.reduce(function(tot, arr) {
+        return tot + parseFloat(arr.dealsize);
+    }, 0);
+
     const chartData = [
         { name: 'Red', value: redTotal },
         { name: 'Amber', value: amberTotal},
@@ -107,23 +111,39 @@ export default function Stats(){
         const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
         return (
-            <text
-                x={x}
-                y={y}
-                fill="black"
-                textAnchor={x > cx ? "start" : "end"}
-                dominantBaseline="central"
-            >
-                {`${(percent * 100).toFixed(0)}%`}
-            </text>
+            <>
+                <text x={cx} y={cy} dy={8} textAnchor="middle">
+                    {`₦${(sumTotal / 1000000).toFixed(2)}bn`}
+                </text>
+                <text
+                    x={x}
+                    y={y}
+                    fill="black"
+                    textAnchor={x > cx ? "start" : "end"}
+                    dominantBaseline="central"
+                >
+                {`${(percent * 100).toFixed(2)}%`}
+                </text>
+            </>
         );
+    };
+
+    const customTooltip = ({active, payload, label}) => {
+        if (active && payload && payload.length) {
+            return (
+                <div className='custom-tooltip' style={{backgroundColor: "white", height: "30px", padding: "2px 2px"}}>
+                    <p className='label'>{`${payload[0].name} : ₦${(payload[0].value / 1000000).toFixed(2)}bn`}</p>
+                </div>
+            );
+        }
+        return null;
     };
 
     return(
         <React.Fragment>
     {/*---------------------------- Div ------------------------------------------- */}
             <PieDiv>
-                <Container fliud className='mb-3'>
+                <Container fluid className='mb-3'>
                     <Row  >
                     <Col sm={6} className='bg-light pt-1 ' style={{borderRadius:'1px'}}>
                         <div className='d-flex justify-content-center '>
@@ -139,10 +159,10 @@ export default function Stats(){
                                     fill="#8884d8" 
                                     innerRadius={60} 
                                     outerRadius={100}
-                                    paddingAngle={1}
+                                    paddingAngle={3}
+                                    isAnimationActive={false}
                                     labelLine={false}
                                     label={renderCustomizedLabel}
-                                    
                                 >
                                     {data.map((entry, index) => (
                                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]}/>
@@ -150,9 +170,7 @@ export default function Stats(){
                                     ))}
                                     
                                 </Pie>
-
-                                <Tooltip />
-
+                                <Tooltip content={customTooltip} />
                             </PieChart>
                         </div>
                     </Col>
@@ -179,7 +197,7 @@ export default function Stats(){
                     </Col>
 
                     </Row>
-                    </Container>
+                </Container>
 
             </PieDiv>
 
