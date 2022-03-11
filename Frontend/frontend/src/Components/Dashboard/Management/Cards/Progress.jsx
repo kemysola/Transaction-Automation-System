@@ -12,6 +12,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer,
 } from "recharts";
 
 const ProgressBarDiv = styled.div`
@@ -40,7 +41,6 @@ export default function Progress(){
         });
     };
   
-    console.log("I am the data", data)
     
     let option1 = data.reduce(function(filtered, arr) {
   
@@ -482,14 +482,14 @@ export default function Progress(){
   
   
     const productChartData = [{
-        name: "Public Bond",
+        name: "Public Bond ",
         value: productOption1Total
         },
         {
-            name: "Blended Finance",
+            name: "Blended Finance ",
             value: productOption2Total
         }, {
-            name: "Contigent Refi. Gte.",
+            name: "Contigent Refi. Gte. ",
             value: productOption3Total
         },
         {
@@ -497,7 +497,7 @@ export default function Progress(){
             value: productOption4Total
         },
         {
-            name: "Private Bond (Other)",
+            name: "Private Bond (Other) ",
             value: productOption5Total
         },
         {
@@ -508,75 +508,78 @@ export default function Progress(){
 
     return(
         <React.Fragment>
-            <Stats/>
-            <Container>
-                <Row style={{marginTop:'13px '}}>
-                    <Col sm={12} lg={6} className="my-3">
-                        <div style={{background:'white',padding:'10px',marginTop:'3px', borderRadius:'10px'}} > 
-                        <p style={{fontSize:'12px', paddingLeft:'12px'}}>INDUSTRY</p>
+          <div style={{marginLeft:' 0.75rem',marginRight:' 1.9rem'}}>
+          <Stats/>
+          </div>
+            
+            <Container fluid>
+                <Row style={{marginTop:'5px '}}>
+                    <Col sm={12} lg={6} className="my-1">
+                        <div style={{background:'white',padding:'10px',marginTop:'3px', borderRadius:'1px'}} > 
+                        <p style={{fontSize:'15px', paddingLeft:'12px',fontWeight:'bold'}}>INDUSTRY</p>
 
 
                         <BarChart
-                            width={300}
-                            height={400} 
+                            width={400}
+                            height={340} 
                             data={chartData}
+                            margin={{
+                              top: 5,
+                              right: 5,
+                              left: 5,
+                              bottom: 2,
+                            }}
                             layout='vertical'
+                            
                         >
-                            {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                            <XAxis type='number' hide />
+                            <XAxis type='number' hide/>
                             <YAxis type='category' dataKey='name' tickLine={false} axisLine={false} style={{fontSize: '0.5rem', fontFamily: 'Arial',}}/>
-                            <Bar dataKey='value' stackId="a" fill='#82ca9d'/>
+                            <Bar dataKey='value' stackId="a" fill='#82ca9d' background={{ fill: '#eee' }}/>
                         </BarChart>
-  
-
                         </div>
                     
 
                     </Col>
                 {/*------------------------ Column ------------------------------- */}
-                <Col sm={12} lg={6} className="my-3">
-                        <div style={{background:'white', padding:'10px',marginTop:'3px',borderRadius:'10px'}} > 
-                            <p style={{ fontSize: '12px', paddingLeft: '12px' }}>PRODUCT</p>
-                            
-
+                <Col sm={12} lg={6} className="my-1">
+                        <div style={{background:'white', paddingTop:'10px',marginTop:'3px',borderRadius:'1px',height:'65.1vh'}} > 
+                            <p style={{ fontSize: '15px', paddingLeft: '10px', fontWeight:'bold' }}>PRODUCT</p>
                         <BarChart
-                            width={300}
-                            height={400} 
+                            width={400}
+                            height={270}
                             data={productChartData}
+                            margin={{
+                              top: 25,
+                              right: 15,
+                              left: 15,
+                              bottom: 22,
+
+                            }}
+                            style={{
+                              paddingTop:20
+                            }}
                             layout='vertical'
                         >
-                            {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                            <XAxis type='number' hide />
-                            <YAxis type='category' dataKey='name' tickLine={false} axisLine={false} style={{fontSize: '0.5rem', fontFamily: 'Arial',}}/>
-                            <Bar dataKey='value' stackId="a" fill='#82ca9d'/>
+                            <XAxis type='number' hide/>
+                            <YAxis type='category' 
+                            dataKey='name' 
+                            tickLine={false} 
+                            axisLine={false} style={{fontSize: '0.52rem', fontFamily: 'Arial', padding:'15px',}} />
+                            <Bar dataKey='value'
+                             stackId="a"
+                            fill='#82ca9d'
+                            background={{ fill: '#eee' }}
+                            />
                         </BarChart>
-
-                        {/* <ProgressBarDiv>
-
-                            <div>
-                                <p>Oil and Gas</p>
-                                <p>Transport</p>
-                                <p>Power</p>
-                                <p>Construction</p>
-                            </div>
-                            <div>
-                            <ProgressBar variant="success" now={60}  className='mb-3'/>
-                            <ProgressBar variant="success" now={50} className='mb-3'/>
-                            <ProgressBar variant="success" now={40} style={{marginBottom:'15px'}}/>
-                            <ProgressBar variant="success" now={20} className='mb-1'/>
-                            </div>
-
-                        </ProgressBarDiv> */}
+                        
                         </div>
-                    
-
                     </Col>
                 {/*------------------------ Column ------------------------------- */}
 
                 </Row>
             </Container>
             <br/>
-            <GuarPipe/>
+            {/*<GuarPipe/>*/}
             
         </React.Fragment>
     )

@@ -4,6 +4,7 @@ import {Container,Row,Col} from 'react-bootstrap';
 import { PieChart, Pie, Cell, Tooltip} from 'recharts';
 import map from '../../../../Images/map.png';
 import Service from '../../../../Services/Service';
+import { Chart } from "react-google-charts";
 import './../style.css';
 
 const PieDiv = styled.div`
@@ -31,6 +32,22 @@ export default function Stats(){
             });
     };
 
+    const mapData = [
+        ["", "population%"],
+        ["NG", 2],
+        ["NG", 3]
+      ];
+
+    const mapOptions = {
+        region: "NG", // Africa
+        displayMode: 'text',
+        magnifyingGlass: {enable: true, zoomFactor: 30},
+        resolution: 'provinces',
+        colorAxis: { colors: ["#00853f", "white", "#e31b23"] },
+        backgroundColor: "white",
+        defaultColor: "#f5f5f5"
+    };
+    
     var red = data.reduce(function (filtered, arr) {
         if (arr.deal_category === 'Red') {
             var someNewValue = arr.dealsize
@@ -116,31 +133,33 @@ export default function Stats(){
     return(
         <React.Fragment>
     {/*---------------------------- Div ------------------------------------------- */}
-            {/* <PieDiv> */}
-                <Container fluid>
-                    <Row >
-                    <Col sm={6} className='bg-light pt-1' style={{borderRadius:'10px'}}>
-                        <div>
-                            <p style={{color:'darkblue', fontWeight:'bold',fontSize:'10px'}}>
+            <PieDiv>
+                <Container fluid className='mb-3'>
+                    <Row  >
+                    <Col sm={6} className='bg-light pt-1 ' style={{borderRadius:'1px'}}>
+                        <div className='d-flex justify-content-center '>
+                            <p style={{color:'black', fontWeight:'bold',fontSize:'13px'}}>
                                 DEAL CATEGORY
                             </p>
-                            <PieChart width={200} height={200}>
+                            <PieChart width={300} height={300}>
                                 <Pie
                                     data={chartData}
                                     dataKey="value"
                                     nameKey="name"
-                                    cx="50%" cy="50%"
+                                    cx="40%" cy="50%"
                                     fill="#8884d8" 
-                                    innerRadius={50} 
-                                    outerRadius={80}
-                                    paddingAngle={5}
+                                    innerRadius={60} 
+                                    outerRadius={100}
+                                    paddingAngle={3}
                                     // labelLine={false}
                                     // label={renderCustomizedLabel}
                                     label
                                 >
                                     {data.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]}/>
+
                                     ))}
+                                    
                                 </Pie>
                                 <Tooltip content={customTooltip} />
                             </PieChart>
@@ -148,16 +167,22 @@ export default function Stats(){
                     </Col>
 
                     <Col sm={6}>
-                        <Row className='bg-light pt-1' style={{margin:'5px 2px',borderRadius:'10px'}}>
+                        <Row className='bg-light pt-1' style={{margin:'5px 2px',borderRadius:'1px'}}>
                             <Col sm={4}>
                                 <div>
-                                <p style={{color:'darkblue',fontWeight:'bold', fontSize:'10px'}}>REGION</p>
+                                <p style={{color:'black',fontWeight:'bold', fontSize:'13px'}}>REGION</p>
                                 </div>
                             </Col>
                             <Col sm={8}>
-                                <div className='py-2'>
-                                    <img src={map} alt='map' height='150'/>    
-                                </div>
+                                
+                                <Chart
+                                    chartType="GeoChart"
+                                    width="400px"
+                                    height="400px"
+                                    data={mapData}
+                                    options={mapOptions}
+                                />   
+                            
                             </Col>
                         </Row>
                     </Col>
@@ -165,7 +190,7 @@ export default function Stats(){
                     </Row>
                 </Container>
 
-            {/* </PieDiv> */}
+            </PieDiv>
 
         </React.Fragment>
     )
