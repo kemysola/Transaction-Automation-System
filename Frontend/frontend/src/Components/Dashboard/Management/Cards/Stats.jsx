@@ -84,6 +84,10 @@ export default function Stats(){
         return tot + parseFloat(arr);
     }, 0)
 
+    var sumTotal = data.reduce(function(tot, arr) {
+        return tot + parseFloat(arr.dealsize);
+    }, 0);
+
     const chartData = [
         { name: 'Red', value: redTotal },
         { name: 'Amber', value: amberTotal},
@@ -107,15 +111,20 @@ export default function Stats(){
         const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
         return (
-            <text
-                x={x}
-                y={y}
-                fill="black"
-                textAnchor={x > cx ? "start" : "end"}
-                dominantBaseline="central"
-            >
-            {`${(percent * 100).toFixed(2)}%`}
-            </text>
+            <>
+                <text x={cx} y={cy} dy={8} textAnchor="middle">
+                    {`₦${(sumTotal / 1000000).toFixed(2)}bn`}
+                </text>
+                <text
+                    x={x}
+                    y={y}
+                    fill="black"
+                    textAnchor={x > cx ? "start" : "end"}
+                    dominantBaseline="central"
+                >
+                {`${(percent * 100).toFixed(2)}%`}
+                </text>
+            </>
         );
     };
 
@@ -123,7 +132,7 @@ export default function Stats(){
         if (active && payload && payload.length) {
             return (
                 <div className='custom-tooltip' style={{backgroundColor: "white", height: "30px", padding: "2px 2px"}}>
-                    <p className='label'>{`${payload[0].name} : ₦${payload[0].value.toLocaleString('en-US')}`}</p>
+                    <p className='label'>{`${payload[0].name} : ₦${(payload[0].value / 1000000).toFixed(2)}bn`}</p>
                 </div>
             );
         }
@@ -151,9 +160,9 @@ export default function Stats(){
                                     innerRadius={60} 
                                     outerRadius={100}
                                     paddingAngle={3}
-                                    // labelLine={false}
-                                    // label={renderCustomizedLabel}
-                                    label
+                                    isAnimationActive={false}
+                                    labelLine={false}
+                                    label={renderCustomizedLabel}
                                 >
                                     {data.map((entry, index) => (
                                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]}/>
