@@ -542,11 +542,11 @@ export default function Progress(){
                     </Col>
                 {/*------------------------ Column ------------------------------- */}
                 <Col sm={12} lg={6} className="my-1">
-                        <div style={{background:'white', paddingTop:'10px',marginTop:'3px',borderRadius:'1px',height:'65.1vh'}} > 
+                        <div style={{background:'white', paddingTop:'10px',marginTop:'3px',borderRadius:'1px',height:'65.4vh'}} > 
                             <p style={{ fontSize: '15px', paddingLeft: '10px', fontWeight:'bold' }}>PRODUCT</p>
                         <BarChart
                             width={400}
-                            height={270}
+                            height={300}
                             data={productChartData}
                             margin={{
                               top: 25,
