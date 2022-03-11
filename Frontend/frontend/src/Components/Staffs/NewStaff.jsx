@@ -22,7 +22,7 @@ margin:0;
 `;
 
 const Container1 = styled.div`
-background:white;
+
 font-size:10px;
 padding: 3px 10px;
 border-radius: 10px;
@@ -43,7 +43,7 @@ const CancelWrapper = styled.button`
 const PWrapper = styled.p`
 color:#1E2F97;
 font-weight:bold;
-margin:0;
+margin: 1rem 0;
 padding: 0;
 font-size:11px;
 `;
@@ -166,7 +166,7 @@ export default function NewStaff() {
                 <Container fluid>
                     {submitted ? (
                         <Container1>
-                            <p style={{ fontWeight: 'bold', fontSize: '12px', color: 'darkblue', marginTop: '1rem' }}>{response}</p>
+                            <p style={{ fontWeight: 'bold', fontSize: '12px', color: 'black', marginTop: '1rem' }}>{response}</p>
                             <ButtonWrapper onClick={newStaff}>Add New Staff</ButtonWrapper>
                         </Container1>
 
@@ -185,28 +185,28 @@ export default function NewStaff() {
                                         <br />
                                         <Container1 style={{ marginBottom: '3px', padding: '2px 20px', fontSize: '11px' }}>
                                             <Row>
-                                                <Col sm={6}>
-                                                <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                                                <Col sm={6} className='mt-3 pt-2'>
+                                                <Form.Group className="mb-0 mt-2 pt-2 pb-1">
                                                     <Form.Label>First Name</Form.Label>
                                                     <Form.Control size="sm" type="text" value={staff.firstName} onChange={handleInputChange} name='firstName' required/>
                                                 </Form.Group>
                                                 </Col>
 
-                                                <Col sm={6}>
-                                                <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                                                <Col sm={6} className='mt-3 pt-2'>
+                                                <Form.Group className="mb-0 mt-2 pt-2 pb-1">
                                                     <Form.Label>Last Name</Form.Label>
                                                     <Form.Control size="sm" type="text" value={staff.lastName} onChange={handleInputChange} name='lastName' required/>
                                                 </Form.Group>
                                                 </Col>
 
-                                                <Col sm={12}>
+                                                <Col sm={12}  className='mt-2 pt-2'>
                                                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                                                         <Form.Label>Email</Form.Label>
                                                         <Form.Control size="sm" type="email" value={staff.email} name='email' onChange={handleInputChange} required/>
                                                     </Form.Group>
                                                 </Col>
 
-                                                <Col sm={12}>
+                                                <Col sm={12}  className='mt-2 mb-3 pb-3 pt-2'>
                                                     <Form.Group className="">
                                                         <Form.Label>Level</Form.Label>
                                                         <Form.Select size="sm" value={staff.level}  name='level' onChange={handleInputChange} required>
@@ -229,11 +229,11 @@ export default function NewStaff() {
                                         <Container1 style={{ marginBottom: '3px', padding: '2px 20px', fontSize: '11px'}}>
                                             <Form.Group className="mb-0 mt-3 pt-1 pb-1">
                                                 <Row>
-                                                    <Col sm={4}>
+                                                    <Col sm={4}  className='mt-3 pt-2'>
                                                         <Form.Label>Has Orignation Target?</Form.Label>
                                                     </Col>
                                                 
-                                                    <Col sm={4}>
+                                                    <Col sm={4}  className='mt-3 pt-2'>
                                                         <Form.Check inline label="Yes" type="radio" name='target' value={true} onChange={handleRadioChange} />
                                                         <Form.Check inline label="No" type="radio" name='target' value={false} onChange={handleRadioChange}/>
                                                     </Col>
@@ -256,14 +256,14 @@ export default function NewStaff() {
                                                     </Form.Group>
                                                 </Col>
 
-                                                <Col sm={6}>
+                                                <Col sm={6}  className='mt-3 pt-2'>
                                                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                                                         <Form.Label>Green Transaction (NGN)</Form.Label>
                                                         <Form.Control size="sm" type="number" value={staff.greenTransaction} name='greenTransaction' onChange={handleInputChange}/>
                                                     </Form.Group>
                                                 </Col>
 
-                                                <Col sm={6}>
+                                                <Col sm={6}  className='mt-3  pb-3 mb-2 pt-2'>
                                                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                                                         <Form.Label>Amber Transaction (NGN)</Form.Label>
                                                         <Form.Control size="sm" type="number" value={staff.amberTransaction} name='amberTransaction' onChange={handleInputChange} disabled/>
@@ -286,8 +286,8 @@ export default function NewStaff() {
                                                     <p style={{ fontWeight: 'bold', fontSize: '11px' }}>% per milestone</p>
                                                 </Col>
 
-                                                <Col sm={8}>
-                                                    <Form.Group as={Row} className="mb-1">
+                                                <Col sm={8}  >
+                                                    <Form.Group as={Row} className='mt-2  pb-1 mb-1 pt-2'>
                                                         <Form.Label column sm="5">
                                                             <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Mandate Letter (NGN)</p>
                                                         </Form.Label>
@@ -296,7 +296,7 @@ export default function NewStaff() {
                                                         </Col>
                                                     </Form.Group>
 
-                                                    <Form.Group as={Row} className="mb-1">
+                                                    <Form.Group as={Row} className='mt-2  pb-1 mb-1 pt-2'>
                                                         <Form.Label column sm="5">
                                                             <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Credit Committee Approval(NGN)</p>
                                                         </Form.Label>
@@ -304,7 +304,7 @@ export default function NewStaff() {
                                                             <Form.Control type="number" placeholder="0" size='sm' id='creditCommiteeApproval' value={staff.creditCommiteeApproval} name='creditCommiteeApproval' onChange={handleInputChange} />
                                                         </Col>
                                                     </Form.Group>
-                                                    <Form.Group as={Row} className="mb-1">
+                                                    <Form.Group as={Row} className='pb-1 mb-1 pt-2'>
                                                         <Form.Label column sm="5">
                                                             <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Fee Letter (%)</p>
                                                         </Form.Label>

@@ -8,7 +8,7 @@ import StaffDatabase from './StaffDatabase';
 
 const ViewWrapper = styled.div`
   background: #eff1f1;
-  margin:0;
+  margin:0 2rem 5rem 0;
   padding: 0 10px;
 `;
 
@@ -17,11 +17,11 @@ export default function StaffView() {
         <React.Fragment>
             <Navbar />
             <ViewWrapper>
-                <Row>
+                <Row >
                     <Col sm={3} style={{ padding: '10px' }}>
                         <Sidenav />
                     </Col>
-                    <Col sm={7}>
+                    <Col sm={9} className='bg-light d-flex justify-content-center mr-2'>
                         <NewStaff />
                         {/* <StaffDatabase/> */}
                     </Col>
