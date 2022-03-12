@@ -69,7 +69,8 @@ export default function NewStaff() {
     const [response, setResponse] = useState(false);
     const [target, setTarget] = useState();
 
-    const handleInputChange = event => { // function to assign user's input to staff state
+    const handleInputChange = event => {
+         // function to assign user's input to staff state
         const { name, value } = event.target;
         setStaff({ ...staff, [name]: value });
     };

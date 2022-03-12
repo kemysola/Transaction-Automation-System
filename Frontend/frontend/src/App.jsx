@@ -21,6 +21,7 @@ import StaffTable from './Components/Staffs/StaffTable';
 import Verify from './Components/Auth/Verify';
 import PasswordReset from './Components/Auth/Reset/PasswordReset';
 import Reset from './Components/Auth/StaffReset/Reset';
+import Updates from './Pages/Staffs/Updates';
 
 
 export default function App() {
@@ -90,6 +91,9 @@ export default function App() {
                 </Route>
                 <Route path='/reset_password'>
                     <PasswordReset/>
+                </Route>
+                <Route path='/one_view'>
+                    <Updates/>
                 </Route>
             </Switch>
         </React.Fragment>

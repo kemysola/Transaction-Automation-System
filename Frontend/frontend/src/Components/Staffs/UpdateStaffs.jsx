@@ -26,7 +26,6 @@ margin:0;
 `;
 
 const Container1 = styled.div`
-background:white;
 font-size:12px;
 padding: 3px 10px;
 border-radius: 15px;
@@ -66,8 +65,13 @@ export default function UpdateStaffs() {
 
     const [data, setData] = useState(initialDataState)
     const history = useHistory();
+
+    useEffect(() => {
+
+    },[])
     
-    const handleInputChange = event => { // function to save user data to data state
+    const handleInputChange = event => {
+         // function to save user data to data state
         const { name, value } = event.target;
         setData({ ...data, [name]: value });
       }
@@ -81,6 +85,11 @@ export default function UpdateStaffs() {
         }
         if (data.lastName === '') {
             return false;
+        }
+        if(data.level === ""){
+            console.log('no data')
+            return false;
+
         }
 
         let user_email = window.location.search.split("?")[1]
@@ -165,21 +174,21 @@ export default function UpdateStaffs() {
                 
                 <Container fluid>
                     <Form onSubmit={handleSubmit}>
-                        <p style={{ fontWeight: 'bold', fontSize: '12px', color: 'darkblue' }}>Update Staff</p>
+                        <p style={{ fontWeight: 'bold', fontSize: '15px', color: 'black',padding:'20px 10px' }}>UPDATE STAFF</p>
 
                         {/*------------------------------------- Container Div ------------------------ */}
                         <Tabs activeKey={activeTab} onSelect={(k) => handleTabChange} style={{ fontSize: '13px' }}>
                             <Tab eventKey="first" title="STAFF">
                                 <br />
                                 <br />
-                        <Container1 style={{ marginBottom: '3px', paddingBottom: '10px', fontSize: '8px' }}>
+                        <Container1 style={{ marginBottom: '3px', padding: '2px 20px', fontSize: '11px'  }}>
 
                             {/*----------------------------------- Form ----------------------------------- */}
                             <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
                                 <Form.Label style={{ fontWeight: 'bold' }} className="pt-1">First Name</Form.Label>
                                 <Form.Control size="sm"
                                     type="text"
-                                    placeholder="John Doe"
+                                    placeholder=""
                                     id='firstName'
                                     value={data.firstName}
                                     onChange={handleInputChange}
@@ -191,7 +200,7 @@ export default function UpdateStaffs() {
                                 <Form.Label style={{ fontWeight: 'bold' }} className="pt-1">Last Name</Form.Label>
                                 <Form.Control size="sm"
                                     type="text"
-                                    placeholder="John Doe"
+                                    placeholder=""
                                     id='lastName'
                                     value={data.lastName}
                                     onChange={handleInputChange}
@@ -203,14 +212,15 @@ export default function UpdateStaffs() {
                                 <Form.Label style={{ fontWeight: 'bold' }} className="pt-2">Level</Form.Label>
                                 <Form.Control size="sm"
                                     type="text"
-                                    placeholder="level"
+                                    placeholder=""
                                     id='level'
                                     value={data.level}
                                     onChange={handleInputChange}
                                     name="level" />
+                                    
                             </Form.Group>
                             {
-                                !data.level && <p>Please enter your level</p>
+                                !data.level && <p className='text-danger mt-1'>Please enter your level</p>
                             }
 
                             {/*------------------------------- Form -------------------------------------------- */}
@@ -424,6 +434,8 @@ export default function UpdateStaffs() {
                                         </Col>
                                     </Form.Group>
                                 </Col>
+                                <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Prev</button>
+                            <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button>
                             </Row>
                         </Container1>
                         <ButtonWrapper>

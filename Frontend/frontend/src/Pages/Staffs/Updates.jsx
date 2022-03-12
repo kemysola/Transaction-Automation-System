@@ -11,7 +11,7 @@ const ViewWrapper = styled.div`
   padding: 0 10px;
 `;
 
-export default function UpdateStaff() {
+export default function Updates() {
     return(
         <React.Fragment>
             <Navbar/>
@@ -20,8 +20,11 @@ export default function UpdateStaff() {
                     <Col sm={3} style={{padding:'10px'}}>
                         <SideNav2/>
                     </Col>
-                    <Col sm={9}> 
-                        <UpdateStaffs />
+                    <Col sm={9} className=' bg-light d-flex justify-content-center' > 
+                    <div className=''>
+                    <UpdateStaffs />
+                    </div>
+                        
                     </Col>
                 </Row>
             </ViewWrapper>

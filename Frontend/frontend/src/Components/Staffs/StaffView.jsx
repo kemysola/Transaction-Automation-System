@@ -23,9 +23,9 @@ export default function StaffView() {
                     </Col>
                     <Col sm={9} className='bg-light d-flex justify-content-center mr-2'>
                         <NewStaff />
-                        {/* <StaffDatabase/> */}
+                        
                     </Col>
-                    {/* <Col sm={1}></Col> */}
+                    
                 </Row>
             </ViewWrapper>
 
