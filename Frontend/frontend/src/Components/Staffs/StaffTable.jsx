@@ -9,8 +9,6 @@ import Service from '../../Services/Service';
 const ContainerWrapper = styled.div`
     font-size:10px;
     margin-top: 2rem;
-    background:white;
-    width:70vw;
     padding: 2rem;
     border-radius: 15px;`;
 
@@ -45,7 +43,7 @@ const StaffTable = () => {
     // const id = staffRef.current[rowIndex].id;
     // history.push("/update/" + id)
     history.push({
-      pathname: "/update",
+      pathname: "/one_view",
       search: "?" + rowIndex,
     });
   }
@@ -107,9 +105,9 @@ const StaffTable = () => {
         Header: "Edit",
         accessor: "edit",
         disableResizing: true,
-        minWidth: 35,
-        width: 35,
-        maxWidth: 35,
+        //minWidth: 35,
+        //width: 35,
+        //maxWidth: 35,
         Cell: (props) => {
           const rowIdx = props.row.original['email'];
           return (
@@ -148,7 +146,7 @@ const StaffTable = () => {
         <a>Trash (0) | </a>
         <button> Download</button>
 
-        <div className="col-md-12 list">
+        <div className="col-md-12  list">
           <table
             className="table table-striped table-bordered responsive"
             {...getTableProps()}
@@ -167,8 +165,6 @@ const StaffTable = () => {
             <tbody {...getTableBodyProps()}>
               {rows.map((row, i) => {
                 prepareRow(row);
-                console.log(row)
-                console.log(i)
                 return (
                   <tr {...row.getRowProps()}>
                     {row.cells.map((cell) => {

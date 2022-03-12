@@ -23,7 +23,7 @@ export default function AllStaff() {
                 <Col sm={3} style={{padding:'10px'}}>
                     <SideNav2/>
                 </Col>
-                <Col sm={7}> 
+                <Col sm={8}> 
                     <StaffTable />
                 </Col>
                 {/* <Col sm={1}></Col> */}
