@@ -32,10 +32,9 @@ const Main = () => {
             className="justify-content-end"
             style={{ width: "500px", marginTop: "30px" }}
           >
-            <div className="bg-light" style={{borderRadius: '20px'}}>
-            <UserLogin />
+            <div className="bg-light" style={{ borderRadius: "20px" }}>
+              <UserLogin />
             </div>
-            
           </Col>
         </Row>
       </Container>

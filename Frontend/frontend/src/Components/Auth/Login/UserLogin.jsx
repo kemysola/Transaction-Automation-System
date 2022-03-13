@@ -17,7 +17,6 @@ import {
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
-
 const BorderDiv = styled.div`
   border-radius: 12px;
   margin: 6.5rem 0.22rem;
@@ -45,7 +44,7 @@ const UserLogin = () => {
 
   const query_ = useLocation().search;
   const name = new URLSearchParams(query_).get("user");
-  const email =  { name };
+  const email = { name };
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(email));
@@ -97,7 +96,7 @@ const UserLogin = () => {
             </Stack>
 
             <ReactForm group></ReactForm>
-            <Col sm={12} className='pt-1 mt-1'>
+            <Col sm={12} className="pt-1 mt-1">
               <label className="">Email Address</label>
               <br />
               <input value={email.name} style={{ width: "100%" }} />
@@ -108,7 +107,7 @@ const UserLogin = () => {
                 controlId="exampleForm.ControlInput1"
               >
                 <Row>
-                  <Col sm={6} className='mt-1'>
+                  <Col sm={6} className="mt-1">
                     <ReactForm.Label>Password</ReactForm.Label>
                   </Col>
                   <Col sm={6}>
@@ -182,7 +181,7 @@ const UserLogin = () => {
           <br />
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
-        <div className='alert'>{setMessage}</div>
+        <div className="alert">{setMessage}</div>
       </BorderDiv>
     </Container>
   );
