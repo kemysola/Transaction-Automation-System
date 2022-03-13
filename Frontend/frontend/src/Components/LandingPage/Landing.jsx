@@ -22,7 +22,7 @@ const Landing =()=>{
                     <Col sm={3} style={{padding:'10px'}}>
                         <SideNav2/>
                     </Col>
-                    <Col sm={7}> 
+                    <Col sm={9}> 
                         <MainCards/> 
                     </Col>
                     
