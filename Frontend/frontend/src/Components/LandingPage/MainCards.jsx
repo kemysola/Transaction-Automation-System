@@ -11,20 +11,28 @@ import { Link } from 'react-router-dom'
 
 
 const MainCards = () => {
-    const [user, setUser] = useState()
+    const [userEmail, setUserEmail] = useState()
     useEffect(() => {
-        localStorage.getItem('user');
-
-    }, [user])
-
+        users()
+        
 
 
+    })
+    const users = () =>{
+        const user = JSON.parse(localStorage.getItem('user'))
+        const username = user.name
+        var name   = username.substring(0, username.lastIndexOf("@"));
+        const nameCase = name.toUpperCase()
+        setUserEmail(nameCase)
+
+
+    }
 
     return (
         <React.Fragment>
             <Container>
                 <div className='title'>
-                    <p style={{ color: '#1184c2', fontWeight:"13px" }}>Welcome Back</p>
+                    <p style={{ color: '#1184c2', fontWeight:"13px" }}>Welcome Back {userEmail}</p>
                 </div>
 
                 <Row >

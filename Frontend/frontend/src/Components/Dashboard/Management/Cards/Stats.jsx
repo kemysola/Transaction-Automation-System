@@ -7,6 +7,10 @@ import Service from '../../../../Services/Service';
 import { Chart } from "react-google-charts";
 import './../style.css';
 
+
+
+// .................................. Styled Components .........................
+
 const PieDiv = styled.div`
 padding:2px;
 `;
@@ -19,11 +23,13 @@ border-radius : 50px;
 padding:5px;
 background:red;
 color:white;
-height:50px;
-width:50px;
+height:60px;
+width:60px;
 margin-top:1rem;
 margin-bottom:0.22rem;
-padding: 0.78rem 1rem ;
+padding: 0.89rem 1.3rem ;
+font-size: 20px;
+font-weight: 600;
 `
 
 const GreenDiv = styled.div`
@@ -31,11 +37,13 @@ border-radius : 50px;
 padding:5px;
 background:#00C49F;
 color:white;
-height:50px;
-width:50px;
+height:60px;
+width:60px;
 margin-top:1rem;
 margin-bottom:0.22rem;
-padding: 0.78rem 1rem ;
+padding: 0.89rem 1.2rem ;
+font-size: 20px;
+font-weight: 600;
 `
 
 const AmberDiv = styled.div`
@@ -43,11 +51,13 @@ border-radius : 50px;
 padding:5px;
 background:#FFBB28;
 color:white;
-height:50px;
-width:50px;
+height:60px;
+width:60px;
 margin-top:1rem;
 margin-bottom:0.22rem;
-padding: 0.78rem 1rem ;
+padding: 0.89rem 1.2rem ;
+font-size: 20px;
+font-weight: 600;
 `
 
 
@@ -217,7 +227,7 @@ export default function Stats(){
                             
                             
                         <Row>
-                        <Col md={3}   >
+                        <Col md={3} className='pt-3 mt-3'  >
                             <GreenDiv>
                             {green.length}
                             </GreenDiv>
@@ -235,10 +245,10 @@ export default function Stats(){
                                     data={chartData}
                                     dataKey="value"
                                     nameKey="name"
-                                    cx="50%" cy="40%"
+                                    cx="50%" cy="50%"
                                     fill="#8884d8" 
                                     innerRadius={60} 
-                                    outerRadius={110}
+                                    outerRadius={127}
                                     paddingAngle={1}
                                     isAnimationActive={false}
                                     labelLine={false}

@@ -11,11 +11,11 @@ const Main = () => {
         <Row>
           <Col sm={6} lg={7}>
             <div className="my-0">
-              <img src={logo1} alt="whiteLogo" width="120" />
+              <img src={logo1} alt="whiteLogo" width="250" />
             </div>
             <Container className="containerMargin">
               <div className="justify-content-center">
-                <Stack gap={3}>
+                <Stack gap={1}>
                   <div>
                     <h1 className="text-light">Unlocking long-term local </h1>
                     <h1 className="text-light">currency infrastructure </h1>
@@ -32,7 +32,10 @@ const Main = () => {
             className="justify-content-end"
             style={{ width: "500px", marginTop: "30px" }}
           >
+            <div className="bg-light" style={{borderRadius: '20px'}}>
             <UserLogin />
+            </div>
+            
           </Col>
         </Row>
       </Container>
