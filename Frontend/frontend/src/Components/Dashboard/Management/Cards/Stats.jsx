@@ -14,15 +14,58 @@ const GridDiv = styled.div`
 display:grid;
 grid-template-columns:1.5fr 2fr;
 `;
+const RedDiv = styled.div`
+border-radius : 50px;
+padding:5px;
+background:red;
+color:white;
+height:50px;
+width:50px;
+margin-top:1rem;
+margin-bottom:0.22rem;
+padding: 0.78rem 1rem ;
+`
+
+const GreenDiv = styled.div`
+border-radius : 50px;
+padding:5px;
+background:#00C49F;
+color:white;
+height:50px;
+width:50px;
+margin-top:1rem;
+margin-bottom:0.22rem;
+padding: 0.78rem 1rem ;
+`
+
+const AmberDiv = styled.div`
+border-radius : 50px;
+padding:5px;
+background:#FFBB28;
+color:white;
+height:50px;
+width:50px;
+margin-top:1rem;
+margin-bottom:0.22rem;
+padding: 0.78rem 1rem ;
+`
+
+
+//  ........................................React functional component.......................
 
 export default function Stats(){
     const [data, setData] = useState([]);
     const [dataLength, setDataLength] = useState();
 
+
+    // ................................... Use Effect Hook .................................
+
     useEffect(() => {
         retrieveDeals();
     }, []);
 
+
+    // .................................... Axios Endpoint ..............................
     const retrieveDeals = () => {
         Service.getAllDeals()
             .then((response) => {
@@ -34,6 +77,9 @@ export default function Stats(){
                 console.log(e);
             });
     };
+
+
+    // ............................ Google Chart .....................................
 
     const mapData = [
         ["", "population%"],
@@ -50,13 +96,14 @@ export default function Stats(){
         backgroundColor: "white",
         defaultColor: "#f5f5f5"
     };
+
+
+    // .......................... Get transactions according to deal category ...................
     
     var red = data.reduce(function (filtered, arr) {
         if (arr.deal_category === 'Red') {
             var someNewValue = arr.dealsize
             filtered.push(someNewValue);
-            
-
         }
         return filtered;
     }, []);
@@ -69,8 +116,6 @@ export default function Stats(){
         return filtered;
     }, []);
 
-
-    
     var green = data.reduce(function (filtered, arr) {
         if (arr.deal_category === 'Green') {
             var someNewValue = arr.dealsize
@@ -78,6 +123,9 @@ export default function Stats(){
         }
         return filtered;
     }, []);
+
+
+    // ......... Return deal_category total ...............................................
 
     var redTotal = red.reduce(function (tot, arr) {
         return tot + parseFloat(arr);
@@ -94,6 +142,10 @@ export default function Stats(){
     var sumTotal = data.reduce(function(tot, arr) {
         return tot + parseFloat(arr.dealsize);
     }, 0);
+
+
+
+    // ......................... Store Transaction in Recharts Array .....................
 
     const chartData = [
         { name: 'Red', value: redTotal },
@@ -113,10 +165,12 @@ export default function Stats(){
         percent,
         index
     }) => {
-        const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+        const radius = innerRadius + (outerRadius - innerRadius) * 0.2;
         const x = cx + radius * Math.cos(-midAngle * RADIAN);
         const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
+
+// ................................. Rechart Piechart ...........................
         return (
             <>
                 <text x={cx} y={cy} dy={8} textAnchor="middle">
@@ -134,6 +188,9 @@ export default function Stats(){
             </>
         );
     };
+
+
+    // ....................... Recharts customTooltip .........................................
 
     const customTooltip = ({active, payload, label}) => {
         if (active && payload && payload.length) {
@@ -153,23 +210,36 @@ export default function Stats(){
                 <Container fluid className='mb-3'>
                     <Row  >
                     <Col lg={6} sm={12} className='bg-light pt-1 ' style={{borderRadius:'1px'}}>
-                        <div className='d-flex justify-content-center '>
-                            <p> Amber : {amber.length}</p>
-                            <p>Red : {red.length}</p>
-                            <p>green : {green.length}</p>
+                            
                             <p style={{color:'black', fontWeight:'bold',fontSize:'13px'}}>
                                 DEAL CATEGORY
                             </p>
-                            <PieChart width={300} height={300}>
+                            
+                            
+                        <Row>
+                        <Col md={3}   >
+                            <GreenDiv>
+                            {green.length}
+                            </GreenDiv>
+                            <AmberDiv>
+                            {amber.length}
+                            </AmberDiv>
+                            <RedDiv>
+                            {red.length}
+                            </RedDiv>
+                            
+                        </Col>
+                        <Col md={9} >
+                        <PieChart width={300} height={300}>
                                 <Pie
                                     data={chartData}
                                     dataKey="value"
                                     nameKey="name"
-                                    cx="40%" cy="50%"
+                                    cx="50%" cy="40%"
                                     fill="#8884d8" 
                                     innerRadius={60} 
-                                    outerRadius={100}
-                                    paddingAngle={3}
+                                    outerRadius={110}
+                                    paddingAngle={1}
                                     isAnimationActive={false}
                                     labelLine={false}
                                     label={renderCustomizedLabel}
@@ -181,8 +251,9 @@ export default function Stats(){
                                     
                                 </Pie>
                                 <Tooltip content={customTooltip} />
-                            </PieChart>
-                        </div>
+                                </PieChart>
+                        </Col>
+                        </Row>
                     </Col>
 
                     <Col sm={12} lg={6}>
