@@ -508,7 +508,7 @@ export default function Progress(){
 
     return(
         <React.Fragment>
-          <div style={{marginLeft:' 0.75rem',marginRight:' 1.9rem'}}>
+          <div style={{marginLeft:' ',marginRight:' 0.11rem'}}>
           <Stats/>
           </div>
             
