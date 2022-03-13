@@ -368,8 +368,7 @@ const DealsTable = (props) => {
             >
               {page.map((row, i) => {
                 prepareRow(row);
-                console.log("row is", row)
-                console.log("i is", i)
+                
                 return (
                   <tr {...row.getRowProps(getTrProps(row, i))}
                   >
@@ -377,15 +376,9 @@ const DealsTable = (props) => {
                       return (
                         <td 
                           {...cell.getCellProps(
-                            // cell => ({
-                            //   style: {
-                            //     color: `${deals[i].deal_category}`,
-                            //   },
-                            // })
+                            
                           )}
-                          // style={{
-                          //   color: `${deals[i].deal_category}`
-                          // }}
+                          
                         >
                           {cell.render("Cell")}
                         </td>

@@ -160,8 +160,7 @@ const StaffTable = () => {
             <tbody {...getTableBodyProps()}>
               {rows.map((row, i) => {
                 prepareRow(row);
-                console.log(row)
-                console.log(i)
+            
                 return (
                   <tr {...row.getRowProps()}>
                     {row.cells.map((cell) => {
@@ -180,5 +179,5 @@ const StaffTable = () => {
   );
 };
 
-export default Table;
+export default StaffTable;
 

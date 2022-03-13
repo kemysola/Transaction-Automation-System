@@ -95,6 +95,9 @@ export default function App() {
                 <Route path='/one_view'>
                     <Updates/>
                 </Route>
+                <Route exact path='/execution'>
+                    <Execution/>
+                </Route>
             </Switch>
         </React.Fragment>
     );
