@@ -146,7 +146,7 @@ const StaffTable = () => {
         <a>Trash (0) | </a>
         <button> Download</button>
 
-        <div className="col-md-12  list">
+        <div className="col-md-12 list">
           <table
             className="table table-striped table-bordered responsive"
             {...getTableProps()}
@@ -165,6 +165,8 @@ const StaffTable = () => {
             <tbody {...getTableBodyProps()}>
               {rows.map((row, i) => {
                 prepareRow(row);
+                console.log(row)
+                console.log(i)
                 return (
                   <tr {...row.getRowProps()}>
                     {row.cells.map((cell) => {

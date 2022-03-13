@@ -17,6 +17,7 @@ grid-template-columns:1.5fr 2fr;
 
 export default function Stats(){
     const [data, setData] = useState([]);
+    const [dataLength, setDataLength] = useState();
 
     useEffect(() => {
         retrieveDeals();
@@ -25,7 +26,9 @@ export default function Stats(){
     const retrieveDeals = () => {
         Service.getAllDeals()
             .then((response) => {
+                //console.log((response.data.deals).length)
                 setData(response.data.deals);
+                
             })
             .catch((e) => {
                 console.log(e);
@@ -52,6 +55,8 @@ export default function Stats(){
         if (arr.deal_category === 'Red') {
             var someNewValue = arr.dealsize
             filtered.push(someNewValue);
+            
+
         }
         return filtered;
     }, []);
@@ -64,6 +69,8 @@ export default function Stats(){
         return filtered;
     }, []);
 
+
+    
     var green = data.reduce(function (filtered, arr) {
         if (arr.deal_category === 'Green') {
             var someNewValue = arr.dealsize
@@ -145,8 +152,11 @@ export default function Stats(){
             <PieDiv>
                 <Container fluid className='mb-3'>
                     <Row  >
-                    <Col sm={6} className='bg-light pt-1 ' style={{borderRadius:'1px'}}>
+                    <Col lg={6} sm={12} className='bg-light pt-1 ' style={{borderRadius:'1px'}}>
                         <div className='d-flex justify-content-center '>
+                            <p> Amber : {amber.length}</p>
+                            <p>Red : {red.length}</p>
+                            <p>green : {green.length}</p>
                             <p style={{color:'black', fontWeight:'bold',fontSize:'13px'}}>
                                 DEAL CATEGORY
                             </p>
@@ -175,7 +185,7 @@ export default function Stats(){
                         </div>
                     </Col>
 
-                    <Col sm={6}>
+                    <Col sm={12} lg={6}>
                         <Row className='bg-light pt-1' style={{margin:'5px 2px',borderRadius:'1px'}}>
                             
                                 <div>
