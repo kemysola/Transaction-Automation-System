@@ -20,10 +20,9 @@ export default function NewTransaction() {
                 <Col sm={3} style={{padding:'10px'}}>
                     <SideNav2/>
                 </Col>
-                <Col sm={7}> 
+                <Col sm={9} className='bg-light'> 
                     <NewText/>
                 </Col>
-                {/* <Col sm={1}></Col> */}
                 </Row>
             </ViewWrapper>
 

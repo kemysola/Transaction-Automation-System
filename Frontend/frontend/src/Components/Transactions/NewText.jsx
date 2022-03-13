@@ -23,7 +23,6 @@ padding:0;
 `;
 
 const Container1 = styled.div`
-background:white;
 font-size:12px;
 padding: 1px 1rem;
 border-radius: 15px;
@@ -237,7 +236,7 @@ const AddDeal = () => {
           ) : (
             <Form>
               <PWrapper>
-                <h5>New Transaction</h5>
+                <h5 className='py-3 text-dark'>New Transaction</h5>
               </PWrapper>
               <br />
               <div>
@@ -278,7 +277,8 @@ const AddDeal = () => {
                           <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                             <Form.Label>Note</Form.Label> <button type="button" onClick={handleNoteAdd}>Add</button>
                             {noteList.map((singleNote, index) => (
-                              <Form.Control size="sm" type="text" value={singleNote.note} name='note' onChange={(e) => handleNoteChange(e, index)}
+                              <Form.Control  as='textarea'
+                              size="sm" value={singleNote.note} name='note' onChange={(e) => handleNoteChange(e, index)}
                                 required />
                             ))}
                           </Form.Group>
@@ -301,7 +301,7 @@ const AddDeal = () => {
                         </PWrapper>
 
                         <Row>
-                          <Col sm={4} className='my-0 py-0'>
+                          <Col sm={6} className='my-0 py-0'>
                             <Form.Group className="">
                               <Form.Label>Industry</Form.Label>
                               <Form.Select size="sm" name='industry' value={deal.industry} onChange={handleInputChange} required>
@@ -321,7 +321,7 @@ const AddDeal = () => {
                             </Form.Group>
                           </Col>
 
-                          <Col sm={4}>
+                          <Col sm={6}>
                             <Form.Group className="">
                               <Form.Label>Products</Form.Label>
                               <Form.Select size="sm" name='product' value={deal.product} onChange={handleInputChange} required>
@@ -336,7 +336,7 @@ const AddDeal = () => {
                             </Form.Group>
                           </Col>
 
-                          <Col sm={4}>
+                          <Col sm={6}>
                             <Form.Group className="">
                               <Form.Label>Region</Form.Label>
                               <Form.Select size="sm" name='region' value={deal.region} onChange={handleInputChange} required>
@@ -384,7 +384,7 @@ const AddDeal = () => {
 
                         <Row className='mt-1 pt-3' >
 
-                          <Col sm={4}>
+                          <Col sm={6}>
                             <Form.Group className="">
                               <Form.Label>Repayment Frequency</Form.Label>
                               <Form.Select size="sm" name='repaymentFrequency' value={deal.repaymentFrequency} onChange={handleInputChange} >
@@ -397,7 +397,7 @@ const AddDeal = () => {
                             </Form.Group>
                           </Col>
 
-                          <Col sm={4}>
+                          <Col sm={6}>
                             <Form.Group className="">
                               <Form.Label>Amortization Style</Form.Label>
                               <Form.Select size="sm" name='amortizationStyle' value={deal.amortizationStyle} onChange={handleInputChange} >
@@ -408,7 +408,7 @@ const AddDeal = () => {
                             </Form.Group>
                           </Col>
 
-                          <Col sm={4}>
+                          <Col sm={6}>
                             <Form.Group className="pt-1">
                               <Form.Label>Mandate Letter</Form.Label>
                               <Form.Control size="sm" type="date" value={deal.mandateLetter} onChange={handleInputChange} name='mandateLetter' />
@@ -461,48 +461,45 @@ const AddDeal = () => {
                     <br />
                     <Container1>
                       <div className='mt-2'>
-                        <PWrapper>
-                          <h6 className="pt-1" style={{ fontSize: "13px" }}>Structuring Fees</h6>
-                        </PWrapper>
+                        
 
                         <Row>
-                          <Col sm={4} className='my-0 py-0'>
+                          <Col sm={6} className='my-0 py-0'>
                             <Form.Group>
                               <Form.Label>Amount(NGN)</Form.Label>
                               <Form.Control size="sm" type="number" value={deal.structuringFeeAmount} onChange={handleInputChange} name='structuringFeeAmount' />
                             </Form.Group>
                           </Col>
 
-                          <Col sm={4} className='my-0 py-0'>
+                          <Col sm={6} className='my-0 py-0'>
                             <Form.Group>
                               <Form.Label>Advance(%)</Form.Label>
                               <Form.Control size="sm" type="number" value={deal.structuringFeeAdvance} onChange={handleInputChange} name='structuringFeeAdvance' />
                             </Form.Group>
                           </Col>
 
-                          <Col sm={4} className='my-0 py-0'>
+                          <Col sm={6} className='my-0 py-0'>
                             <Form.Group>
                               <Form.Label>Final(%)</Form.Label>
                               <Form.Control size="sm" type="number" value={deal.structuringFeeFinal} onChange={handleInputChange} name='structuringFeeFinal' disabled />
                             </Form.Group>
                           </Col>
-                        </Row>
-                        <Row>
-                          <Col sm={4} className='my-0 py-0'>
+                       
+                          <Col sm={6} className='my-0 py-0'>
                             <Form.Group className="pt-1">
                               <Form.Label>Guarantee (%)</Form.Label>
                               <Form.Control size="sm" type="number" value={deal.guaranteeFee} onChange={handleInputChange} name='guaranteeFee' />
                             </Form.Group>
                           </Col>
 
-                          <Col sm={4} className='my-0 py-0'>
+                          <Col sm={6} className='my-0 py-0'>
                             <Form.Group className="pt-1">
                               <Form.Label>Monitoring(NGN)</Form.Label>
                               <Form.Control size="sm" type="number" value={deal.monitoringFee} onChange={handleInputChange} name='monitoringFee' />
                             </Form.Group>
                           </Col>
 
-                          <Col sm={4} className='my-0 py-0'>
+                          <Col sm={6} className='my-0 py-0'>
                             <Form.Group className="pt-1">
                               <Form.Label>Reimbursible(NGN)</Form.Label>
                               <Form.Control size="sm" type="number" value={deal.reimbursible} onChange={handleInputChange} name='reimbursible' />

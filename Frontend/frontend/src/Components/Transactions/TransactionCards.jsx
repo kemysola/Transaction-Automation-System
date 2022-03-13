@@ -1,11 +1,42 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 // import styled from 'styled-components';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { FaCoins } from 'react-icons/fa';
 import TableView from './TransactionTable';
 import styles from './Transactions.css';
+import Service from "../../Services/Service"
+
 
 export default function TransactionCards() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    retrieveDeals();
+  }, []);
+
+  // .................................... Axios Endpoint ..............................
+  const retrieveDeals = () => {
+    Service.getAllDeals()
+      .then((response) => {
+        console.log(response.data.deals)
+        setData(response.data.deals);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  var red = data.reduce(function (filtered, arr) {
+      var someNewValue = arr.dealsize;
+      filtered.push(someNewValue);
+      console.log(filtered)
+    return filtered;
+  }, []);
+
+  var redTotal = red.reduce(function (tot, arr) {
+    return tot + parseFloat(arr);
+  }, 0);
+
   return (
     <React.Fragment>
       <Container>
@@ -21,7 +52,7 @@ export default function TransactionCards() {
                 </Card.Title>
 
                 <Card.Text className='text-info'>
-                    <h4>Total Transaction</h4>
+                    <h4>{redTotal}</h4>
                 </Card.Text>
               </Card.Body>
             </Card>

@@ -14,12 +14,6 @@ const ViewWrapper = styled.div`
 `;
 
 export default function TransactionView(){
-//     const location = useLocation();
-
-//   const query_ = useLocation().search;
-//   const name = new URLSearchParams(query_).get("token");
-//     console.log(name)
-
     return(
         <React.Fragment>
             <Navbar/>
@@ -30,7 +24,6 @@ export default function TransactionView(){
                 </Col>
                 <Col sm={9}>
                     <TransactionCards/>
-                    {/* <TransactionTable/> */}
                 </Col>
 
             </Row>
