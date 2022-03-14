@@ -23,6 +23,9 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
   };
 
   const user = JSON.parse(localStorage.getItem('user'))
+  const username = user.name
+        var name   = username.substring(0, username.lastIndexOf("@"));
+        const nameCase = name.toUpperCase()
 
   return (
     <>
@@ -39,7 +42,7 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
               className="logotext"
             >
               {/* Icon change using menucollapse state */}
-              <p>{menuCollapse ? <ImUser /> : `Hi, ${user.name}`}</p>
+              <p>{menuCollapse ? <ImUser /> : `Hi, ${nameCase}`}</p>
             </div>
 
             <div className="closemenu" onClick={menuIconClick}>

@@ -17,10 +17,8 @@ import {
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
-
 const BorderDiv = styled.div`
   border-radius: 12px;
-  background: white;
   margin: 6.5rem 0.22rem;
   font-size: 12px;
   padding: 0.11rem 1.5rem;
@@ -46,7 +44,7 @@ const UserLogin = () => {
 
   const query_ = useLocation().search;
   const name = new URLSearchParams(query_).get("user");
-  const email =  { name };
+  const email = { name };
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(email));
@@ -87,18 +85,18 @@ const UserLogin = () => {
     <Container className="">
       <BorderDiv>
         <Form onSubmit={handleLogin} ref={form}>
-          <Row className="py-2 mt-2">
+          <Row className="py-2 mt-1">
             <Stack className="py-2 mt-1">
               <article
                 style={{ fontSize: "18px", fontWeight: "bold" }}
-                className="pt-3 pb-1 mb-1"
+                className="pt-1 pb-1 mb-1"
               >
                 Sign In
               </article>
             </Stack>
 
             <ReactForm group></ReactForm>
-            <Col sm={12}>
+            <Col sm={12} className="pt-1 mt-1">
               <label className="">Email Address</label>
               <br />
               <input value={email.name} style={{ width: "100%" }} />
@@ -109,7 +107,7 @@ const UserLogin = () => {
                 controlId="exampleForm.ControlInput1"
               >
                 <Row>
-                  <Col sm={6}>
+                  <Col sm={6} className="mt-1">
                     <ReactForm.Label>Password</ReactForm.Label>
                   </Col>
                   <Col sm={6}>
@@ -157,7 +155,7 @@ const UserLogin = () => {
               </div>
             )}
 
-            <ReactForm.Group className="">
+            <ReactForm.Group className="pt-3">
               <ReactForm.Control
                 size="sm"
                 type="submit"
@@ -183,7 +181,7 @@ const UserLogin = () => {
           <br />
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
-        <div className='alert'>{setMessage}</div>
+        <div className="alert">{setMessage}</div>
       </BorderDiv>
     </Container>
   );

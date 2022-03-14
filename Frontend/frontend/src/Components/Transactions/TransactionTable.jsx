@@ -17,10 +17,6 @@ border-radius: 15px;
 const Pagination = styled.div`
   padding: 1em;
 
-  // .pagination {
-  //   padding: 0.5rem;
-  // }
-
   button {
     margin: 2px;
     border-radius: 3px;
@@ -106,20 +102,6 @@ const DealsTable = (props) => {
       search: "?" + rowIndex,
     });
   };
-
-  // const color = deals[0].deal_category
-
-  // console.log("deal category is ", deals[0].deal_category)
-
-  // const handleSearch = (event) => {
-  //   setSearch(event.target.value);
-  // };
-
-  // const data = {
-  //   deals: deals.filter((item) => 
-  //     item.name.includes(search)
-  //   ),
-  // }
 
   const columns = useMemo(
     () => [
@@ -368,8 +350,7 @@ const DealsTable = (props) => {
             >
               {page.map((row, i) => {
                 prepareRow(row);
-                console.log("row is", row)
-                console.log("i is", i)
+                
                 return (
                   <tr {...row.getRowProps(getTrProps(row, i))}
                   >
@@ -377,15 +358,9 @@ const DealsTable = (props) => {
                       return (
                         <td 
                           {...cell.getCellProps(
-                            // cell => ({
-                            //   style: {
-                            //     color: `${deals[i].deal_category}`,
-                            //   },
-                            // })
+                            
                           )}
-                          // style={{
-                          //   color: `${deals[i].deal_category}`
-                          // }}
+                          
                         >
                           {cell.render("Cell")}
                         </td>

@@ -4,6 +4,7 @@ import { Container, Nav, Form } from 'react-bootstrap';
 import { FaBars } from 'react-icons/fa';
 import InfraCredit from '../../Images/i.png';
 import { Link } from 'react-router-dom';
+import MenuOption from './MenuOption';
 
 
 const NavbarNav = styled.div`
@@ -41,13 +42,10 @@ const Navbar = ({ handleToggleSidebar }) => {
                 </div>
 
                 {/*----------------------- Icon Div ------------------------------------------- */}
-                <div>
-                    <i class="bi bi-power" style={{ padding: '0 3px', color: 'red' }}></i>
-                    <i class="bi bi-bell" style={{ padding: '0 2px' }}></i> <span></span>
-                    <i class="bi bi-person"  style={{ padding: '0 3px', background: 'green', color: 'white', borderRadius: '20px' }}> 
-                    </i>
-                    <a href='/resetyourpassword'>a</a>
+                <div style={{ marginTop: '5px', paddingTop: '20px' , }}>
+                    <MenuOption/>
                 </div>
+
             </NavbarNav>
         </React.Fragment>
     )

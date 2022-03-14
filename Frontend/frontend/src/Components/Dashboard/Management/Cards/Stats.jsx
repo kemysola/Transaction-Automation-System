@@ -1,232 +1,296 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import {Container,Row,Col} from 'react-bootstrap';
-import { PieChart, Pie, Cell, Tooltip} from 'recharts';
-import map from '../../../../Images/map.png';
-import Service from '../../../../Services/Service';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { Container, Row, Col } from "react-bootstrap";
+import { PieChart, Pie, Cell, Tooltip } from "recharts";
+import map from "../../../../Images/map.png";
+import Service from "../../../../Services/Service";
 import { Chart } from "react-google-charts";
-import './../style.css';
+import "./../style.css";
+
+// .................................. Styled Components .........................
 
 const PieDiv = styled.div`
-padding:2px;
+  padding: 2px;
 `;
 const GridDiv = styled.div`
-display:grid;
-grid-template-columns:1.5fr 2fr;
+  display: grid;
+  grid-template-columns: 1.5fr 2fr;
+`;
+const RedDiv = styled.div`
+  border-radius: 50px;
+  padding: 5px;
+  background: red;
+  color: white;
+  height: 60px;
+  width: 60px;
+  margin-top: 1rem;
+  margin-bottom: 0.22rem;
+  padding: 0.89rem 1.3rem;
+  font-size: 20px;
+  font-weight: 600;
 `;
 
-export default function Stats(){
-    const [data, setData] = useState([]);
+const GreenDiv = styled.div`
+  border-radius: 50px;
+  padding: 5px;
+  background: #00c49f;
+  color: white;
+  height: 60px;
+  width: 60px;
+  margin-top: 1rem;
+  margin-bottom: 0.22rem;
+  padding: 0.89rem 1.2rem;
+  font-size: 20px;
+  font-weight: 600;
+`;
 
-    useEffect(() => {
-        retrieveDeals();
-    }, []);
+const AmberDiv = styled.div`
+  border-radius: 50px;
+  padding: 5px;
+  background: #ffbb28;
+  color: white;
+  height: 60px;
+  width: 60px;
+  margin-top: 1rem;
+  margin-bottom: 0.22rem;
+  padding: 0.89rem 1.2rem;
+  font-size: 20px;
+  font-weight: 600;
+`;
 
-    const retrieveDeals = () => {
-        Service.getAllDeals()
-            .then((response) => {
-                setData(response.data.deals);
-            })
-            .catch((e) => {
-                console.log(e);
-            });
-    };
+//  ........................................React functional component.......................
 
-    const mapOptions = {
-        region: "NG", // Africa
-        // displayMode: 'text',
-        // magnifyingGlass: {enable: true, zoomFactor: 30},
-        //resolution: 'zones',
-        colorAxis: { colors: ["#00853f", "white", "#e31b23"] },
-        backgroundColor: "white",
-        defaultColor: "#f5f5f5"
-    };
+export default function Stats() {
+  const [data, setData] = useState([]);
+  const [dataLength, setDataLength] = useState();
 
-    var someMapdata = ([
-        ['Country', 'Popularity'],
-        ['Germany', 200],
-        ['United States', 300],
-        ['Brazil', 400],
-        ['Canada', 500],
-        ['France', 600],
-        ['RU', 700],
-        ['Nigeria', 900]
-      ]);
+  // ................................... Use Effect Hook .................................
 
-      var someMapda = ([
-        ['Country', 'State', 'Popularity'],
-        ['Nigeria', 'Lagos', 200],
-        ['Nigeria', 'Warri', 400],
-        ['Nigeria', 'Abuja', 30],
-        
-        // ['Nigeria', 'Lagos', 200],
-        // ['United States', 300],
-        // ['Brazil', 400],
-        // ['Canada', 500],
-        // ['France', 600],
-        // ['RU', 700],
-        // ['Nigeria', 900]
-      ]);
+  useEffect(() => {
+    retrieveDeals();
+  }, []);
 
+  // .................................... Axios Endpoint ..............................
+  const retrieveDeals = () => {
+    Service.getAllDeals()
+      .then((response) => {
+        //console.log((response.data.deals).length)
+        setData(response.data.deals);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
-    const mapData = ([
-        ["State", "Population"],
-        ["Lagos", 20],
-        ["Port-harcourt", 30],
-        ["Abuja", 40],
-        ["Enugu", 90]
-      ]);
-    
-    var red = data.reduce(function (filtered, arr) {
-        if (arr.deal_category === 'Red') {
-            var someNewValue = arr.dealsize
-            filtered.push(someNewValue);
-        }
-        return filtered;
-    }, []);
+  // ............................ Google Chart .....................................
 
-    var amber = data.reduce(function (filtered, arr) {
-        if (arr.deal_category === 'Yellow') {
-            var someNewValue = arr.dealsize
-            filtered.push(someNewValue);
-        }
-        return filtered;
-    }, []);
+  const mapData = [
+    ["", "population%"],
+    ["NG", 2],
+    ["NG", 3],
+  ];
 
-    var green = data.reduce(function (filtered, arr) {
-        if (arr.deal_category === 'Green') {
-            var someNewValue = arr.dealsize
-            filtered.push(someNewValue);
-        }
-        return filtered;
-    }, []);
+  const mapOptions = {
+    region: "NG", // Africa
+    displayMode: "text",
+    magnifyingGlass: { enable: true, zoomFactor: 30 },
+    resolution: "provinces",
+    colorAxis: { colors: ["#00853f", "white", "#e31b23"] },
+    backgroundColor: "white",
+    defaultColor: "#f5f5f5",
+  };
 
-    var redTotal = red.reduce(function (tot, arr) {
-        return tot + parseFloat(arr);
-    }, 0)
+  // .......................... Get transactions according to deal category ...................
 
-    var amberTotal = amber.reduce(function (tot, arr) {
-        return tot + parseFloat(arr);
-    }, 0)
+  var red = data.reduce(function (filtered, arr) {
+    if (arr.deal_category === "Red") {
+      var someNewValue = arr.dealsize;
+      filtered.push(someNewValue);
+    }
+    return filtered;
+  }, []);
 
-    var greenTotal = green.reduce(function (tot, arr) {
-        return tot + parseFloat(arr);
-    }, 0)
+  var amber = data.reduce(function (filtered, arr) {
+    if (arr.deal_category === "Yellow") {
+      var someNewValue = arr.dealsize;
+      filtered.push(someNewValue);
+    }
+    return filtered;
+  }, []);
 
-    var sumTotal = data.reduce(function(tot, arr) {
-        return tot + parseFloat(arr.dealsize);
-    }, 0);
+  var green = data.reduce(function (filtered, arr) {
+    if (arr.deal_category === "Green") {
+      var someNewValue = arr.dealsize;
+      filtered.push(someNewValue);
+    }
+    return filtered;
+  }, []);
 
-    const chartData = [
-        { name: 'Red', value: redTotal },
-        { name: 'Amber', value: amberTotal},
-        { name: 'Green', value: greenTotal}
-    ]
+  // ......... Return deal_category total ...............................................
 
-    const COLORS = ['#FF4500', '#FFBB28', '#00C49F'];
+  var redTotal = red.reduce(function (tot, arr) {
+    return tot + parseFloat(arr);
+  }, 0);
 
-    const RADIAN = Math.PI / 180;
-    const renderCustomizedLabel = ({
-        cx,
-        cy,
-        midAngle,
-        innerRadius,
-        outerRadius,
-        percent,
-        index
-    }) => {
-        const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-        const x = cx + radius * Math.cos(-midAngle * RADIAN);
-        const y = cy + radius * Math.sin(-midAngle * RADIAN);
+  var amberTotal = amber.reduce(function (tot, arr) {
+    return tot + parseFloat(arr);
+  }, 0);
 
-        return (
-            <>
-                <text x={cx} y={cy} dy={8} textAnchor="middle">
-                    {`₦${(sumTotal / 1000000).toFixed(2)}bn`}
-                </text>
-                <text
-                    x={x}
-                    y={y}
-                    fill="black"
-                    textAnchor={x > cx ? "start" : "end"}
-                    dominantBaseline="central"
-                >
-                {`${(percent * 100).toFixed(0)}%`}
-                </text>
-            </>
-        );
-    };
+  var greenTotal = green.reduce(function (tot, arr) {
+    return tot + parseFloat(arr);
+  }, 0);
 
-    const customTooltip = ({active, payload, label}) => {
-        if (active && payload && payload.length) {
-            return (
-                <div className='custom-tooltip' style={{backgroundColor: "white", height: "30px", padding: "2px 2px"}}>
-                    <p className='label'>{`${payload[0].name} : ₦${(payload[0].value / 1000000).toFixed(2)}bn`}</p>
+  var sumTotal = data.reduce(function (tot, arr) {
+    return tot + parseFloat(arr.dealsize);
+  }, 0);
+
+  // ......................... Store Transaction in Recharts Array .....................
+
+  const chartData = [
+    { name: "Red", value: redTotal },
+    { name: "Amber", value: amberTotal },
+    { name: "Green", value: greenTotal },
+  ];
+
+  const COLORS = ["#FF4500", "#FFBB28", "#00C49F"];
+
+  const RADIAN = Math.PI / 180;
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+    index,
+  }) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.2;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    // ................................. Rechart Piechart ...........................
+    return (
+      <>
+        <text x={cx} y={cy} dy={8} textAnchor="middle">
+          {`₦${(sumTotal / 1000000).toFixed(2)}bn`}
+        </text>
+        <text
+          x={x}
+          y={y}
+          fill="black"
+          textAnchor={x > cx ? "start" : "end"}
+          dominantBaseline="central"
+        >
+          {`${(percent * 100).toFixed(2)}%`}
+        </text>
+      </>
+    );
+  };
+
+  // ....................... Recharts customTooltip .........................................
+
+  const customTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div
+          className="custom-tooltip"
+          style={{
+            backgroundColor: "white",
+            height: "30px",
+            padding: "2px 2px",
+          }}
+        >
+          <p className="label">{`${payload[0].name} : ₦${(
+            payload[0].value / 1000000
+          ).toFixed(2)}bn`}</p>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  return (
+    <React.Fragment>
+      {/*---------------------------- Div ------------------------------------------- */}
+      <PieDiv>
+        <Container fluid className="mb-3">
+          <Row>
+            <Col
+              lg={6}
+              sm={12}
+              className="bg-light pt-1 "
+              style={{ borderRadius: "1px" }}
+            >
+              <p
+                style={{ color: "black", fontWeight: "bold", fontSize: "13px" }}
+              >
+                DEAL CATEGORY
+              </p>
+
+              <Row>
+                <Col md={3} className="pt-3 mt-3">
+                  <GreenDiv>{green.length}</GreenDiv>
+                  <AmberDiv>{amber.length}</AmberDiv>
+                  <RedDiv>{red.length}</RedDiv>
+                </Col>
+                <Col md={9}>
+                  <PieChart width={300} height={300}>
+                    <Pie
+                      data={chartData}
+                      dataKey="value"
+                      nameKey="name"
+                      cx="50%"
+                      cy="50%"
+                      fill="#8884d8"
+                      innerRadius={60}
+                      outerRadius={127}
+                      paddingAngle={1}
+                      isAnimationActive={false}
+                      labelLine={false}
+                      label={renderCustomizedLabel}
+                    >
+                      {data.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip content={customTooltip} />
+                  </PieChart>
+                </Col>
+              </Row>
+            </Col>
+
+            <Col sm={12} lg={6}>
+              <Row
+                className="bg-light pt-1"
+                style={{ margin: "5px 2px", borderRadius: "1px" }}
+              >
+                <div>
+                  <p
+                    style={{
+                      color: "black",
+                      fontWeight: "bold",
+                      fontSize: "13px",
+                    }}
+                  >
+                    REGION
+                  </p>
                 </div>
-            );
-        }
-        return null;
-    };
 
-    return(
-        <React.Fragment>
-    {/*---------------------------- Div ------------------------------------------- */}
-            <PieDiv>
-                <Container fluid className='mb-3'>
-                    <Row  >
-                    <Col sm={6} className='bg-light pt-1 ' style={{borderRadius:'1px'}}>
-                        <div className='d-flex justify-content-center '>
-                            <p style={{color:'black', fontWeight:'bold',fontSize:'13px'}}>
-                                DEAL CATEGORY
-                            </p>
-                            <PieChart width={300} height={300}>
-                                <Pie
-                                    data={chartData}
-                                    dataKey="value"
-                                    nameKey="name"
-                                    cx="40%" cy="50%"
-                                    fill="#8884d8" 
-                                    innerRadius={60} 
-                                    outerRadius={100}
-                                    paddingAngle={3}
-                                    isAnimationActive={false}
-                                    labelLine={false}
-                                    label={renderCustomizedLabel}
-                                >
-                                    {data.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]}/>
-
-                                    ))}
-                                    
-                                </Pie>
-                                <Tooltip content={customTooltip} />
-                            </PieChart>
-                        </div>
-                    </Col>
-
-                    <Col sm={6}>
-                        <Row className='bg-light pt-1' style={{margin:'5px 2px',borderRadius:'1px'}}>
-                            <div>
-                                <   p style={{color:'black',fontWeight:'bold', fontSize:'13px'}}>REGION</p>
-                            </div>
-                        
-                            <Chart
-                                chartType="GeoChart"
-                                width="380px"
-                                height="400px"
-                                // data={mapData}
-                                data={someMapda}
-                                options={mapOptions}
-                                mapsApiKey="AIzaSyAEQTZ1l_AMooC8jIT84eahiS1ofGa1Yv0"
-                            />   
-                        </Row>
-                    </Col>
-
-                    </Row>
-                </Container>
-
-            </PieDiv>
-
-        </React.Fragment>
-    )
+                <Chart
+                  chartType="GeoChart"
+                  width="380px"
+                  height="400px"
+                  data={mapData}
+                  options={mapOptions}
+                />
+              </Row>
+            </Col>
+          </Row>
+        </Container>
+      </PieDiv>
+    </React.Fragment>
+  );
 }

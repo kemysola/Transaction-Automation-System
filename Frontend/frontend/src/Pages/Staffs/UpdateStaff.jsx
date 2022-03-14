@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Row,Col} from 'react-bootstrap';
-import Sidenav from '../../Components/LandingPage/Sidenav';
+import SideNav2 from '../../Components/LandingPage/SideNav2';
 import Navbar from '../../Components/LandingPage/Navbar';
-import UpdateStaff from '../../Components/Staffs/UpdateStaffs';
+import UpdateStaffs from '../../Components/Staffs/UpdateStaffs';
 
 const ViewWrapper = styled.div`
   background: #eff1f1;
@@ -11,17 +11,17 @@ const ViewWrapper = styled.div`
   padding: 0 10px;
 `;
 
-export default function AllStaff() {
+export default function UpdateStaff() {
     return(
         <React.Fragment>
             <Navbar/>
             <ViewWrapper>
                 <Row>
                     <Col sm={3} style={{padding:'10px'}}>
-                        <Sidenav/>
+                        <SideNav2/>
                     </Col>
-                    <Col sm={7}> 
-                        <UpdateStaff />
+                    <Col sm={9}> 
+                        <UpdateStaffs />
                     </Col>
                 </Row>
             </ViewWrapper>

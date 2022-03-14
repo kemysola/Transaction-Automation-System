@@ -5,6 +5,7 @@ import SideNav from '../../LandingPage/SideNav2';
 import Navbar from '../../LandingPage/Navbar';
 import Card from './Cards/Cards';
 
+
 const ViewWrapper = styled.div`
   background: #eff1f1;
   margin:0;
