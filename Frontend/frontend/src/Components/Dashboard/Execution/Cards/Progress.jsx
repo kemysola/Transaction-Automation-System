@@ -11,11 +11,9 @@ justify-content:center;
 font-size:10px;
 padding:4px 15px;
 border-radius:20px;
-
 `;
 export default function Progress(){
     
-
     return(
         <React.Fragment>
             <Stats/>
@@ -26,7 +24,6 @@ export default function Progress(){
                         <p style={{fontSize:'12px', paddingLeft:'12px'}}>PRODUCT</p>
 
                         <ProgressBarDiv>
-
                             <div>
                                 <p>Public Bond</p>
                                 <p>Blended Finance</p>
