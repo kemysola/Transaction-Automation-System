@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Button, Row, Col} from 'react-bootstrap';
-import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination } from "react-table";
+import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters } from "react-table";
 import { FiEdit } from "react-icons/fi";
 import styled from 'styled-components';
 import Service from "../../Services/Service";
@@ -35,24 +35,56 @@ const Pagination = styled.div`
   }
 `
 
-const Search = () => {
+//Define a default UI for filtering
+const GlobalFilter =({
+  preGlobalFilteredRows,
+  globalFilter,
+  setGlobalFilter,
+}) => {
+  const count = preGlobalFilteredRows.length
+  const [value, setValue] = useState(globalFilter)
+  const onChange = useAsyncDebounce(value => {
+      setGlobalFilter(value || undefined)
+  }, 200)
+
   return (
-    <div>
-      <form className="form-control rounded-pill">
-        <input 
-          type='text' 
-          placeholder='Search' 
-          style={{border:'none', outline:"none"}}
-        />
-        <button
-          type="submit" 
-          style={{background:'white', border:'none', position:'relative', left:'0.11px'}}>
-            <i class="bi-search"></i>
-        </button>   
-      </form>                
-    </div>
+      <span>
+          {/* Search:{' '} */}
+          <input 
+              className="form-control"
+              style={{ outline: 'none', border: '1px solid black', padding: '4.5px', marginTop: '7px', marginRight: '2px' }}
+              value={value || ""}
+              onChange={e => {
+                  setValue(e.target.value);
+                  onChange(e.target.value);
+              }}
+              placeholder={`Search ${count} records`}
+    
+          />
+      </span>
   )
 }
+
+
+// const Search = ({ filter, setFilter }) => {
+//   return (
+//     <div>
+//       <form className="form-control rounded-pill">
+//         <input 
+//           placeholder='Search' 
+//           name='search'
+//           value = {filter || ' '} onChange={(e) => setFilter(e.target.value)}
+//           style={{border:'none', outline:"none"}}
+//         />
+//         <button
+//           type="submit" 
+//           style={{background:'white', border:'none', position:'relative', left:'0.11px'}}>
+//             <i class="bi-search"></i>
+//         </button>   
+//       </form>                
+//     </div>
+//   )
+// }
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -248,19 +280,35 @@ const DealsTable = (props) => {
     };
   }
 
-  const { getTableProps, getTableBodyProps, getRowProps, headerGroups, prepareRow,
-          page, canPreviousPage, canNextPage, pageOptions, pageCount, gotoPage,
-          nextPage, previousPage, setPageSize, state: { pageIndex, pageSize}, } = useTable(
+  const {
+    getTableProps,
+    getTableBodyProps,
+    getRowProps,
+    headerGroups,
+    prepareRow,
+    page,
+    canPreviousPage,
+    canNextPage,
+    pageOptions, pageCount, gotoPage,
+    nextPage, previousPage, setPageSize,
+    state: { pageIndex, pageSize },
+    state,
+    setGlobalFilter,
+    preGlobalFilteredRows,
+  } = useTable(
     {
       columns,
       data: deals,
       initialState: { pageIndex: 0 },
       getRowProps: getTrProps()
     },
+    useGlobalFilter,
+    useFilters,
     useResizeColumns,
     useFlexLayout,
     usePagination,
     useRowSelect,
+    // useGlobalFilter,
     hooks => {
       hooks.allColumns.push(columns => [
         // Let's make a column for selection
@@ -292,12 +340,16 @@ const DealsTable = (props) => {
         const selectionGroupHeader = headerGroups[0].headers[0]
         selectionGroupHeader.canResize = false
       })
-    }
-  );
+    },
+    
+    );
+  
 
   return (
     <React.Fragment>
       <ContainerWrapper>
+ 
+        {/* <Search filter = {globalFilter} setFilter={setGlobalFilter} name="search"/> */}
         <Row>
           <Col sm={4}className='d-flex justify-content-between'  >
           <small style={{fontSize:'12px',paddingTop:'10px'}}>
@@ -322,8 +374,12 @@ const DealsTable = (props) => {
           </Col>
           <Col sm={12} lg={4}>
             <form className='pt-1'>
-              <input type="search" placeholder="Search" aria-label="Search" style={{outline:'none',border:'1px solid black',padding:'4.5px', marginTop:'7px', marginRight: '2px'}}/>
-              <Button className='py-0 btn-outline-none text-dark btn-light' style={{border:'1px solid black',padding:'none'}} >Search</Button>
+            <GlobalFilter
+                preGlobalFilteredRows={preGlobalFilteredRows}
+                globalFilter={state.globalFilter}
+                setGlobalFilter={setGlobalFilter}
+              />
+              {/* <Button className='py-0 btn-outline-none text-dark btn-light' style={{border:'1px solid black',padding:'none'}} >Search</Button> */}
             </form>
           </Col>
         </Row>
