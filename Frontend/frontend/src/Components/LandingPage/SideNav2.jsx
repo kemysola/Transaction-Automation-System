@@ -59,7 +59,7 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
           <SidebarContent >
             <Menu iconShape="round">
               <SubMenu title='Transactions' icon={<BsWallet2 />}>
-                <MenuItem className="subMenu" active={true} >
+                <MenuItem className="subMenu" >
                   <Link to='/transaction' style={{ color: '#237cbf' }}>
                     All Transactions</Link>
                 </MenuItem>
