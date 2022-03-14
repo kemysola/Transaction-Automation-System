@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {Link} from 'react-router-dom';
 import authService from '../../Services/auth.Service';
 //react pro sidebar components
@@ -12,11 +12,9 @@ import { BsWallet2 } from "react-icons/bs";
 import "react-pro-sidebar/dist/css/styles.css";
 import "./custom.scss";
 
-
-const Sidenav = () => {
-  //menuCollapse, menuToggle state using useState hook
+const Sidenav = ({ toggled, handleToggleSidebar }) => {
+  //menuCollapse state using useState hook
   const [menuCollapse, setMenuCollapse] = useState(false)
-  const [menuToggle, setMenuToggle] = useState(false)
 
   //custom function that will change menucollapse state from false to true and true to false
   const menuIconClick = () => {
@@ -24,29 +22,21 @@ const Sidenav = () => {
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
   };
 
-  // custom function that will change menuToggle state from false to true and true to false
-  const sidebarToggle = () => {
-    // condition checking to change state from true to false and vice versa
-    menuToggle ? setMenuToggle(false) : setMenuToggle(true);
-  }
-
   const user = JSON.parse(localStorage.getItem('user'))
 
   return (
     <>
       <div id="header">
-
         {/* collapsed props to change menu size using menucollapse state */}
         <ProSidebar
           collapsed={menuCollapse}
-          toggled={menuToggle}
-          breakPoint="md"
-        // onToggle={handleToggleSidebar}
+          // toggled={toggled}
+          // breakPoint="md"
+          // onToggle={handleToggleSidebar}
         >
           <SidebarHeader>
             <div
               className="logotext"
-              onClick={sidebarToggle}
             >
               {/* Icon change using menucollapse state */}
               <p>{menuCollapse ? <ImUser /> : `Hi, ${user.name}`}</p>
@@ -65,8 +55,8 @@ const Sidenav = () => {
 
           <SidebarContent >
             <Menu iconShape="round">
-              <SubMenu title='Transactions' icon={<BsWallet2 />} >
-                <MenuItem className="subMenu" >
+              <SubMenu title='Transactions' icon={<BsWallet2 />}>
+                <MenuItem className="subMenu" active={true} >
                   <Link to='/transaction' style={{ color: '#237cbf' }}>
                     All Transactions</Link>
                 </MenuItem>
@@ -76,7 +66,7 @@ const Sidenav = () => {
                 </MenuItem>
               </SubMenu>
 
-              {/* -------------------------------- Staffs SideNav with React RouterLink -------------------- */}
+              {/* -------------------------------- Staff SideNav with React RouterLink -------------------- */}
 
 
               <SubMenu title='Staff' icon={<ImUsers />}>

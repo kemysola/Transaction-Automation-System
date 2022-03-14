@@ -32,21 +32,50 @@ export default function Stats(){
             });
     };
 
-    const mapData = [
-        ["", "population%"],
-        ["NG", 2],
-        ["NG", 3]
-      ];
-
     const mapOptions = {
         region: "NG", // Africa
-        displayMode: 'text',
-        magnifyingGlass: {enable: true, zoomFactor: 30},
-        resolution: 'provinces',
+        // displayMode: 'text',
+        // magnifyingGlass: {enable: true, zoomFactor: 30},
+        //resolution: 'zones',
         colorAxis: { colors: ["#00853f", "white", "#e31b23"] },
         backgroundColor: "white",
         defaultColor: "#f5f5f5"
     };
+
+    var someMapdata = ([
+        ['Country', 'Popularity'],
+        ['Germany', 200],
+        ['United States', 300],
+        ['Brazil', 400],
+        ['Canada', 500],
+        ['France', 600],
+        ['RU', 700],
+        ['Nigeria', 900]
+      ]);
+
+      var someMapda = ([
+        ['Country', 'State', 'Popularity'],
+        ['Nigeria', 'Lagos', 200],
+        ['Nigeria', 'Warri', 400],
+        ['Nigeria', 'Abuja', 30],
+        
+        // ['Nigeria', 'Lagos', 200],
+        // ['United States', 300],
+        // ['Brazil', 400],
+        // ['Canada', 500],
+        // ['France', 600],
+        // ['RU', 700],
+        // ['Nigeria', 900]
+      ]);
+
+
+    const mapData = ([
+        ["State", "Population"],
+        ["Lagos", 20],
+        ["Port-harcourt", 30],
+        ["Abuja", 40],
+        ["Enugu", 90]
+      ]);
     
     var red = data.reduce(function (filtered, arr) {
         if (arr.deal_category === 'Red') {
@@ -122,7 +151,7 @@ export default function Stats(){
                     textAnchor={x > cx ? "start" : "end"}
                     dominantBaseline="central"
                 >
-                {`${(percent * 100).toFixed(2)}%`}
+                {`${(percent * 100).toFixed(0)}%`}
                 </text>
             </>
         );
@@ -177,22 +206,19 @@ export default function Stats(){
 
                     <Col sm={6}>
                         <Row className='bg-light pt-1' style={{margin:'5px 2px',borderRadius:'1px'}}>
-                            
-                                <div>
-                                <p style={{color:'black',fontWeight:'bold', fontSize:'13px'}}>REGION</p>
-                                </div>
-                            
-                            
-                                
-                                <Chart
-                                    chartType="GeoChart"
-                                    width="380px"
-                                    height="400px"
-                                    data={mapData}
-                                    options={mapOptions}
-                                />   
-                            
-                            
+                            <div>
+                                <   p style={{color:'black',fontWeight:'bold', fontSize:'13px'}}>REGION</p>
+                            </div>
+                        
+                            <Chart
+                                chartType="GeoChart"
+                                width="380px"
+                                height="400px"
+                                // data={mapData}
+                                data={someMapda}
+                                options={mapOptions}
+                                mapsApiKey="AIzaSyAEQTZ1l_AMooC8jIT84eahiS1ofGa1Yv0"
+                            />   
                         </Row>
                     </Col>
 

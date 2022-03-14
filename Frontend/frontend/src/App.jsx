@@ -22,7 +22,6 @@ import Verify from './Components/Auth/Verify';
 import PasswordReset from './Components/Auth/Reset/PasswordReset';
 import Reset from './Components/Auth/StaffReset/Reset';
 
-
 export default function App() {
     return (
         <React.Fragment>
