@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, Button, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
-import { useTable } from 'react-table'
+import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters } from 'react-table'
 import { useHistory } from 'react-router-dom';
 import { FiEdit } from 'react-icons/fi';
 import Service from '../../Services/Service';
@@ -11,6 +11,36 @@ const ContainerWrapper = styled.div`
     margin-top: 2rem;
     padding: 2rem;
     border-radius: 15px;`;
+
+//Define a default UI for filtering
+const GlobalFilter =({
+  preGlobalFilteredRows,
+  globalFilter,
+  setGlobalFilter,
+}) => {
+  const count = preGlobalFilteredRows.length
+  const [value, setValue] = useState(globalFilter)
+  const onChange = useAsyncDebounce(value => {
+      setGlobalFilter(value || undefined)
+  }, 200)
+
+  return (
+      <span>
+          {/* Search:{' '} */}
+          <input 
+              className="form-control"
+              style={{ outline: 'none', border: '1px solid black', padding: '4.5px', marginTop: '7px', marginRight: '2px' }}
+              value={value || ""}
+              onChange={e => {
+                  setValue(e.target.value);
+                  onChange(e.target.value);
+              }}
+              placeholder={`Search ${count} records`}
+    
+          />
+      </span>
+  )
+}
 
 const StaffTable = () => {
   const history = useHistory();
@@ -51,15 +81,16 @@ const StaffTable = () => {
   const columns = useMemo(
     () => [
       {
-        Header: "id",
-        accessor: "id",
-      },
-      {
         Header: "Name",
         accessor: "firstname",
         Cell: ({row, value}) => (
           <span>{`${row.original.firstname} ${row.original.lastname}`}</span>
         )
+      },
+      {
+        Header: "lastname",
+        accessor: "lastname",
+        show: false
       },
       {
         Header: "Level",
@@ -125,61 +156,94 @@ const StaffTable = () => {
     ],
     []
   );
-
+  const initialState = { hiddenColumns: ['lastname'] };
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     rows,
     prepareRow,
+    state,
+    setGlobalFilter,
+    preGlobalFilteredRows,
   } = useTable({
     columns,
     data: staff,
-  });
+    initialState
+  },
+  useGlobalFilter,
+  useFilters,
+  useResizeColumns,
+  useFlexLayout,
+  );
 
 
 
   return (
     <React.Fragment>
       <ContainerWrapper>
-        <a>All (5) |  </a>
-        <a>Trash (0) | </a>
-        <button> Download</button>
-
-        <div className="col-md-12 list">
-          <table
-            className="table table-striped table-bordered responsive"
-            {...getTableProps()}
-          >
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th {...column.getHeaderProps()}>
-                      {column.render("Header")}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {rows.map((row, i) => {
-                prepareRow(row);
-                console.log(row)
-                console.log(i)
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                      );
-                    })}
+        <Row>
+          <Col sm={4}className='d-flex justify-content-between'  >
+              <small style={{fontSize:'12px',paddingTop:'10px'}}>
+                All ({staff.length})
+              </small>
+              <a className="vr" />
+              <small style={{fontSize:'12px',paddingTop:'10px'}}>
+                Trash (0) 
+                </small>
+              <div
+              className="vr" />
+              <small style={{fontSize:'12px',paddingTop:'10px'}}>
+                Bulk Actions
+                </small>
+          </Col>
+          <Col sm={12} lg={4}>
+            <form className='pt-1'>
+            <GlobalFilter
+                preGlobalFilteredRows={preGlobalFilteredRows}
+                globalFilter={state.globalFilter}
+                setGlobalFilter={setGlobalFilter}
+              />
+              {/* <Button className='py-0 btn-outline-none text-dark btn-light' style={{border:'1px solid black',padding:'none'}} >Search</Button> */}
+            </form>
+          </Col>
+        </Row>
+          <div className="table-responsive mt-2 pt-2">
+            <table
+              className="table py-3 mt-3  table-hover table striped  align-middle table-bordered"
+              id='myTable'
+              {...getTableProps()}
+            >
+              <thead>
+                {headerGroups.map((headerGroup) => (
+                  <tr {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map((column) => (
+                      <th {...column.getHeaderProps()}>
+                        {column.render("Header")}
+                      </th>
+                    ))}
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+                ))}
+              </thead>
+              <tbody {...getTableBodyProps()} className='table-bordered'>
+                {rows.map((row, i) => {
+                  prepareRow(row);
+                  console.log(row)
+                  console.log(i)
+                  return (
+                    <tr {...row.getRowProps()}>
+                      {row.cells.map((cell) => {
+                        return (
+                          <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        
       </ContainerWrapper>
     </React.Fragment>
   );
