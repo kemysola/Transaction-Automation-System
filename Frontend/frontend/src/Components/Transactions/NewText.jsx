@@ -278,7 +278,7 @@ const AddDeal = () => {
                             <Form.Label>Note</Form.Label> <button type="button" onClick={handleNoteAdd}>Add</button>
                             {noteList.map((singleNote, index) => (
                               <Form.Control  as='textarea'
-                              size="sm" value={singleNote.note} name='note' onChange={(e) => handleNoteChange(e, index)}
+                              size="sm" as='textarea' value={singleNote.note} name='note' onChange={(e) => handleNoteChange(e, index)}
                                 required />
                             ))}
                           </Form.Group>
