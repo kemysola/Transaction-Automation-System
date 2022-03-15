@@ -27,7 +27,7 @@ const Navbar = ({ handleToggleSidebar }) => {
                 </div> */}
                 {/*---------------------------  Logo Div ------------------------------------- */}
                 <div>
-                    <img src={InfraCredit} alt='logo' width='90' />
+                    <img src={InfraCredit} alt='logo' width='100' />
                 </div>
 
                 {/*-------------------------  Search Div ------------------------------------ */}
