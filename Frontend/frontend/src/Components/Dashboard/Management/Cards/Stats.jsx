@@ -74,7 +74,6 @@ export default function Stats() {
   const retrieveDeals = () => {
     Service.getAllDeals()
       .then((response) => {
-        //console.log((response.data.deals).length)
         setData(response.data.deals);
       })
       .catch((e) => {
