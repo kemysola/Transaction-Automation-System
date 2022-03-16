@@ -10,7 +10,7 @@ import StaffTable from "../../Components/Staffs/StaffTable";
 
 const ViewWrapper = styled.div`
   background: #eff1f1;
-  margin: 0;
+  margin:0 2rem 2rem 0;
   padding: 0 10px;
 `;
 
@@ -23,7 +23,7 @@ export default function AllStaff() {
           <Col sm={3} style={{ padding: "10px" }}>
             <SideNav2 />
           </Col>
-          <Col sm={8}>
+          <Col sm={9} className='bg-light my-3'>
             <StaffTable />
           </Col>
         </Row>

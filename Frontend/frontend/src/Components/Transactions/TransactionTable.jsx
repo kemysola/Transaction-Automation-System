@@ -52,7 +52,7 @@ const GlobalFilter =({
           {/* Search:{' '} */}
           <input 
               className="form-control"
-              style={{ outline: 'none', border: '1px solid black', padding: '4.5px', marginTop: '7px', marginRight: '2px' }}
+              style={{ outline: 'none', border: '1px solid black', padding: '2px', marginTop: '2px', marginRight: '2px' , width:'170px'}}
               value={value || ""}
               onChange={e => {
                   setValue(e.target.value);
