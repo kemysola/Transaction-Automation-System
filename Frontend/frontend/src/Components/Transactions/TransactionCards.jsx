@@ -16,9 +16,8 @@ export default function TransactionCards() {
 
   // .................................... Axios Endpoint ..............................
   const retrieveDeals = () => {
-    Service.getAllDeals()
+    Service.getMyDeals()
       .then((response) => {
-        console.log(response.data.deals)
         setData(response.data.deals);
       })
       .catch((e) => {
@@ -26,15 +25,15 @@ export default function TransactionCards() {
       });
   };
 
-  var red = data.reduce(function (filtered, arr) {
-      var someNewValue = arr.dealsize;
-      filtered.push(someNewValue);
-      console.log(filtered)
-    return filtered;
-  }, []);
+  // var red = data.reduce(function (filtered, arr) {
+  //     var someNewValue = arr.dealsize;
+  //     filtered.push(someNewValue);
+  //     // console.log(filtered)
+  //   return filtered;
+  // }, []);
 
-  var redTotal = red.reduce(function (tot, arr) {
-    return tot + parseFloat(arr);
+  var sumTotal = data.reduce(function (tot, arr) {
+    return tot + parseFloat(arr.dealsize);
   }, 0);
 
   return (
@@ -52,7 +51,7 @@ export default function TransactionCards() {
                 </Card.Title>
 
                 <Card.Text className='text-info'>
-                    <h4>{redTotal}</h4>
+                    <h4>{`₦${(sumTotal / 1000000).toFixed(2)}bn`}</h4>
                 </Card.Text>
               </Card.Body>
             </Card>
