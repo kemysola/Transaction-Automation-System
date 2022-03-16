@@ -22,7 +22,7 @@ import Verify from "./Components/Auth/Verify";
 import PasswordReset from "./Components/Auth/Reset/PasswordReset";
 import Reset from "./Components/Auth/StaffReset/Reset";
 import Updates from "./Pages/Staffs/Updates";
-import { GlobalFilter } from "./Components/Transactions/TransactionTable";
+import Table from './Components/Dashboard/Execution/Table';
 
 export default function App() {
   return (
@@ -64,7 +64,7 @@ export default function App() {
           <AllStaff />
         </Route>
         <Route path="/Pages">
-          <Text />
+          <Text/>
         </Route>
         <Route path="/newPages">
           <NewText />
@@ -102,6 +102,9 @@ export default function App() {
         </Route>
         <Route exact path="/execution">
           <Execution />
+        </Route>
+        <Route path="/table">
+          <Table />
         </Route>
       </Switch>
     </React.Fragment>

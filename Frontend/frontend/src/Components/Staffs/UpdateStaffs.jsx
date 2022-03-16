@@ -7,16 +7,13 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 
 const ButtonWrapper = styled.button`
-  color:white;
-  background: green;
-  margin-right:14px;
-  border:1px solid white;
-  padding:2px 35px;
-  margin-top: 2px;
-  margin-bottom: 2px;
-  font-weight:bold;
-  font-size:10px;
-  border-radius:10px;
+color:white;
+background: green;
+border: 1px solid white;
+padding: 2px 20px;
+font-size:13px;
+margin: 10px;
+border-radius: 3px
 `;
 
 const FormWrapper = styled.div`
@@ -34,16 +31,13 @@ margin:0;
 `;
 
 const CancelWrapper = styled.button`
-  color:green;
-  background: #eff1f1;
-  border-radius:10px;
-  padding:2px 35px;
-  border: 1px solid grey;
-  margin-top: 2px;
-  margin-bottom: 2px;
-  font-size:8px;
-  box-shadow : 5px #eff1f1;
-  font-weight:bold;
+color:white;
+background: grey;
+border: 1px solid grey;
+padding: 2px 20px;
+font-size:13px;
+margin: 10px;
+border-radius: 3px
   `;
 
 export default function UpdateStaffs() {
@@ -431,13 +425,16 @@ export default function UpdateStaffs() {
                                                 onChange={handleInputChange}
                                                 name="financialClose"
                                             />
+
                                         </Col>
+
                                     </Form.Group>
                                 </Col>
-                                <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Prev</button>
-                            <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button>
                             </Row>
+                            <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Prev</button>
+
                         </Container1>
+                        <div className='d-flex justify-content-end'>
                         <ButtonWrapper>
                             Submit
                         </ButtonWrapper>
@@ -445,6 +442,8 @@ export default function UpdateStaffs() {
                         <CancelWrapper>
                             Cancel
                         </CancelWrapper>
+                        </div>
+                        
                      </Tab>
                     </Tabs>
                     </Form>

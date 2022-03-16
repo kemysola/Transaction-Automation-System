@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import {Row,Col} from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import SideNav2 from '../../LandingPage/SideNav2';
 import Navbar from '../../LandingPage/Navbar';
 import Progress from './Cards/Progress';

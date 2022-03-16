@@ -2,9 +2,9 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Button, Row, Col} from 'react-bootstrap';
 import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters } from "react-table";
 import { FiEdit } from "react-icons/fi";
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Service from "../../Services/Service";
-import { useHistory } from 'react-router-dom';
 
 const ContainerWrapper = styled.div`
 font-size:10px;
@@ -52,7 +52,7 @@ export const GlobalFilter =({
           {/* Search:{' '} */}
           <input 
               className="form-control"
-              style={{ outline: 'none', border: '1px solid black', padding: '4.5px', marginTop: '7px', marginRight: '2px' }}
+              style={{ outline: 'none', border: '1px solid black', padding: '2px', marginTop: '2px', marginRight: '2px' , width:'170px'}}
               value={value || ""}
               onChange={e => {
                   setValue(e.target.value);
@@ -139,17 +139,14 @@ const DealsTable = (props) => {
       {
         Header: "Client",
         accessor: "clientname",
-        // disableResizing: true,
       },
       {
         Header: "Originator",
         accessor: "originator",
-        // disableResizing: true,
       },
       {
         Header: "Transactor",
         accessor: "transactor",
-        // disableResizing: true,
       },
       {
         Header: "Transaction Legal Lead",
@@ -345,8 +342,8 @@ const DealsTable = (props) => {
             Bulk Actions
             </small>
           </Col>
-          <Col sm={12} lg={4} className='d-flex justify-content-center'>
-          <Button className=' ' size='md' style={{backgroundColor: "green", border:'none', marginRight: '1em',padding:'5px'}}>           Apply
+          <Col sm={12} lg={4} size="sm" className='d-flex justify-content-center'>
+          <Button className=' ' size='sm' style={{backgroundColor: "green", border:'none', marginRight: '1em',padding:'5px'}}>           Apply
           </Button>
           <Button className='py-0' size='sm'>
             Download
@@ -366,7 +363,7 @@ const DealsTable = (props) => {
         
         <div className="table-responsive mt-2 pt-2">
           <table
-            className="table py-3 mt-3  table-hover table striped  align-middle table-bordered"
+            className="table py-3 mt-3  table-hover table striped align-middle table-bordered"
             id='myTable'
             {...getTableProps()}
             // data={data}
@@ -388,19 +385,17 @@ const DealsTable = (props) => {
                 prepareRow(row);
                 
                 return (
-                  <tr {...row.getRowProps(getTrProps(row, i))}
+                  <tr 
+                    {...row.getRowProps(getTrProps(row, i))}
                   >
                     {row.cells.map((cell) => {
                       return (
                         <td 
-                          {...cell.getCellProps(
-                            
-                          )}
-                          
+                          {...cell.getCellProps()}
                         >
                           {cell.render("Cell")}
                         </td>
-                      )
+                      );
                     })}
                   </tr>
                 )
@@ -460,7 +455,5 @@ const DealsTable = (props) => {
       </ContainerWrapper>
     </React.Fragment>
 )}
-
-
 
 export default DealsTable;
