@@ -22,10 +22,16 @@ import Verify from "./Components/Auth/Verify";
 import PasswordReset from "./Components/Auth/Reset/PasswordReset";
 import Reset from "./Components/Auth/StaffReset/Reset";
 import Updates from "./Pages/Staffs/Updates";
+import { GlobalFilter } from "./Components/Transactions/TransactionTable";
 
 export default function App() {
   return (
     <React.Fragment>
+       {/* <GlobalFilter
+          preGlobalFilteredRows={preGlobalFilteredRows}
+          globalFilter={state.globalFilter}
+          setGlobalFilter={setGlobalFilter}
+        /> */}
       <Switch>
         <Route exact path="/">
           <Home />

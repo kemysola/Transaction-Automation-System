@@ -36,7 +36,7 @@ const Pagination = styled.div`
 `
 
 //Define a default UI for filtering
-const GlobalFilter =({
+export const GlobalFilter =({
   preGlobalFilteredRows,
   globalFilter,
   setGlobalFilter,
@@ -66,25 +66,6 @@ const GlobalFilter =({
 }
 
 
-// const Search = ({ filter, setFilter }) => {
-//   return (
-//     <div>
-//       <form className="form-control rounded-pill">
-//         <input 
-//           placeholder='Search' 
-//           name='search'
-//           value = {filter || ' '} onChange={(e) => setFilter(e.target.value)}
-//           style={{border:'none', outline:"none"}}
-//         />
-//         <button
-//           type="submit" 
-//           style={{background:'white', border:'none', position:'relative', left:'0.11px'}}>
-//             <i class="bi-search"></i>
-//         </button>   
-//       </form>                
-//     </div>
-//   )
-// }
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -308,7 +289,6 @@ const DealsTable = (props) => {
     useFlexLayout,
     usePagination,
     useRowSelect,
-    // useGlobalFilter,
     hooks => {
       hooks.allColumns.push(columns => [
         // Let's make a column for selection

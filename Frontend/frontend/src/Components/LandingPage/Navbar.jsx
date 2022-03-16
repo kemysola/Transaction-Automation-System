@@ -5,6 +5,7 @@ import { FaBars } from 'react-icons/fa';
 import InfraCredit from '../../Images/i.png';
 import { Link } from 'react-router-dom';
 import MenuOption from './MenuOption';
+import { GlobalFilter } from '../Transactions/TransactionTable';
 
 
 const NavbarNav = styled.div`
@@ -17,7 +18,7 @@ justify-content: space-between;
 align-items: center;
 `
 
-const Navbar = ({ handleToggleSidebar }) => {
+const Navbar = ({ handleToggleSidebar, props }) => {
     return (
         <React.Fragment>
             <NavbarNav>
@@ -33,12 +34,17 @@ const Navbar = ({ handleToggleSidebar }) => {
                 {/*-------------------------  Search Div ------------------------------------ */}
 
                 <div>
-                    <Form action='' method='post'>
+                    {/* <Form action='' method='post'>
                         <input type='text' placeholder='Search' style={{ border: 'none', padding: '5px 10px', outline: 'none' }} />
                         <button type="submit" style={{ background: 'white', border: 'none', padding: '5px 5px', position: 'relative', left: '0.11px' }}>
                             <i class="bi-search"></i>
                         </button>
-                    </Form>
+                    </Form> */}
+                    {/* <GlobalFilter
+                        preGlobalFilteredRows
+                        globalFilter={props.state.globalFilter}
+                        setGlobalFilter
+                    /> */}
                 </div>
 
                 {/*----------------------- Icon Div ------------------------------------------- */}
