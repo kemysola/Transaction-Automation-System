@@ -6,6 +6,7 @@ import Navbar from '../../LandingPage/Navbar';
 import Stats from '../Management/Cards/Stats';
 //import Table from './Table'
 import StaffTable from '../../Staffs/StaffTable';
+import Progress from './Cards/Progress';
 
 
 const ViewWrapper = styled.div`
@@ -21,12 +22,11 @@ export default function Execution(){
             <Navbar/>
             <ViewWrapper>
             <Row>
-                    <Col sm={3} style={{padding:'10px'}}>
+                    <Col sm={3} style={{padding:'10px 10px 10px 0px'}}>
                         <SideNav2/>
                     </Col>
                     <Col sm={9}> 
-                    
-                        
+                        <Progress/>                    
                     </Col>
                         
                     

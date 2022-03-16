@@ -1,114 +1,283 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
-import { Table } from "react-bootstrap";
-import styled from "styled-components";
-import { useTable } from "react-table";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { Button, Row, Col} from 'react-bootstrap';
+import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters } from "react-table";
 import { FiEdit } from "react-icons/fi";
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+import Service from "../../../Services/Service";
 
 const ContainerWrapper = styled.div`
-  font-size: 10px;
-  margin-top: 2rem;
-  background: white;
-  width: 70vw;
-  padding: 2rem;
-  border-radius: 15px;
+font-size:10px;
+margin-top: 0.55rem;
+background:white;
+padding: 1rem 2rem;
+border-radius: 15px;
 `;
 
-const StaffTable = () => {
-  const history = useHistory();
-  const [staff, setStaff] = useState([]);
-  const [searchStaff, setSetSearch] = useState("");
-  const staffRef = useRef();
-  staffRef.current = staff;
+const Pagination = styled.div`
+  padding: 1em;
+
+  button {
+    margin: 2px;
+    border-radius: 3px;
+    border: 1px solid black;
+  }
+
+  span {
+    font-size: 12px;
+    margin: 2px;
+  }
+
+  select {
+    margin: 2px;
+    width: 80px;
+    font-size: 12px;
+  }
+`
+
+//Define a default UI for filtering
+const GlobalFilter =({
+  preGlobalFilteredRows,
+  globalFilter,
+  setGlobalFilter,
+}) => {
+  const count = preGlobalFilteredRows.length
+  const [value, setValue] = useState(globalFilter)
+  const onChange = useAsyncDebounce(value => {
+      setGlobalFilter(value || undefined)
+  }, 200)
+
+  return (
+      <span>
+          {/* Search:{' '} */}
+          <input 
+              className="form-control"
+              type="date"
+              style={{ outline: 'none', border: '1px solid black', padding: '4.5px', marginTop: '7px', marginRight: '2px' }}
+              value={value || ""}
+              onChange={e => {
+                  setValue(e.target.value);
+                  onChange(e.target.value);
+              }}
+              placeholder={`Search ${count} records`}
+    
+          />
+      </span>
+  )
+}
+
+const DealsTable = (props) => {
+  const [deals, setDeals] = useState([]);
+  const dealsRef = useRef();
+  dealsRef.current = deals;
+
+  useEffect(() => {
+    retrieveDeals();
+  }, []); 
+
+  const retrieveDeals = () => {
+    Service.getAllDeals()
+      .then((response) => {
+        setDeals(response.data.deals);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
   const columns = useMemo(
     () => [
       {
         Header: "SN",
-        accessor: "id",
+        maxWidth: 50,
+        filterable: false,
+        Cell: (props) => {
+          const rowIdx = parseInt(props.row.id) 
+
+          return (
+            <div>
+              {`${(rowIdx)+1}`}
+            </div>
+          )
+        }
       },
       {
-        Header: "Client Name",
+        Header: "Client",
         accessor: "clientname",
       },
       {
-        Header: "Transaction",
-        accessor: "level",
+        Header: "Transactor",
+        accessor: "transactor",
       },
       {
-        Header: "Deal Size",
-        accessor: "hasoriginationtarget",
+        Header: "Deal Size(₦'bn)",
+        accessor: "dealsize",
+        Cell: (props) => {
+          const amount = parseInt(props.row.original['dealsize'])
+          return (
+            <div>
+              {`${(amount / 1000000).toFixed(1)}`}
+            </div>
+          )
+        }
       },
       {
         Header: "Industry",
-        accessor: "feeletter",
+        accessor: "industry",
       },
       {
         Header: "Product",
-        accessor: "financialclose",
+        accessor: "product",
       },
       {
         Header: "Region",
-        accessor: "originationamount",
+        accessor: "region",
       },
       {
-        Header: "Tenor",
-        accessor: "guaranteepipeline",
+        Header: "Tenor(yrs)",
+        accessor: "tenor",
       },
       {
-        Header: "Coupon",
-        accessor: "greentransaction",
+        Header: "Coupon(%)",
+        accessor: "coupon",
       },
       {
-        Header: "Financial Close",
-        accessor: "ambertransaction",
-      },
-      {
-        Header: "Structuring Fee",
-        accessor: "mandateletter",
-      },
-      {
-        Header: "Gurantee Fee",
-        accessor: "creditcommitteapproval",
-      },
-      {
-        Header: "Edit",
-        accessor: "edit",
-        disableResizing: true,
-        minWidth: 35,
-        width: 35,
-        maxWidth: 35,
+        Header: "Expected Financial Close Date",
+        accessor: "expectedclose",
         Cell: (props) => {
-          //const rowIdx = props.row.original['email'];
-          return (
-            <div>
+          const date = props.row.original['expectedclose']
+          if (date !== null) {
+            const expectedDate = new Date(date)
+            return (
               <div>
-                <span>
-                  <FiEdit />
-                </span>
+                {`${expectedDate.toISOString().slice(0, 10)}`}
               </div>
-            </div>
-          );
-        },
+            )
+          }
+          return (
+            <div>-</div>
+          )
+        }
+      },
+      {
+        Header: "Structuring Fee Amount",
+        accessor: "structuringfeeamount",
+      },
+      {
+        Header: "Guarantee Fee",
+        accessor: "guaranteefee",
+        Cell: ({ cell: { value } }) => value || "-"
+      },
+      {
+        Header: "Monitoring Fee",
+        accessor: "monitoringfee",
       },
     ],
     []
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({
-      columns,
-      data: staff,
-    });
+  const getTrProps = (row, i) => {
+    if (row){
+      // if deal category is yellow, return a warmer yellow color
+      if (`${deals[i].deal_category}` === "Yellow") {
+        return {
+          style: {
+            color: "#FFBF00"
+          }
+        }
+      }
+      return {
+        style: {
+          color: `${deals[i].deal_category}`
+        }
+      }
+    }
+    // 
+    return {
+      style: {}
+    };
+  }
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    getRowProps,
+    headerGroups,
+    prepareRow,
+    page,
+    canPreviousPage,
+    canNextPage,
+    pageOptions, pageCount, gotoPage,
+    nextPage, previousPage, setPageSize,
+    state: { pageIndex, pageSize },
+    state,
+    setGlobalFilter,
+    preGlobalFilteredRows,
+  } = useTable(
+      {
+        columns,
+        data: deals,
+        initialState: { pageIndex: 0 },
+        getRowProps: getTrProps()
+      },
+      useGlobalFilter,
+      useFilters,
+      useResizeColumns,
+      useFlexLayout,
+      usePagination,
+      useRowSelect,    
+    );
+  
 
   return (
     <React.Fragment>
       <ContainerWrapper>
-        <div className="col-md-12 list">
+        <Row>
+          {/* <Col sm={4}className='d-flex justify-content-between'  >
+          <small style={{fontSize:'12px',paddingTop:'10px'}}>
+            All ({deals.length})
+            </small>
+          <a className="vr" />
+          <small style={{fontSize:'12px',paddingTop:'10px'}}>
+            Trash (0) 
+            </small>
+          <div
+          className="vr" />
+          <small style={{fontSize:'12px',paddingTop:'10px'}}>
+            Bulk Actions
+            </small>
+          </Col>
+          <Col sm={12} lg={4} size="sm" className='d-flex justify-content-center'>
+          <Button className=' ' size='sm' style={{backgroundColor: "green", border:'none', marginRight: '1em',padding:'5px'}}>           Apply
+          </Button>
+          <Button className='py-0' size='sm'>
+            Download
+          </Button>
+          </Col> */}
+          <Col sm={12} lg={4}>
+            <form className='pt-1'>
+              <label>Start Date:</label>
+              <input type="date" name="startDate" id="startDate" />
+
+              <label>End Date:</label>
+              <input type="date" name="endDate" id="endDate" />
+            <GlobalFilter
+                preGlobalFilteredRows={preGlobalFilteredRows}
+                globalFilter={state.globalFilter}
+                setGlobalFilter={setGlobalFilter}
+              />
+              {/* <Button className='py-0 btn-outline-none text-dark btn-light' style={{border:'1px solid black',padding:'none'}} >Search</Button> */}
+            </form>
+          </Col>
+        </Row>
+        
+        <div className="table-responsive mt-2 pt-2">
           <table
-            className="table table-striped table-bordered responsive"
+            className="table py-3 mt-3  table-hover table striped align-middle table-bordered"
+            id='myTable'
             {...getTableProps()}
           >
-            <thead>
+            <thead className=''>
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => (
@@ -119,26 +288,81 @@ const StaffTable = () => {
                 </tr>
               ))}
             </thead>
-            <tbody {...getTableBodyProps()}>
-              {rows.map((row, i) => {
+            <tbody {...getTableBodyProps()} className='table-bordered' 
+            >
+              {page.map((row, i) => {
                 prepareRow(row);
-
+                
                 return (
-                  <tr {...row.getRowProps()}>
+                  <tr 
+                    {...row.getRowProps(getTrProps(row, i))}
+                  >
                     {row.cells.map((cell) => {
                       return (
-                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                        <td 
+                          {...cell.getCellProps()}
+                        >
+                          {cell.render("Cell")}
+                        </td>
                       );
                     })}
                   </tr>
-                );
-              })}
+                )
+              }
+              )}
             </tbody>
           </table>
         </div>
+
+        <Pagination>
+          <div className='pagination mt-1 pt-1'>
+            <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+              {'<<'}
+            </button>{' '}
+            <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+              {'<'}
+            </button>{' '}
+            <button onClick={() => nextPage()} disabled={!canNextPage}>
+              {'>'}
+            </button>{' '}
+            <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+              {'>>'}
+            </button>{' '}
+            <span style={{paddingTop: "2.5px"}} >
+              Page{' '}
+              <strong>
+                {pageIndex + 1} of {pageOptions.length}
+              </strong>{' '}
+            </span>
+            <span>
+              | Go to page:{' '}
+              <input
+                type="number"
+                defaultValue={pageIndex + 1}
+                onChange={e => {
+                  const page = e.target.value ? Number(e.target.value) - 1 : 0
+                  gotoPage(page)
+                }}
+                style={{ width: '100px' }}
+              />
+            </span>{' '}
+            <select
+              value={pageSize}
+              onChange={e => {
+                setPageSize(Number(e.target.value))
+              }}
+            >
+              {[10, 20, 30, 40, 50].map(pageSize => (
+                <option key={pageSize} value={pageSize}>
+                  Show {pageSize}
+                </option>
+              ))}
+            </select>
+          </div>
+        </Pagination>
+        
       </ContainerWrapper>
     </React.Fragment>
-  );
-};
+)}
 
-export default StaffTable;
+export default DealsTable;

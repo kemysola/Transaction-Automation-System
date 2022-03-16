@@ -94,7 +94,7 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                 </MenuItem> 
 
                 <MenuItem className="subMenu">
-                  <Link to ='/dashboard' style={{color:'#237cbf'}}>
+                  <Link to ='/execution' style={{color:'#237cbf'}}>
                     Execution Dashboard
                   </Link>
                 </MenuItem>
