@@ -5,6 +5,7 @@ import { FiEdit } from "react-icons/fi";
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Service from "../../../Services/Service";
+import Filters from './Filters';
 
 const ContainerWrapper = styled.div`
 font-size:10px;
@@ -60,7 +61,18 @@ const GlobalFilter =({
                   onChange(e.target.value);
               }}
               placeholder={`Search ${count} records`}
-    
+          />
+          {' to '}
+          <input 
+              className="form-control"
+              type="date"
+              style={{ outline: 'none', border: '1px solid black', padding: '4.5px', marginTop: '7px', marginRight: '2px' }}
+              value={value || ""}
+              onChange={e => {
+                  setValue(e.target.value);
+                  onChange(e.target.value);
+              }}
+              placeholder={`Search ${count} records`}
           />
       </span>
   )
@@ -198,10 +210,19 @@ const DealsTable = (props) => {
     };
   }
 
+  const filterTypes = useMemo(() => ({
+    dateFilter: (rows, id, filterValue) => {
+      return rows = rows.filter(row => {
+        return new Date(row.values.data) >= filterValue[0] && new Date(rows.values.date) <= filterValue[1];
+      })
+    }
+  }),
+    []
+  )
+
   const {
     getTableProps,
     getTableBodyProps,
-    getRowProps,
     headerGroups,
     prepareRow,
     page,
@@ -213,12 +234,14 @@ const DealsTable = (props) => {
     state,
     setGlobalFilter,
     preGlobalFilteredRows,
+    setFilter,
   } = useTable(
       {
         columns,
         data: deals,
         initialState: { pageIndex: 0 },
-        getRowProps: getTrProps()
+        getRowProps: getTrProps(),
+        filterTypes,
       },
       useGlobalFilter,
       useFilters,
@@ -233,28 +256,11 @@ const DealsTable = (props) => {
     <React.Fragment>
       <ContainerWrapper>
         <Row>
-          {/* <Col sm={4}className='d-flex justify-content-between'  >
-          <small style={{fontSize:'12px',paddingTop:'10px'}}>
-            All ({deals.length})
-            </small>
-          <a className="vr" />
-          <small style={{fontSize:'12px',paddingTop:'10px'}}>
-            Trash (0) 
-            </small>
-          <div
-          className="vr" />
-          <small style={{fontSize:'12px',paddingTop:'10px'}}>
-            Bulk Actions
-            </small>
-          </Col>
-          <Col sm={12} lg={4} size="sm" className='d-flex justify-content-center'>
-          <Button className=' ' size='sm' style={{backgroundColor: "green", border:'none', marginRight: '1em',padding:'5px'}}>           Apply
-          </Button>
-          <Button className='py-0' size='sm'>
-            Download
-          </Button>
-          </Col> */}
           <Col sm={12} lg={4}>
+            {/* Filter by Date */}
+            <Filters 
+              setFilter={setFilter}
+            />
             <form className='pt-1'>
               <label>Start Date:</label>
               <input type="date" name="startDate" id="startDate" />
@@ -266,7 +272,6 @@ const DealsTable = (props) => {
                 globalFilter={state.globalFilter}
                 setGlobalFilter={setGlobalFilter}
               />
-              {/* <Button className='py-0 btn-outline-none text-dark btn-light' style={{border:'1px solid black',padding:'none'}} >Search</Button> */}
             </form>
           </Col>
         </Row>
@@ -360,7 +365,6 @@ const DealsTable = (props) => {
             </select>
           </div>
         </Pagination>
-        
       </ContainerWrapper>
     </React.Fragment>
 )}
