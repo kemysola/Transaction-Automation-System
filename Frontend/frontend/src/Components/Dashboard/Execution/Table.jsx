@@ -12,8 +12,12 @@ font-size:10px;
 margin-top: 0.55rem;
 background:white;
 padding: 1rem 2rem;
-border-radius: 15px;
+border-radius: 10px;
 `;
+
+const TableWrapper = styled.div`
+  margin-top: 90px
+`
 
 const ButtonWrapper = styled.button`
   color:white;
@@ -21,15 +25,19 @@ const ButtonWrapper = styled.button`
   border: 1px solid white;
   padding: 2px 20px;
   font-size:13px;
-  margin: 10px;
+  margin: 40px;
+  height: 30px;
   border-radius: 3px
 `;
 
 const DateWrapper = styled.button`
   display: flex;
-  align-items: end;
+  align-items: center;
   background: white;
   border: none;
+  justify-content: center;
+  position: absolute;
+  right: 25px;
 `;
 
 const Pagination = styled.div`
@@ -244,14 +252,14 @@ const DealsTable = (props) => {
           <Row>
             <Col>
               <Form.Group className="mb-0 mt-2 pt-2 pb-1">
-                <Form.Label>Start Date</Form.Label>
+                <Form.Label style={{fontSize: "12px"}}>Start Date</Form.Label>
                 <Form.Control size="sm" type="date" value={date.start_date} onChange={handleInputChange} name='start_date' />
               </Form.Group>
             </Col>
 
             <Col>
               <Form.Group className="mb-0 mt-2 pt-2 pb-1">
-                <Form.Label>End Date</Form.Label>
+                <Form.Label style={{fontSize: "12px"}}>End Date</Form.Label>
                 <Form.Control size="sm" type="date" value={date.end_date} onChange={handleInputChange} name='end_date' />
               </Form.Group>
             </Col>
@@ -260,52 +268,55 @@ const DealsTable = (props) => {
               <ButtonWrapper onClick={saveDate}>
                 Submit
               </ButtonWrapper>
+              {/* <button onClick={saveDate}>Submit</button> */}
             </Col>
           </Row>
         </DateWrapper>
         
-        <div className="table-responsive mt-2 pt-2">
-          <table
-            className="table py-3 mt-3  table-hover table striped align-middle table-bordered"
-            id='myTable'
-            {...getTableProps()}
-          >
-            <thead className=''>
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th {...column.getHeaderProps()}>
-                      {column.render("Header")}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody {...getTableBodyProps()} className='table-bordered' 
+        <TableWrapper>
+          <div className="table-responsive mt-2 pt-2">
+            <table
+              className="table py-3 mt-3  table-hover table striped align-middle table-bordered"
+              id='myTable'
+              {...getTableProps()}
             >
-              {page.map((row, i) => {
-                prepareRow(row);
-                
-                return (
-                  <tr 
-                    {...row.getRowProps(getTrProps(row, i))}
-                  >
-                    {row.cells.map((cell) => {
-                      return (
-                        <td 
-                          {...cell.getCellProps()}
-                        >
-                          {cell.render("Cell")}
-                        </td>
-                      );
-                    })}
+              <thead className=''>
+                {headerGroups.map((headerGroup) => (
+                  <tr {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map((column) => (
+                      <th {...column.getHeaderProps()}>
+                        {column.render("Header")}
+                      </th>
+                    ))}
                   </tr>
-                )
-              }
-              )}
-            </tbody>
-          </table>
-        </div>
+                ))}
+              </thead>
+              <tbody {...getTableBodyProps()} className='table-bordered' 
+              >
+                {page.map((row, i) => {
+                  prepareRow(row);
+                  
+                  return (
+                    <tr 
+                      {...row.getRowProps(getTrProps(row, i))}
+                    >
+                      {row.cells.map((cell) => {
+                        return (
+                          <td 
+                            {...cell.getCellProps()}
+                          >
+                            {cell.render("Cell")}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  )
+                }
+                )}
+              </tbody>
+            </table>
+          </div>
+        </TableWrapper>
 
         <Pagination>
           <div className='pagination mt-1 pt-1'>

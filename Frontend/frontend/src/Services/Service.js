@@ -21,8 +21,6 @@ const createDeal = data => { // create new deal/transaction
 };
 
 const updateDeal = (id, data) => { // update deal information
-    console.log("data is", data)
-    console.log("data is", typeof(data.greenA))
     return axios.put(`transaction/update/${id}`, data);
 };
 
@@ -32,7 +30,6 @@ const getDealById = id => { // get deal by id, for privileged users
 
 const getMyDeals = () => { // get current users deals
     return axios.get("transaction/my_deals");
-    // console.log("header is" + axios.)
 };
 
 const getAllDeals = () => { // get all deals, for privileged users only

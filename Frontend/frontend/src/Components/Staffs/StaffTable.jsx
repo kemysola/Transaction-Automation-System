@@ -228,8 +228,8 @@ const StaffTable = () => {
               <tbody {...getTableBodyProps()} className='table-bordered'>
                 {rows.map((row, i) => {
                   prepareRow(row);
-                  console.log(row)
-                  console.log(i)
+                  // console.log(row)
+                  // console.log(i)
                   return (
                     <tr {...row.getRowProps()}>
                       {row.cells.map((cell) => {
