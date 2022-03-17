@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, ProgressBar, Card } from "react-bootstrap";
 import styled from "styled-components";
-import GuarPipe from "./GuarPipe";
+import Table from "../Table";
 import Stats from "./Stats";
 import Service from "../../../../Services/Service";
 import {
@@ -470,7 +470,7 @@ export default function Progress() {
         </Row>
       </Container>
       <br />
-      <GuarPipe/>
+      <Table />
     </React.Fragment>
   );
 }

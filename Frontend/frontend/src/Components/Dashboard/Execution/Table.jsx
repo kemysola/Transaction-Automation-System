@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Button, Row, Col} from 'react-bootstrap';
+import { Button, Row, Col, Form} from 'react-bootstrap';
 import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters } from "react-table";
 import { FiEdit } from "react-icons/fi";
 import { useHistory } from 'react-router-dom';
@@ -13,6 +13,23 @@ margin-top: 0.55rem;
 background:white;
 padding: 1rem 2rem;
 border-radius: 15px;
+`;
+
+const ButtonWrapper = styled.button`
+  color:white;
+  background: green;
+  border: 1px solid white;
+  padding: 2px 20px;
+  font-size:13px;
+  margin: 10px;
+  border-radius: 3px
+`;
+
+const DateWrapper = styled.button`
+  display: flex;
+  align-items: end;
+  background: white;
+  border: none;
 `;
 
 const Pagination = styled.div`
@@ -36,49 +53,13 @@ const Pagination = styled.div`
   }
 `
 
-//Define a default UI for filtering
-const GlobalFilter =({
-  preGlobalFilteredRows,
-  globalFilter,
-  setGlobalFilter,
-}) => {
-  const count = preGlobalFilteredRows.length
-  const [value, setValue] = useState(globalFilter)
-  const onChange = useAsyncDebounce(value => {
-      setGlobalFilter(value || undefined)
-  }, 200)
-
-  return (
-      <span>
-          {/* Search:{' '} */}
-          <input 
-              className="form-control"
-              type="date"
-              style={{ outline: 'none', border: '1px solid black', padding: '4.5px', marginTop: '7px', marginRight: '2px' }}
-              value={value || ""}
-              onChange={e => {
-                  setValue(e.target.value);
-                  onChange(e.target.value);
-              }}
-              placeholder={`Search ${count} records`}
-          />
-          {' to '}
-          <input 
-              className="form-control"
-              type="date"
-              style={{ outline: 'none', border: '1px solid black', padding: '4.5px', marginTop: '7px', marginRight: '2px' }}
-              value={value || ""}
-              onChange={e => {
-                  setValue(e.target.value);
-                  onChange(e.target.value);
-              }}
-              placeholder={`Search ${count} records`}
-          />
-      </span>
-  )
-}
-
 const DealsTable = (props) => {
+  const initialDateState = {
+    start_date: "",
+    end_date: "",
+  };
+
+  const [date, setDate] = useState(initialDateState);
   const [deals, setDeals] = useState([]);
   const dealsRef = useRef();
   dealsRef.current = deals;
@@ -88,12 +69,33 @@ const DealsTable = (props) => {
   }, []); 
 
   const retrieveDeals = () => {
-    Service.getAllDeals()
+    let start_date = "2022-02-17"
+    let end_date = "2022-02-17"
+    Service.getDealByDate(start_date, end_date)
       .then((response) => {
-        setDeals(response.data.deals);
+        setDeals(response.data.records);
       })
       .catch((e) => {
         console.log(e);
+      });
+  };
+
+  const handleInputChange = event => {
+    const { name, value } = event.target;
+    setDate({...date, [name]: value});
+  }
+
+  const saveDate = (e) => {
+    e.preventDefault()
+    let start_date = date.start_date
+    let end_date = date.end_date
+
+    Service.getDealByDate(start_date, end_date)
+      .then((response) => {
+        setDeals(response.data.records);
+      })
+      .catch((e) => {
+        console.log("Invalid Dates");
       });
   };
 
@@ -210,16 +212,6 @@ const DealsTable = (props) => {
     };
   }
 
-  const filterTypes = useMemo(() => ({
-    dateFilter: (rows, id, filterValue) => {
-      return rows = rows.filter(row => {
-        return new Date(row.values.data) >= filterValue[0] && new Date(rows.values.date) <= filterValue[1];
-      })
-    }
-  }),
-    []
-  )
-
   const {
     getTableProps,
     getTableBodyProps,
@@ -231,20 +223,13 @@ const DealsTable = (props) => {
     pageOptions, pageCount, gotoPage,
     nextPage, previousPage, setPageSize,
     state: { pageIndex, pageSize },
-    state,
-    setGlobalFilter,
-    preGlobalFilteredRows,
-    setFilter,
   } = useTable(
       {
         columns,
         data: deals,
         initialState: { pageIndex: 0 },
         getRowProps: getTrProps(),
-        filterTypes,
       },
-      useGlobalFilter,
-      useFilters,
       useResizeColumns,
       useFlexLayout,
       usePagination,
@@ -255,26 +240,29 @@ const DealsTable = (props) => {
   return (
     <React.Fragment>
       <ContainerWrapper>
-        <Row>
-          <Col sm={12} lg={4}>
-            {/* Filter by Date */}
-            <Filters 
-              setFilter={setFilter}
-            />
-            <form className='pt-1'>
-              <label>Start Date:</label>
-              <input type="date" name="startDate" id="startDate" />
+        <DateWrapper>
+          <Row>
+            <Col>
+              <Form.Group className="mb-0 mt-2 pt-2 pb-1">
+                <Form.Label>Start Date</Form.Label>
+                <Form.Control size="sm" type="date" value={date.start_date} onChange={handleInputChange} name='start_date' />
+              </Form.Group>
+            </Col>
 
-              <label>End Date:</label>
-              <input type="date" name="endDate" id="endDate" />
-            <GlobalFilter
-                preGlobalFilteredRows={preGlobalFilteredRows}
-                globalFilter={state.globalFilter}
-                setGlobalFilter={setGlobalFilter}
-              />
-            </form>
-          </Col>
-        </Row>
+            <Col>
+              <Form.Group className="mb-0 mt-2 pt-2 pb-1">
+                <Form.Label>End Date</Form.Label>
+                <Form.Control size="sm" type="date" value={date.end_date} onChange={handleInputChange} name='end_date' />
+              </Form.Group>
+            </Col>
+
+            <Col >
+              <ButtonWrapper onClick={saveDate}>
+                Submit
+              </ButtonWrapper>
+            </Col>
+          </Row>
+        </DateWrapper>
         
         <div className="table-responsive mt-2 pt-2">
           <table
