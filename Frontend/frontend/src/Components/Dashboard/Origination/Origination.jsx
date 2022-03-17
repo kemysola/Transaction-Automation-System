@@ -10,7 +10,6 @@ const ViewWrapper = styled.div`
   background: #eff1f1;
   margin:0;
   padding: 0 10px;
-
 `;
 
 const Origination =()=> {
