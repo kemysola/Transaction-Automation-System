@@ -43,9 +43,10 @@ const getAllStaff = () => { // get all staff, for privileged users only
     return axios.get("staff/all_staff");
 };
 
-const getClient = () => { // get client name when not specified, for privileged users only
-    return axios.get("/report/2022-02-17/2022-02-17/''");
+const getClient = (start_date, end_date, clientname) => { // get client name when not specified, for privileged users only
+    return axios.get(`report/${start_date}/${end_date}/${clientname}`);
 };
+
 
 export default {
     LoginStaff,

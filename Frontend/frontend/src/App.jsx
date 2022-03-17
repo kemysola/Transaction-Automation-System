@@ -27,6 +27,11 @@ import Table from './Components/Dashboard/Execution/Table';
 export default function App() {
   return (
     <React.Fragment>
+       {/* <GlobalFilter
+          preGlobalFilteredRows={preGlobalFilteredRows}
+          globalFilter={state.globalFilter}
+          setGlobalFilter={setGlobalFilter}
+        /> */}
       <Switch>
         <Route exact path="/">
           <Home />
