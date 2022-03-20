@@ -56,22 +56,20 @@ const AddDeal = () => {
     feeLetter: null,
     expectedClose: null,
     actualClose: null,
-    greenA: false,
-    greenB: false,
-    greenC: false,
-    greenD: false,
-    greenE: false,
-    greenF: false,
-    amberA: false,
-    amberB: false,
-    amberC: false,
-    amberD: false,
-    amberE: false,
-    redA: true,
-    redB: true,
-    redC: true,
-    redD: false,
-    redE: false,
+    greenA: "",
+    greenB: "",
+    greenC: "",
+    greenD: "",
+    greenE: "",
+    greenF: "",
+    amberA: "",
+    amberB: "",
+    amberC: "",
+    amberD: "",
+    amberE: "",
+    redA: "",
+    redB: "",
+    redC: "",
     structuringFeeAmount: 0,
     structuringFeeAdvance: 0,
     guaranteeFee: 0,
@@ -136,8 +134,6 @@ const AddDeal = () => {
 
   }
 
-
-
   const handleInputChange = event => { // function to save user data to deal state
     const { name, value } = event.target;
     setDeal({ ...deal, [name]: value });
@@ -179,22 +175,20 @@ const AddDeal = () => {
       "feeLetter": deal.feeLetter,
       "expectedClose": deal.expectedClose,
       "actualClose": deal.actualClose,
-      "greenA": deal.greenA,
-      "greenB": deal.greenB,
-      "greenC": deal.greenC,
-      "greenD": deal.greenD,
-      "greenE": deal.greenE,
-      "greenF": deal.greenF,
-      "amberA": deal.amberA,
-      "amberB": deal.amberB,
-      "amberC": deal.amberC,
-      "amberD": deal.amberD,
-      "amberE": deal.amberE,
-      "redA": deal.redA,
-      "redB": deal.redB,
-      "redC": deal.redC,
-      "redD": deal.redD,
-      "redE": deal.redE,
+      "greenA": JSON.parse(deal.greenA),
+      "greenB": JSON.parse(deal.greenB),
+      "greenC": JSON.parse(deal.greenC),
+      "greenD": JSON.parse(deal.greenD),
+      "greenE": JSON.parse(deal.greenE),
+      "greenF": JSON.parse(deal.greenF),
+      "amberA": JSON.parse(deal.amberA),
+      "amberB": JSON.parse(deal.amberB),
+      "amberC": JSON.parse(deal.amberC),
+      "amberD": JSON.parse(deal.amberD),
+      "amberE": JSON.parse(deal.amberE),
+      "redA": JSON.parse(deal.redA),
+      "redB": JSON.parse(deal.redB),
+      "redC": JSON.parse(deal.redC),
       "structuringFeeAmount": +deal.structuringFeeAmount,
       "structuringFeeAdvance": +deal.structuringFeeAdvance,
       "guaranteeFee": +deal.guaranteeFee,
@@ -278,7 +272,7 @@ const AddDeal = () => {
                             <Form.Label>Note</Form.Label> <button type="button" onClick={handleNoteAdd}>Add</button>
                             {noteList.map((singleNote, index) => (
                               <Form.Control  as='textarea'
-                              size="sm" as='textarea' value={singleNote.note} name='note' onChange={(e) => handleNoteChange(e, index)}
+                              size="sm" value={singleNote.note} name='note' onChange={(e) => handleNoteChange(e, index)}
                                 required />
                             ))}
                           </Form.Group>
@@ -534,8 +528,8 @@ const AddDeal = () => {
                                         <Form.Label style={{ paddingRight: "1rem" }}>Mandate Letter signed:</Form.Label>
                                       </Col>
                                       <Col sm={6}>
-                                        <Form.Check inline label="Yes" type="radio" name="redA" value={deal.redA} onChange={handleInputChange} />
-                                        <Form.Check inline label="No" type="radio" name="redA" value={deal.redA} onChange={handleInputChange} />
+                                        <Form.Check inline label="Yes" type="radio" name="redA" value={true} onChange={handleInputChange} />
+                                        <Form.Check inline label="No" type="radio" name="redA" value={false} onChange={handleInputChange} />
                                       </Col>
                                     </Row>
                                   </Form.Group>
@@ -549,8 +543,8 @@ const AddDeal = () => {
 
                                       </Col>
                                       <Col sm={6}>
-                                        <Form.Check inline label="Yes" type="radio" name="redB" value={deal.redB} onChange={handleInputChange}  />
-                                        <Form.Check inline label="No" type="radio" name="redB" value={deal.redB} onChange={handleInputChange} />
+                                        <Form.Check inline label="Yes" type="radio" name="redB" value={true} onChange={handleInputChange}  />
+                                        <Form.Check inline label="No" type="radio" name="redB" value={false} onChange={handleInputChange} />
                                       </Col>
                                     </Row>
                                   </Form.Group>
@@ -566,8 +560,8 @@ const AddDeal = () => {
                                       </Col>
 
                                       <Col sm={6}>
-                                        <Form.Check inline label="Yes" type="radio" name="redC" value={deal.redC} onChange={handleInputChange}  />
-                                        <Form.Check inline label="No" type="radio" name="redC" value={deal.redC} onChange={handleInputChange} />
+                                        <Form.Check inline label="Yes" type="radio" name="redC" value={true} onChange={handleInputChange}  />
+                                        <Form.Check inline label="No" type="radio" name="redC" value={false} onChange={handleInputChange} />
                                       </Col>
                                     </Row>
                                   </Form.Group>
@@ -597,8 +591,8 @@ const AddDeal = () => {
                                           <Form.Label style={{ paddingRight: "1rem" }}>Mandate Letter signed:</Form.Label>
                                         </Col>
                                         <Col sm={6}>
-                                          <Form.Check inline label="Yes" type="radio" name="amberA" value={deal.amberA} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="amberA" value={deal.amberA} onChange={handleInputChange}  />
+                                          <Form.Check inline label="Yes" type="radio" name="amberA" value={true} onChange={handleInputChange} />
+                                          <Form.Check inline label="No" type="radio" name="amberA" value={false} onChange={handleInputChange}  />
                                         </Col>
                                       </Row>
                                     </Form.Group>
@@ -611,8 +605,8 @@ const AddDeal = () => {
                                           <Form.Label style={{ paddingRight: "1rem" }}>Transaction has obtained Credit Committe approval:</Form.Label>
                                         </Col>
                                         <Col sm={6}>
-                                          <Form.Check inline label="Yes" type="radio" name="amberB" value={deal.amberB} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="amberB" value={deal.amberB} onChange={handleInputChange}  />
+                                          <Form.Check inline label="Yes" type="radio" name="amberB" value={true} onChange={handleInputChange} />
+                                          <Form.Check inline label="No" type="radio" name="amberB" value={false} onChange={handleInputChange}  />
 
                                         </Col>
                                       </Row>
@@ -626,8 +620,8 @@ const AddDeal = () => {
                                           <Form.Label style={{ paddingRight: "1rem" }}>Professional Parties to the Bond issue appointed or selected:</Form.Label>
                                         </Col>
                                         <Col sm={6}>
-                                          <Form.Check inline label="Yes" type="radio" name="amberC" value={deal.amberC} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="amberC" value={deal.amberC} onChange={handleInputChange}  />
+                                          <Form.Check inline label="Yes" type="radio" name="amberC" value={true} onChange={handleInputChange} />
+                                          <Form.Check inline label="No" type="radio" name="amberC" value={false} onChange={handleInputChange}  />
                                         </Col>
                                       </Row>
                                     </Form.Group>
@@ -644,8 +638,8 @@ const AddDeal = () => {
                                   </Col>
 
                                   <Col sm={6}>
-                                    <Form.Check inline label="Yes" type="radio" name="amberD" value={deal.amberD} onChange={handleInputChange} />
-                                    <Form.Check inline label="No" type="radio" name="amberD" value={deal.amberD} onChange={handleInputChange} />
+                                    <Form.Check inline label="Yes" type="radio" name="amberD" value={true} onChange={handleInputChange} />
+                                    <Form.Check inline label="No" type="radio" name="amberD" value={false} onChange={handleInputChange} />
                                   </Col>
                                 </Row>
                               </Form.Group>
@@ -658,8 +652,8 @@ const AddDeal = () => {
                                     <Form.Label style={{ paddingRight: "1rem" }}>All Materials CPs with timelines for completion agreed with the client:</Form.Label>
                                   </Col>
                                   <Col sm={6}>
-                                    <Form.Check inline label="Yes" type="radio" name="amberE" value={deal.amberE} onChange={handleInputChange} />
-                                    <Form.Check inline label="No" type="radio" name="amberE" value={deal.amberE} onChange={handleInputChange}/>
+                                    <Form.Check inline label="Yes" type="radio" name="amberE" value={true} onChange={handleInputChange} />
+                                    <Form.Check inline label="No" type="radio" name="amberE" value={false} onChange={handleInputChange}/>
                                   </Col>
                                 </Row>
                               </Form.Group>
@@ -692,8 +686,8 @@ const AddDeal = () => {
 
                                         </Col >
                                         <Col sm={6}>
-                                          <Form.Check inline label="Yes" type="radio" name="greenA" value={deal.greenA} onChange={handleInputChange}  />
-                                          <Form.Check inline label="No" type="radio" name="greenA" value={deal.greenA} onChange={handleInputChange} />
+                                          <Form.Check inline label="Yes" type="radio" name="greenA" value={true} onChange={handleInputChange}  />
+                                          <Form.Check inline label="No" type="radio" name="greenA" value={false} onChange={handleInputChange} />
                                         
                                         </Col>
                                       </Row>
@@ -707,8 +701,8 @@ const AddDeal = () => {
                                           <Form.Label style={{ paddingRight: "1rem" }}>Guarantee Document in agreed form:</Form.Label>
                                         </Col>
                                         <Col sm={6}>
-                                          <Form.Check inline label="Yes" type="radio" name="greenB" value={deal.greenB} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="greenB" value={deal.greenB} onChange={handleInputChange}  />
+                                          <Form.Check inline label="Yes" type="radio" name="greenB" value={true} onChange={handleInputChange} />
+                                          <Form.Check inline label="No" type="radio" name="greenB" value={false} onChange={handleInputChange}  />
                                         </Col>
                                       </Row>
                                     </Form.Group>
@@ -721,8 +715,8 @@ const AddDeal = () => {
                                           <Form.Label style={{ paddingRight: "1rem" }}>Professional Parties to the Bond Issue appointed or selected:</Form.Label>
                                         </Col>
                                         <Col sm={6}>
-                                          <Form.Check inline label="Yes" type="radio" name="greenC" value={deal.greenC} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="greenC" value={deal.greenC} onChange={handleInputChange} />
+                                          <Form.Check inline label="Yes" type="radio" name="greenC" value={true} onChange={handleInputChange} />
+                                          <Form.Check inline label="No" type="radio" name="greenC" value={false} onChange={handleInputChange} />
                                         </Col>
                                       </Row>
                                     </Form.Group>
@@ -736,8 +730,8 @@ const AddDeal = () => {
                                         </Col>
 
                                         <Col sm={6}>
-                                          <Form.Check inline label="Yes" type="radio" name="greenD" value={deal.greenD} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="greenD" value={deal.greenD} onChange={handleInputChange} />
+                                          <Form.Check inline label="Yes" type="radio" name="greenD" value={true} onChange={handleInputChange} />
+                                          <Form.Check inline label="No" type="radio" name="greenD" value={false} onChange={handleInputChange} />
                                         </Col>
                                       </Row>
                                     </Form.Group>
@@ -752,8 +746,8 @@ const AddDeal = () => {
                                         </Col>
 
                                         <Col sm={6}>
-                                          <Form.Check inline label="Yes" type="radio" name="greenE" value={deal.greenE} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="greenE" value={deal.greenE} onChange={handleInputChange}  />
+                                          <Form.Check inline label="Yes" type="radio" name="greenE" value={true} onChange={handleInputChange} />
+                                          <Form.Check inline label="No" type="radio" name="greenE" value={false} onChange={handleInputChange}  />
                                         </Col>
                                       </Row>
                                     </Form.Group>
@@ -767,8 +761,8 @@ const AddDeal = () => {
                                           <Form.Label style={{ paddingRight: "1rem" }}>Financial Close expected within 3-6 months:</Form.Label>
                                         </Col>
                                         <Col sm={6}>
-                                          <Form.Check inline label="Yes" type="radio" name="greenF" value={deal.greenF} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="greenF" value={deal.greenF} onChange={handleInputChange} />
+                                          <Form.Check inline label="Yes" type="radio" name="greenF" value={true} onChange={handleInputChange} />
+                                          <Form.Check inline label="No" type="radio" name="greenF" value={false} onChange={handleInputChange} />
                                         </Col>
                                       </Row>
                                     </Form.Group>
