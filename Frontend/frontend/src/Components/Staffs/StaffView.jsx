@@ -18,7 +18,7 @@ export default function StaffView() {
             <Navbar />
             <ViewWrapper>
                 <Row >
-                    <Col sm={3} style={{ padding: '10px' }}>
+                    <Col sm={3} style={{padding:'10px 10px 10px 0px'}}>
                         <Sidenav />
                     </Col>
                     <Col sm={9} className='bg-light d-flex justify-content-center mr-2'>

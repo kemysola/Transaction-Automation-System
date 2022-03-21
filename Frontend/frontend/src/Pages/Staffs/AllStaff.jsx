@@ -20,7 +20,7 @@ export default function AllStaff() {
       <Navbar />
       <ViewWrapper>
         <Row>
-          <Col sm={3} style={{ padding: "10px" }}>
+          <Col sm={3} style={{padding:'10px 10px 10px 0px'}}>
             <SideNav2 />
           </Col>
           <Col sm={9} className='bg-light my-3'>
