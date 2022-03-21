@@ -165,8 +165,16 @@ const DealsTable = (props) => {
         accessor: "region",
       },
       {
-        Header: "Deal Size",
+        Header: "Deal Size(₦'bn)",
         accessor: "dealsize",
+        Cell: (props) => {
+          const amount = parseInt(props.row.original['dealsize'])
+          return (
+            <div>
+              {`${(amount / 1000000).toFixed(1)}`}
+            </div>
+          )
+        }
       },
       {
         Header: "Coupon(%)",
@@ -191,22 +199,92 @@ const DealsTable = (props) => {
       {
         Header: "Mandate Letter Date",
         accessor: "mandateletter",
+        Cell: (props) => {
+          const date = props.row.original['mandateletter']
+          if (date !== null) {
+            const expectedDate = new Date(date)
+            return (
+              <div>
+                {`${expectedDate.toISOString().slice(0, 10)}`}
+              </div>
+            )
+          }
+          return (
+            <div>-</div>
+          )
+        }
       },
       {
         Header: "Credit Committee Approval Date",
         accessor: "creditapproval",
+        Cell: (props) => {
+          const date = props.row.original['creditapproval']
+          if (date !== null) {
+            const expectedDate = new Date(date)
+            return (
+              <div>
+                {`${expectedDate.toISOString().slice(0, 10)}`}
+              </div>
+            )
+          }
+          return (
+            <div>-</div>
+          )
+        }
       },
       {
         Header: "Fee Letter Date",
         accessor: "feeletter",
+        Cell: (props) => {
+          const date = props.row.original['feeletter']
+          if (date !== null) {
+            const expectedDate = new Date(date)
+            return (
+              <div>
+                {`${expectedDate.toISOString().slice(0, 10)}`}
+              </div>
+            )
+          }
+          return (
+            <div>-</div>
+          )
+        }
       },
       {
         Header: "Expected Financial Close Date",
         accessor: "expectedclose",
+        Cell: (props) => {
+          const date = props.row.original['expectedclose']
+          if (date !== null) {
+            const expectedDate = new Date(date)
+            return (
+              <div>
+                {`${expectedDate.toISOString().slice(0, 10)}`}
+              </div>
+            )
+          }
+          return (
+            <div>-</div>
+          )
+        }
       },
       {
         Header: "Actual Financial Close Date",
         accessor: "actualclose",
+        Cell: (props) => {
+          const date = props.row.original['actualclose']
+          if (date !== null) {
+            const expectedDate = new Date(date)
+            return (
+              <div>
+                {`${expectedDate.toISOString().slice(0, 10)}`}
+              </div>
+            )
+          }
+          return (
+            <div>-</div>
+          )
+        }
       },
       {
         Header: "Structuring Fee Amount",
@@ -246,9 +324,16 @@ const DealsTable = (props) => {
 
   const getTrProps = (row, i) => {
     if (row){
+      // if deal category is yellow, return a warmer yellow color
+      if (`${deals[i].deal_category}` === "Yellow") {
+        return {
+          style: {
+            color: "#FFBF00"
+          }
+        }
+      }
       return {
         style: {
-          // background: "green",
           color: `${deals[i].deal_category}`
         }
       }

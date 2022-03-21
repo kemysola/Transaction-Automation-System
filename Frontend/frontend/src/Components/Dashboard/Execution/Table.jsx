@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Button, Row, Col, Form} from 'react-bootstrap';
+import { Row, Col, Form} from 'react-bootstrap';
 import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters } from "react-table";
-import { FiEdit } from "react-icons/fi";
-import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Service from "../../../Services/Service";
-import Filters from './Filters';
 
 const ContainerWrapper = styled.div`
 font-size:10px;

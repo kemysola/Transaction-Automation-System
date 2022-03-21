@@ -182,7 +182,7 @@ export default function Stats() {
             textAnchor={x > cx ? "start" : "end"}
             dominantBaseline="central"
           >
-            {`${(percent * 100).toFixed(2)}%`}
+            {`${(percent * 100).toFixed(1)}%`}
           </text>
         </>
       );
@@ -244,7 +244,7 @@ export default function Stats() {
                         cy="50%"
                         fill="#8884d8"
                         innerRadius={60}
-                        outerRadius={127}
+                        outerRadius={115}
                         paddingAngle={1}
                         isAnimationActive={false}
                         labelLine={false}
