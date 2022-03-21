@@ -11,7 +11,7 @@ const Main = () => {
         <Row>
           <Col sm={6} lg={7}>
             <div className="my-0">
-              <img src={logo1} alt="whiteLogo" width="250" />
+              <img src={logo1} alt="whiteLogo" width="180" />
             </div>
             <Container className="containerMargin">
               <div className="justify-content-center">
