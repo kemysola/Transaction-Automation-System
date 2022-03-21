@@ -25,13 +25,7 @@ export default function TransactionCards() {
       });
   };
 
-  // var red = data.reduce(function (filtered, arr) {
-  //     var someNewValue = arr.dealsize;
-  //     filtered.push(someNewValue);
-  //     // console.log(filtered)
-  //   return filtered;
-  // }, []);
-
+  
   var sumTotal = data.reduce(function (tot, arr) {
     return tot + parseFloat(arr.dealsize);
   }, 0);
