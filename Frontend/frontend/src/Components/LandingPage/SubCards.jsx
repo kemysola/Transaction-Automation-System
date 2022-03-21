@@ -11,6 +11,8 @@ import Stats from '../Dashboard/Management/Cards/Stats';
 
 export default function SubCards() {
     const [totalTransaction, setTotalTransaction] = useState([]);
+    const [data, setData] = useState([])
+    const [length, setLength] = useState([])
 
     useEffect(() => {
         retrieveDeals()
@@ -20,7 +22,8 @@ export default function SubCards() {
     const retrieveDeals = () => {
         Service.getAllDeals()
           .then((response) => {
-            setTotalTransaction(response.data.deals);
+            setData(response.data.deals);
+            
             
           })
           .catch((e) => {
@@ -28,7 +31,7 @@ export default function SubCards() {
           });
       };
 
-      var red = totalTransaction.reduce(function (filtered, arr) {
+      /*var red = totalTransaction.reduce(function (filtered, arr) {
         if (arr.deal_category === "Red") {
           var someNewValue = arr.dealsize;
           filtered.push(someNewValue);
@@ -64,14 +67,13 @@ export default function SubCards() {
     
       var greenTotal = green.reduce(function (tot, arr) {
         return tot + parseFloat(arr);
-      }, 0);
-    
-      
-     
-     
+      }, 0);*/
 
-      
-    
+      var sumTotal = data.reduce(function (tot, arr) {
+        return tot + parseFloat(arr.dealsize);
+      }, 0);
+
+
       
 
     return (
@@ -84,7 +86,7 @@ export default function SubCards() {
                                 <p className='d-flex justify-content-end ' style={{ marginRight: '1rem' }} ><BiReceipt /></p>
                                 <small style={{ color: '#1184C2' }} >Transactions</small>
                                 <br />
-                                <h5>{redTotal + greenTotal + amberTotal}</h5>
+                                <h5>{sumTotal}</h5>
                             </div>
                         </div>
                     </Col>
@@ -103,7 +105,7 @@ export default function SubCards() {
                             <div style={{ borderRight: '1px solid black' }}>
                                 <p className='d-flex justify-content-end ' style={{ marginRight: '1rem' }} ><FaRegHandshake /></p>
                                 <small style={{ color: '#1184C2' }} >Deals</small>
-                                <h5>{red.length + green.length +amber.length}</h5>
+                                <h5>{sumTotal}</h5>
                             </div>
                         </div>
                     </Col>

@@ -15,7 +15,7 @@ import NewText from "./Pages/Transactions/NewText";
 import AllStaff from "./Pages/Staffs/AllStaff";
 import "./App.css";
 import Home from "./Components/Home";
-import Testing from './Components/Transactions/transTest';
+//import Testing from './Components/Transactions/transTest';
 import Execution from "./Components/Dashboard/Execution/Execution";
 import StaffTable from "./Components/Staffs/StaffTable";
 import Verify from "./Components/Auth/Verify";
@@ -72,17 +72,9 @@ export default function App() {
         <Route path="/verify">
           <Verify />
         </Route>
-        <Route path='/ing'>
+        {/*<Route path='/ing'>
             <Testing />
-        </Route> 
-
-                {/* <Route path='/oya'>
-                    <Staffer />
-                </Route> */}
-
-                {/* <Route path='/stafftable'>
-                    <StaffTable />
-                </Route> */}
+  </Route> */}
         <Route path="/resetyourpassword">
           <Reset />
         </Route>
