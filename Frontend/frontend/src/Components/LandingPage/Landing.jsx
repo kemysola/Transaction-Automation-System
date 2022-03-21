@@ -19,7 +19,7 @@ const Landing = () => {
           <Col sm={3} style={{ padding: "10px" }}>
             <SideNav2 />
           </Col>
-          <Col sm={9}>
+          <Col sm={8}>
             <MainCards />
           </Col>
         </Row>

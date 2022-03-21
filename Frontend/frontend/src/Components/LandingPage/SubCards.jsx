@@ -4,8 +4,11 @@ import { BiReceipt } from 'react-icons/bi';
 import { GrGroup } from 'react-icons/gr';
 import { FaRegHandshake } from 'react-icons/fa';
 import { CgCalculator } from 'react-icons/cg'
+import {GrMoney} from 'react-icons/gr';
+import {GiMoneyStack} from 'react-icons/gi'
 import Service from '../../Services/Service';
 import Stats from '../Dashboard/Management/Cards/Stats';
+import { fontFamily } from '@mui/system';
 
 
 
@@ -13,11 +16,19 @@ export default function SubCards() {
     const [totalTransaction, setTotalTransaction] = useState([]);
     const [data, setData] = useState([])
     const [length, setLength] = useState([])
+    const [staff, setStaff] = useState([])
 
     useEffect(() => {
         retrieveDeals()
+        
 
     },[])
+
+    useEffect(() => {
+      retrieveStaff()
+      
+
+  },[])
 
     const retrieveDeals = () => {
         Service.getAllDeals()
@@ -31,47 +42,26 @@ export default function SubCards() {
           });
       };
 
-      /*var red = totalTransaction.reduce(function (filtered, arr) {
-        if (arr.deal_category === "Red") {
-          var someNewValue = arr.dealsize;
-          filtered.push(someNewValue);
-        }
-        return filtered;
-      }, []);
-    
-      var amber = totalTransaction.reduce(function (filtered, arr) {
-        if (arr.deal_category === "Yellow") {
-          var someNewValue = arr.dealsize;
-          filtered.push(someNewValue);
-        }
-        return filtered;
-      }, []);
-    
-      var green = totalTransaction.reduce(function (filtered, arr) {
-        if (arr.deal_category === "Green") {
-          var someNewValue = arr.dealsize;
-          filtered.push(someNewValue);
-        }
-        return filtered;
-      }, []);
-    
-      // ......... Return deal_category total ...............................................
-    
-      var redTotal = red.reduce(function (tot, arr) {
-        return tot + parseFloat(arr);
-      }, 0);
-    
-      var amberTotal = amber.reduce(function (tot, arr) {
-        return tot + parseFloat(arr);
-      }, 0);
-    
-      var greenTotal = green.reduce(function (tot, arr) {
-        return tot + parseFloat(arr);
-      }, 0);*/
+      const retrieveStaff = () => {
+        Service.getAllStaff()
+          .then((response) => {
+            console.log(response)
+            setStaff(response.data.staff);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      };
+
+      
 
       var sumTotal = data.reduce(function (tot, arr) {
         return tot + parseFloat(arr.dealsize);
       }, 0);
+
+      /*var sumTotalStaff = staff.reduce(function (tot, arr) {
+        return tot + parseFloat(arr.dealsize);
+      }, 0);*/
 
 
       
@@ -80,22 +70,30 @@ export default function SubCards() {
         <React.Fragment>
             <Container>
                 <Row className='mb-3' >
-                    <Col sm={3}>
+                    <Col sm={3} className='my-2' >
                         <div className='py-1'>
                             <div style={{ borderRight: '1px solid black' }}>
-                                <p className='d-flex justify-content-end ' style={{ marginRight: '1rem' }} ><BiReceipt /></p>
-                                <small style={{ color: '#1184C2' }} >Transactions</small>
+                                <h3 className='d-flex justify-content-end ' style={{ marginRight: '1rem', }}  width='500'><GrMoney /></h3>
+                                
+                                <small style={{ color: '#1184C2' ,fontFamily:'PT Serif'}} >
+                                  <b>TRANSACTIONS</b>
+                                  </small>
                                 <br />
-                                <h5>{sumTotal}</h5>
+                                <p style={{fontWeight:'bold', fontSize:'20px'}}>{`₦${(sumTotal / 1000000).toFixed(2)}bn`}</p>
                             </div>
                         </div>
                     </Col>
                     <Col sm={3} className='my-2'>
                         <div className='py-1'>
                             <div style={{ borderRight: '1px solid black' }}>
-                                <p className='d-flex justify-content-end ' style={{ marginRight: '1rem' }} ><GrGroup /></p>
-                                <small style={{ color: '#1184C2' }} >Staffs</small>
-                                <h5>3290000</h5>
+                                <h3 className='d-flex justify-content-end ' style={{ marginRight: '1rem'}} ><GrGroup/></h3>
+                                <small style={{ color: '#1184C2',fontFamily:'PT Serif' }} >
+                                  <b>
+                                  STAFFS
+                                  </b>
+                                  </small>
+                                  <br/>
+                                <p style={{fontWeight:'bold', fontSize:'20px'}}>{staff.length}</p>
                             </div>
 
                         </div>
@@ -103,18 +101,28 @@ export default function SubCards() {
                     <Col sm={3} className='my-2'>
                         <div className='py-1'>
                             <div style={{ borderRight: '1px solid black' }}>
-                                <p className='d-flex justify-content-end ' style={{ marginRight: '1rem' }} ><FaRegHandshake /></p>
-                                <small style={{ color: '#1184C2' }} >Deals</small>
-                                <h5>{sumTotal}</h5>
+                                <h3 className='d-flex justify-content-end ' style={{ marginRight: '1rem', fontFamily:'PT Serif' }} ><GiMoneyStack /></h3>
+                                <small style={{ color: '#1184C2',fontFamily:'PT Serif' }} >
+                                  <b>
+                                  DEALS
+                                  </b>
+                                  </small>
+                                  <br/>
+                                <p style={{fontWeight:'bold', fontSize:'20px'}}>{data.length}</p>
                             </div>
                         </div>
                     </Col>
                     <Col sm={3} className='my-2'>
                         <div className='py-1'>
                             <div style={{ borderRight: '1px solid black' }}>
-                                <p className='d-flex justify-content-end ' style={{ marginRight: '1rem' }} >< CgCalculator /></p>
-                                <small style={{ color: '#1184C2' }} >Budget</small>
-                                <h5>3290000</h5>
+                                <h3 className='d-flex justify-content-end ' style={{ marginRight: '1rem' ,fontFamily:'PT Serif'}} >< CgCalculator /></h3>
+                                <small style={{ color: '#1184C2',fontFamily:'PT Serif' }} >
+                                  <b>
+                                  BUDGET
+                                  </b>
+                                  <br/>
+                                  </small>
+                                <p style={{fontWeight:'bold', fontSize:'20px'}}>0</p>
                             </div>
 
                         </div>

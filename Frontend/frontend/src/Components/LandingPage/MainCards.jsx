@@ -32,15 +32,15 @@ const MainCards = () => {
         <React.Fragment>
             <Container>
                 <div className='title'>
-                    <p style={{ color: '#1184c2', fontWeight:"13px" }}>Welcome Back {userEmail}</p>
+                    <p style={{ color: '#1184c2', fontWeight:"13px" }}>Welcome Back <b>{userEmail}</b></p>
                 </div>
 
                 <Row >
-                    <Col sm={4} className='my-2'>
+                    <Col sm={4} className='my-1'>
                         <div className="bg-light py-2">
                             <li className='text-center' style={{ fontWeight: 'bold', listStyleType: 'none' }}>
-                                <Link to='#' style={{ textDecoration: "none", color: '#1184c2' }}>
-                                    Budget Manager
+                                <Link to='#' style={{ textDecoration: "none", color: '#1184c2', fontFamily:'PT Serif' }}>
+                                    BUDGET MANAGER
                                 </Link>
                             </li>
                             <div className='text-center text-success'>
@@ -49,12 +49,12 @@ const MainCards = () => {
                         </div>
 
                     </Col>
-                    <Col sm={4} className='my-2'>
+                    <Col sm={4} className='my-1'>
                         <div className="bg-light py-2">
                             <li className='text-center' style={{ fontWeight: 'bold', listStyleType: 'none' }}>
 
-                                <Link to='/dashboard' style={{ textDecoration: "none", color: '#1184C2' }}>
-                                    Analytics Module
+                                <Link to='/dashboard' style={{ textDecoration: "none", color: '#1184C2', fontFamily:'PT Serif' }}>
+                                    ANALYTICS MODULE
                                 </Link>
                             </li>
                             <div className='text-center text-success'>
@@ -64,11 +64,11 @@ const MainCards = () => {
 
 
                     </Col>
-                    <Col sm={4} className='my-2'>
+                    <Col sm={4} className='my-1'>
                         <div className="bg-light py-2">
                             <li className='text-center' style={{ fontWeight: 'bold', listStyleType: 'none' }}>
-                                <Link to='/newPages' style={{ textDecoration: "none", color: '#1184C2' }}>
-                                    Deal Manager
+                                <Link to='/newPages' style={{ textDecoration: "none", color: '#1184C2',fontFamily:'PT Serif' }}>
+                                    DEAL MANAGER
                                 </Link>
                             </li>
                             <div className='text-center text-success'>
