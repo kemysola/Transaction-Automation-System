@@ -5,6 +5,8 @@ import CheckButton from "react-validation/build/button";
 import AuthService from "../../../Services/auth.Service";
 import styled from "styled-components";
 import Form from "react-validation/build/form";
+import {AiOutlineMail} from 'react-icons/ai';
+import {RiLockPasswordLine} from 'react-icons/ri'
 import Input from "react-validation/build/input";
 import {
   Container,
@@ -19,9 +21,10 @@ import { useHistory } from "react-router-dom";
 
 const BorderDiv = styled.div`
   border-radius: 12px;
-  margin: 6.5rem 0.22rem;
+  margin: 1rem 0.12rem;
   font-size: 12px;
-  padding: 0.11rem 1.5rem;
+  padding: 0.11rem 1.4rem;
+  background:white;
 `;
 
 const required = (value) => {
@@ -97,9 +100,11 @@ const UserLogin = () => {
 
             <ReactForm group></ReactForm>
             <Col sm={12} className="pt-1 mt-1">
-              <label className="">Email Address</label>
+            <AiOutlineMail style={{color:'green', marginRight:'6px', fontSize:'1.2rem'}}/>
+
+              <label >  Email Address</label>
               <br />
-              <input value={email.name} style={{ width: "100%" }} />
+               <input value={ email.name} style={{ width: "100%", marginTop:'10px' }} />
             </Col>
             <Col sm={12}>
               <ReactForm.Group
@@ -108,13 +113,10 @@ const UserLogin = () => {
               >
                 <Row>
                   <Col sm={6} className="mt-1">
-                    <ReactForm.Label>Password</ReactForm.Label>
+                  <RiLockPasswordLine style={{color:'green', marginRight:'6px', fontSize:'1.2rem'}}/>
+                  <ReactForm.Label>Password</ReactForm.Label>
                   </Col>
-                  <Col sm={6}>
-                    <small className="d-flex justify-content-end">
-                      Forgot Your Password?
-                    </small>
-                  </Col>
+                  
                 </Row>
                 <Input
                   size="sm"
@@ -129,9 +131,8 @@ const UserLogin = () => {
             </Col>
 
             {/*--------------------------------------------------------------*/}
-            <Col sm={12} className="">
+            {/*<Col sm={12} className="">
               <ReactForm.Group>
-                <br></br>
                 <input
                   type="checkbox"
                   onChange={(e) => setChecked(e.target.checked)}
@@ -141,13 +142,12 @@ const UserLogin = () => {
                   Remember Me
                 </p>
               </ReactForm.Group>
-            </Col>
+  </Col>*/}
           </Row>
 
           {/*-----------------------------------------*/}
 
           <div className="">
-            <br />
             {loading && (
               <div>
                 <Spinner animation="border" variant="success" />
@@ -166,8 +166,6 @@ const UserLogin = () => {
                   fontWeight: "light",
                 }}
               />
-
-              <br />
 
               {message && (
                 <div className="form-group">

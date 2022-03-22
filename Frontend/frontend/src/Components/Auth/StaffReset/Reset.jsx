@@ -60,12 +60,36 @@ export default function Reset() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     form.current.validateAll();
-    if (newPassword !== confirmPassword) {
-      setMessage("no passwords do not match");
-      return;
+    if(oldPassword === newPassword){
+      setMessage('New Password must be different from old password')
+      return false;
     }
+    else if (newPassword !== confirmPassword){
+      setMessage('Password do not match')
+      return false;
+    }
+    else{
+      await AuthService.updatePassword(oldPassword, newPassword, user.name).then(
+        () => {
+          history.push("/");
+          window.location.reload();
+        },
+        (error) => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+          setMessage(resMessage);
+        }
+      )
+      return true;
 
-    await AuthService.updatePassword(oldPassword, newPassword, user.name).then(
+    }
+    
+    
+    /*await AuthService.updatePassword(oldPassword, newPassword, user.name).then(
       () => {
         history.push("/");
         window.location.reload();
@@ -79,7 +103,7 @@ export default function Reset() {
           error.toString();
         setMessage(resMessage);
       }
-    );
+    );*/
   };
   return (
     <React.Fragment>
@@ -98,7 +122,6 @@ export default function Reset() {
               >
                 <header style={{ color: "white" }}>
                   <h4>Reset Password</h4>
-                  {/*<p>Hi {user}</p>*/}
                 </header>
 
                 <Form onSubmit={handleSubmit} ref={form}>

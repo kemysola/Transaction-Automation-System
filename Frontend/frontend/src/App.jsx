@@ -15,23 +15,17 @@ import NewText from "./Pages/Transactions/NewText";
 import AllStaff from "./Pages/Staffs/AllStaff";
 import "./App.css";
 import Home from "./Components/Home";
-// import Testing from './Components/Transactions/Testing'
+//import Testing from './Components/Transactions/transTest';
 import Execution from "./Components/Dashboard/Execution/Execution";
 import StaffTable from "./Components/Staffs/StaffTable";
 import Verify from "./Components/Auth/Verify";
 import PasswordReset from "./Components/Auth/Reset/PasswordReset";
 import Reset from "./Components/Auth/StaffReset/Reset";
 import Updates from "./Pages/Staffs/Updates";
-import Table from './Components/Dashboard/Execution/Table';
 
 export default function App() {
   return (
     <React.Fragment>
-       {/* <GlobalFilter
-          preGlobalFilteredRows={preGlobalFilteredRows}
-          globalFilter={state.globalFilter}
-          setGlobalFilter={setGlobalFilter}
-        /> */}
       <Switch>
         <Route exact path="/">
           <Home />
@@ -48,9 +42,6 @@ export default function App() {
         <Route exact path="/staff">
           <StaffView />
         </Route>
-        {/* <Route exact path='/new_transactions'>
-                    <NewTransaction />
-                </Route> */}
         <Route exact path="/staffs">
           <AllStaff />
         </Route>
@@ -81,16 +72,9 @@ export default function App() {
         <Route path="/verify">
           <Verify />
         </Route>
-        {/* <Route path='/ing'>
-                    <Testing />
-                </Route> 
-                <Route path='/oya'>
-                    <Staffer />
-                </Route>
-
-                {/* <Route path='/stafftable'>
-                    <StaffTable />
-                </Route> */}
+        {/*<Route path='/ing'>
+            <Testing />
+  </Route> */}
         <Route path="/resetyourpassword">
           <Reset />
         </Route>
@@ -102,9 +86,6 @@ export default function App() {
         </Route>
         <Route exact path="/execution">
           <Execution />
-        </Route>
-        <Route path="/table">
-          <Table />
         </Route>
       </Switch>
     </React.Fragment>
