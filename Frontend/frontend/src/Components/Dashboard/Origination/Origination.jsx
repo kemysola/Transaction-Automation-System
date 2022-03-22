@@ -5,6 +5,8 @@ import SideNav from '../../LandingPage/SideNav2';
 import Navbar from '../../LandingPage/Navbar';
 import Card from './Cards/Cards';
 import StaffList from './stafflist/StaffList';
+import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters } from 'react-table'
+
 
 
 const ViewWrapper = styled.div`
