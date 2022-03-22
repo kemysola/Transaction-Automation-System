@@ -262,7 +262,7 @@ router.post("/first_onboard", async (req, res) => {
   }
 });
 
-/*Fetch all Deals(Priviledged Users only) */
+/*Fetch all Staffs(Priviledged Users only) */
 router.get('/all_staff', verifyTokenAndAdmin, async (req, res) => {
   const client = await pool.connect();
 
@@ -280,6 +280,37 @@ router.get('/all_staff', verifyTokenAndAdmin, async (req, res) => {
       }
       
   } catch (e) {
+      res.status(403).json({ Error: e.stack });
+  }finally{
+      client.release()
+    }
+
+});
+
+
+/*Fetch Staff by mail - priviledged users*/
+router.get('/:user_email',verifyTokenAndAdmin, async (req, res) => {
+  const client = await pool.connect();
+
+  try {
+      const staff_email = req.params.user_email;
+      const staff = await client.query(
+          "SELECT * FROM TB_TRS_USERS WHERE email = $1", [staff_email]);
+      if (staff) { 
+          // res.staff_info = staff
+          
+          // // convert notes field to list
+          // myArray = staff.rows
+          // myNotes = myArray.forEach(convertNotesFiledsToList)
+
+          res.status(200).send({
+              status: (res.statusCode = 200),
+              staffInfo: staff.rows
+          })
+      }
+      
+  } catch (e) {
+    console.log("#", e)
       res.status(403).json({ Error: e.stack });
   }finally{
       client.release()

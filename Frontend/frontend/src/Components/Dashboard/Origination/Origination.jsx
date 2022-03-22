@@ -21,7 +21,7 @@ const Origination =()=> {
             <Navbar/>
             <ViewWrapper/>
             <Row>
-                <Col sm={3} style={{padding: '10px'}}>
+                <Col sm={3} style={{padding:'10px 10px 10px 0px'}}>
                     <SideNav/>
                 </Col>
                 <Col sm={8}>
