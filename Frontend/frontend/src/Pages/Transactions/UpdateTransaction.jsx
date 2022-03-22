@@ -17,7 +17,7 @@ export default function NewTransaction() {
             <Navbar/>
             <ViewWrapper>
             <Row>
-                <Col sm={3} style={{padding:'10px'}}>
+                <Col sm={3} style={{padding:'10px 10px 10px 0px'}}>
                     <Sidenav/>
                 </Col>
                 <Col sm={7}> 
