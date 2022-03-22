@@ -253,6 +253,8 @@ function handlePrevChange() {
 
     console.log('red value', redA.current.value)
     console.log('red checked', redA.current.checked)
+    console.log('datata', deal)
+    console.log("deal data", deal[0].clientname)
 
   return (
     <React.Fragment>

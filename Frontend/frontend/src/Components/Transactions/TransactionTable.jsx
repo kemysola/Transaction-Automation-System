@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import Service from "../../Services/Service";
 
 const ContainerWrapper = styled.div`
-font-size:10px;
+font-size:11px;
 margin-top: 0.55rem;
 background:white;
 padding: 1rem 2rem;
@@ -49,7 +49,6 @@ export const GlobalFilter =({
 
   return (
       <span>
-          {/* Search:{' '} */}
           <input 
               className="form-control"
               style={{ outline: 'none', border: '1px solid black', padding: '2px', marginTop: '2px', marginRight: '2px' , width:'170px'}}
@@ -59,7 +58,6 @@ export const GlobalFilter =({
                   onChange(e.target.value);
               }}
               placeholder={`Search ${count} records`}
-    
           />
       </span>
   )
