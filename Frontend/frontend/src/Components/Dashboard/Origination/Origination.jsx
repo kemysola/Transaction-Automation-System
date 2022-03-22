@@ -4,6 +4,7 @@ import {Row,Col} from 'react-bootstrap'
 import SideNav from '../../LandingPage/SideNav2';
 import Navbar from '../../LandingPage/Navbar';
 import Card from './Cards/Cards';
+import StaffList from './stafflist/StaffList';
 
 
 const ViewWrapper = styled.div`
@@ -22,9 +23,10 @@ const Origination =()=> {
                     <SideNav/>
                 </Col>
                 <Col sm={8}>
-                    <Card/>
-                </Col>
-            </Row>
+                    <StaffList/>
+    </Col>
+                
+    </Row>
 
         </React.Fragment>
 
