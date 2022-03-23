@@ -62,6 +62,7 @@ const DealsTable = (props) => {
   const initialDateState = {
     start_date: "",
     end_date: "",
+    client_name: ""
   };
 
   const [date, setDate] = useState(initialDateState);
@@ -76,7 +77,8 @@ const DealsTable = (props) => {
   const retrieveDeals = () => {
     let start_date = "2022-02-17"
     let end_date = "2022-02-17"
-    Service.getDealByDate(start_date, end_date)
+    let client_name = "''"
+    Service.getDealByDate(start_date, end_date, client_name)
       .then((response) => {
         setDeals(response.data.records);
       })
@@ -258,6 +260,13 @@ const DealsTable = (props) => {
               <Form.Group className="mb-0 mt-2 pt-2 pb-1">
                 <Form.Label style={{fontSize: "12px"}}>End Date</Form.Label>
                 <Form.Control size="sm" type="date" value={date.end_date} onChange={handleInputChange} name='end_date' />
+              </Form.Group>
+            </Col>
+
+            <Col>
+              <Form.Group className="mb-0 mt-2 pt-2 pb-1">
+                <Form.Label style={{fontSize: "12px"}}>Client Name</Form.Label>
+                <Form.Control size="sm" type="text" value={date.client_name} onChange={handleInputChange} name='client_name' />
               </Form.Group>
             </Col>
 
