@@ -820,8 +820,8 @@ function handlePrevChange() {
 	    </div>
 
       
-    <div style={{ display: 'inlineblock'}}>
-      <ButtonWrapper type="submit" className='d-flex justify-content-end'  onClick={handleBack}>
+    <div className='d-flex justify-content-end'>
+      <ButtonWrapper style={{ backgroundColor: "grey", color:'white'}}  onClick={handleBack}>
           Back
       </ButtonWrapper>
 
