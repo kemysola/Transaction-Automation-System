@@ -1,5 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./style.css"
 import { Switch, Route } from "react-router-dom";
 import Main from "./Components/Auth/MainPage/Main";
 import Landing from "./Components/LandingPage/Landing";
@@ -12,7 +13,6 @@ import MgtView from "./Components/Dashboard/Management/ManagementView";
 import Origination from "./Components/Dashboard/Origination/Origination";
 import NewText from "./Pages/Transactions/NewText";
 import AllStaff from "./Pages/Staffs/AllStaff";
-import "./App.css";
 import Home from "./Components/Home";
 //import Testing from './Components/Transactions/transTest';
 import Execution from "./Components/Dashboard/Execution/Execution";

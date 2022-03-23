@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Container, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
 import Services from '../../Services/Service';
@@ -68,6 +68,21 @@ export default function NewStaff() {
     const [submitted, setSubmitted] = useState(false);
     const [response, setResponse] = useState(false);
     const [target, setTarget] = useState();
+    const [levels, setLevels] = useState([]);
+
+    useEffect(() => {
+        retrieveLevel();
+    }, [])
+
+    const retrieveLevel = () => {
+        Services.getLevel()
+        .then((response) => {
+            setLevels(response.data.levels);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+    };
 
     const handleInputChange = event => {
          // function to assign user's input to staff state
@@ -78,8 +93,6 @@ export default function NewStaff() {
     const handleRadioChange = event => {
         setTarget(event.target.value);
     };
-
-    // console.log("target is", target)
 
     const saveStaff = (e) => { // function to save user data and post to db
         e.preventDefault()
@@ -206,19 +219,18 @@ export default function NewStaff() {
                                                     </Form.Group>
                                                 </Col>
 
-                                                <Col sm={12}  className='mt-2 mb-3 pb-3 pt-2'>
-                                                    <Form.Group className="">
+                                                <Col sm={12}  className='mt-2 pt-2'>
+                                                    <Form.Group>
                                                         <Form.Label>Level</Form.Label>
                                                         <Form.Select size="sm" value={staff.level}  name='level' onChange={handleInputChange} required>
-                                                            <option>Select</option>
-                                                            <option value="CEO">CEO</option>
-                                                            <option value="VP">VP</option>
-                                                            <option value="AVP">AVP</option>
-                                                            <option value="Contract">Contract</option>
-                                                            <option value="Analyst">Analyst</option>
+                                                            <option value="">Select</option>
+                                                            {levels.map((level, i) => (
+                                                                <option key={levels[i].levelid} value={levels[i].stafflevel}>{levels[i].stafflevel}</option>
+                                                            ))}
                                                         </Form.Select>
                                                     </Form.Group>
                                                 </Col>
+
                                             </Row>
 
                                             <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button>
