@@ -565,14 +565,14 @@ function handlePrevChange() {
 {/*----------------------------------------------     ----------------------- --------------- */}
 
         <Tab eventKey="fourth" title="DEAL CATEGORY"  style={{fontSize:'12px'}}>
-            <br/>
+            {/* <br/>
           
         <Tabs defaultActiveKey="first1" className='text-secondary'>
         <Tab eventKey="first1" title="RED TRANSACTION CATEGORY" >
-            <br/>
+            <br/> */}
         <Container1>
         <div id='redCategory' className='pt-2 mt-1 mb-3 pb-3'>
-            <br/>
+            {/* <br/> */}
                     <PWrapper>
                       <h6 className="pt-1" style={{fontSize: "10px", color: "red"}}>Red Category</h6>
                     </PWrapper>
@@ -621,10 +621,10 @@ function handlePrevChange() {
 
                   </div>
                   </Container1>
-        </Tab>
+        {/* </Tab> */}
 
 {/*------------------------------------- ------------------------- ------------------------- */}
-        <Tab  eventKey="second1" title="AMBER TRANSACTION CATEGORY">
+        {/* <Tab  eventKey="second1" title="AMBER TRANSACTION CATEGORY"> */}
         <Container1>
         <div id='amberCategory' className='pt-2 mt-1 mb-3 pb-3'>
                     <PWrapper>
@@ -702,9 +702,9 @@ function handlePrevChange() {
                     </Col>
                   </div>
                   </Container1>
-        </Tab>
+        {/* </Tab> */}
 {/*-------------------------------------- --------------------------------------------------- */}
-        <Tab eventKey="green" title="GREEN TRANSACTION CATEGORY">
+        {/* <Tab eventKey="green" title="GREEN TRANSACTION CATEGORY"> */}
         <Container1>
           <div id='greenCategory' className='pt-2 mt-1 mb-2 pb-2'>
             <PWrapper>
@@ -812,11 +812,11 @@ function handlePrevChange() {
             </Form.Group>
           </div>
         </Container1>
-        </Tab>
-        </Tabs>
+        {/* </Tab> */}
+        {/* </Tabs> */}
         <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button>
         </Tab>   
-	    </Tabs>
+	    </Tabs> 
 	    </div>
 
       
