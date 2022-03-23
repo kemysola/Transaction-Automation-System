@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Service from "../../../Services/Service";
 
 const ContainerWrapper = styled.div`
-font-size:10px;
+font-size:11px;
 margin-top: 0.55rem;
 background:white;
 padding: 1rem 2rem;
