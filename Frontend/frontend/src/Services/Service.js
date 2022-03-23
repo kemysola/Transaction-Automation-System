@@ -44,8 +44,8 @@ const getClient = (start_date, end_date, clientname) => { // get client name whe
     return axios.get(`report/${start_date}/${end_date}/${clientname}`);
 };
 
-const getDealByDate = (start_date, end_date) => { // get report by start and end date
-    return axios.get(`report/${start_date}/${end_date}/''`);
+const getDealByDate = (start_date, end_date, client_name) => { // get report by start and end date
+    return axios.get(`report/${start_date}/${end_date}/${client_name}`);
 };
 
 const getLevel = () => { // get all levels
