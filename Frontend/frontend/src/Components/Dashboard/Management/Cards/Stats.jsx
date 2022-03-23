@@ -258,7 +258,7 @@ export default function Stats() {
                       dataKey="value"
                       nameKey="name"
                       cx="50%"
-                      cy="50%"
+                      cy="30%"
                       fill="#8884d8"
                       innerRadius={50}
                       outerRadius={85}

@@ -102,7 +102,6 @@ export default function NewStaff() {
             "isAdmin": null
         };
 
-        // console.log(data);
 
         Services.registerStaff(data)
             .then(response => {
@@ -186,21 +185,21 @@ export default function NewStaff() {
                                         <br />
                                         <Container1 style={{ marginBottom: '3px', padding: '2px 20px', fontSize: '11px' }}>
                                             <Row>
-                                                <Col sm={6} className='mt-3 pt-2'>
+                                                <Col sm={6} className='mt-1 pt-1'>
                                                 <Form.Group className="mb-0 mt-2 pt-2 pb-1">
                                                     <Form.Label>First Name</Form.Label>
                                                     <Form.Control size="sm" type="text" value={staff.firstName} onChange={handleInputChange} name='firstName' required/>
                                                 </Form.Group>
                                                 </Col>
 
-                                                <Col sm={6} className='mt-3 pt-2'>
+                                                <Col sm={6} className='mt-1 pt-1'>
                                                 <Form.Group className="mb-0 mt-2 pt-2 pb-1">
                                                     <Form.Label>Last Name</Form.Label>
                                                     <Form.Control size="sm" type="text" value={staff.lastName} onChange={handleInputChange} name='lastName' required/>
                                                 </Form.Group>
                                                 </Col>
 
-                                                <Col sm={12}  className='mt-2 pt-2'>
+                                                <Col sm={12}  className='mt-1 pt-1'>
                                                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                                                         <Form.Label>Email</Form.Label>
                                                         <Form.Control size="sm" type="email" value={staff.email} name='email' onChange={handleInputChange} required/>
