@@ -79,7 +79,12 @@ export default function SubCards() {
                                   <b>TRANSACTIONS</b>
                                   </small>
                                 <br />
-                                <p style={{fontWeight:'bold', fontSize:'20px'}}>{`₦${(sumTotal / 1000000).toFixed(2)}bn`}</p>
+                                <p style={{fontWeight:'bold', fontSize:'20px'}}>
+                                  {`₦${(sumTotal / 1000000).toLocaleString("en-US", {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                  })}bn`}
+                              </p>
                             </div>
                         </div>
                     </Col>
