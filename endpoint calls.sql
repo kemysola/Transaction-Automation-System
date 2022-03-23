@@ -170,3 +170,24 @@ METHOD = GET
 
 REPORTING BY DATE PAGE: [http://localhost:5000/api/v1/report/2022-02-17/2022-02-17/Exalz Holdings] #When client_name is specified
 METHOD = GET
+
+GET LEVEL: [http://localhost:5000/api/v1/configuration/level]
+METHOD = GET
+
+GET INDUSTRY: [http://localhost:5000/api/v1/configuration/industry]
+METHOD = GET
+
+GET PRODUCT: [http://localhost:5000/api/v1/configuration/product]
+METHOD = GET
+
+GET REGION: [http://localhost:5000/api/v1/configuration/region]
+METHOD = GET
+
+GET REPAYMENT FREQUENCY: [http://localhost:5000/api/v1/configuration/repay_freq]
+METHOD = GET
+
+GET AMORTIZATION STYLE: [http://localhost:5000/api/v1/configuration/amortiz_sty]
+METHOD = GET
+
+GET DEAL CATEGORY: [http://localhost:5000/api/v1/configuration/category]
+METHOD = GET
