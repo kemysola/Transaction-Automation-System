@@ -345,7 +345,7 @@ function handlePrevChange() {
                   </PWrapper>
                     
                   <Row>
-                    <Col sm={4} className='my-0 py-0'>
+                    <Col sm={6} className='my-0 py-0'>
                       <Form.Group className="">
                         <Form.Label>Industry</Form.Label>
                         <Form.Select size="sm" id='industry' ref={industry}>
