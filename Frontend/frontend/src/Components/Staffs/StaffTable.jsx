@@ -81,6 +81,27 @@ const StaffTable = () => {
   const columns = useMemo(
     () => [
       {
+        Header: "Edit",
+        accessor: "edit",
+        disableResizing: true,
+        width: 42,
+        //minWidth: 35,
+        //width: 35,
+        //maxWidth: 35,
+        Cell: (props) => {
+          const rowIdx = props.row.original['email'];
+          return (
+            <div>
+               <div>
+              <span onClick={() =>  updateStaff(rowIdx)} style={{cursor: "pointer"}}>
+                <FiEdit/>
+              </span>
+            </div>
+            </div>
+          )
+        }
+      },
+      {
         Header: "Name",
         accessor: "firstname",
         Cell: ({row, value}) => (
@@ -131,27 +152,7 @@ const StaffTable = () => {
       {
         Header: "Credit Committe Approval",
         accessor: "creditcommitteapproval",
-      },
-      {
-        Header: "Edit",
-        accessor: "edit",
-        disableResizing: true,
-        //minWidth: 35,
-        //width: 35,
-        //maxWidth: 35,
-        Cell: (props) => {
-          const rowIdx = props.row.original['email'];
-          return (
-            <div>
-               <div>
-              <span onClick={() =>  updateStaff(rowIdx)} style={{cursor: "pointer"}}>
-                <FiEdit/>
-              </span>
-            </div>
-            </div>
-          )
-        }
-      },
+      }
 
     ],
     []
