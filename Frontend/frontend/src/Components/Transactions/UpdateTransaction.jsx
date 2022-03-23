@@ -83,6 +83,7 @@ export default function UpdateTransactions() {
   let id = window.location.search.split("?")[1]
 
   const [deal, setDeal] = useState([]);
+  const [message, setMessage] = useState()
   const [status, setStatus] = useState(false);
   const [noteList, setNoteList] = useState([{ note: "" }])
   const [activeTab, setActiveTab] = useState('first');
@@ -112,6 +113,7 @@ export default function UpdateTransactions() {
 
   const retrieveDeal = async () => {
     // function to get deal by id from the database
+
     const data = await axios.get(
       `http://localhost:5000/api/v1/transaction/item/${id}`,
       {headers: {
@@ -121,6 +123,7 @@ export default function UpdateTransactions() {
     ).catch((e) => {
       console.log(e);
     });
+
     // set the deal and status state
     setNoteList(data.data.dealInfo[0].notes)
     setDeal(data.data.dealInfo);
@@ -241,16 +244,19 @@ function handlePrevChange() {
     }
       Service.updateDeal(id, data)
         .then((response) => {
-          alert(response.data.message)
+          //alert(response.data.message)
           history.push({
             pathname: "/transaction",
           });
         })
         .catch(error => {
-          alert("Failed to Update Deal")
+          //alert("Failed to Update Deal")
+          setMessage('Failed to update deal')
+          
         })      
     }
 
+    
 
   return (
     <React.Fragment>
@@ -263,9 +269,12 @@ function handlePrevChange() {
                 <h5>Update Transaction</h5>
               </PWrapper>
 
+
               <div> 
+
        
       <Tabs activeKey={activeTab} onSelect={(k) => handleTabChange} style={{fontSize:'12px'}}>
+
 {/* ----------------------------------------- Client Data ------------------------------------ */}
 		<Tab eventKey="first" title="TRANSACTION">
         <br/>
@@ -816,11 +825,13 @@ function handlePrevChange() {
           Back
       </ButtonWrapper>
 
+      <p class='text-danger'>{message}</p>
+
       <ButtonWrapper type="submit" className='d-flex justify-content-end' onClick={postData}>
           Update
       </ButtonWrapper>
-      </div>
 
+      </div>
             </Form>
 
             ) : (

@@ -12,8 +12,8 @@ function StaffList() {
     const retrieveStaff = () => {
         Service.getAllStaff()
           .then((response) => {
-              console.log(response)
-            setData(response.data);
+              //console.log(response.data.staff)
+            setData(response.data.staff);
           })
           .catch((e) => {
             console.log(e);
@@ -22,7 +22,10 @@ function StaffList() {
     
 
   return (
-    <div>StaffList</div>
+    <div>
+        StaffList
+        </div>
+    
   )
 }
 
