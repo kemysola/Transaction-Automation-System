@@ -150,6 +150,12 @@ const AddDeal = () => {
     setNoteList([...noteList, { note: "" }]);
   };
 
+  const handleNoteRemove = (index) => {
+    const list = [...noteList];
+    list.splice(index, 1);
+    setNoteList(list);
+  };
+
   const saveDeal = (e) => { // function to save users data and post to db
     e.preventDefault()
 
@@ -269,11 +275,18 @@ const AddDeal = () => {
 
                         <Col sm={12}>
                           <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                            <Form.Label>Note</Form.Label> <button type="button" onClick={handleNoteAdd}>Add</button>
+                            <Form.Label>Note</Form.Label> <button type="button" onClick={handleNoteAdd} style={{fontSize: '10px', padding: '2px 10px', margin: '8px', background: 'steelblue', color: 'white', borderRadius: '3px'}}>Add</button>
                             {noteList.map((singleNote, index) => (
-                              <Form.Control  as='textarea'
-                              size="sm" value={singleNote.note} name='note' onChange={(e) => handleNoteChange(e, index)}
-                                required />
+                              <div class="input-group">
+                                <Form.Control
+                                  as='textarea'
+                                  style={{ margin: '0.8em', width: '60%' }}
+                                  size="sm" value={singleNote.note}
+                                  name='note'
+                                  onChange={(e) => handleNoteChange(e, index)}
+                                  required />
+                                  <button type = "button" style={{fontSize: '10px', padding: '2px 10px', margin: '8px', background: 'steelblue', color: 'white', borderRadius: '3px'}} onClick={handleNoteRemove}>x</button> 
+                                </div>
                             ))}
                           </Form.Group>
                         </Col>

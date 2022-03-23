@@ -345,7 +345,7 @@ function handlePrevChange() {
                   </PWrapper>
                     
                   <Row>
-                    <Col sm={4} className='my-0 py-0'>
+                    <Col sm={6} className='my-0 py-0'>
                       <Form.Group className="">
                         <Form.Label>Industry</Form.Label>
                         <Form.Select size="sm" id='industry' ref={industry}>
@@ -365,7 +365,7 @@ function handlePrevChange() {
                       </Form.Group>
                     </Col>
 
-                    <Col sm={4}>
+                    <Col sm={6}>
                       <Form.Group className="">
                         <Form.Label>Products</Form.Label>
                         <Form.Select size="sm" id='products' ref={product}>
@@ -380,7 +380,7 @@ function handlePrevChange() {
                       </Form.Group>
                     </Col>
 
-                    <Col sm={4}>
+                    <Col sm={6}>
                       <Form.Group className="">
                         <Form.Label>Region</Form.Label>
                         <Form.Select size="sm" id='region' ref={region}>
@@ -427,7 +427,7 @@ function handlePrevChange() {
                   </Row>
 
                   <Row className='mt-1' >
-                    <Col sm={4}>
+                    <Col sm={6}>
                       <Form.Group className="">
                         <Form.Label>Repayment Frequency</Form.Label>
                         <Form.Select size="sm" id='frequency' ref={repaymentFreq}>
@@ -440,7 +440,7 @@ function handlePrevChange() {
                       </Form.Group>
                     </Col>
 
-                    <Col sm={4}>
+                    <Col sm={6}>
                       <Form.Group className="">
                         <Form.Label>Amortisation Style</Form.Label>
                         <Form.Select size="sm" id='amortizationStyle' ref={amortizationStyle}>
@@ -451,7 +451,7 @@ function handlePrevChange() {
                       </Form.Group>
                     </Col>
 
-                    <Col sm={4}>
+                    <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Mandate Letter</Form.Label>
                       <Form.Control size="sm" type="date" defaultValue={new Date(deal[0].mandateletter).toISOString().split('T')[0] || null} id='mandateLetter' ref={mandateLetter} required/>
