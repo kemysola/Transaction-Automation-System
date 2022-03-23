@@ -10,7 +10,6 @@ import UpdateTransaction from "./Pages/Transactions/UpdateTransaction";
 // import NewTransaction from './Pages/Transactions/NewTransaction';
 import MgtView from "./Components/Dashboard/Management/ManagementView";
 import Origination from "./Components/Dashboard/Origination/Origination";
-import Text from "./Pages/Transactions/Text";
 import NewText from "./Pages/Transactions/NewText";
 import AllStaff from "./Pages/Staffs/AllStaff";
 import "./App.css";
@@ -54,9 +53,7 @@ export default function App() {
         <Route path="staffview">
           <AllStaff />
         </Route>
-        <Route path="/Pages">
-          <Text/>
-        </Route>
+        
         <Route path="/newPages">
           <NewText />
         </Route>
