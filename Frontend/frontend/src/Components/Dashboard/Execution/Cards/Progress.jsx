@@ -356,7 +356,7 @@ export default function Progress() {
 
   return (
     <React.Fragment>
-      <div style={{ marginLeft: " ", marginRight: " 0.11rem" }}>
+      {/* <div style={{ marginLeft: " ", marginRight: " 0.11rem" }}>
         <Stats />
       </div>
 
@@ -411,7 +411,7 @@ export default function Progress() {
             </div>
           </Col>
           {/*------------------------ Column ------------------------------- */}
-          <Col sm={12} lg={6} className="my-1">
+          {/* <Col sm={12} lg={6} className="my-1">
             <div
               style={{
                 background: "white",
@@ -465,11 +465,11 @@ export default function Progress() {
                 />
               </BarChart>
             </div>
-          </Col>
+          </Col> */}
           {/*------------------------ Column ------------------------------- */}
-        </Row>
+        {/* </Row>
       </Container>
-      <br />
+      <br /> */}
       <Table />
     </React.Fragment>
   );
