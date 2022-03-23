@@ -20,10 +20,9 @@ export default function NewTransaction() {
                 <Col sm={3} style={{padding:'10px 10px 10px 0px'}}>
                     <Sidenav/>
                 </Col>
-                <Col sm={7}> 
+                <Col sm={8} className='bg-light py-3'> 
                     <UpdateTransaction />
                 </Col>
-                {/* <Col sm={1}></Col> */}
                 </Row>
             </ViewWrapper>
 
