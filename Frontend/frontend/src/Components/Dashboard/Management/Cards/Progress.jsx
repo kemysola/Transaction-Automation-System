@@ -356,7 +356,7 @@ export default function Progress() {
 
   return (
     <React.Fragment>
-      <div style={{ marginLeft: " ", marginRight: " 0.11rem" }}>
+      <div style={{ marginLeft: "1rem ", marginRight: " 0.11rem" }}>
         <Stats />
       </div>
 
@@ -366,15 +366,15 @@ export default function Progress() {
             <div
               style={{
                 background: "white",
-                padding: "10px",
+                paddingTop: "10px",
                 marginTop: "3px",
-                borderRadius: "1px",
+                borderRadius: "15px",
               }}
             >
               <p
                 style={{
-                  fontSize: "15px",
-                  paddingLeft: "12px",
+                  fontSize: "13px",
+                  paddingLeft: "10px",
                   fontWeight: "bold",
                 }}
               >
@@ -417,13 +417,13 @@ export default function Progress() {
                 background: "white",
                 paddingTop: "10px",
                 marginTop: "3px",
-                borderRadius: "1px",
+                borderRadius: "15px",
                 height: "65.4vh",
               }}
             >
               <p
                 style={{
-                  fontSize: "15px",
+                  fontSize: "13px",
                   paddingLeft: "10px",
                   fontWeight: "bold",
                 }}

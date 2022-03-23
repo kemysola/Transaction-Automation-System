@@ -62,7 +62,6 @@ const AmberDiv = styled.div`
 
 export default function Stats() {
   const [data, setData] = useState([]);
-  const [dataLength, setDataLength] = useState();
 
   // ................................... Use Effect Hook .................................
 
@@ -163,7 +162,7 @@ export default function Stats() {
     percent,
     index,
   }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.2;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.3;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
@@ -171,7 +170,12 @@ export default function Stats() {
     return (
       <>
         <text x={cx} y={cy} dy={8} textAnchor="middle">
-          {`₦${(sumTotal / 1000000).toFixed(2)}bn`}
+          {`₦${(sumTotal / 1000000)
+              .toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              })
+            }bn`}
         </text>
         <text
           x={x}
@@ -180,7 +184,7 @@ export default function Stats() {
           textAnchor={x > cx ? "start" : "end"}
           dominantBaseline="central"
         >
-          {`${(percent * 100).toFixed(2)}%`}
+          {`${(percent * 100).toFixed(0)}%`}
         </text>
       </>
     );
@@ -199,9 +203,15 @@ export default function Stats() {
             padding: "2px 2px",
           }}
         >
-          <p className="label">{`${payload[0].name} : ₦${(
-            payload[0].value / 1000000
-          ).toFixed(2)}bn`}</p>
+          <p className="label">
+            {`${payload[0].name} : 
+            ₦${(payload[0].value / 1000000)
+              .toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              })
+            }bn`}
+          </p>
         </div>
       );
     }
@@ -211,23 +221,32 @@ export default function Stats() {
   return (
     <React.Fragment>
       {/*---------------------------- Div ------------------------------------------- */}
-      <PieDiv>
+      {/* <PieDiv> */}
         <Container fluid className="mb-3">
           <Row>
-            <Col
-              lg={6}
-              sm={12}
-              className="bg-light pt-1 "
-              style={{ borderRadius: "1px" }}
+            <Col lg={6} sm={12}
+              className="my-1"
+              style={{ 
+                borderRadius: "15px", 
+                height: '20rem',
+                background: "white",
+                paddingTop: "10px",
+                marginTop: "3px", 
+              }}
             >
               <p
-                style={{ color: "black", fontWeight: "bold", fontSize: "13px" }}
+                style={{ 
+                  color: "black", 
+                  fontWeight: "bold", 
+                  fontSize: "13px",
+                  paddingLeft: "10px",
+                }}
               >
                 DEAL CATEGORY
               </p>
 
               <Row>
-                <Col md={3} className="pt-3 mt-3">
+                <Col md={3} className="mt-1">
                   <GreenDiv>{green.length}</GreenDiv>
                   <AmberDiv>{amber.length}</AmberDiv>
                   <RedDiv>{red.length}</RedDiv>
@@ -241,8 +260,8 @@ export default function Stats() {
                       cx="50%"
                       cy="50%"
                       fill="#8884d8"
-                      innerRadius={60}
-                      outerRadius={127}
+                      innerRadius={50}
+                      outerRadius={85}
                       paddingAngle={1}
                       isAnimationActive={false}
                       labelLine={false}
@@ -263,8 +282,15 @@ export default function Stats() {
 
             <Col sm={12} lg={6}>
               <Row
-                className="bg-light pt-1"
-                style={{ margin: "5px 2px", borderRadius: "1px" }}
+                className="my-1"
+                style={{ 
+                  background: "white",
+                  marginLeft: "5px", 
+                  borderRadius: "15px", 
+                  height: '20rem',
+                  paddingTop: "10px",
+                  marginTop: "3px",
+                }}
               >
                 <div>
                   <p
@@ -272,6 +298,7 @@ export default function Stats() {
                       color: "black",
                       fontWeight: "bold",
                       fontSize: "13px",
+                      paddingLeft: "10px",
                     }}
                   >
                     REGION
@@ -280,8 +307,8 @@ export default function Stats() {
 
                 <Chart
                   chartType="GeoChart"
-                  width="380px"
-                  height="400px"
+                  width="300px"
+                  height="200px"
                   data={mapData}
                   options={mapOptions}
                 />
@@ -289,7 +316,7 @@ export default function Stats() {
             </Col>
           </Row>
         </Container>
-      </PieDiv>
+      {/* </PieDiv> */}
     </React.Fragment>
   );
 }

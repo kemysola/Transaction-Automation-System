@@ -595,7 +595,7 @@ function handlePrevChange() {
                       <Form.Group>
                         <Row>
                           <Col>
-                            <Form.Label style={{paddingRight: "1rem"}}>Due dilligence ongoing:</Form.Label>
+                            <Form.Label style={{paddingRight: "1rem"}}>Due diligence ongoing:</Form.Label>
                           </Col>
                           <Col>
                             <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].redb === true} name="redB" ref={redB}/>
