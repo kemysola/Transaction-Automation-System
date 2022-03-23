@@ -45,7 +45,6 @@ export default function SubCards() {
       const retrieveStaff = () => {
         Service.getAllStaff()
           .then((response) => {
-            console.log(response)
             setStaff(response.data.staff);
           })
           .catch((e) => {

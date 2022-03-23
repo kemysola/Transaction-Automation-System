@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import { Form, Container, Row, Col } from 'react-bootstrap';
@@ -85,6 +85,81 @@ const AddDeal = () => {
   const [submitted, setSubmitted] = useState(false);
   const [response, setResponse] = useState(false);
   const [noteList, setNoteList] = useState([{ note: "" }])
+  const [industry, setIndustry] = useState([]);
+  const [product, setProduct] = useState([]);
+  const [region, setRegion] = useState([]);
+  const [frequency, setFrequency] = useState([]);
+  const [style, setStyle] = useState([]);
+
+  useEffect(() => {
+    retrieveIndustry();
+  }, [])
+
+  useEffect(() => {
+    retrieveProduct();
+  }, [])
+
+  useEffect(() => {
+    retrieveRegion();
+  }, [])
+
+  useEffect(() => {
+    retrieveRepaymentFreq();
+  }, [])
+
+  useEffect(() => {
+    retrieveAmortizationStyle();
+  }, [])
+
+  const retrieveIndustry = () => {
+    Services.getIndustry()
+    .then((response) => {
+        setIndustry(response.data.industry);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const retrieveProduct = () => {
+    Services.getProduct()
+    .then((response) => {
+        setProduct(response.data.product);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const retrieveRegion = () => {
+    Services.getRegion()
+    .then((response) => {
+        setRegion(response.data.region);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const retrieveRepaymentFreq = () => {
+    Services.getRepaymentFreq()
+    .then((response) => {
+        setFrequency(response.data.frequency);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const retrieveAmortizationStyle = () => {
+    Services.getAmortizationSty()
+    .then((response) => {
+        setStyle(response.data.amortization);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   function toNextTab(e) {
     e.preventDefault();
@@ -313,17 +388,9 @@ const AddDeal = () => {
                               <Form.Label>Industry</Form.Label>
                               <Form.Select size="sm" name='industry' value={deal.industry} onChange={handleInputChange} required>
                                 <option>Select</option>
-                                <option value="On-grid Power">On-grid Power</option>
-                                <option value="Off-grid Power">Off-grid Power</option>
-                                <option value="Agric Infra.">Agric Infra.</option>
-                                <option value="Gas">Gas</option>
-                                <option value="Transportation">Transportation</option>
-                                <option value="Inputs to Infra.">Inputs to Infra.</option>
-                                <option value="Affordable Housing">Affordable Housing</option>
-                                <option value="Education Infra.">Education Infra.</option>
-                                <option value="Healthcare">Healthcare</option>
-                                <option value="Water/Waste">Water/Waste</option>
-                                <option value="ICT/Telecoms">ICT/Telecoms</option>
+                                {industry.map((opt, i) => (
+                                    <option key={industry[i].industryid} value={industry[i].industry}>{industry[i].industry}</option>
+                                ))}
                               </Form.Select>
                             </Form.Group>
                           </Col>
@@ -333,12 +400,9 @@ const AddDeal = () => {
                               <Form.Label>Products</Form.Label>
                               <Form.Select size="sm" name='product' value={deal.product} onChange={handleInputChange} required>
                                 <option>Select</option>
-                                <option value="Public Bond">Public Bond</option>
-                                <option value="Private Bond (Clean Energy)">Private Bond (Clean Energy)</option>
-                                <option value="Contingent Refi. Gte.">Contingent Refi. Gte.</option>
-                                <option value="Annuity PPP">Annuity PPP</option>
-                                <option value="Blended Finance">Blended Finance</option>
-                                <option value="Private Bond (Other)">Private Bond (Other)</option>
+                                {product.map((opt, i) => (
+                                    <option key={product[i].productid} value={product[i].product}>{product[i].product}</option>
+                                ))}
                               </Form.Select>
                             </Form.Group>
                           </Col>
@@ -348,12 +412,9 @@ const AddDeal = () => {
                               <Form.Label>Region</Form.Label>
                               <Form.Select size="sm" name='region' value={deal.region} onChange={handleInputChange} required>
                                 <option>Select</option>
-                                <option value="SW">SW</option>
-                                <option value="SE">SE</option>
-                                <option value="SS">SS</option>
-                                <option value="NW">NW</option>
-                                <option value="NE">NE</option>
-                                <option value="NC">NC</option>
+                                {region.map((opt, i) => (
+                                    <option key={region[i].regionid} value={region[i].region}>{region[i].region}</option>
+                                ))}
                               </Form.Select>
                             </Form.Group>
                           </Col>
@@ -396,10 +457,9 @@ const AddDeal = () => {
                               <Form.Label>Repayment Frequency</Form.Label>
                               <Form.Select size="sm" name='repaymentFrequency' value={deal.repaymentFrequency} onChange={handleInputChange} >
                                 <option>Select</option>
-                                <option value="Monthly">Monthly</option>
-                                <option value="Quarterly">Quarterly</option>
-                                <option value="Semi-Annually">Semi-Annually</option>
-                                <option value="Annually">Annually</option>
+                                {frequency.map((opt, i) => (
+                                    <option key={frequency[i].id} value={frequency[i].frequency}>{frequency[i].frequency}</option>
+                                ))}
                               </Form.Select>
                             </Form.Group>
                           </Col>
@@ -409,8 +469,9 @@ const AddDeal = () => {
                               <Form.Label>Amortization Style</Form.Label>
                               <Form.Select size="sm" name='amortizationStyle' value={deal.amortizationStyle} onChange={handleInputChange} >
                                 <option>Select</option>
-                                <option value="Annuity">Annuity</option>
-                                <option value="Straight-Line">Straight-Line</option>
+                                {style.map((opt, i) => (
+                                    <option key={style[i].id} value={style[i].amortizationstyle}>{style[i].amortizationstyle}</option>
+                                ))}
                               </Form.Select>
                             </Form.Group>
                           </Col>
