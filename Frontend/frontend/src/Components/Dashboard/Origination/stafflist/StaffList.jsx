@@ -68,7 +68,7 @@ const StaffList = () => {
 
   const openStaff = (rowIndex) => {
     history.push({
-      pathname:'/org-dashboard',
+      pathname:'/staff_transaction_report',
       search:"?" + rowIndex
     })
 
@@ -100,17 +100,7 @@ const StaffList = () => {
         Cell: ({row, value}) => (
           <span>{`${row.original.firstname} ${row.original.lastname}`}</span>
         )
-      }, {
-        Header: "Name",
-        accessor: "record_entry",
-        Cell: ({row, value}) => (
-          <span>{`${row.original.record_entry}`}</span>
-        )
       },
-
-     
-      
-
     ],
     []
   );

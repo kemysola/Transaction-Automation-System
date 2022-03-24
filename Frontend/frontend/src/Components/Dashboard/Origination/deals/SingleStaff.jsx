@@ -76,18 +76,12 @@ function SingleStaff() {
         () => [
           
           {
-            Header: "Name",
-            accessor: "firstname",
+            Header: "clientName",
+            accessor: "Client Name",
             Cell: ({row, value}) => (
               <span>{`${row.original.clientname}`}</span>
             )
 
-          }, {
-            Header: "clientname",
-            accessor: "Client Name",
-            Cell: ({row, value}) => (
-              <span>{`${row.original.record_entry}`}</span>
-            )
           },
           {
             Header: "originator",
@@ -101,6 +95,83 @@ function SingleStaff() {
             accessor: "Legal Lead",
             Cell: ({row, value}) => (
               <span>{`${row.original.transactionlegallead}`}</span>
+            )
+          },
+          {
+            Header: "industry",
+            accessor: "Industry",
+            Cell: ({row, value}) => (
+              <span>{`${row.original.industry}`}</span>
+            )
+          },
+          {
+            Header: "product",
+            accessor: "product",
+            Cell: ({row, value}) => (
+              <span>{`${row.original.product}`}</span>
+            )
+          },
+          {
+            Header: "region",
+            accessor: "region",
+            Cell: ({row, value}) => (
+              <span>{`${row.original.region}`}</span>
+            )
+          },
+          {
+            Header: "dealsize",
+            accessor: "Deal Size",
+            Cell: ({row, value}) => (
+              <span>{`${row.original.dealsize}`}</span>
+            )
+          },
+          {
+            Header: "coupon",
+            accessor: "Coupon",
+            Cell: ({row, value}) => (
+              <span>{`${row.original.coupon}`}</span>
+            )
+          },
+          {
+            Header: "tenor",
+            accessor: "Tenor",
+            Cell: ({row, value}) => (
+              <span>{`${row.original.tenor}`}</span>
+            )
+          },
+          {
+            Header: "moratorium",
+            accessor: "Moratorium",
+            Cell: ({row, value}) => (
+              <span>{`${row.original.moratorium}`}</span>
+            )
+          },
+          {
+            Header: "repaymentfrequency",
+            accessor: "Repayment Frequency",
+            Cell: ({row, value}) => (
+              <span>{`${row.original.repaymentfrequency}`}</span>
+            )
+          },
+          {
+            Header: "amortizationstyle",
+            accessor: "Aamortizationstyle",
+            Cell: ({row, value}) => (
+              <span>{`${row.original.amortizationstyle}`}</span>
+            )
+          },
+          {
+            Header: "mandateletter",
+            accessor: "Mandateletter",
+            Cell: ({row, value}) => (
+              <span>{`${row.original.mandateletter}`}</span>
+            )
+          },
+          {
+            Header: "expectedclose",
+            accessor: "Expected close",
+            Cell: ({row, value}) => (
+              <span>{`${row.original.expectedclose}`}</span>
             )
           },
     
@@ -163,7 +234,7 @@ function SingleStaff() {
           </Col>
         </Row>
         <Row>
-          <Col sm={6}>
+          <Col sm={12}>
           <div className="table-responsive mt-2 pt-2">
             <table
               className="table py-3 mt-3  table-hover table striped  align-middle "
