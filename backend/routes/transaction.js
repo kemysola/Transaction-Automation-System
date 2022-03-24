@@ -154,6 +154,38 @@ router.get('/my_deals', verifyTokenAndAuthorization, async (req, res) => {
 });
 
 
+router.get('/get_staff_deals/:email', verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+        // const deal_record_id = req.params.deal;
+        const staff_email = req.params.email
+    
+        const my_deals = await client.query(
+            `SELECT * 
+            FROM TB_INFRCR_TRANSACTION
+            WHERE originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
+            `,
+            [staff_email]);
+        if (my_deals) { 
+            // convert notes field to list
+            myArray = my_deals.rows
+            myNotes = myArray.forEach(convertNotesFiledsToList)
+
+            res.status(200).send({
+                status: (res.statusCode = 200),
+                deals: my_deals.rows
+            })
+        }
+        
+    } catch (e) {
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+
+});
+
 /*Fetch all Deals(Priviledged Users only) */
 router.get('/all_deals', verifyTokenAndAdmin, async (req, res) => {
     const client = await pool.connect();
