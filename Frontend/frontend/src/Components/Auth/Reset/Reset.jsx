@@ -37,9 +37,7 @@ export default function PasswordReset(){
       
         await ResetService.resetPassword(user,oldPassword,newPassword).then((res) =>{
             console.log(res)
-            
-            
-
+    
         })
 
     }

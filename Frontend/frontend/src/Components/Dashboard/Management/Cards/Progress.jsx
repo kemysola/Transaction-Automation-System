@@ -365,13 +365,14 @@ export default function Progress() {
           <Col sm={12} lg={6} className="my-1">
             <div
               style={{
-                background: "white",
                 paddingTop: "10px",
                 marginTop: "3px",
                 borderRadius: "15px",
               }}
             >
-              <p
+              <Container>
+                <Container className='bg-light py-3'>
+                <p
                 style={{
                   fontSize: "13px",
                   paddingLeft: "10px",
@@ -382,7 +383,7 @@ export default function Progress() {
               </p>
 
               <BarChart
-                width={400}
+                width={300}
                 height={340}
                 data={chartData}
                 margin={{
@@ -408,20 +409,24 @@ export default function Progress() {
                   background={{ fill: "#eee" }}
                 />
               </BarChart>
+                </Container>
+              </Container>
+              
             </div>
           </Col>
           {/*------------------------ Column ------------------------------- */}
           <Col sm={12} lg={6} className="my-1">
             <div
               style={{
-                background: "white",
                 paddingTop: "10px",
                 marginTop: "3px",
                 borderRadius: "15px",
                 height: "65.4vh",
               }}
             >
-              <p
+              <Container>
+                <Container className='bg-light py-3'>
+                <p
                 style={{
                   fontSize: "13px",
                   paddingLeft: "10px",
@@ -432,7 +437,7 @@ export default function Progress() {
               </p>
               <BarChart
                 width={400}
-                height={300}
+                height={250}
                 data={productChartData}
                 margin={{
                   top: 25,
@@ -464,6 +469,10 @@ export default function Progress() {
                   background={{ fill: "#eee" }}
                 />
               </BarChart>
+
+                </Container>
+              </Container>
+              
             </div>
           </Col>
           {/*------------------------ Column ------------------------------- */}

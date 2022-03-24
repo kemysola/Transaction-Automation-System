@@ -48,6 +48,34 @@ const getDealByDate = (start_date, end_date, client_name) => { // get report by 
     return axios.get(`report/${start_date}/${end_date}/${client_name}`);
 };
 
+const getLevel = () => { // get all levels
+    return axios.get("configuration/level");
+}
+
+const getIndustry = () => { // get all industry
+    return axios.get("configuration/industry");
+}
+
+const getProduct = () => { // get all product
+    return axios.get("configuration/product");
+}
+
+const getRegion = () => { // get all region
+    return axios.get("configuration/region");
+}
+
+const getRepaymentFreq = () => { // get all repayment frequency
+    return axios.get("configuration/repay_freq");
+}
+
+const getAmortizationSty = () => { // get all amortization style
+    return axios.get("configuration/amortiz_sty");
+}
+
+const getDealCategory = () => { // get all deal category
+    return axios.get("configuration/category");
+}
+
 
 export default {
     LoginStaff,
@@ -60,5 +88,12 @@ export default {
     getAllDeals,
     getAllStaff,
     getClient,
-    getDealByDate
+    getDealByDate,
+    getLevel,
+    getIndustry,
+    getProduct,
+    getRegion,
+    getRepaymentFreq,
+    getAmortizationSty,
+    getDealCategory
 };

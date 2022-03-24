@@ -1,5 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./style.css"
 import { Switch, Route } from "react-router-dom";
 import Main from "./Components/Auth/MainPage/Main";
 import Landing from "./Components/LandingPage/Landing";
@@ -7,20 +8,18 @@ import TransactionView from "./Components/Transactions/TransactionView";
 import UpdateStaffs from "./Components/Staffs/UpdateStaffs";
 import StaffView from "./Components/Staffs/StaffView";
 import UpdateTransaction from "./Pages/Transactions/UpdateTransaction";
-// import NewTransaction from './Pages/Transactions/NewTransaction';
 import MgtView from "./Components/Dashboard/Management/ManagementView";
 import Origination from "./Components/Dashboard/Origination/Origination";
 import NewText from "./Pages/Transactions/NewText";
 import AllStaff from "./Pages/Staffs/AllStaff";
-import "./App.css";
 import Home from "./Components/Home";
-//import Testing from './Components/Transactions/transTest';
 import Execution from "./Components/Dashboard/Execution/Execution";
 import StaffTable from "./Components/Staffs/StaffTable";
 import Verify from "./Components/Auth/Verify";
 import PasswordReset from "./Components/Auth/Reset/PasswordReset";
 import Reset from "./Components/Auth/StaffReset/Reset";
 import Updates from "./Pages/Staffs/Updates";
+import UserLanding from "./Components/HomePage/UserLanding"
 
 export default function App() {
   return (
@@ -28,6 +27,9 @@ export default function App() {
       <Switch>
         <Route exact path="/">
           <Home />
+        </Route>
+        <Route exact path="/user">
+          <UserLanding />
         </Route>
         <Route exact path="/login">
           <Main />
@@ -69,9 +71,6 @@ export default function App() {
         <Route path="/verify">
           <Verify />
         </Route>
-        {/*<Route path='/ing'>
-            <Testing />
-  </Route> */}
         <Route path="/resetyourpassword">
           <Reset />
         </Route>
