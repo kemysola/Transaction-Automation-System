@@ -29,7 +29,7 @@ const GlobalFilter =({
     }, 200)
   
     return (
-        <span>
+        <span className='d-flex justify-content-end'>
             {/* Search:{' '} */}
             <input 
                 className="form-control"
@@ -223,8 +223,8 @@ function SingleStaff() {
                 Bulk Actions
                 </small>
           </Col>
-          <Col sm={12} lg={4}>
-            <form className='pt-1'>
+          <Col sm={12} lg={8}>
+            <form>
             <GlobalFilter
                 preGlobalFilteredRows={preGlobalFilteredRows}
                 globalFilter={state.globalFilter}
