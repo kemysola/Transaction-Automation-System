@@ -31,7 +31,7 @@ export default function PasswordReset() {
   const [data, setData] = useState({
     password: "",
     newPassword: "",
-    // confirmPassword: "",
+    confirmPassword: "",
     email: ""
   });
 
@@ -42,37 +42,38 @@ export default function PasswordReset() {
   const onChangeEmail = (e) => {
     const email = e.target.value;
     setEmail(email);
-    console.log(email);
   };
 
   const onChangePassword = (e) => {
     const password = e.target.value;
     setpassword(password);
-    console.log(password);
   };
 
   const onChangeNewPassword = (e) => {
     const newPassword = e.target.value;
     setNewPassword(newPassword);
-    console.log(newPassword);
   };
   const onConfirmPassword = (e) => {
     const confirmPassword = e.target.value;
     setConfirmPassword(confirmPassword);
-    console.log(confirmPassword);
   };
 
   const handleSubmit = async (e) => {
       e.preventDefault();
     form.current.validateAll();
     if (newPassword !== confirmPassword) {
-      setMessage("no passwords do not match");
+      setMessage("password do not match");
+      return;
+    }
+
+    if (newPassword === "" && confirmPassword === "") {
+      setMessage("password fields connot be empty");
       return;
     }
 
     await ResetService.passwordReset(password, newPassword, email).then(
       () => {
-        history.push("/login");
+        history.push("/landing");
         window.location.reload();
       },
       (error) => {
