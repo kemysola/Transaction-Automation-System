@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {Link} from 'react-router-dom';
 import authService from '../../Services/auth.Service';
+import InfraCredit from '../../Images/i.png';
 //react pro sidebar components
 
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, SidebarContent } from "react-pro-sidebar";
@@ -38,11 +39,19 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
           // onToggle={handleToggleSidebar}
         >
           <SidebarHeader>
+            {/* <div className="logoImage">
+              {menuCollapse ? 
+                null
+                  :
+                <img src={InfraCredit} alt='logo' width='100' height='100' />
+              }
+            </div> */}
+
             <div
               className="logotext"
             >
               {/* Icon change using menucollapse state */}
-              <p>{menuCollapse ? <ImUser /> : `Hi, ${nameCase}`}</p>
+              <p>{menuCollapse ? <ImUser /> : `Hello, ${nameCase}`}</p>
             </div>
 
             <div className="closemenu" onClick={menuIconClick}>

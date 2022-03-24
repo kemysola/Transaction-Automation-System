@@ -22,10 +22,10 @@ export default function Execution(){
             <Navbar/>
             <ViewWrapper>
             <Row>
-                <Col sm={3} style={{padding:'10px 10px 10px 0px'}}>
+                <Col sm={2} style={{padding:'10px 10px 10px 0px'}}>
                     <SideNav2/>
                 </Col>
-                <Col sm={9}> 
+                <Col sm={10}> 
                     <Progress/>                    
                 </Col>
             </Row>
