@@ -25,11 +25,11 @@ const GlobalFilter =({
   }, 200)
 
   return (
-      <span>
+      <span className='d-flex justify-content-end'>
           {/* Search:{' '} */}
           <input 
               className="form-control"
-              style={{ outline: 'none', border: '1px solid black', padding: '2px', marginTop: '2px', marginRight: '2px', width:'180px' }}
+              style={{ outline: 'none', border: '1px solid black', padding: '1px 13px', marginTop: '2px', marginRight: '2px', width:'180px' }}
               value={value || ""}
               onChange={e => {
                   setValue(e.target.value);
@@ -77,8 +77,8 @@ const StaffList = () => {
   const columns = useMemo(
     () => [
       {
-        Header: "Open",
-        accessor: "Open",
+        Header: "View",
+        accessor: "View",
         disableResizing: true,
         width: 42,
         Cell: (props) => {
@@ -95,10 +95,17 @@ const StaffList = () => {
         }
       },
       {
-        Header: "Name",
+        Header: "NAME",
         accessor: "firstname",
         Cell: ({row, value}) => (
           <span>{`${row.original.firstname} ${row.original.lastname}`}</span>
+        )
+      },
+      {
+        Header: "LEVEL",
+        accessor: "level",
+        Cell: ({row, value}) => (
+          <span>{`${row.original.level} `}</span>
         )
       },
     ],
@@ -130,7 +137,7 @@ const StaffList = () => {
   return (
     <React.Fragment>
       <ContainerWrapper>
-        <Row>
+        <Row className=''>
           <Col sm={4}className='d-flex justify-content-between'  >
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 All ({staff.length})
@@ -145,8 +152,8 @@ const StaffList = () => {
                 Bulk Actions
                 </small>
           </Col>
-          <Col sm={12} lg={4}>
-            <form className='pt-1'>
+          <Col sm={12} lg={6} >
+            <form className='py-1'>
             <GlobalFilter
                 preGlobalFilteredRows={preGlobalFilteredRows}
                 globalFilter={state.globalFilter}
@@ -156,10 +163,10 @@ const StaffList = () => {
           </Col>
         </Row>
         <Row>
-          <Col sm={6}>
+          <Col sm={10} className='bg-light mt-3'>
           <div className="table-responsive mt-2 pt-2">
             <table
-              className="table py-3 mt-3  table-hover table striped  align-middle "
+              className="table py-3 mt-3  table-hover  "
               id='myTable'
               {...getTableProps()}
             >
@@ -174,7 +181,7 @@ const StaffList = () => {
                   </tr>
                 ))}
               </thead>
-              <tbody {...getTableBodyProps()} className='table-bordered'>
+              <tbody {...getTableBodyProps()} className=''>
                 {rows.map((row, i) => {
                   prepareRow(row);
                   return (
