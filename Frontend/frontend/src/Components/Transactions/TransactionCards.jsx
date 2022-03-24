@@ -45,7 +45,13 @@ export default function TransactionCards() {
                 </Card.Title>
 
                 <Card.Text className='text-info'>
-                    <h4>{`₦${(sumTotal / 1000000).toFixed(2)}bn`}</h4>
+                    <h4>
+                      {`₦${(sumTotal / 1000000)
+                      .toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                      })}bn`}
+                  </h4>
                 </Card.Text>
               </Card.Body>
             </Card>

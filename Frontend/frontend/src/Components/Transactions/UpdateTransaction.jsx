@@ -313,13 +313,13 @@ function handlePrevChange() {
                   <Col sm={12}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Note</Form.Label> <button type = "button" style={{fontSize: '10px', padding: '2px 10px', margin: '8px', background: 'steelblue', color: 'white', borderRadius: '3px'}} onClick={handleNoteAdd}>+</button> 
-                              {noteList.map((singleNote, index) => (
-                                   <div class="input-group">
-                                    <Form.Control style={{ margin: '0.8em', width: '60%' }} size="sm" type="text" defaultValue={singleNote} value={singleNote.note} name='note'  onChange={(e) => handleNoteChange(e, index)}
-                                    required /> 
-                                    <button type = "button" style={{fontSize: '10px', padding: '2px 10px', margin: '8px', background: 'steelblue', color: 'white', borderRadius: '3px'}} onClick={handleNoteRemove}>x</button> 
-                                  </div>
-                              ))} 
+                          {noteList.map((singleNote, index) => (
+                                <div class="input-group">
+                                <Form.Control style={{ margin: '0.8em', width: '60%' }} size="sm" type="text" defaultValue={singleNote} value={singleNote.note} name='note'  onChange={(e) => handleNoteChange(e, index)}
+                                required /> 
+                                <button type = "button" style={{fontSize: '10px', padding: '2px 10px', margin: '8px', background: 'steelblue', color: 'white', borderRadius: '3px'}} onClick={handleNoteRemove}>x</button> 
+                              </div>
+                          ))} 
                     </Form.Group>  
 
                                    
@@ -463,32 +463,28 @@ function handlePrevChange() {
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Credit Approval</Form.Label>
-                        {/* defaultValue={new Date(deal[0].creditApproval).toISOString().split('T')[0] || null} */}
-                      <Form.Control size="sm" type="date" id='creditApproval' ref={creditApproval}/>
+                        <Form.Control size="sm" type="date" defaultValue={new Date(deal[0].creditapproval).toISOString().split('T')[0] || null} id='creditApproval' ref={creditApproval}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Fee Letter</Form.Label>
-                        {/* defaultValue={new Date(deal[0].feeLetter).toISOString().split('T')[0] || null}  */}
-                      <Form.Control size="sm" type="date" id='feeLetter' ref={feeLetter}/>
+                        <Form.Control size="sm" type="date" defaultValue={new Date(deal[0].feeletter).toISOString().split('T')[0] || null} id='feeLetter' ref={feeLetter}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Excepted Close</Form.Label>
-                        {/* defaultValue={new Date(deal[0].expectedClose).toISOString().split('T')[0] || null} */}
-                      <Form.Control size="sm" type="date"  id='expectedClose' ref={exceptedClose}/>
+                        <Form.Control size="sm" type="date" defaultValue={new Date(deal[0].expectedclose).toISOString().split('T')[0] || null} id='expectedClose' ref={exceptedClose}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Actual Close</Form.Label>
-                        {/* defaultValue={new Date(deal[0].actualClose).toISOString().split('T')[0] || null} */}
-                      <Form.Control size="sm" type="date"  id='actualClose' ref={actualClose}/>
+                        <Form.Control size="sm" type="date" defaultValue={new Date(deal[0].actualclose).toISOString().split('T')[0] || null} id='actualClose' ref={actualClose}/>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -565,14 +561,14 @@ function handlePrevChange() {
 {/*----------------------------------------------     ----------------------- --------------- */}
 
         <Tab eventKey="fourth" title="DEAL CATEGORY"  style={{fontSize:'12px'}}>
-            <br/>
+            {/* <br/>
           
         <Tabs defaultActiveKey="first1" className='text-secondary'>
         <Tab eventKey="first1" title="RED TRANSACTION CATEGORY" >
-            <br/>
+            <br/> */}
         <Container1>
         <div id='redCategory' className='pt-2 mt-1 mb-3 pb-3'>
-            <br/>
+            {/* <br/> */}
                     <PWrapper>
                       <h6 className="pt-1" style={{fontSize: "10px", color: "red"}}>Red Category</h6>
                     </PWrapper>
@@ -621,10 +617,10 @@ function handlePrevChange() {
 
                   </div>
                   </Container1>
-        </Tab>
+        {/* </Tab> */}
 
 {/*------------------------------------- ------------------------- ------------------------- */}
-        <Tab  eventKey="second1" title="AMBER TRANSACTION CATEGORY">
+        {/* <Tab  eventKey="second1" title="AMBER TRANSACTION CATEGORY"> */}
         <Container1>
         <div id='amberCategory' className='pt-2 mt-1 mb-3 pb-3'>
                     <PWrapper>
@@ -702,9 +698,9 @@ function handlePrevChange() {
                     </Col>
                   </div>
                   </Container1>
-        </Tab>
+        {/* </Tab> */}
 {/*-------------------------------------- --------------------------------------------------- */}
-        <Tab eventKey="green" title="GREEN TRANSACTION CATEGORY">
+        {/* <Tab eventKey="green" title="GREEN TRANSACTION CATEGORY"> */}
         <Container1>
           <div id='greenCategory' className='pt-2 mt-1 mb-2 pb-2'>
             <PWrapper>
@@ -812,16 +808,16 @@ function handlePrevChange() {
             </Form.Group>
           </div>
         </Container1>
-        </Tab>
-        </Tabs>
+        {/* </Tab> */}
+        {/* </Tabs> */}
         <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button>
         </Tab>   
-	    </Tabs>
+	    </Tabs> 
 	    </div>
 
       
-    <div style={{ display: 'inlineblock'}}>
-      <ButtonWrapper type="submit" className='d-flex justify-content-end'  onClick={handleBack}>
+    <div className='d-flex justify-content-end'>
+      <ButtonWrapper style={{ backgroundColor: "grey", color:'white'}}  onClick={handleBack}>
           Back
       </ButtonWrapper>
 

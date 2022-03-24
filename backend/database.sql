@@ -351,6 +351,20 @@ VALUES('Straight-Line'),
     ('Annuity'),
     ('Any Other');
 
+--All possible staff level defined by InfraCredit
+CREATE TABLE TB_INFRCR_STAFF_LEVELS
+(
+levelID INT GENERATED ALWAYS AS IDENTITY,
+staffLevel VARCHAR,
+PRIMARY KEY(staffLevel)
+);
+INSERT INTO TB_INFRCR_STAFF_LEVELS(staffLevel)
+VALUES
+    ('CEO'),
+    ('VP'),
+    ('AVP'),
+    ('CONTRACT'),
+    ('ANALYST');
 
 --Create a function to generate this patter for deals' transaction ID
 'INFCR0000000001'
