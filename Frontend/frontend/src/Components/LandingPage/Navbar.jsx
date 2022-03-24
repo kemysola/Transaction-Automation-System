@@ -10,8 +10,9 @@ import { GlobalFilter } from '../Transactions/TransactionTable';
 
 const NavbarNav = styled.div`
 background:#eff1f1;
-padding:1px 10px;
-margin-bottom:0.1px;
+// padding:1px 10px;
+margin: 10px 25px;
+// margin-bottom:0.1px;
 display:flex;
 // grid-template-columns: auto auto auto auto;
 justify-content: space-between;
@@ -30,7 +31,7 @@ const Navbar = ({ handleToggleSidebar, props }) => {
 
                 
                 {/*----------------------- Icon Div ------------------------------------------- */}
-                <div style={{ marginTop: '5px', paddingTop: '20px' , }}>
+                <div style={{ marginLeft: '20px', paddingTop: '20px' }}>
                     <MenuOption/>
                 </div>
 

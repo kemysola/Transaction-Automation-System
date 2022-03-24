@@ -20,6 +20,7 @@ import PasswordReset from "./Components/Auth/Reset/PasswordReset";
 import Reset from "./Components/Auth/StaffReset/Reset";
 import Updates from "./Pages/Staffs/Updates";
 import UserLanding from "./Components/HomePage/UserLanding"
+import NotFound from "./Pages/NotFound";
 
 export default function App() {
   return (
@@ -82,6 +83,9 @@ export default function App() {
         </Route>
         <Route exact path="/execution">
           <Execution />
+        </Route>
+        <Route path="/*">
+          <NotFound />
         </Route>
       </Switch>
     </React.Fragment>

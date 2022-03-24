@@ -479,7 +479,6 @@ export default function Progress() {
         </Row>
       </Container>
       <br />
-      {/*<GuarPipe/>*/}
     </React.Fragment>
   );
 }

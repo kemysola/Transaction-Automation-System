@@ -1,7 +1,9 @@
 import * as React from "react";
+import {Link} from 'react-router-dom';
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import authService from '../../Services/auth.Service';
 
 export default function MenuOption() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -15,8 +17,8 @@ export default function MenuOption() {
 
   return (
     <div>
-      <a href='/logout'><i class="bi bi-power" style={{ padding: "1px 5px", color: "red" }}></i></a>
-      <i class="bi bi-bell" style={{ padding: "0 2px" }}></i>
+      {/* <a href='/logout'><i class="bi bi-power" style={{ padding: "1px 5px", color: "red" }}></i></a>
+      <i class="bi bi-bell" style={{ padding: "0 2px" }}></i> */}
       <Button
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
@@ -45,8 +47,12 @@ export default function MenuOption() {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={handleClose}>Reset Password</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleClose} style={{color: 'black'}}>
+          <Link to='/reset_password'>
+            Reset Password
+          </Link>
+        </MenuItem>
+        <MenuItem onClick={authService.logout}>Logout</MenuItem>
       </Menu>
     </div>
   );

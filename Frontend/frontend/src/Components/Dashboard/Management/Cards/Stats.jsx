@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Container, Row, Col } from "react-bootstrap";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
-import map from "../../../../Images/map.png";
 import Service from "../../../../Services/Service";
 import { Chart } from "react-google-charts";
 import "./../style.css";
@@ -30,7 +29,6 @@ const RedDiv = styled.div`
   font-size: 10px;
   display:inline-block;
   margin-left:19px;
-
 `;
 
 const GreenDiv = styled.div`
@@ -46,8 +44,6 @@ const GreenDiv = styled.div`
   font-size: 10px;
   display:inline-block;
   margin-left:5px;
-
-  
 `;
 
 const AmberDiv = styled.div`
@@ -63,8 +59,6 @@ const AmberDiv = styled.div`
   font-size: 10px;
   display:inline-block;
   margin-left:3px;
-
-
 `;
 
 //  ........................................React functional component.......................
@@ -180,10 +174,6 @@ export default function Stats() {
     return tot + parseFloat(arr);
   }, 0);
 
-
-
-
-
   // ......... Return deal_category total ...............................................
 
   var redTotal = red.reduce(function (tot, arr) {
@@ -210,6 +200,8 @@ export default function Stats() {
     { name: "Green", value: greenTotal },
   ];
 
+  // ................................. Rechart Piechart Customized Label ...........................
+
   const COLORS = ["#FF4500", "#FFBB28", "#00C49F"];
 
   const RADIAN = Math.PI / 180;
@@ -226,7 +218,6 @@ export default function Stats() {
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
-    // ................................. Rechart Piechart ...........................
     return (
       <>
         <text x={cx} y={cy} dy={8} textAnchor="middle">
@@ -277,7 +268,6 @@ export default function Stats() {
   return (
     <React.Fragment>
       {/*---------------------------- Div ------------------------------------------- */}
-      {/* <PieDiv> */}
       <Container fluid className="mb-3">
         <Row>
           <Col lg={6} sm={12} className="my-1">
@@ -345,9 +335,7 @@ export default function Stats() {
           </Col>
 
           <Col sm={12} lg={6}>
-            <Row
-              
-            >
+            <Row>
                 <Container>
                   <Container className="bg-light"
                 style={{
@@ -376,18 +364,11 @@ export default function Stats() {
 
                   </Container>
                 </Container>
-               
-
-
-
-
-
-              
+             
             </Row>
           </Col>
         </Row>
       </Container>
-      {/* </PieDiv> */}
     </React.Fragment>
   );
 }
