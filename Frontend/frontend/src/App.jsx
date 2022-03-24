@@ -22,6 +22,7 @@ import Updates from "./Pages/Staffs/Updates";
 import UserLanding from "./Components/HomePage/UserLanding"
 import StaffList from "./Components/Dashboard/Origination/stafflist/StaffList";
 import SingleStaff from "./Components/Dashboard/Origination/deals/SingleStaff";
+import SingleView from "./Components/Dashboard/Origination/deals/SingleView";
 
 export default function App() {
   return (
@@ -86,7 +87,7 @@ export default function App() {
           <Execution />
         </Route>
         <Route exact path="/staff_transaction_report">
-          <SingleStaff/>
+          <SingleView/>
         </Route>
       </Switch>
     </React.Fragment>
