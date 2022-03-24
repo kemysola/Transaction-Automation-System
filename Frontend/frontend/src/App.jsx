@@ -20,6 +20,8 @@ import PasswordReset from "./Components/Auth/Reset/PasswordReset";
 import Reset from "./Components/Auth/StaffReset/Reset";
 import Updates from "./Pages/Staffs/Updates";
 import UserLanding from "./Components/HomePage/UserLanding"
+import StaffList from "./Components/Dashboard/Origination/stafflist/StaffList";
+import SingleStaff from "./Components/Dashboard/Origination/deals/SingleStaff";
 
 export default function App() {
   return (
@@ -82,6 +84,9 @@ export default function App() {
         </Route>
         <Route exact path="/execution">
           <Execution />
+        </Route>
+        <Route exact path="/staff_transaction_report">
+          <SingleStaff/>
         </Route>
       </Switch>
     </React.Fragment>

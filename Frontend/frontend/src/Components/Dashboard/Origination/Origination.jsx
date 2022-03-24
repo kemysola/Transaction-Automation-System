@@ -27,8 +27,6 @@ const Origination =()=> {
                 </Col>
                 <Col sm={8}>
                     <StaffList/>
-                    <br/>
-                    <SingleStaff/>
     </Col>
                 
     </Row>
