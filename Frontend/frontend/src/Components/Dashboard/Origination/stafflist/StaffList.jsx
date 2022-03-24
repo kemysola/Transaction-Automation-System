@@ -56,6 +56,7 @@ const StaffList = () => {
   const retrieveStaff = () => {
     Service.getAllStaff()
       .then((response) => {
+        console.log(response.data.staff)
         setStaff(response.data.staff);
       })
       .catch((e) => {
@@ -63,22 +64,15 @@ const StaffList = () => {
       });
   };
 
-  /*const openStaff = (rowIndex) => {
-    const id = staffRef.current[rowIndex].id;
-    history.push("/transaction" + id)
-
-  };*/
+  
 
   const openStaff = (rowIndex) => {
-    const id = staffRef.current[rowIndex].id;
-
-
-    history.push("/transaction/" + id)
     history.push({
-      pathname: "/",
-      search: "?" + rowIndex,
-    });
-  }
+      pathname:'/org-dashboard',
+      search:"?" + rowIndex
+    })
+
+  };
 
   const columns = useMemo(
     () => [
@@ -106,12 +100,15 @@ const StaffList = () => {
         Cell: ({row, value}) => (
           <span>{`${row.original.firstname} ${row.original.lastname}`}</span>
         )
+      }, {
+        Header: "Name",
+        accessor: "record_entry",
+        Cell: ({row, value}) => (
+          <span>{`${row.original.record_entry}`}</span>
+        )
       },
-      {
-        Header: "lastname",
-        accessor: "lastname",
-        show: false
-      },
+
+     
       
 
     ],
@@ -190,8 +187,6 @@ const StaffList = () => {
               <tbody {...getTableBodyProps()} className='table-bordered'>
                 {rows.map((row, i) => {
                   prepareRow(row);
-                  console.log(row)
-                  console.log(i)
                   return (
                     <tr {...row.getRowProps()}>
                       {row.cells.map((cell) => {
