@@ -180,7 +180,6 @@ export default function UpdateStaffs() {
 
     }
 
-    console.log("#####", staff)
 
     return (
         <React.Fragment>

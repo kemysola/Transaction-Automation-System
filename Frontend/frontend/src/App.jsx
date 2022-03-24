@@ -21,6 +21,9 @@ import Reset from "./Components/Auth/StaffReset/Reset";
 import Updates from "./Pages/Staffs/Updates";
 import UserLanding from "./Components/HomePage/UserLanding"
 import NotFound from "./Pages/NotFound";
+import StaffList from "./Components/Dashboard/Origination/stafflist/StaffList";
+import SingleStaff from "./Components/Dashboard/Origination/deals/SingleStaff";
+import SingleView from "./Components/Dashboard/Origination/deals/SingleView";
 
 export default function App() {
   return (
@@ -86,6 +89,9 @@ export default function App() {
         </Route>
         <Route path="/*">
           <NotFound />
+        </Route>
+        <Route exact path="/staff_transaction_report">
+          <SingleView />
         </Route>
       </Switch>
     </React.Fragment>

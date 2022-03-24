@@ -56,6 +56,7 @@ const StaffList = () => {
   const retrieveStaff = () => {
     Service.getAllStaff()
       .then((response) => {
+        console.log(response.data.staff)
         setStaff(response.data.staff);
       })
       .catch((e) => {
@@ -63,22 +64,15 @@ const StaffList = () => {
       });
   };
 
-  /*const openStaff = (rowIndex) => {
-    const id = staffRef.current[rowIndex].id;
-    history.push("/transaction" + id)
-
-  };*/
+  
 
   const openStaff = (rowIndex) => {
-    const id = staffRef.current[rowIndex].id;
-
-
-    history.push("/transaction/" + id)
     history.push({
-      pathname: "/",
-      search: "?" + rowIndex,
-    });
-  }
+      pathname:'/staff_transaction_report',
+      search:"?" + rowIndex
+    })
+
+  };
 
   const columns = useMemo(
     () => [
@@ -107,13 +101,6 @@ const StaffList = () => {
           <span>{`${row.original.firstname} ${row.original.lastname}`}</span>
         )
       },
-      {
-        Header: "lastname",
-        accessor: "lastname",
-        show: false
-      },
-      
-
     ],
     []
   );
@@ -190,8 +177,6 @@ const StaffList = () => {
               <tbody {...getTableBodyProps()} className='table-bordered'>
                 {rows.map((row, i) => {
                   prepareRow(row);
-                  console.log(row)
-                  console.log(i)
                   return (
                     <tr {...row.getRowProps()}>
                       {row.cells.map((cell) => {
