@@ -64,42 +64,23 @@ export default function SubCards() {
         <React.Fragment>
             <Container>
                 <Row className='mb-3' >
-                    <Col sm={3} className='my-2' >
+                    <Col sm={6} className='my-2' style={{borderRight:'1px solid black'}} >
                         <div className='py-1'>
-                            <div style={{ borderRight: '1px solid black' }}>
+                            <div >
                                 <h3 className='d-flex justify-content-end ' style={{ marginRight: '1rem', }}  width='500'><GrMoney /></h3>
                                 
                                 <small style={{ color: '#1184C2' ,fontFamily:'PT Serif'}} >
                                   <b>TRANSACTIONS</b>
                                   </small>
                                 <br />
-                                <p style={{fontWeight:'bold', fontSize:'20px'}}>
-                                  {`₦${(sumTotal / 1000000).toLocaleString("en-US", {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2
-                                  })}bn`}
-                              </p>
+                                <p style={{fontWeight:'bold', fontSize:'20px'}}>{`₦${(sumTotal / 1000000).toFixed(2)}bn`}</p>
                             </div>
                         </div>
                     </Col>
-                    <Col sm={3} className='my-2'>
+                    
+                    <Col sm={6} className='my-2 py-1'>
                         <div className='py-1'>
-                            <div style={{ borderRight: '1px solid black' }}>
-                                <h3 className='d-flex justify-content-end ' style={{ marginRight: '1rem'}} ><GrGroup/></h3>
-                                <small style={{ color: '#1184C2',fontFamily:'PT Serif' }} >
-                                  <b>
-                                  STAFF
-                                  </b>
-                                  </small>
-                                  <br/>
-                                <p style={{fontWeight:'bold', fontSize:'20px'}}>{staff.length}</p>
-                            </div>
-
-                        </div>
-                    </Col>
-                    <Col sm={3} className='my-2'>
-                        <div className='py-1'>
-                            <div style={{ borderRight: '1px solid black' }}>
+                            <div style={{paddingLeft:'10px'}}>
                                 <h3 className='d-flex justify-content-end ' style={{ marginRight: '1rem', fontFamily:'PT Serif' }} ><GiMoneyStack /></h3>
                                 <small style={{ color: '#1184C2',fontFamily:'PT Serif' }} >
                                   <b>
@@ -111,21 +92,7 @@ export default function SubCards() {
                             </div>
                         </div>
                     </Col>
-                    <Col sm={3} className='my-2'>
-                        <div className='py-1'>
-                            <div style={{ borderRight: '1px solid black' }}>
-                                <h3 className='d-flex justify-content-end ' style={{ marginRight: '1rem' ,fontFamily:'PT Serif'}} >< CgCalculator /></h3>
-                                <small style={{ color: '#1184C2',fontFamily:'PT Serif' }} >
-                                  <b>
-                                  BUDGET
-                                  </b>
-                                  <br/>
-                                  </small>
-                                <p style={{fontWeight:'bold', fontSize:'20px'}}>0</p>
-                            </div>
-
-                        </div>
-                    </Col>
+                    
                 </Row>
 
             </Container>
