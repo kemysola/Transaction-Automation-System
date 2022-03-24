@@ -241,6 +241,9 @@ export default function Progress() {
     },
   ];
 
+
+  
+
   ///////////////////////////////PRODUCT
 
   let productOption1 = data.reduce(function (filtered, arr) {

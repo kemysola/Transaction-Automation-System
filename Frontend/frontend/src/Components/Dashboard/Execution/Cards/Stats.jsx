@@ -5,6 +5,15 @@ import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import Service from "../../../../Services/Service";
 import { Chart } from "react-google-charts";
 import "./../style.css";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 
 // .................................. Styled Components .........................
@@ -162,15 +171,7 @@ export default function Stats() {
     }, []);
 
     //........................ Return Region Total ......................................
-    var ssTotal = south.reduce(function (tot, arr) {
-      return tot + parseFloat(arr);
-    }, 0);
-    var seTotal = southwest.reduce(function (tot, arr) {
-      return tot + parseFloat(arr);
-    }, 0);
-    var ncTotal = northcentral.reduce(function (tot, arr) {
-      return tot + parseFloat(arr);
-    }, 0);
+    
   
     // ......... Return deal_category total ...............................................
   
@@ -256,108 +257,170 @@ export default function Stats() {
       }
       return null;
     };
+    const chartRegion = [
+      {
+        name:"South",
+        value:south,
+      },
+      {
+        name:"SW",
+        value:southwest,
+      },
+      {
+        name:"NC",
+        value:northcentral,
+      },
+      {
+        name:"NE",
+        value:northeast,
+      },
+      {
+        name:"NW",
+        value:northwest,
+      },
+      {
+        name:"SS",
+        value:southsouth,
+      }
+    ]
   
     return (
       <React.Fragment>
         {/*---------------------------- Div ------------------------------------------- */}
-          <Container fluid className="mb-3">
-            <Row>
-              <Col lg={6} sm={12} className="my-1">
-                <Container>
-                  <Container
-                    className="bg-light"
+        <Container fluid className="mb-3">
+          <Row>
+            <Col lg={6} sm={12} className="my-1">
+              <Container>
+                <Container
+                  className=""
+                  style={{
+                    borderRadius: "10px",
+                    paddingTop: "10px",
+                    marginTop: "3px",
+                    background:'white'
+                  }}
+                >
+                  <p className="pb-2"
                     style={{
-                      borderRadius: "10px",
-                      paddingTop: "10px",
-                      marginTop: "3px",
+                      color: "black",
+                      fontWeight: "bold",
+                      fontSize: "13px",
+                      paddingLeft: "1px",
+                      paddingTop: "5px",
                     }}
                   >
-                    <p
-                      style={{
-                        color: "black",
-                        fontWeight: "bold",
-                        fontSize: "13px",
-                        paddingLeft: "1px",
-                        paddingTop: "5px",
-                      }}
-                    >
-                      DEAL CATEGORY
-                    </p>
-
-                    <Row>
-                      <Col md={6} className="mt-1">
-                      <small>Green </small>
-                      <GreenDiv className="my-3">{green.length}</GreenDiv>
+                    DEAL CATEGORY
+                  </p>
+  
+                  <Row>
+                    <Col md={6} className="mt-1">
+                     <small>Green </small>
+                     <GreenDiv className="my-3">{green.length}</GreenDiv>
+                     <br/>
+                     <small>Amber </small>
+                      <AmberDiv className="my-3">{amber.length}</AmberDiv>
                       <br/>
-                      <small>Amber </small>
-                        <AmberDiv className="my-3">{amber.length}</AmberDiv>
-                        <br/>
-                        <small>Red </small>
-                        <RedDiv className="my-3">{red.length}</RedDiv>
-                      </Col>
-                      <Col md={6}>
-                        <PieChart width={300} height={210}>
-                          <Pie
-                            data={chartData}
-                            dataKey="value"
-                            nameKey="name"
-                            cx="30%"
-                            cy="40%"
-                            fill="#8884d8"
-                            innerRadius={55}
-                            outerRadius={85}
-                            paddingAngle={1}
-                            isAnimationActive={false}
-                            labelLine={false}
-                            label={renderCustomizedLabel}
-                          >
-                            {data.map((entry, index) => (
-                              <Cell
-                                key={`cell-${index}`}
-                                fill={COLORS[index % COLORS.length]}
-                              />
-                            ))}
-                          </Pie>
-                          <Tooltip content={customTooltip} />
-                        </PieChart>
-                      </Col>
-                    </Row>
+                      <small>Red </small>
+                      <RedDiv className="my-3">{red.length}</RedDiv>
+                    </Col>
+                    <Col md={6}>
+                      <PieChart width={300} height={210}>
+                        <Pie
+                          data={chartData}
+                          dataKey="value"
+                          nameKey="name"
+                          cx="30%"
+                          cy="40%"
+                          fill="#8884d8"
+                          innerRadius={55}
+                          outerRadius={85}
+                          paddingAngle={1}
+                          isAnimationActive={false}
+                          labelLine={false}
+                          label={renderCustomizedLabel}
+                        >
+                          {data.map((entry, index) => (
+                            <Cell
+                              key={`cell-${index}`}
+                              fill={COLORS[index % COLORS.length]}
+                            />
+                          ))}
+                        </Pie>
+                        <Tooltip content={customTooltip} />
+                      </PieChart>
+                    </Col>
+                  </Row>
+                </Container>
+              </Container>
+            </Col>
+  
+            <Col sm={12} lg={6}>
+              <Row>
+                <Container>
+                <Container className="">
+                  
+                    <Container className=""
+                  style={{
+                    borderRadius: "10px",
+                    paddingTop: "5px",
+                      marginTop: "2px",
+                      background:'white'
+                      
+                
+                      }}>
+                        <p
+                    style={{
+  
+                      color: "black",
+                      fontWeight: "bold",
+                      fontSize: "13px",
+                      paddingLeft: "10px",
+                    }}
+                  >
+                    REGION
+                  </p>
+  
+                    
+                  
+                  <br/>
+                  <BarChart
+                  width={300}
+                  height={200}
+                  data={chartRegion}
+                  margin={{
+                    top: 5,
+                    right: 5,
+                    left: 5,
+                    bottom: 2,
+                  }}
+                  layout="vertical"
+                >
+                  <XAxis type="number" hide />
+                  <YAxis
+                    type="category"
+                    dataKey="name"
+                    tickLine={false}
+                    axisLine={false}
+                    style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
+                  />
+                  <Bar
+                    dataKey="value"
+                    stackId="a"
+                    fill="#82ca9d"
+                    background={{ fill: "#eee" }}
+                  />
+                </BarChart>
+                <br/>
+                    </Container>
+  
                   </Container>
                 </Container>
-              </Col>
-  
-              <Col sm={12} lg={6}>
-                <Row>
-                <Container>
-                    <Container className="bg-light"
-                      style={{
-                        borderRadius: "10px",
-                        paddingTop: "10px",
-                        marginTop: "3px",}}
-                    >
-                      <p
-                        style={{
-                          color: "black",
-                          fontWeight: "bold",
-                          fontSize: "13px",
-                          paddingLeft: "10px",
-                        }}
-                      >
-                        REGION
-                      </p>
-
-                      <p> SE: {south.length} -- {ssTotal}</p>
-                      <p> SW: {southwest.length}</p>
-                      <p> SS: {southsouth.length}</p>
-                      <p> NW: {northwest.length}</p>
-                      <p> NE: {northeast.length}</p>
-                      <p> NC: {northcentral.length}  -- {ncTotal}</p>
-                    </Container>
-                  </Container>
-                </Row>
-              </Col>
-            </Row>
-          </Container>
+                  
+               
+              </Row>
+            </Col>
+          </Row>
+        </Container>
       </React.Fragment>
     );
   }
