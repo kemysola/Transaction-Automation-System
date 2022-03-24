@@ -85,9 +85,6 @@ const StaffTable = () => {
         accessor: "edit",
         disableResizing: true,
         width: 42,
-        //minWidth: 35,
-        //width: 35,
-        //maxWidth: 35,
         Cell: (props) => {
           const rowIdx = props.row.original['email'];
           return (
