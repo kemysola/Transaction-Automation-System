@@ -6,6 +6,7 @@ import Navbar from '../../LandingPage/Navbar';
 import Card from './Cards/Cards';
 import StaffList from './stafflist/StaffList';
 import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters } from 'react-table'
+import SingleStaff from './deals/SingleStaff';
 
 
 
@@ -26,6 +27,8 @@ const Origination =()=> {
                 </Col>
                 <Col sm={8}>
                     <StaffList/>
+                    <br/>
+                    <SingleStaff/>
     </Col>
                 
     </Row>
