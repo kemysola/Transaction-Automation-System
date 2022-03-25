@@ -62,7 +62,8 @@ export default function App() {
         <ProtectedRoute exact path="/dashboard" component={MgtView}/>
         <ProtectedRoute exact path="/org-dashboard" component={Origination} />
         <ProtectedRoute exact path="/execution" component={Execution} />
-
+        <ProtectedRoute exact path="/staff_transaction_report" component={SingleView} />
+        
         <Route path="/verify">
           <Verify />
         </Route>
@@ -74,12 +75,6 @@ export default function App() {
         </Route>
         <Route path="/one_view">
           <Updates />
-        </Route>
-        <Route exact path="/execution">
-          <Execution />
-        </Route>
-        <Route exact path="/staff_transaction_report">
-          <SingleView/>
         </Route>
       </Switch>
     </React.Fragment>
