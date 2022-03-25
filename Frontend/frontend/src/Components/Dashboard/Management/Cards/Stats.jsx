@@ -271,7 +271,7 @@ export default function Stats() {
 
   const chartRegion = [
     {
-      name:"South",
+      name:"SE",
       value:south,
     },
     {
