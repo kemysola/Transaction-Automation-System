@@ -22,10 +22,10 @@ app.use(express.json()); //To get access to client's request.body as json object
 //to use the build during the production.
 app.use(express.static('./Frontend/frontend/build'))
 
-app.get("*", (req,res) =>{
-    res.sendFile(path.resolve(__dirname,"frontend", "build", "index.html"))
+/*app.get("*", (req,res) =>{
+    res.sendFile(path.resolve(__dirname,"Frontend","frontend","build", "index.html"))
 
-})
+})*/
 
 app.set('port', app_port  || 5001)
 console.log("++++++" + app.get('port'))
