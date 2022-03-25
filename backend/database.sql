@@ -376,3 +376,17 @@ VALUES('Straight-Line'),
 --1. User status will be inactive until password is reset
 --2. Only Admin role can onboard new staff
 --3. Admin role will be granted after approval and from backend (review most convinient option)
+--All geographical regions within the InfraCredit business net
+CREATE TABLE TB_INFRCR_STAFF_LEVELS
+(
+levelID INT GENERATED ALWAYS AS IDENTITY,
+level VARCHAR(5),
+levelDescription VARCHAR NULL,
+PRIMARY KEY(level)
+);
+INSERT INTO TB_INFRCR_STAFF_LEVELS(level)
+VALUES('CEO'),
+    ('VP'),
+    ('AVP'),
+    ('CONTRACT'),
+    ('ANALYST');
