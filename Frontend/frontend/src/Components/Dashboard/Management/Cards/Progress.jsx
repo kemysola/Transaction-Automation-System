@@ -359,7 +359,7 @@ export default function Progress() {
 
   return (
     <React.Fragment>
-      <p class='animate__animated animate__pulse my-3 py-3'><b>Management Dashboard</b></p>
+      <p class='animate__animated animate__pulse py-1' style={{marginLeft:'1rem'}}><b>Management Dashboard</b></p>
       <div style={{ marginLeft: "1rem ", marginRight: " 0.11rem", background:'white' }}>
         <Stats />
       </div>
