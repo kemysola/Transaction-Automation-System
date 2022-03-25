@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { Table, Button, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
-import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters } from 'react-table'
+import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters,    useSortBy
+} from 'react-table'
 import { useHistory } from 'react-router-dom';
 import { FiEdit } from 'react-icons/fi';
 import Service from '../../../../Services/Service'
@@ -126,11 +127,13 @@ const StaffList = () => {
     data: staff,
     initialState
   },
+  
   useGlobalFilter,
   useFilters,
   useResizeColumns,
   useFlexLayout,
   );
+
 
 
 
@@ -164,7 +167,7 @@ const StaffList = () => {
         </Row>
         <Row>
           <Col sm={10} className='bg-light mt-3'>
-          <div className="table-responsive mt-2 pt-2">
+          <div className=" mt-2 pt-2">
             <table
               className="table py-3 mt-3  table-hover  "
               id='myTable'
