@@ -68,10 +68,12 @@ const UserLogin = () => {
         () => {
           if (localStorage.getItem("admin") === "true") {
             localStorage.setItem("isAuthenticated", "true");
-            return history.push("/landing");
-          } else {
-            return history.push("/user");
+            history.push("/landing");
           }
+          if(localStorage.getItem("admin") !== "true"){
+            history.push("/user");
+          }
+          window.location.reload()
         },
         (error) => {
           const resMessage =

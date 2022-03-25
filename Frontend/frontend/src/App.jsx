@@ -40,9 +40,9 @@ export default function App() {
         <Route exact path="/login">
           <Main />
         </Route>
-        <Route path="/landing">
-          <Landing />
-        </Route>
+        
+        <ProtectedRoute exact path="/landing" component={Landing} />
+
         <Route exact path="/transaction">
           <TransactionView />
         </Route>
@@ -63,6 +63,7 @@ export default function App() {
         <ProtectedRoute exact path="/org-dashboard" component={Origination} />
         <ProtectedRoute exact path="/execution" component={Execution} />
         <ProtectedRoute exact path="/staff_transaction_report" component={SingleView} />
+        <ProtectedRoute exact path="/one_view" component={Updates} />
         
         <Route path="/verify">
           <Verify />
@@ -73,9 +74,7 @@ export default function App() {
         <Route path="/reset_password">
           <PasswordReset />
         </Route>
-        <Route path="/one_view">
-          <Updates />
-        </Route>
+  
       </Switch>
     </React.Fragment>
   );
