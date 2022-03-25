@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, ProgressBar, Card } from "react-bootstrap";
 import styled from "styled-components";
 import Table from "../Table";
-import Stats from "./Stats";
 import Service from "../../../../Services/Service";
 import {
   BarChart,
@@ -357,12 +356,11 @@ export default function Progress() {
 
   return (
     <React.Fragment>
-      {/*<div style={{ marginLeft: "1rem", marginRight: " 0.11rem" }}>
-      </div>*/}
-
-      <Container fluid>
+      <Container fluid className='bg-light'>
+        <p class='animate__animated animate__pulse pt-2'><b>Execution Summary</b></p>
         <Row style={{ marginTop: "5px " }}>
-          <Col sm={6} lg={4}>
+          <Col sm={6} lg={4} className="my-1">
+            <br/>
             <PieCard/>
 
           </Col>
