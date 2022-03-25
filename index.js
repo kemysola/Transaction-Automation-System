@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
 const cors = require("cors"); //Review
+const path = require("path")
 
 // Routes
 const authRoute = require("./backend/routes/auth");
@@ -20,12 +21,9 @@ app.use(cors()); //Review need in project
 app.use(express.json()); //To get access to client's request.body as json object
 
 //to use the build during the production.
-app.use(express.static('./Frontend/frontend/build'))
 
-app.get("*", (req,res) =>{
-    res.sendFile(path.resolve(__dirname,"frontend", "build", "index.html"))
 
-})
+
 
 app.set('port', app_port  || 5001)
 console.log("++++++" + app.get('port'))
@@ -40,6 +38,16 @@ try {
     
 } catch (err) {
     console.error(err)
+}
+
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static('Frontend/frontend/build'))
+    app.get("*", (req,res) =>{
+        res.sendFile(path.resolve(__dirname,"frontend","build", "index.html"))
+    
+    })
+
+
 }
 
 process.on('unhandledRejection', (reason, promise) => {
