@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom'
 
 
 
+
 const MainCards = () => {
     const [userEmail, setUserEmail] = useState()
     useEffect(() => {
@@ -32,14 +33,14 @@ const MainCards = () => {
         <React.Fragment>
             <Container>
                 <div className='title'>
-                    <p style={{ color: '#1184c2', fontWeight:"13px" }}>Welcome Back <b>{userEmail}</b></p>
+                    <p class='animate__animated animate__bounce' style={{ color: '#1184c2', fontWeight:"13px" }}>Welcome Back <b>{userEmail}</b></p>
                 </div>
 
                 <Row >
                     <Col sm={4} className='my-1'>
                         <div className="bg-light py-2">
                             <li className='text-center' style={{ fontWeight: 'bold', listStyleType: 'none' }}>
-                                <Link to='#' style={{ textDecoration: "none", color: '#1184c2', fontFamily:'PT Serif' }}>
+                                <Link to='#'  style={{ textDecoration: "none", color: '#1184c2', fontFamily:'PT Serif' }}>
                                     BUDGET MANAGER
                                 </Link>
                             </li>

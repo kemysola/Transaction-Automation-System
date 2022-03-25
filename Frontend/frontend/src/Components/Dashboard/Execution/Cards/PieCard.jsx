@@ -70,7 +70,7 @@ const AmberDiv = styled.div`
 
 //  ........................................React functional component.......................
 
-export default function Stats() {
+export default function PieCard() {
     const [data, setData] = useState([]);
     const [region, setRegion] = useState([])
   
@@ -212,7 +212,7 @@ export default function Stats() {
       percent,
       index,
     }) => {
-      const radius = innerRadius + (outerRadius - innerRadius) * 0.2;
+      const radius = innerRadius + (outerRadius - innerRadius) * 10;
       const x = cx + radius * Math.cos(-midAngle * RADIAN);
       const y = cy + radius * Math.sin(-midAngle * RADIAN);
   
@@ -285,19 +285,10 @@ export default function Stats() {
     return (
       <React.Fragment>
         {/*---------------------------- Div ------------------------------------------- */}
-        <Container fluid className="mb-3">
+        <Container fluid className="mb-3 bg-light">
           <Row>
-            <Col lg={4} sm={12} className="my-1">
-              <Container>
-                <Container
-                  className=""
-                  style={{
-                    borderRadius: "10px",
-                    paddingTop: "10px",
-                    marginTop: "3px",
-                    background:'white'
-                  }}
-                >
+            <Col lg={12} sm={12} className="my-1 ">
+                
                   <p className="pb-2"
                     style={{
                       color: "black",
@@ -311,7 +302,7 @@ export default function Stats() {
                   </p>
   
                   <Row>
-                    <Col md={4} className="mt-1">
+                    <Col md={5} className="mt-1">
                      <small>Green </small>
                      <GreenDiv className="my-3">{green.length}</GreenDiv>
                      <br/>
@@ -322,16 +313,16 @@ export default function Stats() {
                       <RedDiv className="my-3">{red.length}</RedDiv>
                     </Col>
                     <Col md={6}>
-                      <PieChart width={300} height={210}>
+                      <PieChart width={280} height={210}>
                         <Pie
                           data={chartData}
                           dataKey="value"
                           nameKey="name"
-                          cx="27%"
+                          cx="25%"
                           cy="40%"
                           fill="#8884d8"
                           innerRadius={55}
-                          outerRadius={85}
+                          outerRadius={75}
                           paddingAngle={1}
                           isAnimationActive={false}
                           labelLine={false}
@@ -348,75 +339,9 @@ export default function Stats() {
                       </PieChart>
                     </Col>
                   </Row>
-                </Container>
-              </Container>
             </Col>
   
-            <Col sm={12} lg={4}>
-              <Row>
-                <Container>
-                <Container className="">
-                  
-                    <Container className=""
-                  style={{
-                    borderRadius: "10px",
-                    paddingTop: "5px",
-                      marginTop: "2px",
-                      background:'white'
-                      
-                
-                      }}>
-                        <p
-                    style={{
-  
-                      color: "black",
-                      fontWeight: "bold",
-                      fontSize: "13px",
-                      paddingLeft: "10px",
-                    }}
-                  >
-                    REGION
-                  </p>
-  
-                    
-                  
-                  <br/>
-                  <BarChart
-                  width={200}
-                  height={200}
-                  data={chartRegion}
-                  margin={{
-                    top: 5,
-                    right: 5,
-                    left: 5,
-                    bottom: 2,
-                  }}
-                  layout="vertical"
-                >
-                  <XAxis type="number" hide />
-                  <YAxis
-                    type="category"
-                    dataKey="name"
-                    tickLine={false}
-                    axisLine={false}
-                    style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
-                  />
-                  <Bar
-                    dataKey="value"
-                    stackId="a"
-                    fill="#82ca9d"
-                    background={{ fill: "#eee" }}
-                  />
-                </BarChart>
-                <br/>
-                    </Container>
-  
-                  </Container>
-                </Container>
-                  
-               
-              </Row>
-            </Col>
+            
           </Row>
         </Container>
       </React.Fragment>
