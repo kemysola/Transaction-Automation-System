@@ -366,7 +366,7 @@ export default function Stats() {
             </Container>
           </Col>
 
-          <Col sm={12} lg={6}>
+          <Col sm={12} lg={6} className='d-flex justify-content-center'>
             <Row>
               <Container>
               <Container className="">
@@ -395,9 +395,9 @@ export default function Stats() {
                   
                 
                 <br/>
-                <BarChart
-                width={300}
-                height={200}
+                <BarChart 
+                width={240}
+                height={240}
                 data={chartRegion}
                 margin={{
                   top: 5,
@@ -405,16 +405,17 @@ export default function Stats() {
                   left: 5,
                   bottom: 2,
                 }}
-                layout="vertical"
+                layout="horizontal"
               >
-                <XAxis type="number" hide />
-                <YAxis
-                  type="category"
+                <XAxis type="category" dataKey='name' tickLine={false}
+                  axisLine={false}  />
+                {/*<YAxis
+                  type="number"
                   dataKey="name"
                   tickLine={false}
                   axisLine={false}
                   style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
-                />
+              />*/}
                 <Bar
                   dataKey="value"
                   stackId="a"
