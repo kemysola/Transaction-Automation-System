@@ -19,6 +19,7 @@ const login = async (email, password) => {
       if (response.data.token) {
         // localStorage.setItem("users", JSON.stringify(response.data.email));
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("admin", response.data.Admin);
         //userHasAuthenticated(true)
       }
       return response.data.email;
