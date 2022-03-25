@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css"
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Main from "./Components/Auth/MainPage/Main";
 import Landing from "./Components/LandingPage/Landing";
 import TransactionView from "./Components/Transactions/TransactionView";
@@ -20,8 +20,11 @@ import PasswordReset from "./Components/Auth/Reset/PasswordReset";
 import Reset from "./Components/Auth/StaffReset/Reset";
 import Updates from "./Pages/Staffs/Updates";
 import UserLanding from "./Components/HomePage/UserLanding"
+import ProtectedRoute from "./Components/Auth/Login/ProtectedRoute";
+
 
 export default function App() {
+ 
   return (
     <React.Fragment>
       <Switch>
@@ -40,34 +43,23 @@ export default function App() {
         <Route exact path="/transaction">
           <TransactionView />
         </Route>
-        <Route exact path="/staff">
-          <StaffView />
-        </Route>
-        <Route exact path="/staffs">
-          <AllStaff />
-        </Route>
-        <Route exact path="/update">
-          <UpdateStaffs />
-        </Route>
-        <Route path="/update_transactions">
-          <UpdateTransaction />
-        </Route>
-        <Route path="staffview">
-          <AllStaff />
-        </Route>
-        
+
         <Route path="/newPages">
           <NewText />
         </Route>
-        <Route path="/dashboard">
-          <MgtView />
+
+        <Route path="/update_transactions">
+          <UpdateTransaction />
         </Route>
-        <Route path="/org-dashboard">
-          <Origination />
-        </Route>
-        <Route path="/execution">
-          <Execution />
-        </Route>
+
+        <ProtectedRoute exact path="/staff" component={StaffView}/>
+        <ProtectedRoute exact path="/staffs" component={AllStaff} />
+        <ProtectedRoute exact path="/update" component={UpdateStaffs} />
+        <ProtectedRoute exact path="staffview" component={AllStaff }/>
+        <ProtectedRoute exact path="/dashboard" component={MgtView}/>
+        <ProtectedRoute exact path="/org-dashboard" component={Origination} />
+        <ProtectedRoute exact path="/execution" component={Execution} />
+
         <Route path="/verify">
           <Verify />
         </Route>
@@ -79,9 +71,6 @@ export default function App() {
         </Route>
         <Route path="/one_view">
           <Updates />
-        </Route>
-        <Route exact path="/execution">
-          <Execution />
         </Route>
       </Switch>
     </React.Fragment>

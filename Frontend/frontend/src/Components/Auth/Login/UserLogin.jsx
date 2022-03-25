@@ -66,8 +66,12 @@ const UserLogin = () => {
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(email.name, password).then(
         () => {
-          history.push("/landing");
-          window.location.reload();
+          if (localStorage.getItem("admin") === "true") {
+            localStorage.setItem("isAuthenticated", "true");
+            return history.push("/landing");
+          } else {
+            return history.push("/user");
+          }
         },
         (error) => {
           const resMessage =
