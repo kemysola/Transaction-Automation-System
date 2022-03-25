@@ -19,6 +19,16 @@ app.use(cors()); //Review need in project
 
 app.use(express.json()); //To get access to client's request.body as json object
 
+//to use the build during the production.
+app.use(express.static('./Frontend/frontend/build'))
+
+app.get("*", (req,res) =>{
+    res.sendFile(path.resolve(__dirname,"frontend", "build", "index.html"))
+
+})
+
+app.set('port', app_port  || 5001)
+console.log("++++++" + app.get('port'))
 // Implemeting all endpoints
 try {
     app.use("/api/v1/auth", authRoute)
@@ -39,3 +49,4 @@ process.on('unhandledRejection', (reason, promise) => {
 app.listen(app_port || 5001, () => {
     console.log(`InfraCreditTRS Server Listening on Port: ${app_port}`)
 });
+
