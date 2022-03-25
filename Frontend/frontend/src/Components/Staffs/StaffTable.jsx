@@ -25,11 +25,11 @@ const GlobalFilter =({
   }, 200)
 
   return (
-      <span>
+      <span className='d-flex justify-content-end'>
           {/* Search:{' '} */}
           <input 
               className="form-control"
-              style={{ outline: 'none', border: '1px solid black', padding: '2px', marginTop: '2px', marginRight: '2px', width:'180px' }}
+              style={{ outline: 'none', border: '1px solid black', padding: '1px 10px', marginTop: '2px', marginRight: '2px', width:'180px' }}
               value={value || ""}
               onChange={e => {
                   setValue(e.target.value);
@@ -63,10 +63,11 @@ const StaffTable = () => {
       });
   };
 
+  console.log("staff data", staff)
+
   const openStaff = (rowIndex) => {
     const id = staffRef.current[rowIndex].id;
     history.push("/staff/" + id)
-
   };
 
   const updateStaff = (rowIndex) => {
@@ -195,7 +196,7 @@ const StaffTable = () => {
                 Bulk Actions
                 </small>
           </Col>
-          <Col sm={12} lg={4}>
+          <Col sm={12} lg={6}>
             <form className='pt-1'>
             <GlobalFilter
                 preGlobalFilteredRows={preGlobalFilteredRows}
@@ -226,8 +227,6 @@ const StaffTable = () => {
               <tbody {...getTableBodyProps()} className='table-bordered'>
                 {rows.map((row, i) => {
                   prepareRow(row);
-                  // console.log(row)
-                  // console.log(i)
                   return (
                     <tr {...row.getRowProps()}>
                       {row.cells.map((cell) => {

@@ -48,10 +48,10 @@ export const GlobalFilter =({
   }, 200)
 
   return (
-      <span>
+      <span className='d-flex justify-content-end'>
           <input 
-              className="form-control"
-              style={{ outline: 'none', border: '1px solid black', padding: '2px', marginTop: '2px', marginRight: '2px' , width:'170px'}}
+              className="form-control "
+              style={{ outline: 'none', border: '1px solid black', padding: '1px 10px', marginTop: '2px', marginRight: '2px' , width:'170px'}}
               value={value || ""}
               onChange={e => {
                   setValue(e.target.value);
@@ -62,8 +62,6 @@ export const GlobalFilter =({
       </span>
   )
 }
-
-
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -411,35 +409,33 @@ const DealsTable = (props) => {
  
         {/* <Search filter = {globalFilter} setFilter={setGlobalFilter} name="search"/> */}
         <Row>
-          <Col sm={4}className='d-flex justify-content-between'  >
-          <small style={{fontSize:'12px',paddingTop:'10px'}}>
-            All ({deals.length})
+          <Col sm={5} className='d-flex justify-content-between'  >
+            <small style={{fontSize:'12px',paddingTop:'10px'}}>
+              All ({deals.length})
             </small>
-          <a className="vr" />
-          <small style={{fontSize:'12px',paddingTop:'10px'}}>
-            Trash (0) 
+
+            <a className="vr" />
+
+            <small style={{fontSize:'12px',paddingTop:'10px'}}>
+              Trash (0) 
             </small>
-          <div
-          className="vr" />
-          <small style={{fontSize:'12px',paddingTop:'10px'}}>
-            Bulk Actions
+
+            <div className="vr" />
+            
+            <small style={{fontSize:'12px',paddingTop:'10px'}}>
+              Bulk Actions
             </small>
           </Col>
-          <Col sm={12} lg={4} size="sm" className='d-flex justify-content-center'>
-          <Button className=' ' size='sm' style={{backgroundColor: "green", border:'none', marginRight: '1em',padding:'5px'}}>           Apply
-          </Button>
-          <Button className='py-0' size='sm'>
-            Download
-          </Button>
-          </Col>
-          <Col sm={12} lg={4}>
+
+          
+
+          <Col sm={12} lg={6}>
             <form className='pt-1'>
-            <GlobalFilter
+              <GlobalFilter
                 preGlobalFilteredRows={preGlobalFilteredRows}
                 globalFilter={state.globalFilter}
                 setGlobalFilter={setGlobalFilter}
               />
-              {/* <Button className='py-0 btn-outline-none text-dark btn-light' style={{border:'1px solid black',padding:'none'}} >Search</Button> */}
             </form>
           </Col>
         </Row>

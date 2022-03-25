@@ -356,7 +356,7 @@ export default function Progress() {
 
   return (
     <React.Fragment>
-      {/* <div style={{ marginLeft: " ", marginRight: " 0.11rem" }}>
+      <div style={{ marginLeft: "1rem", marginRight: " 0.11rem" }}>
         <Stats />
       </div>
 
@@ -365,16 +365,17 @@ export default function Progress() {
           <Col sm={12} lg={6} className="my-1">
             <div
               style={{
-                background: "white",
                 padding: "10px",
                 marginTop: "3px",
-                borderRadius: "1px",
+                borderRadius: "15px",
               }}
             >
-              <p
+              <Container>
+                <Container className='bg-light py-3'>
+                <p
                 style={{
-                  fontSize: "15px",
-                  paddingLeft: "12px",
+                  fontSize: "13px",
+                  paddingLeft: "10px",
                   fontWeight: "bold",
                 }}
               >
@@ -382,7 +383,7 @@ export default function Progress() {
               </p>
 
               <BarChart
-                width={400}
+                width={300}
                 height={340}
                 data={chartData}
                 margin={{
@@ -407,23 +408,27 @@ export default function Progress() {
                   fill="#82ca9d"
                   background={{ fill: "#eee" }}
                 />
-              </BarChart>
+                </BarChart>
+                </Container>
+              </Container>
             </div>
           </Col>
+
           {/*------------------------ Column ------------------------------- */}
-          {/* <Col sm={12} lg={6} className="my-1">
+          <Col sm={12} lg={6} className="my-1">
             <div
               style={{
-                background: "white",
                 paddingTop: "10px",
                 marginTop: "3px",
-                borderRadius: "1px",
+                borderRadius: "15px",
                 height: "65.4vh",
               }}
             >
-              <p
+              <Container>
+                <Container className='bg-light py-3'>
+                <p
                 style={{
-                  fontSize: "15px",
+                  fontSize: "13px",
                   paddingLeft: "10px",
                   fontWeight: "bold",
                 }}
@@ -432,7 +437,7 @@ export default function Progress() {
               </p>
               <BarChart
                 width={400}
-                height={300}
+                height={250}
                 data={productChartData}
                 margin={{
                   top: 25,
@@ -464,12 +469,15 @@ export default function Progress() {
                   background={{ fill: "#eee" }}
                 />
               </BarChart>
+
+                </Container>
+              </Container>
             </div>
-          </Col> */}
+          </Col>
           {/*------------------------ Column ------------------------------- */}
-        {/* </Row>
+        </Row>
       </Container>
-      <br /> */}
+      <br />
       <Table />
     </React.Fragment>
   );

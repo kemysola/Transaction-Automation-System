@@ -241,6 +241,9 @@ export default function Progress() {
     },
   ];
 
+
+  
+
   ///////////////////////////////PRODUCT
 
   let productOption1 = data.reduce(function (filtered, arr) {
@@ -479,7 +482,6 @@ export default function Progress() {
         </Row>
       </Container>
       <br />
-      {/*<GuarPipe/>*/}
     </React.Fragment>
   );
 }

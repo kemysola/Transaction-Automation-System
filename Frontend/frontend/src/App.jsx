@@ -22,6 +22,9 @@ import Updates from "./Pages/Staffs/Updates";
 import UserLanding from "./Components/HomePage/UserLanding"
 import ProtectedRoute from "./Components/Auth/Login/ProtectedRoute";
 
+import StaffList from "./Components/Dashboard/Origination/stafflist/StaffList";
+import SingleStaff from "./Components/Dashboard/Origination/deals/SingleStaff";
+import SingleView from "./Components/Dashboard/Origination/deals/SingleView";
 
 export default function App() {
  
@@ -71,6 +74,12 @@ export default function App() {
         </Route>
         <Route path="/one_view">
           <Updates />
+        </Route>
+        <Route exact path="/execution">
+          <Execution />
+        </Route>
+        <Route exact path="/staff_transaction_report">
+          <SingleView/>
         </Route>
       </Switch>
     </React.Fragment>

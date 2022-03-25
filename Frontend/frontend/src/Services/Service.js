@@ -32,6 +32,10 @@ const getMyDeals = () => { // get current users deals
     return axios.get("transaction/my_deals");
 };
 
+const getMyDealsByEmail = user_email => { // get current users deals
+    return  axios.get(`transaction/get_staff_deals/${user_email}`);
+    
+};
 const getAllDeals = () => { // get all deals, for privileged users only
     return axios.get("transaction/all_deals");
 };
@@ -84,6 +88,7 @@ export default {
     createDeal,
     updateDeal,
     getDealById,
+    getMyDealsByEmail,
     getMyDeals,
     getAllDeals,
     getAllStaff,

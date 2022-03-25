@@ -2,11 +2,23 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Container, Row, Col } from "react-bootstrap";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
-import map from "../../../../Images/map.png";
+
+
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+
 import Service from "../../../../Services/Service";
 import { Chart } from "react-google-charts";
 import "./../style.css";
 import { FilterDramaTwoTone } from "@mui/icons-material";
+import background from '../../../../Images/removeG.png'
 
 // .................................. Styled Components .........................
 
@@ -30,7 +42,6 @@ const RedDiv = styled.div`
   font-size: 10px;
   display:inline-block;
   margin-left:19px;
-
 `;
 
 const GreenDiv = styled.div`
@@ -46,8 +57,6 @@ const GreenDiv = styled.div`
   font-size: 10px;
   display:inline-block;
   margin-left:5px;
-
-  
 `;
 
 const AmberDiv = styled.div`
@@ -63,9 +72,8 @@ const AmberDiv = styled.div`
   font-size: 10px;
   display:inline-block;
   margin-left:3px;
-
-
 `;
+
 
 //  ........................................React functional component.......................
 
@@ -169,20 +177,6 @@ export default function Stats() {
   }, []);
 
 
-  //........................ Return Region Total ......................................
-  var ssTotal = south.reduce(function (tot, arr) {
-    return tot + parseFloat(arr);
-  }, 0);
-  var seTotal = southwest.reduce(function (tot, arr) {
-    return tot + parseFloat(arr);
-  }, 0);
-  var ncTotal = northcentral.reduce(function (tot, arr) {
-    return tot + parseFloat(arr);
-  }, 0);
-
-
-
-
 
   // ......... Return deal_category total ...............................................
 
@@ -210,6 +204,8 @@ export default function Stats() {
     { name: "Green", value: greenTotal },
   ];
 
+  // ................................. Rechart Piechart Customized Label ...........................
+
   const COLORS = ["#FF4500", "#FFBB28", "#00C49F"];
 
   const RADIAN = Math.PI / 180;
@@ -226,7 +222,6 @@ export default function Stats() {
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
-    // ................................. Rechart Piechart ...........................
     return (
       <>
         <text x={cx} y={cy} dy={8} textAnchor="middle">
@@ -274,23 +269,50 @@ export default function Stats() {
     return null;
   };
 
+  const chartRegion = [
+    {
+      name:"South",
+      value:south,
+    },
+    {
+      name:"SW",
+      value:southwest,
+    },
+    {
+      name:"NC",
+      value:northcentral,
+    },
+    {
+      name:"NE",
+      value:northeast,
+    },
+    {
+      name:"NW",
+      value:northwest,
+    },
+    {
+      name:"SS",
+      value:southsouth,
+    }
+  ]
+
   return (
     <React.Fragment>
       {/*---------------------------- Div ------------------------------------------- */}
-      {/* <PieDiv> */}
       <Container fluid className="mb-3">
         <Row>
           <Col lg={6} sm={12} className="my-1">
             <Container>
               <Container
-                className="bg-light"
+                className=""
                 style={{
                   borderRadius: "10px",
                   paddingTop: "10px",
                   marginTop: "3px",
+                  background:'white'
                 }}
               >
-                <p
+                <p className="pb-2"
                   style={{
                     color: "black",
                     fontWeight: "bold",
@@ -345,17 +367,20 @@ export default function Stats() {
           </Col>
 
           <Col sm={12} lg={6}>
-            <Row
-              
-            >
-                <Container>
-                  <Container className="bg-light"
+            <Row>
+              <Container>
+              <Container className="">
+                
+                  <Container className=""
                 style={{
                   borderRadius: "10px",
-                  paddingTop: "10px",
-                    marginTop: "3px",}}>
-
-                  <p
+                  paddingTop: "5px",
+                    marginTop: "2px",
+                    background:'white'
+                    
+              
+                    }}>
+                      <p
                   style={{
 
                     color: "black",
@@ -366,28 +391,48 @@ export default function Stats() {
                 >
                   REGION
                 </p>
-                <p> SE: {south.length} -- {ssTotal}</p>
-                <p> SW: {southwest.length}</p>
-                <p> SS: {southsouth.length}</p>
-                <p> NW: {northwest.length}</p>
-                <p> NE: {northeast.length}</p>
-                <p> NC: {northcentral.length}  -- {ncTotal}</p>
 
-
+                  
+                
+                <br/>
+                <BarChart
+                width={300}
+                height={200}
+                data={chartRegion}
+                margin={{
+                  top: 5,
+                  right: 5,
+                  left: 5,
+                  bottom: 2,
+                }}
+                layout="vertical"
+              >
+                <XAxis type="number" hide />
+                <YAxis
+                  type="category"
+                  dataKey="name"
+                  tickLine={false}
+                  axisLine={false}
+                  style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
+                />
+                <Bar
+                  dataKey="value"
+                  stackId="a"
+                  fill="#82ca9d"
+                  background={{ fill: "#eee" }}
+                />
+              </BarChart>
+              <br/>
                   </Container>
+
                 </Container>
-               
-
-
-
-
-
-              
+              </Container>
+                
+             
             </Row>
           </Col>
         </Row>
       </Container>
-      {/* </PieDiv> */}
     </React.Fragment>
   );
 }
