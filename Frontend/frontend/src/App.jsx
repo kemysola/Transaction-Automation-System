@@ -93,6 +93,7 @@ export default function App() {
         <Route exact path="/staff_transaction_report">
           <SingleView />
         </Route>
+        
       </Switch>
     </React.Fragment>
   );
