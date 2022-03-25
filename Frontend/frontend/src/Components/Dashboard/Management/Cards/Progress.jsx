@@ -241,6 +241,9 @@ export default function Progress() {
     },
   ];
 
+
+  
+
   ///////////////////////////////PRODUCT
 
   let productOption1 = data.reduce(function (filtered, arr) {
@@ -356,13 +359,14 @@ export default function Progress() {
 
   return (
     <React.Fragment>
-      <div style={{ marginLeft: "1rem ", marginRight: " 0.11rem" }}>
+      <p class='animate__animated animate__pulse py-1' style={{marginLeft:'1rem'}}><b>Management Dashboard</b></p>
+      <div style={{ marginLeft: "1rem ", marginRight: " 0.11rem", background:'white' }}>
         <Stats />
       </div>
 
-      <Container fluid>
+      <Container style={{ marginLeft: "1rem ", marginRight: " 0.11rem", background:'white' }}>
         <Row style={{ marginTop: "5px " }}>
-          <Col sm={12} lg={6} className="my-1">
+          <Col sm={12} lg={6} className="my-3">
             <div
               style={{
                 paddingTop: "10px",
@@ -415,7 +419,7 @@ export default function Progress() {
             </div>
           </Col>
           {/*------------------------ Column ------------------------------- */}
-          <Col sm={12} lg={6} className="my-1">
+          <Col sm={12} lg={6} className="my-3">
             <div
               style={{
                 paddingTop: "10px",

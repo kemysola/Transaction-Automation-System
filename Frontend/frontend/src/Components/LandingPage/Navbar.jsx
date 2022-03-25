@@ -26,7 +26,10 @@ const Navbar = ({ handleToggleSidebar, props }) => {
                 
                 {/*---------------------------  Logo Div ------------------------------------- */}
                 <div>
+                    <Link to ='/landing'>
                     <img src={InfraCredit} alt='logo' width='100' />
+
+                    </Link>
                 </div>
 
                 

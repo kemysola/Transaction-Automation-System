@@ -2,10 +2,23 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Container, Row, Col } from "react-bootstrap";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
+
+
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+
 import Service from "../../../../Services/Service";
 import { Chart } from "react-google-charts";
 import "./../style.css";
 import { FilterDramaTwoTone } from "@mui/icons-material";
+import background from '../../../../Images/removeG.png'
 
 // .................................. Styled Components .........................
 
@@ -60,6 +73,7 @@ const AmberDiv = styled.div`
   display:inline-block;
   margin-left:3px;
 `;
+
 
 //  ........................................React functional component.......................
 
@@ -163,16 +177,6 @@ export default function Stats() {
   }, []);
 
 
-  //........................ Return Region Total ......................................
-  var ssTotal = south.reduce(function (tot, arr) {
-    return tot + parseFloat(arr);
-  }, 0);
-  var seTotal = southwest.reduce(function (tot, arr) {
-    return tot + parseFloat(arr);
-  }, 0);
-  var ncTotal = northcentral.reduce(function (tot, arr) {
-    return tot + parseFloat(arr);
-  }, 0);
 
   // ......... Return deal_category total ...............................................
 
@@ -265,6 +269,33 @@ export default function Stats() {
     return null;
   };
 
+  const chartRegion = [
+    {
+      name:"SE",
+      value:south,
+    },
+    {
+      name:"SW",
+      value:southwest,
+    },
+    {
+      name:"NC",
+      value:northcentral,
+    },
+    {
+      name:"NE",
+      value:northeast,
+    },
+    {
+      name:"NW",
+      value:northwest,
+    },
+    {
+      name:"SS",
+      value:southsouth,
+    }
+  ]
+
   return (
     <React.Fragment>
       {/*---------------------------- Div ------------------------------------------- */}
@@ -273,14 +304,15 @@ export default function Stats() {
           <Col lg={6} sm={12} className="my-1">
             <Container>
               <Container
-                className="bg-light"
+                className=""
                 style={{
                   borderRadius: "10px",
                   paddingTop: "10px",
                   marginTop: "3px",
+                  background:'white'
                 }}
               >
-                <p
+                <p className="pb-2"
                   style={{
                     color: "black",
                     fontWeight: "bold",
@@ -334,16 +366,21 @@ export default function Stats() {
             </Container>
           </Col>
 
-          <Col sm={12} lg={6}>
+          <Col sm={12} lg={6} className='d-flex justify-content-center'>
             <Row>
-                <Container>
-                  <Container className="bg-light"
+              <Container>
+              <Container className="">
+                
+                  <Container className=""
                 style={{
                   borderRadius: "10px",
-                  paddingTop: "10px",
-                    marginTop: "3px",}}>
-
-                  <p
+                  paddingTop: "5px",
+                    marginTop: "2px",
+                    background:'white'
+                    
+              
+                    }}>
+                      <p
                   style={{
 
                     color: "black",
@@ -354,16 +391,44 @@ export default function Stats() {
                 >
                   REGION
                 </p>
-                <p> SE: {south.length} -- {ssTotal}</p>
-                <p> SW: {southwest.length}</p>
-                <p> SS: {southsouth.length}</p>
-                <p> NW: {northwest.length}</p>
-                <p> NE: {northeast.length}</p>
-                <p> NC: {northcentral.length}  -- {ncTotal}</p>
 
-
+                  
+                
+                <br/>
+                <BarChart 
+                width={240}
+                height={240}
+                data={chartRegion}
+                margin={{
+                  top: 5,
+                  right: 5,
+                  left: 5,
+                  bottom: 2,
+                }}
+                layout="horizontal"
+              >
+                <XAxis type="category" dataKey='name' tickLine={false}
+                  axisLine={false}  />
+                {/*<YAxis
+                  type="number"
+                  dataKey="name"
+                  tickLine={false}
+                  axisLine={false}
+                  style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
+              />*/}
+                <Bar
+                  dataKey="value"
+                  stackId="a"
+                  fill="#82ca9d"
+                  background={{ fill: "#eee" }}
+                />
+              </BarChart>
+              <br/>
                   </Container>
+
                 </Container>
+              </Container>
+                
              
             </Row>
           </Col>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, ProgressBar, Card } from "react-bootstrap";
 import styled from "styled-components";
 import Table from "../Table";
-import Stats from "./Stats";
 import Service from "../../../../Services/Service";
 import {
   BarChart,
@@ -14,6 +13,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import PieCard from "./PieCard";
 
 const ProgressBarDiv = styled.div`
   display: grid;
@@ -356,13 +356,16 @@ export default function Progress() {
 
   return (
     <React.Fragment>
-      <div style={{ marginLeft: "1rem", marginRight: " 0.11rem" }}>
-        <Stats />
-      </div>
-
-      <Container fluid>
+      <Container fluid className='bg-light'>
+        <p class='animate__animated animate__pulse pt-2'><b>Execution Summary</b></p>
         <Row style={{ marginTop: "5px " }}>
-          <Col sm={12} lg={6} className="my-1">
+          <Col sm={6} lg={4} className="my-1">
+            <br/>
+            <PieCard/>
+
+          </Col>
+
+          <Col sm={6} lg={4} className="my-1">
             <div
               style={{
                 padding: "10px",
@@ -383,7 +386,7 @@ export default function Progress() {
               </p>
 
               <BarChart
-                width={300}
+                width={200}
                 height={340}
                 data={chartData}
                 margin={{
@@ -415,7 +418,7 @@ export default function Progress() {
           </Col>
 
           {/*------------------------ Column ------------------------------- */}
-          <Col sm={12} lg={6} className="my-1">
+          <Col sm={12} lg={4} className="my-1">
             <div
               style={{
                 paddingTop: "10px",
@@ -436,7 +439,7 @@ export default function Progress() {
                 PRODUCT
               </p>
               <BarChart
-                width={400}
+                width={200}
                 height={250}
                 data={productChartData}
                 margin={{

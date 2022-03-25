@@ -25,8 +25,9 @@ const Origination =()=> {
                 <Col sm={3} style={{padding:'10px 10px 10px 0px'}}>
                     <SideNav/>
                 </Col>
-                <Col sm={8}>
+                <Col sm={8} style={{background:'white'}}>
                     <StaffList/>
+                    <br/>
     </Col>
                 
     </Row>

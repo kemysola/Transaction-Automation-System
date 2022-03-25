@@ -5,6 +5,15 @@ import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import Service from "../../../../Services/Service";
 import { Chart } from "react-google-charts";
 import "./../style.css";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 
 // .................................. Styled Components .........................
@@ -20,50 +29,48 @@ const RedDiv = styled.div`
   border-radius: 50px;
   background: red;
   color: white;
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   margin-top: 10px,
   margin-bottom: 2px;
   text-align:center;
   padding-top:12px;
-  font-size: 10px;
+  font-size: 8px;
   display:inline-block;
-  margin-left:19px;
+  margin-left:10px;
 `;
 
 const GreenDiv = styled.div`
   border-radius: 50px;
   background: #00c49f;
   color: white;
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   margin-top: 10px,
   margin-bottom: 10px;
   text-align:center;
-  padding-top:12px;
+  padding-top:8px;
   font-size: 10px;
   display:inline-block;
-  margin-left:5px;
 `;
 
 const AmberDiv = styled.div`
   border-radius: 50px;
   background: #ffbb28;
   color: white;
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   margin-top: 15px,
   margin-bottom: 2px;
   text-align:center;
-  padding-top:12px;
+  padding-top:8px;
   font-size: 10px;
   display:inline-block;
-  margin-left:3px;
 `;
 
 //  ........................................React functional component.......................
 
-export default function Stats() {
+export default function PieCard() {
     const [data, setData] = useState([]);
     const [region, setRegion] = useState([])
   
@@ -162,15 +169,7 @@ export default function Stats() {
     }, []);
 
     //........................ Return Region Total ......................................
-    var ssTotal = south.reduce(function (tot, arr) {
-      return tot + parseFloat(arr);
-    }, 0);
-    var seTotal = southwest.reduce(function (tot, arr) {
-      return tot + parseFloat(arr);
-    }, 0);
-    var ncTotal = northcentral.reduce(function (tot, arr) {
-      return tot + parseFloat(arr);
-    }, 0);
+    
   
     // ......... Return deal_category total ...............................................
   
@@ -213,7 +212,7 @@ export default function Stats() {
       percent,
       index,
     }) => {
-      const radius = innerRadius + (outerRadius - innerRadius) * 0.2;
+      const radius = innerRadius + (outerRadius - innerRadius) * 10;
       const x = cx + radius * Math.cos(-midAngle * RADIAN);
       const y = cy + radius * Math.sin(-midAngle * RADIAN);
   
@@ -256,108 +255,95 @@ export default function Stats() {
       }
       return null;
     };
+    const chartRegion = [
+      {
+        name:"South",
+        value:south,
+      },
+      {
+        name:"SW",
+        value:southwest,
+      },
+      {
+        name:"NC",
+        value:northcentral,
+      },
+      {
+        name:"NE",
+        value:northeast,
+      },
+      {
+        name:"NW",
+        value:northwest,
+      },
+      {
+        name:"SS",
+        value:southsouth,
+      }
+    ]
   
     return (
       <React.Fragment>
         {/*---------------------------- Div ------------------------------------------- */}
-          <Container fluid className="mb-3">
-            <Row>
-              <Col lg={6} sm={12} className="my-1">
-                <Container>
-                  <Container
-                    className="bg-light"
+        <Container fluid className="mb-3 bg-light">
+          <Row>
+            <Col lg={12} sm={12} className="my-1 ">
+                
+                  <p className="pb-2"
                     style={{
-                      borderRadius: "10px",
-                      paddingTop: "10px",
-                      marginTop: "3px",
+                      color: "black",
+                      fontWeight: "bold",
+                      fontSize: "13px",
+                      paddingLeft: "1px",
+                      paddingTop: "5px",
                     }}
                   >
-                    <p
-                      style={{
-                        color: "black",
-                        fontWeight: "bold",
-                        fontSize: "13px",
-                        paddingLeft: "1px",
-                        paddingTop: "5px",
-                      }}
-                    >
-                      DEAL CATEGORY
-                    </p>
-
-                    <Row>
-                      <Col md={6} className="mt-1">
-                      <small>Green </small>
-                      <GreenDiv className="my-3">{green.length}</GreenDiv>
-                      <br/>
-                      <small>Amber </small>
-                        <AmberDiv className="my-3">{amber.length}</AmberDiv>
-                        <br/>
-                        <small>Red </small>
-                        <RedDiv className="my-3">{red.length}</RedDiv>
-                      </Col>
-                      <Col md={6}>
-                        <PieChart width={300} height={210}>
-                          <Pie
-                            data={chartData}
-                            dataKey="value"
-                            nameKey="name"
-                            cx="30%"
-                            cy="40%"
-                            fill="#8884d8"
-                            innerRadius={55}
-                            outerRadius={85}
-                            paddingAngle={1}
-                            isAnimationActive={false}
-                            labelLine={false}
-                            label={renderCustomizedLabel}
-                          >
-                            {data.map((entry, index) => (
-                              <Cell
-                                key={`cell-${index}`}
-                                fill={COLORS[index % COLORS.length]}
-                              />
-                            ))}
-                          </Pie>
-                          <Tooltip content={customTooltip} />
-                        </PieChart>
-                      </Col>
-                    </Row>
-                  </Container>
-                </Container>
-              </Col>
+                    DEAL CATEGORY
+                  </p>
   
-              <Col sm={12} lg={6}>
-                <Row>
-                <Container>
-                    <Container className="bg-light"
-                      style={{
-                        borderRadius: "10px",
-                        paddingTop: "10px",
-                        marginTop: "3px",}}
-                    >
-                      <p
-                        style={{
-                          color: "black",
-                          fontWeight: "bold",
-                          fontSize: "13px",
-                          paddingLeft: "10px",
-                        }}
-                      >
-                        REGION
-                      </p>
-
-                      <p> SE: {south.length} -- {ssTotal}</p>
-                      <p> SW: {southwest.length}</p>
-                      <p> SS: {southsouth.length}</p>
-                      <p> NW: {northwest.length}</p>
-                      <p> NE: {northeast.length}</p>
-                      <p> NC: {northcentral.length}  -- {ncTotal}</p>
-                    </Container>
-                  </Container>
-                </Row>
-              </Col>
-            </Row>
-          </Container>
+                  <Row>
+                    <Col md={5} className="mt-1">
+                     <small>Green </small>
+                     <GreenDiv className="my-3">{green.length}</GreenDiv>
+                     <br/>
+                     <small>Amber </small>
+                      <AmberDiv className="my-2">{amber.length}</AmberDiv>
+                      <br/>
+                      <small>Red </small>
+                      <RedDiv className="my-3">{red.length}</RedDiv>
+                    </Col>
+                    <Col md={6}>
+                      <PieChart width={280} height={210}>
+                        <Pie
+                          data={chartData}
+                          dataKey="value"
+                          nameKey="name"
+                          cx="25%"
+                          cy="40%"
+                          fill="#8884d8"
+                          innerRadius={55}
+                          outerRadius={75}
+                          paddingAngle={1}
+                          isAnimationActive={false}
+                          labelLine={false}
+                          label={renderCustomizedLabel}
+                        >
+                          {data.map((entry, index) => (
+                            <Cell
+                              key={`cell-${index}`}
+                              fill={COLORS[index % COLORS.length]}
+                            />
+                          ))}
+                        </Pie>
+                        <Tooltip content={customTooltip} />
+                      </PieChart>
+                    </Col>
+                  </Row>
+            </Col>
+  
+            
+          </Row>
+        </Container>
       </React.Fragment>
     );
   }
