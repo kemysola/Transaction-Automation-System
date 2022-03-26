@@ -65,30 +65,31 @@ export default function UpdateTransactions() {
   const guarantee = useRef("");
   const monitoring = useRef("");
   const reimbursible = useRef("");
-  const greenA = useRef("");
-  const greenB = useRef("");
-  const greenC = useRef("");
-  const greenD = useRef("");
-  const greenE = useRef("");
-  const greenF = useRef("");
-  const amberA = useRef("");
-  const amberB = useRef("");
-  const amberC = useRef("");
-  const amberD = useRef("");
-  const amberE = useRef("");
-  const redA = useRef("");
-  const redB = useRef("");
-  const redC = useRef("");
   
   let id = window.location.search.split("?")[1]
 
+  const history = useHistory();
   const [deal, setDeal] = useState([]);
   const [message, setMessage] = useState()
   const [status, setStatus] = useState(false);
   const [noteList, setNoteList] = useState([{ note: "" }])
   const [activeTab, setActiveTab] = useState('first');
   const [dealActiveTab, setDealActiveTab] = useState('deal');
-  const history = useHistory();
+  const [greenA, setGreenA] = useState("");
+  const [greenB, setGreenB] = useState("");
+  const [greenC, setGreenC] = useState("");
+  const [greenD, setGreenD] = useState("");
+  const [greenE, setGreenE] = useState("");
+  const [greenF, setGreenF] = useState("");
+  const [amberA, setAmberA] = useState("");
+  const [amberB, setAmberB] = useState("");
+  const [amberC, setAmberC] = useState("");
+  const [amberD, setAmberD] = useState("");
+  const [amberE, setAmberE] = useState("");
+  const [redA, setRedA] = useState("");
+  const [redB, setRedB] = useState("");
+  const [redC, setRedC] = useState("");
+  
 
   const handleNoteChange = (e, index) => {
     const { name, value } = e.target;
@@ -113,7 +114,6 @@ export default function UpdateTransactions() {
 
   const retrieveDeal = async () => {
     // function to get deal by id from the database
-
     const data = await axios.get(
       `http://localhost:5000/api/v1/transaction/item/${id}`,
       {headers: {
@@ -128,6 +128,20 @@ export default function UpdateTransactions() {
     setNoteList(data.data.dealInfo[0].notes)
     setDeal(data.data.dealInfo);
     setStatus(true)
+    setGreenA(data.data.dealInfo[0].greena)
+    setGreenB(data.data.dealInfo[0].greenb)
+    setGreenC(data.data.dealInfo[0].greenc)
+    setGreenD(data.data.dealInfo[0].greend)
+    setGreenE(data.data.dealInfo[0].greene)
+    setGreenF(data.data.dealInfo[0].greenf)
+    setAmberA(data.data.dealInfo[0].ambera)
+    setAmberB(data.data.dealInfo[0].amberb)
+    setAmberC(data.data.dealInfo[0].amberc)
+    setAmberD(data.data.dealInfo[0].amberd)
+    setAmberE(data.data.dealInfo[0].ambere)
+    setRedA(data.data.dealInfo[0].reda)
+    setRedB(data.data.dealInfo[0].redb)
+    setRedC(data.data.dealInfo[0].redc)
   } ;
 
   function toNextTab(e) {
@@ -184,18 +198,6 @@ function handlePrevChange() {
     });
   }
 
-  let str2bool = (value) => {
-    if (value && typeof value === "string") {
-         if (value.toLowerCase() === "true") return true;
-         if (value.toLowerCase() === "false") return false;
-    }
-    return value;
- }
-
- function handleRadioChange(e) {
-  str2bool(e.target.value)
- }
-
   function postData(e) {
     e.preventDefault()
     let allNotes = noteList.map(({ note }) => note)
@@ -226,20 +228,20 @@ function handlePrevChange() {
       guaranteeFee: +guarantee.current.value,
       monitoringFee: +monitoring.current.value,
       reimbursible: +reimbursible.current.value,
-      greenA: JSON.parse(greenA.current.value),
-      greenB: JSON.parse(greenB.current.value),
-      greenC: JSON.parse(greenC.current.value),
-      greenD: JSON.parse(greenD.current.value),
-      greenE: JSON.parse(greenE.current.value),
-      greenF: JSON.parse(greenF.current.value),
-      amberA: JSON.parse(amberA.current.value),
-      amberB: JSON.parse(amberB.current.value),
-      amberC: JSON.parse(amberC.current.value),
-      amberD: JSON.parse(amberD.current.value),
-      amberE: JSON.parse(amberE.current.value),
-      redA: JSON.parse(redA.current.value),
-      redB: JSON.parse(redB.current.value),
-      redC: JSON.parse(redC.current.value),
+      greenA: JSON.parse(greenA),
+      greenB: JSON.parse(greenB),
+      greenC: JSON.parse(greenC),
+      greenD: JSON.parse(greenD),
+      greenE: JSON.parse(greenE),
+      greenF: JSON.parse(greenF),
+      amberA: JSON.parse(amberA),
+      amberB: JSON.parse(amberB),
+      amberC: JSON.parse(amberC),
+      amberD: JSON.parse(amberD),
+      amberE: JSON.parse(amberE),
+      redA: JSON.parse(redA),
+      redB: JSON.parse(redB),
+      redC: JSON.parse(redC),
       notes: note
     }
       Service.updateDeal(id, data)
@@ -252,11 +254,8 @@ function handlePrevChange() {
         .catch(error => {
           //alert("Failed to Update Deal")
           setMessage('Failed to update deal')
-          
         })      
     }
-
-    
 
   return (
     <React.Fragment>
@@ -268,7 +267,6 @@ function handlePrevChange() {
               <PWrapper>
                 <h5>Update Transaction</h5>
               </PWrapper>
-
 
               <div> 
 
@@ -477,7 +475,7 @@ function handlePrevChange() {
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Excepted Close</Form.Label>
-                        <Form.Control size="sm" type="date" defaultValue={new Date(deal[0].expectedclose).toISOString().split('T')[0] || null} id='expectedClose' ref={exceptedClose}/>
+                        <Form.Control size="sm" type="date" defaultValue={null || new Date(deal[0].expectedclose).toISOString().split('T')[0]} id='expectedClose' ref={exceptedClose}/>
                       </Form.Group>
                     </Col>
 
@@ -580,8 +578,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].reda === true} name="redA" ref={redA}/>
-                            <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].reda === false} name="redA" ref={redA}/>
+                            <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].reda === true} name="redA" onChange={e => setRedA(e.target.value)}/>
+                            <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].reda === false} name="redA" onChange={e => setRedA(e.target.value)}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -594,9 +592,9 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Due diligence ongoing:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].redb === true} name="redB" ref={redB}/>
-                            <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].redb === false} name="redB" ref={redB}/>
-                          </Col>
+                              <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].redb === true} name="redB" onChange={e => setRedB(e.target.value)}/>
+                              <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].redb === false} name="redB" onChange={e => setRedB(e.target.value)}/>
+                            </Col>
                         </Row>
                       </Form.Group>
                     </Col>
@@ -608,8 +606,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Pending Credit Committee approval:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].redc === true} name="redC" ref={redC}/>
-                            <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].redc === false} name="redC" ref={redC}/>
+                            <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].redc === true} name="redC" onChange={e => setRedC(e.target.value)}/>
+                            <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].redc === false} name="redC" onChange={e => setRedC(e.target.value)}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -634,8 +632,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Mandate Letter signed:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].ambera === true} name="amberA" ref={amberA}/>
-                            <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].ambera === false} name="amberA" ref={amberA}/>
+                            <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].ambera === true} name="amberA" onChange={e => setAmberA(e.target.value)}/>
+                            <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].ambera === false} name="amberA" onChange={e => setAmberA(e.target.value)}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -648,8 +646,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committe approval:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].amberb === true} name="amberB" ref={amberB}/>
-                            <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].amberb === false} name="amberB" ref={amberB}/>
+                            <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].amberb === true} name="amberB" onChange={e => setAmberB(e.target.value)}/>
+                            <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].amberb === false} name="amberB" onChange={e => setAmberB(e.target.value)}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -662,8 +660,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond issue appointed or selected:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].amberc === true} name="amberC" ref={amberC}/>
-                            <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].amberc === false} name="amberC" ref={amberC}/>
+                            <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].amberc === true} name="amberC" onChange={e => setAmberC(e.target.value)}/>
+                            <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].amberc === false} name="amberC" onChange={e => setAmberC(e.target.value)}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -676,8 +674,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>Fee Letter and/or Guarantee Documentation expected to be negotiated and/or signed within 8 weeks:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].amberd === true} name="amberD" ref={amberD}/>
-                            <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].amberd === false} name="amberD" ref={amberD}/>
+                            <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].amberd === true} name="amberD" onChange={e => setAmberD(e.target.value)}/>
+                            <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].amberd === false} name="amberD" onChange={e => setAmberD(e.target.value)}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -690,8 +688,8 @@ function handlePrevChange() {
                             <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs with timelines for completion agreed with the client:</Form.Label>
                           </Col>
                           <Col>
-                            <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].ambere === true} name="amberE" ref={amberE}/>
-                            <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].ambere === false} name="amberE" ref={amberE}/>
+                            <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].ambere === true} name="amberE" onChange={e => setAmberE(e.target.value)}/>
+                            <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].ambere === false} name="amberE" onChange={e => setAmberE(e.target.value)}/>
                           </Col>
                         </Row>
                       </Form.Group>
@@ -716,8 +714,8 @@ function handlePrevChange() {
                   <Form.Label style={{paddingRight: "1rem"}}>Transaction has obtained Credit Committee approval:</Form.Label>
                 </Col>  
                 <Col>    
-                  <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].greena === true} name="greenA" ref={greenA}/>
-                  <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].greena === false} name="greenA" ref={greenA}/> 
+                  <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].greena === true} name="greenA" onChange={e => setGreenA(e.target.value)}/>
+                  <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].greena === false} name="greenA" onChange={e => setGreenA(e.target.value)}/> 
                 </Col>
                 </Row>  
                 </Form.Group>  
@@ -731,8 +729,8 @@ function handlePrevChange() {
                 <Form.Label style={{paddingRight: "1rem"}}>Guarantee Document in agreed form:</Form.Label>
                 </Col>  
                 <Col>    
-                  <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].greenb === true} name="greenB" ref={greenB}/>
-                  <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].greenb === false} name="greenB" ref={greenB} />         
+                  <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].greenb === true} name="greenB" onChange={e => setGreenB(e.target.value)}/>
+                  <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].greenb === false} name="greenB" onChange={e => setGreenB(e.target.value)} />         
                 </Col>
                 </Row>  
                       </Form.Group>
@@ -748,8 +746,8 @@ function handlePrevChange() {
                 <Form.Label style={{paddingRight: "1rem"}}>Professional Parties to the Bond Issue appointed or selected:</Form.Label>
                 </Col>  
                 <Col>    
-                      <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].greenc === true} name="greenC" ref={greenC}/>
-                        <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].greenc === false} name="greenC" ref={greenC}/>  
+                      <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].greenc === true} name="greenC" onChange={e => setGreenC(e.target.value)}/>
+                        <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].greenc === false} name="greenC" onChange={e => setGreenC(e.target.value)}/>  
                 </Col>
                 </Row> 
                       </Form.Group>
@@ -764,8 +762,8 @@ function handlePrevChange() {
                 <Form.Label style={{paddingRight: "1rem"}}>Already filed or expected filing with SEC (or equivalent Exchange) within 6 weeks:</Form.Label>
                 </Col>  
                 <Col>    
-                      <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].greend === true} name="greenD" ref={greenD}/>
-                        <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].greend === false} name="greenD" ref={greenD}/>
+                      <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].greend === true} name="greenD" onChange={e => setGreenD(e.target.value)}/>
+                        <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].greend === false} name="greenD" onChange={e => setGreenD(e.target.value)}/>
                       
                 </Col>
                 </Row>    
@@ -780,8 +778,8 @@ function handlePrevChange() {
                 <Form.Label style={{paddingRight: "1rem"}}>All Materials CPs to Financial Close have been satisfactorily met or committed by the Client for completion on or before Financial Close:</Form.Label>
                 </Col>  
                 <Col>    
-                      <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].greene === true} name="greenE" ref={greenE}/>
-                        <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].greene === false} name="greenE" ref={greenE}/>  
+                      <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].greene === true} name="greenE" onChange={e => setGreenE(e.target.value)}/>
+                        <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].greene === false} name="greenE" onChange={e => setGreenE(e.target.value)}/>  
                 </Col>
                 </Row>
                       </Form.Group>
@@ -796,8 +794,8 @@ function handlePrevChange() {
             <Form.Label style={{paddingRight: "1rem"}}>Financial Close expected within 3-6 months:</Form.Label>            
                 </Col>  
                 <Col>    
-                      <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].greenf === true} name="greenF" ref={greenF}/>
-                      <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].greenf === false} name="greenF" ref={greenF}/>
+                      <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={deal[0].greenf === true} name="greenF" onChange={e => setGreenF(e.target.value)}/>
+                      <Form.Check inline label="No" type="radio" value={false} defaultChecked={deal[0].greenf === false} name="greenF" onChange={e => setGreenF(e.target.value)}/>
                 </Col>
                 </Row>      
               </Form.Group>
