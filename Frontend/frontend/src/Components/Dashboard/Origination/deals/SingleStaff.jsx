@@ -14,35 +14,33 @@ const ContainerWrapper = styled.div`
     font-size:10px;
     margin-top: 2rem;
     padding: 2rem;
-    border-radius: 15px;`;
+    border-radius: 10px;
+    background: white`;
 
 
-const GlobalFilter =({
-    preGlobalFilteredRows,
-    globalFilter,
-    setGlobalFilter,
-  }) => {
-    const count = preGlobalFilteredRows.length
-    const [value, setValue] = useState(globalFilter)
-    const onChange = useAsyncDebounce(value => {
-        setGlobalFilter(value || undefined)
-    }, 200)
-  
+    const GlobalFilter =({
+      preGlobalFilteredRows,
+      globalFilter,
+      setGlobalFilter,
+    }) => {
+      const count = preGlobalFilteredRows.length
+      const [value, setValue] = useState(globalFilter)
+      const onChange = useAsyncDebounce(value => {
+          setGlobalFilter(value || undefined)
+      }, 200)
+
     return (
-        <span className='d-flex justify-content-end'>
-            {/* Search:{' '} */}
-            <input 
-                className="form-control"
-                style={{ outline: 'none', border: '1px solid black', padding: '2px', marginTop: '2px', marginRight: '2px', width:'180px' }}
-                value={value || ""}
-                onChange={e => {
-                    setValue(e.target.value);
-                    onChange(e.target.value);
-                }}
-                placeholder={`Search ${count} records`}
-      
-            />
-        </span>
+             <input 
+              className="form-control"
+              style={{ outline: 'none', border: '1px solid black', padding: '1px 13px', marginRight: '2px', width:'160px' }}
+              value={value || ""}
+              onChange={e => {
+                  setValue(e.target.value);
+                  onChange(e.target.value);
+              }}
+              placeholder={`Search ${count} products`}
+    
+          />
     )
   }
 
@@ -76,7 +74,7 @@ function SingleStaff() {
         () => [
           
           {
-            Header: "Client Name",
+            Header: "CLIENT NAME",
             accessor: "Client Name",
             Cell: ({row, value}) => (
               <span>{`${row.original.clientname}`}</span>
@@ -84,91 +82,91 @@ function SingleStaff() {
 
           },
           {
-            Header: "Originator",
+            Header: "ORIGINATOR",
             accessor: "Originator",
             Cell: ({row, value}) => (
               <span>{`${row.original.originator}`}</span>
             )
           },
           {
-            Header: "Legal Lead",
+            Header: "LEGAL LEAD",
             accessor: "Legal Lead",
             Cell: ({row, value}) => (
               <span>{`${row.original.transactionlegallead}`}</span>
             )
           },
           {
-            Header: "Industry",
+            Header: "INDUSTRY",
             accessor: "Industry",
             Cell: ({row, value}) => (
               <span>{`${row.original.industry}`}</span>
             )
           },
           {
-            Header: "Product",
+            Header: "PRODUCT",
             accessor: "product",
             Cell: ({row, value}) => (
               <span>{`${row.original.product}`}</span>
             )
           },
           {
-            Header: "Region",
+            Header: "REGION",
             accessor: "region",
             Cell: ({row, value}) => (
               <span>{`${row.original.region}`}</span>
             )
           },
           {
-            Header: "Deal Size",
+            Header: "DEAL SIZE",
             accessor: "Deal Size",
             Cell: ({row, value}) => (
               <span>{`${row.original.dealsize}`}</span>
             )
           },
           {
-            Header: "Coupon",
+            Header: "COUPON",
             accessor: "Coupon",
             Cell: ({row, value}) => (
               <span>{`${row.original.coupon}`}</span>
             )
           },
           {
-            Header: "Tenor",
+            Header: "TENOR",
             accessor: "Tenor",
             Cell: ({row, value}) => (
               <span>{`${row.original.tenor}`}</span>
             )
           },
           {
-            Header: "Moratorium",
+            Header: "MORATORIUM",
             accessor: "Moratorium",
             Cell: ({row, value}) => (
               <span>{`${row.original.moratorium}`}</span>
             )
           },
           {
-            Header: "Repayment Frequency",
+            Header: "REPAYMENT FREQUENCY",
             accessor: "Repayment Frequency",
             Cell: ({row, value}) => (
               <span>{`${row.original.repaymentfrequency}`}</span>
             )
           },
           {
-            Header: "Amortization Style",
-            accessor: "Aamortizationstyle",
+            Header: "AMORTIZATION STYLE",
+            accessor: "amortizationstyle",
             Cell: ({row, value}) => (
               <span>{`${row.original.amortizationstyle}`}</span>
             )
           },
           {
-            Header: "Mandate Letter",
+            Header: "MANDATE LETTER",
             accessor: "Mandateletter",
             Cell: ({row, value}) => (
               <span>{`${row.original.mandateletter}`}</span>
             )
           },
           {
-            Header: "expectedclose",
+            Header: "EXPECTED CLOSE",
             accessor: "Expected close",
             Cell: ({row, value}) => (
               <span>{`${row.original.expectedclose}`}</span>
@@ -209,32 +207,43 @@ function SingleStaff() {
       <React.Fragment>
          <ContainerWrapper>
         <Row>
-          <Col sm={4}className='d-flex justify-content-between'  >
+        <Row className=''>
+          <Col sm={12} className='  ' >
+            <Row>
+              <Col sm={3}>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 All ({staff.length})
-              </small>
-              <a className="vr" />
+              </small></Col>
+
+              <Col sm={3}>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Trash (0) 
                 </small>
-              <div
-              className="vr" />
+              </Col>
+              <Col sm={3}>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Bulk Actions
                 </small>
-          </Col>
-          <Col sm={12} lg={8}>
-            <form>
+                </Col>
+
+                <Col sm={3}>
             <GlobalFilter
                 preGlobalFilteredRows={preGlobalFilteredRows}
                 globalFilter={state.globalFilter}
                 setGlobalFilter={setGlobalFilter}
               />
-            </form>
-          </Col>
+            </Col>
+
+                
+            </Row>
+            </Col>
+            </Row>
+
+
+         
         </Row>
         <Row>
-          <Col sm={12} className='bg-light py-2 mt-3'>
+          <Col sm={12} className=' py-1 mt-1'>
           <div className="table-responsive mt-2 pt-2">
             <table
               className="table py-3 mt-3  table-hover table striped  align-middle "
