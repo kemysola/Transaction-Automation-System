@@ -406,9 +406,6 @@ const DealsTable = (props) => {
   return (
     <React.Fragment>
       <ContainerWrapper>
-        
- 
-        {/* <Search filter = {globalFilter} setFilter={setGlobalFilter} name="search"/> */}
         <Row>
               <Col sm={3}>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>

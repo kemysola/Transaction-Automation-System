@@ -8,7 +8,7 @@ import Service from '../../Services/Service';
 
 const ContainerWrapper = styled.div`
     font-size:10px;
-    margin-top: 2rem;
+    margin-top: 1rem;
     padding: 2rem;
     //border-radius: 15px;
     @media screen and (max-width: 768px) {
@@ -264,10 +264,10 @@ const StaffTable = () => {
 
   return (
     <React.Fragment>
-      <ContainerWrapper>
-        <Row>
-          <Col sm={5}className='d-flex justify-content-between'  >
-              <small classname='small' style={{fontSize:'12px',paddingTop:'10px'}}>
+      <ContainerWrapper  className='bg-light'>
+      <Row>
+              <Col sm={3}>
+              <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 All ({staff.length})
               </small>
               <a className="vr" />

@@ -24,10 +24,10 @@ margin:0;
 `;
 
 const Container1 = styled.div`
-font-size:12px;
+font-size:10px;
 padding: 3px 10px;
-border-radius: 15px;
-width:50vw;
+border-radius: 10px;
+width:52vw;
 margin:0;
 
 `;
@@ -41,6 +41,15 @@ font-size:13px;
 margin: 10px;
 border-radius: 3px
   `;
+
+
+const PWrapper = styled.p`
+color:#1E2F97;
+font-weight:bold;
+margin: 1rem 0;
+padding: 0;
+font-size:11px;
+`;
 
 export default function UpdateStaffs() {
 
@@ -180,19 +189,25 @@ export default function UpdateStaffs() {
                 <Container fluid>
                     {status ? (
                         <Form onSubmit={handleSubmit}>
-                            <p style={{ fontWeight: 'bold', fontSize: '15px', color: 'black', padding: '20px 10px' }}>UPDATE STAFF</p>
-
+<PWrapper>
+                                <h5>Update Staff</h5>
+                            </PWrapper>
+                            <br />
+                           
                             {/*------------------------------------- Container Div ------------------------ */}
+                            <div>
+
+                            </div>
                             <Tabs activeKey={activeTab} onSelect={(k) => handleTabChange} style={{ fontSize: '13px' }}>
                                 <Tab eventKey="first" title="STAFF">
                                     <br />
                                     <br />
-                                    <Container1 style={{ marginBottom: '3px', padding: '2px 20px', fontSize: '11px' }}>
+                                        <Container1 style={{ marginBottom: '3px', padding: '2px 20px', fontSize: '11px' }}>
                                     <Row>
                                         {/*----------------------------------- Form ----------------------------------- */}
-                                        <Col sm={6} className='mt-3 pt-2'>
-                                            <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
-                                                <Form.Label style={{ fontWeight: 'bold' }} className="pt-1">First Name</Form.Label>
+                                        <Col sm={6} className='mt-1 pt-1'>
+                                        <Form.Group className="mb-0 mt-2 pt-2 pb-1">
+                                                <Form.Label  className="pt-1">First Name</Form.Label>
                                                 <Form.Control size="sm"
                                                     type="text"
                                                     placeholder=""
@@ -205,9 +220,9 @@ export default function UpdateStaffs() {
                                         </Col>
                                         
         
-                                        <Col sm={6} className='mt-3 pt-2'>
-                                            <Form.Group className="mb-0" controlId="exampleForm.ControlInput1">
-                                                <Form.Label style={{ fontWeight: 'bold' }} className="pt-1">Last Name</Form.Label>
+                                        <Col sm={6} className='mt-1 pt-1'>
+                                        <Form.Group className="mb-0 mt-2 pt-2 pb-1">
+                                                <Form.Label className="pt-1">Last Name</Form.Label>
                                                 <Form.Control size="sm"
                                                     type="text"
                                                     placeholder=""
@@ -218,9 +233,9 @@ export default function UpdateStaffs() {
                                             </Form.Group>
                                         </Col>
                                         {/*--------------------------------- Form ----------------------------------------- */}
-                                        <Col sm={12} className='mt-3 pt-2'>
-                                            <Form.Group className="" controlId="exampleForm.ControlInput1">
-                                                <Form.Label style={{ fontWeight: 'bold' }} className="pt-2">Level</Form.Label>
+                                        <Col sm={12}  className='mt-1 pt-1'>
+                                        <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                                                <Form.Label className="pt-2">Level</Form.Label>
                                                 <Form.Control size="sm"
                                                     type="text"
                                                     placeholder=""
@@ -239,8 +254,8 @@ export default function UpdateStaffs() {
 
                                         {/*------------------------------- Form -------------------------------------------- */}
 
-                                        <Form.Group className="" controlId="exampleForm.ControlInput1">
-                                            <Form.Label style={{ fontWeight: 'bold' }} className="pt-2">Has Origination Target?</Form.Label>
+                                        {/*<Form.Group className="" controlId="exampleForm.ControlInput1">
+                                        <Form.Label className="pt-2">Has Origination Target?</Form.Label>
                                             <br />
                                             <div size="sm" style={{ border: '1px solid grey', width: '130px', padding: '5px 10px', lineHeight: '20px', borderRadius: '5px' }}>
                                                 <input type='radio'
@@ -260,7 +275,7 @@ export default function UpdateStaffs() {
                                                 />
                                                 <span style={{ fontWeight: 'bold' }}> No </span>
                                             </div>
-                                            </Form.Group>
+                                        </Form.Group>*/}
                                             
                                         </Row>
                                         <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button>
@@ -271,13 +286,23 @@ export default function UpdateStaffs() {
                                 <br />
                                 {/*---------------------------------- Container Div ----------------------------- */}
                                 <Tab eventKey="second" title="TARGETS">
-                                    <Container1 style={{ marginBottom: '3px', paddingBottom: '10px', fontSize: '8px' }}>
-                                        <p style={{ fontWeight: 'bold', fontSize: '10px' }}>Targets</p>
+                                <Container1 style={{ marginBottom: '3px', padding: '2px 20px', fontSize: '11px'}}>
+                                <Form.Group className="mb-0 mt-3 pt-1 pb-1">
                                         <Row>
-                                    
-                                            <Col sm={6}>
-                                                <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                    <Form.Label>Origination (NGN)</Form.Label>
+                                        <Col sm={4}  className='mt-3 pt-2'>
+                                                        <Form.Label>Has Orignation Target?</Form.Label>
+                                                    </Col>
+                                                    <Col sm={4}  className='mt-3 pt-2'>
+                                                        <Form.Check inline label="Yes" type="radio" name='target' value='Yes'  id='hasOriginationTarget' />
+                                                        <Form.Check inline label="No" type="radio" name='target' value='No' id='hasOriginationTarget'/>
+                                                    </Col>
+</Row>
+</Form.Group>
+<p style={{ fontWeight: 'bold', fontSize: '11px' }} className='mb-0 mt-1 pt-1 pb-1'>Targets</p>
+<Row>
+                                                <Col sm={6}>
+                                                    <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                                                        <Form.Label>Origination (NGN)</Form.Label>
                                                         <Form.Control type="text"
                                                             placeholder="0"
                                                             size='sm'
@@ -287,8 +312,24 @@ export default function UpdateStaffs() {
                                                             defaultValue={staff[0].origanationamount}
                                                             ref={originationAmount}
                                                             name="originationAmount"
+                                                    />                                                    </Form.Group>
+
+
+
+
+
+
+                                                        {/*<Form.Control type="text"
+                                                            placeholder="0"
+                                                            size='sm'
+                                                            id='originationAmount'
+                                                            // value={data.originationAmount}
+                                                            // onChange={handleInputChange}
+                                                            defaultValue={staff[0].origanationamount}
+                                                            ref={originationAmount}
+                                                            name="originationAmount"
                                                     />
-                                                </Form.Group>
+                                    </Form.Group>*/}
                                                         {
                                                             !originationAmount && <p>
                                                                 Kindly enter an amount
@@ -306,12 +347,13 @@ export default function UpdateStaffs() {
                                                             //onChange={handleInputChange}
                                                             defaultValue={staff[0].guaranteepipeline}
                                                             name="guaranteePipeline"
-                                                    />
-                                                    </Form.Group>
+                                                    />                                                    </Form.Group>
+                                            
                                                         {
                                                             !guaranteePipeline && <p>Kindly fill</p>
                                                         }
                                             </Col>
+
                                             <Col sm={6}  className='mt-3 pt-2'>
                                                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                                                         <Form.Label>Green Transaction (NGN)</Form.Label>
@@ -337,8 +379,6 @@ export default function UpdateStaffs() {
                                                             placeholder="0"
                                                             size='sm'
                                                             id='amberTransaction'
-                                                            // value={data.amberTransaction}
-                                                            // onChange={handleInputChange}
                                                             defaultValue={staff[0].ambertransaction}
                                                             ref={amberTransaction}
                                                             name="amberTransaction"
@@ -358,7 +398,6 @@ export default function UpdateStaffs() {
                                 {/* ----------------------------- Close Div ------------------------ */}
                                 <Tab eventKey="third" title="PERFORMANCE PAY">
                                     <Container1 style={{ marginBottom: '2px', paddingBottom: '6px', fontSize: '8px' }}>
-                                        <p style={{ fontWeight: 'bold', fontSize: '10px' }}>Performance Pay</p>
                                         <Row>
                                             <Col sm={4}>
                                                 <p style={{ fontWeight: 'bold', fontSize: '11px'  }}>% per milestone</p>

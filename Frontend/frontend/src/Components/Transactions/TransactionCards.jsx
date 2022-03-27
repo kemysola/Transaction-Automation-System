@@ -33,7 +33,7 @@ export default function TransactionCards() {
   return (
     <React.Fragment>
       <Container>
-        <h3 style={{color: "steelblue"}}>All Transactions</h3>
+        <h2 style={{color: "steelblue",fontSize:'15px'}}>All Transactions</h2>
           
         <Row>
           <Col sm={6}>
