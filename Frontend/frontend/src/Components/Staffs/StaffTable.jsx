@@ -25,7 +25,7 @@ const GlobalFilter =({
   }, 200)
 
   return (
-      <span className='d-flex justify-content-end'>
+      <span className=''>
           {/* Search:{' '} */}
           <input 
               className="form-control"
@@ -71,8 +71,6 @@ const StaffTable = () => {
   };
 
   const updateStaff = (rowIndex) => {
-    // const id = staffRef.current[rowIndex].id;
-    // history.push("/update/" + id)
     history.push({
       pathname: "/one_view",
       search: "?" + rowIndex,
@@ -181,32 +179,35 @@ const StaffTable = () => {
   return (
     <React.Fragment>
       <ContainerWrapper>
-        <Row>
-          <Col sm={4}className='d-flex justify-content-between'  >
+      <Row>
+              <Col sm={3}>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 All ({staff.length})
-              </small>
-              <a className="vr" />
+              </small></Col>
+
+              <Col sm={3}>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Trash (0) 
                 </small>
-              <div
-              className="vr" />
+              </Col>
+              <Col sm={3}>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Bulk Actions
                 </small>
-          </Col>
-          <Col sm={12} lg={6}>
-            <form className='pt-1'>
+                </Col>
+
+                <Col sm={3}>
             <GlobalFilter
                 preGlobalFilteredRows={preGlobalFilteredRows}
                 globalFilter={state.globalFilter}
                 setGlobalFilter={setGlobalFilter}
               />
-              {/* <Button className='py-0 btn-outline-none text-dark btn-light' style={{border:'1px solid black',padding:'none'}} >Search</Button> */}
-            </form>
-          </Col>
-        </Row>
+            </Col>
+
+                
+            </Row>
+
+        
           <div className="table-responsive mt-2 pt-2">
             <table
               className="table py-3 mt-3  table-hover table striped  align-middle table-bordered"

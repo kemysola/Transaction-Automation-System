@@ -252,7 +252,6 @@ function handlePrevChange() {
           });
         })
         .catch(error => {
-          //alert("Failed to Update Deal")
           setMessage('Failed to update deal')
         })      
     }
