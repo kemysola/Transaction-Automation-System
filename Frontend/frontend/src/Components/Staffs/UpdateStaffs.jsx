@@ -190,7 +190,7 @@ export default function UpdateStaffs() {
                     {status ? (
                         <Form onSubmit={handleSubmit}>
 <PWrapper>
-                                <h5>New Staff</h5>
+                                <h5>Update Staff</h5>
                             </PWrapper>
                             <br />
                            
