@@ -29,6 +29,7 @@ padding: 3px 10px;
 border-radius: 15px;
 width:50vw;
 margin:0;
+
 `;
 
 const CancelWrapper = styled.button`
@@ -62,15 +63,6 @@ export default function UpdateStaffs() {
     const [staff, setStaff] = useState([]);
     const [status, setStatus] = useState(false);
     const history = useHistory();
-
-    
-    // const handleInputChange = event => {
-    //      // function to save user data to data state
-    //     const { name, value } = event.target;
-    //     setData({ ...data, [name]: value });
-    // }
-    
-   
 
  useEffect(() => {
     retrieveStaff();
