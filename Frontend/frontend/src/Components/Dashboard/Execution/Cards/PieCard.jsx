@@ -34,10 +34,10 @@ const RedDiv = styled.div`
   margin-top: 10px,
   margin-bottom: 2px;
   text-align:center;
-  padding-top:12px;
-  font-size: 8px;
+  padding-top:8px;
+  font-size: 10px;
   display:inline-block;
-  margin-left:10px;
+  margin-left:18px;
 `;
 
 const GreenDiv = styled.div`
@@ -52,6 +52,8 @@ const GreenDiv = styled.div`
   padding-top:8px;
   font-size: 10px;
   display:inline-block;
+  margin-left:5px;
+
 `;
 
 const AmberDiv = styled.div`
@@ -285,9 +287,9 @@ export default function PieCard() {
     return (
       <React.Fragment>
         {/*---------------------------- Div ------------------------------------------- */}
-        <Container fluid className="mb-3 bg-light">
+    {/*<Container fluid className="mb-3 bg-light">*/}
           <Row>
-            <Col lg={12} sm={12} className="my-1 ">
+            <Col lg={12} sm={12} md={12} className="my-1 ">
                 
                   <p className="pb-2"
                     style={{
@@ -302,17 +304,18 @@ export default function PieCard() {
                   </p>
   
                   <Row>
-                    <Col md={5} className="mt-1">
+                    <Col  className="mt-1 d-none d-sm-block" sm={5} >
                      <small>Green </small>
-                     <GreenDiv className="my-3">{green.length}</GreenDiv>
+                     <GreenDiv className="my-1">{green.length}</GreenDiv>
                      <br/>
-                     <small>Amber </small>
-                      <AmberDiv className="my-2">{amber.length}</AmberDiv>
+                     <small >Amber </small>
+                      <AmberDiv className="my-1">{amber.length}</AmberDiv>
                       <br/>
-                      <small>Red </small>
-                      <RedDiv className="my-3">{red.length}</RedDiv>
+                      <small >Red </small>
+                      <RedDiv className="my-1">{red.length}</RedDiv>
                     </Col>
-                    <Col md={6}>
+
+                    <Col sm={6} >
                       <PieChart width={280} height={210}>
                         <Pie
                           data={chartData}
@@ -343,7 +346,7 @@ export default function PieCard() {
   
             
           </Row>
-        </Container>
+       {/*</Container> */}
       </React.Fragment>
     );
   }
