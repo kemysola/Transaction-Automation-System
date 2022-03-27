@@ -8,9 +8,10 @@ import Service from '../../Services/Service';
 
 const ContainerWrapper = styled.div`
     font-size:10px;
-    margin-top: 2rem;
+    margin-top: 1rem;
     padding: 2rem;
-    border-radius: 15px;`;
+    border-radius: 15px;
+    `;
 
 //Define a default UI for filtering
 const GlobalFilter =({
@@ -178,7 +179,7 @@ const StaffTable = () => {
 
   return (
     <React.Fragment>
-      <ContainerWrapper>
+      <ContainerWrapper  className='bg-light'>
       <Row>
               <Col sm={3}>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
@@ -208,7 +209,7 @@ const StaffTable = () => {
             </Row>
 
         
-          <div className="table-responsive mt-2 pt-2">
+          <div className="table-responsive mt-1 pt-1">
             <table
               className="table py-3 mt-3  table-hover table striped  align-middle table-bordered"
               id='myTable'
