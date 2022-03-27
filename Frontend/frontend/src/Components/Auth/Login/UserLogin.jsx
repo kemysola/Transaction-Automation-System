@@ -47,7 +47,7 @@ const UserLogin = () => {
 
   const query_ = useLocation().search;
   const name = new URLSearchParams(query_).get("user");
-  const email = { name };
+  const email =  { name };
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(email));
@@ -73,18 +73,20 @@ const UserLogin = () => {
           if(localStorage.getItem("admin") !== "true"){
             history.push("/user");
           }
+          history.push("/landing");
           window.location.reload()
         },
         (error) => {
-          const resMessage =
-            (error.response &&
+          const resMessage = 'Incorrect Email or Password'
+            /*(error.response &&
               error.response.data &&
               error.response.data.message) ||
             error.message ||
-            error.toString();
+            error.toString();*/
           setLoading(false);
           setMessage(resMessage);
         }
+        
       );
     } else {
       setLoading(false);
@@ -135,20 +137,6 @@ const UserLogin = () => {
                 />
               </ReactForm.Group>
             </Col>
-
-            {/*--------------------------------------------------------------*/}
-            {/*<Col sm={12} className="">
-              <ReactForm.Group>
-                <input
-                  type="checkbox"
-                  onChange={(e) => setChecked(e.target.checked)}
-                />{" "}
-                <p className="" style={{ display: "inline" }}>
-                  {" "}
-                  Remember Me
-                </p>
-              </ReactForm.Group>
-  </Col>*/}
           </Row>
 
           {/*-----------------------------------------*/}
