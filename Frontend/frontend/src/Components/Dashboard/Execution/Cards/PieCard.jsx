@@ -316,7 +316,7 @@ export default function PieCard() {
                     </Col>
 
                     <Col sm={6} >
-                      <PieChart width={280} height={210}>
+                      <PieChart width={300} height={210}>
                         <Pie
                           data={chartData}
                           dataKey="value"

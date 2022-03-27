@@ -309,7 +309,6 @@ export default function Stats() {
                   borderRadius: "10px",
                   paddingTop: "10px",
                   marginTop: "3px",
-                  background:'white'
                 }}
               >
                 <p className="pb-2"
@@ -317,7 +316,7 @@ export default function Stats() {
                     color: "black",
                     fontWeight: "bold",
                     fontSize: "13px",
-                    paddingLeft: "1px",
+                    paddingLeft: "10px",
                     paddingTop: "5px",
                   }}
                 >
@@ -325,7 +324,7 @@ export default function Stats() {
                 </p>
 
                 <Row>
-                  <Col md={6} className="mt-1">
+                  <Col md={6} className="mt-1 d-none d-sm-block">
                    <small>Green </small>
                    <GreenDiv className="my-3">{green.length}</GreenDiv>
                    <br/>
@@ -366,12 +365,12 @@ export default function Stats() {
             </Container>
           </Col>
 
-          <Col sm={12} lg={6} className='d-flex justify-content-center'>
+          <Col sm={12} lg={6} className='mt-1 d-flex justify-content-start'>
             <Row>
+              <Container className='mb-2'>
               <Container>
-              <Container className="">
                 
-                  <Container className=""
+                  <Container
                 style={{
                   borderRadius: "10px",
                   paddingTop: "5px",
