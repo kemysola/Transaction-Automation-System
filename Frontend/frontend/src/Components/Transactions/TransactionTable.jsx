@@ -48,7 +48,7 @@ export const GlobalFilter =({
   }, 200)
 
   return (
-      <span className='d-flex justify-content-end'>
+      <span className=''>
           <input 
               className="form-control "
               style={{ outline: 'none', border: '1px solid black', padding: '1px 10px', marginTop: '2px', marginRight: '2px' , width:'170px'}}
@@ -406,39 +406,37 @@ const DealsTable = (props) => {
   return (
     <React.Fragment>
       <ContainerWrapper>
+        
  
         {/* <Search filter = {globalFilter} setFilter={setGlobalFilter} name="search"/> */}
         <Row>
-          <Col sm={5} className='d-flex justify-content-between'  >
-            <small style={{fontSize:'12px',paddingTop:'10px'}}>
-              All ({deals.length})
-            </small>
+              <Col sm={3}>
+              <small style={{fontSize:'12px',paddingTop:'10px'}}>
+                All ({deals.length})
+              </small></Col>
 
-            <a className="vr" />
+              <Col sm={3}>
+              <small style={{fontSize:'12px',paddingTop:'10px'}}>
+                Trash (0) 
+                </small>
+              </Col>
+              <Col sm={3}>
+              <small style={{fontSize:'12px',paddingTop:'10px'}}>
+                Bulk Actions
+                </small>
+                </Col>
 
-            <small style={{fontSize:'12px',paddingTop:'10px'}}>
-              Trash (0) 
-            </small>
-
-            <div className="vr" />
-            
-            <small style={{fontSize:'12px',paddingTop:'10px'}}>
-              Bulk Actions
-            </small>
-          </Col>
-
-          
-
-          <Col sm={12} lg={6}>
-            <form className='pt-1'>
-              <GlobalFilter
+                <Col sm={3}>
+            <GlobalFilter
                 preGlobalFilteredRows={preGlobalFilteredRows}
                 globalFilter={state.globalFilter}
                 setGlobalFilter={setGlobalFilter}
               />
-            </form>
-          </Col>
-        </Row>
+            </Col>
+
+                
+            </Row>
+
         
         <div className="table-responsive mt-2 pt-2">
           <table

@@ -117,17 +117,23 @@ function SingleStaff() {
             )
           },
           {
-            Header: "DEAL SIZE",
+            Header: "DEAL SIZE (₦'BN)",
             accessor: "Deal Size",
-            Cell: ({row, value}) => (
-              <span>{`${row.original.dealsize}`}</span>
-            )
+            Cell: (props) => {
+              const amount = parseInt(props.row.original['dealsize'])
+              return (
+                <div>
+                  {`${(amount / 1000000).toFixed(1)}`}
+                </div>
+              )
+            }
+            
           },
           {
             Header: "COUPON",
             accessor: "Coupon",
             Cell: ({row, value}) => (
-              <span>{`${row.original.coupon}`}</span>
+              <span>{`${row.original.coupon} %`}</span>
             )
           },
           {
@@ -161,16 +167,39 @@ function SingleStaff() {
           {
             Header: "MANDATE LETTER",
             accessor: "Mandateletter",
-            Cell: ({row, value}) => (
-              <span>{`${row.original.mandateletter}`}</span>
-            )
+            Cell: (props) => {
+              const date = props.row.original['mandateletter']
+              if (date !== null) {
+                const expectedDate = new Date(date)
+                return (
+                  <div>
+                    {`${expectedDate.toISOString().slice(0, 10)}`}
+                  </div>
+                )
+              }
+              return (
+                <div>-</div>
+              )
+            }
           },
+
           {
             Header: "EXPECTED CLOSE",
             accessor: "Expected close",
-            Cell: ({row, value}) => (
-              <span>{`${row.original.expectedclose}`}</span>
-            )
+            Cell: (props) => {
+              const date = props.row.original['expectedclose']
+              if (date !== null) {
+                const expectedDate = new Date(date)
+                return (
+                  <div>
+                    {`${expectedDate.toISOString().slice(0, 10)}`}
+                  </div>
+                )
+              }
+              return (
+                <div>-</div>
+              )
+            }
           },
     
          
