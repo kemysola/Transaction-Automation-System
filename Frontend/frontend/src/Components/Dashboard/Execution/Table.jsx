@@ -274,7 +274,6 @@ const DealsTable = (props) => {
               <ButtonWrapper onClick={saveDate}>
                 Submit
               </ButtonWrapper>
-              {/* <button onClick={saveDate}>Submit</button> */}
             </Col>
           </Row>
         </DateWrapper>

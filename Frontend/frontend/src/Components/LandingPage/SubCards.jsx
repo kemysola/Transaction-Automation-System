@@ -64,7 +64,7 @@ export default function SubCards() {
         <React.Fragment>
             <Container className=''>
                 <Row className='mb-3' >
-                    <Col sm={3} className='my-2' >
+                    <Col lg={3}  sm={6}className='my-2' >
                         <div className='py-1'>
                             <div style={{ borderRight: '1px solid black' }}>
                                 <h3 className='d-flex justify-content-end ' style={{ marginRight: '1rem', }}  width='500'><GrMoney /></h3>
@@ -82,7 +82,7 @@ export default function SubCards() {
                             </div>
                         </div>
                     </Col>
-                    <Col sm={3} className='my-2'>
+                    <Col lg={3}  sm={6} className='my-2'>
                         <div className='py-1'>
                             <div style={{ borderRight: '1px solid black' }}>
                                 <h3 className='d-flex justify-content-end ' style={{ marginRight: '1rem'}} ><GrGroup/></h3>
@@ -97,7 +97,7 @@ export default function SubCards() {
 
                         </div>
                     </Col>
-                    <Col sm={3} className='my-2'>
+                    <Col lg={3}  sm={6} className='my-2'>
                         <div className='py-1'>
                             <div style={{ borderRight: '1px solid black' }}>
                                 <h3 className='d-flex justify-content-end ' style={{ marginRight: '1rem', fontFamily:'PT Serif' }} ><GiMoneyStack /></h3>
@@ -111,7 +111,7 @@ export default function SubCards() {
                             </div>
                         </div>
                     </Col>
-                    <Col sm={3} className='my-2'>
+                    <Col lg={3}  sm={6} className='my-2'>
                         <div className='py-1'>
                             <div style={{ borderRight: '1px solid black' }}>
                                 <h3 className='d-flex justify-content-end ' style={{ marginRight: '1rem' ,fontFamily:'PT Serif'}} >< CgCalculator /></h3>

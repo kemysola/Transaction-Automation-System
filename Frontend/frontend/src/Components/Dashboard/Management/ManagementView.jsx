@@ -13,33 +13,20 @@ const ViewWrapper = styled.div`
 `;
   
 function MgtView() {
-    // const [toggled, setToggled] = useState(false);
-
-    // const handleToggleSidebar = (value) => {
-    //     setToggled(value);
-    // };
 
     return(
         <React.Fragment>
-            {/* <div className={`app ${toggled ? 'toggled' : ''}`}> */}
-                <Navbar
-                    // toggled={toggled}
-                    // handleToggleSidebar={handleToggleSidebar}
-                />
+                <Navbar/>
                 <ViewWrapper>
                     <Row>
                         <Col sm={2} style={{padding:'10px 10px 10px 0px'}}>
-                            <SideNav2
-                                // toggled={toggled}
-                                // handleToggleSidebar={handleToggleSidebar}
-                            />
+                            <SideNav2  />
                         </Col>
                         <Col sm={10}> 
                             <Progress/>
                         </Col>
                     </Row>
                 </ViewWrapper>
-            {/* </div> */}
         </React.Fragment>
 
     )

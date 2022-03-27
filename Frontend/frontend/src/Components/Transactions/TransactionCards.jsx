@@ -61,7 +61,7 @@ export default function TransactionCards() {
             <Card>
               <Card.Body>
                 <Card.Title className="d-flex justify-content-between">
-                  <small>Total Number of Transactions</small>
+                  <small>Total No of Transactions</small>
                   <FaCoins />
                 </Card.Title>
 

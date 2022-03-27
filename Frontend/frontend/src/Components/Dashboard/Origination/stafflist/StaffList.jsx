@@ -26,11 +26,9 @@ const GlobalFilter =({
   }, 200)
 
   return (
-      <span className='d-flex justify-content-end'>
-          {/* Search:{' '} */}
           <input 
               className="form-control"
-              style={{ outline: 'none', border: '1px solid black', padding: '1px 13px', marginTop: '2px', marginRight: '2px', width:'180px' }}
+              style={{ outline: 'none', border: '1px solid black', padding: '1px 13px', marginRight: '2px', width:'160px' }}
               value={value || ""}
               onChange={e => {
                   setValue(e.target.value);
@@ -39,7 +37,6 @@ const GlobalFilter =({
               placeholder={`Search ${count} records`}
     
           />
-      </span>
   )
 }
 
@@ -78,7 +75,7 @@ const StaffList = () => {
   const columns = useMemo(
     () => [
       {
-        Header: "View",
+        Header: "VIEW",
         accessor: "View",
         disableResizing: true,
         width: 42,
@@ -141,33 +138,41 @@ const StaffList = () => {
     <React.Fragment>
       <ContainerWrapper>
         <Row className=''>
-          <Col sm={4}className='d-flex justify-content-between'  >
+          <Col sm={12} className='  ' >
+            <Row>
+              <Col sm={3}>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 All ({staff.length})
-              </small>
-              <a className="vr" />
+              </small></Col>
+
+              <Col sm={3}>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Trash (0) 
                 </small>
-              <div
-              className="vr" />
+              </Col>
+              <Col sm={3}>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Bulk Actions
                 </small>
-          </Col>
-          <Col sm={12} lg={6} >
-            <form className='py-1'>
+                </Col>
+
+                <Col sm={3}>
             <GlobalFilter
                 preGlobalFilteredRows={preGlobalFilteredRows}
                 globalFilter={state.globalFilter}
                 setGlobalFilter={setGlobalFilter}
               />
-            </form>
+            </Col>
+
+                
+            </Row>
+              
           </Col>
+         
         </Row>
-        <Row>
-          <Col sm={10} className='bg-light mt-3'>
-          <div className=" mt-2 pt-2">
+        <Row className='py-3'>
+          <Col sm={10} className='bg-light mt-3 '>
+          <div className=" mt-2 pt-2 d-flex justify-content-center">
             <table
               className="table py-3 mt-3  table-hover  "
               id='myTable'

@@ -54,7 +54,7 @@ const GlobalFilter =({
   }, 200)
 
   return (
-      <span className='d-flex justify-content-end'>
+      <span className=''>
           {/* Search:{' '} */}
           <input 
               className="form-control"
@@ -117,8 +117,6 @@ const StaffTable = () => {
   };
 
   const updateStaff = (rowIndex) => {
-    // const id = staffRef.current[rowIndex].id;
-    // history.push("/update/" + id)
     history.push({
       pathname: "/one_view",
       search: "?" + rowIndex,
