@@ -4,3 +4,12 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
   }
+
+@media only screen and (max-width: 768px) {
+  /* max-width: 760px; -- for breakpoint in the above line */
+  body {
+    max-height: 100vh;
+    /* overflow: scroll;
+    position: relative; */
+  }
+}

@@ -406,21 +406,18 @@ const DealsTable = (props) => {
   return (
     <React.Fragment>
       <ContainerWrapper>
-        
- 
-        {/* <Search filter = {globalFilter} setFilter={setGlobalFilter} name="search"/> */}
         <Row>
-              <Col sm={3}>
+              <Col sm={3} className='d-none d-sm-block'>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 All ({deals.length})
               </small></Col>
 
-              <Col sm={3}>
+              <Col sm={3} className='d-none d-sm-block'>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Trash (0) 
                 </small>
               </Col>
-              <Col sm={3}>
+              <Col sm={3} className='d-none d-sm-block'>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Bulk Actions
                 </small>

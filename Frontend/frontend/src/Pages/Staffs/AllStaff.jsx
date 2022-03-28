@@ -8,12 +8,11 @@ import StaffTable from "../../Components/Staffs/StaffTable";
 
 const ViewWrapper = styled.div`
   background: #eff1f1;
-  margin:0 2rem 2rem 0;
+  /*margin:0 2rem 2rem 0;*/
   padding: 0 10px;
   @media screen and (max-width: 768px) {
       overflow-y: auto;
       height: 100vh;
-      margin-left: 2em;
 }
 `;
 
@@ -26,7 +25,9 @@ export default function AllStaff() {
           <Col sm={3} style={{padding:'10px 10px 10px 0px'}}>
             <SideNav2 />
           </Col>
-          <Col sm={9} className='bg-light my-3'>
+          <Col sm={9} className='my-1'>
+          <h2 style={{color: "steelblue",fontSize:'15px', marginLeft:'13px'}} >All Staff</h2>
+
             <StaffTable />
           </Col>
         </Row>

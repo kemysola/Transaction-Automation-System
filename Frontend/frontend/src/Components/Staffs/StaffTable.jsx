@@ -18,7 +18,7 @@ import Service from '../../Services/Service';
 
 const ContainerWrapper = styled.div`
     font-size:10px;
-    margin-top: 2rem;
+    margin-top: 1rem;
     padding: 2rem;
     //border-radius: 15px;
     @media screen and (max-width: 768px) {
@@ -291,33 +291,34 @@ const StaffTable = () => {
 
   return (
     <React.Fragment>
-      <ContainerWrapper>
-        <Row>
-          <Col sm={5}className='d-flex justify-content-between'  >
-              <small classname='small' style={{fontSize:'12px',paddingTop:'10px'}}>
+      <ContainerWrapper  className='bg-light'>
+      <Row>
+              <Col sm={3} className='d-none d-sm-block'>
+              <small style={{fontSize:'12px',paddingTop:'10px'}} >
                 All ({staff.length})
-              </small>
-              <a className="vr" />
-              <small classname='small' style={{fontSize:'12px',paddingTop:'10px'}}>
+              </small></Col>
+
+              <Col sm={3} className='d-none d-sm-block'>
+              <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Trash (0) 
                 </small>
-              <div
-              className="vr" />
-              <small classname='small' style={{fontSize:'12px',paddingTop:'10px'}}>
+              </Col>
+              <Col sm={3} className='d-none d-sm-block'>
+              <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Bulk Actions
                 </small>
-          </Col>
-          <Col sm={7} lg={6}>
-            <form className='pt-1'>
-              <GlobalFilter
-                  preGlobalFilteredRows={preGlobalFilteredRows}
-                  globalFilter={state.globalFilter}
-                  setGlobalFilter={setGlobalFilter}
-                />
-        
-            </form>
-          </Col>
-        </Row>
+                </Col>
+
+                <Col sm={3}>
+            <GlobalFilter
+                preGlobalFilteredRows={preGlobalFilteredRows}
+                globalFilter={state.globalFilter}
+                setGlobalFilter={setGlobalFilter}
+              />
+            </Col>
+
+                
+            </Row>
           <div className="table-responsive mt-2 pt-2">
             <table
               className="table py-3 mt-3  table-hover table striped  align-middle table-bordered"

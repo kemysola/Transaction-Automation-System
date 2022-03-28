@@ -19,6 +19,8 @@ const FormWrapper = styled.div`
 padding:0;
 font-size:2px;
 margin:0;
+background:white;
+border-radius:10px;
 `;
 
 const Container1 = styled.div`

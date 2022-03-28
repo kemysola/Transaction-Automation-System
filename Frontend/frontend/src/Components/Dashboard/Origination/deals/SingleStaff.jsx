@@ -38,7 +38,7 @@ const ContainerWrapper = styled.div`
                   setValue(e.target.value);
                   onChange(e.target.value);
               }}
-              placeholder={`Search ${count} products`}
+              placeholder={`Search ${count} ....`}
     
           />
     )
@@ -240,17 +240,17 @@ function SingleStaff() {
         <Row className=''>
           <Col sm={12} className='  ' >
             <Row>
-              <Col sm={3}>
+              <Col sm={3} className='d-none d-sm-block'>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 All ({staff.length})
               </small></Col>
 
-              <Col sm={3}>
+              <Col sm={3} className='d-none d-sm-block'>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Trash (0) 
                 </small>
               </Col>
-              <Col sm={3}>
+              <Col sm={3} className='d-none d-sm-block'>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Bulk Actions
                 </small>
