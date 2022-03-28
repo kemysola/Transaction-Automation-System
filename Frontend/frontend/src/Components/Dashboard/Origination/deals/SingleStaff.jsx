@@ -5,7 +5,7 @@ import Tab from 'react-bootstrap/Tab';
 import styled from 'styled-components';
 import Service from "../../../../Services/Service"
 import { useLocation, Redirect } from "react-router-dom";
-import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters } from 'react-table'
+import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters, useSortBy } from 'react-table'
 import { FiEdit } from 'react-icons/fi';
 
 
@@ -225,6 +225,7 @@ function SingleStaff() {
       },
       useGlobalFilter,
       useFilters,
+      useSortBy,
       useResizeColumns,
       useFlexLayout,
       );
@@ -283,8 +284,16 @@ function SingleStaff() {
                 {headerGroups.map((headerGroup) => (
                   <tr {...headerGroup.getHeaderGroupProps()}>
                     {headerGroup.headers.map((column) => (
-                      <th {...column.getHeaderProps()}>
+                      <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                         {column.render("Header")}
+                        {/* Add a sort direction indicator */}
+                        <span>
+                            {column.isSorted
+                              ? column.isSortedDesc
+                                ? ' 🔽'
+                                : ' 🔼'
+                              : ''}
+                          </span>
                       </th>
                     ))}
                   </tr>
