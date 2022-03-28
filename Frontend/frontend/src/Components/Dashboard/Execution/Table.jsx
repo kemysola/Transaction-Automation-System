@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Row, Col, Form} from 'react-bootstrap';
-import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters } from "react-table";
+import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useSortBy } from "react-table";
 import styled from 'styled-components';
 import Service from "../../../Services/Service";
 
@@ -13,7 +13,30 @@ border-radius: 10px;
 `;
 
 const TableWrapper = styled.div`
-  margin-top: 90px
+  margin-top: 90px;
+  padding: 1rem;
+  table {
+    border-spacing: 0;
+    border: 1px solid black;
+    tr {
+      :last-child {
+        td {
+          border-bottom: 0;
+        }
+      }
+    }
+    th,
+    td {
+      margin: 0;
+      padding: 0.5rem;
+      border-spacing: 0;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+      :last-child {
+        border-right: 0;
+      }
+    }
+  }
 `
 
 const ButtonWrapper = styled.button`
@@ -203,13 +226,15 @@ const DealsTable = (props) => {
       if (`${deals[i].deal_category}` === "Yellow") {
         return {
           style: {
-            color: "#FFBF00"
+            color: "#FFBF00",
+            borderColor: "transparent",
           }
         }
       }
       return {
         style: {
-          color: `${deals[i].deal_category}`
+          color: `${deals[i].deal_category}`,
+          borderColor: "transparent",
         }
       }
     }
@@ -239,6 +264,7 @@ const DealsTable = (props) => {
       },
       useResizeColumns,
       useFlexLayout,
+      useSortBy,
       usePagination,
       useRowSelect,    
     );
@@ -289,8 +315,11 @@ const DealsTable = (props) => {
                 {headerGroups.map((headerGroup) => (
                   <tr {...headerGroup.getHeaderGroupProps()}>
                     {headerGroup.headers.map((column) => (
-                      <th {...column.getHeaderProps()}>
+                      <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                         {column.render("Header")}
+                        <span>
+                          {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                        </span>
                       </th>
                     ))}
                   </tr>

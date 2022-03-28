@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Button, Row, Col} from 'react-bootstrap';
-import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters } from "react-table";
+import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters, useSortBy } from "react-table";
 import { FiEdit } from "react-icons/fi";
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
@@ -32,6 +32,32 @@ const Pagination = styled.div`
     margin: 2px;
     width: 80px;
     font-size: 12px;
+  }
+`
+
+const TableStyle = styled.div`
+  padding: 1rem;
+  table {
+    border-spacing: 0;
+    border: 1px solid black;
+    tr {
+      :last-child {
+        td {
+          border-bottom: 0;
+        }
+      }
+    }
+    th,
+    td {
+      margin: 0;
+      padding: 0.5rem;
+      border-spacing: 0;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+      :last-child {
+        border-right: 0;
+      }
+    }
   }
 `
 
@@ -121,6 +147,7 @@ const DealsTable = (props) => {
         minWidth: 35,
         width: 35,
         maxWidth: 35,
+        disableSortBy: true,
         Cell: (props) => {
           const rowIdx = props.row.original['transid']
           return (
@@ -324,13 +351,15 @@ const DealsTable = (props) => {
       if (`${deals[i].deal_category}` === "Yellow") {
         return {
           style: {
-            color: "#FFBF00"
+            color: "#FFBF00",
+            borderColor: "transparent",
           }
         }
       }
       return {
         style: {
-          color: `${deals[i].deal_category}`
+          color: `${deals[i].deal_category}`,
+          borderColor: "transparent",
         }
       }
     }
@@ -365,6 +394,7 @@ const DealsTable = (props) => {
     useFilters,
     useResizeColumns,
     useFlexLayout,
+    useSortBy,
     usePagination,
     useRowSelect,
     hooks => {
@@ -429,56 +459,60 @@ const DealsTable = (props) => {
                 globalFilter={state.globalFilter}
                 setGlobalFilter={setGlobalFilter}
               />
-            </Col>
+            </Col>                
+          </Row>
 
-                
-            </Row>
-
-        
-        <div className="table-responsive mt-2 pt-2">
-          <table
-            className="table py-3 mt-3  table-hover table striped align-middle table-bordered"
-            id='myTable'
-            {...getTableProps()}
-            // data={data}
-          >
-            <thead className=''>
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th {...column.getHeaderProps()}>
-                      {column.render("Header")}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody {...getTableBodyProps()} className='table-bordered' 
+        {/* ------------- Transaction Table ---------- */}
+        <TableStyle>
+          <div className="table-responsive mt-2 pt-2">
+            <table
+              className="table py-3 mt-3  table-hover table striped align-middle table-bordered"
+              id='myTable'
+              {...getTableProps()}
+              // data={data}
             >
-              {page.map((row, i) => {
-                prepareRow(row);
-                
-                return (
-                  <tr 
-                    {...row.getRowProps(getTrProps(row, i))}
-                  >
-                    {row.cells.map((cell) => {
-                      return (
-                        <td 
-                          {...cell.getCellProps()}
-                        >
-                          {cell.render("Cell")}
-                        </td>
-                      );
-                    })}
+              <thead className=''>
+                {headerGroups.map((headerGroup) => (
+                  <tr {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map((column) => (
+                      <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                        {column.render("Header")}
+                        <span>
+                          {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                        </span>
+                      </th>
+                    ))}
                   </tr>
-                )
-              }
-              )}
-            </tbody>
-          </table>
-        </div>
+                ))}
+              </thead>
+              <tbody {...getTableBodyProps()} className='table-bordered' 
+              >
+                {page.map((row, i) => {
+                  prepareRow(row);
+                  
+                  return (
+                    <tr 
+                      {...row.getRowProps(getTrProps(row, i))}
+                    >
+                      {row.cells.map((cell) => {
+                        return (
+                          <td 
+                            {...cell.getCellProps()}
+                          >
+                            {cell.render("Cell")}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  )
+                }
+                )}
+              </tbody>
+            </table>
+          </div>
+        </TableStyle>
 
+        {/* Set pagination for the  table */}
         <Pagination>
           <div className='pagination mt-1 pt-1'>
             <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
