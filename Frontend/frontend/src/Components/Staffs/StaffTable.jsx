@@ -266,31 +266,32 @@ const StaffTable = () => {
     <React.Fragment>
       <ContainerWrapper  className='bg-light'>
       <Row>
-              <Col sm={3}>
-              <small style={{fontSize:'12px',paddingTop:'10px'}}>
+              <Col sm={3} className='d-none d-sm-block'>
+              <small style={{fontSize:'12px',paddingTop:'10px'}} >
                 All ({staff.length})
-              </small>
-              <a className="vr" />
-              <small classname='small' style={{fontSize:'12px',paddingTop:'10px'}}>
+              </small></Col>
+
+              <Col sm={3} className='d-none d-sm-block'>
+              <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Trash (0) 
                 </small>
-              <div
-              className="vr" />
-              <small classname='small' style={{fontSize:'12px',paddingTop:'10px'}}>
+              </Col>
+              <Col sm={3} className='d-none d-sm-block'>
+              <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Bulk Actions
                 </small>
-          </Col>
-          <Col sm={7} lg={6}>
-            <form className='pt-1'>
-              <GlobalFilter
-                  preGlobalFilteredRows={preGlobalFilteredRows}
-                  globalFilter={state.globalFilter}
-                  setGlobalFilter={setGlobalFilter}
-                />
-        
-            </form>
-          </Col>
-        </Row>
+                </Col>
+
+                <Col sm={3}>
+            <GlobalFilter
+                preGlobalFilteredRows={preGlobalFilteredRows}
+                globalFilter={state.globalFilter}
+                setGlobalFilter={setGlobalFilter}
+              />
+            </Col>
+
+                
+            </Row>
           <div className="table-responsive mt-2 pt-2">
             <table
               className="table py-3 mt-3  table-hover table striped  align-middle table-bordered"
