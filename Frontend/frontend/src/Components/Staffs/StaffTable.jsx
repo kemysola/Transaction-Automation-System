@@ -1,7 +1,17 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { Table, Button, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
-import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters } from 'react-table'
+import {
+  useTable,
+  useResizeColumns,
+  useFlexLayout,
+  useRowSelect,
+  usePagination,
+  useGlobalFilter,
+  useAsyncDebounce,
+  useFilters,
+  useSortBy
+} from 'react-table'
 import { useHistory } from 'react-router-dom';
 import { FiEdit } from 'react-icons/fi';
 import Service from '../../Services/Service';
@@ -14,7 +24,6 @@ const ContainerWrapper = styled.div`
     @media screen and (max-width: 768px) {
      .small{
        margin-left: 1em;
-       color: red;
      }
 }
 `;
@@ -37,6 +46,23 @@ const Pagination = styled.div`
     margin: 2px;
     width: 80px;
     font-size: 12px;
+  }
+  @media screen and (max-width: 768px) {
+    button {
+    margin: 1px;
+    border-radius: 2px;
+    border: 1px solid black;
+  }
+
+  span {
+    font-size: 10px;
+    margin: 1px;
+  }
+
+  select {
+    margin: 1px;
+    width: 40px;
+    font-size: 10px;
   }
 `
 
@@ -222,6 +248,7 @@ const StaffTable = () => {
   },
   useGlobalFilter,
   useFilters,
+  useSortBy,
   useResizeColumns,
   useFlexLayout,
   usePagination,
@@ -301,8 +328,16 @@ const StaffTable = () => {
                 {headerGroups.map((headerGroup) => (
                   <tr {...headerGroup.getHeaderGroupProps()}>
                     {headerGroup.headers.map((column) => (
-                      <th {...column.getHeaderProps()}>
+                      <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                         {column.render("Header")}
+                         {/* Add a sort direction indicator */}
+                          <span>
+                            {column.isSorted
+                              ? column.isSortedDesc
+                                ? ' 🔽'
+                                : ' 🔼'
+                              : ''}
+                          </span>
                       </th>
                     ))}
                   </tr>

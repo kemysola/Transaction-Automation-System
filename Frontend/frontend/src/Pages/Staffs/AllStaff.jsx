@@ -11,7 +11,7 @@ const ViewWrapper = styled.div`
   margin:0 2rem 2rem 0;
   padding: 0 10px;
   @media screen and (max-width: 768px) {
-      overflow: auto;
+      overflow-y: auto;
       height: 100vh;
       margin-left: 2em;
 }

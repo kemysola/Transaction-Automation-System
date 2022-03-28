@@ -127,6 +127,7 @@ const StaffList = () => {
   
   useGlobalFilter,
   useFilters,
+  useSortBy,
   useResizeColumns,
   useFlexLayout,
   );
@@ -182,8 +183,16 @@ const StaffList = () => {
                 {headerGroups.map((headerGroup) => (
                   <tr {...headerGroup.getHeaderGroupProps()}>
                     {headerGroup.headers.map((column) => (
-                      <th {...column.getHeaderProps()}>
+                      <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                         {column.render("Header")}
+                        {/* Add a sort direction indicator */}
+                        <span>
+                            {column.isSorted
+                              ? column.isSortedDesc
+                                ? ' 🔽'
+                                : ' 🔼'
+                              : ''}
+                          </span>
                       </th>
                     ))}
                   </tr>
