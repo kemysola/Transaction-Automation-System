@@ -21,7 +21,7 @@ transport.sendMail({
     // html: `<h2>Account Activation</h2>
     //     <h3>Hello ${username}</h3>
     //     <p>You have now been successfully setup on the Transaction Reporting System.</p>
-    //     <p>Please confirm your email by clicking on the following link <a href=http://localhost:5000/api/v1/staff/confirm/${confirmationCode}> Click here</a> </p>
+    //     <p>Please confirm your email by clicking on the following link <a href=http://localhost:5001/api/v1/staff/confirm/${confirmationCode}> Click here</a> </p>
     //     <p>Please login with your Email: ${email} with One-Time-Password: <strong> ${otp} </strong> Note: Activation Link will expire in 24 hours</p>
     //     </div>`,
     html: `<html>
