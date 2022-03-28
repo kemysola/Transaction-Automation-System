@@ -8,12 +8,11 @@ import StaffTable from "../../Components/Staffs/StaffTable";
 
 const ViewWrapper = styled.div`
   background: #eff1f1;
-  margin:0 2rem 2rem 0;
+  /*margin:0 2rem 2rem 0;*/
   padding: 0 10px;
   @media screen and (max-width: 768px) {
       overflow: auto;
       height: 100vh;
-      margin-left: 2em;
 }
 `;
 

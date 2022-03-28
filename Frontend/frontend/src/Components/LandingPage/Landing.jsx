@@ -9,7 +9,6 @@ const LandingWrapper = styled.div`
   margin: 0;
   padding: 0 10px;
   @media only screen and (max-width: 720px) {
-    height:100vh;
 }
 `;
 

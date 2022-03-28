@@ -6,7 +6,7 @@ import MenuItem from './MenuItem';
 const AppWrapper = styled.div`
     border-right: 1px solid black;
     background: #eff1f1;
-    overflow:hidden;
+    //overflow:hidden;
     padding-top:10px;
 
 `;
