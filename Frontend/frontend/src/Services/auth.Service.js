@@ -33,8 +33,8 @@ const logout = () => {
   window.location.reload();
   window.location.href = "/";
 };
-const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem("user"));
+const getCurrentUser = async() => {
+  return await JSON.parse(localStorage.getItem("user"));
 };
 
 const updatePassword = async(oldPassword,newPassword,email) => {
