@@ -39,7 +39,7 @@ const TableStyle = styled.div`
   padding: 1rem;
   table {
     border-spacing: 0;
-    border: 1px solid black;
+    // border: 1px solid black;
     tr {
       :last-child {
         td {
@@ -47,13 +47,17 @@ const TableStyle = styled.div`
         }
       }
     }
+    th, 
+    tr {
+      // border: 5px dashed green
+    }
     th,
     td {
       margin: 0;
       padding: 0.5rem;
       border-spacing: 0;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
+      // border-bottom: 1px solid black;
+      // border-right: 1px solid black;
       :last-child {
         border-right: 0;
       }
@@ -109,7 +113,6 @@ const IndeterminateCheckbox = React.forwardRef(
 const DealsTable = (props) => {
   const history = useHistory();
   const [deals, setDeals] = useState([]);
-  // const [search, setSearch] = useState('');
   const dealsRef = useRef();
   dealsRef.current = deals;
 
@@ -388,7 +391,7 @@ const DealsTable = (props) => {
       columns,
       data: deals,
       initialState: { pageIndex: 0 },
-      getRowProps: getTrProps()
+      getRowProps: getTrProps(),
     },
     useGlobalFilter,
     useFilters,
@@ -438,20 +441,22 @@ const DealsTable = (props) => {
       <ContainerWrapper>
         <Row>
               <Col sm={3} className='d-none d-sm-block'>
-              <small style={{fontSize:'12px',paddingTop:'10px'}}>
-                All ({deals.length})
-              </small></Col>
-
-              <Col sm={3} className='d-none d-sm-block'>
-              <small style={{fontSize:'12px',paddingTop:'10px'}}>
-                Trash (0) 
+                <small style={{fontSize:'12px',paddingTop:'10px'}}>
+                  All ({deals.length})
                 </small>
               </Col>
+
               <Col sm={3} className='d-none d-sm-block'>
-              <small style={{fontSize:'12px',paddingTop:'10px'}}>
-                Bulk Actions
+                <small style={{fontSize:'12px',paddingTop:'10px'}}>
+                  Trash (0) 
                 </small>
-                </Col>
+              </Col>
+              
+              <Col sm={3} className='d-none d-sm-block'>
+                <small style={{fontSize:'12px',paddingTop:'10px'}}>
+                  Bulk Actions
+                </small>
+              </Col>
 
                 <Col sm={3}>
             <GlobalFilter
@@ -460,18 +465,17 @@ const DealsTable = (props) => {
                 setGlobalFilter={setGlobalFilter}
               />
             </Col>                
-          </Row>
+        </Row>
 
         {/* ------------- Transaction Table ---------- */}
         <TableStyle>
           <div className="table-responsive mt-2 pt-2">
             <table
-              className="table py-3 mt-3  table-hover table striped align-middle table-bordered"
+              className="table py-3 mt-3  table-hover table striped align-middle"
               id='myTable'
               {...getTableProps()}
-              // data={data}
             >
-              <thead className=''>
+              <thead>
                 {headerGroups.map((headerGroup) => (
                   <tr {...headerGroup.getHeaderGroupProps()}>
                     {headerGroup.headers.map((column) => (

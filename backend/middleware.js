@@ -56,7 +56,7 @@ const verifyUser = async (req, res, next) => {
       await client.query("BEGIN");
       const update_db = `UPDATE TB_TRS_USERS
            SET  status = 'Active'
-        n   WHERE activationcode = $1
+           WHERE activationcode = $1
           RETURNING *`;
       const res_ = await client.query(update_db, user_data);
       await client.query("COMMIT");
