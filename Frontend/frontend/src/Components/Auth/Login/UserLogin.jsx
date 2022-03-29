@@ -69,12 +69,13 @@ const UserLogin = () => {
           if (localStorage.getItem("admin") === "true") {
             localStorage.setItem("isAuthenticated", "true");
             history.push("/landing");
+            window.location.reload()
+
           }
           if(localStorage.getItem("admin") !== "true"){
             history.push("/user");
           }
-          history.push("/landing");
-          window.location.reload()
+          //history.push("/landing");
         },
         (error) => {
           const resMessage = 'Incorrect Email or Password'

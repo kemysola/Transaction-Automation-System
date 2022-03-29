@@ -205,7 +205,7 @@ transport.sendMail({
                                           <span style="font-size:16px;">Please confirm
                                             your email by clicking on the following
                                             link <a
-                                              href=http://localhost:5000/api/v1/staff/confirm/${confirmationCode}>
+                                              href=http://localhost:5001/api/v1/staff/confirm/${confirmationCode}>
                                               Click here</a> </span></p>
     
                                         <p

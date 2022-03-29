@@ -15,7 +15,10 @@ const ContainerWrapper = styled.div`
     margin-top: 2rem;
     padding: 2rem;
     border-radius: 10px;
-    background: white`;
+    background: white;
+    box-shadow:
+    `;
+    
 
 
     const GlobalFilter =({
