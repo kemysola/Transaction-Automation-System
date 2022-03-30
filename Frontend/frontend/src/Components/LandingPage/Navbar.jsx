@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Container, Nav, Form } from 'react-bootstrap';
 import { FaBars } from 'react-icons/fa';
-import InfraCredit from '../../Images/i.png';
+import InfraCredit from '../../Images/InfraCredit.svg';
 import { Link } from 'react-router-dom';
 import MenuOption from './MenuOption';
 import { GlobalFilter } from '../Transactions/TransactionTable';
@@ -11,7 +11,7 @@ import { GlobalFilter } from '../Transactions/TransactionTable';
 const NavbarNav = styled.div`
 background:#eff1f1;
 // padding:1px 10px;
-margin: 10px 25px;
+margin: 20px 5px;
 // margin-bottom:0.1px;
 display:flex;
 // grid-template-columns: auto auto auto auto;
@@ -27,7 +27,7 @@ const Navbar = ({ handleToggleSidebar, props }) => {
                 {/*---------------------------  Logo Div ------------------------------------- */}
                 <div>
                     <Link to ='/landing'>
-                    <img src={InfraCredit} alt='logo' width='100' />
+                    <img src={InfraCredit} alt='logo' width='200' />
 
                     </Link>
                 </div>
