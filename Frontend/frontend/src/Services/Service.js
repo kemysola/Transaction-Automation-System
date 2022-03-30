@@ -80,6 +80,9 @@ const getDealCategory = () => { // get all deal category
     return axios.get("configuration/category");
 }
 
+const getStaffList = () => { // get all staff
+    return axios.get("configuration/staff_list");
+}
 
 export default {
     LoginStaff,
@@ -100,5 +103,6 @@ export default {
     getRegion,
     getRepaymentFreq,
     getAmortizationSty,
-    getDealCategory
+    getDealCategory,
+    getStaffList
 };
