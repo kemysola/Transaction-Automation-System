@@ -243,17 +243,17 @@ function SingleStaff() {
         <Row className=''>
           <Col sm={12} className='  ' >
             <Row>
-              <Col sm={3} className='d-none d-sm-block'>
+              <Col sm={3} className='d-sm-none d-lg-block d-md-block'>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 All ({staff.length})
               </small></Col>
 
-              <Col sm={3} className='d-none d-sm-block'>
+              <Col sm={3} className='d-sm-none d-lg-block d-md-block'>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Trash (0) 
                 </small>
               </Col>
-              <Col sm={3} className='d-none d-sm-block'>
+              <Col sm={3} className='d-sm-none d-lg-block'>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Bulk Actions
                 </small>

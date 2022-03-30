@@ -36,8 +36,8 @@ export default function TransactionCards() {
         <h2 style={{color: "steelblue",fontSize:'15px'}}>All Transactions</h2>
           
         <Row>
-          <Col sm={6}>
-            <Card className={styles.roundedCorners}>
+          <Col sm={6} md={6} className='d-md-block'>
+            <Card >
               <Card.Body>
                 <Card.Title className="d-flex justify-content-between">
                     <small>Total Deal Size </small> 
@@ -57,7 +57,7 @@ export default function TransactionCards() {
             </Card>
           </Col>
 
-          <Col sm={6}>
+          <Col sm={6} md={6}>
             <Card>
               <Card.Body>
                 <Card.Title className="d-flex justify-content-between">

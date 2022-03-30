@@ -440,19 +440,19 @@ const DealsTable = (props) => {
     <React.Fragment>
       <ContainerWrapper>
         <Row>
-              <Col sm={3} className='d-none d-sm-block'>
+              <Col sm={3} className='d-sm-none d-lg-block d-md-block'>
                 <small style={{fontSize:'12px',paddingTop:'10px'}}>
                   All ({deals.length})
                 </small>
               </Col>
 
-              <Col sm={3} className='d-none d-sm-block'>
+              <Col sm={3} className='d-sm-none d-lg-block d-md-block'>
                 <small style={{fontSize:'12px',paddingTop:'10px'}}>
                   Trash (0) 
                 </small>
               </Col>
               
-              <Col sm={3} className='d-none d-sm-block'>
+              <Col sm={3} className='d-sm-none d-lg-block '>
                 <small style={{fontSize:'12px',paddingTop:'10px'}}>
                   Bulk Actions
                 </small>
@@ -546,7 +546,7 @@ const DealsTable = (props) => {
                   const page = e.target.value ? Number(e.target.value) - 1 : 0
                   gotoPage(page)
                 }}
-                style={{ width: '100px' }}
+                style={{ width: '30px' }}
               />
             </span>{' '}
             <select
