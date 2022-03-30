@@ -64,6 +64,10 @@ export default function Reset() {
       setMessage('New Password must be different from old password')
       return false;
     }
+    if (newPassword === "" && confirmPassword === "") {
+      setMessage("Password fields connot be empty");
+      return;
+    }
     else if (newPassword !== confirmPassword){
       setMessage('Password do not match')
       return false;
