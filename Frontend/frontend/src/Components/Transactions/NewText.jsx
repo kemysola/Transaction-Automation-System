@@ -90,7 +90,8 @@ const AddDeal = () => {
   const [region, setRegion] = useState([]);
   const [frequency, setFrequency] = useState([]);
   const [style, setStyle] = useState([]);
-
+  const [staffList, setStaffList] = useState([]);
+ 
   useEffect(() => {
     retrieveIndustry();
   }, [])
@@ -109,6 +110,10 @@ const AddDeal = () => {
 
   useEffect(() => {
     retrieveAmortizationStyle();
+  }, [])
+
+  useEffect(() => {
+    retrieveStaffList();
   }, [])
 
   const retrieveIndustry = () => {
@@ -159,6 +164,16 @@ const AddDeal = () => {
       .catch((e) => {
         console.log(e);
       });
+  };
+
+  const retrieveStaffList = () => {
+    Services.getStaffList()
+    .then((response) => {
+      setStaffList(response.data.staffList);
+    })
+    .catch((e) => {
+      console.log(e);
+    });
   };
 
   function toNextTab(e) {
@@ -330,21 +345,36 @@ const AddDeal = () => {
                         <Col sm={12}>
                           <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                             <Form.Label>Originator</Form.Label>
-                            <Form.Control size="sm" type="text" value={deal.originator} onChange={handleInputChange} name='originator' />
+                            <Form.Select size="sm" type="text" value={deal.originator} onChange={handleInputChange} name='originator'>
+                              <option></option>
+                              {staffList.map((opt, i) => (
+                                <option key={staffList[i].staffid} value={staffList[i].stafflist}>{staffList[i].stafflist}</option>
+                              ))}
+                            </Form.Select>
                           </Form.Group>
                         </Col>
 
                         <Col sm={12}>
                           <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                             <Form.Label>Transactor</Form.Label>
-                            <Form.Control size="sm" type="text" value={deal.transactor} onChange={handleInputChange} name='transactor' />
+                            <Form.Select size="sm" type="text" value={deal.transactor} onChange={handleInputChange} name='transactor'>
+                              <option></option>
+                              {staffList.map((opt, i) => (
+                                <option key={staffList[i].staffid} value={staffList[i].stafflist}>{staffList[i].stafflist}</option>
+                              ))}
+                            </Form.Select>
                           </Form.Group>
                         </Col>
 
                         <Col sm={12}>
                           <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                             <Form.Label>Transactor Legal Lead</Form.Label>
-                            <Form.Control size="sm" type="text" value={deal.transactionLegalLead} onChange={handleInputChange} name='transactionLegalLead' />
+                            <Form.Select size="sm" type="text" value={deal.transactionLegalLead} onChange={handleInputChange} name='transactionLegalLead'>
+                              <option></option>
+                              {staffList.map((opt, i) => (
+                                <option key={staffList[i].staffid} value={staffList[i].stafflist}>{staffList[i].stafflist}</option>
+                              ))}
+                            </Form.Select>
                           </Form.Group>
                         </Col>
 

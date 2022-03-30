@@ -1,6 +1,6 @@
 --EndPoint Calls
 --NOTE: All needs in their Header => token : Bearer <token value>
-REGISTER FIRST USER: [http://localhost:5000/api/v1/staff/first_onboard] --Disable/Remove this endpoint definition upon go live
+REGISTER FIRST USER: [http://localhost:5001/api/v1/staff/first_onboard] --Disable/Remove this endpoint definition upon go live
 METHOD = POST
 Body =>
 {
@@ -22,7 +22,7 @@ Body =>
 }
 
 
-REGISTER STAFF: [http://localhost:5000/api/v1/staff/onboard]
+REGISTER STAFF: [http://localhost:5001/api/v1/staff/onboard]
 METHOD = POST
 Body =>
 
@@ -42,7 +42,7 @@ Body =>
     "feeLetter":11
 }
 
-UPDATE DEAL RECORD: [http://localhost:5000/api/v1/transaction/update/3]
+UPDATE DEAL RECORD: [http://localhost:5001/api/v1/transaction/update/3]
 METHOD = PUT
 BODY =>
 
@@ -85,22 +85,22 @@ BODY =>
     "structuringFeeAdvance": 5,
     "structuringFeeFinal": 5,
     "guaranteeFee": 2,
-    "monitoringFee": 5000.00,
+    "monitoringFee": 5001.00,
     "reimbursible": 8000.90,
     "notes": "",
     "closed": false
 }
 
-GET DEAL BY ID: [http://localhost:5000/api/v1/transaction/item/3]
+GET DEAL BY ID: [http://localhost:5001/api/v1/transaction/item/3]
 METHOD = GET
 
-GET ONLY CURRENT USER DEALS: [http://localhost:5000/api/v1/transaction/my_deals]
+GET ONLY CURRENT USER DEALS: [http://localhost:5001/api/v1/transaction/my_deals]
 METHOD = GET
 
-GET ALL DEALS: [http://localhost:5000/api/v1/transaction/all_deals]
+GET ALL DEALS: [http://localhost:5001/api/v1/transaction/all_deals]
 METHOD = GET
 
-REGISTER NEW DEAL: [http://localhost:5000/api/v1/transaction/createdeal]
+REGISTER NEW DEAL: [http://localhost:5001/api/v1/transaction/createdeal]
 METHOD = POST
 BODY =>
 
@@ -143,13 +143,13 @@ BODY =>
     "structuringFeeAdvance": 5,
     "structuringFeeFinal": 5,
     "guaranteeFee": 2,
-    "monitoringFee": 5000.00,
+    "monitoringFee": 5001.00,
     "reimbursible": 8000.90,
     "notes": "",
     "closed": false
 }
 
-LOGIN: [http://localhost:5000/api/v1/auth/app/login]
+LOGIN: [http://localhost:5001/api/v1/auth/app/login]
 METHOD = POST
 BODY =>
 {
@@ -162,32 +162,35 @@ BODY =>
     "password":"superadmin"
 }
 
-LANDING PAGE: [http://localhost:5000/api/v1/auth/]
+LANDING PAGE: [http://localhost:5001/api/v1/auth/]
 METHOD = GET
 
-REPORTING BY DATE PAGE: [http://localhost:5000/api/v1/report/2022-02-17/2022-02-17/''] #When no client_name is not specified
+REPORTING BY DATE PAGE: [http://localhost:5001/api/v1/report/2022-02-17/2022-02-17/''] #When no client_name is not specified
 METHOD = GET
 
-REPORTING BY DATE PAGE: [http://localhost:5000/api/v1/report/2022-02-17/2022-02-17/Exalz Holdings] #When client_name is specified
+REPORTING BY DATE PAGE: [http://localhost:5001/api/v1/report/2022-02-17/2022-02-17/Exalz Holdings] #When client_name is specified
 METHOD = GET
 
-GET LEVEL: [http://localhost:5000/api/v1/configuration/level]
+GET LEVEL: [http://localhost:5001/api/v1/configuration/level]
 METHOD = GET
 
-GET INDUSTRY: [http://localhost:5000/api/v1/configuration/industry]
+GET INDUSTRY: [http://localhost:5001/api/v1/configuration/industry]
 METHOD = GET
 
-GET PRODUCT: [http://localhost:5000/api/v1/configuration/product]
+GET PRODUCT: [http://localhost:5001/api/v1/configuration/product]
 METHOD = GET
 
-GET REGION: [http://localhost:5000/api/v1/configuration/region]
+GET REGION: [http://localhost:5001/api/v1/configuration/region]
 METHOD = GET
 
-GET REPAYMENT FREQUENCY: [http://localhost:5000/api/v1/configuration/repay_freq]
+GET REPAYMENT FREQUENCY: [http://localhost:5001/api/v1/configuration/repay_freq]
 METHOD = GET
 
-GET AMORTIZATION STYLE: [http://localhost:5000/api/v1/configuration/amortiz_sty]
+GET AMORTIZATION STYLE: [http://localhost:5001/api/v1/configuration/amortiz_sty]
 METHOD = GET
 
-GET DEAL CATEGORY: [http://localhost:5000/api/v1/configuration/category]
+GET DEAL CATEGORY: [http://localhost:5001/api/v1/configuration/category]
+METHOD = GET
+
+GET STAFF LIST: [http://localhost:5001/api/v1/configuration/staff_list]
 METHOD = GET
