@@ -11,7 +11,7 @@ import { GlobalFilter } from '../Transactions/TransactionTable';
 const NavbarNav = styled.div`
 background:#eff1f1;
 // padding:1px 10px;
-margin: 20px 5px;
+margin: 25px 5px;
 // margin-bottom:0.1px;
 display:flex;
 // grid-template-columns: auto auto auto auto;
@@ -27,7 +27,7 @@ const Navbar = ({ handleToggleSidebar, props }) => {
                 {/*---------------------------  Logo Div ------------------------------------- */}
                 <div>
                     <Link to ='/landing'>
-                    <img src={InfraCredit} alt='logo' width='200' />
+                    <img src={InfraCredit} alt='logo' width='150' />
 
                     </Link>
                 </div>
