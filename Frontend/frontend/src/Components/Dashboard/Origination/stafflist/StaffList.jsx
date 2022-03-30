@@ -9,9 +9,12 @@ import Service from '../../../../Services/Service'
 
 const ContainerWrapper = styled.div`
     font-size:10px;
-    margin-top: 2rem;
+    margin: 1rem;
     padding: 2rem;
-    border-radius: 15px;`;
+    border-radius: 15px;
+    background:white;
+    font-family:roboto;
+    `;
 
 //Define a default UI for filtering
 const GlobalFilter =({
@@ -146,12 +149,12 @@ const StaffList = () => {
                 All ({staff.length})
               </small></Col>
 
-              <Col sm={3} className='d-sm-none'>
+              <Col sm={3} className='d-sm-none d-lg-block'>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Trash (0) 
                 </small>
               </Col>
-              <Col sm={3} className='d-sm-none '>
+              <Col sm={3} className='d-sm-none d-lg-block '>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Bulk Actions
                 </small>
