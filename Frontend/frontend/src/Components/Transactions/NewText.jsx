@@ -319,14 +319,14 @@ const AddDeal = () => {
 
           {submitted ? (
             <div>
-              <p style={{ fontWeight: 'bold', fontSize: '12px', color: 'darkblue', marginTop: '1rem' }}>{response}</p>
-              <ButtonWrapper onClick={newDeal}>New Deal</ButtonWrapper>
+              <p style={{ fontWeight: 'bold', fontSize: '12px', color: 'steelblue', marginTop: '1rem' }}>{response}</p>
+              <ButtonWrapper onClick={newDeal}>Add New Transaction</ButtonWrapper>
             </div>
 
           ) : (
             <Form>
               <PWrapper>
-                <h5 className='py-3 text-dark'>New Transaction</h5>
+                <h5 className='py-3 text-secondary'>New Transaction</h5>
               </PWrapper>
               <br />
               <div>
@@ -405,12 +405,12 @@ const AddDeal = () => {
                   </Tab>
 
 
-                  <Tab eventKey="second" title="DEAL PROFILE FEES & REIMBURSEMENTS">
+                  <Tab eventKey="second" title="DEAL PROFILE ">
                     <Container1>
                       <div className='mt-2'>
-                        <PWrapper>
+                        {/*<PWrapper>
                           <h6 className="pt-1 mt-1" style={{ fontSize: "13px" }}>Deal Profile Fees & Reimbursement</h6>
-                        </PWrapper>
+                            </PWrapper>*/}
 
                         <Row>
                           <Col sm={6} className='my-0 py-0'>
@@ -453,7 +453,7 @@ const AddDeal = () => {
                         <Row className='mt-1'>
                           <Col sm={6}>
                             <Form.Group className="pt-1">
-                              <Form.Label>Deal Size (NGN)</Form.Label>
+                              <Form.Label>Deal Size (BN)</Form.Label>
                               <Form.Control size="sm" type="number" value={deal.dealSize} onChange={handleInputChange} name='dealSize' />
                             </Form.Group>
                           </Col>
@@ -530,7 +530,7 @@ const AddDeal = () => {
 
                           <Col sm={6} className='pt-3'>
                             <Form.Group className="pt-1">
-                              <Form.Label>Excepted Close</Form.Label>
+                              <Form.Label>Expectedt Close</Form.Label>
                               <Form.Control size="sm" type="date" value={deal.expectedClose} onChange={handleInputChange} name='expectedClose' />
                             </Form.Group>
                           </Col>
@@ -539,6 +539,13 @@ const AddDeal = () => {
                             <Form.Group className="pt-1">
                               <Form.Label>Actual Close</Form.Label>
                               <Form.Control size="sm" type="date" value={deal.actualClose} onChange={handleInputChange} name='actualClose' />
+                            </Form.Group>
+                          </Col>
+
+                          <Col sm={6} className='pt-3'>
+                            <Form.Group className="pt-1">
+                              <Form.Label>NBC Close</Form.Label>
+                              <Form.Control size="sm" type="date"  onChange={handleInputChange} name='actualClose' />
                             </Form.Group>
                           </Col>
                         </Row>
@@ -554,7 +561,7 @@ const AddDeal = () => {
 
 
 
-                  <Tab eventKey="third" title="STRUCTURING FEES">
+                  <Tab eventKey="third" title="FEES">
                     <br />
                     <br />
                     <Container1>
@@ -564,7 +571,7 @@ const AddDeal = () => {
                         <Row>
                           <Col sm={6} className='my-0 py-0'>
                             <Form.Group>
-                              <Form.Label>Amount(NGN)</Form.Label>
+                              <Form.Label>Amount (bn)</Form.Label>
                               <Form.Control size="sm" type="number" value={deal.structuringFeeAmount} onChange={handleInputChange} name='structuringFeeAmount' />
                             </Form.Group>
                           </Col>
