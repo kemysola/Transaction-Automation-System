@@ -356,151 +356,39 @@ export default function Progress() {
 
   const productChartData = [
     {
-      name: "Public Bond ",
+      name: `Public Bond: ${(productOption1Total/1000000).toFixed(2)}bn`,
       value: productOption1Total,
+      percent: `${((productOption1Total/sumTotal) * 100).toFixed(2)}%`
     },
     {
-      name: "Blended Finance ",
+      name: `Blended Finance: ${(productOption1Total/1000000).toFixed(2)}bn`,
       value: productOption2Total,
+      percent: `${((productOption2Total/sumTotal) * 100).toFixed(2)}%`
     },
     {
-      name: "Contigent Refi. Gte. ",
+      name: `Contigent Refi. Gte.: ${(productOption3Total/1000000).toFixed(2)}bn`,
       value: productOption3Total,
+      percent: `${((productOption3Total/sumTotal) * 100).toFixed(2)}%`
     },
     {
-      name: "Private Bond (Clean Energy)",
+      name: `Private Bond (Clean Energy): ${(productOption4Total/1000000).toFixed(2)}bn`,
       value: productOption4Total,
+      percent: `${((productOption4Total/sumTotal) * 100).toFixed(2)}%`
+
     },
     {
-      name: "Private Bond (Other) ",
+      name: `Private Bond (Other): ${(productOption5Total/1000000).toFixed(2)}bn `,
       value: productOption5Total,
+      percent: `${((productOption5Total/sumTotal) * 100).toFixed(2)}%`
     },
     {
-      name: "Annuity PPP",
+      name: `Annuity PPP: ${(productOption6Total/1000000).toFixed(2)}bn`,
       value: productOption6Total,
+      percent: `${((productOption6Total/sumTotal) * 100).toFixed(2)}%`
+
     },
   ];
 
-
-
-
-  /////////////////////////////////
-
-  // console.log("########", chartData[0].value)
-
-
-  // const myBarPercent = chartData.map(function (value, index) {
-  //   return value.value
-  // })
-
-  // console.log("value #####", myBarPercent1)
-
-  // const getPercent = (value, total) => {
-  //   const ratio = total > 0 ? value / total : 0;
-    
-  //   return toPercent(ratio, 2);
-  // };
-  
-  // const toPercent = (decimal, fixed = 0) => {
-  //   return `${(decimal * 100).toFixed(fixed)}%`;
-  // };
-
-  // const  Total = chartData.reduce(function (tot, arr) {
-  //   return tot + parseFloat(arr);
-  // }, 0);
-
-//   const getPercent = chartData.map(function (value, total) {
-//       total = 1000000000
-//       const ratio = total > 0 ? value / total : 0;
-//       return toPercent(ratio, 2);
-//  })
-  
-const myBarPercent = chartData.map(function (value, index) {
-  return value.value
-})
-  
-  
-const Total = myBarPercent.reduce(function (tot, arr) {
-  return tot + parseFloat(arr);
-}, 0);
-  
-// for (let i = 0; i < myBarPercent.length; i++) {
-//   console.log(cars[i])
-// }
-  
-  // let barTotal = myBarPercent[1]/Total
-  // console.log("I am barpercent", barTotal * 100)
-  // console.log("i an tota", Total)
-  // let tick = []
-  // const getPercent = () => {
-  //   for (let i = 0; i < myBarPercent.length; i++) {
-  //     let ratio = myBarPercent[i] / Total;
-  //     console.log("##### RATIO", `${(ratio * 100).toFixed(2)}%`)
-  //     tick.push(`${(ratio * 100).toFixed(2)}%`); 
-  //   }
-  //   return
-  // }
-
-  const getPercent = () => {
-
-    let result = []
-
-
-
-    for (let i = 0; i < myBarPercent.length; i++) {
-
-
-
-      let ratio = myBarPercent[i] / Total;
-
-      console.log("##### RATIO", `${(ratio * 100).toFixed(2)}%`)
-
-      result.push(`${(ratio * 100).toFixed(2)}%`);
-
-    }
-
-    console.log("result array", result)
-
-    return result
-
-  }
-
-  // console.log("##### TICK", tick)
-  //   // valueBar.map(function (value, index) {
-  //     const ratio = Total > 0 ? value / Total : 0;
-  //     return toPercent(ratio, 2);
-  //   //})
-    
-  // };
-
-  console.log("I am get percent", getPercent)
-
-  // const toPercent = (decimal, fixed = 0) => {
-  //   return `${(decimal * 100).toFixed(fixed)}%`;
-  // };
-
-  const CustomizedLabel = ({
-    x, y, fill, value
-  }) => {
-    return (
-      <>
-        <text 
-                 x={x} 
-                 y={y} 
-                 dy={-4} 
-                 fontSize='16' 
-                 fontFamily='sans-serif'
-                 fill={fill}
-          textAnchor="middle">{value}%
-       </text>
-      </>
-    );
-  };
-
- 
-  //     const CustomizedLabel = {x, y, fill, value} => this.props;
-  //      return 
-  // );
   
   return (
     <React.Fragment>
@@ -616,7 +504,8 @@ const Total = myBarPercent.reduce(function (tot, arr) {
                 layout="vertical"
               >
                 <XAxis type="number" hide />
-                <YAxis
+                  <YAxis
+                  yAxisId={0}
                   type="category"
                   dataKey="name"
                   tickLine={false}
@@ -624,9 +513,24 @@ const Total = myBarPercent.reduce(function (tot, arr) {
                   style={{
                     fontSize: "0.52rem",
                     fontFamily: "Arial",
-                    padding: "15px",
-                  }}
-                />
+                    padding: "20px",
+                      }}
+                  
+                    />
+                    
+                    <YAxis
+                        orientation="right"
+                        yAxisId={1}
+                        dataKey="percent"
+                        type="category"
+                        axisLine={false}
+                        tickLine={false}
+                        style={{
+                          fontSize: "0.52rem",
+                          fontFamily: "Arial",
+                          padding: "15px",
+                            }}
+                    />
                 <Bar
                   dataKey="value"
                   stackId="a"
