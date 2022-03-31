@@ -195,54 +195,69 @@ export default function Progress() {
     return tot + parseFloat(arr);
   }, 0);
 
+  var sumTotal = data.reduce(function (tot, arr) {
+    return tot + parseFloat(arr.dealsize);
+  }, 0);
+
   const chartData = [
     {
-      name: "On-gric Power",
+      name: `On-grid Power: ₦${(option1Total/1000000).toFixed(2)}bn`,
       value: option1Total,
+      percent: `${((option1Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: "Off-grid Power",
+      name: `Off-grid Power: ₦${(option2Total/1000000).toFixed(2)}bn`,
       value: option2Total,
+      percent: `${((option2Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: "Agric infra",
+      name: `Agric infra: ₦${(option3Total/1000000).toFixed(2)}bn`,
       value: option3Total,
+      percent: `${((option3Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: "Gas",
+      name: `Gas: ₦${(option4Total/1000000).toFixed(2)}bn`,
       value: option4Total,
+      percent: `${((option4Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: "Transport",
+      name: `Transport: ₦${(option5Total/1000000).toFixed(2)}bn`,
       value: option5Total,
+      percent: `${((option5Total / sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: "Inputs to Infra",
+      name: `Inputs to Infra: ₦${(option6Total/1000000).toFixed(2)}bn`,
       value: option6Total,
+      percent: `${((option6Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: "Affordable Housing",
+      name:  `Affordable Housing: ₦${(option7Total/1000000).toFixed(2)}bn`,
       value: option7Total,
+      percent: `${((option7Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: "Education Infra",
+      name: `Education Infra: ₦${(option8Total/1000000).toFixed(2)}bn`,
       value: option8Total,
+      percent: `${((option8Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: "Healthcare",
+      name: `Healthcare: ₦${(option9Total/1000000).toFixed(2)}bn`,
       value: option9Total,
+      percent: `${((option9Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: "Water/Waste",
+      name: `Water/Waste: ₦${(option10Total/1000000).toFixed(2)} bn`,
       value: option10Total,
+      percent: `${((option10Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: "ICT/Telecoms",
+      name: `ICT/Telecoms: ₦${(option11Total/1000000).toFixed(2)}bn`,
       value: option11Total,
+      percent: `${((option11Total/sumTotal) * 100).toFixed(1)}%`
     },
   ];
 
-  ///////////////////////////////PRODUCT
+  //-------------------- PRODUCT ------------------------------//
 
   let productOption1 = data.reduce(function (filtered, arr) {
     if (arr.product === "Public Bond") {
@@ -295,7 +310,7 @@ export default function Progress() {
   }, []);
 
   let productOption6 = data.reduce(function (filtered, arr) {
-    if (arr.product === "Annity PPP") {
+    if (arr.product === "Annuity PPP") {
       let someNewValue = arr.dealsize;
 
       filtered.push(someNewValue);
@@ -330,28 +345,36 @@ export default function Progress() {
 
   const productChartData = [
     {
-      name: "Public Bond ",
+      name: `Public Bond: ₦${(productOption1Total/1000000).toFixed(2)}bn`,
       value: productOption1Total,
+      percent: `${((productOption1Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: "Blended Finance ",
+      name: `Blended Finance: ₦${(productOption2Total/1000000).toFixed(2)}bn`,
       value: productOption2Total,
+      percent: `${((productOption2Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: "Contigent Refi. Gte. ",
+      name: `Contigent Refi. Gte.: ₦${(productOption3Total/1000000).toFixed(2)}bn`,
       value: productOption3Total,
+      percent: `${((productOption3Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: "Private Bond (Clean Energy)",
+      name: `Private Bond (Clean Energy): ₦${(productOption4Total/1000000).toFixed(2)}bn`,
       value: productOption4Total,
+      percent: `${((productOption4Total/sumTotal) * 100).toFixed(1)}%`
+
     },
     {
-      name: "Private Bond (Other) ",
+      name: `Private Bond (Other): ₦${(productOption5Total/1000000).toFixed(2)}bn`,
       value: productOption5Total,
+      percent: `${((productOption5Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: "Annuity PPP",
+      name: `Annuity PPP: ₦${(productOption6Total/1000000).toFixed(2)}bn`,
       value: productOption6Total,
+      percent: `${((productOption6Total/sumTotal) * 100).toFixed(1)}%`
+
     },
   ];
 
@@ -387,9 +410,10 @@ export default function Progress() {
               </p>
 
               <BarChart
-                width={200}
+                width={220}
                 height={340}
                 data={chartData}
+                barSize={15}
                 margin={{
                   top: 5,
                   right: 5,
@@ -402,17 +426,27 @@ export default function Progress() {
                 <YAxis
                   type="category"
                   dataKey="name"
+                  yAxisId={0}
                   tickLine={false}
                   axisLine={false}
                   style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
                 />
+                <YAxis
+                  orientation="right"
+                  yAxisId={1}
+                  dataKey="percent"
+                  type="category"
+                  axisLine={false}
+                  tickLine={false}
+                  style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
+                />
                 <Bar
                   dataKey="value"
-                  stackId="a"
                   fill="#82ca9d"
+                  minPointSize={1}
                   background={{ fill: "#eee" }}
                 />
-                </BarChart>
+              </BarChart>
                 </Container>
               </Container>
             </div>
@@ -440,13 +474,14 @@ export default function Progress() {
                 PRODUCT
               </p>
               <BarChart
-                width={200}
+                width={250}
                 height={250}
                 data={productChartData}
+                barSize={15}
                 margin={{
                   top: 25,
-                  right: 15,
-                  left: 15,
+                  right: 10,
+                  left: 10,
                   bottom: 22,
                 }}
                 style={{
@@ -457,9 +492,23 @@ export default function Progress() {
                 <XAxis type="number" hide />
                 <YAxis
                   type="category"
+                  yAxisId={0}
                   dataKey="name"
                   tickLine={false}
                   axisLine={false}
+                  style={{
+                    fontSize: "0.52rem",
+                    fontFamily: "Arial",
+                    // width: "10px"
+                  }}
+                />
+                <YAxis
+                  orientation="right"
+                  yAxisId={1}
+                  dataKey="percent"
+                  type="category"
+                  axisLine={false}
+                  tickLine={false}
                   style={{
                     fontSize: "0.52rem",
                     fontFamily: "Arial",
@@ -468,8 +517,8 @@ export default function Progress() {
                 />
                 <Bar
                   dataKey="value"
-                  stackId="a"
                   fill="#82ca9d"
+                  minPointSize={1}
                   background={{ fill: "#eee" }}
                 />
               </BarChart>

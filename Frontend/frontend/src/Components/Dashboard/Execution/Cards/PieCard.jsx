@@ -214,14 +214,17 @@ export default function PieCard() {
       percent,
       index,
     }) => {
-      const radius = innerRadius + (outerRadius - innerRadius) * 10;
+      const radius = innerRadius + (outerRadius - innerRadius) * 0.1;
       const x = cx + radius * Math.cos(-midAngle * RADIAN);
       const y = cy + radius * Math.sin(-midAngle * RADIAN);
   
       return (
         <>
           <text x={cx} y={cy} dy={8} textAnchor="middle">
-            {`₦${(sumTotal / 1000000).toFixed(2)}bn`}
+          {`₦${(sumTotal / 1000000).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })}bn`}
           </text>
           <text
             x={x}
@@ -230,7 +233,7 @@ export default function PieCard() {
             textAnchor={x > cx ? "start" : "end"}
             dominantBaseline="central"
           >
-            {`${(percent * 100).toFixed(1)}%`}
+            {`${(percent * 100).toFixed(0)}%`}
           </text>
         </>
       );
@@ -249,9 +252,13 @@ export default function PieCard() {
               padding: "2px 2px",
             }}
           >
-            <p className="label">{`${payload[0].name} : ₦${(
-              payload[0].value / 1000000
-            ).toFixed(2)}bn`}</p>
+            <p className="label">
+              {`${payload[0].name} : 
+              ₦${(payload[0].value / 1000000).toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}bn`}
+            </p>
           </div>
         );
       }
@@ -304,7 +311,7 @@ export default function PieCard() {
                   </p>
   
                   <Row>
-                    <Col  className="mt-1 d-none d-sm-block" sm={5} >
+                    <Col  className="mt-1 d-none d-sm-block" sm={4} >
                      <small>Green </small>
                      <GreenDiv className="my-1">{green.length}</GreenDiv>
                      <br/>
@@ -316,7 +323,7 @@ export default function PieCard() {
                     </Col>
 
                     <Col sm={6} >
-                      <PieChart width={300} height={210}>
+                      <PieChart width={340} height={210}>
                         <Pie
                           data={chartData}
                           dataKey="value"
