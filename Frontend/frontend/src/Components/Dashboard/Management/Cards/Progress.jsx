@@ -9,6 +9,8 @@ import {
   Bar,
   XAxis,
   YAxis,
+  ZAxis,
+  LabelList,
   CartesianGrid,
   Tooltip,
   Legend,
@@ -194,54 +196,76 @@ export default function Progress() {
     return tot + parseFloat(arr);
   }, 0);
 
+  var sumTotal = data.reduce(function (tot, arr) {
+    return tot + parseFloat(arr.dealsize);
+  }, 0);
+
+
   const chartData = [
     {
-      name: "On-gric Power",
+      name: `On-grid Power: ${(option1Total/1000000).toFixed(2)}bn`,
       value: option1Total,
+      percent: `${((option1Total/sumTotal) * 100).toFixed(2)}%`
     },
     {
-      name: "Off-grid Power",
+      name: `Off-grid Power: ${(option2Total/1000000).toFixed(2)}bn`,
       value: option2Total,
+      percent: `${((option2Total/sumTotal) * 100).toFixed(2)}%`
     },
     {
-      name: "Agric infra",
+      name: `Agric infra: ${(option3Total/1000000).toFixed(2)}bn`,
       value: option3Total,
+      percent: `${((option3Total/sumTotal) * 100).toFixed(2)}%`
+
     },
     {
-      name: "Gas",
+      name: `Gas: ${(option4Total/1000000).toFixed(2)}bn`,
       value: option4Total,
+      percent: `${((option4Total/sumTotal) * 100).toFixed(2)}%`
+
     },
     {
-      name: "Transport",
+      name: `Transport: ${(option5Total/1000000).toFixed(2)}bn`,
       value: option5Total,
+      percent: `${((option5Total / sumTotal) * 100).toFixed(2)}%`
     },
     {
-      name: "Inputs to Infra",
+      name: `Inputs to Infra: ${(option6Total/1000000).toFixed(2)}bn`,
       value: option6Total,
+      percent: `${((option6Total/sumTotal) * 100).toFixed(2)}%`
+
     },
     {
-      name: "Affordable Housing",
+      name:  `Affordable Housing: ${(option7Total/1000000).toFixed(2)}bn`,
       value: option7Total,
+      percent: `${((option7Total/sumTotal) * 100).toFixed(2)}%`
+
     },
     {
-      name: "Education Infra",
+      name: `Education Infra: ${(option8Total/1000000).toFixed(2)}bn`,
       value: option8Total,
+      percent: `${((option8Total/sumTotal) * 100).toFixed(2)}%`
     },
     {
-      name: "Healthcare",
+      name: `Healthcare: ${(option9Total/1000000).toFixed(2)}bn`,
       value: option9Total,
+      percent: `${((option9Total/sumTotal) * 100).toFixed(2)}%`
     },
     {
-      name: "Water/Waste",
+      name: `Water/Waste: ${(option10Total/1000000).toFixed(2)} bn`,
       value: option10Total,
+      percent: `${((option10Total/sumTotal) * 100).toFixed(2)}%`
+
     },
     {
-      name: "ICT/Telecoms",
+      name: `ICT/Telecoms: ${(option11Total/1000000).toFixed(2)}bn`,
       value: option11Total,
+      percent: `${((option11Total/sumTotal) * 100).toFixed(2)}%`
+
     },
   ];
 
-
+  
   
 
   ///////////////////////////////PRODUCT
@@ -357,6 +381,127 @@ export default function Progress() {
     },
   ];
 
+
+
+
+  /////////////////////////////////
+
+  // console.log("########", chartData[0].value)
+
+
+  // const myBarPercent = chartData.map(function (value, index) {
+  //   return value.value
+  // })
+
+  // console.log("value #####", myBarPercent1)
+
+  // const getPercent = (value, total) => {
+  //   const ratio = total > 0 ? value / total : 0;
+    
+  //   return toPercent(ratio, 2);
+  // };
+  
+  // const toPercent = (decimal, fixed = 0) => {
+  //   return `${(decimal * 100).toFixed(fixed)}%`;
+  // };
+
+  // const  Total = chartData.reduce(function (tot, arr) {
+  //   return tot + parseFloat(arr);
+  // }, 0);
+
+//   const getPercent = chartData.map(function (value, total) {
+//       total = 1000000000
+//       const ratio = total > 0 ? value / total : 0;
+//       return toPercent(ratio, 2);
+//  })
+  
+const myBarPercent = chartData.map(function (value, index) {
+  return value.value
+})
+  
+  
+const Total = myBarPercent.reduce(function (tot, arr) {
+  return tot + parseFloat(arr);
+}, 0);
+  
+// for (let i = 0; i < myBarPercent.length; i++) {
+//   console.log(cars[i])
+// }
+  
+  // let barTotal = myBarPercent[1]/Total
+  // console.log("I am barpercent", barTotal * 100)
+  // console.log("i an tota", Total)
+  // let tick = []
+  // const getPercent = () => {
+  //   for (let i = 0; i < myBarPercent.length; i++) {
+  //     let ratio = myBarPercent[i] / Total;
+  //     console.log("##### RATIO", `${(ratio * 100).toFixed(2)}%`)
+  //     tick.push(`${(ratio * 100).toFixed(2)}%`); 
+  //   }
+  //   return
+  // }
+
+  const getPercent = () => {
+
+    let result = []
+
+
+
+    for (let i = 0; i < myBarPercent.length; i++) {
+
+
+
+      let ratio = myBarPercent[i] / Total;
+
+      console.log("##### RATIO", `${(ratio * 100).toFixed(2)}%`)
+
+      result.push(`${(ratio * 100).toFixed(2)}%`);
+
+    }
+
+    console.log("result array", result)
+
+    return result
+
+  }
+
+  // console.log("##### TICK", tick)
+  //   // valueBar.map(function (value, index) {
+  //     const ratio = Total > 0 ? value / Total : 0;
+  //     return toPercent(ratio, 2);
+  //   //})
+    
+  // };
+
+  console.log("I am get percent", getPercent)
+
+  // const toPercent = (decimal, fixed = 0) => {
+  //   return `${(decimal * 100).toFixed(fixed)}%`;
+  // };
+
+  const CustomizedLabel = ({
+    x, y, fill, value
+  }) => {
+    return (
+      <>
+        <text 
+                 x={x} 
+                 y={y} 
+                 dy={-4} 
+                 fontSize='16' 
+                 fontFamily='sans-serif'
+                 fill={fill}
+          textAnchor="middle">{value}%
+       </text>
+      </>
+    );
+  };
+
+ 
+  //     const CustomizedLabel = {x, y, fill, value} => this.props;
+  //      return 
+  // );
+  
   return (
     <React.Fragment>
       <div style={{ marginLeft: "1rem ", marginRight: " 0.11rem", background:'white' }}>
@@ -401,17 +546,33 @@ export default function Progress() {
                 <XAxis type="number" hide />
                 <YAxis
                   type="category"
-                  dataKey="name"
-                  tickLine={false}
+                      dataKey="name"
+                      yAxisId={0}
+                      tickLine={false} 
+                      //tick={true}
                   axisLine={false}
+                  
                   style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
-                />
+                    />
+                       <YAxis
+                        orientation="right"
+                        yAxisId={1}
+                        dataKey="percent"
+                        type="category"
+                        axisLine={false}
+                        tickLine={false}
+                        style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
+                    />
                 <Bar
-                  dataKey="value"
-                  stackId="a"
-                  fill="#82ca9d"
-                  background={{ fill: "#eee" }}
-                />
+                      dataKey="value"
+                      fill="#82ca9d"
+                      background={{ fill: "#eee" }}
+                      // label={<CustomizedLabel />}
+                      
+                >     
+                      
+                </Bar>
+
               </BarChart>
                 </Container>
               </Container>
