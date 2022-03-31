@@ -48,7 +48,7 @@ export default function MenuOption() {
         }}
       >
         <MenuItem onClick={handleClose} style={{color: 'black'}}>
-          <Link to='/reset_password'>
+          <Link to='/reset_password' style={{textDecoration:'none', color:'black'}}>
             Reset Password
           </Link>
         </MenuItem>

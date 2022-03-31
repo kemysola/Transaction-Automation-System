@@ -14,6 +14,7 @@ const ViewWrapper = styled.div`
   background: #eff1f1;
   margin:0;
   padding: 0 10px;
+  box-shadow:10px black;
 `;
 
 const Origination =()=> {
@@ -25,7 +26,7 @@ const Origination =()=> {
                 <Col sm={3} style={{padding:'10px 10px 10px 0px'}}>
                     <SideNav/>
                 </Col>
-                <Col sm={8} style={{background:'white'}}>
+                <Col sm={8} style={{ marginRight:'1rem'}}>
                     <StaffList/>
                     <br/>
     </Col>

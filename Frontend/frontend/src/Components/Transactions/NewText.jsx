@@ -90,7 +90,8 @@ const AddDeal = () => {
   const [region, setRegion] = useState([]);
   const [frequency, setFrequency] = useState([]);
   const [style, setStyle] = useState([]);
-
+  const [staffList, setStaffList] = useState([]);
+ 
   useEffect(() => {
     retrieveIndustry();
   }, [])
@@ -109,6 +110,10 @@ const AddDeal = () => {
 
   useEffect(() => {
     retrieveAmortizationStyle();
+  }, [])
+
+  useEffect(() => {
+    retrieveStaffList();
   }, [])
 
   const retrieveIndustry = () => {
@@ -159,6 +164,16 @@ const AddDeal = () => {
       .catch((e) => {
         console.log(e);
       });
+  };
+
+  const retrieveStaffList = () => {
+    Services.getStaffList()
+    .then((response) => {
+      setStaffList(response.data.staffList);
+    })
+    .catch((e) => {
+      console.log(e);
+    });
   };
 
   function toNextTab(e) {
@@ -304,14 +319,14 @@ const AddDeal = () => {
 
           {submitted ? (
             <div>
-              <p style={{ fontWeight: 'bold', fontSize: '12px', color: 'darkblue', marginTop: '1rem' }}>{response}</p>
-              <ButtonWrapper onClick={newDeal}>New Deal</ButtonWrapper>
+              <p style={{ fontWeight: 'bold', fontSize: '12px', color: 'steelblue', marginTop: '1rem' }}>{response}</p>
+              <ButtonWrapper onClick={newDeal}>Add New Transaction</ButtonWrapper>
             </div>
 
           ) : (
             <Form>
               <PWrapper>
-                <h5 className='py-3 text-dark'>New Transaction</h5>
+                <h5 className='py-3 text-secondary'>New Transaction</h5>
               </PWrapper>
               <br />
               <div>
@@ -330,21 +345,36 @@ const AddDeal = () => {
                         <Col sm={12}>
                           <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                             <Form.Label>Originator</Form.Label>
-                            <Form.Control size="sm" type="text" value={deal.originator} onChange={handleInputChange} name='originator' />
+                            <Form.Select size="sm" type="text" value={deal.originator} onChange={handleInputChange} name='originator'>
+                              <option></option>
+                              {staffList.map((opt, i) => (
+                                <option key={staffList[i].staffid} value={staffList[i].stafflist}>{staffList[i].stafflist}</option>
+                              ))}
+                            </Form.Select>
                           </Form.Group>
                         </Col>
 
                         <Col sm={12}>
                           <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                             <Form.Label>Transactor</Form.Label>
-                            <Form.Control size="sm" type="text" value={deal.transactor} onChange={handleInputChange} name='transactor' />
+                            <Form.Select size="sm" type="text" value={deal.transactor} onChange={handleInputChange} name='transactor'>
+                              <option></option>
+                              {staffList.map((opt, i) => (
+                                <option key={staffList[i].staffid} value={staffList[i].stafflist}>{staffList[i].stafflist}</option>
+                              ))}
+                            </Form.Select>
                           </Form.Group>
                         </Col>
 
                         <Col sm={12}>
                           <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                             <Form.Label>Transactor Legal Lead</Form.Label>
-                            <Form.Control size="sm" type="text" value={deal.transactionLegalLead} onChange={handleInputChange} name='transactionLegalLead' />
+                            <Form.Select size="sm" type="text" value={deal.transactionLegalLead} onChange={handleInputChange} name='transactionLegalLead'>
+                              <option></option>
+                              {staffList.map((opt, i) => (
+                                <option key={staffList[i].staffid} value={staffList[i].stafflist}>{staffList[i].stafflist}</option>
+                              ))}
+                            </Form.Select>
                           </Form.Group>
                         </Col>
 
@@ -375,12 +405,12 @@ const AddDeal = () => {
                   </Tab>
 
 
-                  <Tab eventKey="second" title="DEAL PROFILE FEES & REIMBURSEMENTS">
+                  <Tab eventKey="second" title="DEAL PROFILE ">
                     <Container1>
                       <div className='mt-2'>
-                        <PWrapper>
+                        {/*<PWrapper>
                           <h6 className="pt-1 mt-1" style={{ fontSize: "13px" }}>Deal Profile Fees & Reimbursement</h6>
-                        </PWrapper>
+                            </PWrapper>*/}
 
                         <Row>
                           <Col sm={6} className='my-0 py-0'>
@@ -423,7 +453,7 @@ const AddDeal = () => {
                         <Row className='mt-1'>
                           <Col sm={6}>
                             <Form.Group className="pt-1">
-                              <Form.Label>Deal Size (NGN)</Form.Label>
+                              <Form.Label>Deal Size (BN)</Form.Label>
                               <Form.Control size="sm" type="number" value={deal.dealSize} onChange={handleInputChange} name='dealSize' />
                             </Form.Group>
                           </Col>
@@ -500,7 +530,7 @@ const AddDeal = () => {
 
                           <Col sm={6} className='pt-3'>
                             <Form.Group className="pt-1">
-                              <Form.Label>Excepted Close</Form.Label>
+                              <Form.Label>Expectedt Close</Form.Label>
                               <Form.Control size="sm" type="date" value={deal.expectedClose} onChange={handleInputChange} name='expectedClose' />
                             </Form.Group>
                           </Col>
@@ -509,6 +539,13 @@ const AddDeal = () => {
                             <Form.Group className="pt-1">
                               <Form.Label>Actual Close</Form.Label>
                               <Form.Control size="sm" type="date" value={deal.actualClose} onChange={handleInputChange} name='actualClose' />
+                            </Form.Group>
+                          </Col>
+
+                          <Col sm={6} className='pt-3'>
+                            <Form.Group className="pt-1">
+                              <Form.Label>NBC Close</Form.Label>
+                              <Form.Control size="sm" type="date"  onChange={handleInputChange} name='actualClose' />
                             </Form.Group>
                           </Col>
                         </Row>
@@ -524,7 +561,7 @@ const AddDeal = () => {
 
 
 
-                  <Tab eventKey="third" title="STRUCTURING FEES">
+                  <Tab eventKey="third" title="FEES">
                     <br />
                     <br />
                     <Container1>
@@ -534,7 +571,7 @@ const AddDeal = () => {
                         <Row>
                           <Col sm={6} className='my-0 py-0'>
                             <Form.Group>
-                              <Form.Label>Amount(NGN)</Form.Label>
+                              <Form.Label>Amount (bn)</Form.Label>
                               <Form.Control size="sm" type="number" value={deal.structuringFeeAmount} onChange={handleInputChange} name='structuringFeeAmount' />
                             </Form.Group>
                           </Col>

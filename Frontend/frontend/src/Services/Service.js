@@ -4,8 +4,8 @@ const LoginStaff = data => {
     return axios.post("app/login", data)
 }
 
-const PasswordReset = (id, data) => {
-    return axios.put(`staff/update/${id}`, data);
+const PasswordReset = async (id, data) => {
+    return await axios.put(`staff/update/${id}`, data);
 }  
 
 const registerStaff = data => { // register new staff
@@ -24,24 +24,24 @@ const updateDeal = (id, data) => { // update deal information
     return axios.put(`transaction/update/${id}`, data);
 };
 
-const getDealById = id => { // get deal by id, for privileged users 
-    return axios.get(`transaction/item/${id}`);
+const getDealById = async (id) => { // get deal by id, for privileged users 
+    return await axios.get(`transaction/item/${id}`);
 };
 
-const getMyDeals = () => { // get current users deals
-    return axios.get("transaction/my_deals");
+const getMyDeals = async() => { // get current users deals
+    return await axios.get("transaction/my_deals");
 };
 
-const getMyDealsByEmail = user_email => { // get current users deals
-    return  axios.get(`transaction/get_staff_deals/${user_email}`);
+const getMyDealsByEmail = async(user_email) => { // get current users deals
+    return  await axios.get(`transaction/get_staff_deals/${user_email}`);
     
 };
-const getAllDeals = () => { // get all deals, for privileged users only
-    return axios.get("transaction/all_deals");
+const getAllDeals = async() => { // get all deals, for privileged users only
+    return await  axios.get("transaction/all_deals");
 };
 
-const getAllStaff = () => { // get all staff, for privileged users only
-    return axios.get("staff/all_staff");
+const getAllStaff = async() => { // get all staff, for privileged users only
+    return await axios.get("staff/all_staff");
 };
 
 const getClient = (start_date, end_date, clientname) => { // get client name when not specified, for privileged users only
@@ -80,6 +80,9 @@ const getDealCategory = () => { // get all deal category
     return axios.get("configuration/category");
 }
 
+const getStaffList = () => { // get all staff
+    return axios.get("configuration/staff_list");
+}
 
 export default {
     LoginStaff,
@@ -100,5 +103,6 @@ export default {
     getRegion,
     getRepaymentFreq,
     getAmortizationSty,
-    getDealCategory
+    getDealCategory,
+    getStaffList
 };

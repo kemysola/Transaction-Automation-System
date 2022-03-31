@@ -15,6 +15,8 @@ const ViewWrapper = styled.div`
   padding: 0 10px;
 
   @media only screen and (max-width: 720px) {
+    margin:10px;
+
 
 `;
 

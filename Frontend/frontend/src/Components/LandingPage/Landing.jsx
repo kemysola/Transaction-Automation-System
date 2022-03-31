@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import MainCards from "./MainCards";
 import SideNav2 from "./SideNav2";
@@ -13,6 +13,7 @@ const LandingWrapper = styled.div`
 `;
 
 const Landing = () => {
+  
   return (
     <React.Fragment>
       <Navbar />

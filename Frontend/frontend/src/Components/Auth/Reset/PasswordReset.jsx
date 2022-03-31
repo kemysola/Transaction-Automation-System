@@ -7,6 +7,8 @@ import Input from "react-validation/build/input";
 import { useHistory } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import logo1 from "../../../Images/Infra.png";
+import SideNav2 from "../../LandingPage/SideNav2";
+import Navbar from "../../LandingPage/Navbar";
 
 const user = JSON.parse(localStorage.getItem("user"));
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -73,7 +75,7 @@ export default function PasswordReset() {
 
     await ResetService.passwordReset(password, newPassword, email).then(
       () => {
-        history.push("/landing");
+        history.push("/");
         window.location.reload();
       },
       (error) => {
@@ -89,26 +91,26 @@ export default function PasswordReset() {
   };
   return (
     <React.Fragment>
-      <Container style={{ minHeight: "100vh", background: "white" }}>
-        <img src={logo1} alt="logo" height="60" />
-        <Container tyle={{ background: "white" }}>
-          <Container style={{ background: "white" }}>
-            <Container className="py-3 my-3" tyle={{ background: "white" }}>
+      <Navbar/>
+      <Row>
+        <Col sm={3}>
+          <SideNav2/>
+        </Col>
+        <Col sm={8}>
+        <Container style={{ minHeight: "100vh", width:'auto'}}>
+            <Container className="py-3 my-3 bg-light">
+            <p style={{color:'black', marginLeft:'15px'}}>Reset Password</p>
+
               <div
                 style={{
                   textAlign: "center",
-                  paddingTop: "1rem",
-                  background: "#237cbf",
+                  background: "white",
+                  boxShadow:'10px 10px  3px green',
                   margin: "19px",
                 }}
               >
-                <header style={{ color: "white" }}>
-                  <h4>Reset Password</h4>
-                  {/*<p>Hi {user}</p>*/}
-                </header>
-
                 <Form onSubmit={handleSubmit} ref={form}>
-                  <Row>
+                  <Row className='py-3'>
                     <Col>
                       <label htmlFor="email" style={{ display: "block" }}>
                         Email:
@@ -164,10 +166,10 @@ export default function PasswordReset() {
                     <Col sm={12} className=" my-2 pb-2 pt-2">
                       <button
                         style={{
-                          width: "30%",
+                          width: "20%",
                           background: "green",
                           color: "white",
-                          fontWeight: "bold",
+                          //fontWeight: "bold",
                         }}
                       >
                         Submit
@@ -183,8 +185,11 @@ export default function PasswordReset() {
               </div>
             </Container>
           </Container>
-        </Container>
-      </Container>
+
+        </Col>
+      </Row>
+
+     
     </React.Fragment>
   );
 }

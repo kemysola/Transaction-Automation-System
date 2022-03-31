@@ -22,6 +22,7 @@ const ProgressBarDiv = styled.div`
   font-size: 10px;
   padding: 4px 15px;
   border-radius: 20px;
+  
 `;
 export default function Progress() {
   const [data, setData] = useState([]);
@@ -359,13 +360,13 @@ export default function Progress() {
       <Container fluid className='bg-light'>
         <p class='animate__animated animate__pulse pt-2'><b>Execution Summary</b></p>
         <Row style={{ marginTop: "5px " }}>
-          <Col sm={6} lg={4} className="my-1">
+          <Col sm={12} lg={4} md={12} className="my-1">
             <br/>
             <PieCard/>
 
           </Col>
 
-          <Col sm={6} lg={4} className="my-1">
+          <Col sm={12} lg={4} md={12} className="my-1">
             <div
               style={{
                 padding: "10px",

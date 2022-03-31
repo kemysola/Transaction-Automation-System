@@ -5,6 +5,10 @@ import logo1 from "../../../Images/logo.jpg";
 import { Row, Container, Col, Stack } from "react-bootstrap";
 
 const Main = () => {
+
+
+
+ 
   return (
     <div className="bodyBackground">
       <Container fluid>

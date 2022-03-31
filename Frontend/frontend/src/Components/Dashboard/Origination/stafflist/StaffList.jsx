@@ -9,9 +9,12 @@ import Service from '../../../../Services/Service'
 
 const ContainerWrapper = styled.div`
     font-size:10px;
-    margin-top: 2rem;
+    margin: 1rem;
     padding: 2rem;
-    border-radius: 15px;`;
+    border-radius: 15px;
+    background:white;
+    font-family:roboto;
+    `;
 
 //Define a default UI for filtering
 const GlobalFilter =({
@@ -141,17 +144,17 @@ const StaffList = () => {
         <Row className=''>
           <Col sm={12} className='  ' >
             <Row>
-              <Col sm={3} className='d-none d-sm-block'>
+              <Col sm={3} className='d-sm-none d-lg-block'>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 All ({staff.length})
               </small></Col>
 
-              <Col sm={3} className='d-none d-sm-block'>
+              <Col sm={3} className='d-sm-none d-lg-block'>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Trash (0) 
                 </small>
               </Col>
-              <Col sm={3} className='d-none d-sm-block'>
+              <Col sm={3} className='d-sm-none d-lg-block '>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Bulk Actions
                 </small>
@@ -172,7 +175,7 @@ const StaffList = () => {
          
         </Row>
         <Row className='py-3'>
-          <Col sm={10} className='bg-light mt-3 '>
+          <Col sm={12} className='bg-light mt-3 '>
           <div className=" mt-2 pt-2 d-flex justify-content-center">
             <table
               className="table py-3 mt-3  table-hover  "
@@ -218,9 +221,9 @@ const StaffList = () => {
 
           </Col>
 
-          <Col sm={6}>
+         {/* <Col sm={6}>
 
-          </Col>
+              </Col>*/}
         </Row>
           
       </ContainerWrapper>

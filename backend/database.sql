@@ -366,6 +366,29 @@ VALUES
     ('CONTRACT'),
     ('ANALYST');
 
+-- Current Stafflist as defined by InfraCredit
+CREATE TABLE TB_INFRCR_STAFFLIST
+(
+staffID INT GENERATED ALWAYS AS IDENTITY,
+staffList VARCHAR,
+PRIMARY KEY(staffList)
+);
+INSERT INTO TB_INFRCR_STAFFLIST(staffList)
+VALUES
+    ('Chinua Azubike'),
+    ('Daniel Mueller'),
+    ('Chido Onyilimba'),
+    ('Shadrach Iguh'),
+    ('Solape Oguntayo'),
+	('Tolulope Adesina'),
+	('Omolara Ekundayo'),
+	('Yemi Rufai'),
+	('Osaze Osaghae'),
+	('Babajide Oladimeji'),
+	('Obiajuru Adeniji'),
+	('Uzoma Okoro'),
+	('Muyiwa Jesuro');
+
 --Create a function to generate this patter for deals' transaction ID
 'INFCR0000000001'
 
@@ -391,16 +414,3 @@ VALUES
 --2. Only Admin role can onboard new staff
 --3. Admin role will be granted after approval and from backend (review most convinient option)
 --All geographical regions within the InfraCredit business net
-CREATE TABLE TB_INFRCR_STAFF_LEVELS
-(
-levelID INT GENERATED ALWAYS AS IDENTITY,
-level VARCHAR(5),
-levelDescription VARCHAR NULL,
-PRIMARY KEY(level)
-);
-INSERT INTO TB_INFRCR_STAFF_LEVELS(level)
-VALUES('CEO'),
-    ('VP'),
-    ('AVP'),
-    ('CONTRACT'),
-    ('ANALYST');

@@ -29,6 +29,8 @@ const BorderDiv = styled.div`
   font-size: 12px;
   padding: 0.11rem 1.4rem;
   background:white;
+  box-shadow: 10px 10px 5px blue;
+
 `;
 
 const required = (value) => {

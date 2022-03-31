@@ -381,7 +381,7 @@ const DealsTable = (props) => {
                   const page = e.target.value ? Number(e.target.value) - 1 : 0
                   gotoPage(page)
                 }}
-                style={{ width: '100px' }}
+                style={{ width: '30px' }}
               />
             </span>{' '}
             <select
