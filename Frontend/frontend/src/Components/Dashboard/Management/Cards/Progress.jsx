@@ -356,33 +356,33 @@ export default function Progress() {
 
   const productChartData = [
     {
-      name: `Public Bond: ${(productOption1Total/1000000).toFixed(2)}bn`,
+      name: `Public Bond`,
       value: productOption1Total,
       percent: `${((productOption1Total/sumTotal) * 100).toFixed(2)}%`
     },
     {
-      name: `Blended Finance: ${(productOption1Total/1000000).toFixed(2)}bn`,
+      name: `Blended Finance`,
       value: productOption2Total,
       percent: `${((productOption2Total/sumTotal) * 100).toFixed(2)}%`
     },
     {
-      name: `Contigent Refi. Gte.: ${(productOption3Total/1000000).toFixed(2)}bn`,
+      name: `Contigent Refi. Gte.`,
       value: productOption3Total,
       percent: `${((productOption3Total/sumTotal) * 100).toFixed(2)}%`
     },
     {
-      name: `Private Bond (Clean Energy): ${(productOption4Total/1000000).toFixed(2)}bn`,
+      name: `Private Bond (Clean Energy)`,
       value: productOption4Total,
       percent: `${((productOption4Total/sumTotal) * 100).toFixed(2)}%`
 
     },
     {
-      name: `Private Bond (Other): ${(productOption5Total/1000000).toFixed(2)}bn `,
+      name: `Private Bond (Other)`,
       value: productOption5Total,
       percent: `${((productOption5Total/sumTotal) * 100).toFixed(2)}%`
     },
     {
-      name: `Annuity PPP: ${(productOption6Total/1000000).toFixed(2)}bn`,
+      name: `Annuity PPP`,
       value: productOption6Total,
       percent: `${((productOption6Total/sumTotal) * 100).toFixed(2)}%`
 
