@@ -332,14 +332,12 @@ function handlePrevChange() {
 {/*------------------------------------------ End Tab -------------------------------------- */}
 
 {/*--------------------------------------- Deal Profile Fees and Reimbursement -------------- */}
-		<Tab eventKey="second" title="DEAL PROFILE FEES & REIMBURSEMENT">
+		<Tab eventKey="second" title="DEAL PROFILE ">
             <br/>
             <Container1>
                 <br/>
                 <div className='mt-2'>
-                  <PWrapper>
-                    <h6 className="pt-1 mt-1" style={{fontSize: "13px"}}>Deal Profile Fees & Reimbursement</h6>
-                  </PWrapper>
+                  
                     
                   <Row>
                     <Col sm={6} className='my-0 py-0'>
@@ -396,7 +394,7 @@ function handlePrevChange() {
                   <Row className='mt-1'>
                     <Col sm={6}>
                       <Form.Group className="pt-1">
-                        <Form.Label>Deal Size (NGN)</Form.Label>
+                        <Form.Label>Deal Size (BN)</Form.Label>
                       <Form.Control size="sm" type="text" defaultValue={deal[0].dealsize} id='dealSize' ref={dealSize} required/>
                       </Form.Group>
                     </Col>
@@ -473,7 +471,7 @@ function handlePrevChange() {
 
                     <Col sm={6}>
                       <Form.Group className="pt-1">
-                        <Form.Label>Excepted Close</Form.Label>
+                        <Form.Label>Expected Close</Form.Label>
                         <Form.Control size="sm" type="date" defaultValue={null || new Date(deal[0].expectedclose).toISOString().split('T')[0]} id='expectedClose' ref={exceptedClose}/>
                       </Form.Group>
                     </Col>
@@ -482,6 +480,13 @@ function handlePrevChange() {
                       <Form.Group className="pt-1">
                         <Form.Label>Actual Close</Form.Label>
                         <Form.Control size="sm" type="date" defaultValue={new Date(deal[0].actualclose).toISOString().split('T')[0] || null} id='actualClose' ref={actualClose}/>
+                      </Form.Group>
+                    </Col>
+
+                    <Col sm={6}>
+                      <Form.Group className="pt-1">
+                        <Form.Label>NBC Close</Form.Label>
+                        <Form.Control size="sm" type="date"/>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -496,7 +501,7 @@ function handlePrevChange() {
 
 {/*------------------------------------------------ Structuring Fees ------------------------- */}
 
-		<Tab eventKey="third" title="STRUCTURING FEES">
+		<Tab eventKey="third" title="FEES">
         <div className='mt-2'>
 
                 
