@@ -264,17 +264,15 @@ const AddDeal = () => {
     setNoteList(list);
   };
 
-  const required = (value) => {
-    if (isEmpty(value)) {
-        return <small className="form-text text-danger">This field is required</small>;
-    }
-  }
+  // const required = (value) => {
+  //   if (isEmpty(value)) {
+  //       return <small className="form-text text-danger">This field is required</small>;
+  //   }
+  // }
 
   const saveDeal = (e) => { // function to save users data and post to db
     e.preventDefault()
     form.current.validateAll();
-
-    
 
     let allNotes = noteList.map(({ note }) => note)
     let note = allNotes.join("|")
