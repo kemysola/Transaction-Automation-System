@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import { Form, Container, Row, Col } from 'react-bootstrap';
+import {Form as Fm, Container, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components';
 import Services from '../../Services/Service';
+import Form from "react-validation/build/form";
+import Input from "react-validation/build/input";
+import Select from "react-validation/build/select";
+
+
+
 
 const ButtonWrapper = styled.button`
   background: green;
@@ -36,7 +42,18 @@ margin:0;
 padding: 0;
 `;
 
+const required = (value) => {
+  if (!value) {
+    return (
+      <div className="invalid-feedback d-block text-danger" >This field is required!</div>
+    );
+  }
+};
+
+
 const AddDeal = () => {
+  //form.current.validateAll();
+
   const initialDealState = {
     clientName: "",
     originator: "",
@@ -91,6 +108,8 @@ const AddDeal = () => {
   const [frequency, setFrequency] = useState([]);
   const [style, setStyle] = useState([]);
   const [staffList, setStaffList] = useState([]);
+  const form = useRef();
+
  
   useEffect(() => {
     retrieveIndustry();
@@ -248,6 +267,9 @@ const AddDeal = () => {
 
   const saveDeal = (e) => { // function to save users data and post to db
     e.preventDefault()
+    form.current.validateAll();
+
+    
 
     let allNotes = noteList.map(({ note }) => note)
     let note = allNotes.join("|")
@@ -294,6 +316,8 @@ const AddDeal = () => {
       "closed": false
     };
 
+
+
     Services.createDeal(data)
       .then(res => {
         setResponse(res.data.message)
@@ -324,11 +348,12 @@ const AddDeal = () => {
             </div>
 
           ) : (
-            <Form>
+            <Form ref={form}>
               <PWrapper>
                 <h5 className='py-3 text-secondary'>New Transaction</h5>
               </PWrapper>
               <br />
+
               <div>
                 <Tabs activeKey={activeTab} onSelect={(k) => handleTabChange} style={{ fontSize: '12px' }}>
                   <Tab eventKey="first" title="CLIENT">
@@ -336,54 +361,55 @@ const AddDeal = () => {
                       <br />
                       <Row>
                         <Col sm={12}>
-                          <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                            <Form.Label>Client Name</Form.Label>
-                            <Form.Control size="sm" type="text" value={deal.clientName} onChange={handleInputChange} name='clientName' />
-                          </Form.Group>
+                          <Fm.Group className="mb-0 mt-1 pt-1 pb-1">
+                            <Fm.Label>Client Name</Fm.Label>
+                            <Input type="text" value={deal.clientName} onChange={handleInputChange} name='clientName' validations={[required]} style={{width:'100%', padding:'4px 2px', focus:'none'}}/>
+                            {/*<Input size="sm" type="text" value={deal.clientName} onChange={handleInputChange} name='clientName' validations={[required]} />*/}
+                          </Fm.Group>
                         </Col>
 
                         <Col sm={12}>
-                          <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                            <Form.Label>Originator</Form.Label>
-                            <Form.Select size="sm" type="text" value={deal.originator} onChange={handleInputChange} name='originator'>
+                          <Fm.Group className="mb-0 mt-1 pt-1 pb-1">
+                            <Fm.Label>Originator</Fm.Label>
+                            <Select size="sm" type="text" value={deal.originator} onChange={handleInputChange} name='originator' style={{width:'100%', padding:'4px 2px', focus:'none'}} validations={[required]}>
                               <option></option>
                               {staffList.map((opt, i) => (
                                 <option key={staffList[i].staffid} value={staffList[i].stafflist}>{staffList[i].stafflist}</option>
                               ))}
-                            </Form.Select>
-                          </Form.Group>
+                            </Select>
+                          </Fm.Group>
                         </Col>
 
                         <Col sm={12}>
-                          <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                            <Form.Label>Transactor</Form.Label>
-                            <Form.Select size="sm" type="text" value={deal.transactor} onChange={handleInputChange} name='transactor'>
+                          <Fm.Group className="mb-0 mt-1 pt-1 pb-1">
+                            <Fm.Label>Transactor</Fm.Label>
+                            <Select size="sm" type="text" value={deal.transactor} onChange={handleInputChange} name='transactor' style={{width:'100%', padding:'4px 2px', focus:'none'}} validations={[required]}>
                               <option></option>
                               {staffList.map((opt, i) => (
                                 <option key={staffList[i].staffid} value={staffList[i].stafflist}>{staffList[i].stafflist}</option>
                               ))}
-                            </Form.Select>
-                          </Form.Group>
+                            </Select>
+                          </Fm.Group>
                         </Col>
 
                         <Col sm={12}>
-                          <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                            <Form.Label>Transactor Legal Lead</Form.Label>
-                            <Form.Select size="sm" type="text" value={deal.transactionLegalLead} onChange={handleInputChange} name='transactionLegalLead'>
+                          <Fm.Group className="mb-0 mt-1 pt-1 pb-1">
+                            <Fm.Label>Transactor Legal Lead</Fm.Label>
+                            <Select size="sm" type="text" value={deal.transactionLegalLead} onChange={handleInputChange} name='transactionLegalLead' style={{width:'100%', padding:'4px 2px', focus:'none'}} validations={[required]}>
                               <option></option>
                               {staffList.map((opt, i) => (
                                 <option key={staffList[i].staffid} value={staffList[i].stafflist}>{staffList[i].stafflist}</option>
                               ))}
-                            </Form.Select>
-                          </Form.Group>
+                            </Select>
+                          </Fm.Group>
                         </Col>
 
                         <Col sm={12}>
-                          <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                            <Form.Label>Note</Form.Label> <button type="button" onClick={handleNoteAdd} style={{fontSize: '10px', padding: '2px 10px', margin: '8px', background: 'steelblue', color: 'white', borderRadius: '3px'}}>Add</button>
+                          <Fm.Group className="mb-0 mt-1 pt-1 pb-1">
+                            <Fm.Label>Note</Fm.Label> <button type="button" onClick={handleNoteAdd} style={{fontSize: '10px', padding: '2px 10px', margin: '8px', background: 'steelblue', color: 'white', borderRadius: '3px'}}>Add</button>
                             {noteList.map((singleNote, index) => (
                               <div class="input-group">
-                                <Form.Control
+                                <Fm.Control
                                   as='textarea'
                                   style={{ margin: '0.8em', width: '60%' }}
                                   size="sm" value={singleNote.note}
@@ -393,7 +419,7 @@ const AddDeal = () => {
                                   <button type = "button" style={{fontSize: '10px', padding: '2px 10px', margin: '8px', background: 'steelblue', color: 'white', borderRadius: '3px'}} onClick={handleNoteRemove}>x</button> 
                                 </div>
                             ))}
-                          </Form.Group>
+                          </Fm.Group>
                         </Col>
                       </Row>
                       <br />
@@ -414,139 +440,139 @@ const AddDeal = () => {
 
                         <Row>
                           <Col sm={6} className='my-0 py-0'>
-                            <Form.Group className="">
-                              <Form.Label>Industry</Form.Label>
-                              <Form.Select size="sm" name='industry' value={deal.industry} onChange={handleInputChange} required>
+                            <Fm.Group className="">
+                              <Fm.Label>Industry</Fm.Label>
+                              <Select size="sm" name='industry' value={deal.industry} onChange={handleInputChange} validations={[required]} style={{width:'100%', padding:'6px 1px', focus:'none'}}>
                                 <option>Select</option>
                                 {industry.map((opt, i) => (
                                     <option key={industry[i].industryid} value={industry[i].industry}>{industry[i].industry}</option>
                                 ))}
-                              </Form.Select>
-                            </Form.Group>
+                              </Select>
+                            </Fm.Group>
                           </Col>
 
                           <Col sm={6}>
-                            <Form.Group className="">
-                              <Form.Label>Products</Form.Label>
-                              <Form.Select size="sm" name='product' value={deal.product} onChange={handleInputChange} required>
+                            <Fm.Group className="">
+                              <Fm.Label>Products</Fm.Label>
+                              <Select size="sm" name='product' value={deal.product} onChange={handleInputChange} validations={[required]} style={{width:'100%', padding:'6px 1px', focus:'none'}}>
                                 <option>Select</option>
                                 {product.map((opt, i) => (
                                     <option key={product[i].productid} value={product[i].product}>{product[i].product}</option>
                                 ))}
-                              </Form.Select>
-                            </Form.Group>
+                              </Select>
+                            </Fm.Group>
                           </Col>
 
                           <Col sm={6}>
-                            <Form.Group className="">
-                              <Form.Label>Region</Form.Label>
-                              <Form.Select size="sm" name='region' value={deal.region} onChange={handleInputChange} required>
+                            <Fm.Group className="">
+                              <Fm.Label>Region</Fm.Label>
+                              <Select size="sm" name='region' value={deal.region} onChange={handleInputChange} validations={[required]} style={{width:'100%', padding:'6px 1px', focus:'none'}}>
                                 <option>Select</option>
                                 {region.map((opt, i) => (
                                     <option key={region[i].regionid} value={region[i].region}>{region[i].region}</option>
                                 ))}
-                              </Form.Select>
-                            </Form.Group>
+                              </Select>
+                            </Fm.Group>
                           </Col>
                         </Row>
 
                         <Row className='mt-1'>
                           <Col sm={6}>
-                            <Form.Group className="pt-1">
-                              <Form.Label>Deal Size (BN)</Form.Label>
-                              <Form.Control size="sm" type="number" value={deal.dealSize} onChange={handleInputChange} name='dealSize' />
-                            </Form.Group>
+                            <Fm.Group className="pt-1">
+                              <Fm.Label>Deal Size (BN)</Fm.Label>
+                              <Input size="sm" type="number" value={deal.dealSize} onChange={handleInputChange} name='dealSize' style={{width:'100%', padding:'4px 1px', focus:'none'}} validations={[required]} />
+                            </Fm.Group>
                           </Col>
 
                           <Col sm={6}>
-                            <Form.Group className="pt-1">
-                              <Form.Label>Coupon(%)</Form.Label>
-                              <Form.Control size="sm" type="number" value={deal.coupon} onChange={handleInputChange} name='coupon' />
-                            </Form.Group>
+                            <Fm.Group className="pt-1">
+                              <Fm.Label>Coupon(%)</Fm.Label>
+                              <Input size="sm" type="number" value={deal.coupon} onChange={handleInputChange} name='coupon'  style={{width:'100%', padding:'4px 1px', focus:'none'}} />
+                            </Fm.Group>
                           </Col>
 
                           <Col sm={6}>
-                            <Form.Group className="pt-1">
-                              <Form.Label>Tenor(yrs)</Form.Label>
-                              <Form.Control size="sm" type="number" value={deal.tenor} onChange={handleInputChange} name='tenor' />
-                            </Form.Group>
+                            <Fm.Group className="pt-1">
+                              <Fm.Label>Tenor(yrs)</Fm.Label>
+                              <Input size="sm" type="number" value={deal.tenor} onChange={handleInputChange} name='tenor' style={{width:'100%', padding:'4px 1px', focus:'none'}}  />
+                            </Fm.Group>
                           </Col>
 
                           <Col sm={6}>
-                            <Form.Group className="pt-1">
-                              <Form.Label>Moratorium(yrs)</Form.Label>
-                              <Form.Control size="sm" type="number" value={deal.moratorium} onChange={handleInputChange} name='moratorium' />
-                            </Form.Group>
+                            <Fm.Group className="pt-1">
+                              <Fm.Label>Moratorium(yrs)</Fm.Label>
+                              <Input size="sm" type="number" value={deal.moratorium} onChange={handleInputChange} name='moratorium'  style={{width:'100%', padding:'4px 1px', focus:'none'}}/>
+                            </Fm.Group>
                           </Col>
                         </Row>
 
                         <Row className='mt-1 pt-3' >
 
                           <Col sm={6}>
-                            <Form.Group className="">
-                              <Form.Label>Repayment Frequency</Form.Label>
-                              <Form.Select size="sm" name='repaymentFrequency' value={deal.repaymentFrequency} onChange={handleInputChange} >
+                            <Fm.Group className="">
+                              <Fm.Label>Repayment Frequency</Fm.Label>
+                              <Select size="sm" name='repaymentFrequency' value={deal.repaymentFrequency} onChange={handleInputChange} style={{width:'100%', padding:'6px 1px', focus:'none'}} >
                                 <option>Select</option>
                                 {frequency.map((opt, i) => (
                                     <option key={frequency[i].id} value={frequency[i].frequency}>{frequency[i].frequency}</option>
                                 ))}
-                              </Form.Select>
-                            </Form.Group>
+                              </Select>
+                            </Fm.Group>
                           </Col>
 
                           <Col sm={6}>
-                            <Form.Group className="">
-                              <Form.Label>Amortization Style</Form.Label>
-                              <Form.Select size="sm" name='amortizationStyle' value={deal.amortizationStyle} onChange={handleInputChange} >
+                            <Fm.Group className="">
+                              <Fm.Label>Amortization Style</Fm.Label>
+                              <Select size="sm" name='amortizationStyle' value={deal.amortizationStyle} onChange={handleInputChange}  style={{width:'100%', padding:'6px 1px', focus:'none'}}>
                                 <option>Select</option>
                                 {style.map((opt, i) => (
                                     <option key={style[i].id} value={style[i].amortizationstyle}>{style[i].amortizationstyle}</option>
                                 ))}
-                              </Form.Select>
-                            </Form.Group>
+                              </Select>
+                            </Fm.Group>
                           </Col>
 
                           <Col sm={6}>
-                            <Form.Group className="pt-1">
-                              <Form.Label>Mandate Letter</Form.Label>
-                              <Form.Control size="sm" type="date" value={deal.mandateLetter} onChange={handleInputChange} name='mandateLetter' />
-                            </Form.Group>
+                            <Fm.Group className="pt-1">
+                              <Fm.Label>Mandate Letter</Fm.Label>
+                              <Input size="sm" type="date" value={deal.mandateLetter} onChange={handleInputChange} name='mandateLetter' style={{width:'100%', padding:'6px 1px', focus:'none'}} validations={[required]}/>
+                            </Fm.Group>
                           </Col>
                         </Row>
                         <Row className='mt-1 pt-3' >
                           <Col sm={6}>
-                            <Form.Group className="pt-1">
-                              <Form.Label>Credit Approval</Form.Label>
-                              <Form.Control size="sm" type="date" value={deal.creditApproval} onChange={handleInputChange} name='creditApproval' />
-                            </Form.Group>
+                            <Fm.Group className="pt-1">
+                              <Fm.Label>Credit Approval</Fm.Label>
+                              <Input size="sm" type="date" value={deal.creditApproval} onChange={handleInputChange} name='creditApproval' style={{width:'100%', padding:'6px 1px', focus:'none'}} />
+                            </Fm.Group>
                           </Col>
 
                           <Col sm={6}>
-                            <Form.Group className="pt-1">
-                              <Form.Label>Fee Letter</Form.Label>
-                              <Form.Control size="sm" type="date" value={deal.feeLetter} onChange={handleInputChange} name='feeLetter' />
-                            </Form.Group>
+                            <Fm.Group className="pt-1">
+                              <Fm.Label>Fee Letter</Fm.Label>
+                              <Input size="sm" type="date" value={deal.feeLetter} onChange={handleInputChange} name='feeLetter' style={{width:'100%', padding:'6px 1px', focus:'none'}} />
+                            </Fm.Group>
                           </Col>
 
                           <Col sm={6} className='pt-3'>
-                            <Form.Group className="pt-1">
-                              <Form.Label>Expectedt Close</Form.Label>
-                              <Form.Control size="sm" type="date" value={deal.expectedClose} onChange={handleInputChange} name='expectedClose' />
-                            </Form.Group>
+                            <Fm.Group className="pt-1">
+                              <Fm.Label>Expected Close</Fm.Label>
+                              <Input size="sm" type="date" value={deal.expectedClose} onChange={handleInputChange} name='expectedClose'  style={{width:'100%', padding:'6px 1px', focus:'none'}}/>
+                            </Fm.Group>
                           </Col>
 
                           <Col sm={6} className='pt-3'>
-                            <Form.Group className="pt-1">
-                              <Form.Label>Actual Close</Form.Label>
-                              <Form.Control size="sm" type="date" value={deal.actualClose} onChange={handleInputChange} name='actualClose' />
-                            </Form.Group>
+                            <Fm.Group className="pt-1">
+                              <Fm.Label>Actual Close</Fm.Label>
+                              <Input size="sm" type="date" value={deal.actualClose} onChange={handleInputChange} name='actualClose' style={{width:'100%', padding:'6px 1px', focus:'none'}} />
+                            </Fm.Group>
                           </Col>
 
                           <Col sm={6} className='pt-3'>
-                            <Form.Group className="pt-1">
-                              <Form.Label>NBC Close</Form.Label>
-                              <Form.Control size="sm" type="date"  onChange={handleInputChange} name='actualClose' />
-                            </Form.Group>
+                            <Fm.Group className="pt-1">
+                              <Fm.Label>NBC Close</Fm.Label>
+                              <Input size="sm" type="date"   name='nbcClose'  style={{width:'100%', padding:'6px 1px', focus:'none'}} />
+                            </Fm.Group>
                           </Col>
                         </Row>
                       </div>
@@ -570,45 +596,46 @@ const AddDeal = () => {
 
                         <Row>
                           <Col sm={6} className='my-0 py-0'>
-                            <Form.Group>
-                              <Form.Label>Amount (bn)</Form.Label>
-                              <Form.Control size="sm" type="number" value={deal.structuringFeeAmount} onChange={handleInputChange} name='structuringFeeAmount' />
-                            </Form.Group>
+                            <Fm.Group>
+                              <Fm.Label>Amount (bn)</Fm.Label>
+                              <Input size="sm" type="number" value={deal.structuringFeeAmount} onChange={handleInputChange} name='structuringFeeAmount'  style={{width:'100%', padding:'4px 1px', focus:'none'}}/>
+                            </Fm.Group>
                           </Col>
 
                           <Col sm={6} className='my-0 py-0'>
-                            <Form.Group>
-                              <Form.Label>Advance(%)</Form.Label>
-                              <Form.Control size="sm" type="number" value={deal.structuringFeeAdvance} onChange={handleInputChange} name='structuringFeeAdvance' />
-                            </Form.Group>
+                            <Fm.Group>
+                              <Fm.Label>Advance(%)</Fm.Label>
+                              <Input size="sm" type="number" value={deal.structuringFeeAdvance} onChange={handleInputChange} name='structuringFeeAdvance'  style={{width:'100%', padding:'4px 1px', focus:'none'}}/>
+                            </Fm.Group>
                           </Col>
 
                           <Col sm={6} className='my-0 py-0'>
-                            <Form.Group>
-                              <Form.Label>Final(%)</Form.Label>
-                              <Form.Control size="sm" type="number" value={deal.structuringFeeFinal} onChange={handleInputChange} name='structuringFeeFinal' disabled />
-                            </Form.Group>
+                            <Fm.Group>
+                              <Fm.Label>Final(%)</Fm.Label>
+                              <Input size="sm" type="number" value={deal.structuringFeeFinal} onChange={handleInputChange} name='structuringFeeFinal' disabled style={{width:'100%', padding:'4px 1px', focus:'none'}} />
+                            </Fm.Group>
                           </Col>
                        
                           <Col sm={6} className='my-0 py-0'>
-                            <Form.Group className="pt-1">
-                              <Form.Label>Guarantee (%)</Form.Label>
-                              <Form.Control size="sm" type="number" value={deal.guaranteeFee} onChange={handleInputChange} name='guaranteeFee' />
-                            </Form.Group>
+                            <Fm.Group className="pt-1">
+                              <Fm.Label>Guarantee (%)</Fm.Label>
+                              <Input size="sm" type="number" value={deal.guaranteeFee} onChange={handleInputChange} name='guaranteeFee'  style={{width:'100%', padding:'4px 2px', focus:'none'}}
+ />
+                            </Fm.Group>
                           </Col>
 
                           <Col sm={6} className='my-0 py-0'>
-                            <Form.Group className="pt-1">
-                              <Form.Label>Monitoring(NGN)</Form.Label>
-                              <Form.Control size="sm" type="number" value={deal.monitoringFee} onChange={handleInputChange} name='monitoringFee' />
-                            </Form.Group>
+                            <Fm.Group className="pt-1">
+                              <Fm.Label>Monitoring(NGN)</Fm.Label>
+                              <Input size="sm" type="number" value={deal.monitoringFee} onChange={handleInputChange} name='monitoringFee'  style={{width:'100%', padding:'4px 2px', focus:'none'}}/>
+                            </Fm.Group>
                           </Col>
 
                           <Col sm={6} className='my-0 py-0'>
-                            <Form.Group className="pt-1">
-                              <Form.Label>Reimbursible(NGN)</Form.Label>
-                              <Form.Control size="sm" type="number" value={deal.reimbursible} onChange={handleInputChange} name='reimbursible' />
-                            </Form.Group>
+                            <Fm.Group className="pt-1">
+                              <Fm.Label>Reimbursible(NGN)</Fm.Label>
+                              <Input size="sm" type="number" value={deal.reimbursible} onChange={handleInputChange} name='reimbursible'  style={{width:'100%', padding:'4px 2px', focus:'none'}}/>
+                            </Fm.Group>
                           </Col>
                         </Row>
                       </div>
@@ -632,50 +659,50 @@ const AddDeal = () => {
 
                               <Col sm={12}  >
                                 <Col className='mb-3'>
-                                  <Form.Group>
+                                  <Fm.Group>
                                     <Row>
 
                                       <Col sm={6}>
-                                        <Form.Label style={{ paddingRight: "1rem" }}>Mandate Letter signed:</Form.Label>
+                                        <Fm.Label style={{ paddingRight: "1rem" }}>Mandate Letter signed:</Fm.Label>
                                       </Col>
                                       <Col sm={6}>
-                                        <Form.Check inline label="Yes" type="radio" name="redA" value={true} onChange={handleInputChange} />
-                                        <Form.Check inline label="No" type="radio" name="redA" value={false} onChange={handleInputChange} />
+                                        <Fm.Check inline label="Yes" type="radio" name="redA" value={true} onChange={handleInputChange} />
+                                        <Fm.Check inline label="No" type="radio" name="redA" value={false} onChange={handleInputChange} />
                                       </Col>
                                     </Row>
-                                  </Form.Group>
+                                  </Fm.Group>
                                 </Col>
 
                                 <Col className='mb-3'>
-                                  <Form.Group>
+                                  <Fm.Group>
                                     <Row>
                                       <Col sm={6}>
-                                        <Form.Label style={{ paddingRight: "1rem" }}>Due dilligence ongoing:</Form.Label>
+                                        <Fm.Label style={{ paddingRight: "1rem" }}>Due dilligence ongoing:</Fm.Label>
 
                                       </Col>
                                       <Col sm={6}>
-                                        <Form.Check inline label="Yes" type="radio" name="redB" value={true} onChange={handleInputChange}  />
-                                        <Form.Check inline label="No" type="radio" name="redB" value={false} onChange={handleInputChange} />
+                                        <Fm.Check inline label="Yes" type="radio" name="redB" value={true} onChange={handleInputChange}  />
+                                        <Fm.Check inline label="No" type="radio" name="redB" value={false} onChange={handleInputChange} />
                                       </Col>
                                     </Row>
-                                  </Form.Group>
+                                  </Fm.Group>
                                 </Col>
 
 
 
                                 <Col>
-                                  <Form.Group>
+                                  <Fm.Group>
                                     <Row>
                                       <Col sm={6}>
-                                        <Form.Label style={{ paddingRight: "1rem" }}>Pending Credit Committee approval:</Form.Label>
+                                        <Fm.Label style={{ paddingRight: "1rem" }}>Pending Credit Committee approval:</Fm.Label>
                                       </Col>
 
                                       <Col sm={6}>
-                                        <Form.Check inline label="Yes" type="radio" name="redC" value={true} onChange={handleInputChange}  />
-                                        <Form.Check inline label="No" type="radio" name="redC" value={false} onChange={handleInputChange} />
+                                        <Fm.Check inline label="Yes" type="radio" name="redC" value={true} onChange={handleInputChange}  />
+                                        <Fm.Check inline label="No" type="radio" name="redC" value={false} onChange={handleInputChange} />
                                       </Col>
                                     </Row>
-                                  </Form.Group>
+                                  </Fm.Group>
                                 </Col>
                               </Col>
                             </Row>
@@ -696,78 +723,78 @@ const AddDeal = () => {
                               <Row>
                                 <Col sm={12}>
                                   <Col className='pb-3'>
-                                    <Form.Group>
+                                    <Fm.Group>
                                       <Row>
                                         <Col sm={6}>
-                                          <Form.Label style={{ paddingRight: "1rem" }}>Mandate Letter signed:</Form.Label>
+                                          <Fm.Label style={{ paddingRight: "1rem" }}>Mandate Letter signed:</Fm.Label>
                                         </Col>
                                         <Col sm={6}>
-                                          <Form.Check inline label="Yes" type="radio" name="amberA" value={true} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="amberA" value={false} onChange={handleInputChange}  />
+                                          <Fm.Check inline label="Yes" type="radio" name="amberA" value={true} onChange={handleInputChange} />
+                                          <Fm.Check inline label="No" type="radio" name="amberA" value={false} onChange={handleInputChange}  />
                                         </Col>
                                       </Row>
-                                    </Form.Group>
+                                    </Fm.Group>
                                   </Col>
 
                                   <Col className='pb-3'>
-                                    <Form.Group>
+                                    <Fm.Group>
                                       <Row>
                                         <Col sm={6}>
-                                          <Form.Label style={{ paddingRight: "1rem" }}>Transaction has obtained Credit Committe approval:</Form.Label>
+                                          <Fm.Label style={{ paddingRight: "1rem" }}>Transaction has obtained Credit Committe approval:</Fm.Label>
                                         </Col>
                                         <Col sm={6}>
-                                          <Form.Check inline label="Yes" type="radio" name="amberB" value={true} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="amberB" value={false} onChange={handleInputChange}  />
+                                          <Fm.Check inline label="Yes" type="radio" name="amberB" value={true} onChange={handleInputChange} />
+                                          <Fm.Check inline label="No" type="radio" name="amberB" value={false} onChange={handleInputChange}  />
 
                                         </Col>
                                       </Row>
-                                    </Form.Group>
+                                    </Fm.Group>
                                   </Col>
 
                                   <Col className='pb-3'>
-                                    <Form.Group>
+                                    <Fm.Group>
                                       <Row>
                                         <Col sm={6}>
-                                          <Form.Label style={{ paddingRight: "1rem" }}>Professional Parties to the Bond issue appointed or selected:</Form.Label>
+                                          <Fm.Label style={{ paddingRight: "1rem" }}>Professional Parties to the Bond issue appointed or selected:</Fm.Label>
                                         </Col>
                                         <Col sm={6}>
-                                          <Form.Check inline label="Yes" type="radio" name="amberC" value={true} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="amberC" value={false} onChange={handleInputChange}  />
+                                          <Fm.Check inline label="Yes" type="radio" name="amberC" value={true} onChange={handleInputChange} />
+                                          <Fm.Check inline label="No" type="radio" name="amberC" value={false} onChange={handleInputChange}  />
                                         </Col>
                                       </Row>
-                                    </Form.Group>
+                                    </Fm.Group>
                                   </Col>
                                 </Col>
                               </Row>
                             </div>
 
                             <Col className='pb-3'>
-                              <Form.Group>
+                              <Fm.Group>
                                 <Row>
                                   <Col sm={6}>
-                                    <Form.Label style={{ paddingRight: "1rem" }}>Fee Letter and/or Guarantee Documentation expected to be negotiated and/or signed within 8 weeks:</Form.Label>
+                                    <Fm.Label style={{ paddingRight: "1rem" }}>Fee Letter and/or Guarantee Documentation expected to be negotiated and/or signed within 8 weeks:</Fm.Label>
                                   </Col>
 
                                   <Col sm={6}>
-                                    <Form.Check inline label="Yes" type="radio" name="amberD" value={true} onChange={handleInputChange} />
-                                    <Form.Check inline label="No" type="radio" name="amberD" value={false} onChange={handleInputChange} />
+                                    <Fm.Check inline label="Yes" type="radio" name="amberD" value={true} onChange={handleInputChange} />
+                                    <Fm.Check inline label="No" type="radio" name="amberD" value={false} onChange={handleInputChange} />
                                   </Col>
                                 </Row>
-                              </Form.Group>
+                              </Fm.Group>
                             </Col>
 
                             <Col className='pb-2'>
-                              <Form.Group>
+                              <Fm.Group>
                                 <Row>
                                   <Col sm={6}>
-                                    <Form.Label style={{ paddingRight: "1rem" }}>All Materials CPs with timelines for completion agreed with the client:</Form.Label>
+                                    <Fm.Label style={{ paddingRight: "1rem" }}>All Materials CPs with timelines for completion agreed with the client:</Fm.Label>
                                   </Col>
                                   <Col sm={6}>
-                                    <Form.Check inline label="Yes" type="radio" name="amberE" value={true} onChange={handleInputChange} />
-                                    <Form.Check inline label="No" type="radio" name="amberE" value={false} onChange={handleInputChange}/>
+                                    <Fm.Check inline label="Yes" type="radio" name="amberE" value={true} onChange={handleInputChange} />
+                                    <Fm.Check inline label="No" type="radio" name="amberE" value={false} onChange={handleInputChange}/>
                                   </Col>
                                 </Row>
-                              </Form.Group>
+                              </Fm.Group>
                             </Col>
 
                           </div>
@@ -790,93 +817,93 @@ const AddDeal = () => {
                               <Row>
                                 <Col sm={12}>
                                   <Col className='pb-2'>
-                                    <Form.Group>
+                                    <Fm.Group>
                                       <Row>
                                         <Col sm={6}>
-                                          <Form.Label style={{ paddingRight: "1rem" }}>Transaction has obtained Credit Committee approval:</Form.Label>
+                                          <Fm.Label style={{ paddingRight: "1rem" }}>Transaction has obtained Credit Committee approval:</Fm.Label>
 
                                         </Col >
                                         <Col sm={6}>
-                                          <Form.Check inline label="Yes" type="radio" name="greenA" value={true} onChange={handleInputChange}  />
-                                          <Form.Check inline label="No" type="radio" name="greenA" value={false} onChange={handleInputChange} />
+                                          <Fm.Check inline label="Yes" type="radio" name="greenA" value={true} onChange={handleInputChange}  />
+                                          <Fm.Check inline label="No" type="radio" name="greenA" value={false} onChange={handleInputChange} />
                                         
                                         </Col>
                                       </Row>
-                                    </Form.Group>
+                                    </Fm.Group>
                                   </Col>
 
                                   <Col className='pb-2'>
-                                    <Form.Group>
+                                    <Fm.Group>
                                       <Row>
                                         <Col sm={6}>
-                                          <Form.Label style={{ paddingRight: "1rem" }}>Guarantee Document in agreed form:</Form.Label>
+                                          <Fm.Label style={{ paddingRight: "1rem" }}>Guarantee Document in agreed form:</Fm.Label>
                                         </Col>
                                         <Col sm={6}>
-                                          <Form.Check inline label="Yes" type="radio" name="greenB" value={true} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="greenB" value={false} onChange={handleInputChange}  />
+                                          <Fm.Check inline label="Yes" type="radio" name="greenB" value={true} onChange={handleInputChange} />
+                                          <Fm.Check inline label="No" type="radio" name="greenB" value={false} onChange={handleInputChange}  />
                                         </Col>
                                       </Row>
-                                    </Form.Group>
+                                    </Fm.Group>
                                   </Col>
 
                                   <Col className='pb-2'>
-                                    <Form.Group>
+                                    <Fm.Group>
                                       <Row>
                                         <Col sm={6}>
-                                          <Form.Label style={{ paddingRight: "1rem" }}>Professional Parties to the Bond Issue appointed or selected:</Form.Label>
+                                          <Fm.Label style={{ paddingRight: "1rem" }}>Professional Parties to the Bond Issue appointed or selected:</Fm.Label>
                                         </Col>
                                         <Col sm={6}>
-                                          <Form.Check inline label="Yes" type="radio" name="greenC" value={true} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="greenC" value={false} onChange={handleInputChange} />
+                                          <Fm.Check inline label="Yes" type="radio" name="greenC" value={true} onChange={handleInputChange} />
+                                          <Fm.Check inline label="No" type="radio" name="greenC" value={false} onChange={handleInputChange} />
                                         </Col>
                                       </Row>
-                                    </Form.Group>
+                                    </Fm.Group>
                                   </Col>
 
                                   <Col className='pb-2'>
-                                    <Form.Group>
+                                    <Fm.Group>
                                       <Row>
                                         <Col sm={6}>
-                                          <Form.Label style={{ paddingRight: "1rem" }}>Already filed or expected filing with SEC (or equivalent Exchange) within 6 weeks:</Form.Label>
+                                          <Fm.Label style={{ paddingRight: "1rem" }}>Already filed or expected filing with SEC (or equivalent Exchange) within 6 weeks:</Fm.Label>
                                         </Col>
 
                                         <Col sm={6}>
-                                          <Form.Check inline label="Yes" type="radio" name="greenD" value={true} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="greenD" value={false} onChange={handleInputChange} />
+                                          <Fm.Check inline label="Yes" type="radio" name="greenD" value={true} onChange={handleInputChange} />
+                                          <Fm.Check inline label="No" type="radio" name="greenD" value={false} onChange={handleInputChange} />
                                         </Col>
                                       </Row>
-                                    </Form.Group>
-                                  </Col>
-
-
-                                  <Col className='pb-2'>
-                                    <Form.Group>
-                                      <Row>
-                                        <Col sm={6}>
-                                          <Form.Label style={{ paddingRight: "1rem" }}>All Materials CPs to Financial Close have been satisfactorily met or committed by the Client for completion on or before Financial Close:</Form.Label>
-                                        </Col>
-
-                                        <Col sm={6}>
-                                          <Form.Check inline label="Yes" type="radio" name="greenE" value={true} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="greenE" value={false} onChange={handleInputChange}  />
-                                        </Col>
-                                      </Row>
-                                    </Form.Group>
+                                    </Fm.Group>
                                   </Col>
 
 
                                   <Col className='pb-2'>
-                                    <Form.Group>
+                                    <Fm.Group>
                                       <Row>
                                         <Col sm={6}>
-                                          <Form.Label style={{ paddingRight: "1rem" }}>Financial Close expected within 3-6 months:</Form.Label>
+                                          <Fm.Label style={{ paddingRight: "1rem" }}>All Materials CPs to Financial Close have been satisfactorily met or committed by the Client for completion on or before Financial Close:</Fm.Label>
                                         </Col>
+
                                         <Col sm={6}>
-                                          <Form.Check inline label="Yes" type="radio" name="greenF" value={true} onChange={handleInputChange} />
-                                          <Form.Check inline label="No" type="radio" name="greenF" value={false} onChange={handleInputChange} />
+                                          <Fm.Check inline label="Yes" type="radio" name="greenE" value={true} onChange={handleInputChange} />
+                                          <Fm.Check inline label="No" type="radio" name="greenE" value={false} onChange={handleInputChange}  />
                                         </Col>
                                       </Row>
-                                    </Form.Group>
+                                    </Fm.Group>
+                                  </Col>
+
+
+                                  <Col className='pb-2'>
+                                    <Fm.Group>
+                                      <Row>
+                                        <Col sm={6}>
+                                          <Fm.Label style={{ paddingRight: "1rem" }}>Financial Close expected within 3-6 months:</Fm.Label>
+                                        </Col>
+                                        <Col sm={6}>
+                                          <Fm.Check inline label="Yes" type="radio" name="greenF" value={true} onChange={handleInputChange} />
+                                          <Fm.Check inline label="No" type="radio" name="greenF" value={false} onChange={handleInputChange} />
+                                        </Col>
+                                      </Row>
+                                    </Fm.Group>
                                   </Col>
                                 </Col>
                               </Row>
@@ -893,7 +920,7 @@ const AddDeal = () => {
 
                 </Tabs>
                 <div className='d-flex justify-content-end'>
-                <ButtonWrapper onClick={saveDeal} >
+                <ButtonWrapper onClick={saveDeal}  ref={form}>
                     Submit
                   </ButtonWrapper>
 
