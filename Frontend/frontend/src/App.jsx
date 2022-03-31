@@ -5,6 +5,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Main from "./Components/Auth/MainPage/Main";
 import Landing from "./Components/LandingPage/Landing";
 import TransactionView from "./Components/Transactions/TransactionView";
+import AllDeals from "./Components/Transactions/AllDeals";
 import UpdateStaffs from "./Components/Staffs/UpdateStaffs";
 import StaffView from "./Components/Staffs/StaffView";
 import UpdateTransaction from "./Pages/Transactions/UpdateTransaction";
@@ -46,6 +47,10 @@ export default function App() {
           <TransactionView />
         </Route>
 
+        {/* <Route exact path="/all_deals">
+          <AllDeals />
+        </Route> */}
+
         <Route path="/newPages">
           <NewText />
         </Route>
@@ -58,6 +63,7 @@ export default function App() {
         <ProtectedRoute exact path="/staff" component={StaffView}/>
         <ProtectedRoute exact path="/staffs" component={AllStaff} />
         <ProtectedRoute exact path="/update" component={UpdateStaffs} />
+        <ProtectedRoute exact path="/all_transactions" component={AllDeals} />
         <ProtectedRoute exact path="staffview" component={AllStaff }/>
         <ProtectedRoute exact path="/dashboard" component={MgtView}/>
         <ProtectedRoute exact path="/org-dashboard" component={Origination} />

@@ -61,11 +61,18 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
               <SubMenu title='Transactions' icon={<BsWallet2 />}>
                 <MenuItem className="subMenu" >
                   <Link to='/transaction' style={{ color: '#237cbf' }}>
-                    All Transactions</Link>
+                    My Portfolio
+                  </Link>
+                </MenuItem>
+                <MenuItem className="subMenu" >
+                  <Link to='/all_transactions' style={{ color: '#237cbf' }}>
+                    All Transactions
+                  </Link>
                 </MenuItem>
                 <MenuItem className="subMenu">
-                  <Link to='/newPages' style={{ color: '#237cbf' }}
-                  >New Transactions</Link>
+                  <Link to='/newPages' style={{ color: '#237cbf' }}>
+                    New Transaction
+                  </Link>
                 </MenuItem>
               </SubMenu>
 
