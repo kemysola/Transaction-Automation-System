@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import { Form, Container, Row, Col } from 'react-bootstrap';
+import Forms from "react-validation/build/form";
+import Input from "react-validation/build/input";
+import Select from 'react-validation/build/select';
+import { isEmpty } from 'validator';
 import styled from 'styled-components';
 import Services from '../../Services/Service';
 
@@ -14,7 +18,6 @@ const ButtonWrapper = styled.button`
   font-size:11px;
   border-radius:2px;
   color:white;
-
 `;
 const FormWrapper = styled.div`
 margin:0;
@@ -246,6 +249,12 @@ const AddDeal = () => {
     setNoteList(list);
   };
 
+  const required = (value) => {
+    if (isEmpty(value)) {
+        return <small className="form-text text-danger">This field is required</small>;
+    }
+  }
+
   const saveDeal = (e) => { // function to save users data and post to db
     e.preventDefault()
 
@@ -341,6 +350,14 @@ const AddDeal = () => {
                             <Form.Control size="sm" type="text" value={deal.clientName} onChange={handleInputChange} name='clientName' />
                           </Form.Group>
                         </Col>
+
+                        {/* <Col sm={12}>
+                          <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                            <label htmlFor=""> Client</label>
+                            <Input size="sm" type="text" value={deal.clientName} onChange={handleInputChange} name='clientName' />
+                            <Form.Control size="sm" type="text" value={deal.clientName} onChange={handleInputChange} name='clientName' />
+                          </Form.Group>
+                        </Col> */}
 
                         <Col sm={12}>
                           <Form.Group className="mb-0 mt-1 pt-1 pb-1">

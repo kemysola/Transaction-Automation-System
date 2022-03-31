@@ -37,7 +37,6 @@ export default function Reset() {
   //Use effect to handle the useRef hook
   useEffect(() => {
     handleSubmit()
-
   },[user.name])
 
   const onChangePassword = (e) => {

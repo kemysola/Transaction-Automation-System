@@ -20,6 +20,7 @@ const required = (value) => {
     );
   }
 };
+
 export default function PasswordReset() {
   const history = useHistory();
   const form = useRef();
@@ -189,7 +190,6 @@ export default function PasswordReset() {
         </Col>
       </Row>
 
-     
     </React.Fragment>
   );
 }
