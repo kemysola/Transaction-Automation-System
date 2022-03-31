@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useLocation, Redirect } from "react-router-dom";
+import { useLocation, Redirect, Route } from "react-router-dom";
 import { isEmail } from "validator";
 import CheckButton from "react-validation/build/button";
 import AuthService from "../../../Services/auth.Service";
@@ -18,6 +18,10 @@ import {
   Button,
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+// import { Redirect, Route } from "react-router";
+// import ProtectedRoute from "./ProtectedRoute";
+import Landing from "../../LandingPage/Landing";
+// import { Redirect, Route } from "react-router";
 
 const BorderDiv = styled.div`
   border-radius: 12px;
@@ -46,7 +50,7 @@ const UserLogin = () => {
   const [checked, setChecked] = useState(false);
   const [message, setMessage] = useState("");
   const location = useLocation();
-
+  const [admin, setIsAdmin] = useState("")
   const query_ = useLocation().search;
   const name = new URLSearchParams(query_).get("user");
   const email =  { name };
@@ -55,6 +59,16 @@ const UserLogin = () => {
     localStorage.setItem("user", JSON.stringify(email));
   }, [email]);
 
+  // useEffect(() => {
+  //   const admin = localStorage.getItem("admin");
+  //   console.log("1", admin)
+  //   if (admin) {
+  //     setIsAdmin(admin)
+  //   }
+  // }, []);
+
+  // console.log("admin", admin)
+  
   const onChangePassword = (e) => {
     const password = e.target.value;
     setPassword(password);
@@ -70,14 +84,14 @@ const UserLogin = () => {
         () => {
           if (localStorage.getItem("admin") === "true") {
             localStorage.setItem("isAuthenticated", "true");
-            history.push("/landing");
-            window.location.reload()
-
+            history.replace("/landing");
+            
           }
           if(localStorage.getItem("admin") !== "true"){
             history.push("/user");
           }
           //history.push("/landing");
+          window.location.reload()    
         },
         (error) => {
           const resMessage = 'Incorrect Email or Password'

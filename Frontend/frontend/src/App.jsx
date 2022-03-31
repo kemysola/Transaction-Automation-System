@@ -42,8 +42,6 @@ export default function App() {
         <Route exact path="/login">
           <Main />
         </Route>
-        
-        <ProtectedRoute exact path="/landing" component={Landing} />
 
         <Route exact path="/transaction">
           <TransactionView />
@@ -60,7 +58,8 @@ export default function App() {
         <Route path="/update_transactions">
           <UpdateTransaction />
         </Route>
-
+        
+        <Route exact path="/landing" component={Landing} />
         <ProtectedRoute exact path="/staff" component={StaffView}/>
         <ProtectedRoute exact path="/staffs" component={AllStaff} />
         <ProtectedRoute exact path="/update" component={UpdateStaffs} />

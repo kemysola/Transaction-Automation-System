@@ -1,22 +1,18 @@
-import React,{useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Redirect, Route } from "react-router-dom";
 
-function ProtectedRoute({ component: Component, ...restOfProps }) {
-  //const isAuthenticated = localStorage.getItem("isAuthenticated")
-  const [isAuthenticated, setIsAuthenticated] =useState(true)
+const ProtectedRoute = ({ component: Component, ...restOfProps }) => {
+  
+  const isAuth = localStorage.getItem("isAuthenticated");
 
-  useEffect(() => {
-    setIsAuthenticated(localStorage.getItem("isAuthenticated"))
-  },[isAuthenticated])
-
-
-
+  console.log("######isAuth", isAuth)
+  
 
   return (
     <Route
       {...restOfProps}
       render={(props) =>
-        isAuthenticated ? <Component {...props} /> : <Redirect to="/user" />
+        isAuth ? <Component {...props} /> : <Redirect to="/user" />
       }
     />
   );

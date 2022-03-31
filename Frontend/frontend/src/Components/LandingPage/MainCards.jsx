@@ -15,8 +15,6 @@ const MainCards = () => {
     const [userEmail, setUserEmail] = useState()
     useEffect(() => {
         users()
-        
-
 
     })
     const users = () =>{
