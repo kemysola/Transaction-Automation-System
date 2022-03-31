@@ -166,19 +166,20 @@ router.get('/category', verifyTokenAndAuthorization, async (req, res) => {
 // fetch all staff by authorized users
 router.get('/staff_list', verifyTokenAndAuthorization, async (req, res) => {
     const client = await pool.connect();
-
     try {
         const staff = await client.query(
-            `SELECT * FROM TB_INFRCR_STAFFLIST
+            `
+            SELECT CONCAT(firstname,' ',lastname) AS stafflist, email
+            FROM TB_TRS_USERS
             `);
-        
-        if (staff) { 
+        if (staff) {
             res.status(200).send({
                 status: (res.statusCode = 200),
                 staffList: staff.rows
             })
+
         }
-        
+
     } catch (e) {
         res.status(403).json({ Error: e.stack });
     }finally{

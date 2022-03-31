@@ -377,7 +377,7 @@ const AddDeal = () => {
                             <Select size="sm" type="text" value={deal.originator} onChange={handleInputChange} name='originator' style={{width:'100%', padding:'4px 2px', focus:'none'}} validations={[required]}>
                               <option></option>
                               {staffList.map((opt, i) => (
-                                <option key={staffList[i].staffid} value={staffList[i].stafflist}>{staffList[i].stafflist}</option>
+                                <option key={staffList[i].email} value={staffList[i].stafflist}>{staffList[i].stafflist}</option>
                               ))}
                             </Select>
                           </Fm.Group>
@@ -389,7 +389,7 @@ const AddDeal = () => {
                             <Select size="sm" type="text" value={deal.transactor} onChange={handleInputChange} name='transactor' style={{width:'100%', padding:'4px 2px', focus:'none'}} validations={[required]}>
                               <option></option>
                               {staffList.map((opt, i) => (
-                                <option key={staffList[i].staffid} value={staffList[i].stafflist}>{staffList[i].stafflist}</option>
+                                <option key={staffList[i].email} value={staffList[i].stafflist}>{staffList[i].stafflist}</option>
                               ))}
                             </Select>
                           </Fm.Group>
@@ -401,7 +401,7 @@ const AddDeal = () => {
                             <Select size="sm" type="text" value={deal.transactionLegalLead} onChange={handleInputChange} name='transactionLegalLead' style={{width:'100%', padding:'4px 2px', focus:'none'}} validations={[required]}>
                               <option></option>
                               {staffList.map((opt, i) => (
-                                <option key={staffList[i].staffid} value={staffList[i].stafflist}>{staffList[i].stafflist}</option>
+                                <option key={staffList[i].email} value={staffList[i].stafflist}>{staffList[i].stafflist}</option>
                               ))}
                             </Select>
                           </Fm.Group>
@@ -670,7 +670,7 @@ const AddDeal = () => {
                                       </Col>
                                       <Col sm={6}>
                                         <Fm.Check inline label="Yes" type="radio" name="redA" value={true} onChange={handleInputChange} />
-                                        <Fm.Check inline label="No" type="radio" name="redA" value={false} onChange={handleInputChange} />
+                                        <Fm.Check inline label="No" type="radio" name="redA" value={false} onChange={handleInputChange} defaultChecked />
                                       </Col>
                                     </Row>
                                   </Fm.Group>
@@ -685,7 +685,7 @@ const AddDeal = () => {
                                       </Col>
                                       <Col sm={6}>
                                         <Fm.Check inline label="Yes" type="radio" name="redB" value={true} onChange={handleInputChange}  />
-                                        <Fm.Check inline label="No" type="radio" name="redB" value={false} onChange={handleInputChange} />
+                                        <Fm.Check inline label="No" type="radio" name="redB" value={false} onChange={handleInputChange} defaultChecked />
                                       </Col>
                                     </Row>
                                   </Fm.Group>
@@ -702,7 +702,7 @@ const AddDeal = () => {
 
                                       <Col sm={6}>
                                         <Fm.Check inline label="Yes" type="radio" name="redC" value={true} onChange={handleInputChange}  />
-                                        <Fm.Check inline label="No" type="radio" name="redC" value={false} onChange={handleInputChange} />
+                                        <Fm.Check inline label="No" type="radio" name="redC" value={false} onChange={handleInputChange} defaultChecked />
                                       </Col>
                                     </Row>
                                   </Fm.Group>
@@ -733,7 +733,7 @@ const AddDeal = () => {
                                         </Col>
                                         <Col sm={6}>
                                           <Fm.Check inline label="Yes" type="radio" name="amberA" value={true} onChange={handleInputChange} />
-                                          <Fm.Check inline label="No" type="radio" name="amberA" value={false} onChange={handleInputChange}  />
+                                          <Fm.Check inline label="No" type="radio" name="amberA" value={false} onChange={handleInputChange} defaultChecked  />
                                         </Col>
                                       </Row>
                                     </Fm.Group>
@@ -747,7 +747,7 @@ const AddDeal = () => {
                                         </Col>
                                         <Col sm={6}>
                                           <Fm.Check inline label="Yes" type="radio" name="amberB" value={true} onChange={handleInputChange} />
-                                          <Fm.Check inline label="No" type="radio" name="amberB" value={false} onChange={handleInputChange}  />
+                                          <Fm.Check inline label="No" type="radio" name="amberB" value={false} onChange={handleInputChange} defaultChecked />
 
                                         </Col>
                                       </Row>
@@ -762,7 +762,7 @@ const AddDeal = () => {
                                         </Col>
                                         <Col sm={6}>
                                           <Fm.Check inline label="Yes" type="radio" name="amberC" value={true} onChange={handleInputChange} />
-                                          <Fm.Check inline label="No" type="radio" name="amberC" value={false} onChange={handleInputChange}  />
+                                          <Fm.Check inline label="No" type="radio" name="amberC" value={false} onChange={handleInputChange} defaultChecked />
                                         </Col>
                                       </Row>
                                     </Fm.Group>
@@ -780,7 +780,7 @@ const AddDeal = () => {
 
                                   <Col sm={6}>
                                     <Fm.Check inline label="Yes" type="radio" name="amberD" value={true} onChange={handleInputChange} />
-                                    <Fm.Check inline label="No" type="radio" name="amberD" value={false} onChange={handleInputChange} />
+                                    <Fm.Check inline label="No" type="radio" name="amberD" value={false} onChange={handleInputChange} defaultChecked />
                                   </Col>
                                 </Row>
                               </Fm.Group>
@@ -794,7 +794,7 @@ const AddDeal = () => {
                                   </Col>
                                   <Col sm={6}>
                                     <Fm.Check inline label="Yes" type="radio" name="amberE" value={true} onChange={handleInputChange} />
-                                    <Fm.Check inline label="No" type="radio" name="amberE" value={false} onChange={handleInputChange}/>
+                                    <Fm.Check inline label="No" type="radio" name="amberE" value={false} onChange={handleInputChange} defaultChecked />
                                   </Col>
                                 </Row>
                               </Fm.Group>
@@ -828,7 +828,7 @@ const AddDeal = () => {
                                         </Col >
                                         <Col sm={6}>
                                           <Fm.Check inline label="Yes" type="radio" name="greenA" value={true} onChange={handleInputChange}  />
-                                          <Fm.Check inline label="No" type="radio" name="greenA" value={false} onChange={handleInputChange} />
+                                          <Fm.Check inline label="No" type="radio" name="greenA" value={false} onChange={handleInputChange} defaultChecked />
                                         
                                         </Col>
                                       </Row>
@@ -843,7 +843,7 @@ const AddDeal = () => {
                                         </Col>
                                         <Col sm={6}>
                                           <Fm.Check inline label="Yes" type="radio" name="greenB" value={true} onChange={handleInputChange} />
-                                          <Fm.Check inline label="No" type="radio" name="greenB" value={false} onChange={handleInputChange}  />
+                                          <Fm.Check inline label="No" type="radio" name="greenB" value={false} onChange={handleInputChange} defaultChecked />
                                         </Col>
                                       </Row>
                                     </Fm.Group>
@@ -857,7 +857,7 @@ const AddDeal = () => {
                                         </Col>
                                         <Col sm={6}>
                                           <Fm.Check inline label="Yes" type="radio" name="greenC" value={true} onChange={handleInputChange} />
-                                          <Fm.Check inline label="No" type="radio" name="greenC" value={false} onChange={handleInputChange} />
+                                          <Fm.Check inline label="No" type="radio" name="greenC" value={false} onChange={handleInputChange} defaultChecked />
                                         </Col>
                                       </Row>
                                     </Fm.Group>
@@ -872,7 +872,7 @@ const AddDeal = () => {
 
                                         <Col sm={6}>
                                           <Fm.Check inline label="Yes" type="radio" name="greenD" value={true} onChange={handleInputChange} />
-                                          <Fm.Check inline label="No" type="radio" name="greenD" value={false} onChange={handleInputChange} />
+                                          <Fm.Check inline label="No" type="radio" name="greenD" value={false} onChange={handleInputChange} defaultChecked />
                                         </Col>
                                       </Row>
                                     </Fm.Group>
@@ -888,7 +888,7 @@ const AddDeal = () => {
 
                                         <Col sm={6}>
                                           <Fm.Check inline label="Yes" type="radio" name="greenE" value={true} onChange={handleInputChange} />
-                                          <Fm.Check inline label="No" type="radio" name="greenE" value={false} onChange={handleInputChange}  />
+                                          <Fm.Check inline label="No" type="radio" name="greenE" value={false} onChange={handleInputChange} defaultChecked />
                                         </Col>
                                       </Row>
                                     </Fm.Group>
@@ -903,7 +903,7 @@ const AddDeal = () => {
                                         </Col>
                                         <Col sm={6}>
                                           <Fm.Check inline label="Yes" type="radio" name="greenF" value={true} onChange={handleInputChange} />
-                                          <Fm.Check inline label="No" type="radio" name="greenF" value={false} onChange={handleInputChange} />
+                                          <Fm.Check inline label="No" type="radio" name="greenF" value={false} onChange={handleInputChange} defaultChecked />
                                         </Col>
                                       </Row>
                                     </Fm.Group>
