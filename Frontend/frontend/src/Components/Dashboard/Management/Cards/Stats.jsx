@@ -324,18 +324,18 @@ export default function Stats() {
                 </p>
 
                 <Row>
-                  <Col md={6} className="mt-1 d-none d-sm-block">
+                  <Col md={4} className="mt-1 d-none d-sm-block">
                    <small>Green </small>
-                   <GreenDiv className="my-3">{green.length}</GreenDiv>
+                   <GreenDiv className="my-2">{green.length}</GreenDiv>
                    <br/>
                    <small>Amber </small>
-                    <AmberDiv className="my-3">{amber.length}</AmberDiv>
+                    <AmberDiv className="my-2">{amber.length}</AmberDiv>
                     <br/>
                     <small>Red </small>
-                    <RedDiv className="my-3">{red.length}</RedDiv>
+                    <RedDiv className="my-2">{red.length}</RedDiv>
                   </Col>
                   <Col md={6}>
-                    <PieChart width={300} height={210}>
+                    <PieChart width={340} height={210}>
                       <Pie
                         data={chartData}
                         dataKey="value"
@@ -344,7 +344,7 @@ export default function Stats() {
                         cy="40%"
                         fill="#8884d8"
                         innerRadius={55}
-                        outerRadius={85}
+                        outerRadius={75}
                         paddingAngle={1}
                         isAnimationActive={false}
                         labelLine={false}
