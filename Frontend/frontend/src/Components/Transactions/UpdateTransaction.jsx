@@ -278,27 +278,27 @@ function handlePrevChange() {
         <Container1>
             <Container>
                 <Row className='mt-3 pt-3'>
-                  <Col sm={12}>
+                  <Col sm={6}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Client Name</Form.Label>
                     <Form.Control size="sm" type="text" defaultValue={deal[0].clientname} id='client' ref={clientName} required disabled/>
                     </Form.Group>
                   </Col>
 
-                  <Col sm={12}>
+                  <Col sm={6}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Originator</Form.Label>
                     <Form.Control size="sm" type="text" defaultValue={deal[0].originator} id='originator' ref={originator}/>
                     </Form.Group>
                   </Col>
 
-                  <Col sm={12}>
+                  <Col sm={6}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Transactor</Form.Label>
                       <Form.Control size="sm" type="text" defaultValue={deal[0].transactor}  id='transactor' ref={transactor}/>
                     </Form.Group>
                   </Col>
-                  <Col sm={12}>
+                  <Col sm={6}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Transaction Legal Lead</Form.Label>
                       <Form.Control size="sm" type="text" defaultValue={deal[0].transactionlegallead} id='transactionLegalLead' ref={transactionLegalLead}/>
