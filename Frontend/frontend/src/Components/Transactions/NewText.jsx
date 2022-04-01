@@ -7,6 +7,10 @@ import Services from '../../Services/Service';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import Select from "react-validation/build/select";
+import Button from "react-validation/build/button";
+
+//import Checkbox from "react-validation/build/checkbox";
+
 
 
 
@@ -72,20 +76,20 @@ const AddDeal = () => {
     feeLetter: null,
     expectedClose: null,
     actualClose: null,
-    greenA: "",
-    greenB: "",
-    greenC: "",
-    greenD: "",
-    greenE: "",
-    greenF: "",
-    amberA: "",
-    amberB: "",
-    amberC: "",
-    amberD: "",
-    amberE: "",
-    redA: "",
-    redB: "",
-    redC: "",
+    greenA: "false",
+    greenB: "false",
+    greenC: "false",
+    greenD: "false",
+    greenE: "false",
+    greenF: "false",
+    amberA: "false",
+    amberB: "false",
+    amberC: "false",
+    amberD: "false",
+    amberE: "false",
+    redA: "false",
+    redB: "false",
+    redC: "false",
     structuringFeeAmount: 0,
     structuringFeeAdvance: 0,
     guaranteeFee: 0,
@@ -327,8 +331,8 @@ const AddDeal = () => {
         setSubmitted(true)
       })
       .catch(error => {
-        setResponse("Failed to Create Deal. Please Try Again")
-        setSubmitted(true)
+        setResponse("Failed to Create Deal. Please Fill all required fields")
+        setSubmitted(false)
       });
   };
 
@@ -418,7 +422,7 @@ const AddDeal = () => {
                                   size="sm" value={singleNote.note}
                                   name='note'
                                   onChange={(e) => handleNoteChange(e, index)}
-                                  required />
+                                  />
                                   <button type = "button" style={{fontSize: '10px', padding: '2px 10px', margin: '8px', background: 'steelblue', color: 'white', borderRadius: '3px'}} onClick={handleNoteRemove}>x</button> 
                                 </div>
                             ))}
@@ -546,7 +550,7 @@ const AddDeal = () => {
                           <Col sm={6}>
                             <Fm.Group className="pt-1">
                               <Fm.Label>Credit Approval</Fm.Label>
-                              <Input size="sm" type="date" value={deal.creditApproval} onChange={handleInputChange} name='creditApproval' style={{width:'100%', padding:'6px 1px', focus:'none'}} />
+                              <Input size="sm" type="date" value={deal.creditApproval} onChange={handleInputChange} name='creditApproval' style={{width:'100%', padding:'6px 1px', focus:'none'}} validations={[required]} />
                             </Fm.Group>
                           </Col>
 
@@ -733,7 +737,7 @@ const AddDeal = () => {
                                         </Col>
                                         <Col sm={6}>
                                           <Fm.Check inline label="Yes" type="radio" name="amberA" value={true} onChange={handleInputChange} />
-                                          <Fm.Check inline label="No" type="radio" name="amberA" value={false} onChange={handleInputChange} defaultChecked  />
+                                          <Fm.Check inline label="No" type="radio" name="amberA" value={false} onChange={handleInputChange} defaultChecked />
                                         </Col>
                                       </Row>
                                     </Fm.Group>
@@ -780,7 +784,7 @@ const AddDeal = () => {
 
                                   <Col sm={6}>
                                     <Fm.Check inline label="Yes" type="radio" name="amberD" value={true} onChange={handleInputChange} />
-                                    <Fm.Check inline label="No" type="radio" name="amberD" value={false} onChange={handleInputChange} defaultChecked />
+                                    <Fm.Check inline label="No" type="radio" name="amberD" value={false} onChange={handleInputChange} defaultChecked  />
                                   </Col>
                                 </Row>
                               </Fm.Group>
@@ -828,7 +832,7 @@ const AddDeal = () => {
                                         </Col >
                                         <Col sm={6}>
                                           <Fm.Check inline label="Yes" type="radio" name="greenA" value={true} onChange={handleInputChange}  />
-                                          <Fm.Check inline label="No" type="radio" name="greenA" value={false} onChange={handleInputChange} defaultChecked />
+                                          <Fm.Check inline label="No" type="radio" name="greenA" value={false} onChange={handleInputChange} defaultChecked  />
                                         
                                         </Col>
                                       </Row>
@@ -843,7 +847,7 @@ const AddDeal = () => {
                                         </Col>
                                         <Col sm={6}>
                                           <Fm.Check inline label="Yes" type="radio" name="greenB" value={true} onChange={handleInputChange} />
-                                          <Fm.Check inline label="No" type="radio" name="greenB" value={false} onChange={handleInputChange} defaultChecked />
+                                          <Fm.Check inline label="No" type="radio" name="greenB" value={false} onChange={handleInputChange} defaultChecked  />
                                         </Col>
                                       </Row>
                                     </Fm.Group>
@@ -857,7 +861,7 @@ const AddDeal = () => {
                                         </Col>
                                         <Col sm={6}>
                                           <Fm.Check inline label="Yes" type="radio" name="greenC" value={true} onChange={handleInputChange} />
-                                          <Fm.Check inline label="No" type="radio" name="greenC" value={false} onChange={handleInputChange} defaultChecked />
+                                          <Fm.Check inline label="No" type="radio" name="greenC" value={false} onChange={handleInputChange} defaultChecked  />
                                         </Col>
                                       </Row>
                                     </Fm.Group>
@@ -919,17 +923,22 @@ const AddDeal = () => {
                     <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button>
                   </Tab>
                   
-
-
                 </Tabs>
+                <div className='d-flex justify-content-end' style={{fontSize: "13px", color: "red"}}>
+                  <p class="animate__animated animate__pulse pt-2">
+                    {response}
+                  </p>
+                </div>
+                
                 <div className='d-flex justify-content-end'>
-                <ButtonWrapper onClick={saveDeal}  ref={form}>
+                <ButtonWrapper onClick={saveDeal}  ref={form} >
                     Submit
                   </ButtonWrapper>
 
                   <ButtonWrapper style={{ backgroundColor: "grey", color:'white'}} >
                     Cancel
                   </ButtonWrapper>
+
                   </div>
               </div>
             </Form>
