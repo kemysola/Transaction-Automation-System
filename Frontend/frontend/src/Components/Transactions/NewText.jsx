@@ -363,7 +363,7 @@ const AddDeal = () => {
                     <Container1>
                       <br />
                       <Row>
-                        <Col sm={12}>
+                        <Col sm={6}>
                           <Fm.Group className="mb-0 mt-1 pt-1 pb-1">
                             <Fm.Label>Client Name</Fm.Label>
                             <Input type="text" value={deal.clientName} onChange={handleInputChange} name='clientName' validations={[required]} style={{width:'100%', padding:'4px 2px', focus:'none'}}/>
@@ -371,7 +371,7 @@ const AddDeal = () => {
                           </Fm.Group>
                         </Col>
 
-                        <Col sm={12}>
+                        <Col sm={6}>
                           <Fm.Group className="mb-0 mt-1 pt-1 pb-1">
                             <Fm.Label>Originator</Fm.Label>
                             <Select size="sm" type="text" value={deal.originator} onChange={handleInputChange} name='originator' style={{width:'100%', padding:'4px 2px', focus:'none'}} validations={[required]}>
@@ -383,7 +383,7 @@ const AddDeal = () => {
                           </Fm.Group>
                         </Col>
 
-                        <Col sm={12}>
+                        <Col sm={6}>
                           <Fm.Group className="mb-0 mt-1 pt-1 pb-1">
                             <Fm.Label>Transactor</Fm.Label>
                             <Select size="sm" type="text" value={deal.transactor} onChange={handleInputChange} name='transactor' style={{width:'100%', padding:'4px 2px', focus:'none'}} validations={[required]}>
@@ -395,7 +395,7 @@ const AddDeal = () => {
                           </Fm.Group>
                         </Col>
 
-                        <Col sm={12}>
+                        <Col sm={6}>
                           <Fm.Group className="mb-0 mt-1 pt-1 pb-1">
                             <Fm.Label>Transactor Legal Lead</Fm.Label>
                             <Select size="sm" type="text" value={deal.transactionLegalLead} onChange={handleInputChange} name='transactionLegalLead' style={{width:'100%', padding:'4px 2px', focus:'none'}} validations={[required]}>
