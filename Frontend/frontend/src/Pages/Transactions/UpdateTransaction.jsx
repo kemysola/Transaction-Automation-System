@@ -20,7 +20,7 @@ export default function NewTransaction() {
                 <Col sm={3} style={{padding:'10px 10px 10px 0px'}}>
                     <Sidenav/>
                 </Col>
-                <Col sm={8} className='bg-light py-3'> 
+                <Col sm={7} className='bg-light py-3'> 
                     <UpdateTransaction />
                 </Col>
                 </Row>
