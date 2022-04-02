@@ -379,28 +379,6 @@ export default function Progress() {
     },
   ];
 
-  // const renderCustomizedLabel = (props) => {
-  //   const { x, y, width, value } = props;
-  //   const radius = 20;
-  
-  //   return (
-  //     <g>
-  //       {/* <circle cx={x + width / 2} cy={y - radius} r={radius} fill="#fff"/> */}
-  //         <text
-  //           x={x + width /2}
-  //           y={y - radius}
-  //           style={{
-  //             fontSize: "10px"
-  //           }}
-  //           fill="black"
-  //           textAnchor="middle"
-  //           dominantBaseline="middle"
-  //         >
-  //           {value}
-  //         </text>
-  //     </g>
-  //   );
-  // };
   
   return (
     <React.Fragment>

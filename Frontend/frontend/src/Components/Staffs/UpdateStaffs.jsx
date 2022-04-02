@@ -71,7 +71,24 @@ export default function UpdateStaffs() {
 
     const [staff, setStaff] = useState([]);
     const [status, setStatus] = useState(false);
+    const [levels, setLevels] = useState([]);
+    const [submitted, setSubmitted] = useState(false);
+    const [response, setResponse] = useState(false);
     const history = useHistory();
+
+    useEffect(() => {
+        retrieveLevel();
+    }, [])
+
+    const retrieveLevel = () => {
+        Service.getLevel()
+        .then((response) => {
+            setLevels(response.data.levels);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+    };
 
  useEffect(() => {
     retrieveStaff();
@@ -104,7 +121,6 @@ export default function UpdateStaffs() {
             return false;
         }
         if(level === ""){
-            console.log('no data')
             return false;
 
         }
@@ -115,29 +131,28 @@ export default function UpdateStaffs() {
             firstName: firstName.current.value,
             lastName: lastName.current.value,
             level: level.current.value,
-            // originator: +originator,
+            originator: +originator.current.value,
             hasOriginationTarget: 1,
             originationAmount: +originationAmount.current.value,
             guaranteePipeline: +guaranteePipeline.current.value,
             greenTransaction: +greenTransaction.current.value,
             amberTransaction: +amberTransaction.current.value,
-            // mandateLetter: +data.mandateLetter,
+            mandateLetter: +mandateLetter.current.value,
             creditCommitteApproval: +creditCommitteApproval.current.value,
-            // feeLetter: +feeLetter
+            feeLetter: +feeLetter.current.value
         }
 
         
 
         Service.updateStaff(user_email, reqData)
             .then((response) => {
-                console.log(response)
-                alert(response.data.message)
+                setResponse(response.data.message)
                 history.push({
                     pathname: "/staffs",
                   });
             })
             .catch(error => {
-                alert("Failed to Update Deal")
+                setResponse("Failed to Update Deal")
               }) 
     };
 
@@ -234,18 +249,15 @@ export default function UpdateStaffs() {
                                         </Col>
                                         {/*--------------------------------- Form ----------------------------------------- */}
                                         <Col sm={12}  className='mt-1 pt-1'>
-                                        <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                <Form.Label className="pt-2">Level</Form.Label>
-                                                <Form.Control size="sm"
-                                                    type="text"
-                                                    placeholder=""
-                                                    id='level'
-                                                    ref={level}
-                                                    //onChange={handleInputChange}
-                                                    defaultValue={staff[0].level}
-                                                    name="level" />
-                                    
-                                            </Form.Group>
+                                        <Form.Group>
+                                            <Form.Label>Level</Form.Label>
+                                                <Form.Select size="sm" value={staff.level}  name='level' ref={level} required>
+                                                        <option defaultValue={staff[0].level}>{staff[0].level}</option>
+                                                            {levels.map((level, i) => (
+                                                        <option key={levels[i].levelid} value={levels[i].stafflevel}>{levels[i].stafflevel}</option>
+                                                            ))}
+                                                </Form.Select>
+                                        </Form.Group>
                                             {
                                                 !level && <p className='text-danger mt-1'>Please enter your level</p>
                                             }
@@ -254,28 +266,7 @@ export default function UpdateStaffs() {
 
                                         {/*------------------------------- Form -------------------------------------------- */}
 
-                                        {/*<Form.Group className="" controlId="exampleForm.ControlInput1">
-                                        <Form.Label className="pt-2">Has Origination Target?</Form.Label>
-                                            <br />
-                                            <div size="sm" style={{ border: '1px solid grey', width: '130px', padding: '5px 10px', lineHeight: '20px', borderRadius: '5px' }}>
-                                                <input type='radio'
-                                                    value="Yes"
-                                                    name="target"
-                                                    id='hasOriginationTarget'
-                                                    // onChange={data.hasOriginationTarget}
-                                                //defaultValue={staff[0].}
-                                                    
-                                                />
-                                                <span style={{ fontWeight: 'bold', paddingRight: '20px', paddingLeft: '10px' }}> Yes </span>
-                                                <input type='radio'
-                                                    value="No"
-                                                    name="target"
-                                                    id='hasOriginationTarget'
-                                                    // onChange={data.hasOriginationTarget}
-                                                />
-                                                <span style={{ fontWeight: 'bold' }}> No </span>
-                                            </div>
-                                        </Form.Group>*/}
+          
                                             
                                         </Row>
                                         <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button>
@@ -293,8 +284,8 @@ export default function UpdateStaffs() {
                                                         <Form.Label>Has Orignation Target?</Form.Label>
                                                     </Col>
                                                     <Col sm={4}  className='mt-3 pt-2'>
-                                                        <Form.Check inline label="Yes" type="radio" name='target' value='Yes'  id='hasOriginationTarget' />
-                                                        <Form.Check inline label="No" type="radio" name='target' value='No' id='hasOriginationTarget'/>
+                                                        <Form.Check inline label="Yes" type="radio" name='target' value='Yes'  id='hasOriginationTarget' ref={hasOriginationTarget} />
+                                                    <Form.Check inline label="No" type="radio" name='target' value='No' id='hasOriginationTarget' ref={hasOriginationTarget}/>
                                                     </Col>
 </Row>
 </Form.Group>
@@ -319,17 +310,7 @@ export default function UpdateStaffs() {
 
 
 
-                                                        {/*<Form.Control type="text"
-                                                            placeholder="0"
-                                                            size='sm'
-                                                            id='originationAmount'
-                                                            // value={data.originationAmount}
-                                                            // onChange={handleInputChange}
-                                                            defaultValue={staff[0].origanationamount}
-                                                            ref={originationAmount}
-                                                            name="originationAmount"
-                                                    />
-                                    </Form.Group>*/}
+            
                                                         {
                                                             !originationAmount && <p>
                                                                 Kindly enter an amount
@@ -507,6 +488,8 @@ export default function UpdateStaffs() {
 
                                     </Container1>
                                     <div className='d-flex justify-content-end'>
+                                        <p style={{ fontWeight: 'bold', fontSize: '12px', color: 'red', marginTop: '1rem' }}>{response}</p>
+
                                         <ButtonWrapper>
                                             Submit
                                         </ButtonWrapper>
