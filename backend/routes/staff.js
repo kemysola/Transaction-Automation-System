@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const pool = require("../database");
 const CryptoJS = require("crypto-js");
-const nodemailer = require("../maildaemon");
+// const nodemailer = require("../maildaemon");
+const sendConfirmationEmailOutlook = require("../outlookmailer")
 const jwt = require("jsonwebtoken");
 const {verifyTokenAndAdmin, verifyTokenAndAuthorization, verifyUser} = require("../middleware");
 
@@ -66,8 +67,8 @@ router.post("/onboard", verifyTokenAndAdmin, async (req, res) => {
     await client.query('BEGIN')
     const write_to_db = 
       `INSERT INTO TB_TRS_USERS(email, password, firstName, lastName, level, hasOriginationTarget, originationAmount, guaranteePipeline,
-        greenTransaction, amberTransaction, originator, mandateLetter, creditCommiteeApproval, feeLetter, financialClose, record_entry, status, isadmin, activationCode
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19) RETURNING *`
+        greenTransaction, amberTransaction, originator, mandateLetter, creditCommiteeApproval, feeLetter, financialClose, record_entry, status, isadmin, activationCode, userID
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, nextval('trms.user_id_seq')) RETURNING *`
 
     const res_ = await client.query(write_to_db, user_data)              
     
@@ -81,14 +82,10 @@ router.post("/onboard", verifyTokenAndAdmin, async (req, res) => {
     const userEmail = res_.rows[0].email;
     const actvToken = res_.rows[0].activationcode
     const user = res_.rows[0].firstname + ' ' + res_.rows[0].lastname 
-  
-    nodemailer.sendConfirmationEmail(
-      'InfraCredit',
-      userEmail,
-      actvToken,
-      oneTimePassword,
-      user
-    );
+
+    await sendConfirmationEmailOutlook.sendConfirmationEmailOutlook(userEmail, actvToken, oneTimePassword, user).catch(console.error);
+
+    // sendConfirmationEmailOutlook().catch(console.error);
 
     res.json({
       status: (res.statusCode = 200),
@@ -193,7 +190,10 @@ router.put('/oneTimePasswordReset/', async (req, res) => {
               RETURNING *`
               const res_ = await client.query(update_db, user_data)                   
             await client.query('COMMIT')
-
+            
+            res.setHeader("Password-Reset-Email", user_rec.email);
+            res.setHeader("Activation-Status", (res.statusCode = 200));
+            
             res.json({
                 status: (res_.statusCode = 200),
                 message: "Password Reset Successfully",
@@ -216,51 +216,51 @@ router.put('/oneTimePasswordReset/', async (req, res) => {
 
 
 
-// User Registration Endpoint[This registration should be done by a user with admin right, new user will reset password on first login]
-router.post("/first_onboard", async (req, res) => {
-  const client = await pool.connect()
-  try {
+// // User Registration Endpoint[This registration should be done by a user with admin right, new user will reset password on first login]
+// router.post("/first_onboard", async (req, res) => {
+//   const client = await pool.connect()
+//   try {
     
-    // Destrucuring the request body to grab required fields
-    const new_user = { email, password, firstName, lastName, level, hasOriginationTarget, originationAmount, guaranteePipeline, greenTransaction,
-      amberTransaction, mandateLetter, creditCommiteeApproval, feeLetter, status, isadmin} = req.body;
+//     // Destrucuring the request body to grab required fields
+//     const new_user = { email, password, firstName, lastName, level, hasOriginationTarget, originationAmount, guaranteePipeline, greenTransaction,
+//       amberTransaction, mandateLetter, creditCommiteeApproval, feeLetter, status, isadmin} = req.body;
 
-    const user_data = [ email, CryptoJS.AES.encrypt(password, process.env.PASSWORD_SECRET_PASSPHRASE ).toString(),
-      firstName, lastName, level, hasOriginationTarget, originationAmount,
-      guaranteePipeline, greenTransaction, amberTransaction, mandateLetter,
-      creditCommiteeApproval, feeLetter, funcFinancialClose(0,  0, 0,0), 'superadmin@trmsapp.com', status, isadmin
-    ]
+//     const user_data = [ email, CryptoJS.AES.encrypt(password, process.env.PASSWORD_SECRET_PASSPHRASE ).toString(),
+//       firstName, lastName, level, hasOriginationTarget, originationAmount,
+//       guaranteePipeline, greenTransaction, amberTransaction, mandateLetter,
+//       creditCommiteeApproval, feeLetter, funcFinancialClose(0,  0, 0,0), 'trms@infracredit.ng', status, isadmin
+//     ]
 
-    await client.query('BEGIN')
-    const write_to_db = 
-      `INSERT INTO TB_TRS_USERS(
-                  email, password, firstName, lastName,
-                  level, hasOriginationTarget, originationAmount, guaranteePipeline,
-                  greenTransaction, amberTransaction, mandateLetter, creditCommiteeApproval,
-                  feeLetter, financialClose, record_entry, status, isadmin
-                  ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17) RETURNING *`
+//     await client.query('BEGIN')
+//     const write_to_db = 
+//       `INSERT INTO TB_TRS_USERS(
+//                   email, password, firstName, lastName,
+//                   level, hasOriginationTarget, originationAmount, guaranteePipeline,
+//                   greenTransaction, amberTransaction, mandateLetter, creditCommiteeApproval,
+//                   feeLetter, financialClose, record_entry, status, isadmin, userID
+//                   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, nextval('trms.user_id_seq')) RETURNING *`
 
-    const res_ = await client.query(write_to_db, user_data)              
+//     const res_ = await client.query(write_to_db, user_data)              
     
-    await client.query('COMMIT')
+//     await client.query('COMMIT')
     
-    res.json({
-      status: (res.statusCode = 200),
-      message: "User Created Successfully",
-      user: res_.rows[0],
+//     res.json({
+//       status: (res.statusCode = 200),
+//       message: "User Created Successfully",
+//       user: res_.rows[0],
 
-    });
+//     });
 
     
 
-  } catch (e) {
-    await client.query('ROLLBACK')
-    res.status(403).json({ Error: e.stack });
-    // throw e
-  }finally{
-    client.release()
-  }
-});
+//   } catch (e) {
+//     await client.query('ROLLBACK')
+//     res.status(403).json({ Error: e.stack });
+//     // throw e
+//   }finally{
+//     client.release()
+//   }
+// });
 
 /*Fetch all Staffs(Priviledged Users only) */
 router.get('/all_staff', verifyTokenAndAdmin, async (req, res) => {
@@ -297,11 +297,6 @@ router.get('/:user_email',verifyTokenAndAdmin, async (req, res) => {
       const staff = await client.query(
           "SELECT * FROM TB_TRS_USERS WHERE email = $1", [staff_email]);
       if (staff) { 
-          // res.staff_info = staff
-          
-          // // convert notes field to list
-          // myArray = staff.rows
-          // myNotes = myArray.forEach(convertNotesFiledsToList)
 
           res.status(200).send({
               status: (res.statusCode = 200),
