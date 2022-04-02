@@ -28,7 +28,6 @@ export default function Cards() {
         start_date: "",
         end_date: "",
         clientname: "",
-        //http://localhost:5000/api/v1/report/2022-02-17/2022-02-17/''
     };
 
     const [client, setClient] = useState(initialClientState);

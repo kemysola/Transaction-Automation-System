@@ -96,7 +96,7 @@ export default function UpdateStaffs() {
 
   const retrieveStaff = async () => {
     const staff_data = await axios.get(
-      `http://localhost:5001/api/v1/staff/${user_email}`,
+      `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
       {headers: {
         token: `Bearer ${localStorage.getItem('token')}`,
         'Content-type': 'application/json; charset=utf-8',
