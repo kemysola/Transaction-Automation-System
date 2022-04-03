@@ -577,7 +577,7 @@ const AddDeal = () => {
 
                           <Col sm={6} className='pt-3'>
                             <Fm.Group className="pt-1">
-                              <Fm.Label>NBC Close</Fm.Label>
+                              <Fm.Label>NBC Approval</Fm.Label>
                               <Input size="sm" type="date"   name='nbcClose'  style={{width:'100%', padding:'6px 1px', focus:'none'}} />
                             </Fm.Group>
                           </Col>
@@ -929,7 +929,7 @@ const AddDeal = () => {
                     {response}
                   </p>
                 </div>
-                
+
                 <div className='d-flex justify-content-end'>
                 <ButtonWrapper onClick={saveDeal}  ref={form} >
                     Submit

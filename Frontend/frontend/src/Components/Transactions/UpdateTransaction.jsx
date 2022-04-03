@@ -485,7 +485,7 @@ function handlePrevChange() {
 
                     <Col sm={6}>
                       <Form.Group className="pt-1">
-                        <Form.Label>NBC Close</Form.Label>
+                        <Form.Label>NBC Approval</Form.Label>
                         <Form.Control size="sm" type="date"/>
                       </Form.Group>
                     </Col>
