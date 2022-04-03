@@ -139,13 +139,15 @@ export default function UpdateStaffs() {
             amberTransaction: +amberTransaction.current.value,
             mandateLetter: +mandateLetter.current.value,
             creditCommitteApproval: +creditCommitteApproval.current.value,
-            feeLetter: +feeLetter.current.value
+            feeLetter: +feeLetter.current.value,
+            
         }
 
         
 
         Service.updateStaff(user_email, reqData)
             .then((response) => {
+    
                 setResponse(response.data.message)
                 history.push({
                     pathname: "/staffs",
@@ -246,7 +248,8 @@ export default function UpdateStaffs() {
                                                     defaultValue={staff[0].lastname}
                                                     name="lastName" />
                                             </Form.Group>
-                                        </Col>
+                                            </Col>
+                                            
                                         {/*--------------------------------- Form ----------------------------------------- */}
                                         <Col sm={12}  className='mt-1 pt-1'>
                                         <Form.Group>
