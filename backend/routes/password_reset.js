@@ -32,7 +32,8 @@ router.put("/", async(req, res) => {
 				const res_ = await client.query(update_db, user_data)
 				
 				await client.query('COMMIT')
-
+                
+                res.setHeader("Password-Reset-For", req.body.email);
 				res.json({
 					  status: (res.statusCode = 200),
 					  message: "Password Reset Successfully"

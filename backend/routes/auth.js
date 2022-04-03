@@ -70,7 +70,7 @@ const AADParameters = {
     tenant: process.env.tenant,
     authorityHostUrl: 'https://login.windows.net',
     clientId: process.env.clientID,
-    redirectUri: 'http://localhost:5001/api/v1/auth/app/login', //'http://localhost:3000/login', //, //This url must be registerd during application registration in Azure (Reference in resources.md file)
+    redirectUri: 'https://trms01-server.azurewebsites.net/api/v1/auth/app/login', 
     clientSecret: process.env.value
 };
 
@@ -115,14 +115,10 @@ router.get('/app/login', (req, res) => {
         redirectUri: AADParameters.redirectUri,
     };
     cca.acquireTokenByCode(tokenRequest).then((response) => {
-        // console.log("\nTheResponse: \n:", response);
-        // let user = { email: response.account.username }
-        // const query = querystring.stringify({"user":response.account.username, "token":response.accessToken});
-        // res.redirect('http://localhost:3000/login?'+query);
         const paramsString = {"user":response.account.username, "token":response.accessToken};
         let searchParams = new URLSearchParams(paramsString);
 
-        res.redirect('http://localhost:3000/login?'+searchParams);
+        res.redirect('https://trms01-server.azurewebsites.net/login?'+searchParams);
 
     }).catch((error) => {
         console.log(error);

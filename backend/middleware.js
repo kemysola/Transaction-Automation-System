@@ -14,7 +14,7 @@ const verifyToken = (req, res, next) => {
       next(); //This commands the process to jump out of this function and return to the calling-route to continue other actions
     });
   } else {
-    return res.status(401).json({ Error: "You're not authorized" });
+    return res.status(401).json({ Error: "You're not authroized" });
   }
 };
 
@@ -25,7 +25,7 @@ const verifyTokenAndAuthorization = (req, res, next) => {
       next();
     } else {
       // res.status(403).json("You're not authroized to do that!!")
-      res.status(403).json({ Error: "You're not authorized to do that!!" });
+      res.status(403).json({ Error: "You're not authroized to do that!!" });
     }
   });
 };
@@ -36,7 +36,7 @@ const verifyTokenAndAdmin = (req, res, next) => {
     if (req.user.Admin) {
       next();
     } else {
-      res.status(403).json({ Error: "You're not authorized to do that!" });
+      res.status(403).json({ Error: "You're not authroized to do that!" });
     }
   });
 };
@@ -49,8 +49,8 @@ const verifyUser = async (req, res, next) => {
       "SELECT * FROM TB_TRS_USERS WHERE activationcode = $1",
       [req.params.confirmationCode]
     );
-
     if (user) {
+      // console.log('user from VerifyUser', req.params.confirmationCode)
       const user_data = [req.params.confirmationCode];
 
       await client.query("BEGIN");
@@ -65,29 +65,16 @@ const verifyUser = async (req, res, next) => {
       res.setHeader("Activation-Status", (res.statusCode = 200));
       res.setHeader("Activation-Message", "Your Account is now Active");
 
-      //  res.redirect('http://localhost:3000/login');
-      res.writeHead(200, {'Content-Type': 'text/html'});
-      res.write(`<h4> Hello  ${res_.rows[0]['email']},
-      <br><br/>
-       Your Account is now Active.   
-       </h4>`)
-       res.write(` <a href='http://localhost:5001/api/v1/auth'>Kindly log in with this link</a>`)
-      
-       /*res.json({
+      res.json({
         status: (res.statusCode = 200),
         message: "Your Account is now Active",
         userEmail: res_.rows[0]["email"],
-      });*/
+      });
     }
   } catch (err) {
-    res.writeHead(404, {'Content-Type': 'text/html'});
-    res.write('<h4 style="color:red, text-align:center"> Invalid Email Adddress </h4>')
-    //res.status(404).json({ Error: "Invalid Email Address", ErrorDetail: err.stack });
-    return res.end()
-
-    /*res
+    res
       .status(404)
-      .json({ Error: "Invalid Email Address", ErrorDetail: err.stack });*/
+      .json({ Error: "Invalid Email Address", ErrorDetail: err.stack });
   } finally {
     client.release();
   }

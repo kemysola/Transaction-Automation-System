@@ -148,8 +148,33 @@ export default function Stats() {
     return filtered;
   }, []);
 
-  
+  // summ all values in each of the region arrays
 
+  let southTotal = south.reduce(function (tot, arr) {
+    return tot + parseFloat(arr)
+  }, 0)
+
+  let southwestTotal = southwest.reduce(function (tot, arr) {
+    return tot + parseFloat(arr)
+  }, 0)
+
+  let southsouthTotal = southsouth.reduce(function (tot, arr) {
+    return tot + parseFloat(arr)
+  }, 0)
+
+  let northwestTotal = northwest.reduce(function (tot, arr) {
+    return tot + parseFloat(arr)
+  }, 0)
+
+  let northeastTotal = northeast.reduce(function (tot, arr) {
+    return tot + parseFloat(arr)
+  }, 0)
+
+  let northcentralTotal = northcentral.reduce(function (tot, arr) {
+    return tot + parseFloat(arr)
+  }, 0)
+
+  
   // .......................... Get transactions according to deal category ...................
 
   var red = data.reduce(function (filtered, arr) {
@@ -269,30 +294,39 @@ export default function Stats() {
     return null;
   };
 
+  console.log("ss", southTotal)
+  console.log("south", south)
+
   const chartRegion = [
     {
       name:"SE",
-      value:south,
+      value: southTotal,
+      percent: `${((southTotal/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name:"SW",
-      value:southwest,
+      value: southwestTotal,
+      percent: `${((southwestTotal/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name:"NC",
-      value:northcentral,
+      value: northcentralTotal,
+      percent:`${((northcentralTotal/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name:"NE",
-      value:northeast,
+      value: northeast,
+      percent: `${((northeastTotal/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name:"NW",
-      value:northwest,
+    value: northwestTotal,
+    percent: `${((northwestTotal/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name:"SS",
-      value:southsouth,
+      value: southsouth,
+      percent: `${((southsouthTotal/sumTotal) * 100).toFixed(1)}%`
     }
   ]
 
@@ -406,15 +440,22 @@ export default function Stats() {
                 }}
                 layout="horizontal"
               >
-                <XAxis type="category" dataKey='name' tickLine={false}
-                  axisLine={false}  />
-                {/*<YAxis
-                  type="number"
-                  dataKey="name"
-                  tickLine={false}
-                  axisLine={false}
-                  style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
-              />*/}
+                      <XAxis xAxisId={0}
+                        type="category"
+                        dataKey='name'
+                        tickLine={false}
+                        axisLine={false}
+                      />
+                      
+                      <XAxis xAxisId={1}
+                        type="category"
+                        dataKey='percent'
+                        tickLine={false}
+                        axisLine={false}
+                        orientation="top"
+                        style={{ fontSize: "0.8rem"}}
+                      />
+                      
                 <Bar
                   dataKey="value"
                   stackId="a"

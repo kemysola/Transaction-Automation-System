@@ -5,17 +5,20 @@
 -- postgres=# <your database commands> [lookup commands for working with Postgres]
 
 
-CREATE DATABASE "InfraCreditTRS"
+CREATE DATABASE "trmsdb"
     WITH 
-    OWNER = postgres
+    OWNER = trmsdbserveradmin
     ENCODING = 'UTF8'
     CONNECTION LIMIT = -1;
 
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+-- CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE SCHEMA IF NOT EXISTS trms;
 
+ALTER USER trmsdbserveradmin SET search_path = trms, public;
 
-CREATE TABLE TB_TRS_USERS(
-    userID uuid DEFAULT uuid_generate_v4 (),
+CREATE TABLE trms.TB_TRS_USERS(
+    -- userID uuid DEFAULT uuid_generate_v4 (),
+    userID INT NOT NULL,
     email VARCHAR NOT NULL UNIQUE,
     password VARCHAR NOT NULL,
     firstName  VARCHAR NOT NULL,
@@ -39,18 +42,23 @@ CREATE TABLE TB_TRS_USERS(
 
     status VARCHAR DEFAULT 'Inactive',
     record_entry VARCHAR,
-    activationCode VARCHAR
+    activationCode VARCHAR,
     PRIMARY KEY(email)
 );
 
+CREATE SEQUENCE IF NOT EXISTS trms.user_id_seq
+START 10000
+INCREMENT 1
+MINVALUE 10000
+OWNED BY trms.TB_TRS_USERS.userID;
 --###################[USER AUDITITNG BLOCK START]###################
 
 --This trigger propagates all user CUD operations on TB_TRS_USERS table
-CREATE TABLE TB_TRS_USERS_AUDIT(
+CREATE TABLE trms.TB_TRS_USERS_AUDIT(
     operation         char(1)   NOT NULL,
     stamp             timestamp NOT NULL,
     performed_by            text      NOT NULL,
-    userID uuid,
+    userID INT,
     email VARCHAR ,
     password VARCHAR,
     firstName  VARCHAR,
@@ -77,33 +85,33 @@ CREATE TABLE TB_TRS_USERS_AUDIT(
     activationCode VARCHAR
 );
 
-CREATE OR REPLACE FUNCTION FUNC_TRS_USERS_AUDIT() RETURNS TRIGGER AS $TB_TRS_USERS_AUDIT$
+CREATE OR REPLACE FUNCTION trms.FUNC_TRS_USERS_AUDIT() RETURNS TRIGGER AS $TB_TRS_USERS_AUDIT$
     BEGIN
         --
         -- Create a row in TB_TRS_USERS_AUDIT to reflect the operation performed on TB_TRS_USERS,
         -- making use of the special variable TG_OP to work out the operation.
         --
         IF (TG_OP = 'DELETE') THEN
-            INSERT INTO TB_TRS_USERS_AUDIT SELECT 'D', now(), user, OLD.*;
+            INSERT INTO trms.TB_TRS_USERS_AUDIT SELECT 'D', now(), user, OLD.*;
         ELSIF (TG_OP = 'UPDATE') THEN
-            INSERT INTO TB_TRS_USERS_AUDIT SELECT 'U', now(), user, NEW.*;
+            INSERT INTO trms.TB_TRS_USERS_AUDIT SELECT 'U', now(), user, NEW.*;
         ELSIF (TG_OP = 'INSERT') THEN
-            INSERT INTO TB_TRS_USERS_AUDIT SELECT 'I', now(), user, NEW.*;
+            INSERT INTO trms.TB_TRS_USERS_AUDIT SELECT 'I', now(), user, NEW.*;
         END IF;
         RETURN NULL; -- result is ignored since this is an AFTER trigger
     END;
 $TB_TRS_USERS_AUDIT$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TR_TRS_USERS_AUDIT
-AFTER INSERT OR UPDATE OR DELETE ON TB_TRS_USERS
-    FOR EACH ROW EXECUTE FUNCTION FUNC_TRS_USERS_AUDIT();
+AFTER INSERT OR UPDATE OR DELETE ON trms.TB_TRS_USERS
+    FOR EACH ROW EXECUTE FUNCTION trms.FUNC_TRS_USERS_AUDIT();
 
 --###################[USER AUDITITNG BLOCK END]###################
 
 
 --This table serves as the central repository for all deals
 
-CREATE TABLE TB_INFRCR_TRANSACTION(
+CREATE TABLE trms.TB_INFRCR_TRANSACTION(
     createDate DATE DEFAULT CURRENT_DATE,
     transID INT GENERATED ALWAYS AS IDENTITY,
     clientName VARCHAR NOT NULL,
@@ -165,7 +173,7 @@ CREATE TABLE TB_INFRCR_TRANSACTION(
 --###################[TRANSACTION AUDITITNG BLOCK START]###################
 
 --This trigger propagates all user CUD operations on TB_INFRCR_TRANSACTION table
-CREATE TABLE TB_INFRCR_TRANSACTION_AUDIT(
+CREATE TABLE trms.TB_INFRCR_TRANSACTION_AUDIT(
     operation         char(1)   NOT NULL,
     stamp             timestamp NOT NULL,
     performed_by            text      NOT NULL,
@@ -226,37 +234,37 @@ CREATE TABLE TB_INFRCR_TRANSACTION_AUDIT(
 
 );
 
-CREATE OR REPLACE FUNCTION FUNC_TRS_TRANSACTION_AUDIT() RETURNS TRIGGER AS $TB_INFRCR_TRANSACTION_AUDIT$
+CREATE OR REPLACE FUNCTION trms.FUNC_TRS_TRANSACTION_AUDIT() RETURNS TRIGGER AS $TB_INFRCR_TRANSACTION_AUDIT$
     BEGIN
         --
         -- Create a row in TB_INFRCR_TRANSACTION_AUDIT to reflect the operation performed on TB_INFRCR_TRANSACTION,
         -- making use of the special variable TG_OP to work out the operation.
         --
         IF (TG_OP = 'DELETE') THEN
-            INSERT INTO TB_INFRCR_TRANSACTION_AUDIT SELECT 'D', now(), user, OLD.*;
+            INSERT INTO trms.TB_INFRCR_TRANSACTION_AUDIT SELECT 'D', now(), user, OLD.*;
         ELSIF (TG_OP = 'UPDATE') THEN
-            INSERT INTO TB_INFRCR_TRANSACTION_AUDIT SELECT 'U', now(), user, NEW.*;
+            INSERT INTO trms.TB_INFRCR_TRANSACTION_AUDIT SELECT 'U', now(), user, NEW.*;
         ELSIF (TG_OP = 'INSERT') THEN
-            INSERT INTO TB_INFRCR_TRANSACTION_AUDIT SELECT 'I', now(), user, NEW.*;
+            INSERT INTO trms.TB_INFRCR_TRANSACTION_AUDIT SELECT 'I', now(), user, NEW.*;
         END IF;
         RETURN NULL; -- result is ignored since this is an AFTER trigger
     END;
 $TB_INFRCR_TRANSACTION_AUDIT$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TR_TRS_TRANSACTION_AUDIT
-AFTER INSERT OR UPDATE OR DELETE ON TB_INFRCR_TRANSACTION
-    FOR EACH ROW EXECUTE FUNCTION FUNC_TRS_TRANSACTION_AUDIT();
+AFTER INSERT OR UPDATE OR DELETE ON trms.TB_INFRCR_TRANSACTION
+    FOR EACH ROW EXECUTE FUNCTION trms.FUNC_TRS_TRANSACTION_AUDIT();
 
 --###################[TRANSACTION AUDITITNG BLOCK END]###################
 
 --This table holds the meaning of the various deal category as defined by the company
-CREATE TABLE TB_INFRCR_DEAL_CATEGORY
+CREATE TABLE trms.TB_INFRCR_DEAL_CATEGORY
 (
 categoryID VARCHAR(6),
 description VARCHAR,
 PRIMARY KEY(categoryID)
-)
-INSERT INTO TB_INFRCR_DEAL_CATEGORY(categoryID, description)
+);
+INSERT INTO trms.TB_INFRCR_DEAL_CATEGORY(categoryID, description)
 VALUES('greenA','Transaction has obtained Credit Committee approval'),
         ('greenB','Guarantee Document in agreed form'),
         ('greenC','Professional Parties to the Bond Issue appointed or selected'),
@@ -276,13 +284,13 @@ VALUES('greenA','Transaction has obtained Credit Committee approval'),
 
 
 --All industries within the InfraCredit business net
-CREATE TABLE TB_INFRCR_INDUSTRY
+CREATE TABLE trms.TB_INFRCR_INDUSTRY
 (
 industryID INT GENERATED ALWAYS AS IDENTITY,
 industry VARCHAR,
 PRIMARY KEY(industry)
 );
-INSERT INTO TB_INFRCR_INDUSTRY(industry)
+INSERT INTO trms.TB_INFRCR_INDUSTRY(industry)
 VALUES('On-grid Power'),
     ('Off-grid Power'),
     ('Agric. Infra.'),
@@ -296,13 +304,13 @@ VALUES('On-grid Power'),
     ('ICT/Telecoms');
 
 --All products within the InfraCredit business net
-CREATE TABLE TB_INFRCR_PRODUCT
+CREATE TABLE trms.TB_INFRCR_PRODUCT
 (
 productID INT GENERATED ALWAYS AS IDENTITY,
 product VARCHAR,
 PRIMARY KEY(product)
 );
-INSERT INTO TB_INFRCR_PRODUCT(product)
+INSERT INTO trms.TB_INFRCR_PRODUCT(product)
 VALUES('Public Bond'),
     ('Private Bond (Clean Energy)'),
     ('Contigent Refi. Gte'),
@@ -311,14 +319,14 @@ VALUES('Public Bond'),
     ('Private Bond (Other)');
 
 --All geographical regions within the InfraCredit business net
-CREATE TABLE TB_INFRCR_REGION
+CREATE TABLE trms.TB_INFRCR_REGION
 (
 regionID INT GENERATED ALWAYS AS IDENTITY,
 region VARCHAR(5),
 country VARCHAR NULL,
 PRIMARY KEY(region)
 );
-INSERT INTO TB_INFRCR_REGION(region, country)
+INSERT INTO trms.TB_INFRCR_REGION(region, country)
 VALUES('SW', 'NIGERIA'),
     ('SS', 'NIGERIA'),
     ('SE', 'NIGERIA'),
@@ -327,38 +335,38 @@ VALUES('SW', 'NIGERIA'),
     ('NE', 'NIGERIA');
 
 --All possible repayment frequencies defined by InfraCredit
-CREATE TABLE TB_INFRCR_REPAYMENT_FRQ
+CREATE TABLE trms.TB_INFRCR_REPAYMENT_FRQ
 (
 ID INT GENERATED ALWAYS AS IDENTITY,
 frequency VARCHAR,
 PRIMARY KEY(frequency)
 );
-INSERT INTO TB_INFRCR_REPAYMENT_FRQ(frequency)
+INSERT INTO trms.TB_INFRCR_REPAYMENT_FRQ(frequency)
 VALUES('Monthly'),
     ('Quarterly'),
     ('Semi-Annually'),
     ('Annually');
 
 --All possible amortization styles defined by InfraCredit
-CREATE TABLE TB_INFRCR_AMORTIZATION_STY
+CREATE TABLE trms.TB_INFRCR_AMORTIZATION_STY
 (
 ID INT GENERATED ALWAYS AS IDENTITY,
 amortizationStyle VARCHAR,
 PRIMARY KEY(amortizationStyle)
 );
-INSERT INTO TB_INFRCR_AMORTIZATION_STY(amortizationStyle)
+INSERT INTO trms.TB_INFRCR_AMORTIZATION_STY(amortizationStyle)
 VALUES('Straight-Line'),
     ('Annuity'),
     ('Any Other');
 
 --All possible staff level defined by InfraCredit
-CREATE TABLE TB_INFRCR_STAFF_LEVELS
+CREATE TABLE trms.TB_INFRCR_STAFF_LEVELS
 (
 levelID INT GENERATED ALWAYS AS IDENTITY,
 staffLevel VARCHAR,
 PRIMARY KEY(staffLevel)
 );
-INSERT INTO TB_INFRCR_STAFF_LEVELS(staffLevel)
+INSERT INTO trms.TB_INFRCR_STAFF_LEVELS(staffLevel)
 VALUES
     ('CEO'),
     ('VP'),
@@ -366,51 +374,34 @@ VALUES
     ('CONTRACT'),
     ('ANALYST');
 
--- Current Stafflist as defined by InfraCredit
-CREATE TABLE TB_INFRCR_STAFFLIST
-(
-staffID INT GENERATED ALWAYS AS IDENTITY,
-staffList VARCHAR,
-PRIMARY KEY(staffList)
-);
-INSERT INTO TB_INFRCR_STAFFLIST(staffList)
-VALUES
-    ('Chinua Azubike'),
-    ('Daniel Mueller'),
-    ('Chido Onyilimba'),
-    ('Shadrach Iguh'),
-    ('Solape Oguntayo'),
-	('Tolulope Adesina'),
-	('Omolara Ekundayo'),
-	('Yemi Rufai'),
-	('Osaze Osaghae'),
-	('Babajide Oladimeji'),
-	('Obiajuru Adeniji'),
-	('Uzoma Okoro'),
-	('Muyiwa Jesuro');
+--CONNECT THIS TO THE AD AND AUTO POPULATE THE LEVEL ONCE NAME IS SELECTED DURING TRANSACTION CREATION PROCESS
+-- CREATE TABLE  IF NOT EXISTS TB_INFRCR_STAFFLIST
+-- (
+-- staffID INT GENERATED ALWAYS AS IDENTITY,
+-- F= VARCHAR,
+-- staffLevel VARCHAR NULL,
+-- PRIMARY KEY(staffList)
+-- );
+-- INSERT INTO TB_INFRCR_STAFFLIST(staffList)
+-- VALUES
+--     ('Chinua Azubike'),
+--     ('Daniel Mueller'),
+--     ('Chido Onyilimba'),
+--     ('Shadrach Iguh'),
+--     ('Solape Oguntayo'),
+--     ('Tolulope Adesina'),
+--     ('Omolara Ekundayo'),
+--     ('Yemi Rufai'),
+--     ('Osaze Osaghae'),
+--     ('Babajide Oladimeji'),
+--     ('Obiajuru Adeniji'),
+--     ('Uzoma Okoro'),
+--     ('Muyiwa Jesuro');
 
---Create a function to generate this patter for deals' transaction ID
-'INFCR0000000001'
-
---General Instruction to Front End Developers
--- mandateLetter DATE NOT NULL ** use datepicker
--- creditApproval DATE  ** use datepicker
--- feeLetter DATE  ** use datepicker
--- expectedClose DATE  ** use datepicker
--- actualClose DATE  ** use datepicker
-
---Questions for Client
---[Transaction Module]
---1. originator vs transactor relationship
---2. Structuring Fee's Advance and Final - How are they calculated
---3. What else needs to be audited
-
---[Next:=>]
----1. Create maintenance function on all tables
----2. Create timed trigger to run maintenance
-
---[Rules]:
---1. User status will be inactive until password is reset
---2. Only Admin role can onboard new staff
---3. Admin role will be granted after approval and from backend (review most convinient option)
---All geographical regions within the InfraCredit business net
+INSERT INTO trms.TB_TRS_USERS(
+                  userID, email, password, firstName, lastName,
+                  level, hasOriginationTarget, originationAmount, guaranteePipeline,
+                  greenTransaction, amberTransaction, mandateLetter, creditCommiteeApproval,
+                  feeLetter, financialClose, record_entry, status, isadmin
+                  )
+values(nextval('trms.user_id_seq'), 'trms@infracredit.ng', 'U2FsdGVkX1/+HYRk+9HGscroXD/vVTXbCGYM43JRMVc=','appuser', 'appuser', 'mvp', false, 0, 0,0,0,0,0,0,0,'', 'Active', true)

@@ -164,7 +164,8 @@ router.get('/category', verifyTokenAndAuthorization, async (req, res) => {
 });
 
 // fetch all staff by authorized users
-router.get('/staff_list', verifyToken, async (req, res) => {
+
+router.get('/staff_list', verifyTokenAndAuthorization, async (req, res) => {
     const client = await pool.connect();
     try {
         const staff = await client.query(

@@ -132,6 +132,7 @@ router.get('/my_deals', verifyTokenAndAuthorization, async (req, res) => {
             `SELECT * 
             FROM TB_INFRCR_TRANSACTION
             WHERE originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
+            OR transactor = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
             `,
             [current_user.Email]);
         if (my_deals) { 
