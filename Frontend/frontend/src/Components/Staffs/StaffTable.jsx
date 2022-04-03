@@ -135,7 +135,6 @@ const StaffTable = () => {
       });
   };
 
-  console.log("staff data", staff)
 
   const openStaff = (rowIndex) => {
     const id = staffRef.current[rowIndex].id;

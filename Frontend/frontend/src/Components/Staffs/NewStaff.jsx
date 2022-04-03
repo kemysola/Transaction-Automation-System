@@ -64,6 +64,7 @@ export default function NewStaff() {
         creditCommiteeApproval: 8.0,
         feeLetter: 10.0,
         financialClose: 80.0,
+        isadmin: "false"
     };
 
     const [staff, setStaff] = useState(initialStaffState);
@@ -114,9 +115,10 @@ export default function NewStaff() {
             "creditCommiteeApproval": +staff.creditCommiteeApproval,
             "feeLetter": +staff.feeLetter,
             "status": "Inactive",
-            "isAdmin": null
+            "isadmin": JSON.parse(staff.isadmin)
         };
-
+ 
+        console.log("######", data)
 
         Services.registerStaff(data)
             .then(response => {
@@ -221,6 +223,19 @@ export default function NewStaff() {
                                                     </Form.Group>
                                                 </Col>
 
+                                                <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                                                <Row>       
+                                                <Col sm={4}  className='mt-3 pt-2'>
+                                                        <Form.Label>Admin</Form.Label>
+                                                </Col>
+                                                <Col sm={4}  className='mt-3 pt-2'>
+                                                            <Form.Check inline type="radio" label="Yes"  value={true} name='isAdmin' onChange={handleInputChange} />
+                                                            <Form.Check inline type="radio" label="No"  value={false} name='isAdmin' onChange={handleInputChange} defaultChecked/>
+                
+                                                        </Col>
+                                                </Row> 
+                                            </Form.Group>
+
                                                 <Col sm={12}  className='mt-2 pt-2'>
                                                     <Form.Group>
                                                         <Form.Label>Level</Form.Label>
@@ -233,6 +248,7 @@ export default function NewStaff() {
                                                     </Form.Group>
                                                 </Col>
 
+                            
                                             </Row>
 
                                             <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button>
@@ -253,7 +269,7 @@ export default function NewStaff() {
                                                     </Col>
                                                 </Row>
                                             </Form.Group>
-
+                                       
                                             <p style={{ fontWeight: 'bold', fontSize: '11px' }} className='mb-0 mt-1 pt-1 pb-1'>Targets</p>
                                             <Row>
                                                 <Col sm={6}>
