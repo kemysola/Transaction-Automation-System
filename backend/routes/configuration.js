@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const pool = require("../database");
-const {verifyTokenAndAuthorization} = require("../middleware"); 
+const {verifyTokenAndAuthorization, verifyToken} = require("../middleware"); 
 
 // fetch all staff level by authorized users
 router.get('/level', verifyTokenAndAuthorization, async (req, res) => {
@@ -164,7 +164,7 @@ router.get('/category', verifyTokenAndAuthorization, async (req, res) => {
 });
 
 // fetch all staff by authorized users
-router.get('/staff_list', verifyTokenAndAuthorization, async (req, res) => {
+router.get('/staff_list', verifyToken, async (req, res) => {
     const client = await pool.connect();
     try {
         const staff = await client.query(
@@ -177,14 +177,12 @@ router.get('/staff_list', verifyTokenAndAuthorization, async (req, res) => {
                 status: (res.statusCode = 200),
                 staffList: staff.rows
             })
-
         }
-
     } catch (e) {
         res.status(403).json({ Error: e.stack });
-    }finally{
+    } finally{
         client.release()
-      }
+    }
 });
 
 module.exports = router;
