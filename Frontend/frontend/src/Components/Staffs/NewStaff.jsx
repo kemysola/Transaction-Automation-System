@@ -126,8 +126,8 @@ export default function NewStaff() {
                 setSubmitted(true)
             })
             .catch(error => {
-                setResponse("Failed to Create User. Please Try Again")
-                setSubmitted(true)
+                setResponse("Failed to Create User. Kindly fill required fields")
+                setSubmitted(false)
             });
     };
 
@@ -359,6 +359,9 @@ export default function NewStaff() {
                                         </Container1>
                                         <br />
                                         <br />
+                                        <div>
+                                            <p className='text-danger d-flex justify-content-end'>{response}</p>
+                                        </div>
 
                                         <div className='d-flex justify-content-end'>
                                             <ButtonWrapper onClick={saveStaff} >
