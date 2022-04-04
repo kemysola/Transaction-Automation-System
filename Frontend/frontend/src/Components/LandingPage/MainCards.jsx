@@ -80,6 +80,7 @@ const MainCards = () => {
                 </Row>
             </Container>
             <Container>
+                <br/>
                 <div class='subCardsContainer'>
                     <SubCards />
                 </div>
