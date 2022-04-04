@@ -63,7 +63,7 @@ export default function SubCards() {
     return (
         <React.Fragment>
             <Container className=''>
-                <Row className='mb-3 bg-light' >
+                <Row className='mb-3' style={{background:'white'}} >
                     <Col lg={3}  sm={6}className='my-2' >
                         <div className='py-1'>
                             <div style={{ borderRight: '1px solid black' }}>
