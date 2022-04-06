@@ -287,9 +287,6 @@ function handlePrevChange() {
     });
   }
 
-  console.log("industries i hope", industries)
-  console.log("deal data", deal)
-
   function postData(e) {
     e.preventDefault()
     let allNotes = noteList.map(({ note }) => note)
