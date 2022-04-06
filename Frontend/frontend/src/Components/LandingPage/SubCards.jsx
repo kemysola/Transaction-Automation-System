@@ -74,8 +74,8 @@ export default function SubCards() {
                                   </small>
                                 <br />
                                 <p style={{fontWeight:'bold', fontSize:'20px'}}>
-                                  {`₦${(sumTotal / 1000000).toLocaleString("en-US", {
-                                    minimumFractionDigits: 2,
+                                  {`₦${(sumTotal).toLocaleString("en-US", {
+                                    minimumFractionDigits: 1,
                                     maximumFractionDigits: 2
                                   })}bn`}
                               </p>

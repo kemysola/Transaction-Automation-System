@@ -75,6 +75,11 @@ export default function UpdateTransactions() {
   const [noteList, setNoteList] = useState([{ note: "" }])
   const [activeTab, setActiveTab] = useState('first');
   const [dealActiveTab, setDealActiveTab] = useState('deal');
+  const [industries, setIndustries] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [regions, setRegions] = useState([]);
+  const [frequency, setFrequency] = useState([]);
+  const [style, setStyle] = useState([]);
   const [greenA, setGreenA] = useState("");
   const [greenB, setGreenB] = useState("");
   const [greenC, setGreenC] = useState("");
@@ -89,6 +94,7 @@ export default function UpdateTransactions() {
   const [redA, setRedA] = useState("");
   const [redB, setRedB] = useState("");
   const [redC, setRedC] = useState("");
+  const [staffList, setStaffList] = useState([]);
   
 
   const handleNoteChange = (e, index) => {
@@ -111,6 +117,30 @@ export default function UpdateTransactions() {
   useEffect(() => {
     retrieveDeal();
   }, []);
+
+  useEffect(() => {
+    retrieveStaffList();
+  }, [])
+
+  useEffect(() => {
+    retrieveIndustry();
+  }, [])
+
+  useEffect(() => {
+    retrieveProduct();
+  }, [])
+
+  useEffect(() => {
+    retrieveRegion();
+  }, [])
+
+  useEffect(() => {
+    retrieveRepaymentFreq();
+  }, [])
+
+  useEffect(() => {
+    retrieveAmortizationStyle();
+  }, [])
 
   const retrieveDeal = async () => {
     // function to get deal by id from the database
@@ -143,6 +173,66 @@ export default function UpdateTransactions() {
     setRedB(data.data.dealInfo[0].redb)
     setRedC(data.data.dealInfo[0].redc)
   } ;
+
+  const retrieveStaffList = () => {
+    Service.getStaffList()
+    .then((response) => {
+      setStaffList(response.data.staffList);
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+  };
+
+  const retrieveIndustry = () => {
+    Service.getIndustry()
+    .then((response) => {
+        setIndustries(response.data.industry);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const retrieveProduct = () => {
+    Service.getProduct()
+    .then((response) => {
+        setProducts(response.data.product);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const retrieveRegion = () => {
+    Service.getRegion()
+    .then((response) => {
+        setRegions(response.data.region);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const retrieveRepaymentFreq = () => {
+    Service.getRepaymentFreq()
+    .then((response) => {
+        setFrequency(response.data.frequency);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const retrieveAmortizationStyle = () => {
+    Service.getAmortizationSty()
+    .then((response) => {
+        setStyle(response.data.amortization);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   function toNextTab(e) {
     e.preventDefault();
@@ -177,7 +267,6 @@ function handleTabChange() {
     if (activeTab === 'fourth') {
         setActiveTab('sixth');
     }
-
 }
 
 function handlePrevChange() {
@@ -288,25 +377,42 @@ function handlePrevChange() {
                   <Col sm={6}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Originator</Form.Label>
-                    <Form.Control size="sm" type="text" defaultValue={deal[0].originator} id='originator' ref={originator}/>
+                      <Form.Select size="sm" id='originator' ref={originator}>
+                        {staffList.map((opt, i) => (
+                          <option key={staffList[i].email} value={staffList[i].stafflist} selected={staffList[i].stafflist === deal[0].originator}>
+                            {staffList[i].stafflist}
+                          </option>
+                        ))}
+                      </Form.Select>
                     </Form.Group>
                   </Col>
 
                   <Col sm={6}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Transactor</Form.Label>
-                      <Form.Control size="sm" type="text" defaultValue={deal[0].transactor}  id='transactor' ref={transactor}/>
+                      <Form.Select size="sm" id='transactor' ref={transactor}>
+                        {staffList.map((opt, i) => (
+                          <option key={staffList[i].email} value={staffList[i].stafflist} selected={staffList[i].stafflist === deal[0].transactor}>
+                            {staffList[i].stafflist}
+                          </option>
+                        ))}
+                      </Form.Select>                      
                     </Form.Group>
                   </Col>
+
                   <Col sm={6}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Transaction Legal Lead</Form.Label>
-                      <Form.Control size="sm" type="text" defaultValue={deal[0].transactionlegallead} id='transactionLegalLead' ref={transactionLegalLead}/>
+                      <Form.Select size="sm" id='transactionLegalLead' ref={transactionLegalLead}>
+                        {staffList.map((opt, i) => (
+                          <option key={staffList[i].email} value={staffList[i].stafflist} selected={staffList[i].stafflist === deal[0].transactionlegallead}>
+                            {staffList[i].stafflist}
+                          </option>
+                        ))}
+                      </Form.Select>  
                     </Form.Group>
                   </Col>
-                  
-                  {/* <div className="d-flex"> */}
-                  
+                                    
                   <Col sm={12}>
                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                       <Form.Label>Note</Form.Label> <button type = "button" style={{fontSize: '10px', padding: '2px 10px', margin: '8px', background: 'steelblue', color: 'white', borderRadius: '3px'}} onClick={handleNoteAdd}>+</button> 
@@ -344,18 +450,11 @@ function handlePrevChange() {
                       <Form.Group className="">
                         <Form.Label>Industry</Form.Label>
                         <Form.Select size="sm" id='industry' ref={industry}>
-                          <option value={deal[0].industry}>{deal[0].industry}</option>
-                          <option value="On-grid Power">On-grid Power</option>
-                          <option value="Off-grid Power">Off-grid Power</option>
-                          <option value="Agric Infra.">Agric Infra.</option>
-                          <option value="Gas">Gas</option>
-                          <option value="Transportation">Transportation</option>
-                          <option value="Inputs to Infra.">Inputs to Infra.</option>
-                          <option value="Affordable Housing">Affordable Housing</option>
-                          <option value="Education Infra.">Education Infra.</option>
-                          <option value="Healthcare">Healthcare</option>
-                          <option value="Water/Waste">Water/Waste</option>
-                          <option value="ICT/Telecoms">ICT/Telecoms</option>
+                          {industries.map((opt, i) => (
+                            <option key={industries[i].industryid} value={industries[i].industry} selected={industries[i].industry === deal[0].industry}>
+                              {industries[i].industry}
+                            </option>
+                          ))}
                         </Form.Select>
                       </Form.Group>
                     </Col>
@@ -364,13 +463,11 @@ function handlePrevChange() {
                       <Form.Group className="">
                         <Form.Label>Products</Form.Label>
                         <Form.Select size="sm" id='products' ref={product}>
-                          <option value={deal[0].product}>{deal[0].product}</option>
-                          <option value="Public Bond">Public Bond</option>
-                          <option value="Private Bond (Clean Energy)">Private Bond (Clean Energy)</option>
-                          <option value="Contingent Refi. Gte.">Contingent Refi. Gte.</option>
-                          <option value="Annuity PPP">Annuity PPP</option>
-                          <option value="Blended Finance">Blended Finance</option>
-                          <option value="Private Bond (Other)">Private Bond (Other)</option>
+                          {products.map((opt, i) => (
+                            <option key={products[i].productid} value={products[i].product} selected={products[i].product === deal[0].product}>
+                              {products[i].product}
+                            </option>
+                          ))}
                         </Form.Select>
                       </Form.Group>
                     </Col>
@@ -379,13 +476,11 @@ function handlePrevChange() {
                       <Form.Group className="">
                         <Form.Label>Region</Form.Label>
                         <Form.Select size="sm" id='region' ref={region}>
-                          <option value={deal[0].region}>{deal[0].region}</option>
-                          <option value="SW">SW</option>
-                          <option value="SE">SE</option>
-                          <option value="SS">SS</option>
-                          <option value="NW">NW</option>
-                          <option value="NE">NE</option>
-                          <option value="NC">NC</option>
+                          {regions.map((opt, i) => (
+                            <option key={regions[i].regionid} value={regions[i].region} selected={regions[i].region === deal[0].region}>
+                              {regions[i].region}
+                            </option>
+                          ))}
                         </Form.Select>
                       </Form.Group>
                     </Col>
@@ -409,7 +504,7 @@ function handlePrevChange() {
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Tenor(yrs)</Form.Label>
-                      <Form.Control size="sm" type="text" defaultValue={deal[0].tenor} id='tenor' ref={tenor}/>
+                      <Form.Control size="sm" type="numeric" defaultValue={deal[0].tenor} id='tenor' ref={tenor}/>
                       </Form.Group>
                     </Col>
 
@@ -426,11 +521,11 @@ function handlePrevChange() {
                       <Form.Group className="">
                         <Form.Label>Repayment Frequency</Form.Label>
                         <Form.Select size="sm" id='frequency' ref={repaymentFreq}>
-                          <option value={deal[0].repaymentfrequency}>{deal[0].repaymentfrequency}</option>
-                          <option value="Monthly">Monthly</option>
-                          <option value="Quarterly">Quarterly</option>
-                          <option value="Semi-Annually">Semi-Annually</option>
-                          <option value="Annually">Annually</option>
+                          {frequency.map((opt, i) => (
+                              <option key={frequency[i].id} value={frequency[i].frequency} selected={frequency[i].frequency === deal[0].repaymentfrequency}>
+                                {frequency[i].frequency}
+                              </option>
+                          ))}
                         </Form.Select>
                       </Form.Group>
                     </Col>
@@ -439,17 +534,12 @@ function handlePrevChange() {
                       <Form.Group className="">
                         <Form.Label>Amortisation Style</Form.Label>
                         <Form.Select size="sm" id='amortizationStyle' ref={amortizationStyle}>
-                          <option value={deal[0].amortizationstyle}>{deal[0].amortizationstyle}</option>
-                          <option value="Annuity">Annuity</option>
-                          <option value="Straight-Line">Straight-Line</option>
+                         {style.map((opt, i) => (
+                            <option key={style[i].id} value={style[i].amortizationstyle} selected={style[i].amortizationstyle === deal[0].amortizationstyle}>
+                              {style[i].amortizationstyle}
+                            </option>
+                          ))}
                         </Form.Select>
-                      </Form.Group>
-                    </Col>
-
-                    <Col sm={6}>
-                      <Form.Group className="pt-1">
-                        <Form.Label>Mandate Letter</Form.Label>
-                      <Form.Control size="sm" type="date" defaultValue={new Date(deal[0].mandateletter).toISOString().split('T')[0] || null} id='mandateLetter' ref={mandateLetter} required/>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -457,29 +547,36 @@ function handlePrevChange() {
                   <Row className='mt-1 pt-3' >
                     <Col sm={6}>
                       <Form.Group className="pt-1">
+                        <Form.Label>Mandate Letter</Form.Label>
+                      <Form.Control size="sm" type="date" defaultValue={deal[0].mandateletter ? new Date(deal[0].mandateletter).toISOString().split('T')[0] : null} id='mandateLetter' ref={mandateLetter} required/>
+                      </Form.Group>
+                    </Col>
+                  
+                    <Col sm={6}>
+                      <Form.Group className="pt-1">
                         <Form.Label>Credit Approval</Form.Label>
-                        <Form.Control size="sm" type="date" defaultValue={new Date(deal[0].creditapproval).toISOString().split('T')[0] || null} id='creditApproval' ref={creditApproval}/>
+                        <Form.Control size="sm" type="date" defaultValue={deal[0].creditapproval ? new Date(deal[0].creditapproval).toISOString().split('T')[0] : null} id='creditApproval' ref={creditApproval}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Fee Letter</Form.Label>
-                        <Form.Control size="sm" type="date" defaultValue={new Date(deal[0].feeletter).toISOString().split('T')[0] || null} id='feeLetter' ref={feeLetter}/>
+                        <Form.Control size="sm" type="date" defaultValue={deal[0].feeletter ? new Date(deal[0].feeletter).toISOString().split('T')[0] : null} id='feeLetter' ref={feeLetter}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Expected Close</Form.Label>
-                        <Form.Control size="sm" type="date" defaultValue={null || new Date(deal[0].expectedclose).toISOString().split('T')[0]} id='expectedClose' ref={exceptedClose}/>
+                        <Form.Control size="sm" type="date" defaultValue={deal[0].expectedclose ? new Date(deal[0].expectedclose).toISOString().split('T')[0] : null} id='expectedClose' ref={exceptedClose}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Actual Close</Form.Label>
-                        <Form.Control size="sm" type="date" defaultValue={new Date(deal[0].actualclose).toISOString().split('T')[0] || null} id='actualClose' ref={actualClose}/>
+                        <Form.Control size="sm" type="date" defaultValue={deal[0].actualclose ? new Date(deal[0].actualclose).toISOString().split('T')[0] : null} id='actualClose' ref={actualClose}/>
                       </Form.Group>
                     </Col>
 

@@ -201,57 +201,57 @@ export default function Progress() {
 
   const chartData = [
     {
-      name: `On-grid Power: ₦${(option1Total/1000000).toFixed(2)}bn`,
+      name: `On-grid Power: ₦${(option1Total).toFixed(1)}bn`,
       value: option1Total,
       percent: `${((option1Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Off-grid Power: ₦${(option2Total/1000000).toFixed(2)}bn`,
+      name: `Off-grid Power: ₦${(option2Total).toFixed(1)}bn`,
       value: option2Total,
       percent: `${((option2Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Agric infra: ₦${(option3Total/1000000).toFixed(2)}bn`,
+      name: `Agric infra: ₦${(option3Total).toFixed(1)}bn`,
       value: option3Total,
       percent: `${((option3Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Gas: ₦${(option4Total/1000000).toFixed(2)}bn`,
+      name: `Gas: ₦${(option4Total).toFixed(1)}bn`,
       value: option4Total,
       percent: `${((option4Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Transport: ₦${(option5Total/1000000).toFixed(2)}bn`,
+      name: `Transport: ₦${(option5Total).toFixed(1)}bn`,
       value: option5Total,
       percent: `${((option5Total / sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Inputs to Infra: ₦${(option6Total/1000000).toFixed(2)}bn`,
+      name: `Inputs to Infra: ₦${(option6Total).toFixed(1)}bn`,
       value: option6Total,
       percent: `${((option6Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name:  `Affordable Housing: ₦${(option7Total/1000000).toFixed(2)}bn`,
+      name:  `Affordable Housing: ₦${(option7Total).toFixed(1)}bn`,
       value: option7Total,
       percent: `${((option7Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Education Infra: ₦${(option8Total/1000000).toFixed(2)}bn`,
+      name: `Education Infra: ₦${(option8Total).toFixed(1)}bn`,
       value: option8Total,
       percent: `${((option8Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Healthcare: ₦${(option9Total/1000000).toFixed(2)}bn`,
+      name: `Healthcare: ₦${(option9Total).toFixed(1)}bn`,
       value: option9Total,
       percent: `${((option9Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Water/Waste: ₦${(option10Total/1000000).toFixed(2)} bn`,
+      name: `Water/Waste: ₦${(option10Total).toFixed(1)} bn`,
       value: option10Total,
       percent: `${((option10Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `ICT/Telecoms: ₦${(option11Total/1000000).toFixed(2)}bn`,
+      name: `ICT/Telecoms: ₦${(option11Total).toFixed(1)}bn`,
       value: option11Total,
       percent: `${((option11Total/sumTotal) * 100).toFixed(1)}%`
     },
@@ -345,33 +345,33 @@ export default function Progress() {
 
   const productChartData = [
     {
-      name: `Public Bond: ₦${(productOption1Total/1000000).toFixed(2)}bn`,
+      name: `Public Bond: ₦${(productOption1Total).toFixed(1)}bn`,
       value: productOption1Total,
       percent: `${((productOption1Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Blended Finance: ₦${(productOption2Total/1000000).toFixed(2)}bn`,
+      name: `Blended Finance: ₦${(productOption2Total).toFixed(1)}bn`,
       value: productOption2Total,
       percent: `${((productOption2Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Contigent Refi. Gte.: ₦${(productOption3Total/1000000).toFixed(2)}bn`,
+      name: `Contigent Refi. Gte.: ₦${(productOption3Total).toFixed(1)}bn`,
       value: productOption3Total,
       percent: `${((productOption3Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Private Bond (Clean Energy): ₦${(productOption4Total/1000000).toFixed(2)}bn`,
+      name: `Private Bond (Clean Energy): ₦${(productOption4Total).toFixed(1)}bn`,
       value: productOption4Total,
       percent: `${((productOption4Total/sumTotal) * 100).toFixed(1)}%`
 
     },
     {
-      name: `Private Bond (Other): ₦${(productOption5Total/1000000).toFixed(2)}bn`,
+      name: `Private Bond (Other): ₦${(productOption5Total).toFixed(1)}bn`,
       value: productOption5Total,
       percent: `${((productOption5Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Annuity PPP: ₦${(productOption6Total/1000000).toFixed(2)}bn`,
+      name: `Annuity PPP: ₦${(productOption6Total).toFixed(1)}bn`,
       value: productOption6Total,
       percent: `${((productOption6Total/sumTotal) * 100).toFixed(1)}%`
 

@@ -268,12 +268,6 @@ const AddDeal = () => {
     setNoteList(list);
   };
 
-  // const required = (value) => {
-  //   if (isEmpty(value)) {
-  //       return <small className="form-text text-danger">This field is required</small>;
-  //   }
-  // }
-
   const saveDeal = (e) => { // function to save users data and post to db
     e.preventDefault()
     form.current.validateAll();
@@ -323,8 +317,6 @@ const AddDeal = () => {
       "closed": false
     };
 
-
-
     Services.createDeal(data)
       .then(res => {
         setResponse(res.data.message)
@@ -371,7 +363,6 @@ const AddDeal = () => {
                           <Fm.Group className="mb-0 mt-1 pt-1 pb-1">
                             <Fm.Label>Client Name</Fm.Label>
                             <Input type="text" value={deal.clientName} onChange={handleInputChange} name='clientName' validations={[required]} style={{width:'100%', padding:'4px 2px', focus:'none'}}/>
-                            {/*<Input size="sm" type="text" value={deal.clientName} onChange={handleInputChange} name='clientName' validations={[required]} />*/}
                           </Fm.Group>
                         </Col>
 
@@ -441,9 +432,6 @@ const AddDeal = () => {
                   <Tab eventKey="second" title="DEAL PROFILE ">
                     <Container1>
                       <div className='mt-2'>
-                        {/*<PWrapper>
-                          <h6 className="pt-1 mt-1" style={{ fontSize: "13px" }}>Deal Profile Fees & Reimbursement</h6>
-                            </PWrapper>*/}
 
                         <Row>
                           <Col sm={6} className='my-0 py-0'>
@@ -538,15 +526,16 @@ const AddDeal = () => {
                               </Select>
                             </Fm.Group>
                           </Col>
+                        </Row>
 
+                        <Row className='mt-1 pt-3' >
                           <Col sm={6}>
                             <Fm.Group className="pt-1">
                               <Fm.Label>Mandate Letter</Fm.Label>
                               <Input size="sm" type="date" value={deal.mandateLetter} onChange={handleInputChange} name='mandateLetter' style={{width:'100%', padding:'6px 1px', focus:'none'}} validations={[required]}/>
                             </Fm.Group>
                           </Col>
-                        </Row>
-                        <Row className='mt-1 pt-3' >
+                        
                           <Col sm={6}>
                             <Fm.Group className="pt-1">
                               <Fm.Label>Credit Approval</Fm.Label>
@@ -561,21 +550,21 @@ const AddDeal = () => {
                             </Fm.Group>
                           </Col>
 
-                          <Col sm={6} className='pt-3'>
+                          <Col sm={6}>
                             <Fm.Group className="pt-1">
                               <Fm.Label>Expected Close</Fm.Label>
                               <Input size="sm" type="date" value={deal.expectedClose} onChange={handleInputChange} name='expectedClose'  style={{width:'100%', padding:'6px 1px', focus:'none'}}/>
                             </Fm.Group>
                           </Col>
 
-                          <Col sm={6} className='pt-3'>
+                          <Col sm={6}>
                             <Fm.Group className="pt-1">
                               <Fm.Label>Actual Close</Fm.Label>
                               <Input size="sm" type="date" value={deal.actualClose} onChange={handleInputChange} name='actualClose' style={{width:'100%', padding:'6px 1px', focus:'none'}} />
                             </Fm.Group>
                           </Col>
 
-                          <Col sm={6} className='pt-3'>
+                          <Col sm={6}>
                             <Fm.Group className="pt-1">
                               <Fm.Label>NBC Approval</Fm.Label>
                               <Input size="sm" type="date"   name='nbcClose'  style={{width:'100%', padding:'6px 1px', focus:'none'}} />
@@ -617,7 +606,7 @@ const AddDeal = () => {
                           </Col>
 
                           <Col sm={6} className='my-0 py-0'>
-                            <Fm.Group>
+                            <Fm.Group className="pt-1">
                               <Fm.Label>Final(%)</Fm.Label>
                               <Input size="sm" type="number" value={deal.structuringFeeFinal} onChange={handleInputChange} name='structuringFeeFinal' disabled style={{width:'100%', padding:'4px 1px', focus:'none'}} />
                             </Fm.Group>
@@ -626,8 +615,7 @@ const AddDeal = () => {
                           <Col sm={6} className='my-0 py-0'>
                             <Fm.Group className="pt-1">
                               <Fm.Label>Guarantee (%)</Fm.Label>
-                              <Input size="sm" type="number" value={deal.guaranteeFee} onChange={handleInputChange} name='guaranteeFee'  style={{width:'100%', padding:'4px 2px', focus:'none'}}
- />
+                              <Input size="sm" type="number" value={deal.guaranteeFee} onChange={handleInputChange} name='guaranteeFee'  style={{width:'100%', padding:'4px 2px', focus:'none'}}/>
                             </Fm.Group>
                           </Col>
 

@@ -160,7 +160,7 @@ const DealsTable = (props) => {
           const amount = parseInt(props.row.original['dealsize'])
           return (
             <div>
-              {`${(amount / 1000000).toFixed(1)}`}
+              {`${(amount).toFixed(1)}`}
             </div>
           )
         }

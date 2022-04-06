@@ -39,7 +39,7 @@ const TableStyle = styled.div`
   padding: 1rem;
   table {
     border-spacing: 0;
-    // border: 1px solid black;
+    border: 1px solid black;
     tr {
       :last-child {
         td {
@@ -47,17 +47,13 @@ const TableStyle = styled.div`
         }
       }
     }
-    th, 
-    tr {
-      // border: 5px dashed green
-    }
     th,
     td {
       margin: 0;
       padding: 0.5rem;
       border-spacing: 0;
-      // border-bottom: 1px solid black;
-      // border-right: 1px solid black;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
       :last-child {
         border-right: 0;
       }
@@ -197,7 +193,7 @@ const AllDealsTable = (props) => {
           const amount = parseInt(props.row.original['dealsize'])
           return (
             <div>
-              {`${(amount / 1000000).toFixed(1)}`}
+              {`${(amount).toFixed(1)}`}
             </div>
           )
         }
@@ -471,7 +467,7 @@ const AllDealsTable = (props) => {
         <TableStyle>
           <div className="table-responsive mt-2 pt-2">
             <table
-              className="table py-3 mt-3  table-hover table striped align-middle"
+              className="table py-3 mt-3  table-hover table striped align-middle table-bordered"
               id='myTable'
               {...getTableProps()}
             >
