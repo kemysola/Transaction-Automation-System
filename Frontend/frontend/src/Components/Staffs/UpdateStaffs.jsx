@@ -148,8 +148,6 @@ export default function UpdateStaffs() {
             
         }
 
-        console.log("#####", reqData)
-
         Service.updateStaff(user_email, reqData)
             .then((response) => {
                 alert(response.data.message)
