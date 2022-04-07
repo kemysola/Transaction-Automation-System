@@ -55,6 +55,7 @@ export default function UpdateStaffs() {
 
   const firstName = useRef("");
   const lastName = useRef("");
+  /* const isadmin = useRef("") */
   const level = useRef("");
   const originator = useRef("");
   const hasOriginationTarget = useRef("");
@@ -74,6 +75,8 @@ export default function UpdateStaffs() {
     const [levels, setLevels] = useState([]);
     const [submitted, setSubmitted] = useState(false);
     const [response, setResponse] = useState(false);
+    const [isadmin, setisAdmin] = useState("");
+  
     const history = useHistory();
 
     useEffect(() => {
@@ -105,6 +108,7 @@ export default function UpdateStaffs() {
       console.log(e);
     });
       setStaff(staff_data.data.staffInfo); 
+      setisAdmin(staff_data.data.staffInfo[0].isadmin)
       setStatus(true)
   } ;
 
@@ -130,6 +134,7 @@ export default function UpdateStaffs() {
         let reqData = {
             firstName: firstName.current.value,
             lastName: lastName.current.value,
+            isadmin: JSON.parse(isadmin),
             level: level.current.value,
             originator: +originator.current.value,
             hasOriginationTarget: 1,
@@ -143,11 +148,11 @@ export default function UpdateStaffs() {
             
         }
 
-        
+        console.log("#####", reqData)
 
         Service.updateStaff(user_email, reqData)
             .then((response) => {
-    
+                alert(response.data.message)
                 setResponse(response.data.message)
                 history.push({
                     pathname: "/staffs",
@@ -249,6 +254,21 @@ export default function UpdateStaffs() {
                                                     name="lastName" />
                                             </Form.Group>
                                             </Col>
+
+                                            
+                                            <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                                                <Row>       
+                                                <Col sm={4}  className='mt-3 pt-2'>
+                                                        <Form.Label>Admin</Form.Label>
+                                                </Col>
+                                                <Col sm={4}  className='mt-3 pt-2'>
+                                                        
+                                                        <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={staff[0].isadmin === true} name="isadmin" onChange={e => setisAdmin(e.target.value)}/>
+                                                        <Form.Check inline label="No" type="radio" value={false} defaultChecked={staff[0].isadmin === false} name="isadmin" onChange={e => setisAdmin(e.target.value)}/>
+                
+                                                     </Col>
+                                                </Row> 
+                                            </Form.Group>
                                             
                                         {/*--------------------------------- Form ----------------------------------------- */}
                                         <Col sm={12}  className='mt-1 pt-1'>

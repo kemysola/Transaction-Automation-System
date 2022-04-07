@@ -229,8 +229,8 @@ export default function NewStaff() {
                                                         <Form.Label>Admin</Form.Label>
                                                 </Col>
                                                 <Col sm={4}  className='mt-3 pt-2'>
-                                                            <Form.Check inline type="radio" label="Yes"  value={true} name='isAdmin' onChange={handleInputChange} />
-                                                            <Form.Check inline type="radio" label="No"  value={false} name='isAdmin' onChange={handleInputChange} defaultChecked/>
+                                                            <Form.Check inline type="radio" label="Yes"  value={true} name='isadmin' onChange={handleInputChange} />
+                                                            <Form.Check inline type="radio" label="No"  value={false} name='isadmin' onChange={handleInputChange} defaultChecked/>
                 
                                                         </Col>
                                                 </Row> 

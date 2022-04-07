@@ -116,13 +116,13 @@ router.put('/update/:user_email', verifyTokenAndAuthorization,async (req, res) =
   try {
 
       const user_rec = { firstName, lastName, level, hasOriginationTarget, originationAmount, guaranteePipeline, greenTransaction,
-    amberTransaction,originator, mandateLetter, creditCommiteeApproval, feeLetter} = req.body;
+    amberTransaction,originator, mandateLetter, creditCommiteeApproval, feeLetter, isadmin} = req.body;
 
   const user_data = [
                 user_rec.firstName, user_rec.lastName, user_rec.level, user_rec.hasOriginationTarget, user_rec.originationAmount,
                 user_rec.guaranteePipeline, user_rec.greenTransaction, user_rec.amberTransaction,user_rec.originator , user_rec.mandateLetter,
                 user_rec.creditCommiteeApproval, user_rec.feeLetter, 
-        funcFinancialClose(user_rec.originator, user_rec.mandateLetter, user_rec.creditCommiteeApproval, user_rec.feeLetter), req.params.user_email
+        funcFinancialClose(user_rec.originator, user_rec.mandateLetter, user_rec.creditCommiteeApproval, user_rec.feeLetter), user_rec.isadmin, req.params.user_email
               ]
       
       await client.query('BEGIN')
@@ -130,8 +130,8 @@ router.put('/update/:user_email', verifyTokenAndAuthorization,async (req, res) =
       `UPDATE TB_TRS_USERS
        SET  	firstName = $1, lastName = $2, level = $3, hasOriginationTarget = $4, originationAmount = $5, 
       guaranteePipeline = $6, greenTransaction =$7, amberTransaction = $8, originator = $9, 
-      mandateLetter = $10, creditCommiteeApproval = $11, feeLetter = $12, financialClose = $13
-          WHERE email = $14
+      mandateLetter = $10, creditCommiteeApproval = $11, feeLetter = $12, financialClose = $13, isadmin = $14
+          WHERE email = $15
       RETURNING *`
       const res_ = await client.query(update_db, user_data)                   
       await client.query('COMMIT')
