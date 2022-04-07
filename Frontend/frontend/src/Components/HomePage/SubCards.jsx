@@ -16,7 +16,6 @@ export default function SubCards() {
     const [totalTransaction, setTotalTransaction] = useState([]);
     const [data, setData] = useState([])
     const [length, setLength] = useState([])
-    const [staff, setStaff] = useState([])
 
     useEffect(() => {
         retrieveDeals()
@@ -24,14 +23,8 @@ export default function SubCards() {
 
     },[])
 
-    useEffect(() => {
-      retrieveStaff()
-      
-
-  },[])
-
     const retrieveDeals = () => {
-        Service.getAllDeals()
+        Service.getMyDeals()
           .then((response) => {
             setData(response.data.deals);
             
@@ -40,19 +33,7 @@ export default function SubCards() {
           .catch((e) => {
             console.log(e);
           });
-      };
-
-      const retrieveStaff = () => {
-        Service.getAllStaff()
-          .then((response) => {
-            setStaff(response.data.staff);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      };
-
-      
+      };      
 
       var sumTotal = data.reduce(function (tot, arr) {
         return tot + parseFloat(arr.dealsize);
@@ -63,7 +44,7 @@ export default function SubCards() {
     return (
         <React.Fragment>
             <Container>
-                <Row className='mb-3' >
+                <Row className='mb-3'  style={{background:'white'}} >
                     <Col sm={6} className='my-2' style={{borderRight:'1px solid black'}} >
                         <div className='py-1'>
                             <div >
@@ -73,7 +54,7 @@ export default function SubCards() {
                                   <b>TRANSACTIONS</b>
                                   </small>
                                 <br />
-                                <p style={{fontWeight:'bold', fontSize:'20px'}}>{`₦${(sumTotal / 1000000).toFixed(2)}bn`}</p>
+                                <p style={{fontWeight:'bold', fontSize:'20px'}}>{`₦${(sumTotal).toFixed(2)}bn`}</p>
                             </div>
                         </div>
                     </Col>

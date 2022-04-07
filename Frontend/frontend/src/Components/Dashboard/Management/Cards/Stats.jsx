@@ -250,8 +250,8 @@ export default function Stats() {
     return (
       <>
         <text x={cx} y={cy} dy={8} textAnchor="middle">
-          {`₦${(sumTotal / 1000000).toLocaleString("en-US", {
-            minimumFractionDigits: 2,
+          {`₦${(sumTotal).toLocaleString("en-US", {
+            minimumFractionDigits: 1,
             maximumFractionDigits: 2,
           })}bn`}
         </text>
@@ -283,8 +283,8 @@ export default function Stats() {
         >
           <p className="label">
             {`${payload[0].name} : 
-            ₦${(payload[0].value / 1000000).toLocaleString("en-US", {
-              minimumFractionDigits: 2,
+            ₦${(payload[0].value).toLocaleString("en-US", {
+              minimumFractionDigits: 1,
               maximumFractionDigits: 2,
             })}bn`}
           </p>
@@ -432,6 +432,7 @@ export default function Stats() {
                 width={240}
                 height={240}
                 data={chartRegion}
+                barSize={20}
                 margin={{
                   top: 5,
                   right: 5,
@@ -458,7 +459,7 @@ export default function Stats() {
                       
                 <Bar
                   dataKey="value"
-                  stackId="a"
+                  minPointSize={1}
                   fill="#82ca9d"
                   background={{ fill: "#eee" }}
                 />

@@ -16,7 +16,7 @@ import AllStaff from "./Pages/Staffs/AllStaff";
 import Home from "./Components/Home";
 import Execution from "./Components/Dashboard/Execution/Execution";
 import StaffTable from "./Components/Staffs/StaffTable";
-import Verify from "./Components/Auth/Verify";
+// import Verify from "./Components/Auth/Verify";
 import PasswordReset from "./Components/Auth/Reset/PasswordReset";
 import Reset from "./Components/Auth/StaffReset/Reset";
 import Updates from "./Pages/Staffs/Updates";
@@ -71,9 +71,9 @@ export default function App() {
         <ProtectedRoute exact path="/staff_transaction_report" component={SingleView} />
         <ProtectedRoute exact path="/one_view" component={Updates} />
         
-        <Route path="/verify">
+        {/* <Route path="/verify">
           <Verify />
-        </Route>
+        </Route> */}
         <Route path="/resetyourpassword">
           <Reset />
         </Route>

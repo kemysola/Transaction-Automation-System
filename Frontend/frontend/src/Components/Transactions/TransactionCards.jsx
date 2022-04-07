@@ -33,7 +33,7 @@ export default function TransactionCards() {
   return (
     <React.Fragment>
       <Container>
-        <h2 style={{color: "steelblue",fontSize:'15px'}}>All Transactions</h2>
+        <h2 style={{color: "steelblue",fontSize:'15px'}}>My Portfolio</h2>
           
         <Row>
           <Col sm={6} md={6} className='d-md-block'>
@@ -46,9 +46,9 @@ export default function TransactionCards() {
 
                 <Card.Text className='text-info'>
                     <h4>
-                      {`₦${(sumTotal / 1000000)
+                      {`₦${(sumTotal)
                       .toLocaleString("en-US", {
-                        minimumFractionDigits: 2,
+                        minimumFractionDigits: 1,
                         maximumFractionDigits: 2
                       })}bn`}
                   </h4>

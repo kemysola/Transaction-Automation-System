@@ -63,7 +63,7 @@ export default function SubCards() {
     return (
         <React.Fragment>
             <Container className=''>
-                <Row className='mb-3' >
+                <Row className='mb-3' style={{background:'white'}} >
                     <Col lg={3}  sm={6}className='my-2' >
                         <div className='py-1'>
                             <div style={{ borderRight: '1px solid black' }}>
@@ -74,8 +74,8 @@ export default function SubCards() {
                                   </small>
                                 <br />
                                 <p style={{fontWeight:'bold', fontSize:'20px'}}>
-                                  {`₦${(sumTotal / 1000000).toLocaleString("en-US", {
-                                    minimumFractionDigits: 2,
+                                  {`₦${(sumTotal).toLocaleString("en-US", {
+                                    minimumFractionDigits: 1,
                                     maximumFractionDigits: 2
                                   })}bn`}
                               </p>

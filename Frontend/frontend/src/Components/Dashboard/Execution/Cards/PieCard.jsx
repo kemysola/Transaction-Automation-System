@@ -221,8 +221,8 @@ export default function PieCard() {
       return (
         <>
           <text x={cx} y={cy} dy={8} textAnchor="middle">
-          {`₦${(sumTotal / 1000000).toLocaleString("en-US", {
-            minimumFractionDigits: 2,
+          {`₦${(sumTotal).toLocaleString("en-US", {
+            minimumFractionDigits: 1,
             maximumFractionDigits: 2,
           })}bn`}
           </text>
@@ -254,8 +254,8 @@ export default function PieCard() {
           >
             <p className="label">
               {`${payload[0].name} : 
-              ₦${(payload[0].value / 1000000).toLocaleString("en-US", {
-                minimumFractionDigits: 2,
+              ₦${(payload[0].value).toLocaleString("en-US", {
+                minimumFractionDigits: 1,
                 maximumFractionDigits: 2,
               })}bn`}
             </p>

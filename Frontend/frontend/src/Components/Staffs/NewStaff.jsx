@@ -1,181 +1,180 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Container, Row, Col } from 'react-bootstrap';
-import styled from 'styled-components';
-import Services from '../../Services/Service';
-import Tabs from 'react-bootstrap/Tabs';
-import Tab from 'react-bootstrap/Tab';
+import React, { useState, useEffect } from "react";
+import { Form, Container, Row, Col } from "react-bootstrap";
+import styled from "styled-components";
+import Services from "../../Services/Service";
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab";
 
 const ButtonWrapper = styled.button`
-  color:white;
+  color: white;
   background: green;
   border: 1px solid white;
   padding: 2px 20px;
-  font-size:13px;
+  font-size: 13px;
   margin: 10px;
-  border-radius: 3px
+  border-radius: 3px;
 `;
 
 const FormWrapper = styled.div`
-padding:0;
-font-size:2px;
-margin:0;
-background:white;
-border-radius:10px;
+  padding: 0;
+  font-size: 2px;
+  margin: 0;
+  background: white;
+  border-radius: 10px;
 `;
 
 const Container1 = styled.div`
-
-font-size:10px;
-padding: 3px 10px;
-border-radius: 10px;
-width:52vw;
-margin:0;
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 10px;
+  width: 52vw;
+  margin: 0;
 `;
 
 const CancelWrapper = styled.button`
-  color:white;
+  color: white;
   background: grey;
   border: 1px solid grey;
   padding: 2px 20px;
-  font-size:13px;
+  font-size: 13px;
   margin: 10px;
-  border-radius: 3px
-  `;
+  border-radius: 3px;
+`;
 
 const PWrapper = styled.p`
-color:#1E2F97;
-font-weight:bold;
-margin: 1rem 0;
-padding: 0;
-font-size:11px;
+  color: #1e2f97;
+  font-weight: bold;
+  margin: 1rem 0;
+  padding: 0;
+  font-size: 11px;
 `;
 
 export default function NewStaff() {
-    const initialStaffState = {
-        email: "",
-        firstName: "",
-        lastName: "",
-        level: "",
-        amount: 0,
-        guarantee: 0,
-        greenTransaction: 0,
-        amberTransaction: 0,
-        mandateLetter: 2.0,
-        creditCommiteeApproval: 8.0,
-        feeLetter: 10.0,
-        financialClose: 80.0,
-        isadmin: "false"
+  const initialStaffState = {
+    email: "",
+    firstName: "",
+    lastName: "",
+    level: "",
+    amount: 0,
+    guarantee: 0,
+    greenTransaction: 0,
+    amberTransaction: 0,
+    mandateLetter: 2.0,
+    creditCommiteeApproval: 8.0,
+    feeLetter: 10.0,
+    financialClose: 80.0,
+    isadmin: "false",
+  };
+
+  const [staff, setStaff] = useState(initialStaffState);
+  const [submitted, setSubmitted] = useState(false);
+  const [response, setResponse] = useState(false);
+  const [target, setTarget] = useState();
+  const [levels, setLevels] = useState([]);
+
+  useEffect(() => {
+    retrieveLevel();
+  }, []);
+
+  const retrieveLevel = () => {
+    Services.getLevel()
+      .then((response) => {
+        setLevels(response.data.levels);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const handleInputChange = (event) => {
+    // function to assign user's input to staff state
+    const { name, value } = event.target;
+    setStaff({ ...staff, [name]: value });
+  };
+
+  const handleRadioChange = (event) => {
+    setTarget(event.target.value);
+  };
+
+  const saveStaff = (e) => {
+    // function to save user data and post to db
+    e.preventDefault();
+
+    let data = {
+      // store user's input in a variable called data
+      email: staff.email,
+      firstName: staff.firstName,
+      lastName: staff.lastName,
+      level: staff.level,
+      originator: 1,
+      hasOriginationTarget: JSON.parse(target),
+      originationAmount: +staff.amount,
+      guaranteePipeline: +staff.guarantee,
+      greenTransaction: +staff.greenTransaction,
+      amberTransaction: +staff.amberTransaction,
+      mandateLetter: +staff.mandateLetter,
+      creditCommiteeApproval: +staff.creditCommiteeApproval,
+      feeLetter: +staff.feeLetter,
+      status: "Inactive",
+      isadmin: JSON.parse(staff.isadmin),
     };
 
-    const [staff, setStaff] = useState(initialStaffState);
-    const [submitted, setSubmitted] = useState(false);
-    const [response, setResponse] = useState(false);
-    const [target, setTarget] = useState();
-    const [levels, setLevels] = useState([]);
+    console.log("######", data);
 
-    useEffect(() => {
-        retrieveLevel();
-    }, [])
-
-    const retrieveLevel = () => {
-        Services.getLevel()
-        .then((response) => {
-            setLevels(response.data.levels);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-    };
-
-    const handleInputChange = event => {
-         // function to assign user's input to staff state
-        const { name, value } = event.target;
-        setStaff({ ...staff, [name]: value });
-    };
-
-    const handleRadioChange = event => {
-        setTarget(event.target.value);
-    };
-
-    const saveStaff = (e) => { // function to save user data and post to db
-        e.preventDefault()
-
-        let data = { // store user's input in a variable called data
-            "email": staff.email,
-            "firstName": staff.firstName,
-            "lastName": staff.lastName,
-            "level": staff.level,
-            "originator": 1,
-            "hasOriginationTarget": JSON.parse(target),
-            "originationAmount": +staff.amount,
-            "guaranteePipeline": +staff.guarantee,
-            "greenTransaction": +staff.greenTransaction,
-            "amberTransaction": +staff.amberTransaction,
-            "mandateLetter": +staff.mandateLetter,
-            "creditCommiteeApproval": +staff.creditCommiteeApproval,
-            "feeLetter": +staff.feeLetter,
-            "status": "Inactive",
-            "isadmin": JSON.parse(staff.isadmin)
-        };
- 
-        console.log("######", data)
-
-        Services.registerStaff(data)
-            .then(response => {
-                setResponse(response.data.message)
-                setSubmitted(true)
-            })
-            .catch(error => {
-                setResponse("Failed to Create User. Please Try Again")
-                setSubmitted(true)
-            });
-    };
-
-    const newStaff = () => {
-        setStaff(initialStaffState);
-        setTarget(null);
+    Services.registerStaff(data)
+      .then((response) => {
+        setResponse(response.data.message);
+        setSubmitted(true);
+      })
+      .catch((error) => {
+        setResponse("Failed to Create User. Kindly fill required fields");
         setSubmitted(false);
-    };
+      });
+  };
 
-    const [activeTab, setActiveTab] = useState('first');
-    function toNextTab(e) {
-        e.preventDefault();
-        handleTabChange();
+  const newStaff = () => {
+    setStaff(initialStaffState);
+    setTarget(null);
+    setSubmitted(false);
+  };
+
+  const [activeTab, setActiveTab] = useState("first");
+  function toNextTab(e) {
+    e.preventDefault();
+    handleTabChange();
+  }
+
+  function toPrevTab(e) {
+    e.preventDefault();
+    handlePrevChange();
+  }
+
+  function handleTabChange() {
+    if (activeTab === "first") {
+      setActiveTab("second");
     }
-
-    function toPrevTab(e) {
-        e.preventDefault();
-        handlePrevChange();
+    if (activeTab === "second") {
+      setActiveTab("third");
     }
-
-    function handleTabChange() {
-        if (activeTab === 'first') {
-            setActiveTab('second');
-        }
-        if (activeTab === 'second') {
-            setActiveTab('third');
-        }
-        if (activeTab === 'third') {
-            setActiveTab('fourth');
-        }
-        if (activeTab === 'fourth') {
-            setActiveTab('sixth');
-        }
-
+    if (activeTab === "third") {
+      setActiveTab("fourth");
     }
-
-    function handlePrevChange() {
-        if (activeTab === 'second') {
-            setActiveTab('first');
-        }
-        if (activeTab === 'third') {
-            setActiveTab('second');
-        }
-        if (activeTab === 'fourth') {
-            setActiveTab('third');
-        }
-
+    if (activeTab === "fourth") {
+      setActiveTab("sixth");
     }
+  }
+
+  function handlePrevChange() {
+    if (activeTab === "second") {
+      setActiveTab("first");
+    }
+    if (activeTab === "third") {
+      setActiveTab("second");
+    }
+    if (activeTab === "fourth") {
+      setActiveTab("third");
+    }
+  }
 
     return (
         <React.Fragment>
@@ -381,9 +380,3 @@ export default function NewStaff() {
         </React.Fragment >
     )
 }
-
-
-
-
-
-
