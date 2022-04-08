@@ -4,8 +4,8 @@
   "description": "InCr Backend services",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js"
+    "dev": "node index.js",
+    "start": "node -r dotenv/config index.js"
   },
   "repository": {
     "type": "git",
@@ -24,8 +24,8 @@
     "dynamics-web-api": "^1.7.4",
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
+    "nodejs-nodemailer-outlook": "^1.2.4",
     "nodemailer": "^6.7.2",
-    "nodemon": "^2.0.15",
     "pg": "^8.7.3",
     "recharts": "^2.1.9"
   }
