@@ -70,7 +70,7 @@ const AADParameters = {
     tenant: process.env.tenant,
     authorityHostUrl: 'https://login.windows.net',
     clientId: process.env.clientID,
-    redirectUri: 'https://trms01-server.azurewebsites.net/api/v1/auth/app/login', 
+    redirectUri: 'https://trms01-server.azurewebsites.net/v1/auth/app/login', 
     clientSecret: process.env.value
 };
 
@@ -118,7 +118,7 @@ router.get('/app/login', (req, res) => {
         const paramsString = {"user":response.account.username, "token":response.accessToken};
         let searchParams = new URLSearchParams(paramsString);
 
-        res.redirect('http:localhost:3000/login?'+searchParams);
+        res.redirect('http://localhost:3000/login?'+searchParams);
 
     }).catch((error) => {
         console.log(error);
