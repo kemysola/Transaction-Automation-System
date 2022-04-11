@@ -54,7 +54,7 @@ export default function SubCards() {
                                   <b>TRANSACTIONS</b>
                                   </small>
                                 <br />
-                                <p style={{fontWeight:'bold', fontSize:'20px'}}>{`₦${(sumTotal).toFixed(2)}bn`}</p>
+                                <p style={{fontWeight:'bold', fontSize:'20px'}}>{`₦${(sumTotal).toFixed(1)}bn`}</p>
                             </div>
                         </div>
                     </Col>

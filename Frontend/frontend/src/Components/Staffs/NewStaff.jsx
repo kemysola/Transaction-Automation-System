@@ -119,8 +119,6 @@ export default function NewStaff() {
       isadmin: JSON.parse(staff.isadmin),
     };
 
-    console.log("######", data);
-
     Services.registerStaff(data)
       .then((response) => {
         setResponse(response.data.message);

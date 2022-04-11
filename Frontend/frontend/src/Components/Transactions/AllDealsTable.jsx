@@ -159,7 +159,7 @@ const AllDealsTable = (props) => {
         }
       },
       {
-        Header: "Client",
+        Header: "Client ^",
         accessor: "clientname",
       },
       {
@@ -344,7 +344,11 @@ const AllDealsTable = (props) => {
     []
   );
 
-  const getTrProps = (row, i) => {
+  useEffect(() => {
+    getTrProps();
+  }, []);
+
+  const getTrProps = (row, i, page) => {
     if (row){
       // if deal category is yellow, return a warmer yellow color
       if (`${deals[i].deal_category}` === "Yellow") {
@@ -489,10 +493,9 @@ const AllDealsTable = (props) => {
               >
                 {page.map((row, i) => {
                   prepareRow(row);
-                  
                   return (
                     <tr 
-                      {...row.getRowProps(getTrProps(row, i))}
+                      {...row.getRowProps(getTrProps(row, i, page))}
                     >
                       {row.cells.map((cell) => {
                         return (
