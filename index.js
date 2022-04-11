@@ -13,7 +13,7 @@ const passwdReset = require("./backend/routes/password_reset");
 const configRoute = require("./backend/routes/configuration");
 
 dotenv.config();
-const app_port = process.env.APP_SERVER_PORT;
+const app_port = process.env.PORT;
 // const app_port = process.env.PORT;
 
 // Middlewares
@@ -26,7 +26,7 @@ app.use(express.json()); //To get access to client's request.body as json object
 
 
 
-app.set('port', app_port  || 3000)
+app.set('port', app_port  || 8080)
 
 // Implemeting all endpoints
 try {
