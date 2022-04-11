@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/001affff-a52c-4c57-bfde-6d4163b99a73/resourceGroups/TRMS_RG/providers/Microsoft.Web/sites/TRMS01-Server",
+    "appService.deploySubpath": "."
+}

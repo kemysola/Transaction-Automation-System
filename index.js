@@ -13,8 +13,8 @@ const passwdReset = require("./backend/routes/password_reset");
 const configRoute = require("./backend/routes/configuration");
 
 dotenv.config();
-// const app_port = process.env.APP_SERVER_PORT;
-const app_port = process.env.PORT;
+const app_port = process.env.APP_SERVER_PORT;
+// const app_port = process.env.PORT;
 
 // Middlewares
 app.use(cors()); //Review need in project
