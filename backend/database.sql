@@ -123,7 +123,7 @@ CREATE TABLE trms.TB_INFRCR_TRANSACTION(
     product VARCHAR NOT NULL,
     region VARCHAR(2) NOT NULL,
     dealSize NUMERIC DEFAULT 00.0000,
-    coupon INT,
+    coupon NUMERIC DEFAULT 00.00,
     tenor INT,
     moratorium INT,
     repaymentFrequency VARCHAR DEFAULT 'Semi-Annually',
@@ -156,7 +156,7 @@ CREATE TABLE trms.TB_INFRCR_TRANSACTION(
     structuringFeeAdvance INT,
     structuringFeeFinal INT,
 
-    guaranteeFee INT,
+    guaranteeFee NUMERIC DEFAULT 00.00,
     monitoringFee NUMERIC DEFAULT 00.0000,
     reimbursible NUMERIC DEFAULT 00.0000,
 
@@ -189,7 +189,7 @@ CREATE TABLE trms.TB_INFRCR_TRANSACTION_AUDIT(
     product VARCHAR,
     region VARCHAR(2),
     dealSize NUMERIC,
-    coupon INT,
+    coupon NUMERIC,
     tenor INT,
     moratorium INT,
     repaymentFrequency VARCHAR ,
@@ -222,7 +222,7 @@ CREATE TABLE trms.TB_INFRCR_TRANSACTION_AUDIT(
     structuringFeeAdvance INT,
     structuringFeeFinal INT,
 
-    guaranteeFee INT,
+    guaranteeFee NUMERIC,
     monitoringFee NUMERIC,
     reimbursible NUMERIC,
 

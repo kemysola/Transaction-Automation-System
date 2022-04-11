@@ -42,7 +42,7 @@ try {
     app.use("/api/v1/report", reportsRoute)
     app.use("/api/v1/password_reset", passwdReset)
     app.use("/api/v1/configuration", configRoute)
-    
+
 } catch (err) {
     console.error(err)
 }
@@ -53,9 +53,9 @@ process.on('unhandledRejection', (reason, promise) => {
     console.log('Unhandled Rejection at:', reason.stack || reason)
 });
 
-app.get('/', (req,res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './frontend/frontend/build/index.html'));
-  });
+});
 
 /*app.get('*', (req,res) => {
     res.sendFile(process.cwd()+"./Frontend/frontend/build/index.html");
@@ -64,4 +64,3 @@ app.get('/', (req,res) => {
 app.listen(app_port || 5001, () => {
     console.log(`InfraCreditTRS Server Listening on Port: ${app_port}`)
 });
-

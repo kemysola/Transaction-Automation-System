@@ -14,7 +14,7 @@ const ViewWrapper = styled.div`
 export default function NewTransaction() {
     return(
         <React.Fragment>
-            <Navbar/>
+            <Navbar />
             <ViewWrapper>
             <Row>
                 <Col sm={3} style={{padding:'10px 10px 10px 0px'}}>
