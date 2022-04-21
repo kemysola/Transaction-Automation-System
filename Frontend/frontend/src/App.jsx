@@ -23,7 +23,7 @@ import Updates from "./Pages/Staffs/Updates";
 import UserLanding from "./Components/HomePage/UserLanding"
 import ProtectedRoute from "./Components/Auth/Login/ProtectedRoute";
 import NotFound from "./Pages/NotFound";
-
+import UserLogin from "./Components/Auth/Login/UserLogin";
 import StaffList from "./Components/Dashboard/Origination/stafflist/StaffList";
 import SingleStaff from "./Components/Dashboard/Origination/deals/SingleStaff";
 import SingleView from "./Components/Dashboard/Origination/deals/SingleView";

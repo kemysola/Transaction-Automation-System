@@ -65,7 +65,6 @@ const verifyUser = async (req, res, next) => {
       res.setHeader("Activation-Status", (res.statusCode = 200));
       res.setHeader("Activation-Message", "Your Account is now Active");
 
-      //  res.redirect('http://localhost:3000/login');
       res.json({
         status: (res.statusCode = 200),
         message: "Your Account is now Active",
