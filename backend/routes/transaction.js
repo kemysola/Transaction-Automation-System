@@ -92,7 +92,7 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
 
 
 /*Fetch Deal by ID - priviledged users*/
-router.get('/item/:deal',verifyTokenAndAdmin, async (req, res) => {
+router.get('/item/:deal',verifyTokenAndAuthorization, async (req, res) => {
     const client = await pool.connect();
 
     try {
