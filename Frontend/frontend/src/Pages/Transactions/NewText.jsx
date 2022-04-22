@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Row, Col } from 'react-bootstrap';
 import SideNav2 from '../../Components/LandingPage/SideNav2';
-import Navbar from '../../Components/LandingPage/Navbar';
+import Navbar from '../../Components/HomePage/Navbar';
 import NewText from '../../Components/Transactions/NewText';
 
 const ViewWrapper = styled.div`
