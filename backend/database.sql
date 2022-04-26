@@ -424,3 +424,7 @@ VALUES(2021, 146.9, 103.4, 335.3, 155.1, 108.6),
     (2023, 406, 139, 448.5, 208.5, 146.0),
     (2024, 566, 160, 501.0, 240.0, 168.0),
     (2025, 740, 174, 261.0, 261.0, 182.7)
+--- Added new columns to transaction table
+ALTER TABLE tb_infrcr_transaction
+ADD COLUMN nbc_approval_date DATE,
+ADD COLUMN nbc_submitted_date DATE;

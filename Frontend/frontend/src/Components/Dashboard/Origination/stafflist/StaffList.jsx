@@ -58,7 +58,6 @@ const StaffList = () => {
   const retrieveStaff = () => {
     Service.getAllStaff()
       .then((response) => {
-        console.log(response.data.staff)
         setStaff(response.data.staff);
       })
       .catch((e) => {

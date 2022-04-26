@@ -32,7 +32,7 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
     // Destrucuring the request body to grab required fields
     const new_transaction = { clientName, originator, transactor, transactionLegalLead, industry, product,region,
         dealSize, coupon, tenor, moratorium, repaymentFrequency, amortizationStyle,
-        mandateLetter, creditApproval, feeLetter, expectedClose, actualClose,
+        mandateLetter, creditApproval, feeLetter, expectedClose, actualClose, NBC_approval_date, NBC_submitted_date,
         greenA, greenB, greenC, greenD, greenE, greenF, amberA,  amberB, amberC, 
         amberD, amberE, redA, redB, redC, redD, redE, structuringFeeAmount,structuringFeeAdvance,
         structuringFeeFinal, guaranteeFee, notes, closed } = req.body;
@@ -42,7 +42,7 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
                         new_transaction.dealSize, new_transaction.coupon, new_transaction.tenor,
                         new_transaction.moratorium, new_transaction.repaymentFrequency, new_transaction.amortizationStyle,
                         new_transaction.mandateLetter, new_transaction.creditApproval, new_transaction.feeLetter,
-                        new_transaction.expectedClose, new_transaction.actualClose, new_transaction.greenA, 
+                        new_transaction.expectedClose, new_transaction.actualClose, new_transaction.NBC_approval_date, new_transaction.NBC_submitted_date, new_transaction.greenA, 
                         new_transaction.greenB, new_transaction.greenC, new_transaction.greenD,
                         new_transaction.greenE, new_transaction.greenF, new_transaction.amberA, 
                         new_transaction.amberB, new_transaction.amberC, new_transaction.amberD, 
@@ -62,11 +62,11 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
       `INSERT INTO TB_INFRCR_TRANSACTION(
                     clientName, originator, transactor, industry, product,region,
                     dealSize, coupon, tenor, moratorium, repaymentFrequency, amortizationStyle,
-                    mandateLetter, creditApproval, feeLetter, expectedClose, actualClose,
+                    mandateLetter, creditApproval, feeLetter, expectedClose, actualClose,  NBC_approval_date, NBC_submitted_date,
                     greenA, greenB, greenC, greenD, greenE, greenF, amberA,  amberB, amberC, 
                     amberD, amberE, redA, redB, redC, redD, redE, structuringFeeAmount,structuringFeeAdvance,
                     structuringFeeFinal, guaranteeFee, deal_category, record_entry, transactionLegalLead, notes, closed
-                  ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38, $39, $40, $41, $42) RETURNING *`
+                  ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38, $39, $40, $41, $42, $43, $44) RETURNING *`
 
     const res_ = await client.query(write_to_db, transaction_data)              
     
@@ -230,7 +230,7 @@ router.put('/update/:dealID', verifyTokenAndAuthorization, async (req, res) => {
 
         const updated_rec = { clientName, originator, transactor, industry, product,region,
             dealSize, coupon, tenor, moratorium, repaymentFrequency, amortizationStyle,
-            mandateLetter, creditApproval, feeLetter, expectedClose, actualClose,
+            mandateLetter, creditApproval, feeLetter, expectedClose, actualClose, NBC_approval_date, NBC_submitted_date,
             greenA, greenB, greenC, greenD, greenE, greenF, amberA,  amberB, amberC, 
             amberD, amberE, redA, redB, redC, redD, redE, structuringFeeAmount,structuringFeeAdvance,
             structuringFeeFinal, guaranteeFee, transactionLegalLead, notes, closed } = req.body;
@@ -240,7 +240,7 @@ router.put('/update/:dealID', verifyTokenAndAuthorization, async (req, res) => {
                             updated_rec.dealSize, updated_rec.coupon, updated_rec.tenor,
                             updated_rec.moratorium, updated_rec.repaymentFrequency, updated_rec.amortizationStyle,
                             updated_rec.mandateLetter, updated_rec.creditApproval, updated_rec.feeLetter,
-                            updated_rec.expectedClose, updated_rec.actualClose, updated_rec.greenA, 
+                            updated_rec.expectedClose, updated_rec.actualClose, updated_rec.actualClose, updated_rec.NBC_approval_date, updated_rec.NBC_submitted_date,updated_rec.greenA,
                             updated_rec.greenB, updated_rec.greenC, updated_rec.greenD,
                             updated_rec.greenE, updated_rec.greenF, updated_rec.amberA, 
                             updated_rec.amberB, updated_rec.amberC, updated_rec.amberD, 
@@ -261,7 +261,7 @@ router.put('/update/:dealID', verifyTokenAndAuthorization, async (req, res) => {
             mandateLetter = $13, creditApproval = $14 , feeLetter = $15, expectedClose = $16, actualClose = $17 ,
             greenA = $18, greenB = $19, greenC = $20, greenD = $21, greenE = $22, greenF = $23, amberA = $24,  amberB = $25, amberC = $26, 
             amberD = $27, amberE = $28, redA = $29, redB = $30, redC = $31, redD = $32 , redE = $33, structuringFeeAmount = $34,
-            structuringFeeAdvance = $35,  structuringFeeFinal = $36, record_entry = $38, deal_category = $39, transactionLegalLead = $40, notes = $41, closed = $42, guaranteeFee = $43
+            structuringFeeAdvance = $35,  structuringFeeFinal = $36, record_entry = $38, deal_category = $39, transactionLegalLead = $40, notes = $41, closed = $42, guaranteeFee = $43, nbc_approval_date = $44, nbc_submitted_date = $45,
             WHERE transID = $37
         RETURNING *`
         const res_ = await client.query(update_db, updated) 

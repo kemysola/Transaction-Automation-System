@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, ProgressBar, Card } from "react-bootstrap";
 import styled from "styled-components";
+import { BsArrowDown } from 'react-icons/bs'
 import Table from "../Table";
 import Service from "../../../../Services/Service";
-
-
-
 import {
   BarChart,
   Bar,
@@ -16,7 +14,9 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import PieCard from "./PieCard";
+
+import PieCardOrigination from "./PieCardOrigination";
+import SingleStaff from "../../Origination/deals/SingleStaff";
 
 const ProgressBarDiv = styled.div`
   display: grid;
@@ -27,7 +27,7 @@ const ProgressBarDiv = styled.div`
   border-radius: 20px;
   
 `;
-export default function Progress() {
+export default function ProgressOrigination() {
   const [data, setData] = useState([]);
   const [target, setTarget] = useState([]);
 
@@ -35,8 +35,9 @@ export default function Progress() {
     retrieveDeals();
   }, []);
 
+  let user_email = window.location.search.split("?")[1]
   const retrieveDeals = () => {
-    Service.getAllDeals()
+    Service.getMyDealsByEmail( user_email)
       .then((response) => {
         setData(response.data.deals);
       })
@@ -45,15 +46,16 @@ export default function Progress() {
       });
   };
 
-
   useEffect(() => {
     retrieveGuranteePipeline();
   }, []);
 
+  
   const retrieveGuranteePipeline = () => {
-    Service.getAllStaff()
+    Service.getOneStaff(user_email)
       .then((response) => {
-        setTarget(response.data.staff);
+        console.log("wwww", response.data)
+        setTarget(response.data.staffInfo);
       })
       .catch((e) => {
         console.log(e);
@@ -224,82 +226,83 @@ export default function Progress() {
     return tot + parseFloat(arr.dealsize);
   }, 0);
 
-    //*****************************Varience******************/
+  //*****************************Varience******************/
 
-    let varianceAmount = targetValue - sumTotal
+  
+  let varianceAmount = targetValue - sumTotal
 
-    function varianceDisplay(variance) {
-      if (variance < 1) {
-        let varianceAns = (variance * -1)
-        return `↓ ₦${(varianceAns / 1000000).toFixed(2)}bn`;
-      }
-      return `↑ ${(variance/1000000).toFixed(2)}bn`;
+  function varianceDisplay(variance) {
+    if (variance < 1) {
+      let varianceAns = (variance * -1)
+      return `↓ ₦${(varianceAns / 1000000).toFixed(2)}bn`;
     }
-  
-    let variancePercent = ((varianceAmount / targetValue) * 100).toFixed(1)
-  
-    function variancePerDisplay(variancePer) {
-      if (variancePer < 1) {
-        let varianceAns = (variancePer * -1)
-        return `↓ ${varianceAns}%`;
-      }
-      return `↑ ${variancePer}%`;
+    return `↑ ${(variance/1000000).toFixed(2)}bn`;
+  }
+
+  let variancePercent = ((varianceAmount / targetValue) * 100).toFixed(1)
+
+  function variancePerDisplay(variancePer) {
+    if (variancePer < 1) {
+      let varianceAns = (variancePer * -1)
+      return `↓ ${varianceAns}%`;
     }
-  
+    return `↑ ${variancePer}%`;
+  }
+
 
   const chartData = [
     {
-      name: `On-grid Power: ₦${(option1Total).toFixed(1)}bn`,
+      name: `On-grid Power: ₦${(option1Total/1000000).toFixed(2)}bn`,
       value: option1Total,
       percent: `${((option1Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Off-grid Power: ₦${(option2Total).toFixed(1)}bn`,
+      name: `Off-grid Power: ₦${(option2Total/1000000).toFixed(2)}bn`,
       value: option2Total,
       percent: `${((option2Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Agric infra: ₦${(option3Total).toFixed(1)}bn`,
+      name: `Agric infra: ₦${(option3Total/1000000).toFixed(2)}bn`,
       value: option3Total,
       percent: `${((option3Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Gas: ₦${(option4Total).toFixed(1)}bn`,
+      name: `Gas: ₦${(option4Total/1000000).toFixed(2)}bn`,
       value: option4Total,
       percent: `${((option4Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Transport: ₦${(option5Total).toFixed(1)}bn`,
+      name: `Transport: ₦${(option5Total/1000000).toFixed(2)}bn`,
       value: option5Total,
       percent: `${((option5Total / sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Inputs to Infra: ₦${(option6Total).toFixed(1)}bn`,
+      name: `Inputs to Infra: ₦${(option6Total/1000000).toFixed(2)}bn`,
       value: option6Total,
       percent: `${((option6Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name:  `Affordable Housing: ₦${(option7Total).toFixed(1)}bn`,
+      name:  `Affordable Housing: ₦${(option7Total/1000000).toFixed(2)}bn`,
       value: option7Total,
       percent: `${((option7Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Education Infra: ₦${(option8Total).toFixed(1)}bn`,
+      name: `Education Infra: ₦${(option8Total/1000000).toFixed(2)}bn`,
       value: option8Total,
       percent: `${((option8Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Healthcare: ₦${(option9Total).toFixed(1)}bn`,
+      name: `Healthcare: ₦${(option9Total/1000000).toFixed(2)}bn`,
       value: option9Total,
       percent: `${((option9Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Water/Waste: ₦${(option10Total).toFixed(1)} bn`,
+      name: `Water/Waste: ₦${(option10Total/1000000).toFixed(2)} bn`,
       value: option10Total,
       percent: `${((option10Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `ICT/Telecoms: ₦${(option11Total).toFixed(1)}bn`,
+      name: `ICT/Telecoms: ₦${(option11Total/1000000).toFixed(2)}bn`,
       value: option11Total,
       percent: `${((option11Total/sumTotal) * 100).toFixed(1)}%`
     },
@@ -393,45 +396,43 @@ export default function Progress() {
 
   const productChartData = [
     {
-      name: `Public Bond: ₦${(productOption1Total).toFixed(1)}bn`,
+      name: `Public Bond: ₦${(productOption1Total/1000000).toFixed(2)}bn`,
       value: productOption1Total,
       percent: `${((productOption1Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Blended Finance: ₦${(productOption2Total).toFixed(1)}bn`,
+      name: `Blended Finance: ₦${(productOption2Total/1000000).toFixed(2)}bn`,
       value: productOption2Total,
       percent: `${((productOption2Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Contigent Refi. Gte.: ₦${(productOption3Total).toFixed(1)}bn`,
+      name: `Contigent Refi. Gte.: ₦${(productOption3Total/1000000).toFixed(2)}bn`,
       value: productOption3Total,
       percent: `${((productOption3Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Private Bond (Clean Energy): ₦${(productOption4Total).toFixed(1)}bn`,
+      name: `Private Bond (Clean Energy): ₦${(productOption4Total/1000000).toFixed(2)}bn`,
       value: productOption4Total,
       percent: `${((productOption4Total/sumTotal) * 100).toFixed(1)}%`
 
     },
     {
-      name: `Private Bond (Other): ₦${(productOption5Total).toFixed(1)}bn`,
+      name: `Private Bond (Other): ₦${(productOption5Total/1000000).toFixed(2)}bn`,
       value: productOption5Total,
       percent: `${((productOption5Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
-      name: `Annuity PPP: ₦${(productOption6Total).toFixed(1)}bn`,
+      name: `Annuity PPP: ₦${(productOption6Total/1000000).toFixed(2)}bn`,
       value: productOption6Total,
       percent: `${((productOption6Total/sumTotal) * 100).toFixed(1)}%`
 
     },
   ];
-  
-
 
   return (
     <React.Fragment>
       <Container fluid className='bg-light'>
-        <p class='animate__animated animate__pulse pt-2'><b>Execution Summary</b></p>
+        <p class='animate__animated animate__pulse pt-2'><b>Origination Summary</b></p>
         <Row>
        
        <Col sm={3} lg={4} md={12} className="my-1" style={{ display: 'flex', flexDirection: 'row' }}>
@@ -470,13 +471,11 @@ export default function Progress() {
        </Card>
      </Col>
        
-        </Row>
-        
-        
+     </Row>
         <Row style={{ marginTop: "5px " }}>
           <Col sm={12} lg={4} md={12} className="my-1">
             <br/>
-            <PieCard/>
+            <PieCardOrigination/>
 
           </Col>
 
@@ -620,9 +619,10 @@ export default function Progress() {
           </Col>
           {/*------------------------ Column ------------------------------- */}
         </Row>
+       
       </Container>
       <br />
-      <Table />
+      <SingleStaff/>
     </React.Fragment>
   );
 }
