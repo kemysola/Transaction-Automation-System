@@ -188,4 +188,27 @@ router.get('/staff_list', verifyTokenAndAuthorization, async (req, res) => {
       }
 });
 
+// fetch all guarantee projection data  by authorized users
+router.get('/forecast', verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+        const forecast = await client.query(
+            `SELECT * FROM TB_INFRCR_FORECAST
+            `);
+        
+        if (forecast) { 
+            res.status(200).send({
+                status: (res.statusCode = 200),
+                forecast: forecast.rows
+            })
+        }
+        
+    } catch (e) {
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+});
+
 module.exports = router;

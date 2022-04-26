@@ -406,6 +406,24 @@ INSERT INTO trms.TB_TRS_USERS(
                   )
 values(nextval('trms.user_id_seq'), 'trms@infracredit.ng', 'U2FsdGVkX1/+HYRk+9HGscroXD/vVTXbCGYM43JRMVc=','appuser', 'appuser', 'mvp', false, 0, 0,0,0,0,0,0,0,'', 'Active', true)
 
+-- Guarantee Projection Table as defined by Infracredit
+CREATE TABLE trms.TB_INFRCR_FORECAST
+(
+projectionID INT GENERATED ALWAYS AS IDENTITY,
+projectionYear INT,
+cumulativeGrowth NUMERIC,
+newDeals NUMERIC,
+guaranteePipeline NUMERIC,
+greenAndAmberDeals NUMERIC,
+greenDeals NUMERIC,
+PRIMARY KEY(projectionYear)
+);
+INSERT INTO trms.TB_INFRCR_FORECAST(projectionYear, cumulativeGrowth, newDeals, guaranteePipeline, greenAndAmberDeals, greenDeals)
+VALUES(2021, 146.9, 103.4, 335.3, 155.1, 108.6),
+    (2022, 267, 120.1, 388.7, 180.2, 126.1),
+    (2023, 406, 139, 448.5, 208.5, 146.0),
+    (2024, 566, 160, 501.0, 240.0, 168.0),
+    (2025, 740, 174, 261.0, 261.0, 182.7)
 --- Added new columns to transaction table
 ALTER TABLE tb_infrcr_transaction
 ADD COLUMN nbc_approval_date DATE,
