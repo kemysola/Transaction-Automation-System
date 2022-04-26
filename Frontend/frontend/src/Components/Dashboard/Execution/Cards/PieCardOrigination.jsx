@@ -32,12 +32,28 @@ const RedDiv = styled.div`
   height: 30px;
   width: 30px;
   margin-top: 10px,
-  margin-bottom: 2px;
+  margin-bottom: 10px;
   text-align:center;
   padding-top:8px;
   font-size: 10px;
   display:inline-block;
-  margin-left:18px;
+  margin-left:5px;
+`;
+const WhiteDiv = styled.div`
+  border-radius: 50px;
+  background: white;
+  color: royalblue;
+  height: 30px;
+  width: 30px;
+  margin-top: 10px,
+  margin-bottom: 10px;
+  text-align:center;
+  padding-top:8px;
+  font-size: 10px;
+  display:inline-block;
+  margin-left:5px;
+  border:2px solid royalblue;
+  font-weight:bold;
 `;
 
 const GreenDiv = styled.div`
@@ -313,6 +329,10 @@ export default function PieCardOrigination() {
   
                   <Row>
                     <Col  className="mt-1 d-none d-sm-block" sm={4} >
+                    <small>Total</small>
+                    <br/>
+                    <WhiteDiv className="my-1">{green.length+ amber.length + red.length}</WhiteDiv>
+                    <br/>
                      <small>Green </small>
                      <GreenDiv className="my-1">{green.length}</GreenDiv>
                      <br/>
@@ -320,6 +340,7 @@ export default function PieCardOrigination() {
                       <AmberDiv className="my-1">{amber.length}</AmberDiv>
                       <br/>
                       <small >Red </small>
+                      <br/>
                       <RedDiv className="my-1">{red.length}</RedDiv>
                     </Col>
 

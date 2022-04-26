@@ -437,7 +437,7 @@ export default function Progress() {
        <Col sm={3} lg={4} md={12} className="my-1" style={{ display: 'flex', flexDirection: 'row' }}>
          <Card style={{ width: '18rem', flex: 1}}>
          <Card.Body>
-           <Card.Title>{`₦${(sumTotal/1000000).toFixed(1)}bn`}</Card.Title>     
+           <Card.Title>{`₦${(sumTotal/1000000).toFixed(2)}bn`}</Card.Title>     
            <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
            <Card.Text>
              Actual
@@ -464,7 +464,7 @@ export default function Progress() {
            <Card.Title>{variancePerDisplay(variancePercent)}</Card.Title>
            <Card.Subtitle className="mb-2 text-muted">{varianceDisplay(varianceAmount)}</Card.Subtitle>
            <Card.Text>
-             Varience
+             Variance
            </Card.Text>
          </Card.Body>
        </Card>

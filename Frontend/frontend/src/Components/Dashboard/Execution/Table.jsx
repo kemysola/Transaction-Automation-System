@@ -4,6 +4,7 @@ import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination,
 import styled from 'styled-components';
 import Service from "../../../Services/Service";
 import * as XLSX from 'xlsx';
+import Filters from './Filters';
 
 
 const ContainerWrapper = styled.div`
@@ -83,6 +84,7 @@ const Pagination = styled.div`
   }
 `
 
+
 const DealsTable = (props) => {
   const initialDateState = {
     start_date: "",
@@ -136,7 +138,7 @@ const DealsTable = (props) => {
       {
         Header: "SN",
         maxWidth: 50,
-        filterable: false,
+        filterable: true,
         Cell: (props) => {
           const rowIdx = parseInt(props.row.id) 
 
