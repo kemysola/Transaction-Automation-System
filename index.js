@@ -23,7 +23,7 @@ app.use(express.json()); //To get access to client's request.body as json object
 app.use(express.static(path.join(__dirname, './frontend/frontend/build')));
 
 
-app.set('port', app_port  || 5001)
+app.set('port', app_port  || 3000)
 // Implemeting all endpoints
 
 //app.use(express.static(path.join(__dirname, './frontend/frontend/build')));
@@ -73,11 +73,11 @@ app.get('/', (req,res) => {
     res.sendFile(process.cwd()+"./Frontend/frontend/build/index.html");
   });*/
 
-/*app.listen(app_port || 3000, () => {
+/*app.listen(app_port || 5001, () => {
     console.log(`InfraCreditTRS Server Listening on Port: ${app.get('port')}`)
 
 });*/
-app.listen(app_port || 5001, () => {
+app.listen(app_port || 3000, () => {
     console.log(`InfraCreditTRS Server Listening on Port: ${app.get('port')}`)
 
 });
