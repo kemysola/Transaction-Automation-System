@@ -405,3 +405,8 @@ INSERT INTO trms.TB_TRS_USERS(
                   feeLetter, financialClose, record_entry, status, isadmin
                   )
 values(nextval('trms.user_id_seq'), 'trms@infracredit.ng', 'U2FsdGVkX1/+HYRk+9HGscroXD/vVTXbCGYM43JRMVc=','appuser', 'appuser', 'mvp', false, 0, 0,0,0,0,0,0,0,'', 'Active', true)
+
+--- Added new columns to transaction table
+ALTER TABLE tb_infrcr_transaction
+ADD COLUMN nbc_approval_date DATE,
+ADD COLUMN nbc_submitted_date DATE;

@@ -29,6 +29,7 @@ const ProgressBarDiv = styled.div`
 `;
 export default function Progress() {
   const [data, setData] = useState([]);
+  const [target, setTarget] = useState([]);
 
   useEffect(() => {
     retrieveDeals();
@@ -43,6 +44,26 @@ export default function Progress() {
         console.log(e);
       });
   };
+
+
+  useEffect(() => {
+    retrieveGuranteePipeline();
+  }, []);
+
+  const retrieveGuranteePipeline = () => {
+    Service.getAllStaff()
+      .then((response) => {
+        setTarget(response.data.staff);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  // let Target value i.e gurantee fee
+  var targetValue = target.reduce(function (tot, arr) {
+    return tot + parseFloat(arr.guaranteepipeline);
+  }, 0);
 
   let option1 = data.reduce(function (filtered, arr) {
     if (arr.industry === "On-grid Power") {
@@ -198,9 +219,33 @@ export default function Progress() {
     return tot + parseFloat(arr);
   }, 0);
 
+  // actual deal size
   var sumTotal = data.reduce(function (tot, arr) {
     return tot + parseFloat(arr.dealsize);
   }, 0);
+
+    //*****************************Varience******************/
+
+    let varianceAmount = targetValue - sumTotal
+
+    function varianceDisplay(variance) {
+      if (variance < 1) {
+        let varianceAns = (variance * -1)
+        return `↓ ₦${(varianceAns / 1000000).toFixed(2)}bn`;
+      }
+      return `↑ ${(variance/1000000).toFixed(2)}bn`;
+    }
+  
+    let variancePercent = ((varianceAmount / targetValue) * 100).toFixed(1)
+  
+    function variancePerDisplay(variancePer) {
+      if (variancePer < 1) {
+        let varianceAns = (variancePer * -1)
+        return `↓ ${varianceAns}%`;
+      }
+      return `↑ ${variancePer}%`;
+    }
+  
 
   const chartData = [
     {
@@ -387,6 +432,47 @@ export default function Progress() {
     <React.Fragment>
       <Container fluid className='bg-light'>
         <p class='animate__animated animate__pulse pt-2'><b>Execution Summary</b></p>
+        <Row>
+       
+       <Col sm={3} lg={4} md={12} className="my-1" style={{ display: 'flex', flexDirection: 'row' }}>
+         <Card style={{ width: '18rem', flex: 1}}>
+         <Card.Body>
+           <Card.Title>{`₦${(sumTotal/1000000).toFixed(1)}bn`}</Card.Title>     
+           <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
+           <Card.Text>
+             Actual
+           </Card.Text>  
+         </Card.Body>
+       </Card>
+      </Col>
+       
+       <Col sm={3} lg={4} md={12} className="my-1" style={{ display: 'flex', flexDirection: 'row' }}>
+         <Card style={{ width: '18rem', flex: 1 }}>
+           <Card.Body>
+             <Card.Title>{`₦${(targetValue/1000000).toFixed(2)}bn`}</Card.Title>     
+             <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
+             <Card.Text>
+               Target
+             </Card.Text>  
+           </Card.Body>
+       </Card>
+     </Col>
+       
+       <Col sm={3} lg={4} md={12} className="my-1" style={{ display: 'flex', flexDirection: 'row' }}>
+       <Card style={{ width: '18rem', flex: 1}}>
+         <Card.Body>
+           <Card.Title>{variancePerDisplay(variancePercent)}</Card.Title>
+           <Card.Subtitle className="mb-2 text-muted">{varianceDisplay(varianceAmount)}</Card.Subtitle>
+           <Card.Text>
+             Varience
+           </Card.Text>
+         </Card.Body>
+       </Card>
+     </Col>
+       
+        </Row>
+        
+        
         <Row style={{ marginTop: "5px " }}>
           <Col sm={12} lg={4} md={12} className="my-1">
             <br/>
