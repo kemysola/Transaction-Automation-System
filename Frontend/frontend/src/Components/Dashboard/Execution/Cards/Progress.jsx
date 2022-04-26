@@ -3,6 +3,9 @@ import { Container, Row, Col, ProgressBar, Card } from "react-bootstrap";
 import styled from "styled-components";
 import Table from "../Table";
 import Service from "../../../../Services/Service";
+
+
+
 import {
   BarChart,
   Bar,
@@ -377,6 +380,8 @@ export default function Progress() {
 
     },
   ];
+  
+
 
   return (
     <React.Fragment>

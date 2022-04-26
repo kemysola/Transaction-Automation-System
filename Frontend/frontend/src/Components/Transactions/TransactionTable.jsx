@@ -5,6 +5,8 @@ import { FiEdit } from "react-icons/fi";
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Service from "../../Services/Service";
+import * as XLSX from 'xlsx';
+
 
 const ContainerWrapper = styled.div`
 font-size:11px;
@@ -366,6 +368,20 @@ const DealsTable = (props) => {
       style: {}
     };
   }
+  const downloadExcel = () =>{
+    const newData = deals.map(row =>{
+      delete row.tableData
+      return row
+    })
+    const workSheet = XLSX.utils.json_to_sheet(newData)
+    const workBook = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(workBook,workSheet,'Transaction_Summary')
+    //Buffer
+    let buf =XLSX.write(workBook,{bookType:"xlsx",type:"buffer"})
+    XLSX.write(workBook,{bookType:"xlsx",type:"binary"})
+    XLSX.writeFile(workBook,"Transaction_summary.xlsx")
+  }
+
 
   const {
     getTableProps,
@@ -436,25 +452,31 @@ const DealsTable = (props) => {
     <React.Fragment>
       <ContainerWrapper>
         <Row>
-              <Col sm={3} className='d-sm-none d-lg-block d-md-block'>
+              <Col sm={2} className='d-sm-none d-lg-block d-md-block'>
                 <small style={{fontSize:'12px',paddingTop:'10px'}}>
                   All ({deals.length})
                 </small>
               </Col>
 
-              <Col sm={3} className='d-sm-none d-lg-block d-md-block'>
+              <Col sm={2} className='d-sm-none d-lg-block d-md-block'>
                 <small style={{fontSize:'12px',paddingTop:'10px'}}>
                   Trash (0) 
                 </small>
               </Col>
               
-              <Col sm={3} className='d-sm-none d-lg-block '>
+              <Col sm={2} className='d-sm-none d-lg-block '>
                 <small style={{fontSize:'12px',paddingTop:'10px'}}>
                   Bulk Actions
                 </small>
               </Col>
+              <Col sm ={2} className='d-sm-none d-lg-block d-md-block'>
+              <small style={{fontSize:'12px',paddingTop:'10px'}}>
+              <button className='bg-success text-light py-1' onClick={downloadExcel}>Download</button>
+              </small>
+              </Col>
 
-                <Col sm={3}>
+
+                <Col sm={2}>
             <GlobalFilter
                 preGlobalFilteredRows={preGlobalFilteredRows}
                 globalFilter={state.globalFilter}
