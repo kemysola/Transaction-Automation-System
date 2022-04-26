@@ -27,15 +27,30 @@ const ProgressBarDiv = styled.div`
 `;
 export default function Progress() {
   const [data, setData] = useState([]);
-
+  const [forecast, setForecast] = useState([]);
+ 
   useEffect(() => {
     retrieveDeals();
+  }, []);
+
+  useEffect(() => {
+    retrieveForecast();
   }, []);
 
   const retrieveDeals = () => {
     Service.getAllDeals()
       .then((response) => {
         setData(response.data.deals);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const retrieveForecast = () => {
+    Service.getForecast()
+      .then((response) => {
+        setForecast(response.data.forecast);
       })
       .catch((e) => {
         console.log(e);
@@ -379,6 +394,30 @@ export default function Progress() {
     },
   ];
 
+  // --------------------------- Guarantee Projection Forecast ---------------------- //
+  const newGuaranteeData = forecast.map(item => (
+    {
+      "name": item.projectionyear,
+      "Cumulative Growth": item.cumulativegrowth,
+      "New Deals": item.newdeals
+    }
+  ));
+
+  const guaranteePipelineData = forecast.map(item => (
+    {
+      "name": item.projectionyear,
+      "Pipeline": item.guaranteepipeline
+    }
+  ));
+
+  const dealCategoryData = forecast.map(item => (
+    {
+      "name": item.projectionyear,
+      "Green & Amber Deals": item.greenandamberdeals,
+      "Green Deals": item.greendeals
+    }
+  ));
+
   
   return (
     <React.Fragment>
@@ -389,6 +428,217 @@ export default function Progress() {
 
       <Container style={{ marginLeft: "1rem ", marginRight: " 0.11rem", background:'white' }}>
         <Row style={{ marginTop: "5px " }}>
+          {/*------------------------ New Guarantee Forecast barchart ------------------------------- */}
+          <Col sm={12} lg={4} className="my-3">
+            <div
+              style={{
+                paddingTop: "10px",
+                marginTop: "3px",
+                borderRadius: "15px",
+                height: "65.4vh",
+              }}
+            >
+              <Container>
+                <Container className='bg-light py-3'>
+                <p
+                style={{
+                  fontSize: "13px",
+                  // paddingLeft: "10px",
+                  fontWeight: "bold",
+                }}
+              >
+                New Guarantee Forecast (₦'Billions)
+              </p>
+              <BarChart
+                width={250}
+                height={250}
+                data={newGuaranteeData}
+                barSize={15}
+                margin={{
+                  top: 5,
+                  right: 15,
+                  left: 2,
+                  bottom: 2,
+                }}
+
+                layout="horizontal"
+              >
+                <XAxis xAxisId={0}
+                  dataKey="name"
+                  tickLine={false}
+                  axisLine={false}
+                  style={{
+                    fontSize: "0.52rem",
+                    fontFamily: "Arial",
+                    paddingLeft: "2px",
+                  }}
+                />
+                <YAxis hide/>
+                <Tooltip />
+                <Legend height={30} iconSize={10} />
+                <Bar
+                  dataKey="Cumulative Growth"
+                  fill="#82ca9d"
+                  minPointSize={1}
+                  // label={{position: "top", fontSize: "0.6rem"}}
+                  style={{lineHeight: "10px"}}
+                >
+                  <LabelList dataKey="Cumulative Growth" position="top" style={{fontSize: "0.7rem"}} />
+                </Bar>
+                <Bar
+                  dataKey="New Deals"
+                  fill="#89ec8a"
+                  minPointSize={1}
+                  // label={{position: "insideBottom", fontSize: "0.6rem"}}
+                  style={{lineHeight: "10px"}}
+                >
+                  <LabelList dataKey="New Deals" position="insideBottom" style={{fontSize: "0.6rem"}} />
+                </Bar>
+              </BarChart>
+
+                </Container>
+              </Container>
+              
+            </div>
+          </Col>
+
+          {/*------------------------ Guarantee Pipeline Forecast barchart ------------------------------- */}
+          <Col sm={12} lg={4} className="my-3">
+            <div
+              style={{
+                paddingTop: "10px",
+                marginTop: "3px",
+                borderRadius: "15px",
+                height: "65.4vh",
+              }}
+            >
+              <Container>
+                <Container className='bg-light py-3'>
+                <p
+                style={{
+                  fontSize: "13px",
+                  // paddingLeft: "10px",
+                  fontWeight: "bold",
+                }}
+              >
+                Guarantee Pipeline Forecast (₦'Billions)
+              </p>
+              <BarChart
+                width={250}
+                height={250}
+                data={guaranteePipelineData}
+                barSize={20}
+                margin={{
+                  top: 5,
+                  right: 15,
+                  left: 5,
+                  bottom: 2,
+                }}
+                layout="horizontal"
+              >
+                <XAxis xAxisId={0}
+                  dataKey="name"
+                  tickLine={false}
+                  axisLine={true}
+                  style={{
+                    fontSize: "0.52rem",
+                    fontFamily: "Arial",
+                    paddingLeft: "2px",
+                  }}
+                />
+                <YAxis hide/>
+                <Tooltip />
+                {/* <Legend /> */}           
+                <Bar
+                  dataKey="Pipeline"
+                  fill="#34B2D2"
+                  minPointSize={1}
+                >
+                  <LabelList dataKey="Pipeline" position="top" style={{fontSize: "0.8rem"}} />
+                </Bar>
+              </BarChart>
+
+                </Container>
+              </Container>
+              
+            </div>
+          </Col>
+
+          {/*------------------------ Deal Category Forecast barchart ------------------------------- */}
+          <Col sm={12} lg={4} className="my-3">
+            <div
+              style={{
+                paddingTop: "10px",
+                marginTop: "3px",
+                borderRadius: "15px",
+                height: "65.4vh",
+              }}
+            >
+              <Container>
+                <Container className='bg-light py-3'>
+                <p
+                style={{
+                  fontSize: "13px",
+                  // paddingLeft: "10px",
+                  fontWeight: "bold",
+                }}
+              >
+                Deal Category Forecast (₦'Billions)
+              </p>
+              <BarChart
+                width={250}
+                height={250}
+                data={dealCategoryData}
+                barSize={15}
+                margin={{
+                  top: 5,
+                  right: 15,
+                  left: 5,
+                  bottom: 2,
+                }}
+                layout="horizontal"
+              >
+                <XAxis xAxisId={0}
+                  dataKey="name"
+                  tickLine={false}
+                  axisLine={false}
+                  style={{
+                    fontSize: "0.52rem",
+                    fontFamily: "Arial",
+                    paddingLeft: "2px",
+                  }}
+                />
+                <YAxis hide/>
+                <Tooltip />
+                <Legend height={30} iconSize={10} />
+                <Bar
+                  dataKey="Green & Amber Deals"
+                  fill="#D6E865"
+                  minPointSize={1}
+                  style={{lineHeight: "10px"}}
+                >
+                  <LabelList dataKey="Green & Amber Deals" position="top" style={{fontSize: "0.7rem"}} />
+                </Bar>
+                <Bar
+                  dataKey="Green Deals"
+                  fill="#89ec8a"
+                  minPointSize={1}
+                  style={{lineHeight: "10px"}}
+                >
+                  <LabelList dataKey="Green Deals" position="insideBottom" style={{fontSize: "0.6rem"}} />
+                </Bar>
+              </BarChart>
+
+                </Container>
+              </Container>
+              
+            </div>
+          </Col>
+
+        </Row>
+
+        <Row style={{ marginTop: "5px " }}>
+          {/* -------------------------- Industry barchart -------------------------------- */}
           <Col sm={12} lg={6} className="my-3">
             <div
               style={{
@@ -456,7 +706,8 @@ export default function Progress() {
               
             </div>
           </Col>
-          {/*------------------------ Column ------------------------------- */}
+
+          {/*------------------------ Product Barchart ------------------------------- */}
           <Col sm={12} lg={6} className="my-3">
             <div
               style={{
@@ -533,7 +784,6 @@ export default function Progress() {
               
             </div>
           </Col>
-          {/*------------------------ Column ------------------------------- */}
         </Row>
       </Container>
       <br />

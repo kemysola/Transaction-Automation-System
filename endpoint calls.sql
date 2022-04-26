@@ -194,3 +194,6 @@ METHOD = GET
 
 GET STAFF LIST: [http://localhost:5001/api/v1/configuration/staff_list]
 METHOD = GET
+
+GET Guarantee Projection: [http://localhost:5001/api/v1/configuration/forecast]
+METHOD = GET

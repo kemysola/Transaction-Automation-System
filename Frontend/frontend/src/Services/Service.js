@@ -84,6 +84,10 @@ const getStaffList = () => { // get all staff
     return axios.get("configuration/staff_list");
 }
 
+const getForecast = () => { // get all staff
+    return axios.get("configuration/forecast");
+}
+
 export default {
     LoginStaff,
     registerStaff,
@@ -104,5 +108,6 @@ export default {
     getRepaymentFreq,
     getAmortizationSty,
     getDealCategory,
-    getStaffList
+    getStaffList,
+    getForecast
 };
