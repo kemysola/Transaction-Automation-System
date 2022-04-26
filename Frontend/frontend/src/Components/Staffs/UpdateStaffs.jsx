@@ -99,7 +99,7 @@ export default function UpdateStaffs() {
 
   const retrieveStaff = async () => {
     const staff_data = await axios.get(
-      `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
+     `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
           //`http://localhost:5001/api/v1/staff/${user_email}`,
 
       {headers: {

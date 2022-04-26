@@ -43,6 +43,22 @@ const RedDiv = styled.div`
   display:inline-block;
   margin-left:19px;
 `;
+const WhiteDiv = styled.div`
+  border-radius: 50px;
+  background: white;
+  color: royalblue;
+  height: 40px;
+  width: 40px;
+  margin-top: 10px,
+  margin-bottom: 2px;
+  text-align:center;
+  padding-top:12px;
+  font-size: 10px;
+  display:inline-block;
+  margin-left:16px;
+  border:2px solid royalblue;
+  font-weight:bold;
+`;
 
 const GreenDiv = styled.div`
   border-radius: 50px;
@@ -359,6 +375,9 @@ export default function Stats() {
 
                 <Row>
                   <Col md={4} className="mt-1 d-none d-sm-block">
+                  <small>Total </small>
+                  <WhiteDiv className="my-2">{green.length+ amber.length + red.length}</WhiteDiv>
+                   <br/>
                    <small>Green </small>
                    <GreenDiv className="my-2">{green.length}</GreenDiv>
                    <br/>
