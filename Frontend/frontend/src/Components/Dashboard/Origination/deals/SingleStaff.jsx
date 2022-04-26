@@ -7,6 +7,7 @@ import Service from "../../../../Services/Service"
 import { useLocation, Redirect } from "react-router-dom";
 import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters, useSortBy } from 'react-table'
 import { FiEdit } from 'react-icons/fi';
+import * as XLSX from 'xlsx';
 
 
 import { useHistory } from 'react-router-dom';
@@ -232,6 +233,25 @@ function SingleStaff() {
       useResizeColumns,
       useFlexLayout,
       );
+      const downloadExcel = () =>{
+        const newData = staff.map(row =>{
+          delete row.tableData
+        
+          return(
+            row
+
+          )
+        })
+        const workSheet = XLSX.utils.json_to_sheet(newData)
+        const workBook = XLSX.utils.book_new()
+        XLSX.utils.book_append_sheet(workBook,workSheet,'Single_Staff_Report')
+        //Buffer
+        let buf =XLSX.write(workBook,{bookType:"xlsx",type:"buffer"})
+        XLSX.write(workBook,{bookType:"xlsx",type:"binary"})
+        XLSX.writeFile(workBook,"Single_Staff_Transaction_Report.xlsx")
+      }
+    
+    
 
 
       
@@ -243,21 +263,27 @@ function SingleStaff() {
         <Row className=''>
           <Col sm={12} className='  ' >
             <Row>
-              <Col sm={3} className='d-sm-none d-lg-block d-md-block'>
+              <Col sm={2} className='d-sm-none d-lg-block d-md-block'>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 All ({staff.length})
               </small></Col>
 
-              <Col sm={3} className='d-sm-none d-lg-block d-md-block'>
+              <Col sm={2} className='d-sm-none d-lg-block d-md-block'>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Trash (0) 
                 </small>
               </Col>
-              <Col sm={3} className='d-sm-none d-lg-block'>
+              <Col sm={2} className='d-sm-none d-lg-block'>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Bulk Actions
                 </small>
                 </Col>
+
+                <Col sm ={2} className='d-sm-none d-lg-block d-md-block'>
+              <small style={{fontSize:'12px',paddingTop:'10px'}}>
+              <button className='bg-success text-light py-1' onClick={downloadExcel}>Download</button>
+              </small>
+              </Col>
 
                 <Col sm={3}>
             <GlobalFilter

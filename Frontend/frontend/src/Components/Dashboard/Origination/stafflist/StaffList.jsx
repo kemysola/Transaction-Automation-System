@@ -5,7 +5,8 @@ import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination,
 } from 'react-table'
 import { useHistory } from 'react-router-dom';
 import { FiEdit } from 'react-icons/fi';
-import Service from '../../../../Services/Service'
+import Service from '../../../../Services/Service';
+
 
 const ContainerWrapper = styled.div`
     font-size:10px;
@@ -134,7 +135,7 @@ const StaffList = () => {
   useResizeColumns,
   useFlexLayout,
   );
-
+  
 
 
 
@@ -144,23 +145,25 @@ const StaffList = () => {
         <Row className=''>
           <Col sm={12} className='  ' >
             <Row>
-              <Col sm={3} className='d-sm-none d-lg-block'>
+              <Col sm={2} className='d-sm-none d-lg-block'>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 All ({staff.length})
               </small></Col>
 
-              <Col sm={3} className='d-sm-none d-lg-block'>
+              <Col sm={2} className='d-sm-none d-lg-block'>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Trash (0) 
                 </small>
               </Col>
-              <Col sm={3} className='d-sm-none d-lg-block '>
+              <Col sm={2} className='d-sm-none d-lg-block '>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
                 Bulk Actions
                 </small>
                 </Col>
+                
+                
 
-                <Col sm={3}>
+                <Col sm={2}>
             <GlobalFilter
                 preGlobalFilteredRows={preGlobalFilteredRows}
                 globalFilter={state.globalFilter}

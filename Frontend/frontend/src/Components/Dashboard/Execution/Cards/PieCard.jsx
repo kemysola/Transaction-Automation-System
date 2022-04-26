@@ -14,6 +14,8 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import * as XLSX from 'xlsx'
+
 
 
 // .................................. Styled Components .........................
@@ -290,6 +292,19 @@ export default function PieCard() {
         value:southsouth,
       }
     ]
+    const downloadExcel = () =>{
+      const newData = data.map(row =>{
+        delete row.tableData
+        return row
+      })
+      const workSheet = XLSX.utils.json_to_sheet(newData)
+      const workBook = XLSX.utils.book_new()
+      XLSX.utils.book_append_sheet(workBook,workSheet,'Report')
+      //Buffer
+      let buf =XLSX.write(workBook,{bookType:"xlsx",type:"buffer"})
+      XLSX.write(workBook,{bookType:"xlsx",type:"binary"})
+      XLSX.writeFile(workBook,"Report.xlsx")
+    }
   
     return (
       <React.Fragment>
