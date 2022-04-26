@@ -5,6 +5,8 @@ import { FiEdit } from "react-icons/fi";
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Service from "../../Services/Service";
+import * as XLSX from 'xlsx';
+
 
 const ContainerWrapper = styled.div`
 font-size:11px;
@@ -60,7 +62,6 @@ const TableStyle = styled.div`
     }
   }
 `
-
 //Define a default UI for filtering
 export const GlobalFilter =({
   preGlobalFilteredRows,
@@ -75,6 +76,7 @@ export const GlobalFilter =({
 
   return (
       <span className=''>
+
           <input 
               className="form-control "
               style={{ outline: 'none', border: '1px solid black', padding: '1px 10px', marginTop: '2px', marginRight: '2px' , width:'170px'}}
@@ -116,6 +118,10 @@ const AllDealsTable = (props) => {
     retrieveDeals();
   }, []); 
 
+
+  
+  
+
   const retrieveDeals = () => {
     Service.getAllDeals()
       .then((response) => {
@@ -136,6 +142,22 @@ const AllDealsTable = (props) => {
       search: "?" + rowIndex,
     });
   };
+
+
+  const downloadExcel = () =>{
+    const newData = deals.map(row =>{
+      delete row.tableData
+      return row
+    })
+    const workSheet = XLSX.utils.json_to_sheet(newData)
+    const workBook = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(workBook,workSheet,'Transaction_report')
+    //Buffer
+    let buf =XLSX.write(workBook,{bookType:"xlsx",type:"buffer"})
+    XLSX.write(workBook,{bookType:"xlsx",type:"binary"})
+    XLSX.writeFile(workBook,"Transaction_report.xlsx")
+  }
+
 
   const columns = useMemo(
     () => [
@@ -159,7 +181,7 @@ const AllDealsTable = (props) => {
         }
       },
       {
-        Header: "Client ^",
+        Header: "Client ",
         accessor: "clientname",
       },
       {
@@ -434,28 +456,35 @@ const AllDealsTable = (props) => {
     },
     
     );
+
   
 
   return (
     <React.Fragment>
       <ContainerWrapper>
+        
         <Row>
-              <Col sm={3} className='d-sm-none d-lg-block d-md-block'>
+              <Col sm={2} className='d-sm-none d-lg-block d-md-block'>
                 <small style={{fontSize:'12px',paddingTop:'10px'}}>
                   All ({deals.length})
                 </small>
               </Col>
 
-              <Col sm={3} className='d-sm-none d-lg-block d-md-block'>
+              <Col sm={2} className='d-sm-none d-lg-block d-md-block'>
                 <small style={{fontSize:'12px',paddingTop:'10px'}}>
                   Trash (0) 
                 </small>
               </Col>
               
-              <Col sm={3} className='d-sm-none d-lg-block '>
+              <Col sm={2} className='d-sm-none d-lg-block '>
                 <small style={{fontSize:'12px',paddingTop:'10px'}}>
                   Bulk Actions
                 </small>
+              </Col>
+              <Col sm ={2} className='d-sm-none d-lg-block d-md-block'>
+              <small style={{fontSize:'12px',paddingTop:'10px'}}>
+              <button className='bg-success text-light py-1' onClick={downloadExcel}>Download</button>
+              </small>
               </Col>
 
                 <Col sm={3}>

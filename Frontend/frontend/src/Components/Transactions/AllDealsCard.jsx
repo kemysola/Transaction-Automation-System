@@ -14,6 +14,8 @@ export default function TransactionCards() {
     retrieveDeals();
   }, []);
 
+  
+
   // .................................... Axios Endpoint ..............................
   const retrieveDeals = () => {
     Service.getAllDeals()
@@ -25,6 +27,7 @@ export default function TransactionCards() {
       });
   };
 
+  
   
   var sumTotal = data.reduce(function (tot, arr) {
     return tot + parseFloat(arr.dealsize);
@@ -71,6 +74,7 @@ export default function TransactionCards() {
               </Card.Body>
             </Card>
           </Col>
+
         </Row>
 
       </Container>

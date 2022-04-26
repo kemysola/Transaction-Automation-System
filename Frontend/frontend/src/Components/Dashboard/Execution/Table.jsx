@@ -3,6 +3,8 @@ import { Row, Col, Form} from 'react-bootstrap';
 import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useSortBy } from "react-table";
 import styled from 'styled-components';
 import Service from "../../../Services/Service";
+import * as XLSX from 'xlsx';
+
 
 const ContainerWrapper = styled.div`
 font-size:11px;
@@ -268,6 +270,21 @@ const DealsTable = (props) => {
       usePagination,
       useRowSelect,    
     );
+
+    const downloadExcel = () =>{
+      const newData = deals.map(row =>{
+        delete row.tableData
+        return row
+      })
+      const workSheet = XLSX.utils.json_to_sheet(newData)
+      const workBook = XLSX.utils.book_new()
+      XLSX.utils.book_append_sheet(workBook,workSheet,'Execution_Summary')
+      //Buffer
+      let buf =XLSX.write(workBook,{bookType:"xlsx",type:"buffer"})
+      XLSX.write(workBook,{bookType:"xlsx",type:"binary"})
+      XLSX.writeFile(workBook,"Execution_Report.xlsx")
+    }
+
   
 
   return (
@@ -275,6 +292,7 @@ const DealsTable = (props) => {
       <ContainerWrapper>
         <DateWrapper>
           <Row>
+          
             <Col>
               <Form.Group className="mb-0 mt-2 pt-2 pb-1">
                 <Form.Label style={{fontSize: "12px"}}>Start Date</Form.Label>
@@ -301,6 +319,13 @@ const DealsTable = (props) => {
                 Submit
               </ButtonWrapper>
             </Col>
+
+            <Col >
+              <ButtonWrapper onClick={downloadExcel}>
+               Download
+              </ButtonWrapper>
+            </Col>
+            
           </Row>
         </DateWrapper>
         
