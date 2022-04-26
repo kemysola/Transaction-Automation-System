@@ -44,6 +44,11 @@ const getAllStaff = async() => { // get all staff, for privileged users only
     return await axios.get("staff/all_staff");
 };
 
+const getOneStaff = async(user_email) => { // get all staff, for privileged users only
+    return await axios.get(`staff/${user_email}`);
+};
+
+
 const getClient = (start_date, end_date, clientname) => { // get client name when not specified, for privileged users only
     return axios.get(`report/${start_date}/${end_date}/${clientname}`);
 };
@@ -95,6 +100,7 @@ export default {
     getMyDeals,
     getAllDeals,
     getAllStaff,
+    getOneStaff,
     getClient,
     getDealByDate,
     getLevel,

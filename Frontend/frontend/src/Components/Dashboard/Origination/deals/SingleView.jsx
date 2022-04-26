@@ -7,7 +7,7 @@ import Navbar from '../../../LandingPage/Navbar';
 //import StaffList from './stafflist/StaffList';
 import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters } from 'react-table'
 import SingleStaff from './SingleStaff';
-
+import ProgressOrigination from '../../Execution/Cards/ProgressOrigination';
 
 
 const ViewWrapper = styled.div`
@@ -20,16 +20,21 @@ const SingleView =()=> {
     return(
         <React.Fragment>
             <Navbar/>
-            <ViewWrapper/>
+            <ViewWrapper />
             <Row>
                 <Col sm={3} style={{padding:'10px 10px 10px 0px'}}>
                     <SideNav2/>
                 </Col>
-                <Col sm={8}>
+
+                <Col sm={8}> 
+                    <ProgressOrigination />                   
+                </Col>
+
+                {/* <Col sm={8}>
                     <SingleStaff/>
-    </Col>
+                </Col> */}
                 
-    </Row>
+                </Row>
 
         </React.Fragment>
 

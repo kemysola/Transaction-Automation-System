@@ -64,8 +64,6 @@ function SingleStaff() {
               user_email
 
           ).then((res) =>{
-              console.log(res.data.deals)
-              console.log(user_email)
               setStaff(res.data.deals)
           })
           console.log(staff)  

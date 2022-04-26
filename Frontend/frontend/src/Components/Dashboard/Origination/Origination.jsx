@@ -7,7 +7,7 @@ import Card from './Cards/Cards';
 import StaffList from './stafflist/StaffList';
 import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters } from 'react-table'
 import SingleStaff from './deals/SingleStaff';
-
+import Progress from '../Execution/Cards/Progress';
 
 
 const ViewWrapper = styled.div`
@@ -29,7 +29,7 @@ const Origination =()=> {
                 <Col sm={8} style={{ marginRight:'1rem'}}>
                     <StaffList/>
                     <br/>
-    </Col>
+                </Col>
                 
     </Row>
 
