@@ -64,6 +64,7 @@ function SingleStaff() {
               user_email
 
           ).then((res) =>{
+            console.log(res.data.deals)
               setStaff(res.data.deals)
           })
           console.log(staff)  
@@ -125,7 +126,7 @@ function SingleStaff() {
               const amount = parseInt(props.row.original['dealsize'])
               return (
                 <div>
-                  {`${(amount / 1000000).toFixed(1)}`}
+                  {`${(amount).toFixed(1)}`}
                 </div>
               )
             }
