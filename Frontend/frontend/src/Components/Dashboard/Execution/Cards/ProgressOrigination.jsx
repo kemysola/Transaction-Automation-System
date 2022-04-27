@@ -34,6 +34,10 @@ export default function ProgressOrigination() {
 
   
   let user_email = window.location.search.split("?")[1]
+
+  //edit user_email
+
+  //let name = user_email.toUpperCase()
   const retrieveDeals = () => {
     Service.getMyDealsByEmail( user_email)
       .then((response) => {
@@ -440,6 +444,7 @@ export default function ProgressOrigination() {
 
     },
   ];
+  
 
   return (
     <React.Fragment>
@@ -450,7 +455,7 @@ export default function ProgressOrigination() {
             <Dropdownmenu />
           </div>
             
-          <div class='animate__animated animate__pulse pt-2 d-flex justify-content-center'><b>Origination Summary for {user_email.substring(0, user_email.lastIndexOf("@")).toUpperCase()}</b></div>
+          <div class='animate__animated animate__pulse pt-2 d-flex justify-content-center'><b>Origination Summary : {user_email}</b></div>
         
             </Col>
         </Row>
