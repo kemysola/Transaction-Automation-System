@@ -30,6 +30,7 @@ const ProgressBarDiv = styled.div`
 export default function Progress() {
   const [data, setData] = useState([]);
   const [target, setTarget] = useState([]);
+  const [staff, setStaff] = useState([]);
 
   useEffect(() => {
     retrieveDeals();
@@ -59,6 +60,22 @@ export default function Progress() {
         console.log(e);
       });
   };
+
+
+    // filter deals by staff email
+  // useEffect(() => {
+  //   retrieveStaff();
+  // }, [staff]);
+
+  // const retrieveStaff = async () => {
+  //   Service.getMyDealsByEmail(user_email)
+  //     .then((res) =>{
+  //       setData(res.data.deals)
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // };
 
   // let Target value i.e gurantee fee
   var targetValue = target.reduce(function (tot, arr) {
@@ -437,7 +454,7 @@ export default function Progress() {
        <Col sm={3} lg={4} md={12} className="my-1" style={{ display: 'flex', flexDirection: 'row' }}>
          <Card style={{ width: '18rem', flex: 1}}>
          <Card.Body>
-           <Card.Title>{`₦${(sumTotal/1000000).toFixed(1)}bn`}</Card.Title>     
+           <Card.Title>{`₦${(sumTotal).toFixed(1)}bn`}</Card.Title>     
            <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
            <Card.Text>
              Actual
@@ -449,7 +466,7 @@ export default function Progress() {
        <Col sm={3} lg={4} md={12} className="my-1" style={{ display: 'flex', flexDirection: 'row' }}>
          <Card style={{ width: '18rem', flex: 1 }}>
            <Card.Body>
-             <Card.Title>{`₦${(targetValue/1000000).toFixed(2)}bn`}</Card.Title>     
+             <Card.Title>{`₦${(targetValue).toFixed(2)}bn`}</Card.Title>     
              <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
              <Card.Text>
                Target
@@ -464,7 +481,7 @@ export default function Progress() {
            <Card.Title>{variancePerDisplay(variancePercent)}</Card.Title>
            <Card.Subtitle className="mb-2 text-muted">{varianceDisplay(varianceAmount)}</Card.Subtitle>
            <Card.Text>
-             Varience
+             Variance
            </Card.Text>
          </Card.Body>
        </Card>

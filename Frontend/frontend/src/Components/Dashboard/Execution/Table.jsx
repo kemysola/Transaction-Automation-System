@@ -99,18 +99,30 @@ const DealsTable = (props) => {
     retrieveDeals();
   }, []); 
 
+  // const retrieveDeals = () => {
+  //   let start_date = "2022-02-17"
+  //   let end_date = "2022-02-17"
+  //   let client_name = "''"
+  //   Service.getDealByDate(start_date, end_date, client_name)
+  //     .then((response) => {
+  //       setDeals(response.data.records);
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // };
+
   const retrieveDeals = () => {
-    let start_date = "2022-02-17"
-    let end_date = "2022-02-17"
-    let client_name = "''"
-    Service.getDealByDate(start_date, end_date, client_name)
+    Service.getAllDeals()
       .then((response) => {
-        setDeals(response.data.records);
+        setDeals(response.data.deals);
       })
       .catch((e) => {
         console.log(e);
       });
-  };
+  }; 
+
+  // console.log("initial date", date)
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -121,8 +133,11 @@ const DealsTable = (props) => {
     e.preventDefault()
     let start_date = date.start_date
     let end_date = date.end_date
+    let client_name = date.client_name ? date.client_name : "''" // i'd love to come back to this, as the output for when client name is not specified is inaccurate
 
-    Service.getDealByDate(start_date, end_date)
+    // console.log("details", start_date, end_date, client_name)
+
+    Service.getDealByDate(start_date, end_date, client_name)
       .then((response) => {
         setDeals(response.data.records);
       })
@@ -295,14 +310,14 @@ const DealsTable = (props) => {
           
             <Col>
               <Form.Group className="mb-0 mt-2 pt-2 pb-1">
-                <Form.Label style={{fontSize: "12px"}}>Start Date</Form.Label>
+                <Form.Label style={{fontSize: "12px"}}>Start Date <span style={{color: "red"}}>*</span></Form.Label>
                 <Form.Control size="sm" type="date" value={date.start_date} onChange={handleInputChange} name='start_date' />
               </Form.Group>
             </Col>
 
             <Col>
               <Form.Group className="mb-0 mt-2 pt-2 pb-1">
-                <Form.Label style={{fontSize: "12px"}}>End Date</Form.Label>
+                <Form.Label style={{fontSize: "12px"}}>End Date <span style={{color: "red"}}>*</span></Form.Label>
                 <Form.Control size="sm" type="date" value={date.end_date} onChange={handleInputChange} name='end_date' />
               </Form.Group>
             </Col>
