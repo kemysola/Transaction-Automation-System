@@ -570,6 +570,13 @@ const AddDeal = () => {
                               <Input size="sm" type="date"   name='nbcClose'  style={{width:'100%', padding:'6px 1px', focus:'none'}} />
                             </Fm.Group>
                           </Col>
+
+                          <Col sm={6}>
+                            <Fm.Group className="pt-1">
+                              <Fm.Label>NBC Submission</Fm.Label>
+                              <Input size="sm" type="date"   name='nbcSubmission'  style={{width:'100%', padding:'6px 1px', focus:'none'}} />
+                            </Fm.Group>
+                          </Col>
                         </Row>
                       </div>
                       <br />

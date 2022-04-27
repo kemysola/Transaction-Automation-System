@@ -8,6 +8,8 @@ import StaffList from './stafflist/StaffList';
 import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters } from 'react-table'
 import SingleStaff from './deals/SingleStaff';
 import Progress from '../Execution/Cards/Progress';
+import ProgressOrigination from '../Execution/Cards/ProgressOrigination';
+
 
 
 const ViewWrapper = styled.div`
@@ -27,7 +29,8 @@ const Origination =()=> {
                     <SideNav/>
                 </Col>
                 <Col sm={8} style={{ marginRight:'1rem'}}>
-                    <StaffList/>
+                    {/* <StaffList /> */}
+                    <ProgressOrigination />
                     <br/>
                 </Col>
                 

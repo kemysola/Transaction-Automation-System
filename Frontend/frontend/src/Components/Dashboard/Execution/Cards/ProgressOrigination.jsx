@@ -3,6 +3,7 @@ import { Container, Row, Col, ProgressBar, Card } from "react-bootstrap";
 import styled from "styled-components";
 import { BsArrowDown } from 'react-icons/bs'
 import Table from "../Table";
+import Dropdownmenu from "../../Origination/stafflist/Dropdown"
 import Service from "../../../../Services/Service";
 import {
   BarChart,
@@ -443,7 +444,16 @@ export default function ProgressOrigination() {
   return (
     <React.Fragment>
       <Container fluid className='bg-light'>
-        <p class='animate__animated animate__pulse pt-2'><b>Origination Summary</b></p>
+      <Row>
+          <Col style={{ display: 'flex', flexDirection: 'row' }}>
+          <div>
+            <Dropdownmenu />
+          </div>
+            
+          <div class='animate__animated animate__pulse pt-2 d-flex justify-content-center'><b>Origination Summary for {user_email.substring(0, user_email.lastIndexOf("@")).toUpperCase()}</b></div>
+        
+            </Col>
+        </Row>
         <Row>
        
        <Col sm={3} lg={4} md={12} className="my-1" style={{ display: 'flex', flexDirection: 'row' }}>
