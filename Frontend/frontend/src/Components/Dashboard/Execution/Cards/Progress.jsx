@@ -46,7 +46,6 @@ export default function Progress() {
       });
   };
 
-
   useEffect(() => {
     retrieveGuranteePipeline();
   }, []);
@@ -60,7 +59,6 @@ export default function Progress() {
         console.log(e);
       });
   };
-
 
     // filter deals by staff email
   // useEffect(() => {
@@ -248,9 +246,9 @@ export default function Progress() {
     function varianceDisplay(variance) {
       if (variance < 1) {
         let varianceAns = (variance * -1)
-        return `↓ ₦${(varianceAns / 1000000).toFixed(2)}bn`;
+        return `↓ ₦${(varianceAns).toFixed(1)}bn`;
       }
-      return `↑ ${(variance/1000000).toFixed(2)}bn`;
+      return `↑ ${(variance).toFixed(1)}bn`;
     }
   
     let variancePercent = ((varianceAmount / targetValue) * 100).toFixed(1)
@@ -449,9 +447,10 @@ export default function Progress() {
     <React.Fragment>
       <Container fluid className='bg-light'>
         <p class='animate__animated animate__pulse pt-2'><b>Execution Summary</b></p>
+        
         <Row>
        
-       <Col sm={3} lg={4} md={12} className="my-1" style={{ display: 'flex', flexDirection: 'row' }}>
+        <Col sm={3} lg={4} md={12} className="my-1" style={{ display: 'flex', flexDirection: 'row' }}>
          <Card style={{ width: '18rem', flex: 1}}>
          <Card.Body>
            <Card.Title>{`₦${(sumTotal).toFixed(1)}bn`}</Card.Title>     
@@ -466,7 +465,7 @@ export default function Progress() {
        <Col sm={3} lg={4} md={12} className="my-1" style={{ display: 'flex', flexDirection: 'row' }}>
          <Card style={{ width: '18rem', flex: 1 }}>
            <Card.Body>
-             <Card.Title>{`₦${(targetValue).toFixed(2)}bn`}</Card.Title>     
+             <Card.Title>{`₦${(targetValue).toFixed(1)}bn`}</Card.Title>     
              <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
              <Card.Text>
                Target
