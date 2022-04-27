@@ -231,9 +231,9 @@ export default function Progress() {
     function varianceDisplay(variance) {
       if (variance < 1) {
         let varianceAns = (variance * -1)
-        return `↓ ₦${(varianceAns / 1000000).toFixed(2)}bn`;
+        return `↓ ₦${(varianceAns).toFixed(2)}bn`;
       }
-      return `↑ ${(variance/1000000).toFixed(2)}bn`;
+      return `↑ ${(variance).toFixed(2)}bn`;
     }
   
     let variancePercent = ((varianceAmount / targetValue) * 100).toFixed(1)
@@ -437,7 +437,7 @@ export default function Progress() {
        <Col sm={3} lg={4} md={12} className="my-1" style={{ display: 'flex', flexDirection: 'row' }}>
          <Card style={{ width: '18rem', flex: 1}}>
          <Card.Body>
-           <Card.Title>{`₦${(sumTotal/1000000).toFixed(2)}bn`}</Card.Title>     
+           <Card.Title>{`₦${(sumTotal).toFixed(2)}bn`}</Card.Title>     
            <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
            <Card.Text>
              Actual
@@ -449,7 +449,7 @@ export default function Progress() {
        <Col sm={3} lg={4} md={12} className="my-1" style={{ display: 'flex', flexDirection: 'row' }}>
          <Card style={{ width: '18rem', flex: 1 }}>
            <Card.Body>
-             <Card.Title>{`₦${(targetValue/1000000).toFixed(2)}bn`}</Card.Title>     
+             <Card.Title>{`₦${(targetValue).toFixed(2)}bn`}</Card.Title>     
              <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
              <Card.Text>
                Target

@@ -53,7 +53,7 @@ export default function ProgressOrigination() {
   const retrieveGuranteePipeline = () => {
     Service.getOneStaff(user_email)
       .then((response) => {
-        console.log("wwww", response.data)
+        //console.log("wwww", response.data)
         setTarget(response.data.staffInfo);
       })
       .catch((e) => {
