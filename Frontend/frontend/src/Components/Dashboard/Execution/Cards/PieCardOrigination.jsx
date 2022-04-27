@@ -31,13 +31,12 @@ const RedDiv = styled.div`
   color: white;
   height: 30px;
   width: 30px;
-  margin-top: 10px,
-  margin-bottom: 10px;
+  margin-top: 15px,
+  margin-bottom: 2px;
   text-align:center;
   padding-top:8px;
   font-size: 10px;
   display:inline-block;
-  margin-left:5px;
 `;
 const WhiteDiv = styled.div`
   border-radius: 50px;
@@ -238,7 +237,7 @@ export default function PieCardOrigination() {
       return (
         <>
           <text x={cx} y={cy} dy={8} textAnchor="middle">
-          {`₦${(sumTotal / 1000000).toLocaleString("en-US", {
+          {`₦${(sumTotal).toLocaleString("en-US", {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
           })}bn`}
@@ -271,7 +270,7 @@ export default function PieCardOrigination() {
           >
             <p className="label">
               {`${payload[0].name} : 
-              ₦${(payload[0].value / 1000000).toLocaleString("en-US", {
+              ₦${(payload[0].value).toLocaleString("en-US", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}bn`}
@@ -329,19 +328,20 @@ export default function PieCardOrigination() {
   
                   <Row>
                     <Col  className="mt-1 d-none d-sm-block" sm={4} >
+                      <col></col>
                     <small>Total</small>
                     <br/>
-                    <WhiteDiv className="my-1">{green.length+ amber.length + red.length}</WhiteDiv>
+                    <WhiteDiv className="my-1 d-sm-block">{green.length+ amber.length + red.length}</WhiteDiv>
                     <br/>
                      <small>Green </small>
-                     <GreenDiv className="my-1">{green.length}</GreenDiv>
+                     <GreenDiv className="my-1 d-sm-block">{green.length}</GreenDiv>
                      <br/>
                      <small >Amber </small>
-                      <AmberDiv className="my-1">{amber.length}</AmberDiv>
+                      <AmberDiv className="my-1 d-sm-block">{amber.length}</AmberDiv>
                       <br/>
                       <small >Red </small>
                       <br/>
-                      <RedDiv className="my-1">{red.length}</RedDiv>
+                      <RedDiv className="my-1 d-sm-block">{red.length}</RedDiv>
                     </Col>
 
                     <Col sm={6} >

@@ -14,6 +14,7 @@ const pool = new Pool({
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000,
     ssl: true
+    
     //ssl:false
 });
 
