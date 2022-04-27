@@ -41,6 +41,22 @@ const RedDiv = styled.div`
   display:inline-block;
   margin-left:18px;
 `;
+const WhiteDiv = styled.div`
+  border-radius: 50px;
+  background: white;
+  color: royalblue;
+  height: 30px;
+  width: 30px;
+  margin-top: 10px,
+  margin-bottom: 10px;
+  text-align:center;
+  padding-top:8px;
+  font-size: 10px;
+  display:inline-block;
+  margin-left:16px;
+  border:2px solid royalblue;
+  font-weight:bold;
+`;
 
 const GreenDiv = styled.div`
   border-radius: 50px;
@@ -327,6 +343,9 @@ export default function PieCard() {
   
                   <Row>
                     <Col  className="mt-1 d-none d-sm-block" sm={4} >
+                    <small>Total </small>
+                     <WhiteDiv className="my-1">{green.length + amber.length + red.length}</WhiteDiv>
+                     <br/>
                      <small>Green </small>
                      <GreenDiv className="my-1">{green.length}</GreenDiv>
                      <br/>
@@ -338,7 +357,7 @@ export default function PieCard() {
                     </Col>
 
                     <Col sm={6} >
-                      <PieChart width={340} height={210}>
+                      <PieChart width={300} height={210}>
                         <Pie
                           data={chartData}
                           dataKey="value"
