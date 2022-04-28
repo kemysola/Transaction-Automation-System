@@ -64,10 +64,10 @@ function SingleStaff() {
               user_email
 
           ).then((res) =>{
-            console.log(res.data.deals)
+            //console.log(res.data.deals)
               setStaff(res.data.deals)
           })
-          console.log(staff)  
+          //console.log(staff)  
           
       } ;
 
