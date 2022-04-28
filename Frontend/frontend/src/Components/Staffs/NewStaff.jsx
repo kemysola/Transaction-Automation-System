@@ -271,28 +271,28 @@ export default function NewStaff() {
                                             <Row>
                                                 <Col sm={6}>
                                                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                        <Form.Label>Origination (NGN)</Form.Label>
+                                                        <Form.Label>Origination (₦'BN)</Form.Label>
                                                         <Form.Control size="sm" type="number" value={staff.amount} name='amount' onChange={handleInputChange} disabled={target === "false"}/>
                                                     </Form.Group>
                                                 </Col>
 
                                                 <Col sm={6}>
                                                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                        <Form.Label>Guarantee Pipeline (NGN)</Form.Label>
+                                                        <Form.Label>Guarantee Pipeline (₦'BN)</Form.Label>
                                                         <Form.Control size="sm" type="number" value={staff.guarantee} name='guarantee' onChange={handleInputChange}/>
                                                     </Form.Group>
                                                 </Col>
 
                                                 <Col sm={6}  className='mt-3 pt-2'>
                                                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                        <Form.Label>Green Transaction (NGN)</Form.Label>
+                                                        <Form.Label>Green Transaction (₦'BN)</Form.Label>
                                                         <Form.Control size="sm" type="number" value={staff.greenTransaction} name='greenTransaction' onChange={handleInputChange}/>
                                                     </Form.Group>
                                                 </Col>
 
                                                 <Col sm={6}  className='mt-3  pb-3 mb-2 pt-2'>
                                                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                        <Form.Label>Amber Transaction (NGN)</Form.Label>
+                                                        <Form.Label>Amber Transaction (₦'BN)</Form.Label>
                                                         <Form.Control size="sm" type="number" value={staff.amberTransaction} name='amberTransaction' onChange={handleInputChange} disabled/>
                                                     </Form.Group>
                                                 </Col>
@@ -316,7 +316,7 @@ export default function NewStaff() {
                                                 <Col sm={8}  >
                                                     <Form.Group as={Row} className='mt-2  pb-1 mb-1 pt-2'>
                                                         <Form.Label column sm="5">
-                                                            <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Mandate Letter (NGN)</p>
+                                                            <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Mandate Letter (%)</p>
                                                         </Form.Label>
                                                         <Col sm="6">
                                                             <Form.Control type="number" placeholder="0" size='sm' id='mandateLetter' value={staff.mandateLetter} name='mandateLetter' onChange={handleInputChange} />
@@ -325,7 +325,7 @@ export default function NewStaff() {
 
                                                     <Form.Group as={Row} className='mt-2  pb-1 mb-1 pt-2'>
                                                         <Form.Label column sm="5">
-                                                            <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Credit Committee Approval(NGN)</p>
+                                                            <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Credit Committee Approval(%)</p>
                                                         </Form.Label>
                                                         <Col sm="6">
                                                             <Form.Control type="number" placeholder="0" size='sm' id='creditCommiteeApproval' value={staff.creditCommiteeApproval} name='creditCommiteeApproval' onChange={handleInputChange} />

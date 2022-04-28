@@ -85,7 +85,7 @@ const Pagination = styled.div`
 `
 
 
-const DealsTable = (props) => {
+const DealsTable = ({props, dealFilter}) => {
   const initialDateState = {
     start_date: "",
     end_date: "",
@@ -94,30 +94,34 @@ const DealsTable = (props) => {
 
   const [date, setDate] = useState(initialDateState);
   const [deals, setDeals] = useState([]);
+  const [rawData, setRawData] = useState([]);
   const dealsRef = useRef();
   dealsRef.current = deals;
 
-  useEffect(() => {
-    retrieveDeals();
-  }, []); 
+  // useEffect(() => {
+  //   retrieveDeals();
+  // }, []); 
 
-  // const retrieveDeals = () => {
-  //   let start_date = "2022-02-17"
-  //   let end_date = "2022-02-17"
-  //   let client_name = "''"
-  //   Service.getDealByDate(start_date, end_date, client_name)
-  //     .then((response) => {
-  //       setDeals(response.data.records);
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-  // };
+  useEffect(() => {
+    if (dealFilter === "All") {
+      retrieveDeals();
+    } else {
+      filterData(dealFilter)
+    }
+  }, [dealFilter]);
+
+  // Filter Data by Deal Category
+  const filterData = (dealFilter) => {    
+    const filteredData = rawData.filter(item => {return item.deal_category === dealFilter})
+      setDeals(filteredData)
+      return filteredData
+  }
 
   const retrieveDeals = () => {
     Service.getAllDeals()
       .then((response) => {
         setDeals(response.data.deals);
+        setRawData(response.data.deals);
       })
       .catch((e) => {
         console.log(e);

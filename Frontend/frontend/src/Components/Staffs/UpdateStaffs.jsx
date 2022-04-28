@@ -100,7 +100,7 @@ export default function UpdateStaffs() {
   const retrieveStaff = async () => {
     const staff_data = await axios.get(
      `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
-         // `http://localhost:5001/api/v1/staff/${user_email}`,
+        //   `http://localhost:5001/api/v1/staff/${user_email}`,
 
       {headers: {
         token: `Bearer ${localStorage.getItem('token')}`,
@@ -316,7 +316,7 @@ export default function UpdateStaffs() {
 <Row>
                                                 <Col sm={6}>
                                                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                        <Form.Label>Origination (NGN)</Form.Label>
+                                                        <Form.Label>Origination (₦'BN)</Form.Label>
                                                         <Form.Control type="text"
                                                             placeholder="0"
                                                             size='sm'
@@ -342,7 +342,7 @@ export default function UpdateStaffs() {
                                             </Col>
                                             <Col sm={6}>
                                                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                        <Form.Label>Guarantee Pipeline (NGN)</Form.Label>
+                                                        <Form.Label>Guarantee Pipeline (₦'BN)</Form.Label>
                                                         <Form.Control type=""
                                                             placeholder="0"
                                                             size='sm'
@@ -360,7 +360,7 @@ export default function UpdateStaffs() {
 
                                             <Col sm={6}  className='mt-3 pt-2'>
                                                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                        <Form.Label>Green Transaction (NGN)</Form.Label>
+                                                        <Form.Label>Green Transaction (₦'BN)</Form.Label>
                                                         <Form.Control type=""
                                                             placeholder="0"
                                                             size='sm'
@@ -376,7 +376,7 @@ export default function UpdateStaffs() {
 
                                             <Col sm={6}  className='mt-3  pb-3 mb-2 pt-2'>
                                                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                        <Form.Label>Amber Transaction (NGN)</Form.Label>
+                                                        <Form.Label>Amber Transaction (₦'BN)</Form.Label>
 
                         
                                                         <Form.Control type=""
@@ -430,7 +430,7 @@ export default function UpdateStaffs() {
                                                 {/*----------------------- Form ------------------------------------------*/}
                                                 <Form.Group as={Row} className="mb-1" controlId="">
                                                     <Form.Label column sm="5">
-                                                        <p style={{ fontWeight: 'normal', fontSize: '11px'  }}>Mandate Letter (NGN)</p>
+                                                        <p style={{ fontWeight: 'normal', fontSize: '11px'  }}>Mandate Letter (%)</p>
                                                     </Form.Label>
                                                     <Col sm="6">
                                                         <Form.Control
@@ -451,7 +451,7 @@ export default function UpdateStaffs() {
                                                 {/*-------------------------- Form -------------------------------------- */}
                                                 <Form.Group as={Row} className='mt-2  pb-1 mb-1 pt-2'>
                                                     <Form.Label column sm="5">
-                                                        <p style={{fontWeight: 'normal', fontSize: '11px'  }}>Credit Committee Approval(NGN)</p>
+                                                        <p style={{fontWeight: 'normal', fontSize: '11px'  }}>Credit Committee Approval(%)</p>
                                                     </Form.Label>
                                                     <Col sm="6">
                                                         <Form.Control

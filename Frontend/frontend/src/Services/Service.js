@@ -48,6 +48,9 @@ const getOneStaff = async(user_email) => { // get all staff, for privileged user
     return await axios.get(`staff/${user_email}`);
 };
 
+const getStaffList = () => { // get all staff
+    return axios.get("configuration/staff_list");
+}
 
 const getClient = (start_date, end_date, clientname) => { // get client name when not specified, for privileged users only
     return axios.get(`report/${start_date}/${end_date}/${clientname}`);
@@ -83,10 +86,6 @@ const getAmortizationSty = () => { // get all amortization style
 
 const getDealCategory = () => { // get all deal category
     return axios.get("configuration/category");
-}
-
-const getStaffList = () => { // get all staff
-    return axios.get("configuration/staff_list");
 }
 
 const getForecast = () => { // get all staff
