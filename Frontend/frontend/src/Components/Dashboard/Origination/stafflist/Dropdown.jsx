@@ -48,9 +48,10 @@ return(
       </Dropdown.Toggle>
       
     <Dropdown.Menu style = {{ height: '200px', overflowY: 'scroll'}}>
-          <Dropdown.Item href="http://localhost:3000/org-dashboard"> All </Dropdown.Item>
+        {/* <Dropdown.Item href="http://localhost:3000/org-dashboard"> All </Dropdown.Item> */}
+        <Dropdown.Item href="https://trms01-server.azurewebsites.net/org-dashboard"> All </Dropdown.Item>
           {staff.map((opt, i) => (
-            <Dropdown.Item href={`http://trms01-server.azurewebsites.net/staff_transaction_report?${staff[i].email}`} key={staff[i].email} value={`${staff[i].firstname} {staff[i].lastname}`}>{staff[i].firstname} {staff[i].lastname}</Dropdown.Item >
+            <Dropdown.Item href={`https://trms01-server.azurewebsites.net/staff_transaction_report?${staff[i].email}`} key={staff[i].email} value={`${staff[i].firstname} {staff[i].lastname}`}>{staff[i].firstname} {staff[i].lastname}</Dropdown.Item >
             // <Dropdown.Item href={`http://localhost:3000/staff_transaction_report?${staff[i].email}`} key={staff[i].email} value={`${staff[i].firstname} {staff[i].lastname}`}>{staff[i].firstname} {staff[i].lastname}</Dropdown.Item >
 
              ))}
