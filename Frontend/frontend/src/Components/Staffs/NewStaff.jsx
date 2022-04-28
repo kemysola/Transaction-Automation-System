@@ -278,7 +278,7 @@ export default function NewStaff() {
 
                                                 <Col sm={6}>
                                                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                        <Form.Label>Guarantee Pipeline (NGN)</Form.Label>
+                                                        <Form.Label>Guarantee Pipeline (bn)</Form.Label>
                                                         <Form.Control size="sm" type="number" value={staff.guarantee} name='guarantee' onChange={handleInputChange}/>
                                                     </Form.Group>
                                                 </Col>
