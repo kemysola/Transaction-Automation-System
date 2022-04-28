@@ -482,18 +482,23 @@ export default function ProgressOrigination() {
   ];
   
 
+  let user_name = user_email.split('@')
+  let staff_name = user_name[0]
+
   return (
     <React.Fragment>
       <Container fluid className='bg-light'>
       <Row>
-          <Col style={{ display: 'flex', flexDirection: 'row' }}>
-          <div>
-            <Dropdownmenu />
-          </div>
-            
-          <div class='animate__animated animate__pulse pt-2 d-flex justify-content-center'><b>Origination Summary : {user_email}</b></div>
+      <Col md={4}>
+                
+            <div class='animate__animated animate__pulse pt-2 d-flex justify-content-center'><b>Origination Summary <br /> <span style={{ margin: '1.2em', fontSize: '1em', textTransform: 'uppercase', fontWeight: '400'}}>{staff_name}</span></b></div> 
         
             </Col>
+          <Col md={{ span: 4, offset: 4 }}>
+          
+            <Dropdownmenu />
+          
+          </Col>
         </Row>
         <Row>
        

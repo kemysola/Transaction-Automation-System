@@ -5,10 +5,9 @@ import SideNav from '../../LandingPage/SideNav2';
 import Navbar from '../../LandingPage/Navbar';
 import Card from './Cards/Cards';
 import StaffList from './stafflist/StaffList';
-import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters } from 'react-table'
 import SingleStaff from './deals/SingleStaff';
-import Progress from '../Execution/Cards/Progress';
 import ProgressOrigination from '../Execution/Cards/ProgressOrigination';
+import Progress from '../Origination/Cards/Progress';
 
 
 
@@ -30,7 +29,7 @@ const Origination =()=> {
                 </Col>
                 <Col sm={8} style={{ marginRight:'1rem'}}>
                     {/* <StaffList /> */}
-                    <ProgressOrigination />
+                    <Progress/>
                     <br/>
                 </Col>
                 
