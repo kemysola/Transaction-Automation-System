@@ -90,26 +90,32 @@ const AmberDiv = styled.div`
 export default function PieCardOrigination() {
     const [data, setData] = useState([]);
     const [region, setRegion] = useState([])
+    const [creditApproval, setCreditApproval] = useState([])
+    const [financialClose, setFinancialClose] =useState([])
   
     // ................................... Use Effect Hook .................................
   
+    
+  
+    //let user_email = window.location.search.split("?")[1]
+    
     useEffect(() => {
       retrieveDeals();
     }, []);
-  
-    let user_email = window.location.search.split("?")[1]
     // .................................... Axios Endpoint ..............................
-    const retrieveDeals = () => {
-      Service.getMyDealsByEmail(user_email)
+    const retrieveDeals = async() => {
+      let user_email = window.location.search.split("?")[1]
+
+     await Service.getMyDealsByEmail(user_email)
         .then((response) => {
-          //console.log((response.data.deals).length)
           setData(response.data.deals);
         })
         .catch((e) => {
           console.log(e);
         });
     };
-  
+
+   
     // ............................ Region Data ................................................
 
     var south = data.reduce(function (filtered, arr) {
@@ -159,6 +165,14 @@ export default function PieCardOrigination() {
       }
       return filtered;
     }, []);
+
+
+
+
+
+      
+
+    
   
     // .......................... Get transactions according to deal category ...................
   
@@ -345,7 +359,7 @@ export default function PieCardOrigination() {
                     </Col>
 
                     <Col sm={6} >
-                      <PieChart width={340} height={210}>
+                      <PieChart width={298} height={210}>
                         <Pie
                           data={chartData}
                           dataKey="value"
@@ -353,8 +367,8 @@ export default function PieCardOrigination() {
                           cx="25%"
                           cy="40%"
                           fill="#8884d8"
-                          innerRadius={55}
-                          outerRadius={75}
+                          innerRadius={54}
+                          outerRadius={70}
                           paddingAngle={1}
                           isAnimationActive={false}
                           labelLine={false}
