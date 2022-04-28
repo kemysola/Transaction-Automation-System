@@ -72,6 +72,8 @@ const AddDeal = () => {
     repaymentFrequency: "Semi-Annually",
     amortizationStyle: "Annuity",
     mandateLetter: null,
+    nbc_approval_date: null,
+    nbc_submitted_date: null,
     creditApproval: null,
     feeLetter: null,
     expectedClose: null,
@@ -313,6 +315,8 @@ const AddDeal = () => {
       "guaranteeFee": +deal.guaranteeFee,
       "monitoringFee": +deal.monitoringFee,
       "reimbursible": +deal.reimbursible,
+      "nbc_approval_date": deal.nbc_approval_date,
+      "nbc_submitted_date": deal.nbc_submitted_date,
       "notes": note,
       "closed": false
     };
@@ -568,6 +572,13 @@ const AddDeal = () => {
                             <Fm.Group className="pt-1">
                               <Fm.Label>NBC Approval</Fm.Label>
                               <Input size="sm" type="date"   name='nbcClose'  style={{width:'100%', padding:'6px 1px', focus:'none'}} />
+                            </Fm.Group>
+                          </Col>
+
+                          <Col sm={6}>
+                            <Fm.Group className="pt-1">
+                              <Fm.Label>NBC Submission</Fm.Label>
+                              <Input size="sm" type="date"   name='nbcSubmission'  style={{width:'100%', padding:'6px 1px', focus:'none'}} />
                             </Fm.Group>
                           </Col>
                         </Row>

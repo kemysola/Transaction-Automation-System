@@ -3,6 +3,7 @@ import { Container, Row, Col, ProgressBar, Card } from "react-bootstrap";
 import styled from "styled-components";
 import { BsArrowDown } from 'react-icons/bs'
 import Table from "../Table";
+import Dropdownmenu from "../../Origination/stafflist/Dropdown"
 import Service from "../../../../Services/Service";
 import {
   BarChart,
@@ -17,6 +18,7 @@ import {
 
 import PieCardOrigination from "./PieCardOrigination";
 import SingleStaff from "../../Origination/deals/SingleStaff";
+import { blueGrey } from "@mui/material/colors";
 
 const ProgressBarDiv = styled.div`
   display: grid;
@@ -33,6 +35,10 @@ export default function ProgressOrigination() {
 
   
   let user_email = window.location.search.split("?")[1]
+
+  //edit user_email
+
+  //let name = user_email.toUpperCase()
   const retrieveDeals = () => {
     Service.getMyDealsByEmail( user_email)
       .then((response) => {
@@ -48,12 +54,19 @@ export default function ProgressOrigination() {
   }, []);
 
 
-  
+  const [mandate, setMandate] = useState([])
+  const [financialClose, setFinancialClose] = useState([])
+  const [cca, setCca] = useState([])
+  const [feeLetter, setFeeLetter] = useState([])
   
   const retrieveGuranteePipeline = () => {
     Service.getOneStaff(user_email)
       .then((response) => {
-        //console.log("wwww", response.data)
+        console.log("wwww", response.data)
+        setMandate(response.data.staffInfo[0].mandateletter)
+        setFinancialClose(response.data.staffInfo[0].financialclose)
+        setCca(response.data.staffInfo[0].creditcommiteeapproval)
+        setFeeLetter(response.data.staffInfo[0].feeletter)
         setTarget(response.data.staffInfo);
       })
       .catch((e) => {
@@ -230,6 +243,8 @@ export default function ProgressOrigination() {
     return tot + parseFloat(arr.dealsize);
   }, 0);
 
+  
+
   //*****************************Varience******************/
 
   
@@ -258,7 +273,33 @@ export default function ProgressOrigination() {
       return `↓ $0 %`;
     }
     return `↑ ${variancePer}%`;
-  }
+  };
+
+
+
+  const approvalData = [
+    {
+    name:"Mandate: 2%",
+      value: mandate,
+      percent: `${((mandate) * 1).toFixed(1)}%`
+    },
+    {
+      name:"Credit Approval:10%",
+      value: cca,
+      percent: `${((cca) * 1).toFixed(1)}%`
+
+    },
+    {
+      name:'Financial Close:100%',
+      value: financialClose,
+      percent: `${((financialClose) *1).toFixed(1)}%`
+    },
+    {
+      name:"Fee Letter:20%",
+      value: feeLetter,
+      percent: `${((feeLetter) * 1).toFixed(1)}%`
+    }
+  ]
 
 
   const chartData = [
@@ -439,11 +480,26 @@ export default function ProgressOrigination() {
 
     },
   ];
+  
+
+  let user_name = user_email.split('@')
+  let staff_name = user_name[0]
 
   return (
     <React.Fragment>
       <Container fluid className='bg-light'>
-        <p class='animate__animated animate__pulse pt-2'><b>Origination Summary</b></p>
+      <Row>
+      <Col md={4}>
+                
+            <div class='animate__animated animate__pulse pt-2 d-flex justify-content-center'><b>Origination Summary <br /> <span style={{ margin: '1.2em', fontSize: '1em', textTransform: 'uppercase', fontWeight: '400'}}>{staff_name}</span></b></div> 
+        
+            </Col>
+          <Col md={{ span: 4, offset: 4 }}>
+          
+            <Dropdownmenu />
+          
+          </Col>
+        </Row>
         <Row>
        
        <Col sm={3} lg={4} md={12} className="my-1" style={{ display: 'flex', flexDirection: 'row' }}>
@@ -623,6 +679,8 @@ export default function ProgressOrigination() {
                   background={{ fill: "#eee" }}
                 />
               </BarChart>
+<br/> 
+
 
                 </Container>
               </Container>
@@ -630,6 +688,39 @@ export default function ProgressOrigination() {
           </Col>
           {/*------------------------ Column ------------------------------- */}
         </Row>
+
+        <BarChart 
+                width={360}
+                height={240}
+                data={approvalData}
+                barSize={30}
+                layout="horizontal"
+              >
+                      <XAxis xAxisId={0}
+                        type="category"
+                        dataKey='name'
+                        tickLine={false}
+                        axisLine={false}
+                        style={{ fontSize: "0.5rem"}}
+                      />
+                      
+                      <XAxis xAxisId={1}
+                        type="category"
+                        dataKey='percent'
+                        tickLine={false}
+                        axisLine={false}
+                        orientation="top"
+                        style={{ fontSize: "0.5rem"}}
+                      />
+                      
+                <Bar
+                  dataKey="value"
+                  minPointSize={0}
+                  fill="blue"
+                  background={{ fill: 'white' }}
+                />
+              </BarChart>
+
        
       </Container>
       <br />
