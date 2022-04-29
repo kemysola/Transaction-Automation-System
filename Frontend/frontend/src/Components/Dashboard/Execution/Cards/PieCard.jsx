@@ -48,12 +48,12 @@ const WhiteDiv = styled.div`
   height: 30px;
   width: 30px;
   margin-top: 10px,
-  margin-bottom: 10px;
+  margin-bottom: 2px;
   text-align:center;
-  padding-top:8px;
+  padding-top:6px;
   font-size: 10px;
   display:inline-block;
-  margin-left:16px;
+  margin-left:14px;
   border:2px solid royalblue;
   font-weight:bold;
 `;
@@ -90,27 +90,43 @@ const AmberDiv = styled.div`
 
 //  ........................................React functional component.......................
 
-export default function PieCard() {
+export default function PieCard ({dealFilter}) {
     const [data, setData] = useState([]);
+    const [rawData, setRawData] = useState([]);
     const [region, setRegion] = useState([])
   
     // ................................... Use Effect Hook .................................
   
+    // useEffect(() => {
+    //   retrieveDeals();
+    // }, []);
+
     useEffect(() => {
-      retrieveDeals();
-    }, []);
+      if (dealFilter === "All") {
+        retrieveDeals();
+      } else {
+        filterData(dealFilter)
+      }
+    }, [dealFilter]);
   
     // .................................... Axios Endpoint ..............................
     const retrieveDeals = () => {
       Service.getAllDeals()
         .then((response) => {
-          //console.log((response.data.deals).length)
           setData(response.data.deals);
+          setRawData(response.data.deals);
         })
         .catch((e) => {
           console.log(e);
         });
     };
+
+    // Filter Data by Deal Category
+    const filterData = (dealFilter) => {    
+      const filteredData = data.filter(item => {return item.deal_category === dealFilter})
+        setRawData(filteredData)
+        return filteredData
+    }
   
     // ............................ Region Data ................................................
 
@@ -344,7 +360,7 @@ export default function PieCard() {
                   <Row>
                     <Col  className="mt-1 d-none d-sm-block" sm={4} >
                     <small>Total </small>
-                     <WhiteDiv className="my-1">{green.length + amber.length + red.length}</WhiteDiv>
+                     <WhiteDiv className="my-1">{rawData.length}</WhiteDiv>
                      <br/>
                      <small>Green </small>
                      <GreenDiv className="my-1">{green.length}</GreenDiv>
