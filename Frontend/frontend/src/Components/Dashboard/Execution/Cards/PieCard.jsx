@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import Service from "../../../../Services/Service";
 import { Chart } from "react-google-charts";
@@ -71,7 +71,6 @@ const GreenDiv = styled.div`
   font-size: 10px;
   display:inline-block;
   margin-left:5px;
-
 `;
 
 const AmberDiv = styled.div`
@@ -90,31 +89,58 @@ const AmberDiv = styled.div`
 
 //  ........................................React functional component.......................
 
-export default function PieCard ({dealFilter}) {
+export default function PieCard ({dealFilter, staffFilter}) {
     const [data, setData] = useState([]);
     const [rawData, setRawData] = useState([]);
+    const [staffData, setStaffData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [count, setCount] = useState([]);
     const [region, setRegion] = useState([])
   
     // ................................... Use Effect Hook .................................
-  
-    // useEffect(() => {
-    //   retrieveDeals();
-    // }, []);
 
     useEffect(() => {
-      if (dealFilter === "All") {
+      if (dealFilter === "All" && staffFilter === "All") {
         retrieveDeals();
-      } else {
+      } 
+      if (dealFilter !== "All" && staffFilter === "All") {
+        setLoading(true)
         filterData(dealFilter)
       }
-    }, [dealFilter]);
+      if (dealFilter === "All" && staffFilter !== "All") {
+        retrieveStaffDeals()
+      }
+      if (dealFilter !== "All" && staffFilter !== "All") {
+        retrieveStaffDeals()
+        setLoading(true)
+        filterStaffData(dealFilter)
+      }
+    }, [dealFilter, staffFilter]);
   
     // .................................... Axios Endpoint ..............................
+    // Get All Deals
     const retrieveDeals = () => {
+      setLoading(true)
       Service.getAllDeals()
         .then((response) => {
           setData(response.data.deals);
           setRawData(response.data.deals);
+          setLoading(false)
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    };
+
+    // Get deals by staff email
+    const retrieveStaffDeals = () => {
+      setLoading(true)
+      Service.getMyDealsByEmail(staffFilter)
+        .then((res) =>{
+          setData(res.data.deals)
+          setStaffData(res.data.deals)
+          setCount(res.data.deals)
+          setLoading(false)
         })
         .catch((e) => {
           console.log(e);
@@ -122,9 +148,22 @@ export default function PieCard ({dealFilter}) {
     };
 
     // Filter Data by Deal Category
-    const filterData = (dealFilter) => {    
-      const filteredData = data.filter(item => {return item.deal_category === dealFilter})
-        setRawData(filteredData)
+    const filterData = (dealFilter) => { 
+      setLoading(true) 
+
+      const filteredData = rawData.filter(item => {return item.deal_category === dealFilter})
+        setCount(filteredData)
+        setLoading(false)
+      return filteredData
+    }
+
+    // Filter Individual Staff Data by Deal Category
+    const filterStaffData = (dealFilter) => {  
+      setLoading(true)
+
+        const filteredData = staffData.filter(item => {return item.deal_category === dealFilter})
+          setCount(filteredData)
+          setLoading(false)
         return filteredData
     }
   
@@ -342,67 +381,74 @@ export default function PieCard ({dealFilter}) {
       <React.Fragment>
         {/*---------------------------- Div ------------------------------------------- */}
     {/*<Container fluid className="mb-3 bg-light">*/}
-          <Row>
-            <Col lg={12} sm={12} md={12} className="my-1 ">
-                
-                  <p className="pb-2"
-                    style={{
-                      color: "black",
-                      fontWeight: "bold",
-                      fontSize: "13px",
-                      paddingLeft: "1px",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    DEAL CATEGORY
-                  </p>
-  
-                  <Row>
-                    <Col  className="mt-1 d-none d-sm-block" sm={4} >
-                    <small>Total </small>
-                     <WhiteDiv className="my-1">{rawData.length}</WhiteDiv>
-                     <br/>
-                     <small>Green </small>
-                     <GreenDiv className="my-1">{green.length}</GreenDiv>
-                     <br/>
-                     <small >Amber </small>
-                      <AmberDiv className="my-1">{amber.length}</AmberDiv>
-                      <br/>
-                      <small >Red </small>
-                      <RedDiv className="my-1">{red.length}</RedDiv>
-                    </Col>
 
-                    <Col sm={6} >
-                      <PieChart width={300} height={210}>
-                        <Pie
-                          data={chartData}
-                          dataKey="value"
-                          nameKey="name"
-                          cx="25%"
-                          cy="40%"
-                          fill="#8884d8"
-                          innerRadius={55}
-                          outerRadius={75}
-                          paddingAngle={1}
-                          isAnimationActive={false}
-                          labelLine={false}
-                          label={renderCustomizedLabel}
-                        >
-                          {data.map((entry, index) => (
-                            <Cell
-                              key={`cell-${index}`}
-                              fill={COLORS[index % COLORS.length]}
-                            />
-                          ))}
-                        </Pie>
-                        <Tooltip content={customTooltip} />
-                      </PieChart>
-                    </Col>
-                  </Row>
-            </Col>
-  
-            
-          </Row>
+      {loading ? (
+        <Spinner animation="border" role="status" variant="secondary">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      ) : (
+        <Row>
+          <Col lg={12} sm={12} md={12} className="my-1 ">
+              
+                <p className="pb-2"
+                  style={{
+                    color: "black",
+                    fontWeight: "bold",
+                    fontSize: "13px",
+                    paddingLeft: "1px",
+                    paddingTop: "5px",
+                  }}
+                >
+                  DEAL CATEGORY
+                </p>
+
+                <Row>
+                  <Col  className="mt-1 d-none d-sm-block" sm={4} >
+                  <small>Total </small>
+                    <WhiteDiv className="my-1">{((dealFilter !== "All") || (staffFilter !== "All")) ? count.length : data.length}</WhiteDiv>
+                    <br/>
+                    <small>Green </small>
+                    <GreenDiv className="my-1">{green.length}</GreenDiv>
+                    <br/>
+                    <small >Amber </small>
+                    <AmberDiv className="my-1">{amber.length}</AmberDiv>
+                    <br/>
+                    <small >Red </small>
+                    <RedDiv className="my-1">{red.length}</RedDiv>
+                  </Col>
+
+                  <Col sm={6} >
+                    <PieChart width={300} height={210}>
+                      <Pie
+                        data={chartData}
+                        dataKey="value"
+                        nameKey="name"
+                        cx="25%"
+                        cy="40%"
+                        fill="#8884d8"
+                        innerRadius={55}
+                        outerRadius={75}
+                        paddingAngle={1}
+                        isAnimationActive={false}
+                        labelLine={false}
+                        label={renderCustomizedLabel}
+                      >
+                        {data.map((entry, index) => (
+                          <Cell
+                            key={`cell-${index}`}
+                            fill={COLORS[index % COLORS.length]}
+                          />
+                        ))}
+                      </Pie>
+                      <Tooltip content={customTooltip} />
+                    </PieChart>
+                  </Col>
+                </Row>
+          </Col>
+
+          
+        </Row>
+      )}
        {/*</Container> */}
       </React.Fragment>
     );

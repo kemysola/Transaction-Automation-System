@@ -68,7 +68,7 @@ export default function Progress() {
       setLoading(true)
       filterStaffData(dealFilter)
     }
-  }, [dealFilter, staffFilter, console.log("something changed here", dealFilter, staffFilter)]);
+  }, [dealFilter, staffFilter]);
 
   useEffect(() => {
     if (show) {
@@ -93,27 +93,20 @@ export default function Progress() {
     return filteredData
   }
 
-  // console.log("outside staff filter", staffFilter, "&", staffData)
-  // filter Individual Staff Data by DealCategory
+  // Filter Individual Staff Data by Deal Category 
   let filterTimeout
-
   const filterStaffData = (dealFilter) => {  
     clearTimeout(filterTimeout)
     setLoading(true)
-    // console.log("staff info", staffFilter, "&", staffData)
 
     filterTimeout = setTimeout(() => {
       const filteredData = staffData.filter(item => {return item.deal_category === dealFilter})
         setData(staffData.filter(item => {return item.deal_category === dealFilter}))
         setLoading(false)
-        // console.log("unique staff colors", filteredData, "&", data)
-        // console.log("staff info in timeout", staffFilter, "&", staffData)
       return filteredData
     }, 500)
   }
-
-  console.log("dataaaaaaaaaa", data)
-// 
+ 
   // Retrieve All Deals using a get request
   const retrieveDeals = () => {
     setLoading(true) 
@@ -146,14 +139,11 @@ export default function Progress() {
         setData(res.data.deals)
         setStaffData(res.data.deals)
         setLoading(false)
-        // console.log("data by staff", res.data.deals)
       })
       .catch((e) => {
         console.log(e);
       });
   };
-
-  // console.log("staff filter here", staffFilter)
   
   const retrieveGuranteePipeline = () => {
     Service.getAllStaff()
@@ -708,7 +698,7 @@ export default function Progress() {
               {/* Deal Category PieChart */}
               <Col sm={12} lg={4} md={12} className="my-1">
                 <br/>
-                <PieCard dealFilter={dealFilter}/>
+                <PieCard dealFilter={dealFilter} staffFilter={staffFilter}/>
               </Col>
 
               {/* Industry Bar Chart */}
