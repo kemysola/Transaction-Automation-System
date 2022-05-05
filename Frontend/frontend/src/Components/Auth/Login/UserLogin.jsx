@@ -59,15 +59,6 @@ const UserLogin = () => {
     localStorage.setItem("user", JSON.stringify(email));
   }, [email]);
 
-  // useEffect(() => {
-  //   const admin = localStorage.getItem("admin");
-  //   console.log("1", admin)
-  //   if (admin) {
-  //     setIsAdmin(admin)
-  //   }
-  // }, []);
-
-  // console.log("admin", admin)
   
   const onChangePassword = (e) => {
     const password = e.target.value;
@@ -95,11 +86,6 @@ const UserLogin = () => {
         },
         (error) => {
           const resMessage = 'Incorrect Email or Password'
-            /*(error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();*/
           setLoading(false);
           setMessage(resMessage);
         }

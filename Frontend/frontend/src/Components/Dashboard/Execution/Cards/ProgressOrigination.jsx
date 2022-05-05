@@ -10,9 +10,11 @@ import {
   Bar,
   XAxis,
   YAxis,
+  Cell,
   CartesianGrid,
   Tooltip,
   Legend,
+  ReferenceLine,
   ResponsiveContainer,
 } from "recharts";
 
@@ -62,7 +64,6 @@ export default function ProgressOrigination() {
   const retrieveGuranteePipeline = () => {
     Service.getOneStaff(user_email)
       .then((response) => {
-        console.log("wwww", response.data)
         setMandate(response.data.staffInfo[0].mandateletter)
         setFinancialClose(response.data.staffInfo[0].financialclose)
         setCca(response.data.staffInfo[0].creditcommiteeapproval)
@@ -673,9 +674,9 @@ export default function ProgressOrigination() {
                   }}
                 />
                 <Bar
-                  dataKey="value"
+                  dataKey="name"
                   fill="#82ca9d"
-                  minPointSize={1}
+                  minPointSize={0}
                   background={{ fill: "#eee" }}
                 />
               </BarChart>
@@ -690,12 +691,24 @@ export default function ProgressOrigination() {
         </Row>
 
         <BarChart 
-                width={360}
-                height={240}
+               width={410}
+               height={300}
+               margin={{
+                 top: 5,
+                 right: 5,
+                 left: 5,
+                 bottom: 5,
+               }}
                 data={approvalData}
-                barSize={30}
                 layout="horizontal"
+                barSize={20}
               >
+
+                <YAxis style={{
+                    fontSize: "0.52rem",
+                    fontFamily: "Arial",
+                    padding: "15px",}} />
+
                       <XAxis xAxisId={0}
                         type="category"
                         dataKey='name'
@@ -712,6 +725,9 @@ export default function ProgressOrigination() {
                         orientation="top"
                         style={{ fontSize: "0.5rem"}}
                       />
+                      <Tooltip/>
+
+
                       
                 <Bar
                   dataKey="value"

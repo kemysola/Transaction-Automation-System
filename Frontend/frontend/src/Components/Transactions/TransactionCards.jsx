@@ -15,8 +15,8 @@ export default function TransactionCards() {
   }, []);
 
   // .................................... Axios Endpoint ..............................
-  const retrieveDeals = () => {
-    Service.getMyDeals()
+  const retrieveDeals = async() => {
+    await Service.getMyDeals()
       .then((response) => {
         setData(response.data.deals);
       })

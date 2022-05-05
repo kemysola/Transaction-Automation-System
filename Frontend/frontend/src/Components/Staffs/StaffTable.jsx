@@ -125,8 +125,8 @@ const StaffTable = () => {
     retrieveStaff();
   }, []);
 
-  const retrieveStaff = () => {
-    Service.getAllStaff()
+  const retrieveStaff = async() => {
+    await Service.getAllStaff()
       .then((response) => {
         setStaff(response.data.staff);
       })
