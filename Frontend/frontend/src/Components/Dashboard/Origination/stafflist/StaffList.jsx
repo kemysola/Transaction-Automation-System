@@ -52,19 +52,19 @@ const StaffList = () => {
   staffRef.current = staff;
 
   useEffect(() => {
-    retrieveStaff();
+    const retrieveStaff = async() => {
+      await Service.getAllStaff()
+        .then((response) => {
+          setStaff(response.data.staff);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    };
+  
   }, []);
 
-  const retrieveStaff = () => {
-    Service.getAllStaff()
-      .then((response) => {
-        setStaff(response.data.staff);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-
+  
   
 
   const openStaff = (rowIndex) => {
