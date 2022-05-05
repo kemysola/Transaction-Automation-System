@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Row, Col, Form} from 'react-bootstrap';
+import { Row, Col, Form, Spinner} from 'react-bootstrap';
 import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useSortBy } from "react-table";
 import styled from 'styled-components';
 import Service from "../../../Services/Service";
@@ -85,7 +85,7 @@ const Pagination = styled.div`
 `
 
 
-const DealsTable = ({props, dealFilter}) => {
+const DealsTable = ({props, dealFilter, staffFilter}) => {
   const initialDateState = {
     start_date: "",
     end_date: "",
@@ -95,40 +95,80 @@ const DealsTable = ({props, dealFilter}) => {
   const [date, setDate] = useState(initialDateState);
   const [deals, setDeals] = useState([]);
   const [rawData, setRawData] = useState([]);
+  const [staffData, setStaffData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const dealsRef = useRef();
   dealsRef.current = deals;
 
-  // useEffect(() => {
-  //   retrieveDeals();
-  // }, []); 
-
   useEffect(() => {
-    if (dealFilter === "All") {
+    if (dealFilter === "All" && staffFilter === "All") {
       retrieveDeals();
-    } else {
+    } 
+    if (dealFilter !== "All" && staffFilter === "All") {
+      setLoading(true)
       filterData(dealFilter)
     }
-  }, [dealFilter]);
+    if (dealFilter === "All" && staffFilter !== "All") {
+      retrieveStaffDeals()
+    }
+    if (dealFilter !== "All" && staffFilter !== "All") {
+      retrieveStaffDeals()
+      setLoading(true)
+      filterStaffData(dealFilter)
+    }
+  }, [dealFilter, staffFilter]);
 
   // Filter Data by Deal Category
   const filterData = (dealFilter) => {    
+    setLoading(true)  
     const filteredData = rawData.filter(item => {return item.deal_category === dealFilter})
       setDeals(filteredData)
+      setLoading(false)
       return filteredData
   }
 
-  const retrieveDeals = async() => {
-    await Service.getAllDeals()
+  // Filter Individual Staff Data by Deal Category
+  let filterTimeout
+  const filterStaffData = (dealFilter) => {  
+    clearTimeout(filterTimeout)
+    setLoading(true)
+
+    filterTimeout = setTimeout(() => {
+      const filteredData = staffData.filter(item => {return item.deal_category === dealFilter})
+        setDeals(staffData.filter(item => {return item.deal_category === dealFilter}))
+        setLoading(false)
+       
+      return filteredData
+    }, 500)
+  }
+
+  // Get All Deals
+  const retrieveDeals = () => {
+    setLoading(true) 
+    Service.getAllDeals()
       .then((response) => {
         setDeals(response.data.deals);
         setRawData(response.data.deals);
+        setLoading(false)
       })
       .catch((e) => {
         console.log(e);
       });
   }; 
 
-  // console.log("initial date", date)
+  // Get deals by staff email
+  const retrieveStaffDeals = () => {
+    setLoading(true)
+    Service.getMyDealsByEmail(staffFilter)
+      .then((res) =>{
+        setDeals(res.data.deals)
+        setStaffData(res.data.deals)
+        setLoading(false)
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -140,7 +180,6 @@ const DealsTable = ({props, dealFilter}) => {
     let start_date = date.start_date
     let end_date = date.end_date
     let client_name = date.client_name ? date.client_name : "''" // i'd love to come back to this, as the output for when client name is not specified is inaccurate
-
 
     Service.getDealByDate(start_date, end_date, client_name)
       .then((response) => {
@@ -305,145 +344,150 @@ const DealsTable = ({props, dealFilter}) => {
       XLSX.writeFile(workBook,"Execution_Report.xlsx")
     }
 
-  
-
   return (
     <React.Fragment>
-      <ContainerWrapper>
-        <DateWrapper>
-          <Row>
-          
-            <Col>
-              <Form.Group className="mb-0 mt-2 pt-2 pb-1">
-                <Form.Label style={{fontSize: "12px"}}>Start Date <span style={{color: "red"}}>*</span></Form.Label>
-                <Form.Control size="sm" type="date" value={date.start_date} onChange={handleInputChange} name='start_date' />
-              </Form.Group>
-            </Col>
+      {loading ? (
+        <Spinner animation="border" role="status" variant="secondary">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      ) : (
 
-            <Col>
-              <Form.Group className="mb-0 mt-2 pt-2 pb-1">
-                <Form.Label style={{fontSize: "12px"}}>End Date <span style={{color: "red"}}>*</span></Form.Label>
-                <Form.Control size="sm" type="date" value={date.end_date} onChange={handleInputChange} name='end_date' />
-              </Form.Group>
-            </Col>
-
-            <Col>
-              <Form.Group className="mb-0 mt-2 pt-2 pb-1">
-                <Form.Label style={{fontSize: "12px"}}>Client Name</Form.Label>
-                <Form.Control size="sm" type="text" value={date.client_name} onChange={handleInputChange} name='client_name' />
-              </Form.Group>
-            </Col>
-
-            <Col >
-              <ButtonWrapper onClick={saveDate}>
-                Submit
-              </ButtonWrapper>
-            </Col>
-
-            <Col >
-              <ButtonWrapper onClick={downloadExcel}>
-               Download
-              </ButtonWrapper>
-            </Col>
+        <ContainerWrapper>
+          <DateWrapper>
+            <Row>
             
-          </Row>
-        </DateWrapper>
-        
-        <TableWrapper>
-          <div className="table-responsive mt-2 pt-2">
-            <table
-              className="table py-3 mt-3  table-hover table striped align-middle table-bordered"
-              id='myTable'
-              {...getTableProps()}
-            >
-              <thead className=''>
-                {headerGroups.map((headerGroup) => (
-                  <tr {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map((column) => (
-                      <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                        {column.render("Header")}
-                        <span>
-                          {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
-                        </span>
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody {...getTableBodyProps()} className='table-bordered' 
-              >
-                {page.map((row, i) => {
-                  prepareRow(row);
-                  
-                  return (
-                    <tr 
-                      {...row.getRowProps(getTrProps(row, i))}
-                    >
-                      {row.cells.map((cell) => {
-                        return (
-                          <td 
-                            {...cell.getCellProps()}
-                          >
-                            {cell.render("Cell")}
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  )
-                }
-                )}
-              </tbody>
-            </table>
-          </div>
-        </TableWrapper>
+              <Col>
+                <Form.Group className="mb-0 mt-2 pt-2 pb-1">
+                  <Form.Label style={{fontSize: "12px"}}>Start Date <span style={{color: "red"}}>*</span></Form.Label>
+                  <Form.Control size="sm" type="date" value={date.start_date} onChange={handleInputChange} name='start_date' />
+                </Form.Group>
+              </Col>
 
-        <Pagination>
-          <div className='pagination mt-1 pt-1'>
-            <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-              {'<<'}
-            </button>{' '}
-            <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-              {'<'}
-            </button>{' '}
-            <button onClick={() => nextPage()} disabled={!canNextPage}>
-              {'>'}
-            </button>{' '}
-            <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-              {'>>'}
-            </button>{' '}
-            <span style={{paddingTop: "2.5px"}} >
-              Page{' '}
-              <strong>
-                {pageIndex + 1} of {pageOptions.length}
-              </strong>{' '}
-            </span>
-            <span>
-              | Go to page:{' '}
-              <input
-                type="number"
-                defaultValue={pageIndex + 1}
+              <Col>
+                <Form.Group className="mb-0 mt-2 pt-2 pb-1">
+                  <Form.Label style={{fontSize: "12px"}}>End Date <span style={{color: "red"}}>*</span></Form.Label>
+                  <Form.Control size="sm" type="date" value={date.end_date} onChange={handleInputChange} name='end_date' />
+                </Form.Group>
+              </Col>
+
+              <Col>
+                <Form.Group className="mb-0 mt-2 pt-2 pb-1">
+                  <Form.Label style={{fontSize: "12px"}}>Client Name</Form.Label>
+                  <Form.Control size="sm" type="text" value={date.client_name} onChange={handleInputChange} name='client_name' />
+                </Form.Group>
+              </Col>
+
+              <Col >
+                <ButtonWrapper onClick={saveDate}>
+                  Submit
+                </ButtonWrapper>
+              </Col>
+
+              <Col >
+                <ButtonWrapper onClick={downloadExcel}>
+                Download
+                </ButtonWrapper>
+              </Col>
+              
+            </Row>
+          </DateWrapper>
+          
+          <TableWrapper>
+            <div className="table-responsive mt-2 pt-2">
+              <table
+                className="table py-3 mt-3  table-hover table striped align-middle table-bordered"
+                id='myTable'
+                {...getTableProps()}
+              >
+                <thead className=''>
+                  {headerGroups.map((headerGroup) => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                      {headerGroup.headers.map((column) => (
+                        <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                          {column.render("Header")}
+                          <span>
+                            {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                          </span>
+                        </th>
+                      ))}
+                    </tr>
+                  ))}
+                </thead>
+                <tbody {...getTableBodyProps()} className='table-bordered' 
+                >
+                  {page.map((row, i) => {
+                    prepareRow(row);
+                    
+                    return (
+                      <tr 
+                        {...row.getRowProps(getTrProps(row, i))}
+                      >
+                        {row.cells.map((cell) => {
+                          return (
+                            <td 
+                              {...cell.getCellProps()}
+                            >
+                              {cell.render("Cell")}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    )
+                  }
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </TableWrapper>
+
+          <Pagination>
+            <div className='pagination mt-1 pt-1'>
+              <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+                {'<<'}
+              </button>{' '}
+              <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+                {'<'}
+              </button>{' '}
+              <button onClick={() => nextPage()} disabled={!canNextPage}>
+                {'>'}
+              </button>{' '}
+              <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+                {'>>'}
+              </button>{' '}
+              <span style={{paddingTop: "2.5px"}} >
+                Page{' '}
+                <strong>
+                  {pageIndex + 1} of {pageOptions.length}
+                </strong>{' '}
+              </span>
+              <span>
+                | Go to page:{' '}
+                <input
+                  type="number"
+                  defaultValue={pageIndex + 1}
+                  onChange={e => {
+                    const page = e.target.value ? Number(e.target.value) - 1 : 0
+                    gotoPage(page)
+                  }}
+                  style={{ width: '30px' }}
+                />
+              </span>{' '}
+              <select
+                value={pageSize}
                 onChange={e => {
-                  const page = e.target.value ? Number(e.target.value) - 1 : 0
-                  gotoPage(page)
+                  setPageSize(Number(e.target.value))
                 }}
-                style={{ width: '30px' }}
-              />
-            </span>{' '}
-            <select
-              value={pageSize}
-              onChange={e => {
-                setPageSize(Number(e.target.value))
-              }}
-            >
-              {[10, 20, 30, 40, 50].map(pageSize => (
-                <option key={pageSize} value={pageSize}>
-                  Show {pageSize}
-                </option>
-              ))}
-            </select>
-          </div>
-        </Pagination>
-      </ContainerWrapper>
+              >
+                {[10, 20, 30, 40, 50].map(pageSize => (
+                  <option key={pageSize} value={pageSize}>
+                    Show {pageSize}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </Pagination>
+        </ContainerWrapper>
+      )}
     </React.Fragment>
 )}
 

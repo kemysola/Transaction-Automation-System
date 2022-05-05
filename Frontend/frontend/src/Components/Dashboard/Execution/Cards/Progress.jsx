@@ -75,11 +75,7 @@ export default function Progress() {
       setLoading(true);
       filterStaffData(dealFilter);
     }
-  }, [
-    dealFilter,
-    staffFilter,
-    console.log("something changed here", dealFilter, staffFilter),
-  ]);
+  }, [dealFilter, staffFilter]);
 
   useEffect(() => {
     if (show) {
@@ -106,26 +102,20 @@ export default function Progress() {
     return filteredData;
   };
 
-  let filterTimeout;
-
-  const filterStaffData = (dealFilter) => {
-    clearTimeout(filterTimeout);
-    //setLoading(true);
+  // Filter Individual Staff Data by Deal Category 
+  let filterTimeout
+  const filterStaffData = (dealFilter) => {  
+    clearTimeout(filterTimeout)
+    setLoading(true)
 
     filterTimeout = setTimeout(() => {
-      const filteredData = staffData.filter((item) => {
-        return item.deal_category === dealFilter;
-      });
-      setData(
-        staffData.filter((item) => {
-          return item.deal_category === dealFilter;
-        })
-      );
-      setLoading(false);
-      return filteredData;
-    }, 500);
-  };
-
+      const filteredData = staffData.filter(item => {return item.deal_category === dealFilter})
+        setData(staffData.filter(item => {return item.deal_category === dealFilter}))
+        setLoading(false)
+      return filteredData
+    }, 500)
+  }
+ 
   // Retrieve All Deals using a get request
   const retrieveDeals = async() => {
     //setLoading(true);
@@ -151,23 +141,21 @@ export default function Progress() {
   };
 
   // Get deals by staff email
-  const retrieveStaffDeals = async() => {
-    //setLoading(true);
-    await Service.getMyDealsByEmail(staffFilter)
-      .then((res) => {
-        setData(res.data.deals);
-        setStaffData(res.data.deals);
-        setLoading(false);
-        // console.log("data by staff", res.data.deals)
+  const retrieveStaffDeals = () => {
+    setLoading(true)
+    Service.getMyDealsByEmail(staffFilter)
+      .then((res) =>{
+        setData(res.data.deals)
+        setStaffData(res.data.deals)
+        setLoading(false)
       })
       .catch((e) => {
         console.log(e);
       });
   };
-
-
-  const retrieveGuranteePipeline = async() => {
-    await Service.getAllStaff()
+  
+  const retrieveGuranteePipeline = () => {
+    Service.getAllStaff()
       .then((response) => {
         setTarget(response.data.staff);
       })
@@ -819,8 +807,8 @@ export default function Progress() {
             <Row style={{ marginTop: "5px " }}>
               {/* Deal Category PieChart */}
               <Col sm={12} lg={4} md={12} className="my-1">
-                <br />
-                <PieCard dealFilter={dealFilter} />
+                <br/>
+                <PieCard dealFilter={dealFilter} staffFilter={staffFilter}/>
               </Col>
 
               {/* Industry Bar Chart */}
