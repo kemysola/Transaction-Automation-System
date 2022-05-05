@@ -23,8 +23,8 @@ export default function SubCards() {
 
     },[])
 
-    const retrieveDeals = () => {
-        Service.getMyDeals()
+    const retrieveDeals = async() => {
+        await Service.getMyDeals()
           .then((response) => {
             setData(response.data.deals);
             

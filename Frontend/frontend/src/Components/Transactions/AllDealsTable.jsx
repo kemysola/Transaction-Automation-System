@@ -122,8 +122,8 @@ const AllDealsTable = (props) => {
   
   
 
-  const retrieveDeals = () => {
-    Service.getAllDeals()
+  const retrieveDeals = async() => {
+    await Service.getAllDeals()
       .then((response) => {
         setDeals(response.data.deals);
       })

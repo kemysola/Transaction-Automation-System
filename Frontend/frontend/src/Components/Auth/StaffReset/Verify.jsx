@@ -11,8 +11,6 @@ export default function Reset() {
 
     useEffect(() => {
         axios.get('staff/confirm/:confirmationCode').then((res) => {
-            console.log(res.data.userEmail)
-            console.log(res.data.message)
             const email = res.data.userEmail
             const message = res.data.message
             setMessage(message)

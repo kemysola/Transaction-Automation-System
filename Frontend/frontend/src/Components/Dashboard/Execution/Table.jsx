@@ -117,8 +117,8 @@ const DealsTable = ({props, dealFilter}) => {
       return filteredData
   }
 
-  const retrieveDeals = () => {
-    Service.getAllDeals()
+  const retrieveDeals = async() => {
+    await Service.getAllDeals()
       .then((response) => {
         setDeals(response.data.deals);
         setRawData(response.data.deals);
@@ -141,7 +141,6 @@ const DealsTable = ({props, dealFilter}) => {
     let end_date = date.end_date
     let client_name = date.client_name ? date.client_name : "''" // i'd love to come back to this, as the output for when client name is not specified is inaccurate
 
-    // console.log("details", start_date, end_date, client_name)
 
     Service.getDealByDate(start_date, end_date, client_name)
       .then((response) => {
