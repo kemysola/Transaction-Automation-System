@@ -62,7 +62,6 @@ export default function ProgressOrigination() {
   const retrieveGuranteePipeline = () => {
     Service.getOneStaff(user_email)
       .then((response) => {
-        console.log("wwww", response.data)
         setMandate(response.data.staffInfo[0].mandateletter)
         setFinancialClose(response.data.staffInfo[0].financialclose)
         setCca(response.data.staffInfo[0].creditcommiteeapproval)
