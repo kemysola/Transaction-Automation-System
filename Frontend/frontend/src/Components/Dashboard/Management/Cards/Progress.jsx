@@ -37,8 +37,8 @@ export default function Progress() {
     retrieveForecast();
   }, []);
 
-  const retrieveDeals = () => {
-    Service.getAllDeals()
+  const retrieveDeals = async() => {
+    await Service.getAllDeals()
       .then((response) => {
         setData(response.data.deals);
       })
@@ -47,8 +47,8 @@ export default function Progress() {
       });
   };
 
-  const retrieveForecast = () => {
-    Service.getForecast()
+  const retrieveForecast = async() => {
+    await Service.getForecast()
       .then((response) => {
         setForecast(response.data.forecast);
       })

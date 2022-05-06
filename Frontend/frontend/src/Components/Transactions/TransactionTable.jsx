@@ -118,8 +118,8 @@ const DealsTable = (props) => {
     retrieveDeals();
   }, []); 
 
-  const retrieveDeals = () => {
-    Service.getMyDeals()
+  const retrieveDeals = async () => {
+    await Service.getMyDeals()
       .then((response) => {
         setDeals(response.data.deals);
       })

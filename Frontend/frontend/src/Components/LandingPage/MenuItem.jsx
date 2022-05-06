@@ -19,7 +19,6 @@ export default function MenuItem(props) {
     const subM = subMenus;
     const subM1 = subM[0];
     const { icon } = subM1;
-    console.log(icon)
     const [expand, setExpand] = useState(false)
 
     return (

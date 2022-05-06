@@ -22,13 +22,11 @@ export default function PasswordReset(){
     const onChangePassword = (e) => {
         const OldPassword = e.target.value;
         setOldPassword(OldPassword);
-        console.log(oldPassword)
       };
 
       const onChangeNewPassword = (e) => {
         const newPassword = e.target.value;
         setNewPassword(newPassword);
-        console.log(newPassword)
       };
 
     
@@ -36,7 +34,7 @@ export default function PasswordReset(){
         e.preventDefault();
       
         await ResetService.resetPassword(user,oldPassword,newPassword).then((res) =>{
-            console.log(res)
+            //console.log(res)
     
         })
 

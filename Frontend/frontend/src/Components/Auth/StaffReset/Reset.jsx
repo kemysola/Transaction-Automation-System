@@ -42,18 +42,15 @@ export default function Reset() {
   const onChangePassword = (e) => {
     const oldPassword = e.target.value;
     setOldPassword(oldPassword);
-    console.log(oldPassword);
   };
 
   const onChangeNewPassword = (e) => {
     const newPassword = e.target.value;
     setNewPassword(newPassword);
-    console.log(newPassword);
   };
   const onConfirmPassword = (e) => {
     const confirmPassword = e.target.value;
     setConfirmPassword(confirmPassword);
-    console.log(confirmPassword);
   };
 
   const handleSubmit = async (e) => {

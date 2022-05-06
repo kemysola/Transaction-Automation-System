@@ -11,21 +11,20 @@ export default function TransactionCards() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    retrieveDeals();
+     Service.getAllDeals()
+        .then((response) => {
+          setData(response.data.deals);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+ 
   }, []);
 
   
 
   // .................................... Axios Endpoint ..............................
-  const retrieveDeals = () => {
-    Service.getAllDeals()
-      .then((response) => {
-        setData(response.data.deals);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+ 
 
   
   

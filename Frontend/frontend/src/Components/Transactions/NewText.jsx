@@ -365,14 +365,14 @@ const AddDeal = () => {
                       <Row>
                         <Col sm={6}>
                           <Fm.Group className="mb-0 mt-1 pt-1 pb-1">
-                            <Fm.Label>Client Name</Fm.Label>
+                            <Fm.Label>Client Name <span style={{color: "red"}}>*</span></Fm.Label>
                             <Input type="text" value={deal.clientName} onChange={handleInputChange} name='clientName' validations={[required]} style={{width:'100%', padding:'4px 2px', focus:'none'}}/>
                           </Fm.Group>
                         </Col>
 
                         <Col sm={6}>
                           <Fm.Group className="mb-0 mt-1 pt-1 pb-1">
-                            <Fm.Label>Originator</Fm.Label>
+                            <Fm.Label>Originator <span style={{color: "red"}}>*</span></Fm.Label>
                             <Select size="sm" type="text" value={deal.originator} onChange={handleInputChange} name='originator' style={{width:'100%', padding:'4px 2px', focus:'none'}} validations={[required]}>
                               <option></option>
                               {staffList.map((opt, i) => (
@@ -384,7 +384,7 @@ const AddDeal = () => {
 
                         <Col sm={6}>
                           <Fm.Group className="mb-0 mt-1 pt-1 pb-1">
-                            <Fm.Label>Transactor</Fm.Label>
+                            <Fm.Label>Transactor <span style={{color: "red"}}>*</span></Fm.Label>
                             <Select size="sm" type="text" value={deal.transactor} onChange={handleInputChange} name='transactor' style={{width:'100%', padding:'4px 2px', focus:'none'}} validations={[required]}>
                               <option></option>
                               {staffList.map((opt, i) => (
@@ -396,7 +396,7 @@ const AddDeal = () => {
 
                         <Col sm={6}>
                           <Fm.Group className="mb-0 mt-1 pt-1 pb-1">
-                            <Fm.Label>Transactor Legal Lead</Fm.Label>
+                            <Fm.Label>Transactor Legal Lead <span style={{color: "red"}}>*</span></Fm.Label>
                             <Select size="sm" type="text" value={deal.transactionLegalLead} onChange={handleInputChange} name='transactionLegalLead' style={{width:'100%', padding:'4px 2px', focus:'none'}} validations={[required]}>
                               <option></option>
                               {staffList.map((opt, i) => (
@@ -440,7 +440,7 @@ const AddDeal = () => {
                         <Row>
                           <Col sm={6} className='my-0 py-0'>
                             <Fm.Group className="">
-                              <Fm.Label>Industry</Fm.Label>
+                              <Fm.Label>Industry <span style={{color: "red"}}>*</span></Fm.Label>
                               <Select size="sm" name='industry' value={deal.industry} onChange={handleInputChange} validations={[required]} style={{width:'100%', padding:'6px 1px', focus:'none'}}>
                                 <option>Select</option>
                                 {industry.map((opt, i) => (
@@ -452,7 +452,7 @@ const AddDeal = () => {
 
                           <Col sm={6}>
                             <Fm.Group className="">
-                              <Fm.Label>Products</Fm.Label>
+                              <Fm.Label>Products <span style={{color: "red"}}>*</span></Fm.Label>
                               <Select size="sm" name='product' value={deal.product} onChange={handleInputChange} validations={[required]} style={{width:'100%', padding:'6px 1px', focus:'none'}}>
                                 <option>Select</option>
                                 {product.map((opt, i) => (
@@ -464,7 +464,7 @@ const AddDeal = () => {
 
                           <Col sm={6}>
                             <Fm.Group className="">
-                              <Fm.Label>Region</Fm.Label>
+                              <Fm.Label>Region <span style={{color: "red"}}>*</span></Fm.Label>
                               <Select size="sm" name='region' value={deal.region} onChange={handleInputChange} validations={[required]} style={{width:'100%', padding:'6px 1px', focus:'none'}}>
                                 <option>Select</option>
                                 {region.map((opt, i) => (
@@ -478,7 +478,7 @@ const AddDeal = () => {
                         <Row className='mt-1'>
                           <Col sm={6}>
                             <Fm.Group className="pt-1">
-                              <Fm.Label>Deal Size (₦'BN)</Fm.Label>
+                              <Fm.Label>Deal Size (₦'BN) <span style={{color: "red"}}>*</span></Fm.Label>
                               <Input size="sm" type="number" value={deal.dealSize} onChange={handleInputChange} name='dealSize' style={{width:'100%', padding:'4px 1px', focus:'none'}} validations={[required]} />
                             </Fm.Group>
                           </Col>
@@ -535,14 +535,14 @@ const AddDeal = () => {
                         <Row className='mt-1 pt-3' >
                           <Col sm={6}>
                             <Fm.Group className="pt-1">
-                              <Fm.Label>Mandate Letter</Fm.Label>
+                              <Fm.Label>Mandate Letter <span style={{color: "red"}}>*</span></Fm.Label>
                               <Input size="sm" type="date" value={deal.mandateLetter} onChange={handleInputChange} name='mandateLetter' style={{width:'100%', padding:'6px 1px', focus:'none'}} validations={[required]}/>
                             </Fm.Group>
                           </Col>
                         
                           <Col sm={6}>
                             <Fm.Group className="pt-1">
-                              <Fm.Label>Credit Approval</Fm.Label>
+                              <Fm.Label>Credit Approval <span style={{color: "red"}}>*</span></Fm.Label>
                               <Input size="sm" type="date" value={deal.creditApproval} onChange={handleInputChange} name='creditApproval' style={{width:'100%', padding:'6px 1px', focus:'none'}} validations={[required]} />
                             </Fm.Group>
                           </Col>
