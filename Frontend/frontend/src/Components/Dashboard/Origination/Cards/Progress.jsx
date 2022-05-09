@@ -18,6 +18,7 @@ import {
 import PieCard from "../../Execution/Cards/PieCard";
 import Dropdownmenu from "../stafflist/Dropdown";
 import SingleStaff from "../deals/SingleStaff";
+import StaffList from "../stafflist/StaffList";
 
 const ProgressBarDiv = styled.div`
   display: grid;
@@ -506,7 +507,7 @@ export default function Progress() {
         <Row style={{ marginTop: "5px " }}>
           <Col sm={12} lg={4} md={12} className="my-1">
             <br/>
-            <PieCard/>
+            <PieCard dealFilter = "All"/>
 
           </Col>
 
@@ -652,7 +653,7 @@ export default function Progress() {
         </Row>
       </Container>
       <br />
-      <SingleStaff />
+      <StaffList />
     </React.Fragment>
   );
 }
