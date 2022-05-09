@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, ProgressBar, Card } from "react-bootstrap";
 import styled from "styled-components";
 import Service from "../../../../Services/Service";
-
-
+import Table from "./Table"
 
 import {
   BarChart,
@@ -507,7 +506,7 @@ export default function Progress() {
         <Row style={{ marginTop: "5px " }}>
           <Col sm={12} lg={4} md={12} className="my-1">
             <br/>
-            <PieCard dealFilter = "All"/>
+            <PieCard dealFilter = "All" staffFilter = "All"/>
 
           </Col>
 
@@ -653,7 +652,8 @@ export default function Progress() {
         </Row>
       </Container>
       <br />
-      <StaffList />
+      {/* <StaffList /> */}
+      <Table dealFilter="All" staffFilter="All" />
     </React.Fragment>
   );
 }

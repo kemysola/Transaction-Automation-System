@@ -157,5 +157,30 @@ router.get('report_by_name/:name',verifyTokenAndAuthorization, async (req, res) 
 });
 
 
+router.get('/:create_date',verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+  
+    try {
+        const create_date = req.params.create_date;
+        const staff = await client.query(
+            "SELECT * FROM TB_INFRCR_TRANSACTION WHERE createdate LIKE $1", [create_date + '%']);
+        if (staff) { 
+  
+            res.status(200).send({
+                status: (res.statusCode = 200),
+                staffInfo: staff.rows
+            })
+        }
+        
+    } catch (e) {
+      console.log("#", e)
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+  
+  });
+
+
 
 module.exports = router;
