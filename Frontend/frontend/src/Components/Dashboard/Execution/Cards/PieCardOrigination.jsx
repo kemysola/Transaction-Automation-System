@@ -97,22 +97,21 @@ export default function PieCardOrigination() {
   
     
   
-    //let user_email = window.location.search.split("?")[1]
+    let user_email = window.location.search.split("?")[1]
+  
+    const retrieveDeals = async() => {
+
+     await Service.getMyDealsByEmail(user_email)
+        .then((response) => {
+          setData(response.data.deals);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    };
     
     useEffect(() => {
-      const retrieveDeals = async() => {
-        let user_email = window.location.search.split("?")[1]
-  
-       await Service.getMyDealsByEmail(user_email)
-          .then((response) => {
-            setData(response.data.deals);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      };
-  
-      //retrieveDeals();
+      retrieveDeals();
     }, []);
     // .................................... Axios Endpoint ..............................
     

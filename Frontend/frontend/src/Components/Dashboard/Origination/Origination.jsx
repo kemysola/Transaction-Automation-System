@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {Row,Col} from 'react-bootstrap'
 import SideNav from '../../LandingPage/SideNav2';
+import SideNav2 from '../../LandingPage/SideNav2';
 import Navbar from '../../LandingPage/Navbar';
 import Card from './Cards/Cards';
 import StaffList from './stafflist/StaffList';
@@ -24,10 +25,10 @@ const Origination =()=> {
             <Navbar/>
             <ViewWrapper/>
             <Row>
-                <Col sm={3} style={{padding:'10px 10px 10px 0px'}}>
-                    <SideNav/>
+                <Col sm={2} style={{padding:'10px 10px 10px 0px'}}>
+                    <SideNav2 />
                 </Col>
-                <Col sm={8} style={{ marginRight:'1rem'}}>
+                <Col sm={10}>
                     {/* <StaffList /> */}
                     <Progress/>
                     <br/>
