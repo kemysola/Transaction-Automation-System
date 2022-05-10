@@ -338,20 +338,24 @@ export default function Progress() {
 
   function varianceDisplay(variance) {
     if (variance < 1) {
-      let varianceAns = variance * -1;
-      return `↓ ₦${varianceAns.toFixed(1)}bn`;
+      let varianceAns = (variance * -1)
+      return <span style={{color: 'green'}}>↑ {(varianceAns).toFixed(1)}bn</span>;
+    } else if(!isFinite(variance) || isFinite(variance)){
+      return ` - `;
     }
-    return `↑ ${variance.toFixed(1)}bn`;
+    return <span style={{color: 'red'}}>↓ {(variance).toFixed(1)}bn</span>;
   }
 
-  let variancePercent = ((varianceAmount / targetValue) * 100).toFixed(1);
+  let variancePercent = ((varianceAmount / targetValue) * 100).toFixed(1)
 
   function variancePerDisplay(variancePer) {
     if (variancePer < 1) {
-      let varianceAns = variancePer * -1;
-      return `↓ ${varianceAns}%`;
+      let varianceAns = (variancePer * -1)
+      return <span style={{color: 'green'}}>↑ {varianceAns}%</span>;
+    } else if(!isFinite(variancePer) || isFinite(variancePer)){
+      return ` - `;
     }
-    return `↑ ${variancePer}%`;
+    return <span style={{color: 'red'}}>↓ {variancePer}% </span>;
   }
 
   const chartData = [

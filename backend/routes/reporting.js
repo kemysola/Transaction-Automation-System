@@ -162,13 +162,13 @@ router.get('/:create_date',verifyTokenAndAuthorization, async (req, res) => {
   
     try {
         const create_date = req.params.create_date;
-        const staff = await client.query(
-            "SELECT * FROM TB_INFRCR_TRANSACTION WHERE createdate LIKE $1", [create_date + '%']);
+        const returned_date = await client.query(
+            "SELECT * FROM TB_INFRCR_TRANSACTION WHERE createdate::text LIKE $1", [create_date + '%']);
         if (staff) { 
   
             res.status(200).send({
                 status: (res.statusCode = 200),
-                staffInfo: staff.rows
+                dateInfo: returned_date.rows
             })
         }
         
