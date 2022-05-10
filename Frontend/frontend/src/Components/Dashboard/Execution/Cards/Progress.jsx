@@ -824,98 +824,96 @@ export default function Progress() {
                     borderRadius: "15px",
                   }}
                 >
-                  <Container>
-                    <Container className="bg-light py-3">
-                      <p
-                        style={{
-                          fontSize: "13px",
-                          paddingLeft: "10px",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        INDUSTRY
-                      </p>
+                  <Container className="bg-light py-3">
+                    <p
+                      style={{
+                        fontSize: "13px",
+                        paddingLeft: "10px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      INDUSTRY
+                    </p>
 
-                      {indFilter === "Value" ? (
-                        <BarChart
-                          width={220}
-                          height={340}
-                          data={chartData}
-                          barSize={15}
-                          margin={{
-                            top: 5,
-                            right: 5,
-                            left: 5,
-                            bottom: 2,
-                          }}
-                          layout="vertical"
-                        >
-                          <XAxis type="number" hide />
-                          <YAxis
-                            type="category"
-                            dataKey="name"
-                            yAxisId={0}
-                            tickLine={false}
-                            axisLine={false}
-                            style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
-                          />
-                          <YAxis
-                            orientation="right"
-                            yAxisId={1}
-                            dataKey="percent"
-                            type="category"
-                            axisLine={false}
-                            tickLine={false}
-                            style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
-                          />
-                          <Bar
-                            dataKey="value"
-                            fill="#82ca9d"
-                            minPointSize={1}
-                            background={{ fill: "#eee" }}
-                          />
-                        </BarChart>
-                      ) : (
-                        <BarChart
-                          width={220}
-                          height={340}
-                          data={chartData}
-                          barSize={15}
-                          margin={{
-                            top: 5,
-                            right: 5,
-                            left: 5,
-                            bottom: 2,
-                          }}
-                          layout="vertical"
-                        >
-                          <XAxis type="number" hide />
-                          <YAxis
-                            type="category"
-                            dataKey="countName"
-                            yAxisId={0}
-                            tickLine={false}
-                            axisLine={false}
-                            style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
-                          />
-                          <YAxis
-                            orientation="right"
-                            yAxisId={1}
-                            dataKey="countPercent"
-                            type="category"
-                            axisLine={false}
-                            tickLine={false}
-                            style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
-                          />
-                          <Bar
-                            dataKey="count"
-                            fill="#82ca9d"
-                            minPointSize={1}
-                            background={{ fill: "#eee" }}
-                          />
-                        </BarChart>
-                      )}
-                    </Container>
+                    {indFilter === "Value" ? (
+                      <BarChart
+                        width={250}
+                        height={340}
+                        data={chartData}
+                        barSize={15}
+                        margin={{
+                          top: 5,
+                          right: 5,
+                          left: 5,
+                          bottom: 2,
+                        }}
+                        layout="vertical"
+                      >
+                        <XAxis type="number" hide />
+                        <YAxis
+                          type="category"
+                          dataKey="name"
+                          yAxisId={0}
+                          tickLine={false}
+                          axisLine={false}
+                          style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
+                        />
+                        <YAxis
+                          orientation="right"
+                          yAxisId={1}
+                          dataKey="percent"
+                          type="category"
+                          axisLine={false}
+                          tickLine={false}
+                          style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
+                        />
+                        <Bar
+                          dataKey="value"
+                          fill="#82ca9d"
+                          minPointSize={1}
+                          background={{ fill: "#eee" }}
+                        />
+                      </BarChart>
+                    ) : (
+                      <BarChart
+                        width={250}
+                        height={340}
+                        data={chartData}
+                        barSize={15}
+                        margin={{
+                          top: 5,
+                          right: 5,
+                          left: 5,
+                          bottom: 2,
+                        }}
+                        layout="vertical"
+                      >
+                        <XAxis type="number" hide />
+                        <YAxis
+                          type="category"
+                          dataKey="countName"
+                          yAxisId={0}
+                          tickLine={false}
+                          axisLine={false}
+                          style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
+                        />
+                        <YAxis
+                          orientation="right"
+                          yAxisId={1}
+                          dataKey="countPercent"
+                          type="category"
+                          axisLine={false}
+                          tickLine={false}
+                          style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
+                        />
+                        <Bar
+                          dataKey="count"
+                          fill="#82ca9d"
+                          minPointSize={1}
+                          background={{ fill: "#eee" }}
+                        />
+                      </BarChart>
+                    )}
                   </Container>
                 </div>
               </Col>
@@ -930,120 +928,118 @@ export default function Progress() {
                     height: "65.4vh",
                   }}
                 >
-                  <Container>
-                    <Container className="bg-light py-3">
-                      <p
-                        style={{
-                          fontSize: "13px",
-                          paddingLeft: "10px",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        PRODUCT
-                      </p>
+                  <Container className="bg-light py-3">
+                    <p
+                      style={{
+                        fontSize: "13px",
+                        paddingLeft: "10px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      PRODUCT
+                    </p>
 
-                      {prdFilter === "Value" ? (
-                        <BarChart
-                          width={250}
-                          height={250}
-                          data={productChartData}
-                          barSize={15}
-                          margin={{
-                            top: 25,
-                            right: 10,
-                            left: 10,
-                            bottom: 22,
-                          }}
+                    {prdFilter === "Value" ? (
+                      <BarChart
+                        width={280}
+                        height={250}
+                        data={productChartData}
+                        barSize={15}
+                        margin={{
+                          top: 25,
+                          right: 10,
+                          left: 10,
+                          bottom: 22,
+                        }}
+                        style={{
+                          paddingTop: 20,
+                        }}
+                        layout="vertical"
+                      >
+                        <XAxis type="number" hide />
+                        <YAxis
+                          type="category"
+                          yAxisId={0}
+                          dataKey="name"
+                          tickLine={false}
+                          axisLine={false}
                           style={{
-                            paddingTop: 20,
+                            fontSize: "0.52rem",
+                            fontFamily: "Arial",
+                            // width: "10px"
                           }}
-                          layout="vertical"
-                        >
-                          <XAxis type="number" hide />
-                          <YAxis
-                            type="category"
-                            yAxisId={0}
-                            dataKey="name"
-                            tickLine={false}
-                            axisLine={false}
-                            style={{
-                              fontSize: "0.52rem",
-                              fontFamily: "Arial",
-                              // width: "10px"
-                            }}
-                          />
-                          <YAxis
-                            orientation="right"
-                            yAxisId={1}
-                            dataKey="percent"
-                            type="category"
-                            axisLine={false}
-                            tickLine={false}
-                            style={{
-                              fontSize: "0.52rem",
-                              fontFamily: "Arial",
-                              padding: "15px",
-                            }}
-                          />
-                          <Bar
-                            dataKey="value"
-                            fill="#82ca9d"
-                            minPointSize={1}
-                            background={{ fill: "#eee" }}
-                          />
-                        </BarChart>
-                      ) : (
-                        <BarChart
-                          width={250}
-                          height={250}
-                          data={productChartData}
-                          barSize={15}
-                          margin={{
-                            top: 25,
-                            right: 10,
-                            left: 10,
-                            bottom: 22,
-                          }}
+                        />
+                        <YAxis
+                          orientation="right"
+                          yAxisId={1}
+                          dataKey="percent"
+                          type="category"
+                          axisLine={false}
+                          tickLine={false}
                           style={{
-                            paddingTop: 20,
+                            fontSize: "0.52rem",
+                            fontFamily: "Arial",
+                            padding: "15px",
                           }}
-                          layout="vertical"
-                        >
-                          <XAxis type="number" hide />
-                          <YAxis
-                            type="category"
-                            yAxisId={0}
-                            dataKey="countName"
-                            tickLine={false}
-                            axisLine={false}
-                            style={{
-                              fontSize: "0.52rem",
-                              fontFamily: "Arial",
-                              // width: "10px"
-                            }}
-                          />
-                          <YAxis
-                            orientation="right"
-                            yAxisId={1}
-                            dataKey="countPercent"
-                            type="category"
-                            axisLine={false}
-                            tickLine={false}
-                            style={{
-                              fontSize: "0.52rem",
-                              fontFamily: "Arial",
-                              padding: "15px",
-                            }}
-                          />
-                          <Bar
-                            dataKey="count"
-                            fill="#82ca9d"
-                            minPointSize={1}
-                            background={{ fill: "#eee" }}
-                          />
-                        </BarChart>
-                      )}
-                    </Container>
+                        />
+                        <Bar
+                          dataKey="value"
+                          fill="#82ca9d"
+                          minPointSize={1}
+                          background={{ fill: "#eee" }}
+                        />
+                      </BarChart>
+                    ) : (
+                      <BarChart
+                        width={280}
+                        height={250}
+                        data={productChartData}
+                        barSize={15}
+                        margin={{
+                          top: 25,
+                          right: 10,
+                          left: 10,
+                          bottom: 22,
+                        }}
+                        style={{
+                          paddingTop: 20,
+                        }}
+                        layout="vertical"
+                      >
+                        <XAxis type="number" hide />
+                        <YAxis
+                          type="category"
+                          yAxisId={0}
+                          dataKey="countName"
+                          tickLine={false}
+                          axisLine={false}
+                          style={{
+                            fontSize: "0.52rem",
+                            fontFamily: "Arial",
+                            // width: "10px"
+                          }}
+                        />
+                        <YAxis
+                          orientation="right"
+                          yAxisId={1}
+                          dataKey="countPercent"
+                          type="category"
+                          axisLine={false}
+                          tickLine={false}
+                          style={{
+                            fontSize: "0.52rem",
+                            fontFamily: "Arial",
+                            padding: "15px",
+                          }}
+                        />
+                        <Bar
+                          dataKey="count"
+                          fill="#82ca9d"
+                          minPointSize={1}
+                          background={{ fill: "#eee" }}
+                        />
+                      </BarChart>
+                    )}
                   </Container>
                 </div>
               </Col>
