@@ -65,7 +65,9 @@ export default function UpdateTransactions() {
   const guarantee = useRef("");
   const monitoring = useRef("");
   const reimbursible = useRef("");
-  
+  const nbcApprovalDate = useRef("");
+  const nbcSubmittedDate = useRef("");
+
   let id = window.location.search.split("?")[1]
 
   const history = useHistory();
@@ -146,7 +148,7 @@ export default function UpdateTransactions() {
     // function to get deal by id from the database
     const data = await axios.get(
      `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}`,
-    //`http://localhost:5001/api/v1/transaction/item/${id}`,
+    // `http://localhost:5001/api/v1/transaction/item/${id}`,
       {headers: {
         token: `Bearer ${localStorage.getItem('token')}`,
         'Content-type': 'application/json; charset=utf-8',
@@ -312,6 +314,8 @@ function handlePrevChange() {
       feeLetter: new Date(feeLetter.current.value),
       expectedClose: new Date(exceptedClose.current.value),
       actualClose: new Date(actualClose.current.value),
+      NBC_approval_date: new Date(nbcApprovalDate.current.value),
+      NBC_submitted_date: new Date(nbcSubmittedDate.current.value),
       structuringFeeAmount: +amount.current.value,
       structuringFeeAdvance: +advance.current.value,
       structuringFeeFinal: +final.current.value,
@@ -584,7 +588,14 @@ function handlePrevChange() {
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>NBC Approval</Form.Label>
-                        <Form.Control size="sm" type="date"/>
+                        <Form.Control size="sm" type="date" defaultValue={deal[0].nbc_approval_date ? new Date(deal[0].nbc_approval_date).toISOString().split('T')[0] : null} id='nbcApprovalDate' ref={nbcApprovalDate}/>
+                      </Form.Group>
+                    </Col>
+
+                    <Col sm={6}>
+                      <Form.Group className="pt-1">
+                        <Form.Label>NBC Submission</Form.Label>
+                        <Form.Control size="sm" type="date" defaultValue={deal[0].nbc_submitted_date ? new Date(deal[0].nbc_submitted_date).toISOString().split('T')[0] : null} id='nbcSubmittedDate' ref={nbcSubmittedDate}/>
                       </Form.Group>
                     </Col>
                   </Row>
