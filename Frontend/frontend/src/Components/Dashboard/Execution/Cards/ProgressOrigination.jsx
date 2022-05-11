@@ -247,26 +247,30 @@ export default function ProgressOrigination() {
 
   function varianceDisplay(variance) {
     if (variance < 1) {
-      let varianceAns = variance * -1;
-      return `↓ ₦${varianceAns.toFixed(2)}bn`;
-    } else if (variance === Infinity) {
-      return `↓ $0 %`;
+      let varianceAns = (variance * -1)
+      return <span style={{color: 'green'}}>↑ {(varianceAns).toFixed(1)}bn</span>;
     }
-
-    return `↑ ${variance.toFixed(2)}bn`;
+    else if (!isFinite(variance) || isFinite(variance)){
+      return ` - `;
+    }
+    
+    return <span style={{color: 'red'}}>↓ {(variance).toFixed(1)}bn </span>;
   }
 
   let variancePercent = ((varianceAmount / targetValue) * 100).toFixed(1);
 
   function variancePerDisplay(variancePer) {
     if (variancePer < 1) {
-      let varianceAns = variancePer * -1;
-      return `↓ ${varianceAns}%`;
-    } else if (variancePer === Infinity) {
-      return `↓ $0 %`;
+      let varianceAns = (variancePer * -1)
+      return <span style={{color: 'green'}}>↑ {varianceAns}% </span>;
     }
-    return `↑ ${variancePer}%`;
-  }
+    else if(!isFinite(variancePer) || isFinite(variancePer)){
+      return ` - `;
+    }
+    return <span style={{color: 'red'}}>↓ {variancePer}% </span>;
+  };
+
+
 
   const approvalData = [
     {
@@ -306,57 +310,57 @@ export default function ProgressOrigination() {
     {
       name: `On-grid Power: ₦${option1Total.toFixed(2)}bn`,
       value: option1Total,
-      percent: `${((option1Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option1Total/sumTotal) ? `0%`: `${((option1Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name: `Off-grid Power: ₦${option2Total.toFixed(2)}bn`,
       value: option2Total,
-      percent: `${((option2Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option2Total/sumTotal) ? `0%`: `${((option2Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name: `Agric infra: ₦${option3Total.toFixed(2)}bn`,
       value: option3Total,
-      percent: `${((option3Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option3Total/sumTotal) ? `0%`: `${((option3Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name: `Gas: ₦${option4Total.toFixed(2)}bn`,
       value: option4Total,
-      percent: `${((option4Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option4Total/sumTotal) ? `0%`: `${((option4Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name: `Transport: ₦${option5Total.toFixed(2)}bn`,
       value: option5Total,
-      percent: `${((option5Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option5Total/sumTotal)  ? `0%`: `${((option5Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name: `Inputs to Infra: ₦${option6Total.toFixed(2)}bn`,
       value: option6Total,
-      percent: `${((option6Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option6Total/sumTotal)  ? `0%`: `${((option6Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name: `Affordable Housing: ₦${option7Total.toFixed(2)}bn`,
       value: option7Total,
-      percent: `${((option7Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option7Total/sumTotal)  ? `0%`: `${((option7Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name: `Education Infra: ₦${option8Total.toFixed(2)}bn`,
       value: option8Total,
-      percent: `${((option8Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option8Total/sumTotal)  ? `0%`: `${((option8Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name: `Healthcare: ₦${option9Total.toFixed(2)}bn`,
       value: option9Total,
-      percent: `${((option9Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option9Total/sumTotal)  ? `0%`: `${((option9Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name: `Water/Waste: ₦${option10Total.toFixed(2)} bn`,
       value: option10Total,
-      percent: `${((option10Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option10Total/sumTotal)  ? `0%`: `${((option10Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name: `ICT/Telecoms: ₦${option11Total.toFixed(2)}bn`,
       value: option11Total,
-      percent: `${((option11Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option11Total/sumTotal) ? `0%`: `${((option11Total/sumTotal) * 100).toFixed(1)}%`
     },
   ];
 
@@ -448,34 +452,34 @@ export default function ProgressOrigination() {
 
   const productChartData = [
     {
-      name: `Public Bond: ₦${productOption1Total.toFixed(2)}bn`,
-      value: productOption1Total,
-      percent: `${((productOption1Total / sumTotal) * 100).toFixed(1)}%`,
+      name: `Public Bond: ₦${(productOption1Total).toFixed(2)}bn`,
+      value: productOption1Total,   
+      percent: !isFinite(productOption1Total/sumTotal)  ? `0%`: `${((productOption1Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name: `Blended Finance: ₦${productOption2Total.toFixed(2)}bn`,
       value: productOption2Total,
-      percent: `${((productOption2Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(productOption2Total/sumTotal)  ? `0%`: `${((productOption2Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name: `Contigent Refi. Gte.: ₦${productOption3Total.toFixed(2)}bn`,
       value: productOption3Total,
-      percent: `${((productOption3Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(productOption3Total/sumTotal)  ? `0%`: `${((productOption3Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name: `Private Bond (Clean Energy): ₦${productOption4Total.toFixed(2)}bn`,
       value: productOption4Total,
-      percent: `${((productOption4Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(productOption4Total/sumTotal)  ? `0%`: `${((productOption4Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name: `Private Bond (Other): ₦${productOption5Total.toFixed(2)}bn`,
       value: productOption5Total,
-      percent: `${((productOption5Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(productOption5Total/sumTotal)  ? `0%`: `${((productOption5Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name: `Annuity PPP: ₦${productOption6Total.toFixed(2)}bn`,
       value: productOption6Total,
-      percent: `${((productOption6Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(productOption6Total/sumTotal)  ? `0%`: `${((productOption6Total/sumTotal) * 100).toFixed(1)}%`
     },
   ];
 

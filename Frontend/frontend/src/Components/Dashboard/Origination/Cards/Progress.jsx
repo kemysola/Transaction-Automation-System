@@ -28,6 +28,7 @@ const ProgressBarDiv = styled.div`
   border-radius: 20px;
   
 `;
+
 export default function Progress() {
   const [data, setData] = useState([]);
   const [target, setTarget] = useState([]);
@@ -247,9 +248,11 @@ export default function Progress() {
     function varianceDisplay(variance) {
       if (variance < 1) {
         let varianceAns = (variance * -1)
-        return `↓ ₦${(varianceAns).toFixed(1)}bn`;
+        return <span style={{color: 'green'}}>↑ {(varianceAns).toFixed(1)}bn</span>;
+      } else if(!isFinite(variance) || isFinite(variance)){
+        return ` - `;
       }
-      return `↑ ${(variance).toFixed(1)}bn`;
+      return <span style={{color: 'red'}}>↓ {(variance).toFixed(1)}bn</span>;
     }
   
     let variancePercent = ((varianceAmount / targetValue) * 100).toFixed(1)
@@ -257,9 +260,11 @@ export default function Progress() {
     function variancePerDisplay(variancePer) {
       if (variancePer < 1) {
         let varianceAns = (variancePer * -1)
-        return `↓ ${varianceAns}%`;
+        return <span style={{color: 'green'}}>↑ {varianceAns}%</span>;
+      } else if(!isFinite(variancePer) || isFinite(variancePer)){
+        return ` - `;
       }
-      return `↑ ${variancePer}%`;
+      return <span style={{color: 'red'}}>↓ {variancePer}% </span>;
     }
   
 
@@ -411,34 +416,32 @@ export default function Progress() {
     {
       name: `Public Bond: ₦${(productOption1Total).toFixed(1)}bn`,
       value: productOption1Total,
-      percent: `${((productOption1Total/sumTotal) * 100).toFixed(1)}%`
+      percent: !isFinite(productOption1Total/sumTotal)  ? `0%`: `${((productOption1Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name: `Blended Finance: ₦${(productOption2Total).toFixed(1)}bn`,
       value: productOption2Total,
-      percent: `${((productOption2Total/sumTotal) * 100).toFixed(1)}%`
+      percent: !isFinite(productOption2Total/sumTotal)  ? `0%`: `${((productOption2Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name: `Contigent Refi. Gte.: ₦${(productOption3Total).toFixed(1)}bn`,
       value: productOption3Total,
-      percent: `${((productOption3Total/sumTotal) * 100).toFixed(1)}%`
+      percent: !isFinite(productOption3Total/sumTotal)  ? `0%`: `${((productOption3Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name: `Private Bond (Clean Energy): ₦${(productOption4Total).toFixed(1)}bn`,
       value: productOption4Total,
-      percent: `${((productOption4Total/sumTotal) * 100).toFixed(1)}%`
-
+      percent: !isFinite(productOption4Total/sumTotal)  ? `0%`: `${((productOption4Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name: `Private Bond (Other): ₦${(productOption5Total).toFixed(1)}bn`,
       value: productOption5Total,
-      percent: `${((productOption5Total/sumTotal) * 100).toFixed(1)}%`
+      percent: !isFinite(productOption5Total/sumTotal)  ? `0%`: `${((productOption5Total/sumTotal) * 100).toFixed(1)}%`
     },
     {
       name: `Annuity PPP: ₦${(productOption6Total).toFixed(1)}bn`,
       value: productOption6Total,
-      percent: `${((productOption6Total/sumTotal) * 100).toFixed(1)}%`
-
+      percent: !isFinite(productOption6Total/sumTotal)  ? `0%`: `${((productOption6Total/sumTotal) * 100).toFixed(1)}%`
     },
   ];
   
