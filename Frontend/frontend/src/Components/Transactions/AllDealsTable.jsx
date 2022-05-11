@@ -331,6 +331,42 @@ const AllDealsTable = (props) => {
         }
       },
       {
+        Header: "NBC Approval Date",
+        accessor: "nbc_approval_date",
+        Cell: (props) => {
+          const date = props.row.original['nbc_approval_date']
+          if (date !== null) {
+            const expectedDate = new Date(date)
+            return (
+              <div>
+                {`${expectedDate.toISOString().slice(0, 10)}`}
+              </div>
+            )
+          }
+          return (
+            <div>-</div>
+          )
+        }
+      },
+      {
+        Header: "NBC Submission Date",
+        accessor: "nbc_submitted_date",
+        Cell: (props) => {
+          const date = props.row.original['nbc_submitted_date']
+          if (date !== null) {
+            const expectedDate = new Date(date)
+            return (
+              <div>
+                {`${expectedDate.toISOString().slice(0, 10)}`}
+              </div>
+            )
+          }
+          return (
+            <div>-</div>
+          )
+        }
+      },
+      {
         Header: "Structuring Fee Amount",
         accessor: "structuringfeeamount",
       },
