@@ -43,7 +43,6 @@ const ContainerWrapper = styled.div`
                   onChange(e.target.value);
               }}
               placeholder={`Search ${count} ....`}
-    
           />
     )
   }
@@ -53,12 +52,17 @@ function SingleStaff() {
     const [staff, setStaff] = useState([]);
     const [status, setStatus] = useState(false);
     const history = useHistory();
+    const [downloadstaff, setDownloadStaff] = useState([])
 
     useEffect(() => {
         retrieveStaff();
       }, []);
 
       let user_email = window.location.search.split("?")[1]
+      const report_email = window.location.search.split("?")[1];
+      var name   = report_email.substring(0, report_email.lastIndexOf("@"));
+      const nameCase = name.toUpperCase()
+
       const retrieveStaff = async () => {
           Service.getMyDealsByEmail(
               user_email
@@ -70,6 +74,23 @@ function SingleStaff() {
           //console.log(staff)  
           
       } ;
+
+      useEffect(() =>{
+        downloadSingleStaff()
+      }, [])
+      
+      const downloadSingleStaff = async() => {
+        Service.downloadMyDealsByEmail(user_email).
+        then((res) => {
+          //console.log(res.data.deals)
+          setDownloadStaff(res.data.deals)
+        }).catch((err) =>{
+          console.log(err)
+        })
+
+      }
+
+      
 
 
 
@@ -232,8 +253,10 @@ function SingleStaff() {
       useResizeColumns,
       useFlexLayout,
       );
+
+
       const downloadExcel = () =>{
-        const newData = staff.map(row =>{
+        const newData = downloadstaff.map(row =>{
           delete row.tableData
         
           return(
@@ -243,11 +266,11 @@ function SingleStaff() {
         })
         const workSheet = XLSX.utils.json_to_sheet(newData)
         const workBook = XLSX.utils.book_new()
-        XLSX.utils.book_append_sheet(workBook,workSheet,'Single_Staff_Report')
+        XLSX.utils.book_append_sheet(workBook,workSheet,`Transaction_Report_${name}`)
         //Buffer
         let buf =XLSX.write(workBook,{bookType:"xlsx",type:"buffer"})
         XLSX.write(workBook,{bookType:"xlsx",type:"binary"})
-        XLSX.writeFile(workBook,"Single_Staff_Transaction_Report.xlsx")
+        XLSX.writeFile(workBook,`Transaction_Report_${name}.xlsx`)
       }
     
     
