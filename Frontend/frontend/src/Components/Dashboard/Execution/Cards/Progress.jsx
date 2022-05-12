@@ -364,7 +364,7 @@ export default function Progress() {
       countName: `On-grid Power: ${option1.length}`,
       value: option1Total,
       count: option1.length,
-      percent: `${((option1Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option1Total/sumTotal) ? `0%`: `${((option1Total/sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option1.length / data.length) * 100).toFixed(1)}%`,
     },
     {
@@ -372,7 +372,7 @@ export default function Progress() {
       countName: `Off-grid Power: ${option2.length}`,
       value: option2Total,
       count: option2.length,
-      percent: `${((option2Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option2Total/sumTotal) ? `0%`: `${((option2Total/sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option2.length / data.length) * 100).toFixed(1)}%`,
     },
     {
@@ -380,7 +380,7 @@ export default function Progress() {
       countName: `Agric infra: ${option3.length}`,
       value: option3Total,
       count: option3.length,
-      percent: `${((option3Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option3Total/sumTotal) ? `0%`: `${((option3Total/sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option3.length / data.length) * 100).toFixed(1)}%`,
     },
     {
@@ -388,7 +388,7 @@ export default function Progress() {
       countName: `Gas: ${option4.length}`,
       value: option4Total,
       count: option4.length,
-      percent: `${((option4Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option4Total/sumTotal) ? `0%`: `${((option4Total/sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option4.length / data.length) * 100).toFixed(1)}%`,
     },
     {
@@ -396,7 +396,7 @@ export default function Progress() {
       countName: `Transport: ${option5.length}`,
       value: option5Total,
       count: option5.length,
-      percent: `${((option5Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option5Total/sumTotal) ? `0%`: `${((option5Total/sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option5.length / data.length) * 100).toFixed(1)}%`,
     },
     {
@@ -404,7 +404,7 @@ export default function Progress() {
       countName: `Inputs to Infra: ${option6.length}`,
       value: option6Total,
       count: option6.length,
-      percent: `${((option6Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option6Total/sumTotal) ? `0%`: `${((option6Total/sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option6.length / data.length) * 100).toFixed(1)}%`,
     },
     {
@@ -412,7 +412,7 @@ export default function Progress() {
       countName: `Affordable Housing: ${option7.length}`,
       value: option7Total,
       count: option7.length,
-      percent: `${((option7Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option7Total/sumTotal) ? `0%`: `${((option7Total/sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option7.length / data.length) * 100).toFixed(1)}%`,
     },
     {
@@ -420,7 +420,7 @@ export default function Progress() {
       countName: `Education Infra: ${option8.length}`,
       value: option8Total,
       count: option8.length,
-      percent: `${((option8Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option8Total/sumTotal) ? `0%`: `${((option8Total/sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option8.length / data.length) * 100).toFixed(1)}%`,
     },
     {
@@ -428,7 +428,7 @@ export default function Progress() {
       countName: `Healthcare: ${option9.length}`,
       value: option9Total,
       count: option9.length,
-      percent: `${((option9Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option9Total/sumTotal) ? `0%`: `${((option9Total/sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option9.length / data.length) * 100).toFixed(1)}%`,
     },
     {
@@ -436,7 +436,7 @@ export default function Progress() {
       countName: `Water/Waste: ${option10.length}`,
       value: option10Total,
       count: option10.length,
-      percent: `${((option10Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option10Total/sumTotal) ? `0%`: `${((option10Total/sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option10.length / data.length) * 100).toFixed(1)}%`,
     },
     {
@@ -444,7 +444,7 @@ export default function Progress() {
       countName: `ICT/Telecoms: ${option11.length}`,
       value: option11Total,
       count: option11.length,
-      percent: `${((option11Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option11Total/sumTotal) ? `0%`: `${((option11Total/sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option11.length / data.length) * 100).toFixed(1)}%`,
     },
   ];
@@ -541,7 +541,7 @@ export default function Progress() {
       countName: `Public Bond: ${productOption1.length}`,
       value: productOption1Total,
       count: productOption1.length,
-      percent: `${((productOption1Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(productOption1Total/sumTotal) ? `0%`: `${((productOption1Total/sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((productOption1.length / data.length) * 100).toFixed(
         1
       )}%`,
@@ -551,7 +551,7 @@ export default function Progress() {
       countName: `Blended Finance: ${productOption2.length}`,
       value: productOption2Total,
       count: productOption2.length,
-      percent: `${((productOption2Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(productOption2Total/sumTotal) ? `0%`: `${((productOption2Total/sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((productOption2.length / data.length) * 100).toFixed(
         1
       )}%`,
@@ -561,7 +561,7 @@ export default function Progress() {
       countName: `Contigent Refi. Gte.: ${productOption3.length}`,
       value: productOption3Total,
       count: productOption3.length,
-      percent: `${((productOption3Total / sumTotal) * 100).toFixed(1)}%`,
+      percent:!isFinite(productOption3Total/sumTotal) ? `0%`: `${((productOption3Total/sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((productOption3.length / data.length) * 100).toFixed(
         1
       )}%`,
@@ -571,7 +571,7 @@ export default function Progress() {
       countName: `Private Bond (Clean Energy): ${productOption4.length}`,
       value: productOption4Total,
       count: productOption4.length,
-      percent: `${((productOption4Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(productOption4Total/sumTotal) ? `0%`: `${((productOption4Total/sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((productOption4.length / data.length) * 100).toFixed(
         1
       )}%`,
@@ -581,7 +581,7 @@ export default function Progress() {
       countName: `Private Bond (Other): ${productOption5.length}`,
       value: productOption5Total,
       count: productOption5.length,
-      percent: `${((productOption5Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(productOption5Total/sumTotal) ? `0%`: `${((productOption5Total/sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((productOption5.length / data.length) * 100).toFixed(
         1
       )}%`,
@@ -591,7 +591,7 @@ export default function Progress() {
       countName: `Annuity PPP: ${productOption6.length}`,
       value: productOption6Total,
       count: productOption6.length,
-      percent: `${((productOption6Total / sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(productOption6Total/sumTotal) ? `0%`: `${((productOption6Total/sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((productOption6.length / data.length) * 100).toFixed(
         1
       )}%`,
