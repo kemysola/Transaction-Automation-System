@@ -215,6 +215,68 @@ router.get('/all_deals', verifyTokenAndAdmin, async (req, res) => {
       }
 
 });
+//**************************************** Download endpoint for origination dashboard */
+
+// create an endpoint to download deals by indidvidual staff on the origination dashboard
+router.get('/download_all_deals', verifyTokenAndAdmin, async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+        const all_deals = await client.query(
+            `SELECT createdate,transid,clientname,originator, transactor,transactionlegallead,industry,product, region,dealsize,tenor,repaymentfrequency,mandateletter, creditapproval,expectedclose, actualclose,guaranteefee,closed,deal_category,notes,nbc_approval_date, nbc_submitted_date FROM TB_INFRCR_TRANSACTION
+            `);
+
+        if (all_deals) { 
+            
+            myArray = all_deals.rows
+            myNotes = myArray.forEach(convertNotesFiledsToList)
+           
+            res.status(200).send({
+                status: (res.statusCode = 200),
+                deals: all_deals.rows
+            })
+        }
+        
+    } catch (e) {
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+
+});
+
+//******************************************** Download Staff deals by selected columns */
+router.get('/download_staff_deals/:email', verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+        // const deal_record_id = req.params.deal;
+        const staff_email = req.params.email
+    
+        const my_deals = await client.query(
+            `SELECT createdate,transid,clientname,originator, transactor,transactionlegallead,industry,product, region,dealsize,tenor,repaymentfrequency,mandateletter, creditapproval,expectedclose, actualclose,guaranteefee,closed,deal_category,notes,nbc_approval_date, nbc_submitted_date
+            FROM TB_INFRCR_TRANSACTION
+            WHERE originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
+            `,
+            [staff_email]);
+        if (my_deals) { 
+            // convert notes field to list
+            myArray = my_deals.rows
+            myNotes = myArray.forEach(convertNotesFiledsToList)
+
+            res.status(200).send({
+                status: (res.statusCode = 200),
+                deals: my_deals.rows
+            })
+        }
+        
+    } catch (e) {
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+
+});
 
 
 // Deal Record Modification[only deal owner(originator or Transactor can modify deal)]

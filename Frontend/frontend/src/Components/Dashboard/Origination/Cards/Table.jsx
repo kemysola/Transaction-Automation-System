@@ -93,6 +93,7 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
   };
 
   const [date, setDate] = useState(initialDateState);
+  const [downloadstaff, setDownloadStaff] = useState([])
   const [deals, setDeals] = useState([]);
   const [rawData, setRawData] = useState([]);
   const [staffData, setStaffData] = useState([]);
@@ -169,6 +170,24 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
         console.log(e);
       });
   };
+
+  //fetch download endpoint 
+
+  useEffect(() =>{
+    downloadSingleStaff()
+  }, [])
+  
+  const downloadSingleStaff = async() => {
+    Service.downloadAllDeals().
+    then((res) => {
+      //console.log(res.data.deals)
+      setDownloadStaff(res.data.deals)
+    }).catch((err) =>{
+      console.log(err)
+    })
+
+  }
+  // **************** end axios call *********************
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -331,17 +350,17 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
     );
 
     const downloadExcel = () =>{
-      const newData = deals.map(row =>{
+      const newData = downloadstaff.map(row =>{
         delete row.tableData
         return row
       })
       const workSheet = XLSX.utils.json_to_sheet(newData)
       const workBook = XLSX.utils.book_new()
-      XLSX.utils.book_append_sheet(workBook,workSheet,'Execution_Summary')
+      XLSX.utils.book_append_sheet(workBook,workSheet,'Origination_Summary')
       //Buffer
       let buf =XLSX.write(workBook,{bookType:"xlsx",type:"buffer"})
       XLSX.write(workBook,{bookType:"xlsx",type:"binary"})
-      XLSX.writeFile(workBook,"Execution_Report.xlsx")
+      XLSX.writeFile(workBook,"Origination_Report.xlsx")
     }
 
   return (
