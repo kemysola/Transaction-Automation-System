@@ -36,8 +36,16 @@ const getMyDealsByEmail = async(user_email) => { // get current users deals
     return  await axios.get(`transaction/get_staff_deals/${user_email}`);
     
 };
+const downloadMyDealsByEmail = async(user_email) => { // get current users deals
+    return  await axios.get(`transaction/download_staff_deals/${user_email}`);
+    
+};
 const getAllDeals = async() => { // get all deals, for privileged users only
     return await  axios.get("transaction/all_deals");
+};
+
+const downloadAllDeals = async() => { // get all deals, for privileged users only
+    return await  axios.get("transaction/download_all_deals");
 };
 
 const getAllStaff = async() => { // get all staff, for privileged users only
@@ -114,5 +122,7 @@ export default {
     getAmortizationSty,
     getDealCategory,
     getStaffList,
-    getForecast
+    getForecast,
+    downloadMyDealsByEmail,
+    downloadAllDeals
 };
