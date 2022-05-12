@@ -10,7 +10,6 @@ import Filters from './Filters';
 const ContainerWrapper = styled.div`
 font-size:11px;
 margin-top: 0.55rem;
-background:white;
 padding: 1rem 2rem;
 border-radius: 10px;
 `;
@@ -56,8 +55,8 @@ const ButtonWrapper = styled.button`
 const DateWrapper = styled.button`
   display: flex;
   align-items: center;
-  background: white;
-  border: none;
+  border: 1px solid grey;
+  border-radius: 10px;
   justify-content: center;
   position: absolute;
   right: 25px;
@@ -352,8 +351,8 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
         </Spinner>
       ) : (
 
-        <ContainerWrapper>
-          <DateWrapper>
+        <ContainerWrapper className="bg-light">
+          <DateWrapper className="bg-light">
             <Row>
             
               <Col>

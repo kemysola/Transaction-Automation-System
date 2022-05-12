@@ -30,7 +30,6 @@ export default function Progress() {
   const [forecast, setForecast] = useState([]);
   const [indFilter, setIndFilter] = useState("Value");
   const [prdFilter, setPrdFilter] = useState("Value");
-  const [show, setShow] = useState(false);
  
   useEffect(() => {
     retrieveDeals();
@@ -485,82 +484,84 @@ export default function Progress() {
   
   return (
     <React.Fragment>
-      <div style={{ marginLeft: "1rem ", marginRight: " 0.11rem", background:'white' }}>
-        <div style={{display: "flex", justifyContent: "space-between", marginRight: "1rem"}}>
+      <Container style={{ marginLeft: "1rem ", background:'white', borderRadius: "15px" }}>
+        {/* --------- Title and Filter Bar */}
+        <div style={{display: "flex", justifyContent: "space-between", padding: "1rem 0rem", marginRight: "1rem"}}>
           <p class='animate__animated animate__pulse py-1' style={{marginLeft:'1rem'}}><b>Management Dashboard</b></p>
 
-          <Button 
-            variant="info"
-            className="my-1"
-            size="sm" onClick={() => setShow(!show)} 
-          >
-            Filter
-          </Button>
-        </div>
-
-        {show ? 
-        <div style={{display: "flex", justifyContent: "end", marginRight: "1rem"}}>
+        {/* ---------- Filter Bar ------------ */}
           <Row>
-                <Card style={{  width: "400px" }}>
-                  <Card.Body>
-                    {/* <Card.Title></Card.Title> */}
-                    <Card.Subtitle className="mb-2 text-muted">
-                      <h6> Filter </h6>
-                    </Card.Subtitle>
-                    <Card.Text>
-                      <Row>
-                        {/* Filter Industry Barchart */}
-                        <Col sm={6}>
-                          <Form.Label>Industry by</Form.Label>
-                          <Form.Check
-                            label="Value"
-                            type="radio"
-                            name="indFilter"
-                            value="Value"
-                            onClick={(e) => setIndFilter(e.target.value)}
-                            defaultChecked
-                          />
-                          <Form.Check
-                            label="Count"
-                            type="radio"
-                            name="indFilter"
-                            value="Count"
-                            onClick={(e) => setIndFilter(e.target.value)}
-                          />
-                        </Col>
+            <Card className="my-1" style={{ borderRadius: "10px" }}>
+              <Card.Body>
+                <Card.Subtitle className="mb-2">
+                  <h6 style={{width: "250px", fontSize: "13px"}}>Filter</h6>
+                </Card.Subtitle>
 
-                        {/* Filter Product Barchart  */}
-                        <Col sm={6}>
-                          <Form.Label>Product by</Form.Label>
-                          <Form.Check
-                            label="Value"
-                            type="radio"
-                            name="prdFilter"
-                            value="Value"
-                            onClick={(e) => setPrdFilter(e.target.value)}
-                            defaultChecked
-                          />
-                          <Form.Check
-                            label="Count"
-                            type="radio"
-                            name="prdFilter"
-                            value="Count"
-                            onClick={(e) => setPrdFilter(e.target.value)}
-                          />
-                        </Col>
-                      </Row>
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
+                <Card.Text>
+                  {/* --------- Filter Industry Barchart ----------- */}
+                  <Row>
+                    <Col sm={4} lg={4} style={{fontSize: "12px"}}>
+                      <Form.Label>Industry by:</Form.Label>
+                    </Col>
+                    <Col sm={8} lg={8} style={{fontSize: "12px"}}>
+                      <Form.Check
+                        inline
+                        label="Value"
+                        type="radio"
+                        name="indFilter"
+                        value="Value"
+                        onClick={(e) => setIndFilter(e.target.value)}
+                        defaultChecked
+                      />
+                      <Form.Check
+                        inline
+                        label="Count"
+                        type="radio"
+                        name="indFilter"
+                        value="Count"
+                        onClick={(e) => setIndFilter(e.target.value)}
+                      />
+                    </Col>
+                  </Row>
+
+                  {/* --------- Filter Product Barchart --------- */}
+                  <Row>
+                    <Col sm={4} lg={4} style={{fontSize: "12px"}}>
+                      <Form.Label>Product by:</Form.Label>
+                    </Col>
+
+                    <Col sm={8} lg={8} style={{fontSize: "12px"}}>
+                      <Form.Check
+                        inline
+                        label="Value"
+                        type="radio"
+                        name="prdFilter"
+                        value="Value"
+                        onClick={(e) => setPrdFilter(e.target.value)}
+                        defaultChecked
+                      />
+                      <Form.Check
+                        inline
+                        label="Count"
+                        type="radio"
+                        name="prdFilter"
+                        value="Count"
+                        onClick={(e) => setPrdFilter(e.target.value)}
+                      />
+                    </Col>
+                  </Row>
+                </Card.Text>
+              </Card.Body>
+            </Card>
           </Row>
         </div>
-         : null}
         
+        {/* --------- Deal Category PieChart and Region Bar Chart ------------------- */}
+        <Row style={{marginBottom: "-38px"}}>
+          <Stats />
+        </Row>
         
-        <Stats />
-      </div>
-
-      <Container style={{ marginLeft: "1rem ", marginRight: " 0.11rem", background:'white' }}>
+       {/* ----- Forecast Bar Charts ----------- */}
         <Row style={{ marginTop: "5px " }}>
           {/*------------------------ New Guarantee Forecast barchart ------------------------------- */}
           <Col sm={12} lg={4} className="mt-3 mb-1">
@@ -572,7 +573,7 @@ export default function Progress() {
                 height: "65.4vh",
               }}
             >
-                <Container className='bg-light py-3'>
+                <Container className='bg-light py-3' style={{borderRadius: "10px"}}>
                 <p
                 style={{
                   fontSize: "13px",
@@ -598,7 +599,7 @@ export default function Progress() {
                 <XAxis xAxisId={0}
                   dataKey="name"
                   tickLine={false}
-                  axisLine={false}
+                  axisLine={true}
                   style={{
                     fontSize: "0.52rem",
                     fontFamily: "Arial",
@@ -643,7 +644,7 @@ export default function Progress() {
                 height: "65.4vh",
               }}
             >
-                <Container className='bg-light py-3'>
+                <Container className='bg-light py-3' style={{borderRadius: "10px"}}>
                 <p
                 style={{
                   fontSize: "13px",
@@ -703,7 +704,7 @@ export default function Progress() {
                 height: "65.4vh",
               }}
             >
-                <Container className='bg-light py-3'>
+                <Container className='bg-light py-3' style={{borderRadius: "10px"}}>
                 <p
                 style={{
                   fontSize: "13px",
@@ -728,7 +729,7 @@ export default function Progress() {
                 <XAxis xAxisId={0}
                   dataKey="name"
                   tickLine={false}
-                  axisLine={false}
+                  axisLine={true}
                   style={{
                     fontSize: "0.52rem",
                     fontFamily: "Arial",
@@ -763,6 +764,7 @@ export default function Progress() {
           </Col>
         </Row>
 
+        {/* ------- Industry and Product Bar Charts ---------- */}
         <Row style={{marginTop: "-40px"}}>
           {/* -------------------------- Industry barchart -------------------------------- */}
           <Col sm={12} lg={6} className="mt-1 mb-3">
@@ -773,11 +775,10 @@ export default function Progress() {
                 borderRadius: "15px",
               }}
             >
-              <Container className='bg-light py-3'>
+              <Container className='bg-light py-3' style={{borderRadius: "10px"}}>
               <p
               style={{
                 fontSize: "13px",
-                // paddingLeft: "10px",
                 fontWeight: "bold",
               }}
             >
@@ -805,7 +806,7 @@ export default function Progress() {
                   yAxisId={0}
                   tickLine={false} 
                   axisLine={false}
-                  style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
+                  style={{ fontSize: "9px",  }}
                 />
                 <YAxis
                   orientation="right"
@@ -814,7 +815,7 @@ export default function Progress() {
                   type="category"
                   axisLine={false}
                   tickLine={false}
-                  style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
+                  style={{ fontSize: "9px" }}
                 />
                 <Bar
                   dataKey="value"
@@ -848,7 +849,7 @@ export default function Progress() {
                   yAxisId={0}
                   tickLine={false} 
                   axisLine={false}
-                  style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
+                  style={{ fontSize: "9px" }}
                 />
                 <YAxis
                   orientation="right"
@@ -857,7 +858,7 @@ export default function Progress() {
                   type="category"
                   axisLine={false}
                   tickLine={false}
-                  style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
+                  style={{ fontSize: "9px" }}
                 />
                 <Bar
                   dataKey="count"
@@ -885,7 +886,7 @@ export default function Progress() {
                 height: "65.4vh",
               }}
             >
-              <Container className='bg-light py-3'>
+              <Container className='bg-light py-3' style={{borderRadius: "10px"}}>
               <p
               style={{
                 fontSize: "13px",
@@ -909,7 +910,7 @@ export default function Progress() {
                   bottom: 22,
                 }}
                 style={{
-                  paddingTop: 20,
+                  paddingTop: 2,
                 }}
                 layout="vertical"
               >
@@ -921,8 +922,7 @@ export default function Progress() {
                   tickLine={false}
                   axisLine={false}
                   style={{
-                    fontSize: "0.52rem",
-                    fontFamily: "Arial",
+                    fontSize: "9px",
                     paddingLeft: "2px",
                   }}
                 />
@@ -934,8 +934,7 @@ export default function Progress() {
                   axisLine={false}
                   tickLine={false}
                   style={{
-                    fontSize: "0.52rem",
-                    fontFamily: "Arial",
+                    fontSize: "9px",
                     padding: "15px",
                   }}
                 />
@@ -960,7 +959,7 @@ export default function Progress() {
                   bottom: 22,
                 }}
                 style={{
-                  paddingTop: 20,
+                  paddingTop: 2,
                 }}
                 layout="vertical"
               >
@@ -972,8 +971,7 @@ export default function Progress() {
                   tickLine={false}
                   axisLine={false}
                   style={{
-                    fontSize: "0.52rem",
-                    fontFamily: "Arial",
+                    fontSize: "9px",
                     paddingLeft: "2px",
                   }}
                 />
@@ -985,8 +983,7 @@ export default function Progress() {
                   axisLine={false}
                   tickLine={false}
                   style={{
-                    fontSize: "0.52rem",
-                    fontFamily: "Arial",
+                    fontSize: "9px",
                     padding: "15px",
                   }}
                 />

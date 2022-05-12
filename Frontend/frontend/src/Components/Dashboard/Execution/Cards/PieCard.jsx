@@ -380,7 +380,7 @@ export default function PieCard ({dealFilter, staffFilter}) {
     return (
       <React.Fragment>
         {/*---------------------------- Div ------------------------------------------- */}
-    {/*<Container fluid className="mb-3 bg-light">*/}
+        <Container fluid className="mb-3 bg-light" style={{borderRadius: "10px"}}>
 
       {loading ? (
         <Spinner animation="border" role="status" variant="secondary">
@@ -445,11 +445,9 @@ export default function PieCard ({dealFilter, staffFilter}) {
                   </Col>
                 </Row>
           </Col>
-
-          
         </Row>
       )}
-       {/*</Container> */}
+        </Container>
       </React.Fragment>
     );
   }

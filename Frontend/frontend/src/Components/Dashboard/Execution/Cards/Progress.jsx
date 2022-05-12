@@ -600,7 +600,7 @@ export default function Progress() {
 
   return (
     <React.Fragment>
-      <Container fluid className="bg-light">
+      <Container fluid style={{marginLeft: "1rem ", background:'white', borderRadius: "10px"}}>
         <Row className="d-flex justify-content-between">
           <Col sm={6} lg={8}>
             <p class="animate__animated animate__pulse pt-2">
@@ -609,7 +609,7 @@ export default function Progress() {
             {/* <span>{staffName}</span> */}
           </Col>
 
-          <Col sm={6} lg={4}>
+          {/* <Col sm={6} lg={4}>
             <Button
               variant="info"
               className="my-1"
@@ -618,8 +618,151 @@ export default function Progress() {
             >
               Filter
             </Button>
-          </Col>
+          </Col> */}
         </Row>
+
+        {/* -------------------- Filter Bar -------------------------- */}
+        <Container>
+          <Card className="m-1 bg-light" style={{ width: "30rem", borderRadius: "10px" }}>
+            <Card.Body>
+              <Card.Title style={{fontSize: "13px"}}>Filter</Card.Title>
+
+              <Card.Text>
+                {/* --------- Filter By Staff ------------ */}
+                <Row style={{fontSize: "12px"}}>
+                  <Col sm={4} lg={3} style={{paddingTop: "5px"}}>
+                    <Form.Label>Staff Name:</Form.Label>
+                  </Col>
+
+                  <Col sm={4} lg={8}>
+                    <Form.Select
+                      size="sm"
+                      name="staff"
+                      onChange={(e) => setStaffFilter(e.target.value)}
+                    >
+                      <option value="All">All</option>
+                      {staffList.map((opt, i) => (
+                        <option
+                          key={staffList[i].email}
+                          name={staffList[i].stafflist}
+                          value={staffList[i].email}
+                        >
+                          {staffList[i].stafflist}
+                        </option>
+                      ))}
+                    </Form.Select>
+                  </Col>
+                </Row> 
+
+              {/* ---------------- Filter Industry Chart ----------------- */}
+                <Row style={{fontSize: "12px", marginTop: "10px"}}>
+                  <Col sm={4} lg={3}>
+                    <Form.Label>Industry by:</Form.Label>
+                  </Col>
+                  <Col sm={8}>
+                    <Form.Check
+                      inline
+                      label="Value"
+                      type="radio"
+                      name="indFilter"
+                      value="Value"
+                      onClick={(e) => setIndFilter(e.target.value)}
+                      defaultChecked
+                    />
+                    <Form.Check
+                      inline
+                      label="Count"
+                      type="radio"
+                      name="indFilter"
+                      value="Count"
+                      onClick={(e) => setIndFilter(e.target.value)}
+                    />
+                  </Col>
+                </Row>
+
+                {/* --------- Filter Product Barchart --------- */}
+                <Row style={{fontSize: "12px"}}>
+                  <Col sm={4} lg={3}>
+                    <Form.Label>Product by:</Form.Label>
+                  </Col>
+
+                  <Col sm={8}>
+                    <Form.Check
+                      inline
+                      label="Value"
+                      type="radio"
+                      name="prdFilter"
+                      value="Value"
+                      onClick={(e) => setPrdFilter(e.target.value)}
+                      defaultChecked
+                    />
+                    <Form.Check
+                      inline
+                      label="Count"
+                      type="radio"
+                      name="prdFilter"
+                      value="Count"
+                      onClick={(e) => setPrdFilter(e.target.value)}
+                    />
+                  </Col>
+                </Row>
+
+                {/* ----------- Filter By Deal Category ---------- */}
+                <Row style={{fontSize: "12px"}}>
+                  <Col sm={4} lg={3}>
+                    <Form.Label>Deal Category:</Form.Label>
+                  </Col>
+
+                  <Col lg={2}>
+                    <Form.Check
+                      inline
+                      label="All"
+                      type="radio"
+                      name="dealFilter"
+                      value="All"
+                      onClick={(e) => setDealFilter(e.target.value)}
+                      defaultChecked
+                    />
+                  </Col>
+
+                  <Col lg={2}>
+                    <Form.Check
+                      inline
+                      label="Green"
+                      type="radio"
+                      name="dealFilter"
+                      value="Green"
+                      onClick={(e) => setDealFilter(e.target.value)}
+                    />
+                  </Col>
+
+                  <Col lg={2}>
+                    <Form.Check
+                      inline
+                      label="Amber"
+                      type="radio"
+                      name="dealFilter"
+                      value="Yellow"
+                      onClick={(e) => setDealFilter(e.target.value)}
+                    />
+                  </Col>
+
+                  <Col lg={2}>
+                    <Form.Check
+                      inline
+                      label="Red"
+                      type="radio"
+                      name="dealFilter"
+                      value="Red"
+                      onClick={(e) => setDealFilter(e.target.value)}
+                    />
+                  </Col>
+                </Row>
+
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Container>
 
         {/* ------------------- Filter Modal ------------------------------ */}
         {/* <ModalDiv> */}
@@ -753,7 +896,7 @@ export default function Progress() {
         ) : (
           <Container>
             {/* ---------------------- Actual, Target, Variance Cards ------------------------- */}
-            <Row>
+            <Row style={{marginTop: "10px"}}>
               <Col
                 sm={3}
                 lg={4}
@@ -761,7 +904,7 @@ export default function Progress() {
                 className="my-1"
                 style={{ display: "flex", flexDirection: "row" }}
               >
-                <Card style={{ width: "18rem", flex: 1 }}>
+                <Card className='bg-light' style={{ width: "18rem", flex: 1 }}>
                   <Card.Body>
                     <Card.Title>{`₦${sumTotal.toFixed(1)}bn`}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
@@ -777,7 +920,7 @@ export default function Progress() {
                 className="my-1"
                 style={{ display: "flex", flexDirection: "row" }}
               >
-                <Card style={{ width: "18rem", flex: 1 }}>
+                <Card className='bg-light' style={{ width: "18rem", flex: 1 }}>
                   <Card.Body>
                     <Card.Title>{`₦${targetValue.toFixed(1)}bn`}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
@@ -793,7 +936,7 @@ export default function Progress() {
                 className="my-1"
                 style={{ display: "flex", flexDirection: "row" }}
               >
-                <Card style={{ width: "18rem", flex: 1 }}>
+                <Card className='bg-light' style={{ width: "18rem", flex: 1 }}>
                   <Card.Body>
                     <Card.Title>
                       {variancePerDisplay(variancePercent)}
@@ -808,251 +951,232 @@ export default function Progress() {
             </Row>
 
             {/* --------- Deal Category Pie Chart, Industry and Product BarChart --------------- */}
-            <Row style={{ marginTop: "5px " }}>
+            <Row style={{ marginTop: "15px" }}>
               {/* Deal Category PieChart */}
               <Col sm={12} lg={4} md={12} className="my-1">
-                <br/>
                 <PieCard dealFilter={dealFilter} staffFilter={staffFilter}/>
               </Col>
 
               {/* Industry Bar Chart */}
               <Col sm={12} lg={4} md={12} className="my-1">
-                <div
-                  style={{
-                    padding: "10px",
-                    marginTop: "3px",
-                    borderRadius: "15px",
-                  }}
-                >
-                  <Container className="bg-light py-3">
-                    <p
-                      style={{
-                        fontSize: "13px",
-                        paddingLeft: "10px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      INDUSTRY
-                    </p>
+                <Container className="bg-light py-3" style={{borderRadius: "10px"}}>
+                  <p
+                    style={{
+                      fontSize: "13px",
+                      paddingLeft: "10px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    INDUSTRY
+                  </p>
 
-                    {indFilter === "Value" ? (
-                      <BarChart
-                        width={250}
-                        height={340}
-                        data={chartData}
-                        barSize={15}
-                        margin={{
-                          top: 5,
-                          right: 5,
-                          left: 5,
-                          bottom: 2,
-                        }}
-                        layout="vertical"
-                      >
-                        <XAxis type="number" hide />
-                        <YAxis
-                          type="category"
-                          dataKey="name"
-                          yAxisId={0}
-                          tickLine={false}
-                          axisLine={false}
-                          style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
-                        />
-                        <YAxis
-                          orientation="right"
-                          yAxisId={1}
-                          dataKey="percent"
-                          type="category"
-                          axisLine={false}
-                          tickLine={false}
-                          style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
-                        />
-                        <Bar
-                          dataKey="value"
-                          fill="#82ca9d"
-                          minPointSize={1}
-                          background={{ fill: "#eee" }}
-                        />
-                      </BarChart>
-                    ) : (
-                      <BarChart
-                        width={250}
-                        height={340}
-                        data={chartData}
-                        barSize={15}
-                        margin={{
-                          top: 5,
-                          right: 5,
-                          left: 5,
-                          bottom: 2,
-                        }}
-                        layout="vertical"
-                      >
-                        <XAxis type="number" hide />
-                        <YAxis
-                          type="category"
-                          dataKey="countName"
-                          yAxisId={0}
-                          tickLine={false}
-                          axisLine={false}
-                          style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
-                        />
-                        <YAxis
-                          orientation="right"
-                          yAxisId={1}
-                          dataKey="countPercent"
-                          type="category"
-                          axisLine={false}
-                          tickLine={false}
-                          style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
-                        />
-                        <Bar
-                          dataKey="count"
-                          fill="#82ca9d"
-                          minPointSize={1}
-                          background={{ fill: "#eee" }}
-                        />
-                      </BarChart>
-                    )}
-                  </Container>
-                </div>
+                  {indFilter === "Value" ? (
+                    <BarChart
+                      width={250}
+                      height={340}
+                      data={chartData}
+                      barSize={15}
+                      margin={{
+                        top: 5,
+                        right: 5,
+                        left: 5,
+                        bottom: 2,
+                      }}
+                      layout="vertical"
+                    >
+                      <XAxis type="number" hide />
+                      <YAxis
+                        type="category"
+                        dataKey="name"
+                        yAxisId={0}
+                        tickLine={false}
+                        axisLine={false}
+                        style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
+                      />
+                      <YAxis
+                        orientation="right"
+                        yAxisId={1}
+                        dataKey="percent"
+                        type="category"
+                        axisLine={false}
+                        tickLine={false}
+                        style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
+                      />
+                      <Bar
+                        dataKey="value"
+                        fill="#82ca9d"
+                        minPointSize={1}
+                        background={{ fill: "#eee" }}
+                      />
+                    </BarChart>
+                  ) : (
+                    <BarChart
+                      width={250}
+                      height={340}
+                      data={chartData}
+                      barSize={15}
+                      margin={{
+                        top: 5,
+                        right: 5,
+                        left: 5,
+                        bottom: 2,
+                      }}
+                      layout="vertical"
+                    >
+                      <XAxis type="number" hide />
+                      <YAxis
+                        type="category"
+                        dataKey="countName"
+                        yAxisId={0}
+                        tickLine={false}
+                        axisLine={false}
+                        style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
+                      />
+                      <YAxis
+                        orientation="right"
+                        yAxisId={1}
+                        dataKey="countPercent"
+                        type="category"
+                        axisLine={false}
+                        tickLine={false}
+                        style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
+                      />
+                      <Bar
+                        dataKey="count"
+                        fill="#82ca9d"
+                        minPointSize={1}
+                        background={{ fill: "#eee" }}
+                      />
+                    </BarChart>
+                  )}
+                </Container>
               </Col>
 
               {/* Product BarChart */}
               <Col sm={12} lg={4} className="my-1">
-                <div
-                  style={{
-                    paddingTop: "10px",
-                    marginTop: "3px",
-                    borderRadius: "15px",
-                    height: "65.4vh",
-                  }}
-                >
-                  <Container className="bg-light py-3">
-                    <p
-                      style={{
-                        fontSize: "13px",
-                        paddingLeft: "10px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      PRODUCT
-                    </p>
+                <Container className="bg-light py-3" style={{borderRadius: "10px"}}>
+                  <p
+                    style={{
+                      fontSize: "13px",
+                      paddingLeft: "10px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    PRODUCT
+                  </p>
 
-                    {prdFilter === "Value" ? (
-                      <BarChart
-                        width={280}
-                        height={250}
-                        data={productChartData}
-                        barSize={15}
-                        margin={{
-                          top: 25,
-                          right: 10,
-                          left: 10,
-                          bottom: 22,
-                        }}
+                  {prdFilter === "Value" ? (
+                    <BarChart
+                      width={280}
+                      height={250}
+                      data={productChartData}
+                      barSize={15}
+                      margin={{
+                        top: 25,
+                        right: 10,
+                        left: 10,
+                        bottom: 22,
+                      }}
+                      style={{
+                        paddingTop: 20,
+                      }}
+                      layout="vertical"
+                    >
+                      <XAxis type="number" hide />
+                      <YAxis
+                        type="category"
+                        yAxisId={0}
+                        dataKey="name"
+                        tickLine={false}
+                        axisLine={false}
                         style={{
-                          paddingTop: 20,
+                          fontSize: "0.52rem",
+                          fontFamily: "Arial",
+                          // width: "10px"
                         }}
-                        layout="vertical"
-                      >
-                        <XAxis type="number" hide />
-                        <YAxis
-                          type="category"
-                          yAxisId={0}
-                          dataKey="name"
-                          tickLine={false}
-                          axisLine={false}
-                          style={{
-                            fontSize: "0.52rem",
-                            fontFamily: "Arial",
-                            // width: "10px"
-                          }}
-                        />
-                        <YAxis
-                          orientation="right"
-                          yAxisId={1}
-                          dataKey="percent"
-                          type="category"
-                          axisLine={false}
-                          tickLine={false}
-                          style={{
-                            fontSize: "0.52rem",
-                            fontFamily: "Arial",
-                            padding: "15px",
-                          }}
-                        />
-                        <Bar
-                          dataKey="value"
-                          fill="#82ca9d"
-                          minPointSize={1}
-                          background={{ fill: "#eee" }}
-                        />
-                      </BarChart>
-                    ) : (
-                      <BarChart
-                        width={280}
-                        height={250}
-                        data={productChartData}
-                        barSize={15}
-                        margin={{
-                          top: 25,
-                          right: 10,
-                          left: 10,
-                          bottom: 22,
-                        }}
+                      />
+                      <YAxis
+                        orientation="right"
+                        yAxisId={1}
+                        dataKey="percent"
+                        type="category"
+                        axisLine={false}
+                        tickLine={false}
                         style={{
-                          paddingTop: 20,
+                          fontSize: "0.52rem",
+                          fontFamily: "Arial",
+                          padding: "15px",
                         }}
-                        layout="vertical"
-                      >
-                        <XAxis type="number" hide />
-                        <YAxis
-                          type="category"
-                          yAxisId={0}
-                          dataKey="countName"
-                          tickLine={false}
-                          axisLine={false}
-                          style={{
-                            fontSize: "0.52rem",
-                            fontFamily: "Arial",
-                            // width: "10px"
-                          }}
-                        />
-                        <YAxis
-                          orientation="right"
-                          yAxisId={1}
-                          dataKey="countPercent"
-                          type="category"
-                          axisLine={false}
-                          tickLine={false}
-                          style={{
-                            fontSize: "0.52rem",
-                            fontFamily: "Arial",
-                            padding: "15px",
-                          }}
-                        />
-                        <Bar
-                          dataKey="count"
-                          fill="#82ca9d"
-                          minPointSize={1}
-                          background={{ fill: "#eee" }}
-                        />
-                      </BarChart>
-                    )}
-                  </Container>
-                </div>
+                      />
+                      <Bar
+                        dataKey="value"
+                        fill="#82ca9d"
+                        minPointSize={1}
+                        background={{ fill: "#eee" }}
+                      />
+                    </BarChart>
+                  ) : (
+                    <BarChart
+                      width={280}
+                      height={250}
+                      data={productChartData}
+                      barSize={15}
+                      margin={{
+                        top: 25,
+                        right: 10,
+                        left: 10,
+                        bottom: 22,
+                      }}
+                      style={{
+                        paddingTop: 20,
+                      }}
+                      layout="vertical"
+                    >
+                      <XAxis type="number" hide />
+                      <YAxis
+                        type="category"
+                        yAxisId={0}
+                        dataKey="countName"
+                        tickLine={false}
+                        axisLine={false}
+                        style={{
+                          fontSize: "0.52rem",
+                          fontFamily: "Arial",
+                          // width: "10px"
+                        }}
+                      />
+                      <YAxis
+                        orientation="right"
+                        yAxisId={1}
+                        dataKey="countPercent"
+                        type="category"
+                        axisLine={false}
+                        tickLine={false}
+                        style={{
+                          fontSize: "0.52rem",
+                          fontFamily: "Arial",
+                          padding: "15px",
+                        }}
+                      />
+                      <Bar
+                        dataKey="count"
+                        fill="#82ca9d"
+                        minPointSize={1}
+                        background={{ fill: "#eee" }}
+                      />
+                    </BarChart>
+                  )}
+                </Container>
               </Col>
               {/*------------------------ Column ------------------------------- */}
             </Row>
           </Container>
         )}
-      </Container>
-      {/* <br /> */}
 
-      {/* Exxecution Dashboard Table */}
+      {/* ---------- Exxecution Dashboard Table ----------- */}
       <Table dealFilter={dealFilter} staffFilter={staffFilter} />
-      {/* </Container> */}
+    </Container>
+    <br />
     </React.Fragment>
   );
 }
