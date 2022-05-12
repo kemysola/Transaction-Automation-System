@@ -389,61 +389,60 @@ export default function PieCard ({dealFilter, staffFilter}) {
       ) : (
         <Row>
           <Col lg={12} sm={12} md={12} className="my-1 ">
-              
-                <p className="pb-2"
-                  style={{
-                    color: "black",
-                    fontWeight: "bold",
-                    fontSize: "13px",
-                    paddingLeft: "1px",
-                    paddingTop: "5px",
-                  }}
-                >
-                  DEAL CATEGORY
-                </p>
+            <p className="pb-2"
+              style={{
+                color: "black",
+                fontWeight: "bold",
+                fontSize: "13px",
+                paddingLeft: "1px",
+                paddingTop: "5px",
+              }}
+            >
+              DEAL CATEGORY
+            </p>
 
-                <Row>
-                  <Col  className="mt-1 d-none d-sm-block" sm={4} >
-                  <small>Total </small>
-                    <WhiteDiv className="my-1">{((dealFilter !== "All") || (staffFilter !== "All")) ? count.length : data.length}</WhiteDiv>
-                    <br/>
-                    <small>Green </small>
-                    <GreenDiv className="my-1">{green.length}</GreenDiv>
-                    <br/>
-                    <small >Amber </small>
-                    <AmberDiv className="my-1">{amber.length}</AmberDiv>
-                    <br/>
-                    <small >Red </small>
-                    <RedDiv className="my-1">{red.length}</RedDiv>
-                  </Col>
+            <Row>
+              <Col className="mt-1 mx-0 d-none d-sm-block" sm={5} style={{marginLeft: "0px"}} >
+              <small>Total </small>
+                <WhiteDiv className="my-1">{((dealFilter !== "All") || (staffFilter !== "All")) ? count.length : data.length}</WhiteDiv>
+                <br/>
+                <small>Green </small>
+                <GreenDiv className="my-1">{green.length}</GreenDiv>
+                <br/>
+                <small >Amber </small>
+                <AmberDiv className="my-1">{amber.length}</AmberDiv>
+                <br/>
+                <small >Red </small>
+                <RedDiv className="my-1">{red.length}</RedDiv>
+              </Col>
 
-                  <Col sm={6} >
-                    <PieChart width={300} height={210}>
-                      <Pie
-                        data={chartData}
-                        dataKey="value"
-                        nameKey="name"
-                        cx="25%"
-                        cy="40%"
-                        fill="#8884d8"
-                        innerRadius={55}
-                        outerRadius={75}
-                        paddingAngle={1}
-                        isAnimationActive={false}
-                        labelLine={false}
-                        label={renderCustomizedLabel}
-                      >
-                        {data.map((entry, index) => (
-                          <Cell
-                            key={`cell-${index}`}
-                            fill={COLORS[index % COLORS.length]}
-                          />
-                        ))}
-                      </Pie>
-                      <Tooltip content={customTooltip} />
-                    </PieChart>
-                  </Col>
-                </Row>
+              <Col sm={7} >
+                <PieChart width={300} height={210}>
+                  <Pie
+                    data={chartData}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="25%"
+                    cy="40%"
+                    fill="#8884d8"
+                    innerRadius={55}
+                    outerRadius={75}
+                    paddingAngle={1}
+                    isAnimationActive={false}
+                    labelLine={false}
+                    label={renderCustomizedLabel}
+                  >
+                    {data.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={COLORS[index % COLORS.length]}
+                      />
+                    ))}
+                  </Pie>
+                  <Tooltip content={customTooltip} />
+                </PieChart>
+              </Col>
+            </Row>
           </Col>
         </Row>
       )}

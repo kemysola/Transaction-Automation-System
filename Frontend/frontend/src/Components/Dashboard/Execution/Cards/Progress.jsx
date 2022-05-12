@@ -1175,6 +1175,7 @@ export default function Progress() {
 
       {/* ---------- Exxecution Dashboard Table ----------- */}
       <Table dealFilter={dealFilter} staffFilter={staffFilter} />
+      <br />
     </Container>
     <br />
     </React.Fragment>
