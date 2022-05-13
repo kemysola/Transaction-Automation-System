@@ -1,23 +1,26 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Row, Col, Form, Spinner} from 'react-bootstrap';
+import { Row, Col, Form as Fm, Spinner} from 'react-bootstrap';
 import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useSortBy } from "react-table";
 import styled from 'styled-components';
 import Service from "../../../Services/Service";
 import * as XLSX from 'xlsx';
 import Filters from './Filters';
+import Form from "react-validation/build/form";
+import Input from "react-validation/build/input";
 
 
 const ContainerWrapper = styled.div`
 font-size:11px;
 margin-top: 0.55rem;
-background:white;
 padding: 1rem 2rem;
 border-radius: 10px;
 `;
 
 const TableWrapper = styled.div`
-  margin-top: 90px;
-  padding: 1rem;
+  margin-top: 130px;
+  padding: 0rem 1rem;
+  background: white;
+  border-radius: 10px;
   table {
     border-spacing: 0;
     border: 1px solid black;
@@ -47,19 +50,20 @@ const ButtonWrapper = styled.button`
   background: green;
   border: 1px solid white;
   padding: 2px 20px;
-  font-size:13px;
-  margin: 40px;
+  font-size: 13px;
+  margin-top: 35px;
   height: 30px;
   border-radius: 3px
 `;
 
 const DateWrapper = styled.button`
   display: flex;
-  align-items: center;
-  background: white;
-  border: none;
-  justify-content: center;
+  border: 1px solid grey;
+  padding-bottom: 1rem;
+  border-radius: 10px;
+  justify-content: end;
   position: absolute;
+  margin-right: 1.8rem;
   right: 25px;
 `;
 
@@ -83,7 +87,13 @@ const Pagination = styled.div`
     font-size: 12px;
   }
 `
-
+const required = (value) => {
+  if (!value) {
+    return (
+      <div className="invalid-feedback d-block text-danger" >This field is required!</div>
+    );
+  }
+};
 
 const DealsTable = ({props, dealFilter, staffFilter}) => {
   const initialDateState = {
@@ -97,7 +107,9 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
   const [rawData, setRawData] = useState([]);
   const [staffData, setStaffData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [response, setResponse] = useState(false);
   const dealsRef = useRef();
+  const form = useRef();
   dealsRef.current = deals;
 
   useEffect(() => {
@@ -177,6 +189,8 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
 
   const saveDate = (e) => {
     e.preventDefault()
+    form.current.validateAll();
+
     let start_date = date.start_date
     let end_date = date.end_date
     let client_name = date.client_name ? date.client_name : "''" // i'd love to come back to this, as the output for when client name is not specified is inaccurate
@@ -186,6 +200,7 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
         setDeals(response.data.records);
       })
       .catch((e) => {
+        setResponse("Please Fill All Required Fields")
         console.log("Invalid Dates");
       });
   };
@@ -352,44 +367,46 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
         </Spinner>
       ) : (
 
-        <ContainerWrapper>
-          <DateWrapper>
-            <Row>
-            
-              <Col>
-                <Form.Group className="mb-0 mt-2 pt-2 pb-1">
-                  <Form.Label style={{fontSize: "12px"}}>Start Date <span style={{color: "red"}}>*</span></Form.Label>
-                  <Form.Control size="sm" type="date" value={date.start_date} onChange={handleInputChange} name='start_date' />
-                </Form.Group>
-              </Col>
+        <ContainerWrapper className="bg-light">
+          <DateWrapper className="bg-light">
+            <Form ref={form}>
+              <Row>
+                <Col>
+                  <Fm.Group className="mb-0 mt-2 pt-2 pb-1">
+                    <Fm.Label style={{fontSize: "12px"}}>Start Date <span style={{color: "red"}}>*</span></Fm.Label>
+                    <Input size="sm" type="date" value={date.start_date} onChange={handleInputChange} name='start_date' validations={[required]}/>
+                  </Fm.Group>
+                </Col>
 
-              <Col>
-                <Form.Group className="mb-0 mt-2 pt-2 pb-1">
-                  <Form.Label style={{fontSize: "12px"}}>End Date <span style={{color: "red"}}>*</span></Form.Label>
-                  <Form.Control size="sm" type="date" value={date.end_date} onChange={handleInputChange} name='end_date' />
-                </Form.Group>
-              </Col>
+                <Col>
+                  <Fm.Group className="mb-0 mt-2 pt-2 pb-1">
+                    <Fm.Label style={{fontSize: "12px"}}>End Date <span style={{color: "red"}}>*</span></Fm.Label>
+                    <Input size="sm" type="date" value={date.end_date} onChange={handleInputChange} name='end_date' validations={[required]}/>
+                  </Fm.Group>
+                </Col>
 
-              <Col>
-                <Form.Group className="mb-0 mt-2 pt-2 pb-1">
-                  <Form.Label style={{fontSize: "12px"}}>Client Name</Form.Label>
-                  <Form.Control size="sm" type="text" value={date.client_name} onChange={handleInputChange} name='client_name' />
-                </Form.Group>
-              </Col>
+                <Col>
+                  <Fm.Group className="mb-0 mt-2 pt-2 pb-1">
+                    <Fm.Label style={{fontSize: "12px"}}>Client Name</Fm.Label>
+                    <Input size="sm" type="text" value={date.client_name} onChange={handleInputChange} name='client_name' />
+                  </Fm.Group>
+                </Col>
 
-              <Col >
-                <ButtonWrapper onClick={saveDate}>
-                  Submit
-                </ButtonWrapper>
-              </Col>
+                <Col >
+                  <ButtonWrapper onClick={saveDate} ref={form}>
+                    Submit
+                  </ButtonWrapper>
+                  <div className='invalid-feedback d-block text-danger'>{response}</div>
+                </Col>
 
-              <Col >
-                <ButtonWrapper onClick={downloadExcel}>
-                Download
-                </ButtonWrapper>
-              </Col>
-              
-            </Row>
+                <Col >
+                  <ButtonWrapper onClick={downloadExcel}>
+                  Download
+                  </ButtonWrapper>
+                </Col>
+                
+              </Row>
+            </Form>
           </DateWrapper>
           
           <TableWrapper>
