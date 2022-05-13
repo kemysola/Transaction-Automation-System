@@ -250,7 +250,7 @@ export default function Progress() {
         let varianceAns = (variance * -1)
         return <span style={{color: 'green'}}>↑ {(varianceAns).toFixed(1)}bn</span>;
       } else if(!isFinite(variance) || isFinite(variance)){
-        return ` - `;
+        return <span style={{color: 'red'}}>↓ {-1 * (sumTotal - targetValue)}bn </span>;
       }
       return <span style={{color: 'red'}}>↓ {(variance).toFixed(1)}bn</span>;
     }
@@ -262,7 +262,7 @@ export default function Progress() {
         let varianceAns = (variancePer * -1)
         return <span style={{color: 'green'}}>↑ {varianceAns}%</span>;
       } else if(!isFinite(variancePer) || isFinite(variancePer)){
-        return ` - `;
+        return !isFinite(((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)) ?<span style={{color: 'red'}}>↓ 100%</span>: <span style={{color: 'red'}}>↓ {((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)}%</span>;
       }
       return <span style={{color: 'red'}}>↓ {variancePer}% </span>;
     }
