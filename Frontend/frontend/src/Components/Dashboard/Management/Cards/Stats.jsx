@@ -310,9 +310,6 @@ export default function Stats() {
     return null;
   };
 
-  console.log("ss", southTotal)
-  console.log("south", south)
-
   const chartRegion = [
     {
       name:"SE",
@@ -351,146 +348,120 @@ export default function Stats() {
       {/*---------------------------- Div ------------------------------------------- */}
       <Container fluid className="mb-3">
         <Row>
-          <Col lg={6} sm={12} className="my-1">
-            <Container>
-              <Container
-                className=""
+          <Col lg={6} sm={12} className="mt-1 mb-3">
+            <Container className='bg-light py-3'
+              style={{
+                borderRadius: "10px",
+                paddingTop: "10px",
+                marginTop: "3px",
+              }}
+            >
+              <p className="pb-2"
                 style={{
-                  borderRadius: "10px",
-                  paddingTop: "10px",
-                  marginTop: "3px",
+                  fontWeight: "bold",
+                  fontSize: "13px",
                 }}
               >
-                <p className="pb-2"
-                  style={{
-                    color: "black",
-                    fontWeight: "bold",
-                    fontSize: "13px",
-                    paddingLeft: "10px",
-                    paddingTop: "5px",
-                  }}
-                >
-                  DEAL CATEGORY
-                </p>
+                Deal Category
+              </p>
 
-                <Row>
-                  <Col md={4} className="mt-1 d-none d-sm-block">
-                  <small>Total </small>
-                  <WhiteDiv className="my-2">{green.length+ amber.length + red.length}</WhiteDiv>
-                   <br/>
-                   <small>Green </small>
-                   <GreenDiv className="my-2">{green.length}</GreenDiv>
-                   <br/>
-                   <small>Amber </small>
-                    <AmberDiv className="my-2">{amber.length}</AmberDiv>
-                    <br/>
-                    <small>Red </small>
-                    <RedDiv className="my-2">{red.length}</RedDiv>
-                  </Col>
-                  <Col md={6}>
-                    <PieChart width={340} height={210}>
-                      <Pie
-                        data={chartData}
-                        dataKey="value"
-                        nameKey="name"
-                        cx="30%"
-                        cy="40%"
-                        fill="#8884d8"
-                        innerRadius={55}
-                        outerRadius={75}
-                        paddingAngle={1}
-                        isAnimationActive={false}
-                        labelLine={false}
-                        label={renderCustomizedLabel}
-                      >
-                        {data.map((entry, index) => (
-                          <Cell
-                            key={`cell-${index}`}
-                            fill={COLORS[index % COLORS.length]}
-                          />
-                        ))}
-                      </Pie>
-                      <Tooltip content={customTooltip} />
-                    </PieChart>
-                  </Col>
-                </Row>
-              </Container>
+              <Row>
+                <Col md={4} className="mt-1 d-none d-sm-block">
+                <small>Total </small>
+                <WhiteDiv className="my-2">{green.length+ amber.length + red.length}</WhiteDiv>
+                  <br/>
+                  <small>Green </small>
+                  <GreenDiv className="my-2">{green.length}</GreenDiv>
+                  <br/>
+                  <small>Amber </small>
+                  <AmberDiv className="my-2">{amber.length}</AmberDiv>
+                  <br/>
+                  <small>Red </small>
+                  <RedDiv className="my-2">{red.length}</RedDiv>
+                </Col>
+                <Col md={6}>
+                  <PieChart width={340} height={210}>
+                    <Pie
+                      data={chartData}
+                      dataKey="value"
+                      nameKey="name"
+                      cx="30%"
+                      cy="40%"
+                      fill="#8884d8"
+                      innerRadius={55}
+                      outerRadius={75}
+                      paddingAngle={1}
+                      isAnimationActive={false}
+                      labelLine={false}
+                      label={renderCustomizedLabel}
+                    >
+                      {data.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip content={customTooltip} />
+                  </PieChart>
+                </Col>
+              </Row>
             </Container>
           </Col>
 
-          <Col sm={12} lg={6} className='mt-1 d-flex justify-content-start'>
-            <Row>
-              <Container className='mb-2'>
-              <Container>
-                
-                  <Container
+          <Col sm={12} lg={6} className='mt-1 mb-3'>
+              <Container className='bg-light py-3'
                 style={{
                   borderRadius: "10px",
-                  paddingTop: "5px",
-                    marginTop: "2px",
-                    background:'white'
-                    
-              
-                    }}>
-                      <p
+                  marginTop: "3px",
+                  maxHeight: "53vh",             
+                }}>
+                <p
                   style={{
-
-                    color: "black",
                     fontWeight: "bold",
                     fontSize: "13px",
-                    paddingLeft: "10px",
                   }}
                 >
-                  REGION
+                  Region
                 </p>
 
-                  
-                
-                <br/>
                 <BarChart 
-                width={240}
-                height={240}
-                data={chartRegion}
-                barSize={20}
-                margin={{
-                  top: 5,
-                  right: 5,
-                  left: 5,
-                  bottom: 2,
-                }}
-                layout="horizontal"
-              >
-                      <XAxis xAxisId={0}
-                        type="category"
-                        dataKey='name'
-                        tickLine={false}
-                        axisLine={false}
-                      />
-                      
-                      <XAxis xAxisId={1}
-                        type="category"
-                        dataKey='percent'
-                        tickLine={false}
-                        axisLine={false}
-                        orientation="top"
-                        style={{ fontSize: "0.8rem"}}
-                      />
-                      
-                <Bar
-                  dataKey="value"
-                  minPointSize={1}
-                  fill="#82ca9d"
-                  background={{ fill: "#eee" }}
-                />
-              </BarChart>
+                  width={300}
+                  height={240}
+                  data={chartRegion}
+                  barSize={25}
+                  margin={{
+                    top: 5,
+                    right: 5,
+                    left: 5,
+                    bottom: 2,
+                  }}
+                  layout="horizontal"
+                >
+                  <XAxis xAxisId={0}
+                    type="category"
+                    dataKey='name'
+                    tickLine={false}
+                    axisLine={true}
+                  />
+                  
+                  <XAxis xAxisId={1}
+                    type="category"
+                    dataKey='percent'
+                    tickLine={false}
+                    axisLine={false}
+                    orientation="top"
+                    style={{ fontSize: "9px"}}
+                  />
+                  <Bar
+                    dataKey="value"
+                    minPointSize={2}
+                    fill="#82ca9d"
+                    background={{ fill: "#eee" }}
+                  />
+                </BarChart>
               <br/>
-                  </Container>
-
-                </Container>
               </Container>
-                
-             
-            </Row>
           </Col>
         </Row>
       </Container>

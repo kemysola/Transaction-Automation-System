@@ -12,9 +12,6 @@ import Button from "react-validation/build/button";
 //import Checkbox from "react-validation/build/checkbox";
 
 
-
-
-
 const ButtonWrapper = styled.button`
   background: green;
   border:1px solid  white;
