@@ -65,16 +65,17 @@ return(
   
     <Dropdown className='py-1 mt-1'>
       <span>Filter: </span>
-      <Dropdown.Toggle id="dropdown-basic" >
+      <Dropdown.Toggle id="dropdown-basic" style={{backgroundColor: "#F8F9FA", outline:"none",  border:"none", boxShadow: "none", color:"black", borderBottom: "2px solid black"}}>
         {selectedItem || "All"}
       </Dropdown.Toggle>
       
     <Dropdown.Menu style = {{ height: '200px', overflowY: 'scroll'}}>
-         {/* <Dropdown.Item href="http://localhost:3000/org-dashboard" onClick={() => { setSelectedItem("All") }}> All </Dropdown.Item>  */}
-   <Dropdown.Item href="https://trms01-server.azurewebsites.net/org-dashboard"> All </Dropdown.Item>
+         <Dropdown.Item href="http://localhost:3000/org-dashboard" onClick={() => { setSelectedItem("All") }}> All </Dropdown.Item> 
+   {/* <Dropdown.Item href="https://trms01-server.azurewebsites.net/org-dashboard"> All </Dropdown.Item> */}
           {staff.map((opt, i) => (
-            <Dropdown.Item href={`https://trms01-server.azurewebsites.net/staff_transaction_report?${staff[i].email}`} key={staff[i].email} value={`${staff[i].firstname} {staff[i].lastname}`}>{staff[i].firstname} {staff[i].lastname}</Dropdown.Item >
-            // <Dropdown.Item href={`http://localhost:3000/staff_transaction_report?${staff[i].email}`} key={staff[i].email} value={`${staff[i].firstname} {staff[i].lastname}`} onClick={() => { setSelectedItem(staff[i].firstname); setOnSelect(true) }}>{staff[i].firstname} {staff[i].lastname}</Dropdown.Item >
+            // <Dropdown.Item href={`https://trms01-server.azurewebsites.net/staff_transaction_report?${staff[i].email}`} key={staff[i].email} value={`${staff[i].firstname} {staff[i].lastname}`}>{staff[i].firstname} {staff[i].lastname}</Dropdown.Item >
+            
+            <Dropdown.Item href={`http://localhost:3000/staff_transaction_report?${staff[i].email}`} key={staff[i].email} value={`${staff[i].firstname} {staff[i].lastname}`} onClick={() => { setSelectedItem(staff[i].firstname); setOnSelect(true) }}>{staff[i].firstname} {staff[i].lastname}</Dropdown.Item >
 
              ))}
       </Dropdown.Menu>
