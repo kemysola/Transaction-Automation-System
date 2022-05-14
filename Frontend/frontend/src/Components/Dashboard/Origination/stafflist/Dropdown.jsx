@@ -68,7 +68,8 @@ return(
         {selectedItem || "All"}
       </Dropdown.Toggle>
       
-    <Dropdown.Menu style = {{ height: '200px', overflowY: 'scroll'}}>
+      <Dropdown.Menu style={{ height: '200px', overflowY: 'scroll' }}>
+        
          {/* <Dropdown.Item href="http://localhost:3000/org-dashboard" onClick={() => { setSelectedItem("All") }}> All </Dropdown.Item>  */}
             <Dropdown.Item href="https://trms01-server.azurewebsites.net/org-dashboard" onClick={() => { setSelectedItem("All") }}> All </Dropdown.Item>
           {staff.map((opt, i) => (
