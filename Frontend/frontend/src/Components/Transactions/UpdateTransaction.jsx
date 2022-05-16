@@ -620,7 +620,7 @@ function handlePrevChange() {
                   <Row>
                     <Col sm={6} className='my-0 py-0'>
                       <Form.Group>
-                        <Form.Label>Amount(₦'BN)</Form.Label>
+                        <Form.Label>Amount(₦'MN)</Form.Label>
                       <Form.Control size="sm" type="text" defaultValue={deal[0].structuringfeeamount} id='amount' ref={amount}/>
                       </Form.Group>
                     </Col>
@@ -648,14 +648,14 @@ function handlePrevChange() {
 
                     <Col sm={6} className='my-0 py-0'>
                       <Form.Group className="pt-1">
-                        <Form.Label>Monitoring(₦'BN)</Form.Label>
+                        <Form.Label>Monitoring(₦'MN)</Form.Label>
                       <Form.Control size="sm" type="text" defaultValue={deal[0].monitoringfee} id='monitoring' ref={monitoring}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={6} className='my-0 pb-2'>
                       <Form.Group className="pt-1">
-                        <Form.Label>Reimbursible(₦'BN)</Form.Label>
+                        <Form.Label>Reimbursible(₦'MN)</Form.Label>
                       <Form.Control size="sm" type="text" defaultValue={deal[0].reimbursible} id='reimbursible' ref={reimbursible}/>
                       </Form.Group>
                     </Col>

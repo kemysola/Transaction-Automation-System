@@ -601,7 +601,7 @@ const AddDeal = () => {
                         <Row>
                           <Col sm={6} className='my-0 py-0'>
                             <Fm.Group>
-                              <Fm.Label>Amount (₦'BN)</Fm.Label>
+                              <Fm.Label>Amount (₦'MN)</Fm.Label>
                               <Input size="sm" type="number" value={deal.structuringFeeAmount} onChange={handleInputChange} name='structuringFeeAmount'  style={{width:'100%', padding:'4px 1px', focus:'none'}}/>
                             </Fm.Group>
                           </Col>
@@ -629,14 +629,14 @@ const AddDeal = () => {
 
                           <Col sm={6} className='my-0 py-0'>
                             <Fm.Group className="pt-1">
-                              <Fm.Label>Monitoring(₦'BN)</Fm.Label>
+                              <Fm.Label>Monitoring(₦'MN)</Fm.Label>
                               <Input size="sm" type="number" value={deal.monitoringFee} onChange={handleInputChange} name='monitoringFee'  style={{width:'100%', padding:'4px 2px', focus:'none'}}/>
                             </Fm.Group>
                           </Col>
 
                           <Col sm={6} className='my-0 py-0'>
                             <Fm.Group className="pt-1">
-                              <Fm.Label>Reimbursible(₦'BN)</Fm.Label>
+                              <Fm.Label>Reimbursible(₦'MN)</Fm.Label>
                               <Input size="sm" type="number" value={deal.reimbursible} onChange={handleInputChange} name='reimbursible'  style={{width:'100%', padding:'4px 2px', focus:'none'}}/>
                             </Fm.Group>
                           </Col>

@@ -189,7 +189,7 @@ const DealsTable = (props) => {
         accessor: "region",
       },
       {
-        Header: "Deal Size(₦'bn)",
+        Header: "Deal Size(₦'BN)",
         accessor: "dealsize",
         Cell: (props) => {
           const amount = parseInt(props.row.original['dealsize'])
@@ -347,27 +347,27 @@ const DealsTable = (props) => {
         }
       },
       {
-        Header: "Structuring Fee Amount",
+        Header: "Structuring Fee Amount(₦'MN)",
         accessor: "structuringfeeamount",
       },
       {
-        Header: "Structuring Fee Advance",
+        Header: "Structuring Fee Advance(%)",
         accessor: "structuringfeeadvance",
       },
       {
-        Header: "Structuring Fee Final",
+        Header: "Structuring Fee Final(%)",
         accessor: "structuringfeefinal",
       },
       {
-        Header: "Guarantee Fee",
+        Header: "Guarantee Fee(%)",
         accessor: "guaranteefee",
       },
       {
-        Header: "Monitoring Fee",
+        Header: "Monitoring Fee(₦'MN)",
         accessor: "monitoringfee",
       },
       {
-        Header: "Reimbursible Expense",
+        Header: "Reimbursible Expense(₦'MN)",
         accessor: "reimbursible",
       },
       {
