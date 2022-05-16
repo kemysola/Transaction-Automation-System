@@ -630,7 +630,7 @@ export default function Progress() {
               <Card.Text>
                 {/* --------- Filter By Staff ------------ */}
                 <Row style={{fontSize: "12px"}}>
-                  <Col sm={4} lg={3} style={{paddingTop: "5px"}}>
+                  <Col sm={3} lg={3} style={{paddingTop: "5px"}}>
                     <Form.Label>Staff Name:</Form.Label>
                   </Col>
 
@@ -656,7 +656,7 @@ export default function Progress() {
 
               {/* ---------------- Filter Industry Chart ----------------- */}
                 <Row style={{fontSize: "12px", marginTop: "10px"}}>
-                  <Col sm={4} lg={3}>
+                  <Col sm={3} lg={3}>
                     <Form.Label>Industry by:</Form.Label>
                   </Col>
                   <Col sm={8}>
@@ -682,7 +682,7 @@ export default function Progress() {
 
                 {/* --------- Filter Product Barchart --------- */}
                 <Row style={{fontSize: "12px"}}>
-                  <Col sm={4} lg={3}>
+                  <Col sm={3} lg={3}>
                     <Form.Label>Product by:</Form.Label>
                   </Col>
 
@@ -709,11 +709,11 @@ export default function Progress() {
 
                 {/* ----------- Filter By Deal Category ---------- */}
                 <Row style={{fontSize: "12px"}}>
-                  <Col sm={4} lg={3}>
+                  <Col sm={3} lg={3}>
                     <Form.Label>Deal Category:</Form.Label>
                   </Col>
 
-                  <Col lg={2}>
+                  <Col sm={2} lg={2}>
                     <Form.Check
                       inline
                       label="All"
@@ -725,7 +725,7 @@ export default function Progress() {
                     />
                   </Col>
 
-                  <Col lg={2}>
+                  <Col sm={2} lg={2}>
                     <Form.Check
                       inline
                       label="Green"
@@ -736,7 +736,7 @@ export default function Progress() {
                     />
                   </Col>
 
-                  <Col lg={2}>
+                  <Col sm={2} lg={2}>
                     <Form.Check
                       inline
                       label="Amber"
@@ -747,7 +747,7 @@ export default function Progress() {
                     />
                   </Col>
 
-                  <Col lg={2}>
+                  <Col sm={2} lg={2}>
                     <Form.Check
                       inline
                       label="Red"
@@ -763,131 +763,6 @@ export default function Progress() {
             </Card.Body>
           </Card>
         </Container>
-
-        {/* ------------------- Filter Modal ------------------------------ */}
-        {/* <ModalDiv> */}
-        <Modal show={show} onHide={handleClose} backdrop={false}>
-          <Modal.Header closeButton>
-            <Modal.Title>Filter</Modal.Title>
-          </Modal.Header>
-
-          <Modal.Body>
-            <Row>
-              <Col sm={4} className="mt-3 pt-2">
-                <Form.Label>Staff Name</Form.Label>
-              </Col>
-
-              <Col sm={4} className="mt-3 pt-2">
-                <Form.Select
-                  size="sm"
-                  name="staff"
-                  onChange={(e) => setStaffFilter(e.target.value)}
-                >
-                  <option value="All">All</option>
-                  {staffList.map((opt, i) => (
-                    <option
-                      key={staffList[i].email}
-                      name={staffList[i].stafflist}
-                      value={staffList[i].email}
-                    >
-                      {staffList[i].stafflist}
-                    </option>
-                  ))}
-                </Form.Select>
-              </Col>
-            </Row>
-            <Row>
-              {/* Filter Industry Barchart */}
-              <Col sm={4} className="mt-3 pt-2">
-                <Form.Label>Industry by</Form.Label>
-                <Form.Check
-                  inline
-                  label="Value"
-                  type="radio"
-                  name="indFilter"
-                  value="Value"
-                  onClick={(e) => setIndFilter(e.target.value)}
-                  defaultChecked
-                />
-                <Form.Check
-                  inline
-                  label="Count"
-                  type="radio"
-                  name="indFilter"
-                  value="Count"
-                  onClick={(e) => setIndFilter(e.target.value)}
-                />
-              </Col>
-
-              {/* Filter Product Barchart  */}
-              <Col sm={4} className="mt-3 pt-2">
-                <Form.Label>Product by</Form.Label>
-                <Form.Check
-                  inline
-                  label="Value"
-                  type="radio"
-                  name="prdFilter"
-                  value="Value"
-                  onClick={(e) => setPrdFilter(e.target.value)}
-                  defaultChecked
-                />
-                <Form.Check
-                  inline
-                  label="Count"
-                  type="radio"
-                  name="prdFilter"
-                  value="Count"
-                  onClick={(e) => setPrdFilter(e.target.value)}
-                />
-              </Col>
-
-              {/* Filter By deal Category */}
-              <Col sm={4} className="mt-3 pt-2">
-                <Form.Label>Deal Category</Form.Label>
-                <Form.Check
-                  inline
-                  label="All"
-                  type="radio"
-                  name="dealFilter"
-                  value="All"
-                  onClick={(e) => setDealFilter(e.target.value)}
-                  defaultChecked
-                />
-                <Form.Check
-                  inline
-                  label="Green"
-                  type="radio"
-                  name="dealFilter"
-                  value="Green"
-                  onClick={(e) => setDealFilter(e.target.value)}
-                />
-                <Form.Check
-                  inline
-                  label="Amber"
-                  type="radio"
-                  name="dealFilter"
-                  value="Yellow"
-                  onClick={(e) => setDealFilter(e.target.value)}
-                />
-                <Form.Check
-                  inline
-                  label="Red"
-                  type="radio"
-                  name="dealFilter"
-                  value="Red"
-                  onClick={(e) => setDealFilter(e.target.value)}
-                />
-              </Col>
-            </Row>
-          </Modal.Body>
-
-          <Modal.Footer>
-            <Button variant="secondary" size="sm" onClick={handleClose}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
-        {/* </ModalDiv> */}
 
         {loading ? (
           <Spinner animation="border" role="status" variant="secondary">
