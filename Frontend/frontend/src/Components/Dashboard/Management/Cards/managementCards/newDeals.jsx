@@ -43,7 +43,7 @@ function NewDeals() {
         <br/>
           <Col sm={4}>
           <Stack gap={0} className="d-flex justify-content-center">
-          103.4bn
+          ₦ 103.4bn
 <br/>
 <br/>
             <small
@@ -57,7 +57,7 @@ function NewDeals() {
           </Col>
           <Col sm={4}>
           <Stack gap={0} className="d-flex justify-content-center">
-            84.6bn
+          ₦ 84.6bn
               <br/>
               <br/>
               <small
@@ -71,7 +71,7 @@ function NewDeals() {
           <Col sm={4}>
           <Stack gap={0}>
             <small style={{ fontSize: "17px" }}>
-        {variancePerDisplay(variancePercent)}
+            ₦ {variancePerDisplay(variancePercent)}
       </small>
       <small className="mb-3">{varianceDisplay(varianceAmount)}</small>
       <small style={{ fontSize: "11px", color: "red", fontWeight:'bold' }}>VARIANCE</small>

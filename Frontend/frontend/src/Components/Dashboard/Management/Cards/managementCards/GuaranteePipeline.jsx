@@ -169,7 +169,7 @@ function GuaranteePipeline() {
 <br/>
           <Col sm={4}>
           <Stack gap={0} className="d-flex justify-content-center">
-            {actuallvalue}
+          ₦ {actuallvalue}
             <br/>
             <small
               style={{ fontSize: "11px", color: "blue", fontWeight:'bold' }}
@@ -184,7 +184,7 @@ function GuaranteePipeline() {
           </Col>
           <Col sm={4}>
           <Stack gap={0} className="d-flex justify-content-center">
-              {targetValue}
+          ₦ {targetValue}
               <br/>
               <br/>
               <small
@@ -198,7 +198,7 @@ function GuaranteePipeline() {
           <Col sm={4}>
           <Stack gap={0}>
             <small style={{ fontSize: "17px" }}>
-        {variancePerDisplay(variancePercent)}
+            ₦ {variancePerDisplay(variancePercent)}
       </small>
       <small className="mb-3">{varianceDisplay(varianceAmount)}</small>
       <small style={{ fontSize: "11px", color: "red", fontWeight:'bold' }}>VARIANCE</small>
