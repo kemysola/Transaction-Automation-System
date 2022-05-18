@@ -168,7 +168,7 @@ function GreenDealCard() {
         <br/>
           <Col sm={4}>
             <Stack gap={0} className="d-flex justify-content-center">
-              {greenTotal}
+            ₦ {greenTotal}
               <br/>
               <br/>
               <small
@@ -181,7 +181,7 @@ function GreenDealCard() {
           </Col>
           <Col sm={4}>
             <Stack gap={0} className="d-flex justify-content-center">
-              {greenV}
+            ₦ {greenV}
               <small
                 style={{ fontSize: "11px", color: "black", fontWeight: "bold" }}
                 className="mt-2"
@@ -195,7 +195,7 @@ function GreenDealCard() {
           <Col sm={4}>
             <Stack gap={0}>
               <small style={{ fontSize: "17px" }}>
-                {variancePerDisplay(variancePercent)}
+              ₦ {variancePerDisplay(variancePercent)}
               </small>
               <small className="mb-3">{varianceDisplay(varianceAmount)}</small>
               <small

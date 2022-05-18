@@ -130,7 +130,7 @@ function GreenAndAnberCard() {
           <br/>
           <Col sm={4} style={{ borderRight:'2px solid white'}}>
             <Stack gap={0} className="d-flex justify-content-center">
-              {greenTotal + amberTotal}
+            ₦{greenTotal + amberTotal}
               <br/>
               <small
                 style={{ fontSize: "11px", color: "blue", fontWeight: "bold" }}
@@ -144,7 +144,7 @@ function GreenAndAnberCard() {
           </Col>
           <Col sm={4}>
             <Stack gap={0} className="d-flex justify-content-center">
-              {greenV + amberValue}
+            ₦ {greenV + amberValue}
               <br />
               <small
                 style={{ fontSize: "11px", color: "black", fontWeight: "bold" }}
@@ -159,7 +159,7 @@ function GreenAndAnberCard() {
           <Col sm={4}>
             <Stack gap={0}>
               <small style={{ fontSize: "17px" }}>
-                {variancePerDisplay(variancePercent)}
+              ₦ {variancePerDisplay(variancePercent)}
               </small>
               <small className="mb-3">{varianceDisplay(varianceAmount)}</small>
               <small
