@@ -7,9 +7,6 @@ import Services from "../../Services/Service";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import Select from "react-validation/build/select";
-//import Button from "react-validation/build/button";
-
-//import Checkbox from "react-validation/build/checkbox";
 
 const ButtonWrapper = styled.button`
   background: green;
@@ -52,8 +49,6 @@ const required = (value) => {
 };
 
 const AddDeal = () => {
-  //form.current.validateAll();
-
   const initialDealState = {
     clientName: "",
     originator: "",
@@ -68,13 +63,13 @@ const AddDeal = () => {
     moratorium: 0,
     repaymentFrequency: "Semi-Annually",
     amortizationStyle: "Annuity",
-    mandateLetter: null,
-    nbc_approval_date: null,
-    nbc_submitted_date: null,
-    creditApproval: null,
-    feeLetter: null,
-    expectedClose: null,
-    actualClose: null,
+    mandateLetter: "",
+    nbc_approval_date: "",
+    nbc_submitted_date: "",
+    creditApproval: "",
+    feeLetter: "",
+    expectedClose: "",
+    actualClose: "",
     greenA: "false",
     greenB: "false",
     greenC: "false",
@@ -98,8 +93,7 @@ const AddDeal = () => {
     closed: false,
   };
 
-  const [activeTab, setActiveTab] = useState("first");
-  const [dealActiveTab, setDealActiveTab] = useState("deal");
+  const [activeTab, setActiveTab] = useState('first');
   const [deal, setDeal] = useState(initialDealState);
   const [submitted, setSubmitted] = useState(false);
   const [response, setResponse] = useState(false);
@@ -204,16 +198,6 @@ const AddDeal = () => {
   function toPrevTab(e) {
     e.preventDefault();
     handlePrevChange();
-  }
-  function toNextTabs(e) {
-    e.preventDefault();
-    changeTabs();
-  }
-
-  function changeTabs() {
-    if (dealActiveTab === "sixth") {
-      setDealActiveTab("seventh");
-    }
   }
 
   function handleTabChange() {
@@ -977,7 +961,7 @@ const AddDeal = () => {
                         <Row>
                           <Col sm={6} className="my-0 py-0">
                             <Fm.Group>
-                              <Fm.Label>Amount (₦)</Fm.Label>
+                              <Fm.Label>Amount (₦'MN)</Fm.Label>
                               <Input
                                 size="sm"
                                 type="number"
@@ -1050,7 +1034,7 @@ const AddDeal = () => {
 
                           <Col sm={6} className="my-0 py-0">
                             <Fm.Group className="pt-1">
-                              <Fm.Label>Monitoring(₦)</Fm.Label>
+                              <Fm.Label>Monitoring(₦'MN)</Fm.Label>
                               <Input
                                 size="sm"
                                 type="number"
@@ -1068,7 +1052,7 @@ const AddDeal = () => {
 
                           <Col sm={6} className="my-0 py-0">
                             <Fm.Group className="pt-1">
-                              <Fm.Label>Reimbursible(₦)</Fm.Label>
+                              <Fm.Label>Reimbursible(₦'MN)</Fm.Label>
                               <Input
                                 size="sm"
                                 type="number"

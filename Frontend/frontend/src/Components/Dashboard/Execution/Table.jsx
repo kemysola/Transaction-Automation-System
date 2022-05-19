@@ -4,10 +4,9 @@ import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination,
 import styled from 'styled-components';
 import Service from "../../../Services/Service";
 import * as XLSX from 'xlsx';
-import Filters from './Filters';
+// import Filters from './Filters';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
-
 
 const ContainerWrapper = styled.div`
 font-size:11px;
@@ -185,6 +184,7 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
   const handleInputChange = event => {
     const { name, value } = event.target;
     setDate({...date, [name]: value});
+    console.log(event.target.value)
   }
 
   const saveDate = (e) => {
@@ -230,7 +230,7 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
         accessor: "transactor",
       },
       {
-        Header: "Deal Size(₦'bn)",
+        Header: "Deal Size(₦'BN)",
         accessor: "dealsize",
         Cell: (props) => {
           const amount = parseInt(props.row.original['dealsize'])
@@ -280,16 +280,16 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
         }
       },
       {
-        Header: "Structuring Fee Amount",
+        Header: "Structuring Fee Amount(₦'MN)",
         accessor: "structuringfeeamount",
       },
       {
-        Header: "Guarantee Fee",
+        Header: "Guarantee Fee(%)",
         accessor: "guaranteefee",
         Cell: ({ cell: { value } }) => value || "-"
       },
       {
-        Header: "Monitoring Fee",
+        Header: "Monitoring Fee(₦'MN)",
         accessor: "monitoringfee",
       },
     ],
@@ -374,14 +374,14 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
                 <Col>
                   <Fm.Group className="mb-0 mt-2 pt-2 pb-1">
                     <Fm.Label style={{fontSize: "12px"}}>Start Date <span style={{color: "red"}}>*</span></Fm.Label>
-                    <Input size="sm" type="date" value={date.start_date} onChange={handleInputChange} name='start_date' validations={[required]}/>
+                    <Input size="sm" type="date" value={date.start_date} max={date.end_date} onChange={handleInputChange} name='start_date' validations={[required]}/>
                   </Fm.Group>
                 </Col>
 
                 <Col>
                   <Fm.Group className="mb-0 mt-2 pt-2 pb-1">
                     <Fm.Label style={{fontSize: "12px"}}>End Date <span style={{color: "red"}}>*</span></Fm.Label>
-                    <Input size="sm" type="date" value={date.end_date} onChange={handleInputChange} name='end_date' validations={[required]}/>
+                    <Input size="sm" type="date" value={date.end_date} min={date.start_date} onChange={handleInputChange} name='end_date' validations={[required]}/>
                   </Fm.Group>
                 </Col>
 
