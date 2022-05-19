@@ -4,11 +4,9 @@ import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination,
 import styled from 'styled-components';
 import Service from "../../../Services/Service";
 import * as XLSX from 'xlsx';
-import Filters from './Filters';
+// import Filters from './Filters';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
-import { format } from "date-fns";
-
 
 const ContainerWrapper = styled.div`
 font-size:11px;
