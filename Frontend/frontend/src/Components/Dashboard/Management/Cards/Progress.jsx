@@ -4,6 +4,8 @@ import styled from "styled-components";
 import GuarPipe from "./GuarPipe";
 import Stats from "./Stats";
 import Service from "../../../../Services/Service";
+import Matrics from "./Matrics";
+import Scope from "./managementCards/Scope"
 import {
   BarChart,
   Bar,
@@ -484,11 +486,10 @@ export default function Progress() {
   
   return (
     <React.Fragment>
-      <Container style={{ marginLeft: "1rem ", background:'white', borderRadius: "15px" }}>
+      <Container Fluid style={{ marginLeft: "1rem ", background:'white', borderRadius: "15px" }}>
         {/* --------- Title and Filter Bar */}
         <div style={{display: "flex", justifyContent: "space-between", padding: "1rem 0rem", marginRight: "1rem"}}>
           <p class='animate__animated animate__pulse py-1' style={{marginLeft:'1rem'}}><b>Management Dashboard</b></p>
-
         {/* ---------- Filter Bar ------------ */}
           <Row>
             <Card className="my-1" style={{ borderRadius: "10px" }}>
@@ -560,7 +561,17 @@ export default function Progress() {
         <Row style={{marginBottom: "-38px"}}>
           <Stats />
         </Row>
-        
+        <br/>
+
+                        {/* Cumulative Performance Earned  */}
+        <Row style={{marginBottom: "-38px"}}>
+          <Matrics/>
+        </Row>
+        <br/>
+        <br/>
+
+
+
        {/* ----- Forecast Bar Charts ----------- */}
         <Row style={{ marginTop: "5px " }}>
           {/*------------------------ New Guarantee Forecast barchart ------------------------------- */}
@@ -817,6 +828,7 @@ export default function Progress() {
                   tickLine={false}
                   style={{ fontSize: "9px" }}
                 />
+                <Tooltip/>
                 <Bar
                   dataKey="value"
                   fill="#82ca9d"
@@ -938,6 +950,7 @@ export default function Progress() {
                     padding: "15px",
                   }}
                 />
+                <Tooltip/>
                 <Bar
                   dataKey="value"
                   fill="#82ca9d"
@@ -987,6 +1000,7 @@ export default function Progress() {
                     padding: "15px",
                   }}
                 />
+                <Tooltip/>
                 <Bar
                   dataKey="count"
                   fill="#82ca9d"

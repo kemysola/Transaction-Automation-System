@@ -230,6 +230,12 @@ const AddDeal = () => {
     if (activeTab === 'fourth') {
       setActiveTab('sixth');
     }
+    if (activeTab === 'sixth') {
+      setActiveTab('seventh');
+    }
+    if (activeTab === 'seventh') {
+      setActiveTab('eigth');
+    }
 
   }
   function handlePrevChange() {
@@ -241,6 +247,15 @@ const AddDeal = () => {
     }
     if (activeTab === 'fourth') {
       setActiveTab('third');
+    }
+    if (activeTab === 'sixth') {
+      setActiveTab('fourth');
+    }
+    if (activeTab === 'seventh') {
+      setActiveTab('sixth');
+    }
+    if (activeTab === 'eigth') {
+      setActiveTab('seventh');
     }
 
   }
@@ -915,9 +930,272 @@ const AddDeal = () => {
                           <br />
                           <br />
                         </Container1>
-                  
-                    <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button>
+                        <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button>
+                      <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button>
                   </Tab>
+                  <Tab eventKey="sixth" title="NBC FOCUS AREAS" style={{ fontSize: '12px' }}>
+                    <Container1>
+                      <br/>
+                    <Row className='py-1'>
+                    <Col sm={12}>
+                      <Row>
+                        <Col>
+                        <PWrapper>ORIGINAL NBC DD FOCUS</PWrapper>
+                        <br/>
+                        </Col>
+                        <Col>
+                        <PWrapper>YES/NO</PWrapper>
+                        </Col>
+                        <Col>
+                        <PWrapper>DATE</PWrapper>
+                        </Col>
+                        <Col>
+                        <PWrapper>METHODOLOGY</PWrapper>
+                        </Col>
+
+                      </Row>
+                    </Col>
+
+                                <Col sm={12}>
+                                  <Col className='pb-2'>
+                                    <Fm.Group>
+                                      <Row>
+                                        <Col sm={3}>
+                                          <Fm.Label style={{ paddingRight: "1rem" }}>Strength of Contracts:</Fm.Label>
+
+                                        </Col >
+                                        <Col sm={3}>
+                                          <Fm.Check inline label="Yes" type="radio" name="strength" value={true}  />
+                                          <Fm.Check inline label="No" type="radio" name="strength" value={false} defaultChecked  />
+                                        
+                                        </Col>
+                                        <Col sm={3}>
+                                        <Input size="sm" type="date" value='' onChange=''name=''  style={{width:'80%', padding:'2px 1px', focus:'none'}}/>
+                                          </Col>
+                                          <Col sm={3}>
+                                            <Fm.Control as ='textarea' placeholder=' ' style={{height:'30px'}}>
+                                            </Fm.Control>
+                                          </Col>
+
+                                      </Row>
+                                    </Fm.Group>
+                                  </Col>
+                                  </Col>
+
+                                  <Col sm={12}>
+                                  <Col className='pb-2'>
+                                    <Fm.Group>
+                                      <Row>
+                                        <Col sm={3}>
+                                          <Fm.Label style={{ paddingRight: "1rem" }}>Sponsor Equity:</Fm.Label>
+
+                                        </Col >
+                                        <Col sm={3}>
+                                          <Fm.Check inline label="Yes" type="radio" name="sponsor" value={true}  />
+                                          <Fm.Check inline label="No" type="radio" name="sponsor" value={false}  defaultChecked  />
+                                        
+                                        </Col>
+                                        <Col sm={3}>
+                                        <Input size="sm" type="date" value='' onChange=''name=''  style={{width:'80%', padding:'2px 1px', focus:'none'}}/>
+                                          </Col>
+                                          <Col sm={3}>
+                                          <Fm.Control as ='textarea' placeholder='' style={{height:'30px'}}>
+                                            </Fm.Control>                                          
+                                            </Col>
+
+                                      </Row>
+                                    </Fm.Group>
+                                  </Col>
+                                  <Col sm={12}>
+                                  <Col className='pb-2'>
+                                    <Fm.Group>
+                                      <Row>
+                                        <Col sm={3}>
+                                          <Fm.Label style={{ paddingRight: "1rem" }}>Regulatory Approval:</Fm.Label>
+
+                                        </Col >
+                                        <Col sm={3}>
+                                          <Fm.Check inline label="Yes" type="radio" name="regulatory" value={true}   />
+                                         <Fm.Check inline label="No" type="radio" name="regulatory" value={false} defaultChecked  />
+                                        
+                                        </Col>
+                                        <Col sm={3}>
+                                        <Input size="sm" type="date" value='' onChange=''name=''  style={{width:'80%', padding:'2px 1px', focus:'none'}}/>
+                                          </Col>
+                                          <Col sm={3}>
+                                          <Fm.Control as ='textarea' placeholder='' style={{height:'30px'}}>
+                                            </Fm.Control>                                          
+                                            </Col>
+
+                                      </Row>
+                                    </Fm.Group>
+                                  </Col>
+                                  </Col>
+                                  <Col sm={12}>
+                                  <Col className='pb-2'>
+                                    <Fm.Group>
+                                      <Row>
+                                        <Col sm={3}>
+                                          <Fm.Label style={{ paddingRight: "1rem" }}>Technical Validation:</Fm.Label>
+
+                                        </Col >
+                                        <Col sm={3}>
+                                          <Fm.Check inline label="Yes" type="radio" name="technical" value={true}   />
+                                          <Fm.Check inline label="No" type="radio" name="technical" value={false}  defaultChecked  />
+                                        
+                                        </Col>
+                                        <Col sm={3}>
+                                        <Input size="sm" type="date" value='' onChange=''name=''  style={{width:'80%', padding:'2px 1px', focus:'none'}}/>
+                                          </Col>
+                                          <Col sm={3}>
+                                          <Fm.Control as ='textarea' placeholder=' ' style={{height:'30px'}}>
+                                            </Fm.Control>                                          
+                                            </Col>
+
+                                      </Row>
+                                    </Fm.Group>
+                                  </Col>
+                                  </Col>
+                                  <Col sm={12}>
+                                  <Col className='pb-2'>
+                                    <Fm.Group>
+                                      <Row>
+                                        <Col sm={3}>
+                                          <Fm.Label style={{ paddingRight: "1rem" }}>Competitive Landscape:</Fm.Label>
+
+                                        </Col >
+                                        <Col sm={3}>
+                                          <Fm.Check inline label="Yes" type="radio" name="competitive" value={true}   />
+                                          <Fm.Check inline label="No" type="radio" name="competitive" value={false} defaultChecked  />
+                                        
+                                        </Col>
+                                        <Col sm={3}>
+                                        <Input size="sm" type="date" value='' onChange=''name=''  style={{width:'80%', padding:'2px 1px', focus:'none'}}/>
+                                          </Col>
+                                          <Col sm={3}>
+                                          <Fm.Control as ='textarea' placeholder='' style={{height:'30px'}}>
+                                            </Fm.Control>                                          
+                                            </Col>
+
+                                      </Row>
+                                    </Fm.Group>
+                                  </Col>
+                                  </Col>
+                                  <Col sm={12}>
+                                    <p style={{fontWeight:'bold'}}>NBC Paper (Link to Doc)</p>
+                                  </Col>
+                                  <Col sm={12}>
+                                    <p style={{fontWeight:'bold'}}>NBC Approvals and Minutes</p>
+                                  </Col>
+
+
+                                  <Col sm={12}>
+                                  <Col className='pb-2'>
+                                    <Fm.Group>
+                                      <Row>
+                                        <Col sm={5}>
+                                          <Fm.Label style={{ paddingRight: "1rem" }}>MROC Pre_NBC Approval ( Link to Doc)</Fm.Label>
+
+                                        </Col >
+                                        <Col sm={3}>
+                                          <Fm.Check inline label="Yes" type="radio" name="pre_nbc" value={true}   />
+                                          <Fm.Check inline label="No" type="radio" name="pre_nbc" value={false}  defaultChecked  />
+                                        
+                                        </Col>
+                                        <Col sm={3}>
+                                        <Input size="sm" type="date" value='' onChange=''name=''  style={{width:'80%', padding:'2px 1px', focus:'none'}}/>
+                                          </Col>
+                                          </Row>
+                                    </Fm.Group>
+                                  </Col>
+                                  </Col>
+                                  <Col sm={12}>
+                                  <Col className='pb-2'>
+                                    <Fm.Group>
+                                      <Row>
+                                        <Col sm={5}>
+                                          <Fm.Label style={{ paddingRight: "1rem" }}>MROC Pre_NBC Minutes. ( Link to Doc)</Fm.Label>
+
+                                        </Col >
+                                        <Col sm={3}>
+                                          <Fm.Check inline label="Yes" type="radio" name="minutes" value={true}   />
+                                          <Fm.Check inline label="No" type="radio" name="minutes" value={false}  defaultChecked  />
+                                        
+                                        </Col>
+                                        <Col sm={3}>
+                                        <Input size="sm" type="date" value='' onChange=''name=''  style={{width:'80%', padding:'2px 1px', focus:'none'}}/>
+                                          </Col>
+                                          </Row>
+                                    </Fm.Group>
+                                  </Col>
+                                  </Col>
+                                  <Col sm={12}>
+                                  <Col className='pb-2'>
+                                    <Fm.Group>
+                                      <Row>
+                                        <Col sm={5}>
+                                          <Fm.Label style={{ paddingRight: "1rem" }}>NBC Approval ( Link to Doc)</Fm.Label>
+
+                                        </Col >
+                                        <Col sm={3}>
+                                          <Fm.Check inline label="Yes" type="radio" name="nbc_app" value={true}  />
+                                          <Fm.Check inline label="No" type="radio" name="nbc_app" value={false}  defaultChecked  />
+                                        
+                                        </Col>
+                                        <Col sm={3}>
+                                        <Input size="sm" type="date" value='' onChange=''name=''  style={{width:'80%', padding:'2px 1px', focus:'none'}}/>
+                                          </Col>
+                                          </Row>
+                                    </Fm.Group>
+                                  </Col>
+                                  </Col>
+                                  <Col sm={12}>
+                                  <Col className='pb-2'>
+                                    <Fm.Group>
+                                      <Row>
+                                        <Col sm={5}>
+                                          <Fm.Label style={{ paddingRight: "1rem" }}>NBC Minutes ( Link to Doc)</Fm.Label>
+
+                                        </Col >
+                                        <Col sm={3}>
+                                          <Fm.Check inline label="Yes" type="radio" name="nbc_min" value={true}  />
+                                          <Fm.Check inline label="No" type="radio" name="nbc_min" value={false} defaultChecked  />
+                                        
+                                        </Col>
+                                        <Col sm={3}>
+                                        <Input size="sm" type="date" value='' onChange=''name=''  style={{width:'80%', padding:'2px 1px', focus:'none'}}/>
+                                          </Col>
+                                          </Row>
+                                    </Fm.Group>
+                                  </Col>
+                                  <Col sm={12}>
+                                  <Col className='pb-2'>
+                                    <Fm.Group>
+                                      <Row>
+                                        <Col sm={5}>
+                                          <Fm.Label style={{ paddingRight: "1rem" }}>Mandate Letter with Indicative Term Sheet On-Boarding Documents ( Link to Doc)</Fm.Label>
+
+                                        </Col >
+                                        <Col sm={3}>
+                                          <Fm.Check inline label="Yes" type="radio" name="mandlet" value={true}  />
+                                          <Fm.Check inline label="No" type="radio" name="mandlet" value={false}  defaultChecked  />
+                                        
+                                        </Col>
+                                        <Col sm={3}>
+                                          <Input size="sm" type="date" value='' onChange=''name=''  style={{width:'80%', padding:'2px 1px', focus:'none'}}/>
+                                          </Col>
+                                          </Row>
+                                    </Fm.Group>
+                                  </Col>
+                                  </Col>
+                                  </Col>
+                                  </Col>
+                          </Row>
+                          <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button>
+                      {/* <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button> */}
+                    </Container1>
+                  </Tab>
+
                   
                 </Tabs>
                 <div className='d-flex justify-content-end' style={{fontSize: "13px", color: "red"}}>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Container, Row, Col } from "react-bootstrap";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
+import Scope from './managementCards/Scope';
 
 
 import {
@@ -348,8 +349,12 @@ export default function Stats() {
       {/*---------------------------- Div ------------------------------------------- */}
       <Container fluid className="mb-3">
         <Row>
+        <Col sm={12} lg={2} className='mt-1 mb-3'>
+          <Scope/>
+        </Col>
+
           <Col lg={6} sm={12} className="mt-1 mb-3">
-            <Container className='bg-light py-3'
+            <Container fluid className='bg-light py-3'
               style={{
                 borderRadius: "10px",
                 paddingTop: "10px",
@@ -409,8 +414,8 @@ export default function Stats() {
             </Container>
           </Col>
 
-          <Col sm={12} lg={6} className='mt-1 mb-3'>
-              <Container className='bg-light py-3'
+          <Col sm={12} lg={4} className='mt-1 mb-3'>
+              <Container fluid className='bg-light py-3'
                 style={{
                   borderRadius: "10px",
                   marginTop: "3px",
@@ -426,8 +431,8 @@ export default function Stats() {
                 </p>
 
                 <BarChart 
-                  width={300}
-                  height={240}
+                  width={200}
+                  height={210}
                   data={chartRegion}
                   barSize={25}
                   margin={{
@@ -453,6 +458,7 @@ export default function Stats() {
                     orientation="top"
                     style={{ fontSize: "9px"}}
                   />
+                  <Tooltip/>
                   <Bar
                     dataKey="value"
                     minPointSize={2}

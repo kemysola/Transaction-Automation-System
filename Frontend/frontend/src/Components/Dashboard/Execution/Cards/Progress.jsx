@@ -877,6 +877,7 @@ export default function Progress() {
                         tickLine={false}
                         style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
                       />
+                      <Tooltip/>
                       <Bar
                         dataKey="value"
                         fill="#82ca9d"
@@ -983,6 +984,7 @@ export default function Progress() {
                           padding: "15px",
                         }}
                       />
+                      <Tooltip/>
                       <Bar
                         dataKey="value"
                         fill="#82ca9d"
