@@ -197,3 +197,6 @@ METHOD = GET
 
 GET Guarantee Projection: [http://localhost:5001/api/v1/configuration/forecast]
 METHOD = GET
+
+GET report by year: [http://localhost:5001/api/v1/report/2022] # This can be used across the Management, Execution and Origination Dashboard to filter data
+METHOD = GET

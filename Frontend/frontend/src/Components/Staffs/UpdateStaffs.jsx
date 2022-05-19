@@ -55,7 +55,6 @@ export default function UpdateStaffs() {
 
   const firstName = useRef("");
   const lastName = useRef("");
-  /* const isadmin = useRef("") */
   const level = useRef("");
   const originator = useRef("");
   const hasOriginationTarget = useRef("");
@@ -100,7 +99,7 @@ export default function UpdateStaffs() {
   const retrieveStaff = async () => {
     const staff_data = await axios.get(
      `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
-        // `http://localhost:5001/api/v1/staff/${user_email}`,
+        /* `http://localhost:5001/api/v1/staff/${user_email}`, */
 
       {headers: {
         token: `Bearer ${localStorage.getItem('token')}`,
@@ -321,8 +320,6 @@ export default function UpdateStaffs() {
                                                             placeholder="0"
                                                             size='sm'
                                                             id='originationAmount'
-                                                            // value={data.originationAmount}
-                                                            // onChange={handleInputChange}
                                                             defaultValue={staff[0].origanationamount}
                                                             ref={originationAmount}
                                                             name="originationAmount"
@@ -367,7 +364,6 @@ export default function UpdateStaffs() {
                                                             id='greenTransaction'
                                                             ref={greenTransaction}
                                                             defaultValue={staff[0].greentransaction}
-                                                            // onChange={handleInputChange}
                                                             name="greenTransaction"
                                                     />
                                                     </Form.Group>
@@ -439,7 +435,6 @@ export default function UpdateStaffs() {
                                                             size='sm'
                                                             id='mandateLetter'
                                                             ref={mandateLetter}
-                                                            // onChange={handleInputChange}
                                                             name="mandateLetter"
                                                         />
                                                     </Col>
@@ -460,8 +455,6 @@ export default function UpdateStaffs() {
                                                             size='sm'
                                                             id='creditCommiteeApproval'
                                                             ref={creditCommitteApproval}
-                                                            // onChange={handleInputChange}
-                                                            // name="creditCommitteApproval"
                                                         />
                                                     </Col>
                                                     {
@@ -481,7 +474,6 @@ export default function UpdateStaffs() {
                                                             size='sm'
                                                             id='feeLetter'
                                                             ref={feeLetter}
-                                                            //onChange={handleInputChange}
                                                             name="feeLetter"
                                                         />
                                                     </Col>
@@ -497,8 +489,6 @@ export default function UpdateStaffs() {
                                                             placeholder="0"
                                                             size='sm'
                                                             id='financialClose'
-                                                            //ref={financialClose}
-                                                            //onChange={handleInputChange}
                                                             name="financialClose"
                                                         />
 
