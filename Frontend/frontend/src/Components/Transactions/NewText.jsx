@@ -7,9 +7,6 @@ import Services from '../../Services/Service';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import Select from "react-validation/build/select";
-import Button from "react-validation/build/button";
-
-//import Checkbox from "react-validation/build/checkbox";
 
 
 const ButtonWrapper = styled.button`
@@ -52,8 +49,6 @@ const required = (value) => {
 
 
 const AddDeal = () => {
-  //form.current.validateAll();
-
   const initialDealState = {
     clientName: "",
     originator: "",
@@ -68,13 +63,13 @@ const AddDeal = () => {
     moratorium: 0,
     repaymentFrequency: "Semi-Annually",
     amortizationStyle: "Annuity",
-    mandateLetter: null,
-    nbc_approval_date: null,
-    nbc_submitted_date: null,
-    creditApproval: null,
-    feeLetter: null,
-    expectedClose: null,
-    actualClose: null,
+    mandateLetter: "",
+    nbc_approval_date: "",
+    nbc_submitted_date: "",
+    creditApproval: "",
+    feeLetter: "",
+    expectedClose: "",
+    actualClose: "",
     greenA: "false",
     greenB: "false",
     greenC: "false",
@@ -99,7 +94,6 @@ const AddDeal = () => {
   };
 
   const [activeTab, setActiveTab] = useState('first');
-  const [dealActiveTab, setDealActiveTab] = useState('deal');
   const [deal, setDeal] = useState(initialDealState);
   const [submitted, setSubmitted] = useState(false);
   const [response, setResponse] = useState(false);
@@ -205,16 +199,6 @@ const AddDeal = () => {
   function toPrevTab(e) {
     e.preventDefault();
     handlePrevChange();
-  }
-  function toNextTabs(e) {
-    e.preventDefault();
-    changeTabs();
-  }
-
-  function changeTabs() {
-    if (dealActiveTab === 'sixth') {
-      setDealActiveTab('seventh');
-    }
   }
 
   function handleTabChange() {

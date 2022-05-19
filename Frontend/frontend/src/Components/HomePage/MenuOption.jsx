@@ -27,7 +27,7 @@ export default function MenuOption() {
         onClick={handleClick}
       >
         <i
-          class="bi bi-person"
+          className="bi bi-person"
           style={{
             padding: "1px 5px",
             background: "green",
