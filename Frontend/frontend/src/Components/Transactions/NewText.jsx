@@ -332,6 +332,8 @@ const AddDeal = () => {
     setDeal(initialDealState);
     setNoteList([{ note: "" }]);
     setSubmitted(false);
+    setActiveTab("first");
+    setResponse("");
   };
 
   return (
@@ -1004,6 +1006,11 @@ const AddDeal = () => {
                                 value={deal.structuringFeeFinal}
                                 onChange={handleInputChange}
                                 name="structuringFeeFinal"
+                                placeholder={
+                                  deal.structuringFeeAmount && deal.structuringFeeAdvance ? 
+                                    `${((deal.structuringFeeAmount / deal.structuringFeeAdvance) * 100).toFixed(1)}` 
+                                    : 0
+                                }
                                 disabled
                                 style={{
                                   width: "100%",
