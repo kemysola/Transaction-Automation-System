@@ -1,7 +1,7 @@
 import React, {useEffect, useMemo, useState, useCallback} from 'react'
 import {Container, Crad, Row , Col} from 'react-bootstrap'
 import GuaranteePipeline from './managementCards/GuaranteePipeline'
-import GreenAndAnberCard from './managementCards/GreenAndAnberCard'
+import GreenAndAnberCard from './managementCards/GreenAndAmberCard'
 import GreenDealCard from './managementCards/GreenDealCard'
 import NewDeals from './managementCards/NewDeals'
 import Scope from './managementCards/Scope';

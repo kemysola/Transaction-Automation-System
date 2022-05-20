@@ -76,7 +76,6 @@ export default function UpdateTransactions() {
   const [status, setStatus] = useState(false);
   const [noteList, setNoteList] = useState([{ note: "" }])
   const [activeTab, setActiveTab] = useState('first');
-  const [dealActiveTab, setDealActiveTab] = useState('deal');
   const [industries, setIndustries] = useState([]);
   const [products, setProducts] = useState([]);
   const [regions, setRegions] = useState([]);
@@ -147,8 +146,8 @@ export default function UpdateTransactions() {
   const retrieveDeal = async () => {
     // function to get deal by id from the database
     const data = await axios.get(
-     `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}`,
-     //`http://localhost:5001/api/v1/transaction/item/${id}`,
+    //  `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}`,
+     `http://localhost:5001/api/v1/transaction/item/${id}`,
       {headers: {
         token: `Bearer ${localStorage.getItem('token')}`,
         'Content-type': 'application/json; charset=utf-8',
@@ -245,16 +244,6 @@ export default function UpdateTransactions() {
 function toPrevTab(e) {
     e.preventDefault();
     handlePrevChange();
-}
-function toNextTabs(e) {
-    e.preventDefault();
-    changeTabs();
-}
-
-function changeTabs() {
-    if (dealActiveTab === 'sixth') {
-        setDealActiveTab('seventh');
-    }
 }
 
 function handleTabChange() {
@@ -553,49 +542,49 @@ function handlePrevChange() {
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Mandate Letter</Form.Label>
-                      <Form.Control size="sm" type="date" defaultValue={deal[0].mandateletter ? new Date(deal[0].mandateletter).toISOString().split('T')[0] : null} id='mandateLetter' ref={mandateLetter} required/>
+                      <Form.Control size="sm" type="date" defaultValue={deal[0].mandateletter ? new Date(deal[0].mandateletter).toISOString().split('T')[0] : ""} id='mandateLetter' ref={mandateLetter} required/>
                       </Form.Group>
                     </Col>
                   
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Credit Approval</Form.Label>
-                        <Form.Control size="sm" type="date" defaultValue={deal[0].creditapproval ? new Date(deal[0].creditapproval).toISOString().split('T')[0] : null} id='creditApproval' ref={creditApproval}/>
+                        <Form.Control size="sm" type="date" defaultValue={deal[0].creditapproval ? new Date(deal[0].creditapproval).toISOString().split('T')[0] : ""} id='creditApproval' ref={creditApproval}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Fee Letter</Form.Label>
-                        <Form.Control size="sm" type="date" defaultValue={deal[0].feeletter ? new Date(deal[0].feeletter).toISOString().split('T')[0] : null} id='feeLetter' ref={feeLetter}/>
+                        <Form.Control size="sm" type="date" defaultValue={deal[0].feeletter ? new Date(deal[0].feeletter).toISOString().split('T')[0] : ""} id='feeLetter' ref={feeLetter}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Expected Close</Form.Label>
-                        <Form.Control size="sm" type="date" defaultValue={deal[0].expectedclose ? new Date(deal[0].expectedclose).toISOString().split('T')[0] : null} id='expectedClose' ref={exceptedClose}/>
+                        <Form.Control size="sm" type="date" defaultValue={deal[0].expectedclose ? new Date(deal[0].expectedclose).toISOString().split('T')[0] : ""} id='expectedClose' ref={exceptedClose}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>Actual Close</Form.Label>
-                        <Form.Control size="sm" type="date" defaultValue={deal[0].actualclose ? new Date(deal[0].actualclose).toISOString().split('T')[0] : null} id='actualClose' ref={actualClose}/>
+                        <Form.Control size="sm" type="date" defaultValue={deal[0].actualclose ? new Date(deal[0].actualclose).toISOString().split('T')[0] : ""} id='actualClose' ref={actualClose}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>NBC Approval</Form.Label>
-                        <Form.Control size="sm" type="date" defaultValue={deal[0].nbc_approval_date ? new Date(deal[0].nbc_approval_date).toISOString().split('T')[0] : null} id='nbcApprovalDate' ref={nbcApprovalDate}/>
+                        <Form.Control size="sm" type="date" defaultValue={deal[0].nbc_approval_date ? new Date(deal[0].nbc_approval_date).toISOString().split('T')[0] : ""} id='nbcApprovalDate' ref={nbcApprovalDate}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={6}>
                       <Form.Group className="pt-1">
                         <Form.Label>NBC Submission</Form.Label>
-                        <Form.Control size="sm" type="date" defaultValue={deal[0].nbc_submitted_date ? new Date(deal[0].nbc_submitted_date).toISOString().split('T')[0] : null} id='nbcSubmittedDate' ref={nbcSubmittedDate}/>
+                        <Form.Control size="sm" type="date" defaultValue={deal[0].nbc_submitted_date ? new Date(deal[0].nbc_submitted_date).toISOString().split('T')[0] : ""} id='nbcSubmittedDate' ref={nbcSubmittedDate}/>
                       </Form.Group>
                     </Col>
                   </Row>
@@ -620,7 +609,7 @@ function handlePrevChange() {
                   <Row>
                     <Col sm={6} className='my-0 py-0'>
                       <Form.Group>
-                        <Form.Label>Amount(₦'BN)</Form.Label>
+                        <Form.Label>Amount(₦'MN)</Form.Label>
                       <Form.Control size="sm" type="text" defaultValue={deal[0].structuringfeeamount} id='amount' ref={amount}/>
                       </Form.Group>
                     </Col>
@@ -648,14 +637,14 @@ function handlePrevChange() {
 
                     <Col sm={6} className='my-0 py-0'>
                       <Form.Group className="pt-1">
-                        <Form.Label>Monitoring(₦'BN)</Form.Label>
+                        <Form.Label>Monitoring(₦'MN)</Form.Label>
                       <Form.Control size="sm" type="text" defaultValue={deal[0].monitoringfee} id='monitoring' ref={monitoring}/>
                       </Form.Group>
                     </Col>
 
                     <Col sm={6} className='my-0 pb-2'>
                       <Form.Group className="pt-1">
-                        <Form.Label>Reimbursible(₦'BN)</Form.Label>
+                        <Form.Label>Reimbursible(₦'MN)</Form.Label>
                       <Form.Control size="sm" type="text" defaultValue={deal[0].reimbursible} id='reimbursible' ref={reimbursible}/>
                       </Form.Group>
                     </Col>
