@@ -2787,57 +2787,72 @@ const AddDeal = () => {
                         <Col sm={12}>
                           <Row>
                             <Col>
-                              <PWrapper>ROLE</PWrapper>
+                              <PWrapper>Particulars</PWrapper>
                               <br />
                             </Col>
                             <Col>
-                              <PWrapper>PARTY</PWrapper>
+                              <PWrapper>Concern</PWrapper>
                             </Col>
                             <Col>
-                              <PWrapper>APPOINTED</PWrapper>
+                              <PWrapper>weighting</PWrapper>
                             </Col>
                             <Col>
-                              <PWrapper>STATUS</PWrapper>
+                              <PWrapper>Expected</PWrapper>
+                            </Col>
+                            <Col>
+                              <PWrapper>Status</PWrapper>
                             </Col>
                           </Row>
                           <Col sm={12}>
                             <Col className="pb-2">
                               <Fm.Group>
                                 <Row>
-                                  <Col sm={3}>
+                                  <Col sm={2}>
                                     <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      1. Lead Issuing House
+                                      1.Licenses in good standing with regulator
                                     </Fm.Label>
                                   </Col>
-                                  <Col sm={3}>
+                                  <Col sm={2}>
+                                    <Dropdown size={1}>
+                                      <Dropdown.Toggle
+                                        variant="secondary"
+                                        id=""
+                                      >
+                                        Concern
+                                      </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item name="appA" value={true}>
+                                          High
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Low
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Medium
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>{" "}
+                                  </Col>
+                                  <Col sm={2}>
                                     <Input
                                       type="text"
-                                      style={{ height: "30px" }}
+                                      style={{ width: "100%", margin: "2px" }}
                                     />
                                   </Col>
-                                  <Col sm={3}>
-                                    <Fm.Check
-                                      inline
-                                      label="Yes"
-                                      type="radio"
-                                      name="appA"
-                                      value={true}
-                                    />
-                                    <Fm.Check
-                                      inline
-                                      label="No"
-                                      type="radio"
-                                      name="appA"
-                                      value={false}
-                                      defaultChecked
-                                    />
+                                  <Col sm={2}>
+                                    <Input type="date" />
                                   </Col>
-                                  <Col sm={3}>
-                                    <Fm.Control
-                                      as="textarea"
-                                      placeholder=" "
-                                      style={{ height: "30px" }}
-                                    ></Fm.Control>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{margin: "2px" }}
+                                    />
                                   </Col>
                                 </Row>
                               </Fm.Group>
@@ -2845,440 +2860,286 @@ const AddDeal = () => {
                           </Col>
 
                           <Col sm={12}>
-                            <Col className="pb-2">
-                              <Fm.Group>
-                                <Row>
-                                  <Col sm={3}>
-                                    <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      2. Co-Issuing House
-                                    </Fm.Label>
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Input
-                                      type="text"
-                                      style={{ height: "30px" }}
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Check
-                                      inline
-                                      label="Yes"
-                                      type="radio"
-                                      name="appB"
-                                      value={true}
-                                    />
-                                    <Fm.Check
-                                      inline
-                                      label="No"
-                                      type="radio"
-                                      name="appB"
-                                      value={false}
-                                      defaultChecked
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Control
-                                      as="textarea"
-                                      placeholder=" "
-                                      style={{ height: "30px" }}
-                                    ></Fm.Control>
-                                  </Col>
-                                </Row>
-                              </Fm.Group>
-                            </Col>
-                          </Col>
-
-                          <Col sm={12}>
-                            <Col className="pb-2">
-                              <Fm.Group>
-                                <Row>
-                                  <Col sm={3}>
-                                    <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      3. Bond Trusties
-                                    </Fm.Label>
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Input
-                                      type="text"
-                                      style={{ height: "30px" }}
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Check
-                                      inline
-                                      label="Yes"
-                                      type="radio"
-                                      name="appC"
-                                      value={true}
-                                    />
-                                    <Fm.Check
-                                      inline
-                                      label="No"
-                                      type="radio"
-                                      name="appC"
-                                      value={false}
-                                      defaultChecked
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Control
-                                      as="textarea"
-                                      placeholder=" "
-                                      style={{ height: "30px" }}
-                                    ></Fm.Control>
-                                  </Col>
-                                </Row>
-                              </Fm.Group>
-                            </Col>
-                          </Col>
-
-                          <Col sm={12}>
-                            <Col className="pb-2">
-                              <Fm.Group>
-                                <Row>
-                                  <Col sm={3}>
-                                    <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      4. Solicitor to the Issuer
-                                    </Fm.Label>
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Input
-                                      type="text"
-                                      style={{ height: "30px" }}
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Check
-                                      inline
-                                      label="Yes"
-                                      type="radio"
-                                      name="appD"
-                                      value={true}
-                                    />
-                                    <Fm.Check
-                                      inline
-                                      label="No"
-                                      type="radio"
-                                      name="appD"
-                                      value={false}
-                                      defaultChecked
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Control
-                                      as="textarea"
-                                      placeholder=" "
-                                      style={{ height: "30px" }}
-                                    ></Fm.Control>
-                                  </Col>
-                                </Row>
-                              </Fm.Group>
-                            </Col>
-                          </Col>
-
-                          <Col sm={12}>
-                            <Col className="pb-2">
-                              <Fm.Group>
-                                <Row>
-                                  <Col sm={3}>
-                                    <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      5. Solicitor th the Issue
-                                    </Fm.Label>
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Input
-                                      type="text"
-                                      style={{ height: "30px" }}
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Check
-                                      inline
-                                      label="Yes"
-                                      type="radio"
-                                      name="appE"
-                                      value={true}
-                                    />
-                                    <Fm.Check
-                                      inline
-                                      label="No"
-                                      type="radio"
-                                      name="appE"
-                                      value={false}
-                                      defaultChecked
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Control
-                                      as="textarea"
-                                      placeholder=" "
-                                      style={{ height: "30px" }}
-                                    ></Fm.Control>
-                                  </Col>
-                                </Row>
-                              </Fm.Group>
-                            </Col>
-                          </Col>
-
-                          <Col sm={12}>
-                            <Col className="pb-2">
-                              <Fm.Group>
-                                <Row>
-                                  <Col sm={3}>
-                                    <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      6. Solicitor to the Trustee
-                                    </Fm.Label>
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Input
-                                      type="text"
-                                      style={{ height: "30px" }}
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Check
-                                      inline
-                                      label="Yes"
-                                      type="radio"
-                                      name="appF"
-                                      value={true}
-                                    />
-                                    <Fm.Check
-                                      inline
-                                      label="No"
-                                      type="radio"
-                                      name="appF"
-                                      value={false}
-                                      defaultChecked
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Control
-                                      as="textarea"
-                                      placeholder=" "
-                                      style={{ height: "30px" }}
-                                    ></Fm.Control>
-                                  </Col>
-                                </Row>
-                              </Fm.Group>
-                            </Col>
-                          </Col>
-                          <Col sm={12}>
-                            <Col className="pb-2">
-                              <Fm.Group>
-                                <Row>
-                                  <Col sm={3}>
-                                    <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      7. Registrar
-                                    </Fm.Label>
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Input
-                                      type="text"
-                                      style={{ height: "30px" }}
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Check
-                                      inline
-                                      label="Yes"
-                                      type="radio"
-                                      name="app_g"
-                                      value={true}
-                                    />
-                                    <Fm.Check
-                                      inline
-                                      label="No"
-                                      type="radio"
-                                      name="app_g"
-                                      value={false}
-                                      defaultChecked
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Control
-                                      as="textarea"
-                                      placeholder=" "
-                                      style={{ height: "30px" }}
-                                    ></Fm.Control>
-                                  </Col>
-                                </Row>
-                              </Fm.Group>
-                            </Col>
-                          </Col>
-                          <Col sm={12}>
-                            <Col className="pb-2">
-                              <Fm.Group>
-                                <Row>
-                                  <Col sm={3}>
-                                    <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      8.Reporting Accountant
-                                    </Fm.Label>
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Input
-                                      type="text"
-                                      style={{ height: "30px" }}
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Check
-                                      inline
-                                      label="Yes"
-                                      type="radio"
-                                      name="appH"
-                                      value={true}
-                                    />
-                                    <Fm.Check
-                                      inline
-                                      label="No"
-                                      type="radio"
-                                      name="appH"
-                                      value={false}
-                                      defaultChecked
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Control
-                                      as="textarea"
-                                      placeholder=" "
-                                      style={{ height: "30px" }}
-                                    ></Fm.Control>
-                                  </Col>
-                                </Row>
-                              </Fm.Group>
-                            </Col>
-                          </Col>
-                          <Col sm={12}>
-                            <Col className="pb-2">
-                              <Fm.Group>
-                                <Row>
-                                  <Col sm={3}>
-                                    <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      9. Asset Valuer
-                                    </Fm.Label>
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Input
-                                      type="text"
-                                      style={{ height: "30px" }}
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Check
-                                      inline
-                                      label="Yes"
-                                      type="radio"
-                                      name="appI"
-                                      value={true}
-                                    />
-                                    <Fm.Check
-                                      inline
-                                      label="No"
-                                      type="radio"
-                                      name="appI"
-                                      value={false}
-                                      defaultChecked
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Control
-                                      as="textarea"
-                                      placeholder=" "
-                                      style={{ height: "30px" }}
-                                    ></Fm.Control>
-                                  </Col>
-                                </Row>
-                              </Fm.Group>
-                            </Col>
-                          </Col>
-
-                          <Col sm={12}>
-                            <Col className="pb-2">
-                              <Fm.Group>
-                                <Row>
-                                  <Col sm={3}>
-                                    <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      10. Stockbroker
-                                    </Fm.Label>
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Input
-                                      type="text"
-                                      style={{ height: "30px" }}
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Check
-                                      inline
-                                      label="Yes"
-                                      type="radio"
-                                      name="appJ"
-                                      value={true}
-                                    />
-                                    <Fm.Check
-                                      inline
-                                      label="No"
-                                      type="radio"
-                                      name="appJ"
-                                      value={false}
-                                      defaultChecked
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Control
-                                      as="textarea"
-                                      placeholder=" "
-                                      style={{ height: "30px" }}
-                                    ></Fm.Control>
-                                  </Col>
-                                </Row>
-                              </Fm.Group>
-                            </Col>
-                          </Col>
-
-                          {/* <Col sm={12}>
                             <Col className="pb-2">
                               <Fm.Group>
                                 <Row>
                                   <Col sm={2}>
                                     <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      1. EPC Contracts
+                                     2. Achievement of Sales growth targets
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={2}>
-                                    <Fm.Check
-                                      inline
-                                      label="Yes"
-                                      type="radio"
-                                      name="appA"
-                                      value={true}
+                                    <Dropdown size={1}>
+                                      <Dropdown.Toggle
+                                        variant="secondary"
+                                        id=""
+                                      >
+                                        Concern
+                                      </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item name="appA" value={true}>
+                                          High
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Low
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Medium
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>{" "}
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ width: "100%", margin: "2px" }}
                                     />
-                                    <Fm.Check
-                                      inline
-                                      label="No"
-                                      type="radio"
-                                      name="appA"
-                                      value={false}
-                                      defaultChecked
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input type="date" />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ margin: "2px" }}
                                     />
-                                  </Col>
-                                  <Col sm={2}>
-                                    <Input type="text" />
-                                  </Col>
-                                  <Col sm={2}>
-                                    <Input type="text" />
-                                  </Col>
-                                  <Col sm={2}>
-                                    <Input type="text" />
-                                  </Col>
-                                  <Col sm={2}>
-                                    <Input type="text" />
                                   </Col>
                                 </Row>
                               </Fm.Group>
                             </Col>
-                          </Col> */}
+                          </Col>
+
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Fm.Group>
+                                <Row>
+                                  <Col sm={2}>
+                                    <Fm.Label style={{ paddingRight: "1rem" }}>
+                                      3.Reduction in customer concentration risk
+                                    </Fm.Label>
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Dropdown size={1}>
+                                      <Dropdown.Toggle
+                                        variant="secondary"
+                                        id=""
+                                      >
+                                        Concern
+                                      </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item name="appA" value={true}>
+                                          High
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Low
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Medium
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>{" "}
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ width: "100%", margin: "2px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input type="date" />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ margin: "2px" }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Fm.Group>
+                            </Col>
+                          </Col>
+
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Fm.Group>
+                                <Row>
+                                  <Col sm={2}>
+                                    <Fm.Label style={{ paddingRight: "1rem" }}>
+                                      4. Extension of Contracts with at least 2 or
+                                      3 largest customers
+                                    </Fm.Label>
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Dropdown size={1}>
+                                      <Dropdown.Toggle
+                                        variant="secondary"
+                                        id=""
+                                      >
+                                        Concern
+                                      </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item name="appA" value={true}>
+                                          High
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Low
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Medium
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>{" "}
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ width: "100%", margin: "2px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input type="date" />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ margin: "2px" }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Fm.Group>
+                            </Col>
+                          </Col>
+
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Fm.Group>
+                                <Row>
+                                  <Col sm={2}>
+                                    <Fm.Label style={{ paddingRight: "1rem" }}>
+                                      5. Implementation of corporate governance
+                                      enhancement programme{" "}
+                                    </Fm.Label>
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Dropdown size={1}>
+                                      <Dropdown.Toggle
+                                        variant="secondary"
+                                        id=""
+                                      >
+                                        Concern
+                                      </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item name="appA" value={true}>
+                                          High
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Low
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Medium
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>{" "}
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ width: "100%", margin: "2px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input type="date" />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ margin: "2px" }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Fm.Group>
+                            </Col>
+                          </Col>
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Fm.Group>
+                                <Row>
+                                  <Col sm={2}>
+                                    <Fm.Label style={{ paddingRight: "1rem" }}>
+                                      6.Compliance with environment and social
+                                      action plan{" "}
+                                    </Fm.Label>
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Dropdown size={1}>
+                                      <Dropdown.Toggle
+                                        variant="secondary"
+                                        id=""
+                                      >
+                                        Concern
+                                      </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item name="appA" value={true}>
+                                          High
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Low
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Medium
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>{" "}
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ width: "100%", margin: "2px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input type="date" />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ margin: "2px" }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Fm.Group>
+                            </Col>
+                          </Col>
                         </Col>
                       </Row>
                       <button
@@ -4578,7 +4439,7 @@ const AddDeal = () => {
                               <Row>
                                 <Col sm={2}>
                                   <Fm.Label style={{ paddingRight: "1rem" }}>
-                            Complete Set Of Original Financial Statement
+                                    Complete Set Of Original Financial Statement
                                   </Fm.Label>
                                 </Col>
                                 <Col sm={2}>
@@ -4634,7 +4495,7 @@ const AddDeal = () => {
                           </Col>
                         </Col>
                       </Col>
-                      
+
                       {/* <Row>
                         
                         
