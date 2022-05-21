@@ -81,7 +81,7 @@ const GlobalFilter =({
 
   return (
       <span className=''>
-          {/* Search:{' '} */}
+    
           <input 
               className="form-control"
               style={{ outline: 'none', border: '1px solid black', padding: '1px 10px', marginTop: '2px', marginRight: '2px', width:'180px' }}
@@ -117,7 +117,6 @@ const IndeterminateCheckbox = React.forwardRef(
 const StaffTable = () => {
   const history = useHistory();
   const [staff, setStaff] = useState([]);
-  const [searchStaff, setSetSearch] = useState("")
   const staffRef = useRef();
   staffRef.current = staff;
 
@@ -133,12 +132,6 @@ const StaffTable = () => {
       .catch((e) => {
         console.log(e);
       });
-  };
-
-
-  const openStaff = (rowIndex) => {
-    const id = staffRef.current[rowIndex].id;
-    history.push("/staff/" + id)
   };
 
   const updateStaff = (rowIndex) => {
