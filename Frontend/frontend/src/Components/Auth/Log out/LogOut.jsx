@@ -10,9 +10,6 @@ const LogOut = async(user)=>{
   return await axios.post(API_URL + "signout").then((response) => {
     return response.data;
   });  
-    <Redirect to ={{  pathname: "/login"}}/>
-  
-
 }
 
 export default LogOut;
