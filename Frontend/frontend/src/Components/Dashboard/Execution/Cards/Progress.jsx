@@ -353,7 +353,7 @@ export default function Progress() {
       let varianceAns = (variancePer * -1)
       return <span style={{color: 'green'}}>↑ {varianceAns}%</span>;
     } else if(!isFinite(variancePer) || isFinite(variancePer)){
-      return !isFinite(((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)) ?<span style={{color: 'red'}}>↓ 100%</span>: <span style={{color: 'red'}}>↓ {((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)}%</span>;
+      return !isFinite(((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)) ?<span style={{color: 'red'}}> 0%</span>: <span style={{color: 'red'}}>↓ {((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)}%</span>;
     }
     return <span style={{color: 'red'}}>↓ {variancePer}% </span>;
   }
