@@ -62,16 +62,20 @@ export default function Progress() {
   useEffect(() => {
     if (dealFilter === "All" && staffFilter === "All") {
       retrieveDeals();
+      retrieveGuranteePipeline();
     }
     if (dealFilter !== "All" && staffFilter === "All") {
+      retrieveGuranteePipeline();
       setLoading(true);
       filterData(dealFilter);
     }
     if (dealFilter === "All" && staffFilter !== "All") {
       retrieveStaffDeals();
+      retrieveStaffTarget();
     }
     if (dealFilter !== "All" && staffFilter !== "All") {
       retrieveStaffDeals();
+      retrieveStaffTarget();
       setLoading(true);
       filterStaffData(dealFilter);
     }
@@ -158,6 +162,16 @@ export default function Progress() {
     Service.getAllStaff()
       .then((response) => {
         setTarget(response.data.staff);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const retrieveStaffTarget = () => {
+    Service.getOneStaff(staffFilter)
+      .then((response) => {
+        setTarget(response.data.staffInfo);
       })
       .catch((e) => {
         console.log(e);
@@ -346,17 +360,26 @@ export default function Progress() {
     return <span style={{color: 'red'}}>↓ {(variance).toFixed(1)}bn</span>;
   }
 
-  let variancePercent = ((varianceAmount / targetValue) * 100).toFixed(1)
+  if (targetValue == 0) {
+    let targetValue = 1;
+    
+    var varianceP = (( varianceAmount / targetValue) * 100).toFixed(1);
+  } else  {
+    var varianceP = (( varianceAmount / targetValue) * 100).toFixed(1);
+  }
+
+  let variancePercent = varianceP
 
   function variancePerDisplay(variancePer) {
     if (variancePer < 1) {
       let varianceAns = (variancePer * -1)
       return <span style={{color: 'green'}}>↑ {varianceAns}%</span>;
-    } else if(!isFinite(variancePer) || isFinite(variancePer)){
-      return !isFinite(((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)) ?<span style={{color: 'red'}}> 0%</span>: <span style={{color: 'red'}}>↓ {((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)}%</span>;
-    }
+    // } else if(!isFinite(variancePer) || isFinite(variancePer)){
+    //   return !isFinite(((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)) ?<span style={{color: 'red'}}> 0%</span>: <span style={{color: 'red'}}>↓ {((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)}%</span>;
+    } else {
     return <span style={{color: 'red'}}>↓ {variancePer}% </span>;
   }
+}
 
   const chartData = [
     {
