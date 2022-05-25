@@ -5,8 +5,6 @@ import Tab from 'react-bootstrap/Tab';
 import styled from 'styled-components';
 import Service from "../../Services/Service"
 import { useHistory } from 'react-router-dom';
-import Input from "react-validation/build/input";
-
 import axios from 'axios';
 
 const ButtonWrapper = styled.button`
@@ -148,8 +146,8 @@ export default function UpdateTransactions() {
   const retrieveDeal = async () => {
     // function to get deal by id from the database
     const data = await axios.get(
-    //  `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}`,
-     `http://localhost:5001/api/v1/transaction/item/${id}`,
+     `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}`,
+    //  `http://localhost:5001/api/v1/transaction/item/${id}`,
       {headers: {
         token: `Bearer ${localStorage.getItem('token')}`,
         'Content-type': 'application/json; charset=utf-8',
@@ -248,52 +246,52 @@ function toPrevTab(e) {
     handlePrevChange();
 }
 
-
 function handleTabChange() {
-  if (activeTab === "first") {
-    setActiveTab("second");
-  }
-  if (activeTab === "second") {
-    setActiveTab("third");
-  }
-  if (activeTab === "third") {
-    setActiveTab("fourth");
-  }
-  if (activeTab === "fourth") {
-    setActiveTab("sixth");
-  }
-  if (activeTab === "sixth") {
-    setActiveTab("seventh");
-  }
-  if (activeTab === "seventh") {
-    setActiveTab("eigth");
-  }
-  if (activeTab === "eigth") {
-    setActiveTab("ninth");
-  }
+    if (activeTab === 'first') {
+        setActiveTab('second');
+    }
+    if (activeTab === 'second') {
+        setActiveTab('third');
+    }
+    if (activeTab === 'third') {
+        setActiveTab('fourth');
+    }
+    if (activeTab === "fourth") {
+      setActiveTab("sixth");
+    }
+    if (activeTab === "sixth") {
+      setActiveTab("seventh");
+    }
+    if (activeTab === "seventh") {
+      setActiveTab("eigth");
+    }
+    if (activeTab === "eigth") {
+      setActiveTab("ninth");
+    }
 }
+
 function handlePrevChange() {
-  if (activeTab === "second") {
-    setActiveTab("first");
-  }
-  if (activeTab === "third") {
-    setActiveTab("second");
-  }
-  if (activeTab === "fourth") {
-    setActiveTab("third");
-  }
-  if (activeTab === "sixth") {
-    setActiveTab("fourth");
-  }
-  if (activeTab === "seventh") {
-    setActiveTab("sixth");
-  }
-  if (activeTab === "eigth") {
-    setActiveTab("seventh");
-  }
-  if (activeTab === "ninth") {
-    setActiveTab("first");
-  }
+    if (activeTab === 'second') {
+        setActiveTab('first');
+    }
+    if (activeTab === 'third') {
+        setActiveTab('second');
+    }
+    if (activeTab === 'fourth') {
+        setActiveTab('third');
+    }
+    if (activeTab === "sixth") {
+      setActiveTab("fourth");
+    }
+    if (activeTab === "seventh") {
+      setActiveTab("sixth");
+    }
+    if (activeTab === "eigth") {
+      setActiveTab("seventh");
+    }
+    if (activeTab === "ninth") {
+      setActiveTab("first");
+    }
 }
 
   function handleBack() {
@@ -930,38 +928,39 @@ function handlePrevChange() {
             </Row>
             </Form.Group>
           </div>
+          <button
+                        onClick={(e) => toPrevTab(e)}
+                        style={{
+                          display: "inlineblock",
+                          fontSize: "13px",
+                          padding: "2px 20px",
+                          margin: "10px",
+                          background: "green",
+                          color: "white",
+                          borderRadius: "3px",
+                        }}
+                      >
+                        {" "}
+                        Prev
+                      </button>
+                      <button
+                        onClick={(e) => toNextTab(e)}
+                        style={{
+                          display: "inlineblock",
+                          fontSize: "13px",
+                          padding: "2px 20px",
+                          margin: "10px",
+                          background: "green",
+                          color: "white",
+                          borderRadius: "3px",
+                        }}
+                      >
+                        Next
+                      </button>
         </Container1>
         {/* </Tab> */}
         {/* </Tabs> */}
-        <button
-                      onClick={(e) => toPrevTab(e)}
-                      style={{
-                        display: "inlineblock",
-                        fontSize: "13px",
-                        padding: "2px 20px",
-                        margin: "10px",
-                        background: "green",
-                        color: "white",
-                        borderRadius: "3px",
-                      }}
-                    >
-                      {" "}
-                      Prev
-                    </button>
-                    <button
-                      onClick={(e) => toNextTab(e)}
-                      style={{
-                        display: "inlineblock",
-                        fontSize: "13px",
-                        padding: "2px 20px",
-                        margin: "10px",
-                        background: "green",
-                        color: "white",
-                        borderRadius: "3px",
-                      }}
-                    >
-                      Next
-                    </button>        </Tab>
+        </Tab>   
         <Tab
                     eventKey="sixth"
                     title="NBC FOCUS AREAS"
@@ -1015,7 +1014,7 @@ function handlePrevChange() {
                                   />
                                 </Col>
                                 <Col sm={3}>
-                                  <Input
+                                  <Form.Control
                                     size="sm"
                                     type="date"
                                     value=""
@@ -1067,7 +1066,7 @@ function handlePrevChange() {
                                   />
                                 </Col>
                                 <Col sm={3}>
-                                  <Input
+                                  <Form.Control
                                     size="sm"
                                     type="date"
                                     value=""
@@ -1117,7 +1116,7 @@ function handlePrevChange() {
                                     />
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Form.Control
                                       size="sm"
                                       type="date"
                                       value=""
@@ -1168,7 +1167,7 @@ function handlePrevChange() {
                                     />
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Form.Control
                                       size="sm"
                                       type="date"
                                       value=""
@@ -1219,7 +1218,7 @@ function handlePrevChange() {
                                     />
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Form.Control
                                       size="sm"
                                       type="date"
                                       value=""
@@ -1281,7 +1280,7 @@ function handlePrevChange() {
                                     />
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Form.Control
                                       size="sm"
                                       type="date"
                                       value=""
@@ -1325,7 +1324,7 @@ function handlePrevChange() {
                                     />
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Form.Control
                                       size="sm"
                                       type="date"
                                       value=""
@@ -1369,7 +1368,7 @@ function handlePrevChange() {
                                     />
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Form.Control
                                       size="sm"
                                       type="date"
                                       value=""
@@ -1413,7 +1412,7 @@ function handlePrevChange() {
                                     />
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Form.Control
                                       size="sm"
                                       type="date"
                                       value=""
@@ -1460,7 +1459,7 @@ function handlePrevChange() {
                                       />
                                     </Col>
                                     <Col sm={3}>
-                                      <Input
+                                      <Form.Control
                                         size="sm"
                                         type="date"
                                         value=""
@@ -1511,8 +1510,6 @@ function handlePrevChange() {
                       </button>
                     </Container1>
                   </Tab>
-
-                  {/* ...................................... Parties .............................................. */}
                   <Tab
                     eventKey="seventh"
                     title="TRANSACTION PARTIES"
@@ -1547,7 +1544,7 @@ function handlePrevChange() {
                                     </Form.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ height: "30px" }}
                                     />
@@ -1591,7 +1588,7 @@ function handlePrevChange() {
                                     </Form.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ height: "30px" }}
                                     />
@@ -1635,7 +1632,7 @@ function handlePrevChange() {
                                     </Form.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ height: "30px" }}
                                     />
@@ -1679,7 +1676,7 @@ function handlePrevChange() {
                                     </Form.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ height: "30px" }}
                                     />
@@ -1723,7 +1720,7 @@ function handlePrevChange() {
                                     </Form.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ height: "30px" }}
                                     />
@@ -1767,7 +1764,7 @@ function handlePrevChange() {
                                     </Form.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ height: "30px" }}
                                     />
@@ -1810,7 +1807,7 @@ function handlePrevChange() {
                                     </Form.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ height: "30px" }}
                                     />
@@ -1853,7 +1850,7 @@ function handlePrevChange() {
                                     </Form.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ height: "30px" }}
                                     />
@@ -1896,7 +1893,7 @@ function handlePrevChange() {
                                     </Form.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ height: "30px" }}
                                     />
@@ -1940,7 +1937,7 @@ function handlePrevChange() {
                                     </Form.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ height: "30px" }}
                                     />
@@ -1984,7 +1981,7 @@ function handlePrevChange() {
                                     </Form.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ height: "30px" }}
                                     />
@@ -2050,8 +2047,6 @@ function handlePrevChange() {
                       </button>
                     </Container1>
                   </Tab>
-
-                  {/* ...........................eight tab */}
                   <Tab
                     eventKey="eigth"
                     title="PERFORMANCE-LINKED INDICATORS"
@@ -2116,16 +2111,16 @@ function handlePrevChange() {
                                     </Dropdown>{" "}
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ width: "100%", margin: "2px" }}
                                     />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input type="date" />
+                                    <Form.Control type="date" />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{margin: "2px" }}
                                     />
@@ -2172,16 +2167,16 @@ function handlePrevChange() {
                                     </Dropdown>{" "}
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ width: "100%", margin: "2px" }}
                                     />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input type="date" />
+                                    <Form.Control type="date" />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ margin: "2px" }}
                                     />
@@ -2228,16 +2223,16 @@ function handlePrevChange() {
                                     </Dropdown>{" "}
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ width: "100%", margin: "2px" }}
                                     />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input type="date" />
+                                    <Form.Control type="date" />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ margin: "2px" }}
                                     />
@@ -2285,16 +2280,16 @@ function handlePrevChange() {
                                     </Dropdown>{" "}
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ width: "100%", margin: "2px" }}
                                     />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input type="date" />
+                                    <Form.Control type="date" />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ margin: "2px" }}
                                     />
@@ -2342,16 +2337,16 @@ function handlePrevChange() {
                                     </Dropdown>{" "}
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ width: "100%", margin: "2px" }}
                                     />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input type="date" />
+                                    <Form.Control type="date" />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ margin: "2px" }}
                                     />
@@ -2398,16 +2393,16 @@ function handlePrevChange() {
                                     </Dropdown>{" "}
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ width: "100%", margin: "2px" }}
                                     />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input type="date" />
+                                    <Form.Control type="date" />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Form.Control
                                       type="text"
                                       style={{ margin: "2px" }}
                                     />
@@ -2449,7 +2444,6 @@ function handlePrevChange() {
                       </button>
                     </Container1>
                   </Tab>
-                  {/* ninth tab  other cpis */}
                   <Tab
                     eventKey="ninth"
                     title="OTHER CONDITIONS PRECEDENT"
@@ -2522,16 +2516,16 @@ function handlePrevChange() {
                                   </Dropdown>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -2584,16 +2578,16 @@ function handlePrevChange() {
                                   </Dropdown>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -2646,16 +2640,16 @@ function handlePrevChange() {
                                   </Dropdown>
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -2708,16 +2702,16 @@ function handlePrevChange() {
                                   </Dropdown>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -2770,16 +2764,16 @@ function handlePrevChange() {
                                   </Dropdown>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -2832,16 +2826,16 @@ function handlePrevChange() {
                                   </Dropdown>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -2893,16 +2887,16 @@ function handlePrevChange() {
                                   </Dropdown>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -2954,16 +2948,16 @@ function handlePrevChange() {
                                   </Dropdown>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -3015,16 +3009,16 @@ function handlePrevChange() {
                                   </Dropdown>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -3077,16 +3071,16 @@ function handlePrevChange() {
                                   </Dropdown>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -3139,16 +3133,16 @@ function handlePrevChange() {
                                   </Dropdown>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -3200,16 +3194,16 @@ function handlePrevChange() {
                                   </Dropdown>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -3262,16 +3256,16 @@ function handlePrevChange() {
                                   </Dropdown>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -3324,16 +3318,16 @@ function handlePrevChange() {
                                   </Dropdown>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -3386,16 +3380,16 @@ function handlePrevChange() {
                                   </Dropdown>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -3447,16 +3441,16 @@ function handlePrevChange() {
                                   </Dropdown>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -3508,16 +3502,16 @@ function handlePrevChange() {
                                   </Dropdown>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -3569,16 +3563,16 @@ function handlePrevChange() {
                                   </Dropdown>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -3630,16 +3624,16 @@ function handlePrevChange() {
                                   </Dropdown>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -3691,16 +3685,16 @@ function handlePrevChange() {
                                   </Dropdown>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -3752,16 +3746,16 @@ function handlePrevChange() {
                                   </Dropdown>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input type="date" />
+                                  <Form.Control type="date" />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Form.Control
                                     type="text"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -3792,21 +3786,9 @@ function handlePrevChange() {
                       {" "}
                       Prev
                     </button>
-                    {/* <button
-                        onClick={(e) => toNextTab(e)}
-                        style={{
-                          display: "inlineblock",
-                          fontSize: "13px",
-                          padding: "2px 20px",
-                          margin: "10px",
-                          background: "green",
-                          color: "white",
-                          borderRadius: "3px",
-                        }}
-                      >
-                        Next
-                      </button> */}
-                  </Tab>  
+                    
+                  </Tab>
+
 	    </Tabs> 
 	    </div>
 
