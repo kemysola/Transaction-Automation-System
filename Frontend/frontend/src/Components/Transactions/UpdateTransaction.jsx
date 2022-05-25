@@ -1,10 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Form, Container, Row, Col, Alert } from 'react-bootstrap';
+import { Form, Container, Row, Col, Alert,Dropdown } from 'react-bootstrap';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import styled from 'styled-components';
 import Service from "../../Services/Service"
 import { useHistory } from 'react-router-dom';
+import Input from "react-validation/build/input";
+
 import axios from 'axios';
 
 const ButtonWrapper = styled.button`
@@ -246,31 +248,52 @@ function toPrevTab(e) {
     handlePrevChange();
 }
 
-function handleTabChange() {
-    if (activeTab === 'first') {
-        setActiveTab('second');
-    }
-    if (activeTab === 'second') {
-        setActiveTab('third');
-    }
-    if (activeTab === 'third') {
-        setActiveTab('fourth');
-    }
-    if (activeTab === 'fourth') {
-        setActiveTab('sixth');
-    }
-}
 
+function handleTabChange() {
+  if (activeTab === "first") {
+    setActiveTab("second");
+  }
+  if (activeTab === "second") {
+    setActiveTab("third");
+  }
+  if (activeTab === "third") {
+    setActiveTab("fourth");
+  }
+  if (activeTab === "fourth") {
+    setActiveTab("sixth");
+  }
+  if (activeTab === "sixth") {
+    setActiveTab("seventh");
+  }
+  if (activeTab === "seventh") {
+    setActiveTab("eigth");
+  }
+  if (activeTab === "eigth") {
+    setActiveTab("ninth");
+  }
+}
 function handlePrevChange() {
-    if (activeTab === 'second') {
-        setActiveTab('first');
-    }
-    if (activeTab === 'third') {
-        setActiveTab('second');
-    }
-    if (activeTab === 'fourth') {
-        setActiveTab('third');
-    }
+  if (activeTab === "second") {
+    setActiveTab("first");
+  }
+  if (activeTab === "third") {
+    setActiveTab("second");
+  }
+  if (activeTab === "fourth") {
+    setActiveTab("third");
+  }
+  if (activeTab === "sixth") {
+    setActiveTab("fourth");
+  }
+  if (activeTab === "seventh") {
+    setActiveTab("sixth");
+  }
+  if (activeTab === "eigth") {
+    setActiveTab("seventh");
+  }
+  if (activeTab === "ninth") {
+    setActiveTab("first");
+  }
 }
 
   function handleBack() {
@@ -910,8 +933,2880 @@ function handlePrevChange() {
         </Container1>
         {/* </Tab> */}
         {/* </Tabs> */}
-        <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button>
-        </Tab>   
+        <button
+                      onClick={(e) => toPrevTab(e)}
+                      style={{
+                        display: "inlineblock",
+                        fontSize: "13px",
+                        padding: "2px 20px",
+                        margin: "10px",
+                        background: "green",
+                        color: "white",
+                        borderRadius: "3px",
+                      }}
+                    >
+                      {" "}
+                      Prev
+                    </button>
+                    <button
+                      onClick={(e) => toNextTab(e)}
+                      style={{
+                        display: "inlineblock",
+                        fontSize: "13px",
+                        padding: "2px 20px",
+                        margin: "10px",
+                        background: "green",
+                        color: "white",
+                        borderRadius: "3px",
+                      }}
+                    >
+                      Next
+                    </button>        </Tab>
+        <Tab
+                    eventKey="sixth"
+                    title="NBC FOCUS AREAS"
+                    style={{ fontSize: "12px" }}
+                  >
+                    <Container1>
+                      <br />
+                      <Row className="py-1">
+                        <Col sm={12}>
+                          <Row>
+                            <Col>
+                              <PWrapper>ORIGINAL NBC DD FOCUS</PWrapper>
+                              <br />
+                            </Col>
+                            <Col>
+                              <PWrapper>YES/NO</PWrapper>
+                            </Col>
+                            <Col>
+                              <PWrapper>DATE</PWrapper>
+                            </Col>
+                            <Col>
+                              <PWrapper>METHODOLOGY</PWrapper>
+                            </Col>
+                          </Row>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={3}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Strength of Contracts:
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={3}>
+                                  <Form.Check
+                                    inline
+                                    label="Yes"
+                                    type="radio"
+                                    name="strength"
+                                    value={true}
+                                  />
+                                  <Form.Check
+                                    inline
+                                    label="No"
+                                    type="radio"
+                                    name="strength"
+                                    value={false}
+                                    defaultChecked
+                                  />
+                                </Col>
+                                <Col sm={3}>
+                                  <Input
+                                    size="sm"
+                                    type="date"
+                                    value=""
+                                    onChange=""
+                                    name=""
+                                    style={{
+                                      width: "80%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                    }}
+                                  />
+                                </Col>
+                                <Col sm={3}>
+                                  <Form.Control
+                                    as="textarea"
+                                    placeholder=" "
+                                    style={{ height: "30px" }}
+                                  ></Form.Control>
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={3}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Sponsor Equity:
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={3}>
+                                  <Form.Check
+                                    inline
+                                    label="Yes"
+                                    type="radio"
+                                    name="sponsor"
+                                    value={true}
+                                  />
+                                  <Form.Check
+                                    inline
+                                    label="No"
+                                    type="radio"
+                                    name="sponsor"
+                                    value={false}
+                                    defaultChecked
+                                  />
+                                </Col>
+                                <Col sm={3}>
+                                  <Input
+                                    size="sm"
+                                    type="date"
+                                    value=""
+                                    onChange=""
+                                    name=""
+                                    style={{
+                                      width: "80%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                    }}
+                                  />
+                                </Col>
+                                <Col sm={3}>
+                                  <Form.Control
+                                    as="textarea"
+                                    placeholder=""
+                                    style={{ height: "30px" }}
+                                  ></Form.Control>
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={3}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      Regulatory Approval:
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Check
+                                      inline
+                                      label="Yes"
+                                      type="radio"
+                                      name="regulatory"
+                                      value={true}
+                                    />
+                                    <Form.Check
+                                      inline
+                                      label="No"
+                                      type="radio"
+                                      name="regulatory"
+                                      value={false}
+                                      defaultChecked
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Input
+                                      size="sm"
+                                      type="date"
+                                      value=""
+                                      onChange=""
+                                      name=""
+                                      style={{
+                                        width: "80%",
+                                        padding: "2px 1px",
+                                        focus: "none",
+                                      }}
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Control
+                                      as="textarea"
+                                      placeholder=""
+                                      style={{ height: "30px" }}
+                                    ></Form.Control>
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={3}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      Technical Validation:
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Check
+                                      inline
+                                      label="Yes"
+                                      type="radio"
+                                      name="technical"
+                                      value={true}
+                                    />
+                                    <Form.Check
+                                      inline
+                                      label="No"
+                                      type="radio"
+                                      name="technical"
+                                      value={false}
+                                      defaultChecked
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Input
+                                      size="sm"
+                                      type="date"
+                                      value=""
+                                      onChange=""
+                                      name=""
+                                      style={{
+                                        width: "80%",
+                                        padding: "2px 1px",
+                                        focus: "none",
+                                      }}
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Control
+                                      as="textarea"
+                                      placeholder=" "
+                                      style={{ height: "30px" }}
+                                    ></Form.Control>
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={3}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      Competitive Landscape:
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Check
+                                      inline
+                                      label="Yes"
+                                      type="radio"
+                                      name="competitive"
+                                      value={true}
+                                    />
+                                    <Form.Check
+                                      inline
+                                      label="No"
+                                      type="radio"
+                                      name="competitive"
+                                      value={false}
+                                      defaultChecked
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Input
+                                      size="sm"
+                                      type="date"
+                                      value=""
+                                      onChange=""
+                                      name=""
+                                      style={{
+                                        width: "80%",
+                                        padding: "2px 1px",
+                                        focus: "none",
+                                      }}
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Control
+                                      as="textarea"
+                                      placeholder=""
+                                      style={{ height: "30px" }}
+                                    ></Form.Control>
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+                          <Col sm={12}>
+                            <p style={{ fontWeight: "bold" }}>
+                              NBC Paper (Link to Doc)
+                            </p>
+                          </Col>
+                          <Col sm={12}>
+                            <p style={{ fontWeight: "bold" }}>
+                              NBC Approvals and Minutes
+                            </p>
+                          </Col>
+
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={5}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      MROC Pre_NBC Approval ( Link to Doc)
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Check
+                                      inline
+                                      label="Yes"
+                                      type="radio"
+                                      name="pre_nbc"
+                                      value={true}
+                                    />
+                                    <Form.Check
+                                      inline
+                                      label="No"
+                                      type="radio"
+                                      name="pre_nbc"
+                                      value={false}
+                                      defaultChecked
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Input
+                                      size="sm"
+                                      type="date"
+                                      value=""
+                                      onChange=""
+                                      name=""
+                                      style={{
+                                        width: "80%",
+                                        padding: "2px 1px",
+                                        focus: "none",
+                                      }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={5}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      MROC Pre_NBC Minutes. ( Link to Doc)
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Check
+                                      inline
+                                      label="Yes"
+                                      type="radio"
+                                      name="minutes"
+                                      value={true}
+                                    />
+                                    <Form.Check
+                                      inline
+                                      label="No"
+                                      type="radio"
+                                      name="minutes"
+                                      value={false}
+                                      defaultChecked
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Input
+                                      size="sm"
+                                      type="date"
+                                      value=""
+                                      onChange=""
+                                      name=""
+                                      style={{
+                                        width: "80%",
+                                        padding: "2px 1px",
+                                        focus: "none",
+                                      }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={5}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      NBC Approval ( Link to Doc)
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Check
+                                      inline
+                                      label="Yes"
+                                      type="radio"
+                                      name="nbc_app"
+                                      value={true}
+                                    />
+                                    <Form.Check
+                                      inline
+                                      label="No"
+                                      type="radio"
+                                      name="nbc_app"
+                                      value={false}
+                                      defaultChecked
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Input
+                                      size="sm"
+                                      type="date"
+                                      value=""
+                                      onChange=""
+                                      name=""
+                                      style={{
+                                        width: "80%",
+                                        padding: "2px 1px",
+                                        focus: "none",
+                                      }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={5}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      NBC Minutes ( Link to Doc)
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Check
+                                      inline
+                                      label="Yes"
+                                      type="radio"
+                                      name="nbc_min"
+                                      value={true}
+                                    />
+                                    <Form.Check
+                                      inline
+                                      label="No"
+                                      type="radio"
+                                      name="nbc_min"
+                                      value={false}
+                                      defaultChecked
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Input
+                                      size="sm"
+                                      type="date"
+                                      value=""
+                                      onChange=""
+                                      name=""
+                                      style={{
+                                        width: "80%",
+                                        padding: "2px 1px",
+                                        focus: "none",
+                                      }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                            <Col sm={12}>
+                              <Col className="pb-2">
+                                <Form.Group>
+                                  <Row>
+                                    <Col sm={5}>
+                                      <Form.Label
+                                        style={{ paddingRight: "1rem" }}
+                                      >
+                                        Mandate Letter with Indicative Term
+                                        Sheet On-Boarding Documents ( Link to
+                                        Doc)
+                                      </Form.Label>
+                                    </Col>
+                                    <Col sm={3}>
+                                      <Form.Check
+                                        inline
+                                        label="Yes"
+                                        type="radio"
+                                        name="mandlet"
+                                        value={true}
+                                      />
+                                      <Form.Check
+                                        inline
+                                        label="No"
+                                        type="radio"
+                                        name="mandlet"
+                                        value={false}
+                                        defaultChecked
+                                      />
+                                    </Col>
+                                    <Col sm={3}>
+                                      <Input
+                                        size="sm"
+                                        type="date"
+                                        value=""
+                                        onChange=""
+                                        name=""
+                                        style={{
+                                          width: "80%",
+                                          padding: "2px 1px",
+                                          focus: "none",
+                                        }}
+                                      />
+                                    </Col>
+                                  </Row>
+                                </Form.Group>
+                              </Col>
+                            </Col>
+                          </Col>
+                        </Col>
+                      </Row>
+                      <button
+                        onClick={(e) => toPrevTab(e)}
+                        style={{
+                          display: "inlineblock",
+                          fontSize: "13px",
+                          padding: "2px 20px",
+                          margin: "10px",
+                          background: "green",
+                          color: "white",
+                          borderRadius: "3px",
+                        }}
+                      >
+                        {" "}
+                        Prev
+                      </button>
+                      <button
+                        onClick={(e) => toNextTab(e)}
+                        style={{
+                          display: "inlineblock",
+                          fontSize: "13px",
+                          padding: "2px 20px",
+                          margin: "10px",
+                          background: "green",
+                          color: "white",
+                          borderRadius: "3px",
+                        }}
+                      >
+                        Next
+                      </button>
+                    </Container1>
+                  </Tab>
+
+                  {/* ...................................... Parties .............................................. */}
+                  <Tab
+                    eventKey="seventh"
+                    title="TRANSACTION PARTIES"
+                    style={{ fontSize: "12px" }}
+                  >
+                    <Container1>
+                      <br />
+                      <Row className="py-1">
+                        <Col sm={12}>
+                          <Row>
+                            <Col>
+                              <PWrapper>ROLE</PWrapper>
+                              <br />
+                            </Col>
+                            <Col>
+                              <PWrapper>PARTY</PWrapper>
+                            </Col>
+                            <Col>
+                              <PWrapper>APPOINTED</PWrapper>
+                            </Col>
+                            <Col>
+                              <PWrapper>STATUS</PWrapper>
+                            </Col>
+                          </Row>
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={3}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      1. Lead Issuing House
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Input
+                                      type="text"
+                                      style={{ height: "30px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Check
+                                      inline
+                                      label="Yes"
+                                      type="radio"
+                                      name="appA"
+                                      value={true}
+                                    />
+                                    <Form.Check
+                                      inline
+                                      label="No"
+                                      type="radio"
+                                      name="appA"
+                                      value={false}
+                                      defaultChecked
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Control
+                                      as="textarea"
+                                      placeholder=" "
+                                      style={{ height: "30px" }}
+                                    ></Form.Control>
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={3}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      2. Co-Issuing House
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Input
+                                      type="text"
+                                      style={{ height: "30px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Check
+                                      inline
+                                      label="Yes"
+                                      type="radio"
+                                      name="appB"
+                                      value={true}
+                                    />
+                                    <Form.Check
+                                      inline
+                                      label="No"
+                                      type="radio"
+                                      name="appB"
+                                      value={false}
+                                      defaultChecked
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Control
+                                      as="textarea"
+                                      placeholder=" "
+                                      style={{ height: "30px" }}
+                                    ></Form.Control>
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={3}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      3. Bond Trusties
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Input
+                                      type="text"
+                                      style={{ height: "30px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Check
+                                      inline
+                                      label="Yes"
+                                      type="radio"
+                                      name="appC"
+                                      value={true}
+                                    />
+                                    <Form.Check
+                                      inline
+                                      label="No"
+                                      type="radio"
+                                      name="appC"
+                                      value={false}
+                                      defaultChecked
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Control
+                                      as="textarea"
+                                      placeholder=" "
+                                      style={{ height: "30px" }}
+                                    ></Form.Control>
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={3}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      4. Solicitor to the Issuer
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Input
+                                      type="text"
+                                      style={{ height: "30px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Check
+                                      inline
+                                      label="Yes"
+                                      type="radio"
+                                      name="appD"
+                                      value={true}
+                                    />
+                                    <Form.Check
+                                      inline
+                                      label="No"
+                                      type="radio"
+                                      name="appD"
+                                      value={false}
+                                      defaultChecked
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Control
+                                      as="textarea"
+                                      placeholder=" "
+                                      style={{ height: "30px" }}
+                                    ></Form.Control>
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={3}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      5. Solicitor th the Issue
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Input
+                                      type="text"
+                                      style={{ height: "30px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Check
+                                      inline
+                                      label="Yes"
+                                      type="radio"
+                                      name="appE"
+                                      value={true}
+                                    />
+                                    <Form.Check
+                                      inline
+                                      label="No"
+                                      type="radio"
+                                      name="appE"
+                                      value={false}
+                                      defaultChecked
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Control
+                                      as="textarea"
+                                      placeholder=" "
+                                      style={{ height: "30px" }}
+                                    ></Form.Control>
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={3}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      6. Solicitor to the Trustee
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Input
+                                      type="text"
+                                      style={{ height: "30px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Check
+                                      inline
+                                      label="Yes"
+                                      type="radio"
+                                      name="appF"
+                                      value={true}
+                                    />
+                                    <Form.Check
+                                      inline
+                                      label="No"
+                                      type="radio"
+                                      name="appF"
+                                      value={false}
+                                      defaultChecked
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Control
+                                      as="textarea"
+                                      placeholder=" "
+                                      style={{ height: "30px" }}
+                                    ></Form.Control>
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={3}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      7. Registrar
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Input
+                                      type="text"
+                                      style={{ height: "30px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Check
+                                      inline
+                                      label="Yes"
+                                      type="radio"
+                                      name="app_g"
+                                      value={true}
+                                    />
+                                    <Form.Check
+                                      inline
+                                      label="No"
+                                      type="radio"
+                                      name="app_g"
+                                      value={false}
+                                      defaultChecked
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Control
+                                      as="textarea"
+                                      placeholder=" "
+                                      style={{ height: "30px" }}
+                                    ></Form.Control>
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={3}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      8.Reporting Accountant
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Input
+                                      type="text"
+                                      style={{ height: "30px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Check
+                                      inline
+                                      label="Yes"
+                                      type="radio"
+                                      name="appH"
+                                      value={true}
+                                    />
+                                    <Form.Check
+                                      inline
+                                      label="No"
+                                      type="radio"
+                                      name="appH"
+                                      value={false}
+                                      defaultChecked
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Control
+                                      as="textarea"
+                                      placeholder=" "
+                                      style={{ height: "30px" }}
+                                    ></Form.Control>
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={3}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      9. Asset Valuer
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Input
+                                      type="text"
+                                      style={{ height: "30px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Check
+                                      inline
+                                      label="Yes"
+                                      type="radio"
+                                      name="appI"
+                                      value={true}
+                                    />
+                                    <Form.Check
+                                      inline
+                                      label="No"
+                                      type="radio"
+                                      name="appI"
+                                      value={false}
+                                      defaultChecked
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Control
+                                      as="textarea"
+                                      placeholder=" "
+                                      style={{ height: "30px" }}
+                                    ></Form.Control>
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={3}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      10. Stockbroker
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Input
+                                      type="text"
+                                      style={{ height: "30px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Check
+                                      inline
+                                      label="Yes"
+                                      type="radio"
+                                      name="appJ"
+                                      value={true}
+                                    />
+                                    <Form.Check
+                                      inline
+                                      label="No"
+                                      type="radio"
+                                      name="appJ"
+                                      value={false}
+                                      defaultChecked
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Control
+                                      as="textarea"
+                                      placeholder=" "
+                                      style={{ height: "30px" }}
+                                    ></Form.Control>
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={3}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      11. Auditor
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Input
+                                      type="text"
+                                      style={{ height: "30px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Check
+                                      inline
+                                      label="Yes"
+                                      type="radio"
+                                      name="appK"
+                                      value={true}
+                                    />
+                                    <Form.Check
+                                      inline
+                                      label="No"
+                                      type="radio"
+                                      name="appK"
+                                      value={false}
+                                      defaultChecked
+                                    />
+                                  </Col>
+                                  <Col sm={3}>
+                                    <Form.Control
+                                      as="textarea"
+                                      placeholder=" "
+                                      style={{ height: "30px" }}
+                                    ></Form.Control>
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+                        </Col>
+                      </Row>
+                      <button
+                        onClick={(e) => toPrevTab(e)}
+                        style={{
+                          display: "inlineblock",
+                          fontSize: "13px",
+                          padding: "2px 20px",
+                          margin: "10px",
+                          background: "green",
+                          color: "white",
+                          borderRadius: "3px",
+                        }}
+                      >
+                        {" "}
+                        Prev
+                      </button>
+                      <button
+                        onClick={(e) => toNextTab(e)}
+                        style={{
+                          display: "inlineblock",
+                          fontSize: "13px",
+                          padding: "2px 20px",
+                          margin: "10px",
+                          background: "green",
+                          color: "white",
+                          borderRadius: "3px",
+                        }}
+                      >
+                        Next
+                      </button>
+                    </Container1>
+                  </Tab>
+
+                  {/* ...........................eight tab */}
+                  <Tab
+                    eventKey="eigth"
+                    title="PERFORMANCE-LINKED INDICATORS"
+                    style={{ fontSize: "12px" }}
+                  >
+                    <Container1>
+                      <br />
+                      <Row className="py-1">
+                        <Col sm={12}>
+                          <Row>
+                            <Col>
+                              <PWrapper>Particulars</PWrapper>
+                              <br />
+                            </Col>
+                            <Col>
+                              <PWrapper>Concern</PWrapper>
+                            </Col>
+                            <Col>
+                              <PWrapper>weighting</PWrapper>
+                            </Col>
+                            <Col>
+                              <PWrapper>Expected</PWrapper>
+                            </Col>
+                            <Col>
+                              <PWrapper>Status</PWrapper>
+                            </Col>
+                          </Row>
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={2}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      1.Licenses in good standing with regulator
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Dropdown size={1}>
+                                      <Dropdown.Toggle
+                                        variant="secondary"
+                                        id=""
+                                      >
+                                        Concern
+                                      </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item name="appA" value={true}>
+                                          High
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Low
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Medium
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>{" "}
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ width: "100%", margin: "2px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input type="date" />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{margin: "2px" }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={2}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                     2. Achievement of Sales growth targets
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Dropdown size={1}>
+                                      <Dropdown.Toggle
+                                        variant="secondary"
+                                        id=""
+                                      >
+                                        Concern
+                                      </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item name="appA" value={true}>
+                                          High
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Low
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Medium
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>{" "}
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ width: "100%", margin: "2px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input type="date" />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ margin: "2px" }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={2}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      3.Reduction in customer concentration risk
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Dropdown size={1}>
+                                      <Dropdown.Toggle
+                                        variant="secondary"
+                                        id=""
+                                      >
+                                        Concern
+                                      </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item name="appA" value={true}>
+                                          High
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Low
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Medium
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>{" "}
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ width: "100%", margin: "2px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input type="date" />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ margin: "2px" }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={2}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      4. Extension of Contracts with at least 2 or
+                                      3 largest customers
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Dropdown size={1}>
+                                      <Dropdown.Toggle
+                                        variant="secondary"
+                                        id=""
+                                      >
+                                        Concern
+                                      </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item name="appA" value={true}>
+                                          High
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Low
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Medium
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>{" "}
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ width: "100%", margin: "2px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input type="date" />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ margin: "2px" }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={2}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      5. Implementation of corporate governance
+                                      enhancement programme{" "}
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Dropdown size={1}>
+                                      <Dropdown.Toggle
+                                        variant="secondary"
+                                        id=""
+                                      >
+                                        Concern
+                                      </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item name="appA" value={true}>
+                                          High
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Low
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Medium
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>{" "}
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ width: "100%", margin: "2px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input type="date" />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ margin: "2px" }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Form.Group>
+                                <Row>
+                                  <Col sm={2}>
+                                    <Form.Label style={{ paddingRight: "1rem" }}>
+                                      6.Compliance with environment and social
+                                      action plan{" "}
+                                    </Form.Label>
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Dropdown size={1}>
+                                      <Dropdown.Toggle
+                                        variant="secondary"
+                                        id=""
+                                      >
+                                        Concern
+                                      </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item name="appA" value={true}>
+                                          High
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Low
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Medium
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>{" "}
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ width: "100%", margin: "2px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input type="date" />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      style={{ margin: "2px" }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Form.Group>
+                            </Col>
+                          </Col>
+                        </Col>
+                      </Row>
+                      <button
+                        onClick={(e) => toPrevTab(e)}
+                        style={{
+                          display: "inlineblock",
+                          fontSize: "13px",
+                          padding: "2px 20px",
+                          margin: "10px",
+                          background: "green",
+                          color: "white",
+                          borderRadius: "3px",
+                        }}
+                      >
+                        {" "}
+                        Prev
+                      </button>
+                      <button
+                        onClick={(e) => toNextTab(e)}
+                        style={{
+                          display: "inlineblock",
+                          fontSize: "13px",
+                          padding: "2px 20px",
+                          margin: "10px",
+                          background: "green",
+                          color: "white",
+                          borderRadius: "3px",
+                        }}
+                      >
+                        Next
+                      </button>
+                    </Container1>
+                  </Tab>
+                  {/* ninth tab  other cpis */}
+                  <Tab
+                    eventKey="ninth"
+                    title="OTHER CONDITIONS PRECEDENT"
+                    style={{ fontSize: "12px" }}
+                  >
+                    <br />
+                    <Row className="py-1">
+                      <Col sm={12}>
+                        <Row>
+                          <Col>
+                            <PWrapper>FACTORS</PWrapper>
+                            <br />
+                          </Col>
+                          <Col>
+                            <PWrapper>YES/NO</PWrapper>
+                          </Col>
+                          <Col>
+                            <PWrapper>CONCERN</PWrapper>
+                          </Col>
+                          <Col>
+                            <PWrapper>EXPECTED</PWrapper>
+                          </Col>
+                          <Col>
+                            <PWrapper>RESPONSIBLE PARTY</PWrapper>
+                          </Col>
+                          <Col>
+                            <PWrapper>STATUS</PWrapper>
+                          </Col>
+                        </Row>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Off-Take Agreements
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Extension of Contracts
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    EPC Contracts
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    List of Bank Accounts
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    5.List of Bank Accounts
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    6.Co-Due Diligence
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Open Tranaction Accounts
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    8.Confirmation of Balances
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Pre-Signed Bank Transfer Instruction
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Copy of Constitutional Documents
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Specimen Signatures
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Certificate of Authencity
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Evidence of Compliance with ESDD Report
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Evidence of Compliance with LDD Report
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Evidence of Compliance with ODD Report
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Evidence that Annual Returns are Up-to-Date
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Evidence of Receipt of Performance Bonds
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Renewal of Insurance Policies
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Tax Compliance
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    PENCOM Compliances
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Complete Set Of Original Financial Statement
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Option
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        YES
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        No
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </Col>
+                                <Col sm={2}>
+                                  <Dropdown size={1}>
+                                    <Dropdown.Toggle variant="secondary" id="">
+                                      Concern
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item name="appA" value={true}>
+                                        High
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Low
+                                      </Dropdown.Item>
+                                      <Dropdown.Item name="appA" value={false}>
+                                        Medium
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input type="date" />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                      </Col>
+
+                      {/* <Row>
+                        
+                        
+                      </Row> */}
+                    </Row>
+                    <button
+                      onClick={(e) => toPrevTab(e)}
+                      style={{
+                        display: "inlineblock",
+                        fontSize: "13px",
+                        padding: "2px 20px",
+                        margin: "10px",
+                        background: "green",
+                        color: "white",
+                        borderRadius: "3px",
+                      }}
+                    >
+                      {" "}
+                      Prev
+                    </button>
+                    {/* <button
+                        onClick={(e) => toNextTab(e)}
+                        style={{
+                          display: "inlineblock",
+                          fontSize: "13px",
+                          padding: "2px 20px",
+                          margin: "10px",
+                          background: "green",
+                          color: "white",
+                          borderRadius: "3px",
+                        }}
+                      >
+                        Next
+                      </button> */}
+                  </Tab>  
 	    </Tabs> 
 	    </div>
 
