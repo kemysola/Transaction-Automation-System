@@ -461,7 +461,7 @@ router.get('/get_staff_deals/:email', verifyTokenAndAuthorization, async (req, r
             LEFT JOIN TB_INFRCR_TRANSACTION_PARTIES d ON d.transID = a.transID
             LEFT JOIN TB_INFRCR_TRANSACTION_PLIS e ON e.transID = a.transID
             LEFT JOIN TB_INFRCR_TRANSACTION_KDF f ON f.transID = a.transID
-            WHERE a.originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
+            WHERE a.transactor = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
             `,
             [staff_email]);
         if (my_deals) { 
