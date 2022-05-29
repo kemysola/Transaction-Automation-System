@@ -98,28 +98,38 @@ function GreenAndAnberCard() {
 
   function varianceDisplay(variance) {
     if (variance < 1) {
-      let varianceAns = variance * -1;
-      return (
-        <span style={{ color: "green" }}>↑ {varianceAns.toFixed(1)}bn</span>
-      );
-    } else if (!isFinite(variance) || isFinite(variance)) {
-      return ` - `;
+      let varianceAns = (variance * -1)
+      return <span style={{color: 'green'}}>↑ {(varianceAns).toFixed(1)}bn</span>;
     }
-
-    return <span style={{ color: "red" }}>↓ {variance.toFixed(1)}bn </span>;
+    else if (!isFinite(variance) || isFinite(variance)){
+      return <span style={{color: 'red'}}>↓ {-1 * (gandAactual - gandAtarget)}bn </span>;
+    }
+    
+    return <span style={{color: 'red'}}>↓ {(variance).toFixed(1)}bn </span>;
   }
 
-  let variancePercent = ((varianceAmount / gandAtarget) * 100).toFixed(1);
+  if (gandAtarget == 0) {
+    let gandAtarget = 1;
+    
+    var varianceP = (( varianceAmount / gandAtarget) * 100).toFixed(1);
+  } else  {
+    var varianceP = (( varianceAmount / gandAtarget) * 100).toFixed(1);
+  }
+
+  let variancePercent = varianceP
+
+  // let variancePercent = ((varianceAmount / gandAtarget) * 100).toFixed(1);
 
   function variancePerDisplay(variancePer) {
     if (variancePer < 1) {
-      let varianceAns = variancePer * -1;
-      return <span style={{ color: "green" }}>↑ {varianceAns}% </span>;
-    } else if (!isFinite(variancePer) || isFinite(variancePer)) {
-      return ` - `;
-    }
-    return <span style={{ color: "red" }}>↓ {variancePer}% </span>;
+      let varianceAns = (variancePer * -1)
+      return <span style={{color: 'green'}}>↑ {varianceAns}%</span>;
+    // } else if(!isFinite(variancePer) || isFinite(variancePer)){
+    //   return !isFinite(((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)) ?<span style={{color: 'red'}}> 0%</span>: <span style={{color: 'red'}}>↓ {((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)}%</span>;
+    } else {
+    return <span style={{color: 'red'}}>↓ {variancePer}% </span>;
   }
+}
 
   return (
     <React.Fragment>
@@ -130,7 +140,7 @@ function GreenAndAnberCard() {
           <br/>
           <Col sm={4} style={{ borderRight:'2px solid white'}}>
             <Stack gap={0} className="d-flex justify-content-center">
-            ₦{greenTotal + amberTotal}
+            ₦{greenTotal + amberTotal.toFixed(2)}bn
               <br/>
               <small
                 style={{ fontSize: "11px", color: "blue", fontWeight: "bold" }}
@@ -144,7 +154,7 @@ function GreenAndAnberCard() {
           </Col>
           <Col sm={4}>
             <Stack gap={0} className="d-flex justify-content-center">
-            ₦ {greenV + amberValue}
+            ₦ {greenV + amberValue.toFixed(2)}bn
               <br />
               <small
                 style={{ fontSize: "11px", color: "black", fontWeight: "bold" }}
