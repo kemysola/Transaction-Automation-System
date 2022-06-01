@@ -49,7 +49,7 @@ res.sendFile(path.resolve(__dirname,"Frontend/frontend","build", "index.html"))
   })
  }
 
-app.use(express.static(path.join(__dirname, './frontend/build')));
+ app.use(express.static(path.join(__dirname, './frontend/build')));
     app.get("*", (req,res) =>{
         res.sendFile(path.resolve(__dirname,"Frontend/frontend","build", "index.html"))
     
@@ -78,7 +78,7 @@ app.listen(app_port || 3000, () => {
 
 })
 
-/*app.listen(app_port || 5001, () => {
-    console.log(`InfraCreditTRS Server Listening on Port: ${app.get('port')}`)
+// app.listen(app_port || 5001, () => {
+//     console.log(`InfraCreditTRS Server Listening on Port: ${app.get('port')}`)
 
-});*/
+// });

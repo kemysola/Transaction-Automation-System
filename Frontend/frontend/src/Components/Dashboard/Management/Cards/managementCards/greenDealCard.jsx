@@ -136,28 +136,37 @@ function GreenDealCard() {
 
   function varianceDisplay(variance) {
     if (variance < 1) {
-      let varianceAns = variance * -1;
-      return (
-        <span style={{ color: "green" }}>↑ {varianceAns.toFixed(1)}bn</span>
-      );
-    } else if (!isFinite(variance) || isFinite(variance)) {
-      return ` - `;
+      let varianceAns = (variance * -1)
+      return <span style={{color: 'green'}}>↑ {(varianceAns).toFixed(1)}bn</span>;
     }
-
-    return <span style={{ color: "red" }}>↓ {variance.toFixed(1)}bn </span>;
+    else if (!isFinite(variance) || isFinite(variance)){
+      return <span style={{color: 'red'}}>↓ {-1 * (greenV - greenTotal)}bn </span>;
+    }
+    
+    return <span style={{color: 'red'}}>↓ {(variance).toFixed(1)}bn </span>;
   }
 
-  let variancePercent = ((varianceAmount / greenV) * 100).toFixed(1);
+  // let variancePercent = ((varianceAmount / greenV) * 100).toFixed(1);
+  if (greenV == 0) {
+    let greenV = 1;
+    
+    var varianceP = (( varianceAmount /greenV) * 100).toFixed(1);
+  } else  {
+    var varianceP = (( varianceAmount /greenV) * 100).toFixed(1);
+  }
+
+  let variancePercent = varianceP
 
   function variancePerDisplay(variancePer) {
     if (variancePer < 1) {
-      let varianceAns = variancePer * -1;
-      return <span style={{ color: "green" }}>↑ {varianceAns}% </span>;
-    } else if (!isFinite(variancePer) || isFinite(variancePer)) {
-      return ` - `;
-    }
-    return <span style={{ color: "red" }}>↓ {variancePer}% </span>;
+      let varianceAns = (variancePer * -1)
+      return <span style={{color: 'green'}}>↑ {varianceAns}%</span>;
+    // } else if(!isFinite(variancePer) || isFinite(variancePer)){
+    //   return !isFinite(((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)) ?<span style={{color: 'red'}}> 0%</span>: <span style={{color: 'red'}}>↓ {((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)}%</span>;
+    } else {
+    return <span style={{color: 'red'}}>↓ {variancePer}% </span>;
   }
+}
 
   return (
     <React.Fragment>
@@ -168,7 +177,7 @@ function GreenDealCard() {
         <br/>
           <Col sm={4}>
             <Stack gap={0} className="d-flex justify-content-center">
-            ₦ {greenTotal}
+            ₦ {greenTotal.toFixed(2)}bn
               <br/>
               <br/>
               <small
@@ -181,7 +190,7 @@ function GreenDealCard() {
           </Col>
           <Col sm={4}>
             <Stack gap={0} className="d-flex justify-content-center">
-            ₦ {greenV}
+            ₦ {greenV.toFixed(2)}bn
               <small
                 style={{ fontSize: "11px", color: "black", fontWeight: "bold" }}
                 className="mt-2"

@@ -133,19 +133,27 @@ function GuaranteePipeline() {
   }, 0);
 
   let varianceAmount = targetValue - actuallvalue;
-
   function varianceDisplay(variance) {
     if (variance < 1) {
-      let varianceAns = variance * -1;
-      return (
-        <span style={{ color: "green" }}>↑ {varianceAns.toFixed(1)}bn</span>
-      );
-    } else if (!isFinite(variance) || isFinite(variance)) {
-      return ` - `;
+      let varianceAns = (variance * -1)
+      return <span style={{color: 'green'}}>↑ {(varianceAns).toFixed(1)}bn</span>;
     }
-
-    return <span style={{ color: "red" }}>↓ {variance.toFixed(1)}bn </span>;
+    else if (!isFinite(variance) || isFinite(variance)){
+      return <span style={{color: 'red'}}>↓ {-1 * (actuallvalue - targetValue)}bn </span>;
+    }
+    
+    return <span style={{color: 'red'}}>↓ {(variance).toFixed(1)}bn </span>;
   }
+
+  // function varianceDisplay(variance) {
+  //   if (variance < 1) {
+  //     let varianceAns = variance * -1;
+  //     return <span style={{color: 'green'}}>↑ {varianceAns}%</span>;
+
+  //   }else {
+  //     return <span style={{color: 'red'}}>↓ {variance}% </span>;
+  //   }
+  // }
 
 
   if (targetValue == 0) {
@@ -169,6 +177,8 @@ function GuaranteePipeline() {
   }
 }
 
+
+
   return (
     <React.Fragment>
       
@@ -179,7 +189,7 @@ function GuaranteePipeline() {
 <br/>
           <Col sm={4}>
           <Stack gap={0} className="d-flex justify-content-center">
-          ₦ {actuallvalue}
+          ₦ {actuallvalue.toFixed(2)} bn
             <br/>
             <small
               style={{ fontSize: "11px", color: "blue", fontWeight:'bold' }}
@@ -194,7 +204,7 @@ function GuaranteePipeline() {
           </Col>
           <Col sm={4}>
           <Stack gap={0} className="d-flex justify-content-center">
-          ₦ {targetValue}
+          ₦ {targetValue.toFixed(2) }bn
               <br/>
               <br/>
               <small
