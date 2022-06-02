@@ -82,7 +82,7 @@ export default function NewStaff() {
         setLevels(response.data.levels);
       })
       .catch((e) => {
-        console.log(e);
+     
       });
   };
 
