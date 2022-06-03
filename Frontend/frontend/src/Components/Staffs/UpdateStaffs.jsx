@@ -426,7 +426,7 @@ export default function UpdateStaffs() {
                                                 {/*----------------------- Form ------------------------------------------*/}
                                                 <Form.Group as={Row} className="mb-1" controlId="">
                                                     <Form.Label column sm="5">
-                                                        <p style={{ fontWeight: 'normal', fontSize: '11px'  }}>Mandate Letter (%)</p>
+                                                        <p style={{ fontWeight: 'normal', fontSize: '11px'  }}>Mandate Originated (%)</p>
                                                     </Form.Label>
                                                     <Col sm="6">
                                                         <Form.Control
