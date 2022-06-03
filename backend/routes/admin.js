@@ -1,24 +1,36 @@
 const router = require("express").Router();
 const pool = require("../database");
-const {verifyTokenAndAuthorization} = require("../middleware"); 
+const {verifyTokenAndAdmin} = require("../middleware"); 
 
 
 
-// fetch all industry by authorized users
-router.post('/industry', verifyTokenAndAuthorization, async (req, res) => {
+// create industry by authorized users
+router.post('/industry', verifyTokenAndAdmin, async (req, res) => {
+    
     const client = await pool.connect();
 
     try {
-        const industry = await client.query(
-            `SELECT * FROM TB_INFRCR_INDUSTRY
-            `);
+        const new_industry = { industry } = req.body
+
+        const industry_data = [
+            new_industry.industry
+        ]
+
+        await client.query('BEGIN')
         
-        if (industry) { 
-            res.status(200).send({
-                status: (res.statusCode = 200),
-                industry: industry.rows
-            })
-        }
+        const write_to_db = 
+        `INSERT INTO TB_INFRCR_INDUSTRY(industry) VALUES ($1) RETURNING *`
+    
+        
+        const res_ = await client.query(write_to_db, industry_data)
+
+        await client.query('COMMIT')
+
+        res.json({
+            status: (res.statusCode = 200),
+            message: "Industry Created Successfully",
+            industry: res_.rows[0],      
+          });
 
     } catch (e) {
         res.status(403).json({ Error: e.stack });
@@ -27,138 +39,33 @@ router.post('/industry', verifyTokenAndAuthorization, async (req, res) => {
       }
 });
 
-// fetch all PRODUCT by authorized users
-router.get('/product', verifyTokenAndAuthorization, async (req, res) => {
+// update industry by authorized users
+router.put('/industry/update/:industryid', verifyTokenAndAdmin, async (req, res) => {
+    
     const client = await pool.connect();
 
     try {
-        const product = await client.query(
-            `SELECT * FROM TB_INFRCR_PRODUCT
-            `);
+        const industry_rec = { industry } = req.body
+
+        const industry_data = [
+            industry_rec.industry, req.params.industryid
+        ]
+
+        await client.query('BEGIN')
         
-        if (product) { 
-            res.status(200).send({
-                status: (res.statusCode = 200),
-                product: product.rows
-            })
-        }
+        const write_to_db = 
+        `UPDATE TB_INFRCR_INDUSTRY SET industry = $1 WHERE industryid = $2 RETURNING *`
+    
         
-    } catch (e) {
-        res.status(403).json({ Error: e.stack });
-    }finally{
-        client.release()
-      }
-});
+        const res_ = await client.query(write_to_db, industry_data)
 
-// fetch all region by authorized users
-router.get('/region', verifyTokenAndAuthorization, async (req, res) => {
-    const client = await pool.connect();
+        await client.query('COMMIT')
 
-    try {
-        const region = await client.query(
-            `SELECT * FROM TB_INFRCR_REGION
-            `);
-        
-        if (region) { 
-            res.status(200).send({
-                status: (res.statusCode = 200),
-                region: region.rows
-            })
-        }
-        
-    } catch (e) {
-        res.status(403).json({ Error: e.stack });
-    }finally{
-        client.release()
-      }
-});
-
-// fetch all repayment frequencies by authorized users
-router.get('/repay_freq', verifyTokenAndAuthorization, async (req, res) => {
-    const client = await pool.connect();
-
-    try {
-        const frequency = await client.query(
-            `SELECT * FROM TB_INFRCR_REPAYMENT_FRQ
-            `);
-        
-        if (frequency) { 
-            res.status(200).send({
-                status: (res.statusCode = 200),
-                frequency: frequency.rows
-            })
-        }
-        
-    } catch (e) {
-        res.status(403).json({ Error: e.stack });
-    }finally{
-        client.release()
-      }
-});
-
-// fetch all amortization styles by authorized users
-router.get('/amortiz_sty', verifyTokenAndAuthorization, async (req, res) => {
-    const client = await pool.connect();
-
-    try {
-        const amortization = await client.query(
-            `SELECT * FROM TB_INFRCR_AMORTIZATION_STY
-            `);
-        
-        if (amortization) { 
-            res.status(200).send({
-                status: (res.statusCode = 200),
-                amortization: amortization.rows
-            })
-        }
-        
-    } catch (e) {
-        res.status(403).json({ Error: e.stack });
-    }finally{
-        client.release()
-      }
-});
-
-// fetch all deal category by authorized users
-router.get('/category', verifyTokenAndAuthorization, async (req, res) => {
-    const client = await pool.connect();
-
-    try {
-        const category = await client.query(
-            `SELECT * FROM TB_INFRCR_DEAL_CATEGORY
-            `);
-        
-        if (category) { 
-            res.status(200).send({
-                status: (res.statusCode = 200),
-                category: category.rows
-            })
-        }
-        
-    } catch (e) {
-        res.status(403).json({ Error: e.stack });
-    }finally{
-        client.release()
-      }
-});
-
-// fetch all staff by authorized users
-
-router.get('/staff_list', verifyTokenAndAuthorization, async (req, res) => {
-    const client = await pool.connect();
-    try {
-        const staff = await client.query(
-            `
-            SELECT CONCAT(firstname,' ',lastname) AS stafflist, email
-            FROM TB_TRS_USERS
-            `);
-        if (staff) {
-            res.status(200).send({
-                status: (res.statusCode = 200),
-                staffList: staff.rows
-            })
-
-        }
+        res.json({
+            status: (res.statusCode = 200),
+            message: "Industry Record Updated Successfully",
+            industry: res_.rows[0],      
+          });
 
     } catch (e) {
         res.status(403).json({ Error: e.stack });
@@ -167,22 +74,134 @@ router.get('/staff_list', verifyTokenAndAuthorization, async (req, res) => {
       }
 });
 
-// fetch all guarantee projection data  by authorized users
-router.get('/forecast', verifyTokenAndAuthorization, async (req, res) => {
+router.post('/product', verifyTokenAndAdmin, async (req, res) => {
+    const client = await pool.connect();
+    try {
+        const new_product = { product } = req.body
+
+        const product_data = [
+            new_product.product
+        ]
+
+        await client.query('BEGIN')
+        
+        const write_to_db = 
+        `INSERT INTO TB_INFRCR_PRODUCT(product) VALUES ($1) RETURNING *`
+    
+        
+        const res_ = await client.query(write_to_db, product_data)
+
+        await client.query('COMMIT')
+
+        res.json({
+            status: (res.statusCode = 200),
+            message: "Product Created Successfully",
+            product: res_.rows[0],      
+          });
+
+        
+    } catch (e) {
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+});
+
+// update product by authorized users
+router.put('/product/update/:productid', verifyTokenAndAdmin, async (req, res) => {
+    
     const client = await pool.connect();
 
     try {
-        const forecast = await client.query(
-            `SELECT * FROM TB_INFRCR_FORECAST
-            `);
+        const product_rec = { product } = req.body
+
+        const product_data = [
+            product_rec.product, req.params.productid
+        ]
+
+        await client.query('BEGIN')
         
-        if (forecast) { 
-            res.status(200).send({
-                status: (res.statusCode = 200),
-                forecast: forecast.rows
-            })
-        }
+        const write_to_db = 
+        `UPDATE TB_INFRCR_PRODUCT SET product = $1 WHERE productid = $2 RETURNING *`
+    
         
+        const res_ = await client.query(write_to_db, product_data)
+
+        await client.query('COMMIT')
+
+        res.json({
+            status: (res.statusCode = 200),
+            message: "Product Record Updated Successfully",
+            product: res_.rows[0],      
+          });
+
+    } catch (e) {
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+});
+
+router.post('/level', verifyTokenAndAdmin, async (req, res) => {
+    const client = await pool.connect();
+    try {
+        const new_level = { level } = req.body
+
+        const level_data = [
+            new_level.level
+        ]
+
+        await client.query('BEGIN')
+        
+        const write_to_db = 
+        `INSERT INTO TB_INFRCR_STAFF_LEVELS(stafflevel) VALUES ($1) RETURNING *`
+    
+        
+        const res_ = await client.query(write_to_db, level_data)
+
+        await client.query('COMMIT')
+
+        res.json({
+            status: (res.statusCode = 200),
+            message: "Level Created Successfully",
+            level: res_.rows[0],      
+          });
+
+    } catch (e) {
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+});
+
+// update level by authorized userd
+router.put('/level/update/:levelid', verifyTokenAndAdmin, async (req, res) => {
+    
+    const client = await pool.connect();
+
+    try {
+        const level_rec = { level } = req.body
+
+        const level_data = [
+            level_rec.level, req.params.levelid
+        ]
+
+        await client.query('BEGIN')
+        
+        const write_to_db = 
+        `UPDATE TB_INFRCR_STAFF_LEVELS SET stafflevel = $1 WHERE levelid = $2 RETURNING *`
+    
+        
+        const res_ = await client.query(write_to_db, level_data)
+
+        await client.query('COMMIT')
+
+        res.json({
+            status: (res.statusCode = 200),
+            message: "Level Record Updated Successfully",
+            level: res_.rows[0],      
+          });
+
     } catch (e) {
         res.status(403).json({ Error: e.stack });
     }finally{

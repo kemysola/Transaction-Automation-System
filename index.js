@@ -11,6 +11,7 @@ const transactionRoute = require("./backend/routes/transaction");
 const reportsRoute = require("./backend/routes/reporting");
 const passwdReset = require("./backend/routes/password_reset");
 const configRoute = require("./backend/routes/configuration");
+const adminRoute = require("./backend/routes/admin");
 
 dotenv.config();
 // const app_port = process.env.APP_SERVER_PORT;
@@ -35,6 +36,7 @@ try {
     app.use("/api/v1/report", reportsRoute)
     app.use("/api/v1/password_reset", passwdReset)
     app.use("/api/v1/configuration", configRoute)
+    app.use("/api/v1/admin", adminRoute)
     
 } catch (err) {
     console.error(err)
