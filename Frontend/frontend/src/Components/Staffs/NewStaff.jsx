@@ -57,8 +57,6 @@ export default function NewStaff() {
     level: "",
     amount: 0,
     guarantee: 0,
-    greenTransaction: 0,
-    amberTransaction: 0,
     mandateLetter: 2.0,
     creditCommiteeApproval: 8.0,
     feeLetter: 10.0,
@@ -110,8 +108,6 @@ export default function NewStaff() {
       hasOriginationTarget: JSON.parse(target),
       originationAmount: +staff.amount,
       guaranteePipeline: +staff.guarantee,
-      greenTransaction: +staff.greenTransaction,
-      amberTransaction: +staff.amberTransaction,
       mandateLetter: +staff.mandateLetter,
       creditCommiteeApproval: +staff.creditCommiteeApproval,
       feeLetter: +staff.feeLetter,
@@ -283,19 +279,7 @@ export default function NewStaff() {
                                                     </Form.Group>
                                                 </Col>
 
-                                                <Col sm={6}  className='mt-3 pt-2'>
-                                                    <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                        <Form.Label>Green Transaction (₦'BN)</Form.Label>
-                                                        <Form.Control size="sm" type="number" value={staff.greenTransaction} name='greenTransaction' onChange={handleInputChange}/>
-                                                    </Form.Group>
-                                                </Col>
-
-                                                <Col sm={6}  className='mt-3  pb-3 mb-2 pt-2'>
-                                                    <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                        <Form.Label>Amber Transaction (₦'BN)</Form.Label>
-                                                        <Form.Control size="sm" type="number" value={staff.amberTransaction} name='amberTransaction' onChange={handleInputChange} disabled/>
-                                                    </Form.Group>
-                                                </Col>
+                            
                                             </Row>
 
                                             <br />
