@@ -137,13 +137,13 @@ function GreenDealCard() {
   function varianceDisplay(variance) {
     if (variance < 1) {
       let varianceAns = (variance * -1)
-      return <span style={{color: 'green'}}>↑ {(varianceAns).toFixed(1)}bn</span>;
+      return <span style={{color: 'green'}}>↑ ₦ {(varianceAns).toFixed(1)}bn</span>;
     }
     else if (!isFinite(variance) || isFinite(variance)){
-      return <span style={{color: 'red'}}>↓ {-1 * (greenV - greenTotal)}bn </span>;
+      return <span style={{color: 'red'}}>↓ ₦ {-1 * (greenV - greenTotal)}bn </span>;
     }
     
-    return <span style={{color: 'red'}}>↓ {(variance).toFixed(1)}bn </span>;
+    return <span style={{color: 'red'}}>↓ ₦ {(variance).toFixed(1)}bn </span>;
   }
 
   // let variancePercent = ((varianceAmount / greenV) * 100).toFixed(1);
@@ -204,7 +204,7 @@ function GreenDealCard() {
           <Col sm={4}>
             <Stack gap={0}>
               <small style={{ fontSize: "17px" }}>
-              ₦ {variancePerDisplay(variancePercent)}
+               {variancePerDisplay(variancePercent)}
               </small>
               <small className="mb-3">{varianceDisplay(varianceAmount)}</small>
               <small

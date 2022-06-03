@@ -136,13 +136,13 @@ function GuaranteePipeline() {
   function varianceDisplay(variance) {
     if (variance < 1) {
       let varianceAns = (variance * -1)
-      return <span style={{color: 'green'}}>↑ {(varianceAns).toFixed(1)}bn</span>;
+      return <span style={{color: 'green'}}>↑ ₦ {(varianceAns).toFixed(1)}bn</span>;
     }
     else if (!isFinite(variance) || isFinite(variance)){
-      return <span style={{color: 'red'}}>↓ {-1 * (actuallvalue - targetValue)}bn </span>;
+      return <span style={{color: 'red'}}>↓ ₦ {-1 * (actuallvalue - targetValue)}bn </span>;
     }
     
-    return <span style={{color: 'red'}}>↓ {(variance).toFixed(1)}bn </span>;
+    return <span style={{color: 'red'}}>↓ ₦ {(variance).toFixed(1)}bn </span>;
   }
 
   // function varianceDisplay(variance) {
@@ -218,10 +218,10 @@ function GuaranteePipeline() {
           <Col sm={4}>
           <Stack gap={0}>
             <small style={{ fontSize: "17px" }}>
-            ₦ {variancePerDisplay(variancePercent)}
-      </small>
-      <small className="mb-3">{varianceDisplay(varianceAmount)}</small>
-      <small style={{ fontSize: "11px", color: "red", fontWeight:'bold' }}>VARIANCE</small>
+             {variancePerDisplay(variancePercent)}
+            </small>
+            <small className="mb-3">{varianceDisplay(varianceAmount)}</small>
+            <small style={{ fontSize: "11px", color: "red", fontWeight:'bold' }}>VARIANCE</small>
 
             </Stack>
           </Col>
