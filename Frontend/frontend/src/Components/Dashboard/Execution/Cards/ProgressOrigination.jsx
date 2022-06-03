@@ -247,13 +247,13 @@ export default function ProgressOrigination() {
   function varianceDisplay(variance) {
     if (variance < 1) {
       let varianceAns = (variance * -1)
-      return <span style={{color: 'green'}}>↑ {(varianceAns).toFixed(1)}bn</span>;
+      return <span style={{color: 'green'}}>↑ ₦ {(varianceAns).toFixed(1)}bn</span>;
     }
     else if (!isFinite(variance) || isFinite(variance)){
-      return <span style={{color: 'red'}}>↓ {-1 * (sumTotal - targetValue)}bn </span>;
+      return <span style={{color: 'red'}}>↓ ₦ {-1 * (sumTotal - targetValue)}bn </span>;
     }
     
-    return <span style={{color: 'red'}}>↓ {(variance).toFixed(1)}bn </span>;
+    return <span style={{color: 'red'}}>↓ ₦ {(variance).toFixed(1)}bn </span>;
   }
 
   // let variancePercent = ((varianceAmount / targetValue) * 100).toFixed(1)
