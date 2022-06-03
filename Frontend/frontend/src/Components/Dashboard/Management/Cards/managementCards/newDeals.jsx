@@ -38,7 +38,7 @@ function NewDeals() {
     <React.Fragment>
       <Card style={{ padding: "10px" , background:'white' }}>
       <Row className='my-1 py-2'>
-        <small style={{ fontSize: "13px" , fontWeight:'bold'}}>NEW DEALS</small>
+        <small style={{ fontSize: "13px" , fontWeight:'bold'}}>NEW GUARANTEES</small>
         <br/>
         <br/>
           <Col sm={4}>

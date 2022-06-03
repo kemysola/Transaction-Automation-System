@@ -74,6 +74,7 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                     New Transaction
                   </Link>
                 </MenuItem>
+                
               </SubMenu>
 
               {/* -------------------------------- Staff SideNav with React RouterLink -------------------- */}
@@ -112,6 +113,10 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                   </Link>
                 </MenuItem>
             </SubMenu>
+            <MenuItem icon={<HiOutlineCalculator />}><Link to ='/org-dashboard' style={{color:'#237cbf'}}>
+                    Report
+                  </Link></MenuItem>
+
 
             <MenuItem icon={<HiOutlineCalculator />}>Budget</MenuItem>
           </Menu>
