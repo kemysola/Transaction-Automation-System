@@ -316,7 +316,7 @@ export default function NewStaff() {
                                                 <Col sm={8}  >
                                                     <Form.Group as={Row} className='mt-2  pb-1 mb-1 pt-2'>
                                                         <Form.Label column sm="5">
-                                                            <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Mandate Letter (%)</p>
+                                                            <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Mandate Originated (%)</p>
                                                         </Form.Label>
                                                         <Col sm="6">
                                                             <Form.Control type="number" placeholder="0" size='sm' id='mandateLetter' value={staff.mandateLetter} name='mandateLetter' onChange={handleInputChange} />
