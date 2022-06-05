@@ -779,7 +779,7 @@ export default function ProgressOrigination() {
             fontWeight: "bold",
           }}
         >
-          CUMULATIVE PERFPRMANCE INCENTIVE EARNED
+          CUMULATIVE PERFORMANCE INCENTIVEs EARNED
         </small>
       </Container>
       <br />
