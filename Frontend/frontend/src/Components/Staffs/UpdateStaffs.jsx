@@ -56,7 +56,6 @@ export default function UpdateStaffs() {
   const firstName = useRef("");
   const lastName = useRef("");
   const level = useRef("");
-  const originator = useRef("");
   const hasOriginationTarget = useRef("");
   const originationAmount = useRef("");
   const guaranteePipeline = useRef("")
@@ -96,7 +95,7 @@ export default function UpdateStaffs() {
 
   const retrieveStaff = async () => {
     const staff_data = await axios.get(
-     `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
+       `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
         /* `http://localhost:5001/api/v1/staff/${user_email}`, */
 
       {headers: {
@@ -135,7 +134,6 @@ export default function UpdateStaffs() {
             lastName: lastName.current.value,
             isadmin: JSON.parse(isadmin),
             level: level.current.value,
-            originator: +originator.current.value,
             hasOriginationTarget: 1,
             originationAmount: +originationAmount.current.value,
             guaranteePipeline: +guaranteePipeline.current.value,
@@ -370,23 +368,7 @@ export default function UpdateStaffs() {
 
                                             <Col sm={8}>
 
-                                                {/*----------------------------- Form ------------------------------- */}
-                                                <Form.Group as={Row} className='mt-2  pb-1 mb-1 pt-2'>
-                                                    <Form.Label column sm="5">
-                                                        <p style={{ fontWeight: 'normal', fontSize: '11px'  }}>Originator</p>
-                                                    </Form.Label>
-                                                    <Col sm="6">
-                                                        <Form.Control
-                                                            type="text"
-                                                            placeholder="0"
-                                                            size='sm'
-                                                            id='originator'
-                                                            ref={originator}
-                                                            // onChange={handleInputChange}
-                                                            name="originator"
-                                                        />
-                                                    </Col>
-                                                </Form.Group>
+        
 
                                                 {/*----------------------- Form ------------------------------------------*/}
                                                 <Form.Group as={Row} className="mb-1" controlId="">
