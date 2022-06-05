@@ -1257,3 +1257,28 @@ ON TB_INFRCR_TRANSACTION(clientName,originator,transactor,transactionLegalLead,i
 -- 1. all date columns should default to 1900-01-01 if the user does not send a date, 
 -- 2. all varchar/text should default to '' no nulls 
 -- 3. integers/numeric should default to 0(zero)
+
+
+--- 5th June, 2022. Altered Forecast Table to include 2026 data and set status for all
+ALTER TABLE trms.TB_INFRCR_FORECAST
+ADD COLUMN status VARCHAR;
+
+UPDATE trms.TB_INFRCR_FORECAST AS f SET
+  projectionYear = f2.projectionYear,
+  cumulativeGrowth = f2.cumulativeGrowth,
+  newDeals = f2.newDeals,
+  guaranteePipeline = f2.guaranteePipeline,
+  greenAndAmberDeals = f2.greenAndAmberDeals,
+  greenDeals = f2.greenDeals,
+  status = f2.status
+FROM (VALUES
+		(2021, 146.9, 103.4, 335.3, 155.1, 108.6, 'Inactive'),
+		(2022, 180.3, 103.4, 335, 155, 109, 'Active'),
+		(2023, 300.4, 120.1, 388.65, 180.15, 126.105, 'Active'),
+		(2024, 439.4, 139, 426, 208.5, 145.95, 'Active'),
+		(2025, 584.4, 145, 450.9, 217.5, 152.25, 'Active')
+) AS f2(projectionYear, cumulativeGrowth, newDeals, guaranteePipeline, greenAndAmberDeals, greenDeals, status)
+WHERE f2.projectionYear = f.projectionYear;
+
+INSERT INTO trms.TB_INFRCR_FORECAST(projectionYear, cumulativeGrowth, newDeals, guaranteePipeline, greenAndAmberDeals, greenDeals, status)
+VALUES(2026, 740.0, 155.6, 233.4, 233.4, 163.38, 'Active');

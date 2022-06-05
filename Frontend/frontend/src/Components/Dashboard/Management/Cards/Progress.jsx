@@ -464,7 +464,7 @@ export default function Progress() {
     {
       "name": item.projectionyear,
       "Cumulative Growth": item.cumulativegrowth,
-      "New Deals": item.newdeals
+      "New Guarantees": item.newdeals
     }
   ));
 
@@ -602,7 +602,7 @@ export default function Progress() {
                   top: 5,
                   right: 15,
                   left: 2,
-                  bottom: 2,
+                  bottom: 1,
                 }}
 
                 layout="horizontal"
@@ -630,13 +630,13 @@ export default function Progress() {
                   <LabelList dataKey="Cumulative Growth" position="top" style={{fontSize: "0.7rem"}} />
                 </Bar>
                 <Bar
-                  dataKey="New Deals"
+                  dataKey="New Guarantees"
                   fill="#89ec8a"
                   minPointSize={1}
                   isAnimationActive={false}
                   style={{lineHeight: "10px"}}
                 >
-                  <LabelList dataKey="New Deals" position="insideBottom" style={{fontSize: "0.6rem"}} />
+                  <LabelList dataKey="New Guarantees" position="insideBottom" style={{fontSize: "0.6rem"}} />
                 </Bar>
               </BarChart>
 
@@ -730,10 +730,10 @@ export default function Progress() {
                 data={dealCategoryData}
                 barSize={15}
                 margin={{
-                  top: 5,
+                  top: 10,
                   right: 15,
                   left: 5,
-                  bottom: 2,
+                  bottom: 1,
                 }}
                 layout="horizontal"
               >
