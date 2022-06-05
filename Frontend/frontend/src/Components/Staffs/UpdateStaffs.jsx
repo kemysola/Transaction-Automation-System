@@ -60,8 +60,6 @@ export default function UpdateStaffs() {
   const hasOriginationTarget = useRef("");
   const originationAmount = useRef("");
   const guaranteePipeline = useRef("")
-  const greenTransaction = useRef("");
-  const amberTransaction = useRef("");
   const mandateLetter = useRef("");
   const creditCommitteApproval = useRef("");
   const feeLetter = useRef("");
@@ -141,8 +139,6 @@ export default function UpdateStaffs() {
             hasOriginationTarget: 1,
             originationAmount: +originationAmount.current.value,
             guaranteePipeline: +guaranteePipeline.current.value,
-            greenTransaction: +greenTransaction.current.value,
-            amberTransaction: +amberTransaction.current.value,
             mandateLetter: +mandateLetter.current.value,
             creditCommitteApproval: +creditCommitteApproval.current.value,
             feeLetter: +feeLetter.current.value,
@@ -354,37 +350,6 @@ export default function UpdateStaffs() {
                                                             !guaranteePipeline && <p>Kindly fill</p>
                                                         }
                                             </Col>
-
-                                            <Col sm={6}  className='mt-3 pt-2'>
-                                                    <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                        <Form.Label>Green Transaction (₦'BN)</Form.Label>
-                                                        <Form.Control type=""
-                                                            placeholder="0"
-                                                            size='sm'
-                                                            id='greenTransaction'
-                                                            ref={greenTransaction}
-                                                            defaultValue={staff[0].greentransaction}
-                                                            name="greenTransaction"
-                                                    />
-                                                    </Form.Group>
-                                                        {!greenTransaction && <p>Kindly fill</p>}
-                                            </Col>
-
-                                            <Col sm={6}  className='mt-3  pb-3 mb-2 pt-2'>
-                                                    <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                        <Form.Label>Amber Transaction (₦'BN)</Form.Label>
-
-                        
-                                                        <Form.Control type=""
-                                                            placeholder="0"
-                                                            size='sm'
-                                                            id='amberTransaction'
-                                                            defaultValue={staff[0].ambertransaction}
-                                                            ref={amberTransaction}
-                                                            name="amberTransaction"
-                                                        />
-                                                    </Form.Group>
-                                                </Col>
                                         </Row>
                         
                                         <br />
@@ -426,7 +391,7 @@ export default function UpdateStaffs() {
                                                 {/*----------------------- Form ------------------------------------------*/}
                                                 <Form.Group as={Row} className="mb-1" controlId="">
                                                     <Form.Label column sm="5">
-                                                        <p style={{ fontWeight: 'normal', fontSize: '11px'  }}>Mandate Letter (%)</p>
+                                                        <p style={{ fontWeight: 'normal', fontSize: '11px'  }}>Mandate Originated (%)</p>
                                                     </Form.Label>
                                                     <Col sm="6">
                                                         <Form.Control

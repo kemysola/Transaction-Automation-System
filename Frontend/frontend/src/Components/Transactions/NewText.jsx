@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
-import { Form as Fm, Container, Row, Col } from "react-bootstrap";
+import { Form as Fm, Container, Row, Col, Dropdown } from "react-bootstrap";
 import styled from "styled-components";
 import Services from "../../Services/Service";
 import Form from "react-validation/build/form";
@@ -63,13 +63,13 @@ const AddDeal = () => {
     moratorium: 0,
     repaymentFrequency: "Semi-Annually",
     amortizationStyle: "Annuity",
-    mandateLetter: "",
-    nbc_approval_date: "",
-    nbc_submitted_date: "",
-    creditApproval: "",
-    feeLetter: "",
-    expectedClose: "",
-    actualClose: "",
+    mandateLetter: "1900-01-01",
+    nbc_approval_date: "1900-01-01",
+    nbc_submitted_date: "1900-01-01",
+    creditApproval: "1900-01-01",
+    feeLetter: "1900-01-01",
+    expectedClose: "1900-01-01",
+    actualClose: "1900-01-01",
     greenA: "false",
     greenB: "false",
     greenC: "false",
@@ -91,6 +91,197 @@ const AddDeal = () => {
     reimbursible: 0,
     notes: "",
     closed: false,
+
+    // PLIS Columns
+    plis_1_b:"",
+    plis_1_c:0.00,
+    plis_1_d:"1900-01-01",
+    plis_1_e:"",
+    plis_2_b:"",
+    plis_2_c:0.00,
+    plis_2_d:"1900-01-01",
+    plis_2_e:"",
+    plis_3_b:"",
+    plis_3_c:0.00,
+    plis_3_d:"1900-01-01",
+    plis_3_e:"",
+    plis_4_b:"",
+    plis_4_c:0.00,
+    plis_4_d:"1900-01-01",
+    plis_4_e:"",
+    plis_5_b:"",
+    plis_5_c:0.00,
+    plis_5_d:"1900-01-01",
+    plis_5_e:"",
+    plis_6_b:"",
+    plis_6_c:0.00,
+    plis_6_d:"1900-01-01",
+    plis_6_e:"",
+
+    // Parties Columns
+    parties_1_b:"",
+    parties_1_c:"false",
+    parties_1_d:"",
+    parties_2_b:"",
+    parties_2_c:"false",
+    parties_2_d:"",
+    parties_3_b:"",
+    parties_3_c:"false",
+    parties_3_d:"",
+    parties_4_b:"",
+    parties_4_c:"false",
+    parties_4_d:"",
+    parties_5_b:"",
+    parties_5_c:"false",
+    parties_5_d:"",
+    parties_6_b:"",
+    parties_6_c:"false",
+    parties_6_d:"",
+    parties_7_b:"",
+    parties_7_c:"false",
+    parties_7_d:"",
+    parties_8_b:"",
+    parties_8_c:"false",
+    parties_8_d:"",
+    parties_9_b:"",
+    parties_9_c:"false",
+    parties_9_d:"",
+    parties_10_b:"",
+    parties_10_c:"false",
+    parties_10_d:"",
+    parties_11_b:"",
+    parties_11_c:"false",
+    parties_11_d:"",
+
+    // NBC Focus Data
+    nbc_focus_original_1_b:"false",
+    nbc_focus_original_1_c:"1900-01-01",
+    nbc_focus_original_1_d:"",
+    nbc_focus_original_2_b:"false",
+    nbc_focus_original_2_c:"1900-01-01",
+    nbc_focus_original_2_d:"",
+    nbc_focus_original_3_b:"false",
+    nbc_focus_original_3_c:"1900-01-01",
+    nbc_focus_original_3_d:"",
+    nbc_focus_original_4_b:"false",
+    nbc_focus_original_4_c:"1900-01-01",
+    nbc_focus_original_4_d:"",
+    nbc_focus_original_5_b:"false",
+    nbc_focus_original_5_c:"1900-01-01",
+    nbc_focus_original_5_d:"",
+    nbc_focus_apprv_1_b:"false",
+    nbc_focus_apprv_1_c:"1900-01-01",
+    nbc_focus_apprv_2_b:"false",
+    nbc_focus_apprv_2_c:"1900-01-01",
+    nbc_focus_apprv_3_b:"false",
+    nbc_focus_apprv_3_c:"1900-01-01",
+    nbc_focus_apprv_4_b:"false",
+    nbc_focus_apprv_4_c:"1900-01-01",
+    nbc_focus_apprv_5_b:"false",
+    nbc_focus_apprv_5_c:"1900-01-01",
+
+    // Other CPS Data
+    ocps_fac_1_b:"false",
+    ocps_fac_1_c:"",
+    ocps_fac_1_d:"",
+    ocps_fac_1_e:"",
+    ocps_fac_1_f:"",
+    ocps_fac_2_b:"false",
+    ocps_fac_2_c:"",
+    ocps_fac_2_d:"",
+    ocps_fac_2_e:"",
+    ocps_fac_2_f:"",
+    ocps_fac_3_b:"false",
+    ocps_fac_3_c:"",
+    ocps_fac_3_d:"",
+    ocps_fac_3_e:"",
+    ocps_fac_3_f:"",
+    ocps_fac_4_b:"false",
+    ocps_fac_4_c:"",
+    ocps_fac_4_d:"",
+    ocps_fac_4_e:"",
+    ocps_fac_4_f:"",
+    ocps_fac_5_b:"false",
+    ocps_fac_5_c:"",
+    ocps_fac_5_d:"",
+    ocps_fac_5_e:"",
+    ocps_fac_5_f:"",
+    ocps_fac_6_b:"false",
+    ocps_fac_6_c:"",
+    ocps_fac_6_d:"",
+    ocps_fac_6_e:"",
+    ocps_fac_6_f:"",
+    ocps_fac_7_b:"false",
+    ocps_fac_7_c:"",
+    ocps_fac_7_d:"",
+    ocps_fac_7_e:"",
+    ocps_fac_7_f:"",
+    ocps_fac_8_b:"false",
+    ocps_fac_8_c:"",
+    ocps_fac_8_d:"",
+    ocps_fac_8_e:"",
+    ocps_fac_8_f:"",
+    ocps_fac_9_b:"false",
+    ocps_fac_9_c:"",
+    ocps_fac_9_d:"",
+    ocps_fac_9_e:"",
+    ocps_fac_9_f:"",
+    
+    ocps_fac_10_b:"false",
+    ocps_fac_10_c:"",
+    ocps_fac_10_d:"",
+    ocps_fac_10_e:"",
+    ocps_fac_10_f:"",
+    ocps_fac_11_b:"false",
+    ocps_fac_11_c:"",
+    ocps_fac_11_d:"",
+    ocps_fac_11_e:"",
+    ocps_fac_11_f:"",
+    ocps_fac_12_b:"false",
+    ocps_fac_12_c:"",
+    ocps_fac_12_d:"",
+    ocps_fac_12_e:"",
+    ocps_fac_12_f:"",
+    ocps_fac_13_b:"false",
+    ocps_fac_13_c:"",
+    ocps_fac_13_d:"",
+    ocps_fac_13_e:"",
+    ocps_fac_13_f:"",
+    ocps_fac_14_b:"false",
+    ocps_fac_14_c:"",
+    ocps_fac_14_d:"",
+    ocps_fac_14_e:"",
+    ocps_fac_14_f:"",
+    ocps_fac_15_b:"false",
+    ocps_fac_15_c:"",
+    ocps_fac_15_d:"",
+    ocps_fac_15_e:"",
+    ocps_fac_15_f:"",
+    ocps_fac_16_b:"false",
+    ocps_fac_16_c:"",
+    ocps_fac_16_d:"",
+    ocps_fac_16_e:"",
+    ocps_fac_16_f:"",
+    ocps_fac_17_b:"false",
+    ocps_fac_17_c:"",
+    ocps_fac_17_d:"",
+    ocps_fac_17_e:"",
+    ocps_fac_17_f:"",
+    ocps_fac_18_b:"false",
+    ocps_fac_18_c:"",
+    ocps_fac_18_d:"",
+    ocps_fac_18_e:"",
+    ocps_fac_18_f:"",
+    ocps_fac_19_b:"false",
+    ocps_fac_19_c:"",
+    ocps_fac_19_d:"",
+    ocps_fac_19_e:"",
+    ocps_fac_19_f:"",
+    ocps_fac_20_b:"false",
+    ocps_fac_20_c:"",
+    ocps_fac_20_d:"",
+    ocps_fac_20_e:"",
+    ocps_fac_20_f:"",
   };
 
   const [activeTab, setActiveTab] = useState('first');
@@ -108,27 +299,19 @@ const AddDeal = () => {
 
   useEffect(() => {
     retrieveIndustry();
-  }, []);
 
-  useEffect(() => {
     retrieveProduct();
-  }, []);
 
-  useEffect(() => {
     retrieveRegion();
-  }, []);
 
-  useEffect(() => {
     retrieveRepaymentFreq();
-  }, []);
 
-  useEffect(() => {
     retrieveAmortizationStyle();
-  }, []);
 
-  useEffect(() => {
     retrieveStaffList();
   }, []);
+
+  // console.log("deals should be here", deal)
 
   const retrieveIndustry = () => {
     Services.getIndustry()
@@ -219,6 +402,9 @@ const AddDeal = () => {
     if (activeTab === "seventh") {
       setActiveTab("eigth");
     }
+    if (activeTab === "eigth") {
+      setActiveTab("ninth");
+    }
   }
   function handlePrevChange() {
     if (activeTab === "second") {
@@ -238,6 +424,9 @@ const AddDeal = () => {
     }
     if (activeTab === "eigth") {
       setActiveTab("seventh");
+    }
+    if (activeTab === "ninth") {
+      setActiveTab("eigth");
     }
   }
 
@@ -315,6 +504,239 @@ const AddDeal = () => {
       NBC_submitted_date: deal.nbc_submitted_date,
       notes: note,
       closed: false,
+
+      //Parties data
+      parties_1_b: deal.parties_1_b,
+      parties_1_c: JSON.parse(deal.parties_1_c),
+      parties_1_d: deal.parties_1_d,
+
+      parties_2_b: deal.parties_2_b,
+      parties_2_c: JSON.parse(deal.parties_2_c),
+      parties_2_d: deal.parties_2_d,
+
+      parties_3_b: deal.parties_3_b,
+      parties_3_c: JSON.parse(deal.parties_3_c),
+      parties_3_d: deal.parties_3_d,
+
+      parties_4_b: deal.parties_4_b,
+      parties_4_c: JSON.parse(deal.parties_4_c),
+      parties_4_d: deal.parties_4_d,
+
+      parties_5_b: deal.parties_5_b,
+      parties_5_c: JSON.parse(deal.parties_5_c),
+      parties_5_d: deal.parties_5_d,
+
+      parties_6_b: deal.parties_6_b,
+      parties_6_c: JSON.parse(deal.parties_6_c),
+      parties_6_d: deal.parties_6_d,
+
+      parties_7_b: deal.parties_7_b,
+      parties_7_c: JSON.parse(deal.parties_7_c),
+      parties_7_d: deal.parties_7_d,
+
+      parties_8_b: deal.parties_8_b,
+      parties_8_c: JSON.parse(deal.parties_8_c),
+      parties_8_d: deal.parties_8_d,
+
+      parties_9_b: deal.parties_9_b,
+      parties_9_c: JSON.parse(deal.parties_9_c),
+      parties_9_d: deal.parties_9_d,
+
+      parties_10_b: deal.parties_10_b,
+      parties_10_c: JSON.parse(deal.parties_10_c),
+      parties_10_d: deal.parties_10_d,
+
+      parties_11_b: deal.parties_11_b,
+      parties_11_c: JSON.parse(deal.parties_11_c),
+      parties_11_d: deal.parties_11_d,
+
+      // NBC Focus Data
+      nbc_focus_original_1_b: JSON.parse(deal.nbc_focus_original_1_b),
+      nbc_focus_original_1_c: deal.nbc_focus_original_1_c,
+      nbc_focus_original_1_d: deal.nbc_focus_original_1_d,
+
+      nbc_focus_original_2_b: JSON.parse(deal.nbc_focus_original_2_b),
+      nbc_focus_original_2_c: deal.nbc_focus_original_2_c,
+      nbc_focus_original_2_d: deal.nbc_focus_original_2_d,
+
+      nbc_focus_original_3_b: JSON.parse(deal.nbc_focus_original_3_b),
+      nbc_focus_original_3_c: deal.nbc_focus_original_3_c,
+      nbc_focus_original_3_d: deal.nbc_focus_original_3_d,
+
+      nbc_focus_original_4_b: JSON.parse(deal.nbc_focus_original_4_b),
+      nbc_focus_original_4_c: deal.nbc_focus_original_4_c,
+      nbc_focus_original_4_d: deal.nbc_focus_original_4_d,
+
+      nbc_focus_original_5_b: JSON.parse(deal.nbc_focus_original_5_b),
+      nbc_focus_original_5_c: deal.nbc_focus_original_5_c,
+      nbc_focus_original_5_d: deal.nbc_focus_original_5_d,
+
+      nbc_focus_apprv_1_b: deal.nbc_focus_apprv_1_b,
+      nbc_focus_apprv_1_c: deal.nbc_focus_apprv_1_c,
+
+      nbc_focus_apprv_2_b: deal.nbc_focus_apprv_2_b,
+      nbc_focus_apprv_2_c: deal.nbc_focus_apprv_2_c,
+
+      nbc_focus_apprv_3_b: deal.nbc_focus_apprv_3_b,
+      nbc_focus_apprv_3_c: deal.nbc_focus_apprv_3_c,
+
+      nbc_focus_apprv_4_b: deal.nbc_focus_apprv_4_b,
+      nbc_focus_apprv_4_c: deal.nbc_focus_apprv_4_c,
+
+      nbc_focus_apprv_5_b: deal.nbc_focus_apprv_5_b,
+      nbc_focus_apprv_5_c: deal.nbc_focus_apprv_5_c,
+
+      // PLIS data
+      plis_1_b: deal.plis_1_b,
+      plis_1_c: deal.plis_1_c,
+      plis_1_d: deal.plis_1_d,
+      plis_1_e: deal.plis_1_e,
+
+      plis_2_b: deal.plis_2_b,
+      plis_2_c: deal.plis_2_c,
+      plis_2_d: deal.plis_2_d,
+      plis_2_e: deal.plis_2_e,
+
+      plis_3_b: deal.plis_3_b,
+      plis_3_c: deal.plis_3_c,
+      plis_3_d: deal.plis_3_d,
+      plis_3_e: deal.plis_3_e,
+
+      plis_4_b: deal.plis_4_b,
+      plis_4_c: deal.plis_4_c,
+      plis_4_d: deal.plis_4_d,
+      plis_4_e: deal.plis_4_e,
+
+      plis_5_b: deal.plis_5_b,
+      plis_5_c: deal.plis_5_c,
+      plis_5_d: deal.plis_5_d,
+      plis_5_e: deal.plis_5_e,
+
+      plis_6_b: deal.plis_6_b,
+      plis_6_c: deal.plis_6_c,
+      plis_6_d: deal.plis_6_d,
+      plis_6_e: deal.plis_6_e,
+
+      // other cps data
+      ocps_fac_1_b: JSON.parse(deal.ocps_fac_1_b),
+      ocps_fac_1_c: deal.ocps_fac_1_c,
+      ocps_fac_1_d: deal.ocps_fac_1_d,
+      ocps_fac_1_e: deal.ocps_fac_1_e,
+      ocps_fac_1_f: deal.ocps_fac_1_f,
+
+      ocps_fac_2_b: JSON.parse(deal.ocps_fac_2_b),
+      ocps_fac_2_c: deal.ocps_fac_2_c,
+      ocps_fac_2_d: deal.ocps_fac_2_d,
+      ocps_fac_2_e: deal.ocps_fac_2_e,
+      ocps_fac_2_f: deal.ocps_fac_2_f,
+
+      ocps_fac_3_b: JSON.parse(deal.ocps_fac_3_b),
+      ocps_fac_3_c: deal.ocps_fac_3_c,
+      ocps_fac_3_d: deal.ocps_fac_3_d,
+      ocps_fac_3_e: deal.ocps_fac_3_e,
+      ocps_fac_3_f: deal.ocps_fac_3_f,
+
+      ocps_fac_4_b: JSON.parse(deal.ocps_fac_4_b),
+      ocps_fac_4_c: deal.ocps_fac_4_c,
+      ocps_fac_4_d: deal.ocps_fac_4_d,
+      ocps_fac_4_e: deal.ocps_fac_4_e,
+      ocps_fac_4_f: deal.ocps_fac_4_f,
+
+      ocps_fac_5_b: JSON.parse(deal.ocps_fac_5_b),
+      ocps_fac_5_c: deal.ocps_fac_5_c,
+      ocps_fac_5_d: deal.ocps_fac_5_d,
+      ocps_fac_5_e: deal.ocps_fac_5_e,
+      ocps_fac_5_f: deal.ocps_fac_5_f,
+
+      ocps_fac_6_b: JSON.parse(deal.ocps_fac_6_b),
+      ocps_fac_6_c: deal.ocps_fac_6_c,
+      ocps_fac_6_d: deal.ocps_fac_6_d,
+      ocps_fac_6_e: deal.ocps_fac_6_e,
+      ocps_fac_6_f: deal.ocps_fac_6_f,
+
+      ocps_fac_7_b: JSON.parse(deal.ocps_fac_7_b),
+      ocps_fac_7_c: deal.ocps_fac_7_c,
+      ocps_fac_7_d: deal.ocps_fac_7_d,
+      ocps_fac_7_e: deal.ocps_fac_7_e,
+      ocps_fac_7_f: deal.ocps_fac_7_f,
+
+      ocps_fac_8_b: JSON.parse(deal.ocps_fac_8_b),
+      ocps_fac_8_c: deal.ocps_fac_8_c,
+      ocps_fac_8_d: deal.ocps_fac_8_d,
+      ocps_fac_8_e: deal.ocps_fac_8_e,
+      ocps_fac_8_f: deal.ocps_fac_8_f,
+
+      ocps_fac_9_b: JSON.parse(deal.ocps_fac_9_b),
+      ocps_fac_9_c: deal.ocps_fac_9_c,
+      ocps_fac_9_d: deal.ocps_fac_9_d,
+      ocps_fac_9_e: deal.ocps_fac_9_e,
+      ocps_fac_9_f: deal.ocps_fac_9_f,
+
+      ocps_fac_10_b: JSON.parse(deal.ocps_fac_10_b),
+      ocps_fac_10_c: deal.ocps_fac_10_c,
+      ocps_fac_10_d: deal.ocps_fac_10_d,
+      ocps_fac_10_e: deal.ocps_fac_10_e,
+      ocps_fac_10_f: deal.ocps_fac_10_f,
+
+      ocps_fac_11_b: JSON.parse(deal.ocps_fac_11_b),
+      ocps_fac_11_c: deal.ocps_fac_11_c,
+      ocps_fac_11_d: deal.ocps_fac_11_d,
+      ocps_fac_11_e: deal.ocps_fac_11_e,
+      ocps_fac_11_f: deal.ocps_fac_11_f,
+
+      ocps_fac_12_b: JSON.parse(deal.ocps_fac_12_b),
+      ocps_fac_12_c: deal.ocps_fac_12_c,
+      ocps_fac_12_d: deal.ocps_fac_12_d,
+      ocps_fac_12_e: deal.ocps_fac_12_e,
+      ocps_fac_12_f: deal.ocps_fac_12_f,
+
+      ocps_fac_13_b: JSON.parse(deal.ocps_fac_13_b),
+      ocps_fac_13_c: deal.ocps_fac_13_c,
+      ocps_fac_13_d: deal.ocps_fac_13_d,
+      ocps_fac_13_e: deal.ocps_fac_13_e,
+      ocps_fac_13_f: deal.ocps_fac_13_f,
+
+      ocps_fac_14_b: JSON.parse(deal.ocps_fac_14_b),
+      ocps_fac_14_c: deal.ocps_fac_14_c,
+      ocps_fac_14_d: deal.ocps_fac_14_d,
+      ocps_fac_14_e: deal.ocps_fac_14_e,
+      ocps_fac_14_f: deal.ocps_fac_14_f,
+
+      ocps_fac_15_b: JSON.parse(deal.ocps_fac_15_b),
+      ocps_fac_15_c: deal.ocps_fac_15_c,
+      ocps_fac_15_d: deal.ocps_fac_15_d,
+      ocps_fac_15_e: deal.ocps_fac_15_e,
+      ocps_fac_15_f: deal.ocps_fac_15_f,
+
+      ocps_fac_16_b: JSON.parse(deal.ocps_fac_16_b),
+      ocps_fac_16_c: deal.ocps_fac_16_c,
+      ocps_fac_16_d: deal.ocps_fac_16_d,
+      ocps_fac_16_e: deal.ocps_fac_16_e,
+      ocps_fac_16_f: deal.ocps_fac_16_f,
+
+      ocps_fac_17_b: JSON.parse(deal.ocps_fac_17_b),
+      ocps_fac_17_c: deal.ocps_fac_17_c,
+      ocps_fac_17_d: deal.ocps_fac_17_d,
+      ocps_fac_17_e: deal.ocps_fac_17_e,
+      ocps_fac_17_f: deal.ocps_fac_17_f,
+
+      ocps_fac_18_b: JSON.parse(deal.ocps_fac_18_b),
+      ocps_fac_18_c: deal.ocps_fac_18_c,
+      ocps_fac_18_d: deal.ocps_fac_18_d,
+      ocps_fac_18_e: deal.ocps_fac_18_e,
+      ocps_fac_18_f: deal.ocps_fac_18_f,
+
+      ocps_fac_19_b: JSON.parse(deal.ocps_fac_19_b),
+      ocps_fac_19_c: deal.ocps_fac_19_c,
+      ocps_fac_19_d: deal.ocps_fac_19_d,
+      ocps_fac_19_e: deal.ocps_fac_19_e,
+      ocps_fac_19_f: deal.ocps_fac_19_f,
+
+      ocps_fac_20_b: JSON.parse(deal.ocps_fac_20_b),
+      ocps_fac_20_c: deal.ocps_fac_20_c,
+      ocps_fac_20_d: deal.ocps_fac_20_d,
+      ocps_fac_20_e: deal.ocps_fac_20_e,
+      ocps_fac_20_f: deal.ocps_fac_20_f,
     };
 
     Services.createDeal(data)
@@ -332,6 +754,8 @@ const AddDeal = () => {
     setDeal(initialDealState);
     setNoteList([{ note: "" }]);
     setSubmitted(false);
+    setActiveTab("first");
+    setResponse("");
   };
 
   return (
@@ -1004,6 +1428,11 @@ const AddDeal = () => {
                                 value={deal.structuringFeeFinal}
                                 onChange={handleInputChange}
                                 name="structuringFeeFinal"
+                                placeholder={
+                                  deal.structuringFeeAmount && deal.structuringFeeAdvance ? 
+                                    `${((deal.structuringFeeAmount / deal.structuringFeeAdvance) * 100).toFixed(1)}` 
+                                    : 0
+                                }
                                 disabled
                                 style={{
                                   width: "100%",
@@ -1704,14 +2133,16 @@ const AddDeal = () => {
                                     inline
                                     label="Yes"
                                     type="radio"
-                                    name="strength"
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_original_1_b"
                                     value={true}
                                   />
                                   <Fm.Check
                                     inline
                                     label="No"
                                     type="radio"
-                                    name="strength"
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_original_1_b"
                                     value={false}
                                     defaultChecked
                                   />
@@ -1720,9 +2151,9 @@ const AddDeal = () => {
                                   <Input
                                     size="sm"
                                     type="date"
-                                    value=""
-                                    onChange=""
-                                    name=""
+                                    value={deal.nbc_focus_original_1_c}
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_original_1_c"
                                     style={{
                                       width: "80%",
                                       padding: "2px 1px",
@@ -1734,6 +2165,9 @@ const AddDeal = () => {
                                   <Fm.Control
                                     as="textarea"
                                     placeholder=" "
+                                    value={deal.nbc_focus_original_1_d}
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_original_1_d"
                                     style={{ height: "30px" }}
                                   ></Fm.Control>
                                 </Col>
@@ -1756,14 +2190,16 @@ const AddDeal = () => {
                                     inline
                                     label="Yes"
                                     type="radio"
-                                    name="sponsor"
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_original_2_b"
                                     value={true}
                                   />
                                   <Fm.Check
                                     inline
                                     label="No"
                                     type="radio"
-                                    name="sponsor"
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_original_2_b"
                                     value={false}
                                     defaultChecked
                                   />
@@ -1772,9 +2208,9 @@ const AddDeal = () => {
                                   <Input
                                     size="sm"
                                     type="date"
-                                    value=""
-                                    onChange=""
-                                    name=""
+                                    value={deal.nbc_focus_original_2_c}
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_original_2_c"
                                     style={{
                                       width: "80%",
                                       padding: "2px 1px",
@@ -1786,6 +2222,9 @@ const AddDeal = () => {
                                   <Fm.Control
                                     as="textarea"
                                     placeholder=""
+                                    value={deal.nbc_focus_original_2_d}
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_original_2_d"
                                     style={{ height: "30px" }}
                                   ></Fm.Control>
                                 </Col>
@@ -1806,14 +2245,16 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      name="regulatory"
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_original_3_b"
                                       value={true}
                                     />
                                     <Fm.Check
                                       inline
                                       label="No"
                                       type="radio"
-                                      name="regulatory"
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_original_3_b"
                                       value={false}
                                       defaultChecked
                                     />
@@ -1822,9 +2263,9 @@ const AddDeal = () => {
                                     <Input
                                       size="sm"
                                       type="date"
-                                      value=""
-                                      onChange=""
-                                      name=""
+                                      value={deal.nbc_focus_original_3_c}
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_original_3_c"
                                       style={{
                                         width: "80%",
                                         padding: "2px 1px",
@@ -1836,6 +2277,9 @@ const AddDeal = () => {
                                     <Fm.Control
                                       as="textarea"
                                       placeholder=""
+                                      value={deal.nbc_focus_original_3_d}
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_original_3_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
                                   </Col>
@@ -1857,14 +2301,16 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      name="technical"
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_original_4_b"
                                       value={true}
                                     />
                                     <Fm.Check
                                       inline
                                       label="No"
                                       type="radio"
-                                      name="technical"
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_original_4_b"
                                       value={false}
                                       defaultChecked
                                     />
@@ -1873,9 +2319,9 @@ const AddDeal = () => {
                                     <Input
                                       size="sm"
                                       type="date"
-                                      value=""
-                                      onChange=""
-                                      name=""
+                                      value={deal.nbc_focus_original_4_c}
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_original_4_c"
                                       style={{
                                         width: "80%",
                                         padding: "2px 1px",
@@ -1887,6 +2333,9 @@ const AddDeal = () => {
                                     <Fm.Control
                                       as="textarea"
                                       placeholder=" "
+                                      value={deal.nbc_focus_original_4_d}
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_original_4_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
                                   </Col>
@@ -1908,14 +2357,16 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      name="competitive"
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_original_5_b"
                                       value={true}
                                     />
                                     <Fm.Check
                                       inline
                                       label="No"
                                       type="radio"
-                                      name="competitive"
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_original_5_b"
                                       value={false}
                                       defaultChecked
                                     />
@@ -1924,9 +2375,9 @@ const AddDeal = () => {
                                     <Input
                                       size="sm"
                                       type="date"
-                                      value=""
-                                      onChange=""
-                                      name=""
+                                      value={deal.nbc_focus_original_5_c}
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_original_5_c"
                                       style={{
                                         width: "80%",
                                         padding: "2px 1px",
@@ -1938,6 +2389,9 @@ const AddDeal = () => {
                                     <Fm.Control
                                       as="textarea"
                                       placeholder=""
+                                      value={deal.nbc_focus_original_5_d}
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_original_5_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
                                   </Col>
@@ -1970,14 +2424,16 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      name="pre_nbc"
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_apprv_1_b"
                                       value={true}
                                     />
                                     <Fm.Check
                                       inline
                                       label="No"
                                       type="radio"
-                                      name="pre_nbc"
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_apprv_1_b"
                                       value={false}
                                       defaultChecked
                                     />
@@ -1986,9 +2442,9 @@ const AddDeal = () => {
                                     <Input
                                       size="sm"
                                       type="date"
-                                      value=""
-                                      onChange=""
-                                      name=""
+                                      value={deal.nbc_focus_apprv_1_c}
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_apprv_1_c"
                                       style={{
                                         width: "80%",
                                         padding: "2px 1px",
@@ -2014,14 +2470,16 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      name="minutes"
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_apprv_2_b"
                                       value={true}
                                     />
                                     <Fm.Check
                                       inline
                                       label="No"
                                       type="radio"
-                                      name="minutes"
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_apprv_2_b"
                                       value={false}
                                       defaultChecked
                                     />
@@ -2030,9 +2488,9 @@ const AddDeal = () => {
                                     <Input
                                       size="sm"
                                       type="date"
-                                      value=""
-                                      onChange=""
-                                      name=""
+                                      value={deal.nbc_focus_apprv_2_c}
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_apprv_2_c"
                                       style={{
                                         width: "80%",
                                         padding: "2px 1px",
@@ -2058,14 +2516,16 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      name="nbc_app"
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_apprv_3_b"
                                       value={true}
                                     />
                                     <Fm.Check
                                       inline
                                       label="No"
                                       type="radio"
-                                      name="nbc_app"
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_apprv_3_b"
                                       value={false}
                                       defaultChecked
                                     />
@@ -2074,9 +2534,9 @@ const AddDeal = () => {
                                     <Input
                                       size="sm"
                                       type="date"
-                                      value=""
-                                      onChange=""
-                                      name=""
+                                      value={deal.nbc_focus_apprv_3_c}
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_apprv_3_c"
                                       style={{
                                         width: "80%",
                                         padding: "2px 1px",
@@ -2102,14 +2562,16 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      name="nbc_min"
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_apprv_4_b"
                                       value={true}
                                     />
                                     <Fm.Check
                                       inline
                                       label="No"
                                       type="radio"
-                                      name="nbc_min"
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_apprv_4_b"
                                       value={false}
                                       defaultChecked
                                     />
@@ -2118,9 +2580,9 @@ const AddDeal = () => {
                                     <Input
                                       size="sm"
                                       type="date"
-                                      value=""
-                                      onChange=""
-                                      name=""
+                                      value={deal.nbc_focus_apprv_4_c}
+                                      onChange={handleInputChange}
+                                      name="nbc_focus_apprv_4_c"
                                       style={{
                                         width: "80%",
                                         padding: "2px 1px",
@@ -2149,14 +2611,16 @@ const AddDeal = () => {
                                         inline
                                         label="Yes"
                                         type="radio"
-                                        name="mandlet"
+                                        onChange={handleInputChange}
+                                        name="nbc_focus_apprv_5_b"
                                         value={true}
                                       />
                                       <Fm.Check
                                         inline
                                         label="No"
                                         type="radio"
-                                        name="mandlet"
+                                        onChange={handleInputChange}
+                                        name="nbc_focus_apprv_5_b"
                                         value={false}
                                         defaultChecked
                                       />
@@ -2165,9 +2629,9 @@ const AddDeal = () => {
                                       <Input
                                         size="sm"
                                         type="date"
-                                        value=""
-                                        onChange=""
-                                        name=""
+                                        value={deal.nbc_focus_apprv_5_c}
+                                        onChange={handleInputChange}
+                                        name="nbc_focus_apprv_5_c"
                                         style={{
                                           width: "80%",
                                           padding: "2px 1px",
@@ -2225,17 +2689,17 @@ const AddDeal = () => {
                       <Row className="py-1">
                         <Col sm={12}>
                           <Row>
-                            <Col>
+                            <Col sm={3}>
                               <PWrapper>ROLE</PWrapper>
                               <br />
                             </Col>
-                            <Col>
+                            <Col sm={3}>
                               <PWrapper>PARTY</PWrapper>
                             </Col>
-                            <Col>
+                            <Col sm={3}>
                               <PWrapper>APPOINTED</PWrapper>
                             </Col>
-                            <Col>
+                            <Col sm={3}>
                               <PWrapper>STATUS</PWrapper>
                             </Col>
                           </Row>
@@ -2245,12 +2709,15 @@ const AddDeal = () => {
                                 <Row>
                                   <Col sm={3}>
                                     <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      1. Lead Issuing House
+                                      1. Reporting Accountant
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={3}>
                                     <Input
                                       type="text"
+                                      value={deal.parties_1_b}
+                                      onChange={handleInputChange}
+                                      name="parties_1_b"
                                       style={{ height: "30px" }}
                                     />
                                   </Col>
@@ -2259,15 +2726,17 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      name="appA"
+                                      name="parties_1_c"
                                       value={true}
+                                      onChange={handleInputChange}
                                     />
                                     <Fm.Check
                                       inline
                                       label="No"
                                       type="radio"
-                                      name="appA"
+                                      name="parties_1_c"
                                       value={false}
+                                      onChange={handleInputChange}
                                       defaultChecked
                                     />
                                   </Col>
@@ -2275,6 +2744,9 @@ const AddDeal = () => {
                                     <Fm.Control
                                       as="textarea"
                                       placeholder=" "
+                                      value={deal.parties_1_d}
+                                      onChange={handleInputChange}
+                                      name="parties_1_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
                                   </Col>
@@ -2289,12 +2761,15 @@ const AddDeal = () => {
                                 <Row>
                                   <Col sm={3}>
                                     <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      2. Co-Issuing House
+                                      2. Solicitor to the Trustee
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={3}>
                                     <Input
                                       type="text"
+                                      value={deal.parties_2_b}
+                                      onChange={handleInputChange}
+                                      name="parties_2_b"
                                       style={{ height: "30px" }}
                                     />
                                   </Col>
@@ -2303,14 +2778,16 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      name="appB"
+                                      onChange={handleInputChange}
+                                      name="parties_2_c"
                                       value={true}
                                     />
                                     <Fm.Check
                                       inline
                                       label="No"
                                       type="radio"
-                                      name="appB"
+                                      onChange={handleInputChange}
+                                      name="parties_2_c"
                                       value={false}
                                       defaultChecked
                                     />
@@ -2319,6 +2796,9 @@ const AddDeal = () => {
                                     <Fm.Control
                                       as="textarea"
                                       placeholder=" "
+                                      value={deal.parties_2_d}
+                                      onChange={handleInputChange}
+                                      name="parties_2_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
                                   </Col>
@@ -2333,12 +2813,15 @@ const AddDeal = () => {
                                 <Row>
                                   <Col sm={3}>
                                     <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      3. Bond Trusties
+                                      3. Lead Issuing House
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={3}>
                                     <Input
                                       type="text"
+                                      value={deal.parties_3_b}
+                                      onChange={handleInputChange}
+                                      name="parties_3_b"
                                       style={{ height: "30px" }}
                                     />
                                   </Col>
@@ -2347,14 +2830,16 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      name="appC"
+                                      onChange={handleInputChange}
+                                      name="parties_3_c"
                                       value={true}
                                     />
                                     <Fm.Check
                                       inline
                                       label="No"
                                       type="radio"
-                                      name="appC"
+                                      onChange={handleInputChange}
+                                      name="parties_3_c"
                                       value={false}
                                       defaultChecked
                                     />
@@ -2363,6 +2848,9 @@ const AddDeal = () => {
                                     <Fm.Control
                                       as="textarea"
                                       placeholder=" "
+                                      value={deal.parties_3_d}
+                                      onChange={handleInputChange}
+                                      name="parties_3_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
                                   </Col>
@@ -2377,12 +2865,15 @@ const AddDeal = () => {
                                 <Row>
                                   <Col sm={3}>
                                     <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      4. Solicitor to the Issuer
+                                      4. Co-Issuing House 
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={3}>
                                     <Input
                                       type="text"
+                                      value={deal.parties_4_b}
+                                      onChange={handleInputChange}
+                                      name="parties_4_b"
                                       style={{ height: "30px" }}
                                     />
                                   </Col>
@@ -2391,14 +2882,16 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      name="appD"
+                                      onChange={handleInputChange}
+                                      name="parties_4_c"
                                       value={true}
                                     />
                                     <Fm.Check
                                       inline
                                       label="No"
                                       type="radio"
-                                      name="appD"
+                                      onChange={handleInputChange}
+                                      name="parties_4_c"
                                       value={false}
                                       defaultChecked
                                     />
@@ -2407,6 +2900,9 @@ const AddDeal = () => {
                                     <Fm.Control
                                       as="textarea"
                                       placeholder=" "
+                                      value={deal.parties_4_d}
+                                      onChange={handleInputChange}
+                                      name="parties_4_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
                                   </Col>
@@ -2421,12 +2917,15 @@ const AddDeal = () => {
                                 <Row>
                                   <Col sm={3}>
                                     <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      5. Solicitor th the Issue
+                                      5. Asset Valuer
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={3}>
                                     <Input
                                       type="text"
+                                      value={deal.parties_5_b}
+                                      onChange={handleInputChange}
+                                      name="parties_5_b"
                                       style={{ height: "30px" }}
                                     />
                                   </Col>
@@ -2435,14 +2934,16 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      name="appE"
+                                      onChange={handleInputChange}
+                                      name="parties_5_c"
                                       value={true}
                                     />
                                     <Fm.Check
                                       inline
                                       label="No"
                                       type="radio"
-                                      name="appE"
+                                      onChange={handleInputChange}
+                                      name="parties_5_c"
                                       value={false}
                                       defaultChecked
                                     />
@@ -2451,6 +2952,9 @@ const AddDeal = () => {
                                     <Fm.Control
                                       as="textarea"
                                       placeholder=" "
+                                      value={deal.parties_5_d}
+                                      onChange={handleInputChange}
+                                      name="parties_5_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
                                   </Col>
@@ -2465,12 +2969,15 @@ const AddDeal = () => {
                                 <Row>
                                   <Col sm={3}>
                                     <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      6. Solicitor to the Trustee
+                                      6. Bond Trustee
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={3}>
                                     <Input
                                       type="text"
+                                      value={deal.parties_6_b}
+                                      onChange={handleInputChange}
+                                      name="parties_6_b"
                                       style={{ height: "30px" }}
                                     />
                                   </Col>
@@ -2479,14 +2986,16 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      name="appF"
+                                      onChange={handleInputChange}
+                                      name="parties_6_c"
                                       value={true}
                                     />
                                     <Fm.Check
                                       inline
                                       label="No"
                                       type="radio"
-                                      name="appF"
+                                      onChange={handleInputChange}
+                                      name="parties_6_c"
                                       value={false}
                                       defaultChecked
                                     />
@@ -2495,6 +3004,9 @@ const AddDeal = () => {
                                     <Fm.Control
                                       as="textarea"
                                       placeholder=" "
+                                      value={deal.parties_6_d}
+                                      onChange={handleInputChange}
+                                      name="parties_6_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
                                   </Col>
@@ -2508,12 +3020,15 @@ const AddDeal = () => {
                                 <Row>
                                   <Col sm={3}>
                                     <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      7. Registrar
+                                      7. Solicitor to the Issuer
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={3}>
                                     <Input
                                       type="text"
+                                      value={deal.parties_7_b}
+                                      onChange={handleInputChange}
+                                      name="parties_7_b"
                                       style={{ height: "30px" }}
                                     />
                                   </Col>
@@ -2522,14 +3037,16 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      name="app_g"
+                                      onChange={handleInputChange}
+                                      name="parties_7_c"
                                       value={true}
                                     />
                                     <Fm.Check
                                       inline
                                       label="No"
                                       type="radio"
-                                      name="app_g"
+                                      onChange={handleInputChange}
+                                      name="parties_7_c"
                                       value={false}
                                       defaultChecked
                                     />
@@ -2538,6 +3055,9 @@ const AddDeal = () => {
                                     <Fm.Control
                                       as="textarea"
                                       placeholder=" "
+                                      value={deal.parties_7_d}
+                                      onChange={handleInputChange}
+                                      name="parties_7_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
                                   </Col>
@@ -2551,12 +3071,15 @@ const AddDeal = () => {
                                 <Row>
                                   <Col sm={3}>
                                     <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      8.Reporting Accountant
+                                      8. Solicitor to the Issue
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={3}>
                                     <Input
                                       type="text"
+                                      value={deal.parties_8_b}
+                                      onChange={handleInputChange}
+                                      name="parties_8_b"
                                       style={{ height: "30px" }}
                                     />
                                   </Col>
@@ -2565,14 +3088,16 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      name="appH"
+                                      onChange={handleInputChange}
+                                      name="parties_8_c"
                                       value={true}
                                     />
                                     <Fm.Check
                                       inline
                                       label="No"
                                       type="radio"
-                                      name="appH"
+                                      onChange={handleInputChange}
+                                      name="parties_8_c"
                                       value={false}
                                       defaultChecked
                                     />
@@ -2581,6 +3106,9 @@ const AddDeal = () => {
                                     <Fm.Control
                                       as="textarea"
                                       placeholder=" "
+                                      value={deal.parties_8_d}
+                                      onChange={handleInputChange}
+                                      name="parties_8_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
                                   </Col>
@@ -2594,12 +3122,15 @@ const AddDeal = () => {
                                 <Row>
                                   <Col sm={3}>
                                     <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      9. Asset Valuer
+                                      9. Registrar
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={3}>
                                     <Input
                                       type="text"
+                                      value={deal.parties_9_b}
+                                      onChange={handleInputChange}
+                                      name="parties_9_b"
                                       style={{ height: "30px" }}
                                     />
                                   </Col>
@@ -2608,14 +3139,16 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      name="appI"
+                                      onChange={handleInputChange}
+                                      name="parties_9_c"
                                       value={true}
                                     />
                                     <Fm.Check
                                       inline
                                       label="No"
                                       type="radio"
-                                      name="appI"
+                                      onChange={handleInputChange}
+                                      name="parties_9_c"
                                       value={false}
                                       defaultChecked
                                     />
@@ -2624,6 +3157,9 @@ const AddDeal = () => {
                                     <Fm.Control
                                       as="textarea"
                                       placeholder=" "
+                                      value={deal.parties_9_d}
+                                      onChange={handleInputChange}
+                                      name="parties_9_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
                                   </Col>
@@ -2644,6 +3180,9 @@ const AddDeal = () => {
                                   <Col sm={3}>
                                     <Input
                                       type="text"
+                                      value={deal.parties_10_b}
+                                      onChange={handleInputChange}
+                                      name="parties_10_b"
                                       style={{ height: "30px" }}
                                     />
                                   </Col>
@@ -2652,14 +3191,16 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      name="appJ"
+                                      onChange={handleInputChange}
+                                      name="parties_10_c"
                                       value={true}
                                     />
                                     <Fm.Check
                                       inline
                                       label="No"
                                       type="radio"
-                                      name="appJ"
+                                      onChange={handleInputChange}
+                                      name="parties_10_c"
                                       value={false}
                                       defaultChecked
                                     />
@@ -2668,6 +3209,9 @@ const AddDeal = () => {
                                     <Fm.Control
                                       as="textarea"
                                       placeholder=" "
+                                      value={deal.parties_10_d}
+                                      onChange={handleInputChange}
+                                      name="parties_10_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
                                   </Col>
@@ -2688,6 +3232,9 @@ const AddDeal = () => {
                                   <Col sm={3}>
                                     <Input
                                       type="text"
+                                      value={deal.parties_11_b}
+                                      onChange={handleInputChange}
+                                      name="parties_11_b"
                                       style={{ height: "30px" }}
                                     />
                                   </Col>
@@ -2696,14 +3243,16 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      name="appK"
+                                      onChange={handleInputChange}
+                                      name="parties_11_c"
                                       value={true}
                                     />
                                     <Fm.Check
                                       inline
                                       label="No"
                                       type="radio"
-                                      name="appK"
+                                      onChange={handleInputChange}
+                                      name="parties_11_c"
                                       value={false}
                                       defaultChecked
                                     />
@@ -2712,6 +3261,9 @@ const AddDeal = () => {
                                     <Fm.Control
                                       as="textarea"
                                       placeholder=" "
+                                      value={deal.parties_11_d}
+                                      onChange={handleInputChange}
+                                      name="parties_11_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
                                   </Col>
@@ -2736,7 +3288,1925 @@ const AddDeal = () => {
                         {" "}
                         Prev
                       </button>
-                      {/* <button
+                      <button
+                        onClick={(e) => toNextTab(e)}
+                        style={{
+                          display: "inlineblock",
+                          fontSize: "13px",
+                          padding: "2px 20px",
+                          margin: "10px",
+                          background: "green",
+                          color: "white",
+                          borderRadius: "3px",
+                        }}
+                      >
+                        Next
+                      </button>
+                    </Container1>
+                  </Tab>
+
+                  {/* ...........................eight tab */}
+                  <Tab
+                    eventKey="eigth"
+                    title="PERFORMANCE-LINKED INDICATORS"
+                    style={{ fontSize: "12px" }}
+                  >
+                    <Container1>
+                      <br />
+                      <Row className="py-1">
+                        <Col sm={12}>
+                          <Row>
+                            <Col>
+                              <PWrapper>Particulars</PWrapper>
+                              <br />
+                            </Col>
+                            <Col>
+                              <PWrapper>Concern</PWrapper>
+                            </Col>
+                            <Col>
+                              <PWrapper>Weighting</PWrapper>
+                            </Col>
+                            <Col>
+                              <PWrapper>Expected</PWrapper>
+                            </Col>
+                            <Col>
+                              <PWrapper>Status</PWrapper>
+                            </Col>
+                          </Row>
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Fm.Group>
+                                <Row>
+                                  <Col sm={2}>
+                                    <Fm.Label style={{ paddingRight: "1rem" }}>
+                                      1. Licenses in good standing with regulator
+                                    </Fm.Label>
+                                  </Col>
+                                  <Col sm={2}>
+                                    {/* <Dropdown size="sm">
+                                      <Dropdown.Toggle
+                                        variant="secondary"
+                                        id=""
+                                      >
+                                        Concern
+                                      </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item 
+                                          onChange={handleInputChange}
+                                          name="plis_1_b" 
+                                          value={"High"}
+                                        >
+                                          High
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          onChange={handleInputChange}
+                                          name="plis_1_b"
+                                          value={"Low"}
+                                        >
+                                          Low
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          onChange={handleInputChange}
+                                          name="plis_1_b"
+                                          value={"Medium"}
+                                        >
+                                          Medium
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>{" "} */}
+                                    <Select
+                                      type = "text"
+                                      value={deal.plis_1_b}
+                                      onChange={handleInputChange}
+                                      name="plis_1_b"
+                                    >
+                                      <option>Concern</option>
+                                      <option value={"High"}>High</option>
+                                      <option value={"Low"}>Low</option>
+                                      <option value={"Medium"}>Medium</option>
+                                    </Select>
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="number"
+                                      value={deal.plis_1_c}
+                                      onChange={handleInputChange}
+                                      name="plis_1_c"
+                                      style={{ width: "100%", margin: "2px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input 
+                                      type="date"
+                                      value={deal.plis_1_d}
+                                      onChange={handleInputChange}
+                                      name="plis_1_d"
+                                      style={{
+                                        width: "100%", margin: "2px"
+                                      }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      value={deal.plis_1_e}
+                                      onChange={handleInputChange}
+                                      name="plis_1_e"
+                                      style={{margin: "2px" }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Fm.Group>
+                            </Col>
+                          </Col>
+
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Fm.Group>
+                                <Row>
+                                  <Col sm={2}>
+                                    <Fm.Label style={{ paddingRight: "1rem" }}>
+                                     2. Achievement of Sales growth targets
+                                    </Fm.Label>
+                                  </Col>
+                                  <Col sm={2}>
+                                    {/* <Dropdown size={1}>
+                                      <Dropdown.Toggle
+                                        variant="secondary"
+                                        id=""
+                                      >
+                                        Concern
+                                      </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item name="appA" value={true}>
+                                          High
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Low
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Medium
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>{" "} */}
+
+                                    <Select
+                                      type = "text"
+                                      value={deal.plis_2_b}
+                                      onChange={handleInputChange}
+                                      name="plis_2_b"
+                                    >
+                                      <option>Concern</option>
+                                      <option value={"High"}>High</option>
+                                      <option value={"Low"}>Low</option>
+                                      <option value={"Medium"}>Medium</option>
+                                    </Select>
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="number"
+                                      value={deal.plis_2_c}
+                                      onChange={handleInputChange}
+                                      name="plis_2_c"
+                                      style={{ width: "100%", margin: "2px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input 
+                                      type="date"
+                                      value={deal.plis_2_d}
+                                      onChange={handleInputChange}
+                                      name="plis_2_d"
+                                      style={{
+                                        width: "100%", margin: "2px"
+                                      }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      value={deal.plis_2_e}
+                                      onChange={handleInputChange}
+                                      name="plis_2_e"
+                                      style={{ margin: "2px" }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Fm.Group>
+                            </Col>
+                          </Col>
+
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Fm.Group>
+                                <Row>
+                                  <Col sm={2}>
+                                    <Fm.Label style={{ paddingRight: "1rem" }}>
+                                      3.Reduction in customer concentration risk
+                                    </Fm.Label>
+                                  </Col>
+                                  <Col sm={2}>
+                                    {/* <Dropdown size={1}>
+                                      <Dropdown.Toggle
+                                        variant="secondary"
+                                        id=""
+                                      >
+                                        Concern
+                                      </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item name="appA" value={true}>
+                                          High
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Low
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Medium
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>{" "} */}
+
+                                    <Select
+                                      type = "text"
+                                      value={deal.plis_3_b}
+                                      onChange={handleInputChange}
+                                      name="plis_3_b"
+                                    >
+                                      <option>Concern</option>
+                                      <option value={"High"}>High</option>
+                                      <option value={"Low"}>Low</option>
+                                      <option value={"Medium"}>Medium</option>
+                                    </Select>
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="number"
+                                      value={deal.plis_3_c}
+                                      onChange={handleInputChange}
+                                      name="plis_3_c"
+                                      style={{ width: "100%", margin: "2px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input 
+                                      type="date"
+                                      value={deal.plis_3_d}
+                                      onChange={handleInputChange}
+                                      name="plis_3_d"
+                                      style={{
+                                        width: "100%", margin: "2px"
+                                      }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      value={deal.plis_3_e}
+                                      onChange={handleInputChange}
+                                      name="plis_3_e"
+                                      style={{ margin: "2px" }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Fm.Group>
+                            </Col>
+                          </Col>
+
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Fm.Group>
+                                <Row>
+                                  <Col sm={2}>
+                                    <Fm.Label style={{ paddingRight: "1rem" }}>
+                                      4. Extension of Contracts with at least 2 or
+                                      3 largest customers
+                                    </Fm.Label>
+                                  </Col>
+                                  <Col sm={2}>
+                                    {/* <Dropdown size={1}>
+                                      <Dropdown.Toggle
+                                        variant="secondary"
+                                        id=""
+                                      >
+                                        Concern
+                                      </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item name="appA" value={true}>
+                                          High
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Low
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Medium
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>{" "} */}
+
+                                    <Select
+                                      type = "text"
+                                      value={deal.plis_4_b}
+                                      onChange={handleInputChange}
+                                      name="plis_4_b"
+                                    >
+                                      <option>Concern</option>
+                                      <option value={"High"}>High</option>
+                                      <option value={"Low"}>Low</option>
+                                      <option value={"Medium"}>Medium</option>
+                                    </Select>
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="number"
+                                      value={deal.plis_4_c}
+                                      onChange={handleInputChange}
+                                      name="plis_4_c"
+                                      style={{ width: "100%", margin: "2px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input 
+                                      type="date"
+                                      value={deal.plis_4_d}
+                                      onChange={handleInputChange}
+                                      name="plis_4_d"
+                                      style={{
+                                        width: "100%", margin: "2px"
+                                      }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      value={deal.plis_4_e}
+                                      onChange={handleInputChange}
+                                      name="plis_4_e"
+                                      style={{ margin: "2px" }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Fm.Group>
+                            </Col>
+                          </Col>
+
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Fm.Group>
+                                <Row>
+                                  <Col sm={2}>
+                                    <Fm.Label style={{ paddingRight: "1rem" }}>
+                                      5. Implementation of corporate governance
+                                      enhancement programme{" "}
+                                    </Fm.Label>
+                                  </Col>
+                                  <Col sm={2}>
+                                    {/* <Dropdown size={1}>
+                                      <Dropdown.Toggle
+                                        variant="secondary"
+                                        id=""
+                                      >
+                                        Concern
+                                      </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item name="appA" value={true}>
+                                          High
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Low
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Medium
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>{" "} */}
+
+                                    <Select
+                                      type = "text"
+                                      value={deal.plis_5_b}
+                                      onChange={handleInputChange}
+                                      name="plis_5_b"
+                                    >
+                                      <option>Concern</option>
+                                      <option value={"High"}>High</option>
+                                      <option value={"Low"}>Low</option>
+                                      <option value={"Medium"}>Medium</option>
+                                    </Select>
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="number"
+                                      value={deal.plis_5_c}
+                                      onChange={handleInputChange}
+                                      name="plis_5_c"
+                                      style={{ width: "100%", margin: "2px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                  <Input 
+                                      type="date"
+                                      value={deal.plis_5_d}
+                                      onChange={handleInputChange}
+                                      name="plis_5_d"
+                                      style={{
+                                        width: "100%", margin: "2px"
+                                      }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      value={deal.plis_5_e}
+                                      onChange={handleInputChange}
+                                      name="plis_5_e"
+                                      style={{ margin: "2px" }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Fm.Group>
+                            </Col>
+                          </Col>
+                          <Col sm={12}>
+                            <Col className="pb-2">
+                              <Fm.Group>
+                                <Row>
+                                  <Col sm={2}>
+                                    <Fm.Label style={{ paddingRight: "1rem" }}>
+                                      6.Compliance with environment and social
+                                      action plan{" "}
+                                    </Fm.Label>
+                                  </Col>
+                                  <Col sm={2}>
+                                    {/* <Dropdown size={1}>
+                                      <Dropdown.Toggle
+                                        variant="secondary"
+                                        id=""
+                                      >
+                                        Concern
+                                      </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item name="appA" value={true}>
+                                          High
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Low
+                                        </Dropdown.Item>
+                                        <Dropdown.Item
+                                          name="appA"
+                                          value={false}
+                                        >
+                                          Medium
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>{" "} */}
+
+                                    <Select
+                                      type = "text"
+                                      value={deal.plis_6_b}
+                                      onChange={handleInputChange}
+                                      name="plis_6_b"
+                                    >
+                                      <option>Concern</option>
+                                      <option value={"High"}>High</option>
+                                      <option value={"Low"}>Low</option>
+                                      <option value={"Medium"}>Medium</option>
+                                    </Select>
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="number"
+                                      value={deal.plis_6_c}
+                                      onChange={handleInputChange}
+                                      name="plis_6_c"
+                                      style={{ width: "100%", margin: "2px" }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input 
+                                      type="date"
+                                      value={deal.plis_6_d}
+                                      onChange={handleInputChange}
+                                      name="plis_6_d"
+                                      style={{
+                                        width: "100%", margin: "2px"
+                                      }}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Input
+                                      type="text"
+                                      value={deal.plis_6_e}
+                                      onChange={handleInputChange}
+                                      name="plis_6_e"
+                                      style={{ margin: "2px" }}
+                                    />
+                                  </Col>
+                                </Row>
+                              </Fm.Group>
+                            </Col>
+                          </Col>
+                        </Col>
+                      </Row>
+                      <button
+                        onClick={(e) => toPrevTab(e)}
+                        style={{
+                          display: "inlineblock",
+                          fontSize: "13px",
+                          padding: "2px 20px",
+                          margin: "10px",
+                          background: "green",
+                          color: "white",
+                          borderRadius: "3px",
+                        }}
+                      >
+                        {" "}
+                        Prev
+                      </button>
+                      <button
+                        onClick={(e) => toNextTab(e)}
+                        style={{
+                          display: "inlineblock",
+                          fontSize: "13px",
+                          padding: "2px 20px",
+                          margin: "10px",
+                          background: "green",
+                          color: "white",
+                          borderRadius: "3px",
+                        }}
+                      >
+                        Next
+                      </button>
+                    </Container1>
+                  </Tab>
+                  {/* ninth tab  other cpis */}
+                  <Tab
+                    eventKey="ninth"
+                    title="OTHER CONDITIONS PRECEDENT"
+                    style={{ fontSize: "12px" }}
+                  >
+                    <br />
+                    <Row className="py-1">
+                      <Col sm={12}>
+                        <Row>
+                          <Col>
+                            <PWrapper>FACTORS</PWrapper>
+                            <br />
+                          </Col>
+                          <Col>
+                            <PWrapper>YES/NO</PWrapper>
+                          </Col>
+                          <Col>
+                            <PWrapper>CONCERN</PWrapper>
+                          </Col>
+                          <Col>
+                            <PWrapper>EXPECTED</PWrapper>
+                          </Col>
+                          <Col>
+                            <PWrapper>RESPONSIBLE PARTY</PWrapper>
+                          </Col>
+                          <Col>
+                            <PWrapper>STATUS</PWrapper>
+                          </Col>
+                        </Row>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Open Transaction Accounts
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_1_b}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_1_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_1_c}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_1_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.ocps_fac_1_d}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_1_d" 
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_1_e}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_1_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_1_f}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_1_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Certificate of Authenticity
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_2_b}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_2_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_2_c}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_2_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date"
+                                    value={deal.ocps_fac_2_d}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_2_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_2_e}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_2_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_2_f}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_2_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Co-Due Diligence
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_3_b}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_3_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_3_c}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_3_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date"
+                                    value={deal.ocps_fac_3_d}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_3_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_3_e}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_3_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_3_f}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_3_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Complete Set of Original Financial Statements
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_4_b}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_4_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_4_c}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_4_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date"
+                                    value={deal.ocps_fac_4_d}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_4_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_4_e}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_4_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_4_f}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_4_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Confirmation of Balances
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_5_b}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_5_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_5_c}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_5_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date"
+                                    value={deal.ocps_fac_5_d}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_5_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_5_e}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_5_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_5_f}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_5_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Copy of Constitutional Documents
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_6_b}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_6_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_6_c}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_6_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date"
+                                    value={deal.ocps_fac_6_d}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_6_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_6_e}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_6_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_6_f}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_6_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    EPC Contracts
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_7_b}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_7_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_7_c}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_7_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date"
+                                    value={deal.ocps_fac_7_d}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_7_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_7_e}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_7_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_7_f}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_7_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Evidence of Compliance with ESDD Report
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_8_b}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_8_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_8_c}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_8_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date"
+                                    value={deal.ocps_fac_8_d}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_8_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_8_e}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_8_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_8_f}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_8_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Evidence of Compliance with LDD Report
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_9_b}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_9_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_9_c}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_9_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="date"
+                                    value={deal.ocps_fac_9_d}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_9_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_9_e}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_9_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_9_f}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_9_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Evidence of Compliance with ODD Report
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_10_b}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_10_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_10_c}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_10_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.ocps_fac_10_d}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_10_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_10_e}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_10_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_10_f}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_10_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Evidence of Receipt of Performance Bonds
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_11_b}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_11_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_11_c}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_11_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.ocps_fac_11_d}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_11_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_11_e}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_11_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_11_f}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_11_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Evidence that Annual Returns are Up-to-Date
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_12_b}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_12_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_12_c}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_12_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.ocps_fac_12_d}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_12_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_12_e}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_12_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_12_f}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_12_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Extension of Contracts
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_13_b}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_13_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_13_c}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_13_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.ocps_fac_13_d}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_13_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_13_e}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_13_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_13_f}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_13_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    List of Bank Accounts
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_14_b}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_14_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_14_c}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_14_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.ocps_fac_14_d}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_14_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_14_e}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_14_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_14_f}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_14_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Off-Take Agreements
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_15_b}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_15_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_15_c}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_15_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.ocps_fac_15_d}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_15_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_15_e}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_15_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_15_f}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_15_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    PENCOM Compliance
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_16_b}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_16_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_16_c}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_16_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.ocps_fac_16_d}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_16_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_16_e}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_16_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_16_f}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_16_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Pre-Signed Bank Transfer Instructions
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_17_b}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_17_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_17_c}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_17_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.ocps_fac_17_d}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_17_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_17_e}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_17_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_17_f}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_17_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Renewal of Insurance Policies
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_18_b}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_18_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_18_c}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_18_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.ocps_fac_18_d}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_18_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_18_e}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_18_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_18_f}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_18_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Specimen Signatures
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_19_b}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_19_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_19_c}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_19_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.ocps_fac_19_d}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_19_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_19_e}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_19_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_19_f}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_19_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Tax Compliance
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_20_b}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_20_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.ocps_fac_20_c}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_20_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.ocps_fac_20_d}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_20_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_20_e}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_20_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.ocps_fac_20_f}
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_20_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                      </Col>
+
+                      {/* <Row>
+                        
+                        
+                      </Row> */}
+                    </Row>
+                    <button
+                      onClick={(e) => toPrevTab(e)}
+                      style={{
+                        display: "inlineblock",
+                        fontSize: "13px",
+                        padding: "2px 20px",
+                        margin: "10px",
+                        background: "green",
+                        color: "white",
+                        borderRadius: "3px",
+                      }}
+                    >
+                      {" "}
+                      Prev
+                    </button>
+                    {/* <button
                         onClick={(e) => toNextTab(e)}
                         style={{
                           display: "inlineblock",
@@ -2750,7 +5220,6 @@ const AddDeal = () => {
                       >
                         Next
                       </button> */}
-                    </Container1>
                   </Tab>
 
                   {/* ........................................................................................... */}
