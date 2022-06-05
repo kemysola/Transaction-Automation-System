@@ -195,6 +195,7 @@ router.get('/forecast', verifyTokenAndAuthorization, async (req, res) => {
     try {
         const forecast = await client.query(
             `SELECT * FROM TB_INFRCR_FORECAST
+            WHERE status = 'Active'
             `);
         
         if (forecast) { 
