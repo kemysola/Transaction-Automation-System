@@ -63,13 +63,13 @@ const AddDeal = () => {
     moratorium: 0,
     repaymentFrequency: "Semi-Annually",
     amortizationStyle: "Annuity",
-    mandateLetter: "1900-01-01",
-    nbc_approval_date: "1900-01-01",
-    nbc_submitted_date: "1900-01-01",
-    creditApproval: "1900-01-01",
-    feeLetter: "1900-01-01",
-    expectedClose: "1900-01-01",
-    actualClose: "1900-01-01",
+    mandateLetter: "2022-01-01",
+    nbc_approval_date: "2022-01-01",
+    nbc_submitted_date: "2022-01-01",
+    creditApproval: "2022-01-01",
+    feeLetter: "2022-01-01",
+    expectedClose: "2022-01-01",
+    actualClose: "2022-01-01",
     greenA: "false",
     greenB: "false",
     greenC: "false",
@@ -95,27 +95,27 @@ const AddDeal = () => {
     // PLIS Columns
     plis_1_b:"",
     plis_1_c:0.00,
-    plis_1_d:"1900-01-01",
+    plis_1_d:"2022-01-01",
     plis_1_e:"",
     plis_2_b:"",
     plis_2_c:0.00,
-    plis_2_d:"1900-01-01",
+    plis_2_d:"2022-01-01",
     plis_2_e:"",
     plis_3_b:"",
     plis_3_c:0.00,
-    plis_3_d:"1900-01-01",
+    plis_3_d:"2022-01-01",
     plis_3_e:"",
     plis_4_b:"",
     plis_4_c:0.00,
-    plis_4_d:"1900-01-01",
+    plis_4_d:"2022-01-01",
     plis_4_e:"",
     plis_5_b:"",
     plis_5_c:0.00,
-    plis_5_d:"1900-01-01",
+    plis_5_d:"2022-01-01",
     plis_5_e:"",
     plis_6_b:"",
     plis_6_c:0.00,
-    plis_6_d:"1900-01-01",
+    plis_6_d:"2022-01-01",
     plis_6_e:"",
 
     // Parties Columns
@@ -788,8 +788,9 @@ const AddDeal = () => {
 
               <div>
                 <Tabs
-                  activeKey={activeTab}
+                  //activeKey={activeTab}
                   onSelect={(k) => handleTabChange}
+                  
                   style={{ fontSize: "12px" }}
                 >
                   <Tab eventKey="first" title="CLIENT">
@@ -959,7 +960,8 @@ const AddDeal = () => {
                       </Row>
                       <br />
                       <br />
-                      <button
+
+                      {/* <button
                         onClick={(e) => toNextTab(e)}
                         style={{
                           display: "inlineBlock",
@@ -972,7 +974,7 @@ const AddDeal = () => {
                         }}
                       >
                         Next{" "}
-                      </button>
+                      </button> */}
                     </Container1>
                   </Tab>
 
@@ -1343,7 +1345,7 @@ const AddDeal = () => {
                       </div>
                       <br />
                       <br />
-                      <button
+                      {/* <button
                         onClick={(e) => toPrevTab(e)}
                         style={{
                           display: "inlineblock",
@@ -1358,9 +1360,9 @@ const AddDeal = () => {
                         {" "}
                         Prev
                       </button>
-                      <button
-                        onClick={(e) => toNextTab(e)}
-                        style={{
+                      <button */}
+                        {/* onClick={(e) => toNextTab(e)} */}
+                        {/* style={{
                           display: "inlineblock",
                           fontSize: "13px",
                           padding: "2px 20px",
@@ -1371,7 +1373,7 @@ const AddDeal = () => {
                         }}
                       >
                         Next
-                      </button>
+                      </button> */}
                     </Container1>
                     <br />
                     <br />
@@ -1500,7 +1502,7 @@ const AddDeal = () => {
                       </div>
                       <br />
                       <br />
-                      <button
+                      {/* <button
                         onClick={(e) => toPrevTab(e)}
                         style={{
                           display: "inlineblock",
@@ -1514,8 +1516,8 @@ const AddDeal = () => {
                       >
                         {" "}
                         Prev
-                      </button>
-                      <button
+                      </button> */}
+                      {/* <button
                         onClick={(e) => toNextTab(e)}
                         style={{
                           display: "inlineblock",
@@ -1528,7 +1530,7 @@ const AddDeal = () => {
                         }}
                       >
                         Next
-                      </button>
+                      </button> */}
                     </Container1>
                   </Tab>
 
@@ -2063,7 +2065,7 @@ const AddDeal = () => {
                       <br />
                       <br />
                     </Container1>
-                    <button
+                    {/* <button
                       onClick={(e) => toPrevTab(e)}
                       style={{
                         display: "inlineblock",
@@ -2076,8 +2078,8 @@ const AddDeal = () => {
                       }}
                     >
                       {" "}
-                      Prev
-                    </button>
+                      Prev */}
+                    {/* </button>
                     <button
                       onClick={(e) => toNextTab(e)}
                       style={{
@@ -2091,7 +2093,7 @@ const AddDeal = () => {
                       }}
                     >
                       Next
-                    </button>
+                    </button> */}
                   </Tab>
                   <Tab
                     eventKey="sixth"
@@ -2646,7 +2648,7 @@ const AddDeal = () => {
                           </Col>
                         </Col>
                       </Row>
-                      <button
+                      {/* <button
                         onClick={(e) => toPrevTab(e)}
                         style={{
                           display: "inlineblock",
@@ -2660,8 +2662,8 @@ const AddDeal = () => {
                       >
                         {" "}
                         Prev
-                      </button>
-                      <button
+                      </button> */}
+                      {/* <button
                         onClick={(e) => toNextTab(e)}
                         style={{
                           display: "inlineblock",
@@ -2674,7 +2676,7 @@ const AddDeal = () => {
                         }}
                       >
                         Next
-                      </button>
+                      </button> */}
                     </Container1>
                   </Tab>
 
@@ -3273,7 +3275,7 @@ const AddDeal = () => {
                           </Col>
                         </Col>
                       </Row>
-                      <button
+                      {/* <button
                         onClick={(e) => toPrevTab(e)}
                         style={{
                           display: "inlineblock",
@@ -3284,8 +3286,8 @@ const AddDeal = () => {
                           color: "white",
                           borderRadius: "3px",
                         }}
-                      >
-                        {" "}
+                      > */}
+                        {/* {" "}
                         Prev
                       </button>
                       <button
@@ -3301,7 +3303,7 @@ const AddDeal = () => {
                         }}
                       >
                         Next
-                      </button>
+                      </button> */}
                     </Container1>
                   </Tab>
 
@@ -3833,7 +3835,7 @@ const AddDeal = () => {
                           </Col>
                         </Col>
                       </Row>
-                      <button
+                      {/* <button
                         onClick={(e) => toPrevTab(e)}
                         style={{
                           display: "inlineblock",
@@ -3861,7 +3863,7 @@ const AddDeal = () => {
                         }}
                       >
                         Next
-                      </button>
+                      </button> */}
                     </Container1>
                   </Tab>
                   {/* ninth tab  other cpis */}
@@ -5191,7 +5193,7 @@ const AddDeal = () => {
                         
                       </Row> */}
                     </Row>
-                    <button
+                    {/* <button
                       onClick={(e) => toPrevTab(e)}
                       style={{
                         display: "inlineblock",
@@ -5205,7 +5207,7 @@ const AddDeal = () => {
                     >
                       {" "}
                       Prev
-                    </button>
+                    </button> */}
                     {/* <button
                         onClick={(e) => toNextTab(e)}
                         style={{
