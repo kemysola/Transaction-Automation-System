@@ -12,12 +12,12 @@ const ButtonWrapper = styled.button`
   background: green;
   margin-right:14px;
   border:1px solid  white;
-  padding:6px 35px;
+  padding:10px 23px;
   margin-top: 8px;
   margin-bottom: 8px;
   font-weight:bold;
   font-size:10px;
-  border-radius:10px;
+  border-radius:5px;
 `;
 
 const FormWrapper = styled.div`
@@ -33,7 +33,7 @@ const Container1 = styled.div`
 `;
 
 const PWrapper = styled.p`
-  color:#1E2F97;
+  // color:#1E2F97;
   font-weight:bold;
   font-size:11px;
   margin:0;
@@ -826,14 +826,20 @@ function goToLastPage(e) {
           <Container fluid style={{marginTop:'0'}}>
             {status ? (
             <Form> 
-              <PWrapper>
+              <h5 className='text-secondary pb-3 mb-2'>Update Transaction</h5>
+              <br/>
+              
+
+              {/* <PWrapper>
                 <h5>Update Transaction</h5>
-              </PWrapper>
+              </PWrapper> */}
 
               <div> 
 
        
-      <Tabs activeKey={activeTab} onSelect={(k) => handleTabChange} style={{fontSize:'12px'}}>
+      <Tabs 
+      //activeKey={activeTab} 
+      onSelect={(k) => handleTabChange} style={{fontSize:'12px'}}>
 
 {/* ----------------------------------------- Client Data ------------------------------------ */}
 		<Tab eventKey="first" title="TRANSACTION">
@@ -904,8 +910,8 @@ function goToLastPage(e) {
 
                 </Row>
                 <br />
-                <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next </button>
-                <button onClick={e => goToLastPage(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>{'>>'}</button>
+                {/* <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next </button> */}
+                {/* <button onClick={e => goToLastPage(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>{'>>'}</button> */}
                 </Container>
                 </Container1> 
 		</Tab>
@@ -1071,8 +1077,8 @@ function goToLastPage(e) {
                   </Row>
                 </div>
                 <br/>
-                <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button>
-                <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button>
+                {/* <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button> */}
+                {/* <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button> */}
                 </Container1>
 	
 		</Tab>
@@ -1131,8 +1137,8 @@ function goToLastPage(e) {
                     </Col>
                   </Row>
                   <br/>
-                  <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button>
-                  <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button>
+                  {/* <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button> */}
+                  {/* <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button> */}
                   </Container1>
                 </div>
 		</Tab>
@@ -1388,7 +1394,7 @@ function goToLastPage(e) {
             </Row>
             </Form.Group>
           </div>
-          <button
+          {/* <button
                         onClick={(e) => toPrevTab(e)}
                         style={{
                           display: "inlineblock",
@@ -1416,7 +1422,7 @@ function goToLastPage(e) {
                         }}
                       >
                         Next
-                      </button>
+                      </button> */}
         </Container1>
         {/* </Tab> */}
         {/* </Tabs> */}
@@ -1974,7 +1980,7 @@ function goToLastPage(e) {
                           </Col>
                         </Col>
                       </Row>
-                      <button
+                      {/* <button
                         onClick={(e) => toPrevTab(e)}
                         style={{
                           display: "inlineblock",
@@ -2002,7 +2008,7 @@ function goToLastPage(e) {
                         }}
                       >
                         Next
-                      </button>
+                      </button> */}
                     </Container1>
                   </Tab>
                   <Tab
@@ -2577,7 +2583,7 @@ function goToLastPage(e) {
                           </Col>
                         </Col>
                       </Row>
-                      <button
+                      {/* <button
                         onClick={(e) => toPrevTab(e)}
                         style={{
                           display: "inlineblock",
@@ -2605,7 +2611,7 @@ function goToLastPage(e) {
                         }}
                       >
                         Next
-                      </button>
+                      </button> */}
                     </Container1>
                   </Tab>
                   <Tab
@@ -2992,7 +2998,7 @@ function goToLastPage(e) {
                           </Col>
                         </Col>
                       </Row>
-                      <button
+                      {/* <button
                         onClick={(e) => toPrevTab(e)}
                         style={{
                           display: "inlineblock",
@@ -3001,8 +3007,8 @@ function goToLastPage(e) {
                           margin: "10px",
                           background: "green",
                           color: "white",
-                          borderRadius: "3px",
-                        }}
+                          borderRadius: "3px", */}
+                        {/* }}
                       >
                         {" "}
                         Prev
@@ -3020,7 +3026,7 @@ function goToLastPage(e) {
                         }}
                       >
                         Next
-                      </button>
+                      </button> */}
                     </Container1>
                   </Tab>
                   <Tab
@@ -4469,7 +4475,7 @@ function goToLastPage(e) {
                         
                       </Row> */}
                     </Row>
-                    <button
+                    {/* <button
                       onClick={(e) => toPrevTab(e)}
                       style={{
                         display: "inlineblock",
@@ -4484,7 +4490,7 @@ function goToLastPage(e) {
                       {" "}
                       Prev
                     </button>
-                    
+                     */}
                   </Tab>
 
 	    </Tabs> 
