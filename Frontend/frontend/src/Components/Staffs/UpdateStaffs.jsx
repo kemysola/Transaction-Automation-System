@@ -56,7 +56,6 @@ export default function UpdateStaffs() {
   const firstName = useRef("");
   const lastName = useRef("");
   const level = useRef("");
-  const originator = useRef("");
   const hasOriginationTarget = useRef("");
   const originationAmount = useRef("");
   const guaranteePipeline = useRef("")
@@ -96,8 +95,13 @@ export default function UpdateStaffs() {
 
   const retrieveStaff = async () => {
     const staff_data = await axios.get(
+<<<<<<< HEAD
      `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
         //  `http://localhost:5001/api/v1/staff/${user_email}`, 
+=======
+       `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
+        /* `http://localhost:5001/api/v1/staff/${user_email}`, */
+>>>>>>> 99b9d1a77932ebce6516d30903025b05411cd47a
 
       {headers: {
         token: `Bearer ${localStorage.getItem('token')}`,
@@ -135,7 +139,6 @@ export default function UpdateStaffs() {
             lastName: lastName.current.value,
             isadmin: JSON.parse(isadmin),
             level: level.current.value,
-            originator: +originator.current.value,
             hasOriginationTarget: 1,
             originationAmount: +originationAmount.current.value,
             guaranteePipeline: +guaranteePipeline.current.value,
