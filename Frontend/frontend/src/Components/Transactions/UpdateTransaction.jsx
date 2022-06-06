@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Form, Container, Row, Col, Alert } from 'react-bootstrap';
+import { Form, Container, Row, Col } from 'react-bootstrap';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import styled from 'styled-components';

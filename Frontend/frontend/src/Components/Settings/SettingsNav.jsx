@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {Link} from 'react-router-dom';
 import authService from '../../Services/auth.Service';
-import InfraCredit from '../../Images/i.png';
 //react pro sidebar components
 
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, SidebarContent } from "react-pro-sidebar";
@@ -11,7 +10,7 @@ import { HiOutlineCalculator } from "react-icons/hi";
 import { FiLogOut, FiArrowLeftCircle, FiArrowRightCircle, FiSettings } from "react-icons/fi";
 import { BsWallet2 } from "react-icons/bs";
 import "react-pro-sidebar/dist/css/styles.css";
-import "./custom.scss";
+import "./style.scss";
 
 const Sidenav = ({ toggled, handleToggleSidebar }) => {
   //menuCollapse state using useState hook
@@ -36,24 +35,24 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
           collapsed={menuCollapse}
          
         >
-          <SidebarHeader>
+          {/* <SidebarHeader>
             
             <div
               className="logotext"
             >
               {/* Icon change using menucollapse state */}
-              <p>{menuCollapse ? <ImUser /> : `HELLO, ${nameCase}`}</p>
+              {/* <p>{menuCollapse ? <ImUser /> : `HELLO, ${nameCase}`}</p>
             </div>
 
             <div className="closemenu" onClick={menuIconClick}>
               {/* changing menu collapse icon on click */}
-              {menuCollapse ? (
+              {/* {menuCollapse ? (
                 <FiArrowRightCircle />
               ) : (
                 <FiArrowLeftCircle />
               )}
             </div>
-          </SidebarHeader>
+          </SidebarHeader> */} 
           {/* -------------------------------------- Transactions SideNav with React RouterLink ------------ */}
 
           <SidebarContent >
@@ -125,11 +124,11 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
           </Menu>
         </SidebarContent>
 
-        <SidebarFooter>
+        {/* <SidebarFooter>
           <Menu iconShape="circle">
             <MenuItem icon={<FiLogOut />} onClick={authService.logout}>Logout</MenuItem>
           </Menu>
-        </SidebarFooter>
+        </SidebarFooter> */}
       </ProSidebar>
     </div>
   </>

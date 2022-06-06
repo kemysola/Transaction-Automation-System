@@ -2,8 +2,6 @@ import React,{useEffect, useState} from 'react';
 // import styled from 'styled-components';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { FaCoins } from 'react-icons/fa';
-import TableView from './TransactionTable';
-import styles from './Transactions.css';
 import Service from "../../Services/Service"
 
 

@@ -64,7 +64,7 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                     My Portfolio</Link>
                 </MenuItem>
                 <MenuItem className="subMenu">
-                  <Link to='/newPages' style={{ color: '#237cbf' }}
+                  <Link to='/create_transaction' style={{ color: '#237cbf' }}
                   >New Transaction</Link>
                 </MenuItem>
               </SubMenu>
