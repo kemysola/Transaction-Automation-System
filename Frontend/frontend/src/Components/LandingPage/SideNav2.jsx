@@ -77,8 +77,6 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
               </SubMenu>
 
               {/* -------------------------------- Staff SideNav with React RouterLink -------------------- */}
-
-
               <SubMenu title='Staff' icon={<ImUsers />}>
                 <MenuItem className="subMenu">
                   <Link to='/staffs' style={{ color: '#237cbf' }}>
@@ -111,19 +109,26 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                     Origination Dashboard
                   </Link>
                 </MenuItem>
-            </SubMenu>
+              </SubMenu>
 
-          {/* ------------ Budget Menu --------------- */}
-            <MenuItem icon={<HiOutlineCalculator />}>Budget</MenuItem>
+              {/* ------------ Report Menu --------------- */}
+              <MenuItem icon={<HiOutlineCalculator />}>
+                <Link to ='#' style={{color:'#237cbf'}}>
+                  Report
+                </Link>
+              </MenuItem>
 
-          {/* --------------- Settings Menu ----------------- */}
-            <MenuItem icon={<FiSettings />}>
-              <Link to ='/settings' style={{color:'#237cbf'}}>
-                Settings
-              </Link>
-            </MenuItem>
-          </Menu>
-        </SidebarContent>
+              {/* ------------ Budget Menu --------------- */}
+                <MenuItem icon={<HiOutlineCalculator />}>Budget</MenuItem>
+
+              {/* --------------- Settings Menu ----------------- */}
+                <MenuItem icon={<FiSettings />}>
+                  <Link to ='/settings' style={{color:'#237cbf'}}>
+                    Settings
+                  </Link>
+                </MenuItem>
+              </Menu>
+            </SidebarContent>
 
         <SidebarFooter>
           <Menu iconShape="circle">

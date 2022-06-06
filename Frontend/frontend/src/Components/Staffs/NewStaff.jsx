@@ -57,8 +57,6 @@ export default function NewStaff() {
     level: "",
     amount: 0,
     guarantee: 0,
-    greenTransaction: 0,
-    amberTransaction: 0,
     mandateLetter: 2.0,
     creditCommiteeApproval: 8.0,
     feeLetter: 10.0,
@@ -82,7 +80,7 @@ export default function NewStaff() {
         setLevels(response.data.levels);
       })
       .catch((e) => {
-        console.log(e);
+     
       });
   };
 
@@ -110,8 +108,6 @@ export default function NewStaff() {
       hasOriginationTarget: JSON.parse(target),
       originationAmount: +staff.amount,
       guaranteePipeline: +staff.guarantee,
-      greenTransaction: +staff.greenTransaction,
-      amberTransaction: +staff.amberTransaction,
       mandateLetter: +staff.mandateLetter,
       creditCommiteeApproval: +staff.creditCommiteeApproval,
       feeLetter: +staff.feeLetter,
@@ -188,9 +184,10 @@ export default function NewStaff() {
                         <Form>
 
                             {/*----------------------------- Title -------------------------------------------------- */}
-                            <PWrapper>
-                                <h5>New Staff</h5>
-                            </PWrapper>
+                            <h5 className='text-secondary py-2 mb-2 mt-1'>New Staff</h5>
+
+                            {/* <PWrapper> */}
+                            {/* </PWrapper> */}
                             <br />
                             <div>
                                 <Tabs activeKey={activeTab} onSelect={(k) => handleTabChange} style={{ fontSize: '13px' }}>
@@ -213,12 +210,25 @@ export default function NewStaff() {
                                                 </Form.Group>
                                                 </Col>
 
-                                                <Col sm={12}  className='mt-1 pt-1'>
+                                                <Col sm={6}  className='mt-1 pt-1'>
                                                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                                                         <Form.Label>Email</Form.Label>
                                                         <Form.Control size="sm" type="email" value={staff.email} name='email' onChange={handleInputChange} required/>
                                                     </Form.Group>
                                                 </Col>
+                                                <Col sm={6}  className='mt-2 pt-2'>
+                                                    <Form.Group>
+                                                        <Form.Label>Level</Form.Label>
+                                                        <Form.Select size="sm" value={staff.level}  name='level' onChange={handleInputChange} required>
+                                                            <option value="">Select</option>
+                                                            {levels.map((level, i) => (
+                                                                <option key={levels[i].levelid} value={levels[i].stafflevel}>{levels[i].stafflevel}</option>
+                                                            ))}
+                                                        </Form.Select>
+                                                    </Form.Group>
+                                                </Col>
+
+
 
                                                 <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                                                 <Row>       
@@ -232,18 +242,6 @@ export default function NewStaff() {
                                                         </Col>
                                                 </Row> 
                                             </Form.Group>
-
-                                                <Col sm={12}  className='mt-2 pt-2'>
-                                                    <Form.Group>
-                                                        <Form.Label>Level</Form.Label>
-                                                        <Form.Select size="sm" value={staff.level}  name='level' onChange={handleInputChange} required>
-                                                            <option value="">Select</option>
-                                                            {levels.map((level, i) => (
-                                                                <option key={levels[i].levelid} value={levels[i].stafflevel}>{levels[i].stafflevel}</option>
-                                                            ))}
-                                                        </Form.Select>
-                                                    </Form.Group>
-                                                </Col>
 
                             
                                             </Row>
@@ -283,19 +281,7 @@ export default function NewStaff() {
                                                     </Form.Group>
                                                 </Col>
 
-                                                <Col sm={6}  className='mt-3 pt-2'>
-                                                    <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                        <Form.Label>Green Transaction (₦'BN)</Form.Label>
-                                                        <Form.Control size="sm" type="number" value={staff.greenTransaction} name='greenTransaction' onChange={handleInputChange}/>
-                                                    </Form.Group>
-                                                </Col>
-
-                                                <Col sm={6}  className='mt-3  pb-3 mb-2 pt-2'>
-                                                    <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                        <Form.Label>Amber Transaction (₦'BN)</Form.Label>
-                                                        <Form.Control size="sm" type="number" value={staff.amberTransaction} name='amberTransaction' onChange={handleInputChange} disabled/>
-                                                    </Form.Group>
-                                                </Col>
+                            
                                             </Row>
 
                                             <br />
@@ -316,7 +302,7 @@ export default function NewStaff() {
                                                 <Col sm={8}  >
                                                     <Form.Group as={Row} className='mt-2  pb-1 mb-1 pt-2'>
                                                         <Form.Label column sm="5">
-                                                            <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Mandate Letter (%)</p>
+                                                            <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Mandates Originated </p>
                                                         </Form.Label>
                                                         <Col sm="6">
                                                             <Form.Control type="number" placeholder="0" size='sm' id='mandateLetter' value={staff.mandateLetter} name='mandateLetter' onChange={handleInputChange} />
@@ -325,7 +311,7 @@ export default function NewStaff() {
 
                                                     <Form.Group as={Row} className='mt-2  pb-1 mb-1 pt-2'>
                                                         <Form.Label column sm="5">
-                                                            <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Credit Committee Approval(%)</p>
+                                                            <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Credit Committee Approval</p>
                                                         </Form.Label>
                                                         <Col sm="6">
                                                             <Form.Control type="number" placeholder="0" size='sm' id='creditCommiteeApproval' value={staff.creditCommiteeApproval} name='creditCommiteeApproval' onChange={handleInputChange} />
@@ -333,7 +319,7 @@ export default function NewStaff() {
                                                     </Form.Group>
                                                     <Form.Group as={Row} className='pb-1 mb-1 pt-2'>
                                                         <Form.Label column sm="5">
-                                                            <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Fee Letter (%)</p>
+                                                            <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Fee Letter</p>
                                                         </Form.Label>
                                                         <Col sm="6">
                                                             <Form.Control type="number" placeholder="0" size='sm' id='feeLetter' value={staff.feeLetter} name='feeLetter' onChange={handleInputChange} />
@@ -341,7 +327,7 @@ export default function NewStaff() {
                                                     </Form.Group>
                                                     <Form.Group as={Row} className="">
                                                         <Form.Label column sm="5">
-                                                            <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Financial Close (%)</p>
+                                                            <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Financial Close</p>
                                                         </Form.Label>
                                                         <Col sm="6">
                                                             <Form.Control type="number" placeholder="0" size='sm' id='financialClose' value={staff.financialClose} name='financialClose' onChange={handleInputChange} disabled/>

@@ -119,7 +119,7 @@ CREATE TABLE trms.TB_INFRCR_TRANSACTION(
     transactor VARCHAR NOT NULL,
     transactionLegalLead VARCHAR NULL,
     --Deal Profile
-    industry VARCHAR NOT NULL, 
+    industry VARCHAR DEFAULT '' NOT NULL, 
     product VARCHAR NOT NULL,
     region VARCHAR(2) NOT NULL,
     dealSize NUMERIC DEFAULT 00.0000,
@@ -428,3 +428,857 @@ VALUES(2021, 146.9, 103.4, 335.3, 155.1, 108.6),
 ALTER TABLE tb_infrcr_transaction
 ADD COLUMN nbc_approval_date DATE,
 ADD COLUMN nbc_submitted_date DATE;
+
+ALTER TABLE tb_infrcr_transaction_audit
+ADD COLUMN nbc_approval_date DATE,
+ADD COLUMN nbc_submitted_date DATE;
+
+
+
+-- DANIEL MULLER'S FEATURE : 2022-May-24
+CREATE TABLE trms.TB_INFRCR_TRANSACTION_PLIS(
+	transID INT,
+	plis_1_b	VARCHAR,
+	plis_1_c	NUMERIC,
+	plis_1_d	DATE,
+	plis_1_e	VARCHAR,
+	plis_2_b	VARCHAR,
+	plis_2_c	NUMERIC,
+	plis_2_d	DATE,
+	plis_2_e	VARCHAR,
+	plis_3_b	VARCHAR,
+	plis_3_c	NUMERIC,
+	plis_3_d	DATE,
+	plis_3_e	VARCHAR,
+	plis_4_b	VARCHAR,
+	plis_4_c	NUMERIC,
+	plis_4_d	DATE,
+	plis_4_e	VARCHAR,
+	plis_5_b	VARCHAR,
+	plis_5_c	NUMERIC,
+	plis_5_d	DATE,
+	plis_5_e	VARCHAR,
+	plis_6_b	VARCHAR,
+	plis_6_c	NUMERIC,
+	plis_6_d	DATE,
+	plis_6_e	VARCHAR
+);
+
+CREATE TABLE trms.TB_INFRCR_TRANSACTION_PLIS_AUDIT(
+    operation         char(1)   NOT NULL,
+    stamp             timestamp NOT NULL,
+    performed_by            text      NOT NULL,
+
+	transID INT,
+	plis_1_b	VARCHAR,
+	plis_1_c	NUMERIC,
+	plis_1_d	DATE,
+	plis_1_e	VARCHAR,
+	plis_2_b	VARCHAR,
+	plis_2_c	NUMERIC,
+	plis_2_d	DATE,
+	plis_2_e	VARCHAR,
+	plis_3_b	VARCHAR,
+	plis_3_c	NUMERIC,
+	plis_3_d	DATE,
+	plis_3_e	VARCHAR,
+	plis_4_b	VARCHAR,
+	plis_4_c	NUMERIC,
+	plis_4_d	DATE,
+	plis_4_e	VARCHAR,
+	plis_5_b	VARCHAR,
+	plis_5_c	NUMERIC,
+	plis_5_d	DATE,
+	plis_5_e	VARCHAR,
+	plis_6_b	VARCHAR,
+	plis_6_c	NUMERIC,
+	plis_6_d	DATE,
+	plis_6_e	VARCHAR
+);
+CREATE TABLE trms.TB_INFRCR_TRANSACTION_PARTIES(
+	transID INT,
+	parties_1_b	VARCHAR,
+	parties_1_c	BOOLEAN DEFAULT FALSE,
+	parties_1_d	VARCHAR,
+
+	parties_2_b	VARCHAR,
+	parties_2_c	BOOLEAN DEFAULT FALSE,
+	parties_2_d	VARCHAR,
+
+	parties_3_b	VARCHAR,
+	parties_3_c	BOOLEAN DEFAULT FALSE,
+	parties_3_d	VARCHAR,
+
+	parties_4_b	VARCHAR,
+	parties_4_c	BOOLEAN DEFAULT FALSE,
+	parties_4_d	VARCHAR,
+
+	parties_5_b	VARCHAR,
+	parties_5_c	BOOLEAN DEFAULT FALSE,
+	parties_5_d	VARCHAR,
+
+	parties_6_b	VARCHAR,
+	parties_6_c	BOOLEAN DEFAULT FALSE,
+	parties_6_d	VARCHAR,
+
+	parties_7_b	VARCHAR,
+	parties_7_c	BOOLEAN DEFAULT FALSE,
+	parties_7_d	VARCHAR,
+
+	parties_8_b	VARCHAR,
+	parties_8_c	BOOLEAN DEFAULT FALSE,
+	parties_8_d	VARCHAR,
+
+	parties_9_b	VARCHAR,
+	parties_9_c	BOOLEAN DEFAULT FALSE,
+	parties_9_d	VARCHAR,
+
+	parties_10_b	VARCHAR,
+	parties_10_c	BOOLEAN DEFAULT FALSE,
+	parties_10_d	VARCHAR,
+
+	parties_11_b	VARCHAR,
+	parties_11_c	BOOLEAN DEFAULT FALSE,
+	parties_11_d	VARCHAR
+);
+
+CREATE TABLE trms.TB_INFRCR_TRANSACTION_PARTIES_AUDIT(
+    operation         char(1)   NOT NULL,
+    stamp             timestamp NOT NULL,
+    performed_by            text      NOT NULL,
+    
+	transID INT,
+	parties_1_b	VARCHAR,
+	parties_1_c	Boolean,
+	parties_1_d	VARCHAR,
+
+	parties_2_b	VARCHAR,
+	parties_2_c	Boolean,
+	parties_2_d	VARCHAR,
+
+	parties_3_b	VARCHAR,
+	parties_3_c	Boolean,
+	parties_3_d	VARCHAR,
+
+	parties_4_b	VARCHAR,
+	parties_4_c	Boolean,
+	parties_4_d	VARCHAR,
+
+	parties_5_b	VARCHAR,
+	parties_5_c	Boolean,
+	parties_5_d	VARCHAR,
+
+	parties_6_b	VARCHAR,
+	parties_6_c	Boolean,
+	parties_6_d	VARCHAR,
+
+	parties_7_b	VARCHAR,
+	parties_7_c	Boolean,
+	parties_7_d	VARCHAR,
+
+	parties_8_b	VARCHAR,
+	parties_8_c	Boolean,
+	parties_8_d	VARCHAR,
+
+	parties_9_b	VARCHAR,
+	parties_9_c	Boolean,
+	parties_9_d	VARCHAR,
+
+	parties_10_b	VARCHAR,
+	parties_10_c	Boolean,
+	parties_10_d	VARCHAR,
+
+	parties_11_b	VARCHAR,
+	parties_11_c	Boolean,
+	parties_11_d	VARCHAR
+);
+CREATE TABLE trms.TB_INFRCR_TRANSACTION_OTHER_CPS(
+	transID INT,
+	ocps_fac_1_b	BOOLEAN DEFAULT FALSE,
+	ocps_fac_1_c	VARCHAR,
+	ocps_fac_1_d	VARCHAR,
+	ocps_fac_1_e	VARCHAR,
+	ocps_fac_1_f	VARCHAR,
+
+	ocps_fac_2_b	BOOLEAN DEFAULT FALSE,
+	ocps_fac_2_c	VARCHAR,
+	ocps_fac_2_d	VARCHAR,
+	ocps_fac_2_e	VARCHAR,
+	ocps_fac_2_f	VARCHAR,
+
+	ocps_fac_3_b	BOOLEAN DEFAULT FALSE,
+	ocps_fac_3_c	VARCHAR,
+	ocps_fac_3_d	VARCHAR,
+	ocps_fac_3_e	VARCHAR,
+	ocps_fac_3_f	VARCHAR,
+
+	ocps_fac_4_b	BOOLEAN DEFAULT FALSE,
+	ocps_fac_4_c	VARCHAR,
+	ocps_fac_4_d	VARCHAR,
+	ocps_fac_4_e	VARCHAR,
+	ocps_fac_4_f	VARCHAR,
+
+	ocps_fac_5_b	BOOLEAN DEFAULT FALSE,
+	ocps_fac_5_c	VARCHAR,
+	ocps_fac_5_d	VARCHAR,
+	ocps_fac_5_e	VARCHAR,
+	ocps_fac_5_f	VARCHAR,
+
+	ocps_fac_6_b	BOOLEAN DEFAULT FALSE,
+	ocps_fac_6_c	VARCHAR,
+	ocps_fac_6_d	VARCHAR,
+	ocps_fac_6_e	VARCHAR,
+	ocps_fac_6_f	VARCHAR,
+
+	ocps_fac_7_b	BOOLEAN DEFAULT FALSE,
+	ocps_fac_7_c	VARCHAR,
+	ocps_fac_7_d	VARCHAR,
+	ocps_fac_7_e	VARCHAR,
+	ocps_fac_7_f	VARCHAR,
+
+	ocps_fac_8_b	BOOLEAN DEFAULT FALSE,
+	ocps_fac_8_c	VARCHAR,
+	ocps_fac_8_d	VARCHAR,
+	ocps_fac_8_e	VARCHAR,
+	ocps_fac_8_f	VARCHAR,
+
+	ocps_fac_9_b	BOOLEAN DEFAULT FALSE,
+	ocps_fac_9_c	VARCHAR,
+	ocps_fac_9_d	VARCHAR,
+	ocps_fac_9_e	VARCHAR,
+	ocps_fac_9_f	VARCHAR,
+
+	ocps_fac_10_b	BOOLEAN DEFAULT FALSE,
+	ocps_fac_10_c	VARCHAR,
+	ocps_fac_10_d	VARCHAR,
+	ocps_fac_10_e	VARCHAR,
+	ocps_fac_10_f	VARCHAR,
+
+	ocps_fac_11_b	BOOLEAN DEFAULT FALSE,
+	ocps_fac_11_c	VARCHAR,
+	ocps_fac_11_d	VARCHAR,
+	ocps_fac_11_e	VARCHAR,
+	ocps_fac_11_f	VARCHAR,
+
+	ocps_fac_12_b	BOOLEAN DEFAULT FALSE,
+	ocps_fac_12_c	VARCHAR,
+	ocps_fac_12_d	VARCHAR,
+	ocps_fac_12_e	VARCHAR,
+	ocps_fac_12_f	VARCHAR,
+
+	ocps_fac_13_b	BOOLEAN DEFAULT FALSE,
+	ocps_fac_13_c	VARCHAR,
+	ocps_fac_13_d	VARCHAR,
+	ocps_fac_13_e	VARCHAR,
+	ocps_fac_13_f	VARCHAR,
+
+	ocps_fac_14_b	BOOLEAN DEFAULT FALSE,
+	ocps_fac_14_c	VARCHAR,
+	ocps_fac_14_d	VARCHAR,
+	ocps_fac_14_e	VARCHAR,
+	ocps_fac_14_f	VARCHAR,
+
+	ocps_fac_15_b	BOOLEAN DEFAULT FALSE,
+	ocps_fac_15_c	VARCHAR,
+	ocps_fac_15_d	VARCHAR,
+	ocps_fac_15_e	VARCHAR,
+	ocps_fac_15_f	VARCHAR,
+
+	ocps_fac_16_b	BOOLEAN DEFAULT FALSE,
+	ocps_fac_16_c	VARCHAR,
+	ocps_fac_16_d	VARCHAR,
+	ocps_fac_16_e	VARCHAR,
+	ocps_fac_16_f	VARCHAR,
+
+	ocps_fac_17_b	BOOLEAN DEFAULT FALSE,
+	ocps_fac_17_c	VARCHAR,
+	ocps_fac_17_d	VARCHAR,
+	ocps_fac_17_e	VARCHAR,
+	ocps_fac_17_f	VARCHAR,
+
+	ocps_fac_18_b	BOOLEAN DEFAULT FALSE,
+	ocps_fac_18_c	VARCHAR,
+	ocps_fac_18_d	VARCHAR,
+	ocps_fac_18_e	VARCHAR,
+	ocps_fac_18_f	VARCHAR,
+
+	ocps_fac_19_b	BOOLEAN DEFAULT FALSE,
+	ocps_fac_19_c	VARCHAR,
+	ocps_fac_19_d	VARCHAR,
+	ocps_fac_19_e	VARCHAR,
+	ocps_fac_19_f	VARCHAR,
+
+	ocps_fac_20_b	BOOLEAN DEFAULT FALSE,
+	ocps_fac_20_c	VARCHAR,
+	ocps_fac_20_d	VARCHAR,
+	ocps_fac_20_e	VARCHAR,
+	ocps_fac_20_f	VARCHAR
+);
+
+CREATE TABLE trms.TB_INFRCR_TRANSACTION_OTHER_CPS_AUDIT(
+    operation         char(1)   NOT NULL,
+    stamp             timestamp NOT NULL,
+    performed_by            text      NOT NULL,
+
+	transID INT,
+	ocps_fac_1_b	BOOLEAN,
+	ocps_fac_1_c	VARCHAR,
+	ocps_fac_1_d	VARCHAR,
+	ocps_fac_1_e	VARCHAR,
+	ocps_fac_1_f	VARCHAR,
+
+	ocps_fac_2_b	BOOLEAN,
+	ocps_fac_2_c	VARCHAR,
+	ocps_fac_2_d	VARCHAR,
+	ocps_fac_2_e	VARCHAR,
+	ocps_fac_2_f	VARCHAR,
+
+	ocps_fac_3_b	BOOLEAN,
+	ocps_fac_3_c	VARCHAR,
+	ocps_fac_3_d	VARCHAR,
+	ocps_fac_3_e	VARCHAR,
+	ocps_fac_3_f	VARCHAR,
+
+	ocps_fac_4_b	BOOLEAN,
+	ocps_fac_4_c	VARCHAR,
+	ocps_fac_4_d	VARCHAR,
+	ocps_fac_4_e	VARCHAR,
+	ocps_fac_4_f	VARCHAR,
+
+	ocps_fac_5_b	BOOLEAN,
+	ocps_fac_5_c	VARCHAR,
+	ocps_fac_5_d	VARCHAR,
+	ocps_fac_5_e	VARCHAR,
+	ocps_fac_5_f	VARCHAR,
+
+	ocps_fac_6_b	BOOLEAN,
+	ocps_fac_6_c	VARCHAR,
+	ocps_fac_6_d	VARCHAR,
+	ocps_fac_6_e	VARCHAR,
+	ocps_fac_6_f	VARCHAR,
+
+	ocps_fac_7_b	BOOLEAN,
+	ocps_fac_7_c	VARCHAR,
+	ocps_fac_7_d	VARCHAR,
+	ocps_fac_7_e	VARCHAR,
+	ocps_fac_7_f	VARCHAR,
+
+	ocps_fac_8_b	BOOLEAN,
+	ocps_fac_8_c	VARCHAR,
+	ocps_fac_8_d	VARCHAR,
+	ocps_fac_8_e	VARCHAR,
+	ocps_fac_8_f	VARCHAR,
+
+	ocps_fac_9_b	BOOLEAN,
+	ocps_fac_9_c	VARCHAR,
+	ocps_fac_9_d	VARCHAR,
+	ocps_fac_9_e	VARCHAR,
+	ocps_fac_9_f	VARCHAR,
+
+	ocps_fac_10_b	BOOLEAN,
+	ocps_fac_10_c	VARCHAR,
+	ocps_fac_10_d	VARCHAR,
+	ocps_fac_10_e	VARCHAR,
+	ocps_fac_10_f	VARCHAR,
+
+	ocps_fac_11_b	BOOLEAN,
+	ocps_fac_11_c	VARCHAR,
+	ocps_fac_11_d	VARCHAR,
+	ocps_fac_11_e	VARCHAR,
+	ocps_fac_11_f	VARCHAR,
+
+	ocps_fac_12_b	BOOLEAN,
+	ocps_fac_12_c	VARCHAR,
+	ocps_fac_12_d	VARCHAR,
+	ocps_fac_12_e	VARCHAR,
+	ocps_fac_12_f	VARCHAR,
+
+	ocps_fac_13_b	BOOLEAN,
+	ocps_fac_13_c	VARCHAR,
+	ocps_fac_13_d	VARCHAR,
+	ocps_fac_13_e	VARCHAR,
+	ocps_fac_13_f	VARCHAR,
+
+	ocps_fac_14_b	BOOLEAN,
+	ocps_fac_14_c	VARCHAR,
+	ocps_fac_14_d	VARCHAR,
+	ocps_fac_14_e	VARCHAR,
+	ocps_fac_14_f	VARCHAR,
+
+	ocps_fac_15_b	BOOLEAN,
+	ocps_fac_15_c	VARCHAR,
+	ocps_fac_15_d	VARCHAR,
+	ocps_fac_15_e	VARCHAR,
+	ocps_fac_15_f	VARCHAR,
+
+	ocps_fac_16_b	BOOLEAN,
+	ocps_fac_16_c	VARCHAR,
+	ocps_fac_16_d	VARCHAR,
+	ocps_fac_16_e	VARCHAR,
+	ocps_fac_16_f	VARCHAR,
+
+	ocps_fac_17_b	BOOLEAN,
+	ocps_fac_17_c	VARCHAR,
+	ocps_fac_17_d	VARCHAR,
+	ocps_fac_17_e	VARCHAR,
+	ocps_fac_17_f	VARCHAR,
+
+	ocps_fac_18_b	BOOLEAN,
+	ocps_fac_18_c	VARCHAR,
+	ocps_fac_18_d	VARCHAR,
+	ocps_fac_18_e	VARCHAR,
+	ocps_fac_18_f	VARCHAR,
+
+	ocps_fac_19_b	BOOLEAN,
+	ocps_fac_19_c	VARCHAR,
+	ocps_fac_19_d	VARCHAR,
+	ocps_fac_19_e	VARCHAR,
+	ocps_fac_19_f	VARCHAR,
+
+	ocps_fac_20_b	BOOLEAN,
+	ocps_fac_20_c	VARCHAR,
+	ocps_fac_20_d	VARCHAR,
+	ocps_fac_20_e	VARCHAR,
+	ocps_fac_20_f	VARCHAR
+);
+CREATE TABLE trms.TB_INFRCR_TRANSACTION_NBC_FOCUS(
+	transID INT,
+	nbc_focus_original_1_b	BOOLEAN DEFAULT FALSE,
+	nbc_focus_original_1_c	DATE,
+	nbc_focus_original_1_d	VARCHAR,
+	
+	nbc_focus_original_2_b	BOOLEAN DEFAULT FALSE,
+	nbc_focus_original_2_c	DATE,
+	nbc_focus_original_2_d	VARCHAR,
+		
+	nbc_focus_original_3_b	BOOLEAN DEFAULT FALSE,
+	nbc_focus_original_3_c	DATE,
+	nbc_focus_original_3_d	VARCHAR,
+		
+	nbc_focus_original_4_b	BOOLEAN DEFAULT FALSE,
+	nbc_focus_original_4_c	DATE,
+	nbc_focus_original_4_d	VARCHAR,
+		
+	nbc_focus_original_5_b	BOOLEAN DEFAULT FALSE,
+	nbc_focus_original_5_c	DATE,
+	nbc_focus_original_5_d	VARCHAR,
+	
+	nbc_focus_apprv_1_b	VARCHAR,
+	nbc_focus_apprv_1_c	DATE,
+		
+	nbc_focus_apprv_2_b	VARCHAR,
+	nbc_focus_apprv_2_c	DATE,
+		
+	nbc_focus_apprv_3_b	VARCHAR,
+	nbc_focus_apprv_3_c	DATE,
+		
+	nbc_focus_apprv_4_b	VARCHAR,
+	nbc_focus_apprv_4_c	DATE,
+		
+	nbc_focus_apprv_5_b	VARCHAR,
+	nbc_focus_apprv_5_c	DATE
+);
+
+CREATE TABLE trms.TB_INFRCR_TRANSACTION_NBC_FOCUS_AUDIT(
+    operation         char(1)   NOT NULL,
+    stamp             timestamp NOT NULL,
+    performed_by            text      NOT NULL,
+
+	transID INT,
+	nbc_focus_original_1_b	BOOLEAN,
+	nbc_focus_original_1_c	DATE,
+	nbc_focus_original_1_d	VARCHAR,
+	
+	nbc_focus_original_2_b	BOOLEAN,
+	nbc_focus_original_2_c	DATE,
+	nbc_focus_original_2_d	VARCHAR,
+		
+	nbc_focus_original_3_b	BOOLEAN,
+	nbc_focus_original_3_c	DATE,
+	nbc_focus_original_3_d	VARCHAR,
+		
+	nbc_focus_original_4_b	BOOLEAN,
+	nbc_focus_original_4_c	DATE,
+	nbc_focus_original_4_d	VARCHAR,
+		
+	nbc_focus_original_5_b	BOOLEAN,
+	nbc_focus_original_5_c	DATE,
+	nbc_focus_original_5_d	VARCHAR,
+	
+	nbc_focus_apprv_1_b	VARCHAR,
+	nbc_focus_apprv_1_c	DATE,
+		
+	nbc_focus_apprv_2_b	VARCHAR,
+	nbc_focus_apprv_2_c	DATE,
+		
+	nbc_focus_apprv_3_b	VARCHAR,
+	nbc_focus_apprv_3_c	DATE,
+		
+	nbc_focus_apprv_4_b	VARCHAR,
+	nbc_focus_apprv_4_c	DATE,
+		
+	nbc_focus_apprv_5_b	VARCHAR,
+	nbc_focus_apprv_5_c	DATE
+);
+
+CREATE TABLE trms.TB_INFRCR_TRANSACTION_KDF(
+	transID INT,
+	key_deal_fac_1_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_1_c	VARCHAR,
+	key_deal_fac_1_d	DATE,
+	key_deal_fac_1_e	VARCHAR,
+	key_deal_fac_1_f	VARCHAR,	
+	key_deal_fac_2_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_2_c	VARCHAR,
+	key_deal_fac_2_d	DATE,
+	key_deal_fac_2_e	VARCHAR,
+	key_deal_fac_2_f	VARCHAR,
+	key_deal_fac_3_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_3_c	VARCHAR,
+	key_deal_fac_3_d	DATE,
+	key_deal_fac_3_e	VARCHAR,
+	key_deal_fac_3_f	VARCHAR,
+	key_deal_fac_4_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_4_c	VARCHAR,
+	key_deal_fac_4_d	DATE,
+	key_deal_fac_4_e	VARCHAR,
+	key_deal_fac_4_f	VARCHAR,
+	key_deal_fac_5_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_5_c	VARCHAR,
+	key_deal_fac_5_d	DATE,
+	key_deal_fac_5_e	VARCHAR,
+	key_deal_fac_5_f	VARCHAR,
+	key_deal_fac_6_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_6_c	VARCHAR,
+	key_deal_fac_6_d	DATE,
+	key_deal_fac_6_e	VARCHAR,
+	key_deal_fac_6_f	VARCHAR,
+	key_deal_fac_7_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_7_c	VARCHAR,
+	key_deal_fac_7_d	DATE,
+	key_deal_fac_7_e	VARCHAR,
+	key_deal_fac_7_f	VARCHAR,
+	key_deal_fac_8_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_8_c	VARCHAR,
+	key_deal_fac_8_d	DATE,
+	key_deal_fac_8_e	VARCHAR,
+	key_deal_fac_8_f	VARCHAR,
+	key_deal_fac_9_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_9_c	VARCHAR,
+	key_deal_fac_9_d	DATE,
+	key_deal_fac_9_e	VARCHAR,
+	key_deal_fac_9_f	VARCHAR,
+	key_deal_fac_10_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_10_c	VARCHAR,
+	key_deal_fac_10_d	DATE,
+	key_deal_fac_10_e	VARCHAR,
+	key_deal_fac_10_f	VARCHAR,
+	key_deal_fac_11_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_11_c	VARCHAR,
+	key_deal_fac_11_d	DATE,
+	key_deal_fac_11_e	VARCHAR,
+	key_deal_fac_11_f	VARCHAR,
+	key_deal_fac_12_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_12_c	VARCHAR,
+	key_deal_fac_12_d	DATE,
+	key_deal_fac_12_e	VARCHAR,
+	key_deal_fac_12_f	VARCHAR,
+	key_deal_fac_13_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_13_c	VARCHAR,
+	key_deal_fac_13_d	DATE,
+	key_deal_fac_13_e	VARCHAR,
+	key_deal_fac_13_f	VARCHAR,
+	key_deal_fac_14_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_14_c	VARCHAR,
+	key_deal_fac_14_d	DATE,
+	key_deal_fac_14_e	VARCHAR,
+	key_deal_fac_14_f	VARCHAR,
+	key_deal_fac_15_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_15_c	VARCHAR,
+	key_deal_fac_15_d	DATE,
+	key_deal_fac_15_e	VARCHAR,
+	key_deal_fac_15_f	VARCHAR,
+	key_deal_fac_16_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_16_c	DATE,
+	key_deal_fac_17_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_17_c	DATE,
+	key_deal_fac_18_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_18_c	DATE,
+	key_deal_fac_19_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_19_c	DATE,
+	key_deal_fac_20_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_20_c	DATE,
+	key_deal_fac_21_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_21_c	DATE,
+	key_deal_fac_22_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_22_c	DATE,
+	key_deal_fac_23_b	BOOLEAN DEFAULT FALSE,
+	key_deal_fac_23_c	DATE
+);
+
+
+CREATE TABLE trms.TB_INFRCR_TRANSACTION_KDF_AUDIT(
+    operation         char(1)   NOT NULL,
+    stamp             timestamp NOT NULL,
+    performed_by            text      NOT NULL,
+
+	transID INT,
+	key_deal_fac_1_b	Boolean,
+	key_deal_fac_1_c	VARCHAR,
+	key_deal_fac_1_d	DATE,
+	key_deal_fac_1_e	VARCHAR,
+	key_deal_fac_1_f	VARCHAR,	
+	key_deal_fac_2_b	Boolean,
+	key_deal_fac_2_c	VARCHAR,
+	key_deal_fac_2_d	DATE,
+	key_deal_fac_2_e	VARCHAR,
+	key_deal_fac_2_f	VARCHAR,
+	key_deal_fac_3_b	Boolean,
+	key_deal_fac_3_c	VARCHAR,
+	key_deal_fac_3_d	DATE,
+	key_deal_fac_3_e	VARCHAR,
+	key_deal_fac_3_f	VARCHAR,
+	key_deal_fac_4_b	Boolean,
+	key_deal_fac_4_c	VARCHAR,
+	key_deal_fac_4_d	DATE,
+	key_deal_fac_4_e	VARCHAR,
+	key_deal_fac_4_f	VARCHAR,
+	key_deal_fac_5_b	Boolean,
+	key_deal_fac_5_c	VARCHAR,
+	key_deal_fac_5_d	DATE,
+	key_deal_fac_5_e	VARCHAR,
+	key_deal_fac_5_f	VARCHAR,
+	key_deal_fac_6_b	Boolean,
+	key_deal_fac_6_c	VARCHAR,
+	key_deal_fac_6_d	DATE,
+	key_deal_fac_6_e	VARCHAR,
+	key_deal_fac_6_f	VARCHAR,
+	key_deal_fac_7_b	Boolean,
+	key_deal_fac_7_c	VARCHAR,
+	key_deal_fac_7_d	DATE,
+	key_deal_fac_7_e	VARCHAR,
+	key_deal_fac_7_f	VARCHAR,
+	key_deal_fac_8_b	Boolean,
+	key_deal_fac_8_c	VARCHAR,
+	key_deal_fac_8_d	DATE,
+	key_deal_fac_8_e	VARCHAR,
+	key_deal_fac_8_f	VARCHAR,
+	key_deal_fac_9_b	Boolean,
+	key_deal_fac_9_c	VARCHAR,
+	key_deal_fac_9_d	DATE,
+	key_deal_fac_9_e	VARCHAR,
+	key_deal_fac_9_f	VARCHAR,
+	key_deal_fac_10_b	Boolean,
+	key_deal_fac_10_c	VARCHAR,
+	key_deal_fac_10_d	DATE,
+	key_deal_fac_10_e	VARCHAR,
+	key_deal_fac_10_f	VARCHAR,
+	key_deal_fac_11_b	Boolean,
+	key_deal_fac_11_c	VARCHAR,
+	key_deal_fac_11_d	DATE,
+	key_deal_fac_11_e	VARCHAR,
+	key_deal_fac_11_f	VARCHAR,
+	key_deal_fac_12_b	Boolean,
+	key_deal_fac_12_c	VARCHAR,
+	key_deal_fac_12_d	DATE,
+	key_deal_fac_12_e	VARCHAR,
+	key_deal_fac_12_f	VARCHAR,
+	key_deal_fac_13_b	Boolean,
+	key_deal_fac_13_c	VARCHAR,
+	key_deal_fac_13_d	DATE,
+	key_deal_fac_13_e	VARCHAR,
+	key_deal_fac_13_f	VARCHAR,
+	key_deal_fac_14_b	Boolean,
+	key_deal_fac_14_c	VARCHAR,
+	key_deal_fac_14_d	DATE,
+	key_deal_fac_14_e	VARCHAR,
+	key_deal_fac_14_f	VARCHAR,
+	key_deal_fac_15_b	Boolean,
+	key_deal_fac_15_c	VARCHAR,
+	key_deal_fac_15_d	DATE,
+	key_deal_fac_15_e	VARCHAR,
+	key_deal_fac_15_f	VARCHAR,
+	key_deal_fac_16_b	Boolean,
+	key_deal_fac_16_c	DATE,
+	key_deal_fac_17_b	Boolean,
+	key_deal_fac_17_c	DATE,
+	key_deal_fac_18_b	Boolean,
+	key_deal_fac_18_c	DATE,
+	key_deal_fac_19_b	Boolean,
+	key_deal_fac_19_c	DATE,
+	key_deal_fac_20_b	Boolean,
+	key_deal_fac_20_c	DATE,
+	key_deal_fac_21_b	Boolean,
+	key_deal_fac_21_c	DATE,
+	key_deal_fac_22_b	Boolean,
+	key_deal_fac_22_c	DATE,
+	key_deal_fac_23_b	Boolean,
+	key_deal_fac_23_c	DATE
+);
+
+CREATE OR REPLACE FUNCTION trms.FUNC_TRS_TRANSACTION_PLIS_AUDIT() RETURNS TRIGGER AS $TB_INFRCR_TRANSACTION_PLIS_AUDIT$
+    BEGIN
+        --
+        -- Create a row in TB_INFRCR_TRANSACTION_PLIS_AUDIT to reflect the operation performed on TB_INFRCR_TRANSACTION_PLIS,
+        -- making use of the special variable TG_OP to work out the operation.
+        --
+        IF (TG_OP = 'DELETE') THEN
+            INSERT INTO trms.TB_INFRCR_TRANSACTION_PLIS_AUDIT SELECT 'D', now(), user, OLD.*;
+        ELSIF (TG_OP = 'UPDATE') THEN
+            INSERT INTO trms.TB_INFRCR_TRANSACTION_PLIS_AUDIT SELECT 'U', now(), user, NEW.*;
+        ELSIF (TG_OP = 'INSERT') THEN
+            INSERT INTO trms.TB_INFRCR_TRANSACTION_PLIS_AUDIT SELECT 'I', now(), user, NEW.*;
+        END IF;
+        RETURN NULL; -- result is ignored since this is an AFTER trigger
+    END;
+$TB_INFRCR_TRANSACTION_PLIS_AUDIT$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TR_TRS_TRANSACTION_PLIS_AUDIT
+AFTER INSERT OR UPDATE OR DELETE ON trms.TB_INFRCR_TRANSACTION_PLIS
+    FOR EACH ROW EXECUTE FUNCTION trms.FUNC_TRS_TRANSACTION_PLIS_AUDIT();
+    
+
+
+CREATE OR REPLACE FUNCTION trms.FUNC_TRS_TRANSACTION_PARTIES_AUDIT() RETURNS TRIGGER AS $TB_INFRCR_TRANSACTION_PARTIES_AUDIT$
+    BEGIN
+        --
+        -- Create a row in TB_INFRCR_TRANSACTION_PARTIES_AUDIT to reflect the operation performed on TB_INFRCR_TRANSACTION_PARTIES,
+        -- making use of the special variable TG_OP to work out the operation.
+        --
+        IF (TG_OP = 'DELETE') THEN
+            INSERT INTO trms.TB_INFRCR_TRANSACTION_PARTIES_AUDIT SELECT 'D', now(), user, OLD.*;
+        ELSIF (TG_OP = 'UPDATE') THEN
+            INSERT INTO trms.TB_INFRCR_TRANSACTION_PARTIES_AUDIT SELECT 'U', now(), user, NEW.*;
+        ELSIF (TG_OP = 'INSERT') THEN
+            INSERT INTO trms.TB_INFRCR_TRANSACTION_PARTIES_AUDIT SELECT 'I', now(), user, NEW.*;
+        END IF;
+        RETURN NULL; -- result is ignored since this is an AFTER trigger
+    END;
+$TB_INFRCR_TRANSACTION_PARTIES_AUDIT$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TR_TRS_TRANSACTION_PARTIES_AUDIT
+AFTER INSERT OR UPDATE OR DELETE ON trms.TB_INFRCR_TRANSACTION_PARTIES
+    FOR EACH ROW EXECUTE FUNCTION trms.FUNC_TRS_TRANSACTION_PARTIES_AUDIT();
+
+
+CREATE OR REPLACE FUNCTION trms.FUNC_TRS_TRANSACTION_OTHER_CPS_AUDIT() RETURNS TRIGGER AS $TB_INFRCR_TRANSACTION_OTHER_CPS_AUDIT$
+    BEGIN
+        --
+        -- Create a row in TB_INFRCR_TRANSACTION_OTHER_CPS_AUDIT to reflect the operation performed on TB_INFRCR_TRANSACTION_OTHER_CPS,
+        -- making use of the special variable TG_OP to work out the operation.
+        --
+        IF (TG_OP = 'DELETE') THEN
+            INSERT INTO trms.TB_INFRCR_TRANSACTION_OTHER_CPS_AUDIT SELECT 'D', now(), user, OLD.*;
+        ELSIF (TG_OP = 'UPDATE') THEN
+            INSERT INTO trms.TB_INFRCR_TRANSACTION_OTHER_CPS_AUDIT SELECT 'U', now(), user, NEW.*;
+        ELSIF (TG_OP = 'INSERT') THEN
+            INSERT INTO trms.TB_INFRCR_TRANSACTION_OTHER_CPS_AUDIT SELECT 'I', now(), user, NEW.*;
+        END IF;
+        RETURN NULL; -- result is ignored since this is an AFTER trigger
+    END;
+$TB_INFRCR_TRANSACTION_OTHER_CPS_AUDIT$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TR_TRS_TRANSACTION_OTHER_CPS_AUDIT
+AFTER INSERT OR UPDATE OR DELETE ON trms.TB_INFRCR_TRANSACTION_OTHER_CPS
+    FOR EACH ROW EXECUTE FUNCTION trms.FUNC_TRS_TRANSACTION_OTHER_CPS_AUDIT();
+	
+
+CREATE OR REPLACE FUNCTION trms.FUNC_TRS_TRANSACTION_NBC_FOCUS_AUDIT() RETURNS TRIGGER AS $TB_INFRCR_TRANSACTION_NBC_FOCUS_AUDIT$
+    BEGIN
+        --
+        -- Create a row in TB_INFRCR_TRANSACTION_NBC_FOCUS_AUDIT to reflect the operation performed on TB_INFRCR_TRANSACTION_NBC_FOCUS,
+        -- making use of the special variable TG_OP to work out the operation.
+        --
+        IF (TG_OP = 'DELETE') THEN
+            INSERT INTO trms.TB_INFRCR_TRANSACTION_NBC_FOCUS_AUDIT SELECT 'D', now(), user, OLD.*;
+        ELSIF (TG_OP = 'UPDATE') THEN
+            INSERT INTO trms.TB_INFRCR_TRANSACTION_NBC_FOCUS_AUDIT SELECT 'U', now(), user, NEW.*;
+        ELSIF (TG_OP = 'INSERT') THEN
+            INSERT INTO trms.TB_INFRCR_TRANSACTION_NBC_FOCUS_AUDIT SELECT 'I', now(), user, NEW.*;
+        END IF;
+        RETURN NULL; -- result is ignored since this is an AFTER trigger
+    END;
+$TB_INFRCR_TRANSACTION_NBC_FOCUS_AUDIT$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TR_TRS_TRANSACTION_NBC_FOCUS_AUDIT
+AFTER INSERT OR UPDATE OR DELETE ON trms.TB_INFRCR_TRANSACTION_NBC_FOCUS
+    FOR EACH ROW EXECUTE FUNCTION trms.FUNC_TRS_TRANSACTION_NBC_FOCUS_AUDIT();
+
+
+CREATE OR REPLACE FUNCTION trms.FUNC_TRS_TRANSACTION_KDF_AUDIT() RETURNS TRIGGER AS $TB_INFRCR_TRANSACTION_KDF_AUDIT$
+    BEGIN
+        --
+        -- Create a row in TB_INFRCR_TRANSACTION_KDF_AUDIT to reflect the operation performed on TB_INFRCR_TRANSACTION_KDF,
+        -- making use of the special variable TG_OP to work out the operation.
+        --
+        IF (TG_OP = 'DELETE') THEN
+            INSERT INTO trms.TB_INFRCR_TRANSACTION_KDF_AUDIT SELECT 'D', now(), user, OLD.*;
+        ELSIF (TG_OP = 'UPDATE') THEN
+            INSERT INTO trms.TB_INFRCR_TRANSACTION_KDF_AUDIT SELECT 'U', now(), user, NEW.*;
+        ELSIF (TG_OP = 'INSERT') THEN
+            INSERT INTO trms.TB_INFRCR_TRANSACTION_KDF_AUDIT SELECT 'I', now(), user, NEW.*;
+        END IF;
+        RETURN NULL; -- result is ignored since this is an AFTER trigger
+    END;
+$TB_INFRCR_TRANSACTION_KDF_AUDIT$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TR_TRS_TRANSACTION_KDF_AUDIT
+AFTER INSERT OR UPDATE OR DELETE ON trms.TB_INFRCR_TRANSACTION_KDF
+    FOR EACH ROW EXECUTE FUNCTION trms.FUNC_TRS_TRANSACTION_KDF_AUDIT();
+
+
+-- -- House cleaning: To be run after creating the new objects for Daniel's features
+INSERT INTO trms.TB_INFRCR_TRANSACTION_PLIS (transID) 
+SELECT transID FROM trms.TB_INFRCR_TRANSACTION A
+WHERE NOT EXISTS (SELECT 1 FROM trms.TB_INFRCR_TRANSACTION_PLIS WHERE transID=A.transID);
+
+INSERT INTO trms.TB_INFRCR_TRANSACTION_PARTIES (transID) 
+SELECT transID FROM trms.TB_INFRCR_TRANSACTION A
+WHERE NOT EXISTS (SELECT 1 FROM trms.TB_INFRCR_TRANSACTION_PARTIES WHERE transID=A.transID);
+
+INSERT INTO trms.TB_INFRCR_TRANSACTION_OTHER_CPS (transID) 
+SELECT transID FROM trms.TB_INFRCR_TRANSACTION A
+WHERE NOT EXISTS (SELECT 1 FROM trms.TB_INFRCR_TRANSACTION_OTHER_CPS WHERE transID=A.transID);
+
+INSERT INTO trms.TB_INFRCR_TRANSACTION_NBC_FOCUS (transID) 
+SELECT transID FROM trms.TB_INFRCR_TRANSACTION A
+WHERE NOT EXISTS (SELECT 1 FROM trms.TB_INFRCR_TRANSACTION_NBC_FOCUS WHERE transID=A.transID);
+
+INSERT INTO trms.TB_INFRCR_TRANSACTION_KDF (transID) 
+SELECT transID FROM trms.TB_INFRCR_TRANSACTION A
+WHERE NOT EXISTS (SELECT 1 FROM trms.TB_INFRCR_TRANSACTION_KDF WHERE transID=A.transID);
+
+-- Hot Fix: Avoid duplicate transactions
+CREATE UNIQUE INDEX avoid_dup_deal
+ON TB_INFRCR_TRANSACTION(clientName,originator,transactor,transactionLegalLead,industry, product,region,dealSize,tenor,moratorium,repaymentFrequency,amortizationStyle,mandateLetter,creditApproval,feeLetter,expectedClose,actualClose)
+
+-- Note: None of the columns(in the unique index avoid_dup_deal) must be posted as NULL to the db - for date columns, default it to 1900-01-01 if the user does not send a date
+-- Note: 
+-- 1. all date columns should default to 1900-01-01 if the user does not send a date, 
+-- 2. all varchar/text should default to '' no nulls 
+-- 3. integers/numeric should default to 0(zero)
+
+
+--- 5th June, 2022. Altered Forecast Table to include 2026 data and set status for all
+ALTER TABLE trms.TB_INFRCR_FORECAST
+ADD COLUMN status VARCHAR;
+
+UPDATE trms.TB_INFRCR_FORECAST AS f SET
+  projectionYear = f2.projectionYear,
+  cumulativeGrowth = f2.cumulativeGrowth,
+  newDeals = f2.newDeals,
+  guaranteePipeline = f2.guaranteePipeline,
+  greenAndAmberDeals = f2.greenAndAmberDeals,
+  greenDeals = f2.greenDeals,
+  status = f2.status
+FROM (VALUES
+		(2021, 146.9, 103.4, 335.3, 155.1, 108.6, 'Inactive'),
+		(2022, 180.3, 103.4, 335, 155, 109, 'Active'),
+		(2023, 300.4, 120.1, 388.65, 180.15, 126.105, 'Active'),
+		(2024, 439.4, 139, 426, 208.5, 145.95, 'Active'),
+		(2025, 584.4, 145, 450.9, 217.5, 152.25, 'Active')
+) AS f2(projectionYear, cumulativeGrowth, newDeals, guaranteePipeline, greenAndAmberDeals, greenDeals, status)
+WHERE f2.projectionYear = f.projectionYear;
+
+INSERT INTO trms.TB_INFRCR_FORECAST(projectionYear, cumulativeGrowth, newDeals, guaranteePipeline, greenAndAmberDeals, greenDeals, status)
+VALUES(2026, 740.0, 155.6, 233.4, 233.4, 163.38, 'Active');

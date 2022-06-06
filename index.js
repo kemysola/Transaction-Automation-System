@@ -11,6 +11,7 @@ const transactionRoute = require("./backend/routes/transaction");
 const reportsRoute = require("./backend/routes/reporting");
 const passwdReset = require("./backend/routes/password_reset");
 const configRoute = require("./backend/routes/configuration");
+const adminRoute = require("./backend/routes/admin");
 
 dotenv.config();
 // const app_port = process.env.APP_SERVER_PORT;
@@ -26,7 +27,7 @@ app.use(express.static(path.join(__dirname, './frontend/frontend/build')));
 app.set('port', app_port  || 3000)
 // Implemeting all endpoints
 
-//app.use(express.static(path.join(__dirname, './frontend/frontend/build')));
+app.use(express.static(path.join(__dirname, './frontend/frontend/build')));
 
 try {
     app.use("/api/v1/auth", authRoute)
@@ -35,14 +36,15 @@ try {
     app.use("/api/v1/report", reportsRoute)
     app.use("/api/v1/password_reset", passwdReset)
     app.use("/api/v1/configuration", configRoute)
+    app.use("/api/v1/admin", adminRoute)
     
 } catch (err) {
     console.error(err)
 }
 
 if(process.env.NODE_ENV === 'production'){
-//     // app.use(express.static('Frontend/frontend/build'))
-app.use(express.static(path.join(__dirname, 'Frontend/frontend/build')));
+ // app.use(express.static('Frontend/frontend/build'))
+ app.use(express.static(path.join(__dirname, 'Frontend/frontend/build')));
 app.get("*", (req,res) =>{
 res.sendFile(path.resolve(__dirname,"Frontend/frontend","build", "index.html"))
     
@@ -74,11 +76,11 @@ app.get('/', (req,res) => {
   });*/
 
 app.listen(app_port || 3000, () => {
-    console.log(`InfraCreditTRS Server Listening on Port: ${app.get('port')}`)
+   console.log(`InfraCreditTRS Server Listening on Port: ${app.get('port')}`)
 
 })
 
-/*app.listen(app_port || 5001, () => {
-    console.log(`InfraCreditTRS Server Listening on Port: ${app.get('port')}`)
+// app.listen(app_port || 5001, () => {
+//     console.log(`InfraCreditTRS Server Listening on Port: ${app.get('port')}`)
 
-});*/
+// });

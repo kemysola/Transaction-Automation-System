@@ -247,27 +247,38 @@ export default function ProgressOrigination() {
   function varianceDisplay(variance) {
     if (variance < 1) {
       let varianceAns = (variance * -1)
-      return <span style={{color: 'green'}}>↑ {(varianceAns).toFixed(1)}bn</span>;
+      return <span style={{color: 'green'}}>↑ ₦ {(varianceAns).toFixed(1)}bn</span>;
     }
     else if (!isFinite(variance) || isFinite(variance)){
-      return <span style={{color: 'red'}}>↓ {-1 * (sumTotal - targetValue)}bn </span>;
+      return <span style={{color: 'red'}}>↓ ₦ {-1 * (sumTotal - targetValue)}bn </span>;
     }
     
-    return <span style={{color: 'red'}}>↓ {(variance).toFixed(1)}bn </span>;
+    return <span style={{color: 'red'}}>↓ ₦ {(variance).toFixed(1)}bn </span>;
   }
 
-  let variancePercent = ((varianceAmount / targetValue) * 100).toFixed(1);
+  // let variancePercent = ((varianceAmount / targetValue) * 100).toFixed(1)
+
+
+  if (targetValue == 0) {
+    let targetValue = 1;
+    
+    var varianceP = (( varianceAmount / targetValue) * 100).toFixed(1);
+  } else  {
+    var varianceP = (( varianceAmount / targetValue) * 100).toFixed(1);
+  }
+
+  let variancePercent = varianceP
 
   function variancePerDisplay(variancePer) {
     if (variancePer < 1) {
       let varianceAns = (variancePer * -1)
-      return <span style={{color: 'green'}}>↑ {varianceAns}% </span>;
-    }
-    else if(!isFinite(variancePer) || isFinite(variancePer)){
-      return !isFinite(((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)) ?<span style={{color: 'red'}}>↓ 100%</span>: <span style={{color: 'red'}}>↓ {((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)}%</span>;
-    }
+      return <span style={{color: 'green'}}>↑ {varianceAns}%</span>;
+    // } else if(!isFinite(variancePer) || isFinite(variancePer)){
+    //   return !isFinite(((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)) ?<span style={{color: 'red'}}> 0%</span>: <span style={{color: 'red'}}>↓ {((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)}%</span>;
+    } else {
     return <span style={{color: 'red'}}>↓ {variancePer}% </span>;
-  };
+  }
+}
 
 
 
@@ -768,7 +779,7 @@ export default function ProgressOrigination() {
             fontWeight: "bold",
           }}
         >
-          CUMULATIVE PERFPRMANCE INCENTIVE EARNED
+          CUMULATIVE PERFORMANCE INCENTIVE's EARNED
         </small>
       </Container>
       <br />

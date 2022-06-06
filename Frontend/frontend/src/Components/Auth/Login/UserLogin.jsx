@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useLocation, Redirect, Route } from "react-router-dom";
-import { isEmail } from "validator";
+import { useLocation } from "react-router-dom";
 import CheckButton from "react-validation/build/button";
 import AuthService from "../../../Services/auth.Service";
 import styled from "styled-components";
@@ -15,13 +14,8 @@ import {
   Stack,
   Form as ReactForm,
   Spinner,
-  Button,
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-// import { Redirect, Route } from "react-router";
-// import ProtectedRoute from "./ProtectedRoute";
-import Landing from "../../LandingPage/Landing";
-// import { Redirect, Route } from "react-router";
 
 const BorderDiv = styled.div`
   border-radius: 12px;
@@ -47,10 +41,7 @@ const UserLogin = () => {
   const checkBtn = useRef();
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [checked, setChecked] = useState(false);
   const [message, setMessage] = useState("");
-  const location = useLocation();
-  const [admin, setIsAdmin] = useState("")
   const query_ = useLocation().search;
   const name = new URLSearchParams(query_).get("user");
   const email =  { name };
@@ -81,7 +72,6 @@ const UserLogin = () => {
           if(localStorage.getItem("admin") !== "true"){
             history.push("/user");
           }
-          //history.push("/landing");
           window.location.reload()    
         },
         (error) => {

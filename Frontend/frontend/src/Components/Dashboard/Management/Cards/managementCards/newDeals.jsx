@@ -11,13 +11,13 @@ function NewDeals() {
     if (variance < 1) {
       let varianceAns = variance * -1;
       return (
-        <span style={{ color: "green" }}>↑ {varianceAns.toFixed(1)}bn</span>
+        <span style={{ color: "green" }}>↑ ₦ {varianceAns.toFixed(1)}bn</span>
       );
     } else if (!isFinite(variance) || isFinite(variance)) {
       return ` - `;
     }
 
-    return <span style={{ color: "red" }}>↓ {variance.toFixed(1)}bn </span>;
+    return <span style={{ color: "red" }}>↓ ₦ {variance.toFixed(1)}bn </span>;
   }
 
   let variancePercent = ((varianceAmount / 84.6) * 100).toFixed(1);
@@ -38,14 +38,14 @@ function NewDeals() {
     <React.Fragment>
       <Card style={{ padding: "10px" , background:'white' }}>
       <Row className='my-1 py-2'>
-        <small style={{ fontSize: "13px" , fontWeight:'bold'}}>NEW DEALS</small>
+        <small style={{ fontSize: "13px" , fontWeight:'bold'}}>NEW GUARANTEES</small>
         <br/>
         <br/>
           <Col sm={4}>
           <Stack gap={0} className="d-flex justify-content-center">
           ₦ 103.4bn
-<br/>
-<br/>
+          <br/>
+          <br/>
             <small
               style={{ fontSize: "11px", color: "blue", fontWeight:'bold' }}
               className=" mt-3"
@@ -71,10 +71,10 @@ function NewDeals() {
           <Col sm={4}>
           <Stack gap={0}>
             <small style={{ fontSize: "17px" }}>
-            ₦ {variancePerDisplay(variancePercent)}
-      </small>
-      <small className="mb-3">{varianceDisplay(varianceAmount)}</small>
-      <small style={{ fontSize: "11px", color: "red", fontWeight:'bold' }}>VARIANCE</small>
+             {variancePerDisplay(variancePercent)}
+            </small>
+            <small className="mb-3">{varianceDisplay(varianceAmount)}</small>
+            <small style={{ fontSize: "11px", color: "red", fontWeight:'bold' }}>VARIANCE</small>
 
             </Stack>
           </Col>

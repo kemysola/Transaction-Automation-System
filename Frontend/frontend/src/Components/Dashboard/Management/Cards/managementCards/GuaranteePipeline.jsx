@@ -133,31 +133,51 @@ function GuaranteePipeline() {
   }, 0);
 
   let varianceAmount = targetValue - actuallvalue;
-
   function varianceDisplay(variance) {
     if (variance < 1) {
-      let varianceAns = variance * -1;
-      return (
-        <span style={{ color: "green" }}>↑ {varianceAns.toFixed(1)}bn</span>
-      );
-    } else if (!isFinite(variance) || isFinite(variance)) {
-      return ` - `;
+      let varianceAns = (variance * -1)
+      return <span style={{color: 'green'}}>↑ ₦ {(varianceAns).toFixed(1)}bn</span>;
     }
-
-    return <span style={{ color: "red" }}>↓ {variance.toFixed(1)}bn </span>;
+    else if (!isFinite(variance) || isFinite(variance)){
+      return <span style={{color: 'red'}}>↓ ₦ {-1 * (actuallvalue - targetValue)}bn </span>;
+    }
+    
+    return <span style={{color: 'red'}}>↓ ₦ {(variance).toFixed(1)}bn </span>;
   }
 
-  let variancePercent = ((varianceAmount / targetValue) * 100).toFixed(1);
+  // function varianceDisplay(variance) {
+  //   if (variance < 1) {
+  //     let varianceAns = variance * -1;
+  //     return <span style={{color: 'green'}}>↑ {varianceAns}%</span>;
+
+  //   }else {
+  //     return <span style={{color: 'red'}}>↓ {variance}% </span>;
+  //   }
+  // }
+
+
+  if (targetValue == 0) {
+    let targetValue = 1;
+    
+    var varianceP = (( varianceAmount / targetValue) * 100).toFixed(1);
+  } else  {
+    var varianceP = (( varianceAmount / targetValue) * 100).toFixed(1);
+  }
+
+  let variancePercent = varianceP
 
   function variancePerDisplay(variancePer) {
     if (variancePer < 1) {
-      let varianceAns = variancePer * -1;
-      return <span style={{ color: "green" }}>↑ {varianceAns}% </span>;
-    } else if (!isFinite(variancePer) || isFinite(variancePer)) {
-      return ` - `;
-    }
-    return <span style={{ color: "red" }}>↓ {variancePer}% </span>;
+      let varianceAns = (variancePer * -1)
+      return <span style={{color: 'green'}}>↑ {varianceAns}%</span>;
+    // } else if(!isFinite(variancePer) || isFinite(variancePer)){
+    //   return !isFinite(((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)) ?<span style={{color: 'red'}}> 0%</span>: <span style={{color: 'red'}}>↓ {((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)}%</span>;
+    } else {
+    return <span style={{color: 'red'}}>↓ {variancePer}% </span>;
   }
+}
+
+
 
   return (
     <React.Fragment>
@@ -169,7 +189,7 @@ function GuaranteePipeline() {
 <br/>
           <Col sm={4}>
           <Stack gap={0} className="d-flex justify-content-center">
-          ₦ {actuallvalue}
+          ₦ {actuallvalue.toFixed(2)} bn
             <br/>
             <small
               style={{ fontSize: "11px", color: "blue", fontWeight:'bold' }}
@@ -184,7 +204,7 @@ function GuaranteePipeline() {
           </Col>
           <Col sm={4}>
           <Stack gap={0} className="d-flex justify-content-center">
-          ₦ {targetValue}
+          ₦ {targetValue.toFixed(2) }bn
               <br/>
               <br/>
               <small
@@ -198,10 +218,10 @@ function GuaranteePipeline() {
           <Col sm={4}>
           <Stack gap={0}>
             <small style={{ fontSize: "17px" }}>
-            ₦ {variancePerDisplay(variancePercent)}
-      </small>
-      <small className="mb-3">{varianceDisplay(varianceAmount)}</small>
-      <small style={{ fontSize: "11px", color: "red", fontWeight:'bold' }}>VARIANCE</small>
+             {variancePerDisplay(variancePercent)}
+            </small>
+            <small className="mb-3">{varianceDisplay(varianceAmount)}</small>
+            <small style={{ fontSize: "11px", color: "red", fontWeight:'bold' }}>VARIANCE</small>
 
             </Stack>
           </Col>

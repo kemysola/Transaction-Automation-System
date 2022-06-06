@@ -197,3 +197,55 @@ METHOD = GET
 
 GET Guarantee Projection: [http://localhost:5001/api/v1/configuration/forecast]
 METHOD = GET
+
+GET report by year: [http://localhost:5001/api/v1/report/2022] # This can be used across the Management, Execution and Origination Dashboard to filter data
+METHOD = GET
+
+
+
+------------------------------
+---Admin Module End points----
+------------------------------
+--- User MUST be an admin to access to the routes
+
+---Industry
+Create New Indutry: [http://localhost:5001/api/v1/admin/industry]
+METHOD = POST
+Body => {
+    "industry": "clean energy"
+}
+
+Update Industry: [http://localhost:5001/api/v1/admin/industry/update/12]
+METHOD = PUT
+Body => {
+    "industry": "Clean Energy"
+}
+
+
+---product
+Create New Product: [http://localhost:5001/api/v1/admin/product]
+METHOD = POST
+Body => {
+    "product": "inverter"
+}
+
+Update Product: [http://localhost:5001/api/v1/admin/product/update/7]
+METHOD = PUT 
+Body => {
+    "product": "Inverter"
+}
+
+---level
+Create New Level: [http://localhost:5001/api/v1/admin/level]
+METHOD = POST
+Body => {
+    "level": "CTO"
+}
+
+Update Level: [http://localhost:5001/api/v1/admin/level/update/7]
+METHOD = PUT 
+Body => {
+    "level": "CFO"
+}
+
+
