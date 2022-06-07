@@ -113,7 +113,7 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                   </Link>
                 </MenuItem>
             </SubMenu>
-            <MenuItem icon={<HiOutlineCalculator />}><Link to ='#' style={{color:'#237cbf'}}>
+            <MenuItem icon={<HiOutlineCalculator />}><Link to ='/annual_and_quarterly_report_page' style={{color:'#237cbf'}}>
                     Report
                   </Link></MenuItem>
 
