@@ -244,6 +244,99 @@ export default function UpdateTransactions() {
   const  ocps_fac_20_e = useRef("");
   const  ocps_fac_20_f = useRef("");
 
+  //KEY PERFORMANCE INDICATOR
+ const key_deal_fac_1_b = useRef("");
+ const key_deal_fac_1_c = useRef("");
+ const key_deal_fac_1_d = useRef("");
+ const key_deal_fac_1_e = useRef("");
+ const key_deal_fac_1_f = useRef("");	
+ const key_deal_fac_2_b = useRef("");
+ const key_deal_fac_2_c = useRef("");
+ const key_deal_fac_2_d = useRef("");
+ const key_deal_fac_2_e = useRef("");
+ const key_deal_fac_2_f = useRef("");
+ const key_deal_fac_3_b = useRef("");
+ const key_deal_fac_3_c = useRef("");
+ const key_deal_fac_3_d = useRef("");
+ const key_deal_fac_3_e = useRef("");
+ const key_deal_fac_3_f = useRef("");
+ const key_deal_fac_4_b = useRef("");
+ const key_deal_fac_4_c = useRef("");
+ const key_deal_fac_4_d = useRef("");
+ const key_deal_fac_4_e = useRef("");
+ const key_deal_fac_4_f = useRef("");
+ const key_deal_fac_5_b = useRef("");
+ const key_deal_fac_5_c = useRef("");
+ const key_deal_fac_5_d = useRef("");
+ const key_deal_fac_5_e = useRef("");
+ const key_deal_fac_5_f = useRef("");
+ const key_deal_fac_6_b = useRef("");
+ const key_deal_fac_6_c = useRef("");
+ const key_deal_fac_6_d = useRef("");
+ const key_deal_fac_6_e = useRef("");
+ const key_deal_fac_6_f = useRef("");
+ const key_deal_fac_7_b = useRef("");
+ const key_deal_fac_7_c = useRef("");
+ const key_deal_fac_7_d = useRef("");
+ const key_deal_fac_7_e = useRef("");
+ const key_deal_fac_7_f = useRef("");
+ const key_deal_fac_8_b = useRef("");
+ const key_deal_fac_8_c = useRef("");
+ const key_deal_fac_8_d = useRef("");
+ const key_deal_fac_8_e = useRef("");
+ const key_deal_fac_8_f = useRef("");
+ const key_deal_fac_9_b = useRef("");
+ const key_deal_fac_9_c = useRef("");
+ const key_deal_fac_9_d = useRef("");
+ const key_deal_fac_9_e = useRef("");
+ const key_deal_fac_9_f = useRef("");
+ const key_deal_fac_10_b = useRef("");
+ const key_deal_fac_10_c = useRef("");
+ const key_deal_fac_10_d = useRef("");
+ const key_deal_fac_10_e = useRef("");
+ const key_deal_fac_10_f = useRef("");
+ const key_deal_fac_11_b = useRef("");
+ const key_deal_fac_11_c = useRef("");
+ const key_deal_fac_11_d = useRef("");
+ const key_deal_fac_11_e = useRef("");
+ const key_deal_fac_11_f = useRef("");
+ const key_deal_fac_12_b = useRef("");
+ const key_deal_fac_12_c = useRef("");
+ const key_deal_fac_12_d = useRef("");
+ const key_deal_fac_12_e = useRef("");
+ const key_deal_fac_12_f = useRef("");
+ const key_deal_fac_13_b = useRef("");
+ const key_deal_fac_13_c = useRef("");
+ const key_deal_fac_13_d = useRef("");
+ const key_deal_fac_13_e = useRef("");
+ const key_deal_fac_13_f = useRef("");
+ const key_deal_fac_14_b = useRef("");
+ const key_deal_fac_14_c = useRef("");
+ const key_deal_fac_14_d = useRef("");
+ const key_deal_fac_14_e = useRef("");
+ const key_deal_fac_14_f = useRef("");
+ const key_deal_fac_15_b = useRef("");
+ const key_deal_fac_15_c = useRef("");
+ const key_deal_fac_15_d = useRef("");
+ const key_deal_fac_15_e = useRef("");
+ const key_deal_fac_15_f = useRef("");
+ const key_deal_fac_16_b = useRef("");
+ const key_deal_fac_16_c = useRef("");
+ const key_deal_fac_17_b = useRef("");
+ const key_deal_fac_17_c = useRef("");
+ const key_deal_fac_18_b = useRef("");
+ const key_deal_fac_18_c = useRef("");
+ const key_deal_fac_19_b = useRef("");
+ const key_deal_fac_19_c = useRef("");
+ const key_deal_fac_20_b = useRef("");
+ const key_deal_fac_20_c = useRef("");
+ const key_deal_fac_21_b = useRef("");
+ const key_deal_fac_21_c = useRef("");
+ const key_deal_fac_22_b = useRef("");
+ const key_deal_fac_22_c = useRef("");
+ const key_deal_fac_23_b = useRef("");
+ const key_deal_fac_23_c = useRef("");
+
   let id = window.location.search.split("?")[1]
 
   const history = useHistory();
@@ -346,8 +439,8 @@ export default function UpdateTransactions() {
   const retrieveDeal = async () => {
     // function to get deal by id from the database
     const data = await axios.get(
-     `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}`,
-    //  `http://localhost:5001/api/v1/transaction/item/${id}`,
+    //  `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}`,
+     `http://localhost:5001/api/v1/transaction/item/${id}`,
       {headers: {
         token: `Bearer ${localStorage.getItem('token')}`,
         'Content-type': 'application/json; charset=utf-8',
@@ -805,6 +898,99 @@ function goToLastPage(e) {
       ocps_fac_20_d: new Date(ocps_fac_20_d.current.value),
       ocps_fac_20_e: ocps_fac_20_e.current.value,
       ocps_fac_20_f: ocps_fac_20_f.current.value,
+
+      // Key Performance Indicator
+      key_deal_fac_1_b: JSON.parse(key_deal_fac_1_b.current.value),  //B//oolean,
+      key_deal_fac_1_c: key_deal_fac_1_c.current.value,  //V//ARCHAR,
+      key_deal_fac_1_d: new Date(key_deal_fac_1_d.current.value),  //D//ATE,
+      key_deal_fac_1_e: key_deal_fac_1_e.current.value,  //V//ARCHAR,
+      key_deal_fac_1_f: key_deal_fac_1_f.current.value,  //V//ARCHAR,	
+      key_deal_fac_2_b: JSON.parse(key_deal_fac_2_b.current.value),  //B//oolean,
+      key_deal_fac_2_c: key_deal_fac_2_c.current.value,  //V//ARCHAR,
+      key_deal_fac_2_d: new Date(key_deal_fac_2_d.current.value),  //D//ATE,
+      key_deal_fac_2_e: key_deal_fac_2_e.current.value,  //V//ARCHAR,
+      key_deal_fac_2_f: key_deal_fac_2_f.current.value,  //V//ARCHAR,
+      key_deal_fac_3_b: JSON.parse(key_deal_fac_3_b.current.value),  //B//oolean,
+      key_deal_fac_3_c: key_deal_fac_3_c.current.value,  //V//ARCHAR,
+      key_deal_fac_3_d: new Date(key_deal_fac_3_d.current.value),  //D//ATE,
+      key_deal_fac_3_e: key_deal_fac_3_e.current.value,  //V//ARCHAR,
+      key_deal_fac_3_f: key_deal_fac_3_f.current.value,  //V//ARCHAR,
+      key_deal_fac_4_b: JSON.parse(key_deal_fac_4_b.current.value),  //B//oolean,
+      key_deal_fac_4_c: key_deal_fac_4_c.current.value,  //V//ARCHAR,
+      key_deal_fac_4_d: new Date(key_deal_fac_4_d.current.value),  //D//ATE,
+      key_deal_fac_4_e: key_deal_fac_4_e.current.value,  //V//ARCHAR,
+      key_deal_fac_4_f: key_deal_fac_4_f.current.value,  //V//ARCHAR,
+      key_deal_fac_5_b: JSON.parse(key_deal_fac_5_b.current.value),  //B//oolean,
+      key_deal_fac_5_c: key_deal_fac_5_c.current.value,  //V//ARCHAR,
+      key_deal_fac_5_d: new Date(key_deal_fac_5_d.current.value),  //D//ATE,
+      key_deal_fac_5_e: key_deal_fac_5_e.current.value,  //V//ARCHAR,
+      key_deal_fac_5_f: key_deal_fac_5_f.current.value,  //V//ARCHAR,
+      key_deal_fac_6_b: JSON.parse(key_deal_fac_6_b.current.value),  //B//oolean,
+      key_deal_fac_6_c: key_deal_fac_6_c.current.value,  //V//ARCHAR,
+      key_deal_fac_6_d: new Date(key_deal_fac_6_d.current.value),  //D//ATE,
+      key_deal_fac_6_e: key_deal_fac_6_e.current.value,  //V//ARCHAR,
+      key_deal_fac_6_f: key_deal_fac_6_f.current.value,  //V//ARCHAR,
+      key_deal_fac_7_b: JSON.parse(key_deal_fac_7_b.current.value),  //B//oolean,
+      key_deal_fac_7_c: key_deal_fac_7_c.current.value,  //V//ARCHAR,
+      key_deal_fac_7_d: new Date(key_deal_fac_7_d.current.value),  //D//ATE,
+      key_deal_fac_7_e: key_deal_fac_7_e.current.value,  //V//ARCHAR,
+      key_deal_fac_7_f: key_deal_fac_7_f.current.value,  //V//ARCHAR,
+      key_deal_fac_8_b: JSON.parse(key_deal_fac_8_b.current.value),  //B//oolean,
+      key_deal_fac_8_c: key_deal_fac_8_c.current.value,  //V//ARCHAR,
+      key_deal_fac_8_d: new Date(key_deal_fac_8_d.current.value),  //D//ATE,
+      key_deal_fac_8_e: key_deal_fac_8_e.current.value,  //V//ARCHAR,
+      key_deal_fac_8_f: key_deal_fac_8_f.current.value,  //V//ARCHAR,
+      key_deal_fac_9_b: JSON.parse(key_deal_fac_9_b.current.value),  //B//oolean,
+      key_deal_fac_9_c: key_deal_fac_9_c.current.value,  //V//ARCHAR,
+      key_deal_fac_9_d: new Date(key_deal_fac_9_d.current.value),  //D//ATE,
+      key_deal_fac_9_e: key_deal_fac_9_e.current.value,  //V//ARCHAR,
+      key_deal_fac_9_f: key_deal_fac_9_f.current.value,  //V//ARCHAR,
+      key_deal_fac_10_b: JSON.parse(key_deal_fac_10_b.current.value),	//Boolean,
+      key_deal_fac_10_c: key_deal_fac_10_c.current.value,	//VARCHAR,
+      key_deal_fac_10_d: new Date(key_deal_fac_10_d.current.value),	//DATE,
+      key_deal_fac_10_e: key_deal_fac_10_e.current.value,	//VARCHAR,
+      key_deal_fac_10_f: key_deal_fac_10_f.current.value,	//VARCHAR,
+      key_deal_fac_11_b: JSON.parse(key_deal_fac_11_b.current.value),	//Boolean,
+      key_deal_fac_11_c: key_deal_fac_11_c.current.value,	//VARCHAR,
+      key_deal_fac_11_d: new Date(key_deal_fac_11_d.current.value),	//DATE,
+      key_deal_fac_11_e: key_deal_fac_11_e.current.value,	//VARCHAR,
+      key_deal_fac_11_f: key_deal_fac_11_f.current.value,	//VARCHAR,
+      key_deal_fac_12_b: JSON.parse(key_deal_fac_12_b.current.value),	//Boolean,
+      key_deal_fac_12_c: key_deal_fac_12_c.current.value,	//VARCHAR,
+      key_deal_fac_12_d: new Date(key_deal_fac_12_d.current.value),	//DATE,
+      key_deal_fac_12_e: key_deal_fac_12_e.current.value,	//VARCHAR,
+      key_deal_fac_12_f: key_deal_fac_12_f.current.value,	//VARCHAR,
+      key_deal_fac_13_b: JSON.parse(key_deal_fac_13_b.current.value),	//Boolean,
+      key_deal_fac_13_c: key_deal_fac_13_c.current.value,	//VARCHAR,
+      key_deal_fac_13_d: new Date(key_deal_fac_13_d.current.value),	//DATE,
+      key_deal_fac_13_e: key_deal_fac_13_e.current.value,	//VARCHAR,
+      key_deal_fac_13_f: key_deal_fac_13_f.current.value,	//VARCHAR,
+      key_deal_fac_14_b: JSON.parse(key_deal_fac_14_b.current.value),	//Boolean,
+      key_deal_fac_14_c: key_deal_fac_14_c.current.value,	//VARCHAR,
+      key_deal_fac_14_d: new Date(key_deal_fac_14_d.current.value),	//DATE,
+      key_deal_fac_14_e: key_deal_fac_14_e.current.value,	//VARCHAR,
+      key_deal_fac_14_f: key_deal_fac_14_f.current.value,	//VARCHAR,
+      key_deal_fac_15_b: JSON.parse(key_deal_fac_15_b.current.value),	//Boolean,
+      key_deal_fac_15_c: key_deal_fac_15_c.current.value,	//VARCHAR,
+      key_deal_fac_15_d: new Date(key_deal_fac_15_d.current.value),	//DATE,
+      key_deal_fac_15_e: key_deal_fac_15_e.current.value,	//VARCHAR,
+      key_deal_fac_15_f: key_deal_fac_15_f.current.value,	//VARCHAR,
+      key_deal_fac_16_b: JSON.parse(key_deal_fac_16_b.current.value),	//Boolean,
+      key_deal_fac_16_c: key_deal_fac_16_c.current.value,	//DATE,
+      key_deal_fac_17_b: JSON.parse(key_deal_fac_17_b.current.value),	//Boolean,
+      key_deal_fac_17_c: key_deal_fac_17_c.current.value,	//DATE,
+      key_deal_fac_18_b: JSON.parse( key_deal_fac_18_b.current.value),	//Boolean,
+      key_deal_fac_18_c: key_deal_fac_18_c.current.value,	//DATE,
+      key_deal_fac_19_b: JSON.parse(key_deal_fac_19_b.current.value),	//Boolean,
+      key_deal_fac_19_c: key_deal_fac_19_c.current.value,	//DATE,
+      key_deal_fac_20_b: JSON.parse( key_deal_fac_20_b.current.value),	//Boolean,
+      key_deal_fac_20_c: key_deal_fac_20_c.current.value,	//DATE,
+      key_deal_fac_21_b: JSON.parse(key_deal_fac_21_b.current.value),	//Boolean,
+      key_deal_fac_21_c: key_deal_fac_21_c.current.value,	//DATE,
+      key_deal_fac_22_b: JSON.parse(key_deal_fac_22_b.current.value),	//Boolean,
+      key_deal_fac_22_c: key_deal_fac_22_c.current.value,	//DATE,
+      key_deal_fac_23_b: JSON.parse(key_deal_fac_23_b.current.value),	//Boolean,
+      key_deal_fac_23_c: key_deal_fac_23_c.current.value,	//DATE
     }
 
       Service.updateDeal(id, data)
@@ -4469,6 +4655,1709 @@ function goToLastPage(e) {
                           </Col>
                         </Col>
                       </Col>
+
+                      {/* <Row>
+                        
+                        
+                      </Row> */}
+                    </Row>
+                    {/* <button
+                      onClick={(e) => toPrevTab(e)}
+                      style={{
+                        display: "inlineblock",
+                        fontSize: "13px",
+                        padding: "2px 20px",
+                        margin: "10px",
+                        background: "green",
+                        color: "white",
+                        borderRadius: "3px",
+                      }}
+                    >
+                      {" "}
+                      Prev
+                    </button>
+                     */}
+                  </Tab>
+
+                  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  {/* 10th */}
+
+                  <Tab
+                    eventKey="tenth"
+                    title="KEY PERFORMANCE INDICATOR"
+                    style={{ fontSize: "12px" }}
+                  >
+                    <br />
+                    <Row className="py-1">
+                      <Col sm={12}>
+                        <Row>
+                          <Col>
+                            <PWrapper>FACTORS</PWrapper>
+                            <br />
+                          </Col>
+                          <Col>
+                            <PWrapper>YES/NO</PWrapper>
+                          </Col>
+                          <Col>
+                            <PWrapper>CONCERN</PWrapper>
+                          </Col>
+                          <Col>
+                            <PWrapper>EXPECTED</PWrapper>
+                          </Col>
+                          <Col>
+                            <PWrapper>RESPONSIBLE PARTY</PWrapper>
+                          </Col>
+                          <Col>
+                            <PWrapper>STATUS</PWrapper>
+                          </Col>
+                        </Row>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Transaction Docs
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_1_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_1_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_1_c}
+                                    style={{ fontSize: "12px", width: "110%" }}
+                                  >
+                                    <option value=""> </option>
+                                    {concernGroup.map((item, index) => (
+                                      <option key={index} value={item} selected={item === deal[0].key_deal_fac_1_c}>{item}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_1_d ? new Date(deal[0].key_deal_fac_1_d).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_1_d}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_1_e}
+                                    ref={key_deal_fac_1_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_1_f}
+                                    ref={key_deal_fac_1_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Risk CP Sign-Off
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_2_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_2_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_2_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_2_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_2_d ? new Date(deal[0].key_deal_fac_2_d).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_2_d}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_2_e}
+                                    ref={key_deal_fac_2_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_2_f}
+                                    ref={key_deal_fac_2_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Reporting Acct Report
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_3_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_3_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_3_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_3_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_3_d ? new Date(deal[0].key_deal_fac_3_d).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_3_d}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_3_e}
+                                    ref={key_deal_fac_3_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_3_f}
+                                    ref={key_deal_fac_3_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Regulatory Approval
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_4_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_4_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_4_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_4_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_4_d ? new Date(deal[0].key_deal_fac_4_d).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_4_d}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_4_e}
+                                    ref={key_deal_fac_4_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_4_f}
+                                    ref={key_deal_fac_4_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  Parties Appointed
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_5_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_5_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_5_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_5_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_5_d ? new Date(deal[0].key_deal_fac_5_d).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_5_d}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_5_e}
+                                    ref={key_deal_fac_5_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_5_f}
+                                    ref={key_deal_fac_5_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  New Equity Investment
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_6_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_6_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_6_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_6_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_6_d ? new Date(deal[0].key_deal_fac_6_d).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_6_d}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_6_e}
+                                    ref={key_deal_fac_6_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_6_f}
+                                    ref={key_deal_fac_6_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  Legal Opinions
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_7_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_7_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_7_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_7_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_7_d ? new Date(deal[0].key_deal_fac_7_d).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_7_d}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_7_e}
+                                    ref={key_deal_fac_7_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_7_f}
+                                    ref={key_deal_fac_7_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  Issue Ratings
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_8_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_8_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_8_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_8_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_8_d ? new Date(deal[0].key_deal_fac_8_d).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_8_d}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_8_e}
+                                    ref={key_deal_fac_8_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_8_f}
+                                    ref={key_deal_fac_8_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  Guarantee Docs
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_9_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_9_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_9_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_9_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_9_d ? new Date(deal[0].key_deal_fac_9_d).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_9_d}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_9_e}
+                                    ref={key_deal_fac_9_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_9_f}
+                                    ref={key_deal_fac_9_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  Filed with SEC
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_10_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_10_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_10_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_10_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_10_d ? new Date(deal[0].key_deal_fac_10_d).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_10_d}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_10_e}
+                                    ref={key_deal_fac_10_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_10_f}
+                                    ref={key_deal_fac_10_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  Fees
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_11_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_11_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_11_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_11_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_11_d ? new Date(deal[0].key_deal_fac_11_d).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_11_d}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_11_e}
+                                    ref={key_deal_fac_11_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_11_f}
+                                    ref={key_deal_fac_11_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  CP Letter / Risk Sign-Off
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_12_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_12_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_12_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_12_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_12_d ? new Date(deal[0].key_deal_fac_12_d).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_12_d}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_12_e}
+                                    ref={key_deal_fac_12_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_12_f}
+                                    ref={key_deal_fac_12_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  Consent of Legacy Lenders 
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_13_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_13_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_13_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_13_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_13_d ? new Date(deal[0].key_deal_fac_13_d).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_13_d}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_13_e}
+                                    ref={key_deal_fac_13_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_13_f}
+                                    ref={key_deal_fac_13_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  Board Resolutions
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_14_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_14_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_14_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_14_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_14_d ? new Date(deal[0].key_deal_fac_14_d).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_14_d}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_14_e}
+                                    ref={key_deal_fac_14_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_14_f}
+                                    ref={key_deal_fac_14_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  Asset Valuation
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_15_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_15_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_15_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_15_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_15_d ? new Date(deal[0].key_deal_fac_15_d).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_15_d}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_15_e}
+                                    ref={key_deal_fac_15_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_15_f}
+                                    ref={key_deal_fac_15_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  MROC pre-CC Approval 
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_16_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_16_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_16_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_16_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col> */}
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_16_c ? new Date(deal[0].key_deal_fac_16_c).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_16_c}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_16_e}
+                                    ref={key_deal_fac_16_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col> */}
+                                {/* <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_16_f}
+                                    ref={key_deal_fac_16_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col> */}
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  MROC pre-CC Approval
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_17_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_17_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                {/* <Col sm={2}>
+                                <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_17_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_17_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col> */}
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_17_c ? new Date(deal[0].key_deal_fac_17_c).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_17_c}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_17_e}
+                                    ref={key_deal_fac_17_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_17_f}
+                                    ref={key_deal_fac_17_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col> */}
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  MROC pre-CC Minutes
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_18_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_18_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                {/* <Col sm={2}>
+                                <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_18_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_18_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col> */}
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_18_c ? new Date(deal[0].key_deal_fac_18_c).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_18_c}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_18_e}
+                                    ref={key_deal_fac_18_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col> */}
+                                {/* <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_18_f}
+                                    ref={key_deal_fac_18_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col> */}
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  CC Approval
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_19_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_19_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                {/* <Col sm={2}>
+                                <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_19_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_19_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col> */}
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_19_c ? new Date(deal[0].key_deal_fac_19_c).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_19_c}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_19_e}
+                                    ref={key_deal_fac_19_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col> */}
+                                {/* <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_19_f}
+                                    ref={key_deal_fac_19_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col> */}
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  CC Minutes
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_20_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_20_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_20_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_20_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col> */}
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_20_c ? new Date(deal[0].key_deal_fac_20_c).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_20_c}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_20_e}
+                                    ref={key_deal_fac_20_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_20_f}
+                                    ref={key_deal_fac_20_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col> */}
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                      </Col>
+                      <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  CC Approval Terms
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_21_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_21_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_20_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_20_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col> */}
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_21_c ? new Date(deal[0].key_deal_fac_21_c).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_21_c}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_20_e}
+                                    ref={key_deal_fac_20_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_20_f}
+                                    ref={key_deal_fac_20_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col> */}
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  Updated Indicative Term Sheet
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_22_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_22_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_20_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_20_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col> */}
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_22_c ? new Date(deal[0].key_deal_fac_22_c).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_22_c}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_20_e}
+                                    ref={key_deal_fac_20_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_20_f}
+                                    ref={key_deal_fac_20_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col> */}
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                      </Col>
+                      <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                   Fee Letter
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Select
+                                    type = "text"
+                                    size = "sm"
+                                    ref={key_deal_fac_23_b}
+                                    style={{ fontSize: "12px" }}
+                                  >
+                                    {optionsGroup.map((item, index) => (
+                                      <option key={index} value={item.value} selected={item.value === deal[0].key_deal_fac_23_b}>{item.text}</option>
+                                    ))}
+                                  </Form.Select>
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Form.Select
+                                      type = "text"
+                                      size = "sm"
+                                      ref={key_deal_fac_20_c}
+                                      style={{ fontSize: "12px", width: "110%" }}
+                                    >
+                                      <option value=""> </option>
+                                      {concernGroup.map((item, index) => (
+                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_20_c}>{item}</option>
+                                      ))}
+                                    </Form.Select>
+                                </Col> */}
+                                <Col sm={2}>
+                                  <Form.Control 
+                                    type="date" 
+                                    size="sm" 
+                                    defaultValue={deal[0].key_deal_fac_23_c ? new Date(deal[0].key_deal_fac_23_c).toISOString().split('T')[0] : ""}
+                                    ref={key_deal_fac_23_c}
+                                    style={{
+                                      width: "100%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                      fontSize: "12px"
+                                    }}
+                                  />
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_20_e}
+                                    ref={key_deal_fac_20_e}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].key_deal_fac_20_f}
+                                    ref={key_deal_fac_20_f}
+                                    style={{ width: "100%", fontSize:"12px" }}
+                                  />
+                                </Col> */}
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                        </Col>
+                  
+                      
 
                       {/* <Row>
                         
