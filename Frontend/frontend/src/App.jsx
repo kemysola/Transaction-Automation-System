@@ -27,6 +27,7 @@ import UserLogin from "./Components/Auth/Login/UserLogin";
 import StaffList from "./Components/Dashboard/Origination/stafflist/StaffList";
 import SingleStaff from "./Components/Dashboard/Origination/deals/SingleStaff";
 import SingleView from "./Components/Dashboard/Origination/deals/SingleView";
+import Settings from "./Components/Settings/SettingsView";
 
 export default function App() {
  
@@ -51,7 +52,7 @@ export default function App() {
           <AllDeals />
         </Route> */}
 
-        <Route path="/newPages">
+        <Route path="/create_transaction">
           <NewText />
         </Route>
 
@@ -70,6 +71,7 @@ export default function App() {
         <ProtectedRoute exact path="/execution" component={Execution} />
         <ProtectedRoute exact path="/staff_transaction_report" component={SingleView} />
         <ProtectedRoute exact path="/one_view" component={Updates} />
+        <ProtectedRoute exact path="/settings" component={Settings} />
         
         {/* <Route path="/verify">
           <Verify />

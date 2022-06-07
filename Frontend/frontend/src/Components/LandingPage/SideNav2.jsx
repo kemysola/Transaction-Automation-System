@@ -8,7 +8,7 @@ import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, Side
 import { ImUser, ImUsers } from "react-icons/im";
 import { GoDashboard } from "react-icons/go";
 import { HiOutlineCalculator } from "react-icons/hi";
-import { FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
+import { FiLogOut, FiArrowLeftCircle, FiArrowRightCircle, FiSettings } from "react-icons/fi";
 import { BsWallet2 } from "react-icons/bs";
 import "react-pro-sidebar/dist/css/styles.css";
 import "./custom.scss";
@@ -70,16 +70,13 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                   </Link>
                 </MenuItem>
                 <MenuItem className="subMenu">
-                  <Link to='/newPages' style={{ color: '#237cbf' }}>
+                  <Link to='/create_transaction' style={{ color: '#237cbf' }}>
                     New Transaction
                   </Link>
                 </MenuItem>
-                
               </SubMenu>
 
               {/* -------------------------------- Staff SideNav with React RouterLink -------------------- */}
-
-
               <SubMenu title='Staff' icon={<ImUsers />}>
                 <MenuItem className="subMenu">
                   <Link to='/staffs' style={{ color: '#237cbf' }}>
@@ -112,15 +109,26 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                     Origination Dashboard
                   </Link>
                 </MenuItem>
-            </SubMenu>
-            <MenuItem icon={<HiOutlineCalculator />}><Link to ='#' style={{color:'#237cbf'}}>
-                    Report
-                  </Link></MenuItem>
+              </SubMenu>
 
+              {/* ------------ Report Menu --------------- */}
+              <MenuItem icon={<HiOutlineCalculator />}>
+                <Link to ='#' style={{color:'#237cbf'}}>
+                  Report
+                </Link>
+              </MenuItem>
 
-            <MenuItem icon={<HiOutlineCalculator />}>Budget</MenuItem>
-          </Menu>
-        </SidebarContent>
+              {/* ------------ Budget Menu --------------- */}
+                <MenuItem icon={<HiOutlineCalculator />}>Budget</MenuItem>
+
+              {/* --------------- Settings Menu ----------------- */}
+                <MenuItem icon={<FiSettings />}>
+                  <Link to ='/settings' style={{color:'#237cbf'}}>
+                    Settings
+                  </Link>
+                </MenuItem>
+              </Menu>
+            </SidebarContent>
 
         <SidebarFooter>
           <Menu iconShape="circle">
