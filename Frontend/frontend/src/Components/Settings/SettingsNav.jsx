@@ -7,10 +7,10 @@ import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, Side
 import { ImUser, ImUsers } from "react-icons/im";
 import { GoDashboard } from "react-icons/go";
 import { HiOutlineCalculator } from "react-icons/hi";
-import { FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
+import { FiLogOut, FiArrowLeftCircle, FiArrowRightCircle, FiSettings } from "react-icons/fi";
 import { BsWallet2 } from "react-icons/bs";
 import "react-pro-sidebar/dist/css/styles.css";
-import "./custom.scss";
+import "./style.scss";
 
 const Sidenav = ({ toggled, handleToggleSidebar }) => {
   //menuCollapse state using useState hook
@@ -33,27 +33,26 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
         {/* collapsed props to change menu size using menucollapse state */}
         <ProSidebar
           collapsed={menuCollapse}
-          // toggled={toggled}
-          // breakPoint="md"
-          // onToggle={handleToggleSidebar}
+         
         >
-          <SidebarHeader>
+          {/* <SidebarHeader>
+            
             <div
               className="logotext"
             >
               {/* Icon change using menucollapse state */}
-              <p>{menuCollapse ? <ImUser /> : `Hi, ${nameCase}`}</p>
+              {/* <p>{menuCollapse ? <ImUser /> : `HELLO, ${nameCase}`}</p>
             </div>
 
             <div className="closemenu" onClick={menuIconClick}>
               {/* changing menu collapse icon on click */}
-              {menuCollapse ? (
+              {/* {menuCollapse ? (
                 <FiArrowRightCircle />
               ) : (
                 <FiArrowLeftCircle />
               )}
             </div>
-          </SidebarHeader>
+          </SidebarHeader> */} 
           {/* -------------------------------------- Transactions SideNav with React RouterLink ------------ */}
 
           <SidebarContent >
@@ -61,11 +60,18 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
               <SubMenu title='Transactions' icon={<BsWallet2 />}>
                 <MenuItem className="subMenu" >
                   <Link to='/transaction' style={{ color: '#237cbf' }}>
-                    My Portfolio</Link>
+                    My Portfolio
+                  </Link>
+                </MenuItem>
+                <MenuItem className="subMenu" >
+                  <Link to='/all_transactions' style={{ color: '#237cbf' }}>
+                    All Transactions
+                  </Link>
                 </MenuItem>
                 <MenuItem className="subMenu">
-                  <Link to='/create_transaction' style={{ color: '#237cbf' }}
-                  >New Transaction</Link>
+                  <Link to='/create_transaction' style={{ color: '#237cbf' }}>
+                    New Transaction
+                  </Link>
                 </MenuItem>
               </SubMenu>
 
@@ -106,15 +112,23 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                 </MenuItem>
             </SubMenu>
 
+          {/* ------------ Budget Menu --------------- */}
             <MenuItem icon={<HiOutlineCalculator />}>Budget</MenuItem>
+
+          {/* --------------- Settings Menu ----------------- */}
+            <MenuItem icon={<FiSettings />}>
+              <Link to ='/settings' style={{color:'#237cbf'}}>
+                Settings
+              </Link>
+            </MenuItem>
           </Menu>
         </SidebarContent>
 
-        <SidebarFooter>
+        {/* <SidebarFooter>
           <Menu iconShape="circle">
             <MenuItem icon={<FiLogOut />} onClick={authService.logout}>Logout</MenuItem>
           </Menu>
-        </SidebarFooter>
+        </SidebarFooter> */}
       </ProSidebar>
     </div>
   </>
