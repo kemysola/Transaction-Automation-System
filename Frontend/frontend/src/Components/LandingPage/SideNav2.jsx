@@ -109,14 +109,13 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                     Origination Dashboard
                   </Link>
                 </MenuItem>
-              </SubMenu>
+            </SubMenu>
+            <MenuItem icon={<HiOutlineCalculator />}><Link to ='/annual_and_quarterly_report_page' style={{color:'#237cbf'}}>
+                    Report
+                  </Link></MenuItem>
 
               {/* ------------ Report Menu --------------- */}
-              <MenuItem icon={<HiOutlineCalculator />}>
-                <Link to ='#' style={{color:'#237cbf'}}>
-                  Report
-                </Link>
-              </MenuItem>
+             
 
               {/* ------------ Budget Menu --------------- */}
                 <MenuItem icon={<HiOutlineCalculator />}>Budget</MenuItem>
