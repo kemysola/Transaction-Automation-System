@@ -72,6 +72,11 @@ export default function UpdateStaffs() {
     const [submitted, setSubmitted] = useState(false);
     const [response, setResponse] = useState(false);
     const [isadmin, setisAdmin] = useState("");
+    const [targs, setTargs] = useState("");
+    const [mands, setMands] = useState(0);
+
+
+
   
     const history = useHistory();
 
@@ -96,7 +101,7 @@ export default function UpdateStaffs() {
   const retrieveStaff = async () => {
     const staff_data = await axios.get(
        `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
-        /* `http://localhost:5001/api/v1/staff/${user_email}`, */
+        //  `http://localhost:5001/api/v1/staff/${user_email}`, 
 
       {headers: {
         token: `Bearer ${localStorage.getItem('token')}`,
@@ -106,7 +111,14 @@ export default function UpdateStaffs() {
       console.log(e);
     });
       setStaff(staff_data.data.staffInfo); 
+      console.log(staff_data.data.staffInfo)
+
       setisAdmin(staff_data.data.staffInfo[0].isadmin)
+    setTargs(staff_data.data.staffInfo[0].hasoriginationtarget)
+    setMands(staff_data.data.staffInfo[0].mandateletter)
+
+
+
       setStatus(true)
   } ;
 
@@ -134,15 +146,15 @@ export default function UpdateStaffs() {
             lastName: lastName.current.value,
             isadmin: JSON.parse(isadmin),
             level: level.current.value,
-            hasOriginationTarget: 1,
+            hasOriginationTarget:JSON.parse(targs),
             originationAmount: +originationAmount.current.value,
             guaranteePipeline: +guaranteePipeline.current.value,
-            mandateLetter: +mandateLetter.current.value,
+            mandateLetter:+mands,
             creditCommitteApproval: +creditCommitteApproval.current.value,
             feeLetter: +feeLetter.current.value,
             
         }
-
+console.log(response.data)
         Service.updateStaff(user_email, reqData)
             .then((response) => {
                 alert(response.data.message)
@@ -195,7 +207,7 @@ export default function UpdateStaffs() {
         }
 
     }
-
+console.log(mands)
 
     return (
         <React.Fragment>
@@ -303,8 +315,14 @@ export default function UpdateStaffs() {
                                                         <Form.Label>Has Orignation Target?</Form.Label>
                                                     </Col>
                                                     <Col sm={4}  className='mt-3 pt-2'>
-                                                        <Form.Check inline label="Yes" type="radio" name='target' value='Yes'  id='hasOriginationTarget' ref={hasOriginationTarget} />
-                                                    <Form.Check inline label="No" type="radio" name='target' value='No' id='hasOriginationTarget' ref={hasOriginationTarget}/>
+                                                        {/* <Form.Check inline label="Yes" type="radio" name='target' value='Yes'  id='hasOriginationTarget' ref={hasOriginationTarget} /> */}
+                                                        {/* <Form.Check value={true} defaultChecked={staff[0].target === true} name="target" onChange={e => setHasTargets(e.target.value)}/> */}
+                                                         {/* <Form.Check value={false} defaultChecked={staff[0].target === false} name="target" onChange={e => setHasTargets(e.target.value)}/> */}
+
+                                                    {/* <Form.Check inline label="No" type="radio" name='target' value='No'  id='' ref={hasOriginationTarget} /> */}
+                                                    <Form.Check inline label="Yes" type="radio" value={true} defaultChecked={staff[0].hasOriginationTarget === true} name="hasOriginationTarget" onChange={e => setTargs(e.target.value)}/>
+                                                    <Form.Check inline label="No" type="radio" value={false} defaultChecked={staff[0].hasOriginationTarget === false} name="hasOriginationTarget" onChange={e => setTargs(e.target.value)}/>
+                
                                                     </Col>
 </Row>
 </Form.Group>
@@ -337,7 +355,7 @@ export default function UpdateStaffs() {
                                             <Col sm={6}>
                                                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                                                         <Form.Label>Guarantee Pipeline (₦'BN)</Form.Label>
-                                                        <Form.Control type=""
+                                                        <Form.Control type="number"
                                                             placeholder="0"
                                                             size='sm'
                                                             id='guaranteePipeline'
@@ -396,18 +414,22 @@ export default function UpdateStaffs() {
                                                         <p style={{ fontWeight: 'normal', fontSize: '11px'  }}>Mandates Originated</p>
                                                     </Form.Label>
                                                     <Col sm="6">
-                                                        <Form.Control
-                                                            type="text"
+                                                        {/* <Form.Control
+                                                            type="number"
                                                             placeholder="0"
                                                             size='sm'
                                                             id='mandateLetter'
                                                             ref={mandateLetter}
                                                             name="mandateLetter"
-                                                        />
+                                                            value={mands}
+                                                            onChange={e => setMands(e.target.value)}
+                                                        /> */}
+                                                   <Form.Control type="number" placeholder="0" size='sm' id='mandateLetter' value={mands} name='mandateLetter' onChange={e => setMands(e.target.value)} />
+
                                                     </Col>
-                                                    {
+                                                    {/* {
                                                         !mandateLetter && <p>Kindly fill </p>
-                                                    }
+                                                    } */}
                                                 </Form.Group>
 
                                                 {/*-------------------------- Form -------------------------------------- */}

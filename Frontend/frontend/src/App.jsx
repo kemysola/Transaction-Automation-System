@@ -16,6 +16,7 @@ import AllStaff from "./Pages/Staffs/AllStaff";
 import Home from "./Components/Home";
 import Execution from "./Components/Dashboard/Execution/Execution";
 import StaffTable from "./Components/Staffs/StaffTable";
+import Report from './Components/Report/AllPages'
 // import Verify from "./Components/Auth/Verify";
 import PasswordReset from "./Components/Auth/Reset/PasswordReset";
 import Reset from "./Components/Auth/StaffReset/Reset";
@@ -71,6 +72,8 @@ export default function App() {
         <ProtectedRoute exact path="/execution" component={Execution} />
         <ProtectedRoute exact path="/staff_transaction_report" component={SingleView} />
         <ProtectedRoute exact path="/one_view" component={Updates} />
+        <ProtectedRoute exact path="/annual_and_quarterly_report_page" component={Report} />
+
         <ProtectedRoute exact path="/settings" component={Settings} />
         
         {/* <Route path="/verify">
