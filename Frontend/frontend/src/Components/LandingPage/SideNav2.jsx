@@ -54,6 +54,7 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
               )}
             </div>
           </SidebarHeader>
+
           {/* -------------------------------------- Transactions SideNav with React RouterLink ------------ */}
 
           <SidebarContent >
@@ -64,11 +65,13 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                     My Portfolio
                   </Link>
                 </MenuItem>
+
                 <MenuItem className="subMenu" >
                   <Link to='/all_transactions' style={{ color: '#237cbf' }}>
                     All Transactions
                   </Link>
                 </MenuItem>
+
                 <MenuItem className="subMenu">
                   <Link to='/create_transaction' style={{ color: '#237cbf' }}>
                     New Transaction
@@ -83,6 +86,7 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                     All Staff
                   </Link>
                 </MenuItem>
+
                 <MenuItem className="subMenu">
                   <Link to='/staff' style={{ color: '#237cbf' }}>
                     New Staff
@@ -119,7 +123,9 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
               </MenuItem>
 
               {/* ------------ Budget Menu --------------- */}
-                <MenuItem icon={<HiOutlineCalculator />}>Budget</MenuItem>
+                <MenuItem icon={<HiOutlineCalculator />}>
+                  Budget
+                </MenuItem>
 
               {/* --------------- Settings Menu ----------------- */}
                 <MenuItem icon={<FiSettings />}>
