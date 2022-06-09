@@ -110,11 +110,19 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                   </Link>
                 </MenuItem>
             </SubMenu>
-            <MenuItem icon={<HiOutlineCalculator />}><Link to ='/annual_and_quarterly_report_page' style={{color:'#237cbf'}}>
+            {/* <MenuItem icon={<HiOutlineCalculator />}><Link to ='/annual_and_quarterly_report_page' style={{color:'#237cbf'}}>
                     Report
-                  </Link></MenuItem>
+                  </Link></MenuItem> */}
 
               {/* ------------ Report Menu --------------- */}
+              <SubMenu title='Report' icon={<ImUsers />}>
+                <MenuItem className="subMenu">
+                  <Link to='/annual_and_quarterly_report_page' style={{ color: '#237cbf' }}>
+                    Quarterly Report
+                  </Link>
+                </MenuItem>
+               
+              </SubMenu>
              
 
               {/* ------------ Budget Menu --------------- */}
