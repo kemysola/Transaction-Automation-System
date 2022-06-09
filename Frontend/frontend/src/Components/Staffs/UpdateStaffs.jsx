@@ -225,7 +225,7 @@ console.log(mands)
                             <div>
 
                             </div>
-                            <Tabs activeKey={activeTab} onSelect={(k) => handleTabChange} style={{ fontSize: '13px' }}>
+                            <Tabs  onSelect={(k) => handleTabChange} style={{ fontSize: '13px' }}>
                                 <Tab eventKey="first" title="STAFF">
                                     <br />
                                     <br />
@@ -300,7 +300,7 @@ console.log(mands)
                                         </Row>
                                         <br/>
                                         <br/>
-                                        <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button>
+                                        {/* <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button> */}
                                     
                                     </Container1>
                                     <br />
@@ -373,8 +373,8 @@ console.log(mands)
                         
                                         <br />
                                         <br/>
-                                        <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Prev</button>
-                                        <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button>
+                                        {/* <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Prev</button>
+                                        <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button> */}
                                     </Container1>
 
                                     <br />
@@ -488,21 +488,19 @@ console.log(mands)
                                         </Row>
                                         <br/>
                                         <br/>
-                                        <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Prev</button>
+                                        {/* <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Prev</button> */}
 
                                     </Container1>
-                                    <div className='d-flex justify-content-end'>
+                                    
+                                </Tab>
+                            </Tabs>
+                            <div className='d-flex justify-content-end'>
                                         <p style={{ fontWeight: 'bold', fontSize: '12px', color: 'red', marginTop: '1rem' }}>{response}</p>
-
                                         <ButtonWrapper>
                                             Submit
                                         </ButtonWrapper>
-
-    
                                     </div>
                         
-                                </Tab>
-                            </Tabs>
                         </Form>
                     ) : (
                         <div>
