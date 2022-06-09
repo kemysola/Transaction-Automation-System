@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, './frontend/frontend/build')));
 app.set('port', app_port  || 3000)
 // Implemeting all endpoints
 
-// app.use(express.static(path.join(__dirname, './frontend/frontend/build')));
+app.use(express.static(path.join(__dirname, './frontend/frontend/build')));
 
 try {
     app.use("/api/v1/auth", authRoute)

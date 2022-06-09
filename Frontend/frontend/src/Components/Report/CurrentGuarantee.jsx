@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { Container, Row, Col, Stack ,Table} from "react-bootstrap";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
 import ReactTable from "react-table";  
@@ -9,6 +9,7 @@ import StructuringExecution from "./StructuringExecution";
 
 
 export default function CurrentGuarantee() {
+  const[ctitle, setCTitle] =(" ")
     
 
   const data = [
@@ -46,10 +47,12 @@ export default function CurrentGuarantee() {
   };
   return (
     <React.Fragment>
+           <p>{ctitle}</p>
       <Container fluid>
         <Stack gap={2}>
-          <div className="pb-3 mb-3" style={{ fontWeight: "bold" }}>
-            Current Guarantee Portfolio
+          <div className="pb-3 mb-3" style={{ fontWeight: "bold" , color:'black'}}>
+          Current Guarantee Portfolio
+       
           </div>
         </Stack>
         <div>
