@@ -181,7 +181,7 @@ function GreenDealCard() {
               <br/>
               <br/>
               <small
-                style={{ fontSize: "11px", color: "blue", fontWeight: "bold" }}
+                style={{ fontSize: "11px", color: "black", fontWeight: "bold" }}
                 className=" mt-3"
               >
                 ACTUAL
@@ -208,7 +208,7 @@ function GreenDealCard() {
               </small>
               <small className="mb-3">{varianceDisplay(varianceAmount)}</small>
               <small
-                style={{ fontSize: "11px", color: "red", fontWeight: "bold" }}
+                style={{ fontSize: "11px", color: "black", fontWeight: "bold" }}
               >
                 VARIANCE
               </small>

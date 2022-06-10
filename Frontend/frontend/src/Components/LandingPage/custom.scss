@@ -2,14 +2,21 @@ $sidebar-bg-color: #1184C2;
 // $submenu-bg-color: rgba(255, 255, 255, 0.05);
 $submenu-bg-color: white;
 $submenu-bg-color-collapsed: white;
+
 $sidebar-color: #b3b8d4;
 $highlight-color: white;
+$prosidebar-height: 10px !default;
+$sidebar-margin: 0 !default;
+$sidebar-padding: 0 !default;
+
+
+
 $icon-bg-color: rgba(255, 255, 255, 0.05);
 $icon-size: 35px;
 @import '~react-pro-sidebar/dist/scss/styles.scss';
 
 #header {
-    position: absolute;
+    position: relative;
     // width: 310px;
 }
 
@@ -50,13 +57,13 @@ $icon-size: 35px;
     box-shadow: 0.5px 0.866px 2px 0px rgba(0, 0, 0, 0.15);
 }
 
-#header .pro-sidebar-inner .pro-sidebar-layout {
-    overflow-y: auto;
-}
+// #header .pro-sidebar-inner .pro-sidebar-layout {
+//     // overflow-y: auto;
+// }
 
 #header .pro-sidebar-inner .pro-sidebar-layout .logotext p {
     font-size: 14px;
-    padding: 0 20px;
+    padding: 0 10px;
     color: #1184C2;
     font-weight: bold;
 }
@@ -67,7 +74,7 @@ $icon-size: 35px;
 
 #header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item {
     color: #1184C2;
-    margin: 10px 0px;
+    margin:5px 0px;
     font-weight: bold;
 }
 
