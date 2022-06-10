@@ -128,20 +128,33 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
               {/* ------------ Budget Menu --------------- */}
                 <MenuItem icon={<HiOutlineCalculator />}>Budget</MenuItem>
 
+                
+
               {/* --------------- Settings Menu ----------------- */}
                 <MenuItem icon={<FiSettings />}>
                   <Link to ='/settings' style={{color:'#237cbf'}}>
                     Settings
                   </Link>
                 </MenuItem>
+
+                
+                  
+                  {/* <MenuItem
+                onClick={authService.logout}>Logout
+
+                  </MenuItem> */}
+
+               
+
+            <MenuItem icon={<FiLogOut />} onClick={authService.logout} >
+              Logout
+            </MenuItem>
               </Menu>
             </SidebarContent>
 
-        <SidebarFooter>
-          <Menu iconShape="circle">
-            <MenuItem icon={<FiLogOut />} onClick={authService.logout}>Logout</MenuItem>
-          </Menu>
-        </SidebarFooter>
+        {/* <SidebarFooter>
+          
+        </SidebarFooter> */}
       </ProSidebar>
     </div>
   </>
