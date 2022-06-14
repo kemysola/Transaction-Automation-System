@@ -9,6 +9,23 @@ function GreenDealCard() {
   const [data, setData] = useState([]);
   const [industry, setIndustry] = useState([]);
 
+  const [forecast2022, setForecast2022] = useState([])
+
+  useEffect(() => {
+    retrieveForecast();
+  }, []);
+
+  
+  const retrieveForecast = async() => {
+    await Service.getForecast()
+      .then((response) => {
+        setForecast2022(response.data.forecast[0]);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
   useEffect(() => {
     Service.getAllStaff()
       .then((res) => {
@@ -61,6 +78,13 @@ function GreenDealCard() {
         console.log(err);
       });
   }, []);
+
+  // magement metrics for green deal
+  
+  let greendeal = +forecast2022.newdeals
+
+  let greendealForecastValue = 0
+  greendealForecastValue = (greendeal) * 1.5 * 0.7
 
   // get green and amber actual values and variances
   var amber = actual.reduce(function (filtered, arr) {
@@ -132,27 +156,27 @@ function GreenDealCard() {
     return tot + parseFloat(arr.dealsize);
   }, 0);
 
-  let varianceAmount = greenV - greenTotal;
-
+  let varianceAmount = greendealForecastValue - greenTotal;
+ 
   function varianceDisplay(variance) {
     if (variance < 1) {
       let varianceAns = (variance * -1)
       return <span style={{color: 'green'}}>↑ ₦ {(varianceAns).toFixed(1)}bn</span>;
     }
     else if (!isFinite(variance) || isFinite(variance)){
-      return <span style={{color: 'red'}}>↓ ₦ {-1 * (greenV - greenTotal)}bn </span>;
+      return <span style={{color: 'red'}}>↓ ₦ { (greendealForecastValue - greenTotal).toFixed(1)}bn </span>;
     }
     
     return <span style={{color: 'red'}}>↓ ₦ {(variance).toFixed(1)}bn </span>;
   }
 
-  // let variancePercent = ((varianceAmount / greenV) * 100).toFixed(1);
-  if (greenV == 0) {
-    let greenV = 1;
+  // let variancePercent = ((varianceAmount / greendealForecastValue) * 100).toFixed(1);
+  if (greendealForecastValue == 0) {
+    let greendealForecastValue = 1;
     
-    var varianceP = (( varianceAmount /greenV) * 100).toFixed(1);
+    var varianceP = (( varianceAmount /greendealForecastValue) * 100).toFixed(1);
   } else  {
-    var varianceP = (( varianceAmount /greenV) * 100).toFixed(1);
+    var varianceP = (( varianceAmount /greendealForecastValue) * 100).toFixed(1);
   }
 
   let variancePercent = varianceP
@@ -190,7 +214,7 @@ function GreenDealCard() {
           </Col>
           <Col sm={4}>
             <Stack gap={0} className="d-flex justify-content-center">
-            ₦ {greenV.toFixed(2)}bn
+            ₦ {greendealForecastValue.toFixed(0)}bn
               <small
                 style={{ fontSize: "11px", color: "black", fontWeight: "bold" }}
                 className="mt-2"

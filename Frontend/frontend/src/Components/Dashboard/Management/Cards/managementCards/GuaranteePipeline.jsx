@@ -139,7 +139,7 @@ function GuaranteePipeline() {
       return <span style={{color: 'green'}}>↑ ₦ {(varianceAns).toFixed(1)}bn</span>;
     }
     else if (!isFinite(variance) || isFinite(variance)){
-      return <span style={{color: 'red'}}>↓ ₦ {-1 * (actuallvalue - targetValue)}bn </span>;
+      return <span style={{color: 'red'}}>↓ ₦ {-1 * (actuallvalue - targetValue).toFixed(1)}bn </span>;
     }
     
     return <span style={{color: 'red'}}>↓ ₦ {(variance).toFixed(1)}bn </span>;
