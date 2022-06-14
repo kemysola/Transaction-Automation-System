@@ -5,9 +5,6 @@ import Services from "../../Services/Service";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 
-import { GrCheckmark } from "react-icons/gr";
-import { GrClose } from "react-icons/gr";
-
 const ButtonWrapper = styled.button`
   background: mediumseagreen;
   border: 1px solid white;
@@ -39,64 +36,56 @@ const required = (value) => {
 export default function IndustrySettings () {
   const form = useRef();
 
-  const [industry, setIndustry] = useState("");
+  const [product, setProduct] = useState("");
   const [status, setStatus] = useState();
   const [message, setMessage] = useState("");
-
-  const handleCancel = () => {
-    // e.preventDefault();
-    // e.target.reset();
-    setIndustry("")
-  }
 
   const save = (e) => {
     e.preventDefault();
     form.current.validateAll();
-
+  
     let data = {
-      // store user's input in a variable called data
-      "industry": industry
-    }
-
-    Services.addIndustry(data)
-      .then((res) => {
-        setStatus(true)
-        setMessage(res.data.message)
-        setIndustry("")
-      })
-      .catch((error) => {
-        setStatus(false)
-        setMessage("Failed. Please Try Again")
-      });
+        // store user's input in a variable called data
+        "product": product
+      }
+  
+      Services.addProduct(data)
+        .then((res) => {
+          setStatus(true)
+          setMessage(res.data.message)
+          setProduct("")
+        })
+        .catch((error) => {
+          setStatus(false)
+          setMessage("Failed. Please Try Again")
+        });
   }
 
   return (
     <React.Fragment>
-      <FormWrapper>
-        <Row className="d-flex justify-content-between">
-          <Col sm={5} md={5} lg={5} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px'}}>
+      <FormWrapper>        
+        <Row>
+          <Col sm={5} md={5} lg={5} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }} >
             <Form ref={form}>
-              <p style={{fontSize: "13px"}}><b>Add Industry</b></p>
+              <p style={{fontSize: "13px"}}><b>Add Product</b></p>
 
               <Fm.Group style={{ marginBottom: "5px"}}>
                 <Fm.Label>
-                  Industry
+                  Product
                   <span style={{ color: "red" }}>*</span>
                 </Fm.Label>
                 <Input 
                   type="text" 
-                  name="industry" 
-                  placeholder="Enter Industry" 
+                  name="product" 
+                  placeholder="Enter Product" 
                   validations={[required]} 
                   style={{ width: "100%", padding: "4px 2px", focus: "none"}} 
-                  onChange={e => setIndustry(e.target.value)}
+                  onChange={e => setProduct(e.target.value)}
                 />
               </Fm.Group>
-              
-              {/* <br /> */}
-              
+
               <div className="d-flex justify-content-end">
-                <ButtonWrapper onClick={handleCancel} style={{ backgroundColor: "grey", color: "white" }}>
+                <ButtonWrapper style={{ backgroundColor: "grey", color: "white" }}>
                   Cancel
                 </ButtonWrapper>
 
@@ -108,21 +97,6 @@ export default function IndustrySettings () {
               </div>
             </Form>
           </Col>
-
-          {/* <Col sm={1} md={1} lg={1} >
-            {status ? (
-              <div class='animate__animated animate__pulse py-1'>
-                <GrCheckmark />
-                {message}
-              </div>
-
-            ) : (
-              <div class='animate__animated animate__pulse py-1'>
-                <GrClose />
-                {message}
-              </div>
-            )}
-          </Col> */}
         </Row>
       </FormWrapper>
     </React.Fragment>

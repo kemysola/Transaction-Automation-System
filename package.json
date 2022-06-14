@@ -4,7 +4,7 @@
   "description": "InCr Backend services",
   "main": "index.js",
   "scripts": {
-    "dev": "node index.js",
+    "dev": "nodemon index.js",
     "start": "node -r dotenv/config index.js"
   },
   "repository": {
@@ -26,7 +26,7 @@
     "jsonwebtoken": "^8.5.1",
     "nodejs-nodemailer-outlook": "^1.2.4",
     "nodemailer": "^6.7.2",
-    "nodemon": "^2.0.15",
+    "nodemon": "^2.0.16",
     "pg": "^8.7.3",
     "recharts": "^2.1.9"
   }
