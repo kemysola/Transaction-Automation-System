@@ -8,10 +8,10 @@ const {verifyTokenAndAdmin, verifyTokenAndAuthorization, verifyUser} = require("
 
 // This method computes the Financial Close for every user by using the mandate-letter, credit-committee and Fee-Letter values
 // - it will be a global formula and its values can only be set/modified by the admin: 2022-01-21
-const funcFinancialClose = (originator, mandateLetter, creditCommittee, feeLetter) => {
-  if(originator > 0 | mandateLetter > 0 | creditCommittee > 0 | feeLetter > 0){
+const funcFinancialClose = (mandateLetter, creditCommittee, feeLetter) => {
+  if(mandateLetter > 0 | creditCommittee > 0 | feeLetter > 0){
 
-    return parseInt((mandateLetter + creditCommittee + feeLetter + originator) - 100);
+    return parseInt((mandateLetter + creditCommittee + feeLetter) - 100);
   }else{
     return parseInt(0)
   }
@@ -111,24 +111,23 @@ router.get("/confirm/:confirmationCode", verifyUser)
 router.put('/update/:user_email', verifyTokenAndAuthorization,async (req, res) => {
   const client = await pool.connect();
   try {
-
       const user_rec = { firstName, lastName, level, hasOriginationTarget, originationAmount, guaranteePipeline, greenTransaction,
-    amberTransaction,originator, mandateLetter, creditCommiteeApproval, feeLetter, isadmin} = req.body;
+    amberTransaction, mandateLetter, creditCommiteeApproval, feeLetter, isadmin} = req.body;
 
   const user_data = [
                 user_rec.firstName, user_rec.lastName, user_rec.level, user_rec.hasOriginationTarget, user_rec.originationAmount,
-                user_rec.guaranteePipeline, user_rec.greenTransaction, user_rec.amberTransaction,user_rec.originator , user_rec.mandateLetter,
+                user_rec.guaranteePipeline, user_rec.greenTransaction, user_rec.amberTransaction , user_rec.mandateLetter,
                 user_rec.creditCommiteeApproval, user_rec.feeLetter, 
-        funcFinancialClose(user_rec.originator, user_rec.mandateLetter, user_rec.creditCommiteeApproval, user_rec.feeLetter), user_rec.isadmin, req.params.user_email
+        funcFinancialClose(user_rec.mandateLetter, user_rec.creditCommiteeApproval, user_rec.feeLetter), user_rec.isadmin, req.params.user_email
               ]
       
       await client.query('BEGIN')
       const update_db = 
       `UPDATE TB_TRS_USERS
        SET  	firstName = $1, lastName = $2, level = $3, hasOriginationTarget = $4, originationAmount = $5, 
-      guaranteePipeline = $6, greenTransaction =$7, amberTransaction = $8, originator = $9, 
-      mandateLetter = $10, creditCommiteeApproval = $11, feeLetter = $12, financialClose = $13, isadmin = $14
-          WHERE email = $15
+      guaranteePipeline = $6, greenTransaction =$7, amberTransaction = $8,
+      mandateLetter = $9, creditCommiteeApproval = $10, feeLetter = $11, financialClose = $12, isadmin = $13
+          WHERE email = $14
       RETURNING *`
       const res_ = await client.query(update_db, user_data)                   
       await client.query('COMMIT')
@@ -147,8 +146,8 @@ router.put('/update/:user_email', verifyTokenAndAuthorization,async (req, res) =
           await client.query('BEGIN')
           const update_db = 
           `UPDATE TB_TRS_USERS
-          SET  	originator = $9, 
-          mandateLetter = $10, creditCommiteeApproval = $11, feeLetter = $12, financialClose = $13
+          SET  
+          mandateLetter = $9, creditCommiteeApproval = $10, feeLetter = $11, financialClose = $12
           RETURNING *`
           const res_ = await client.query(update_db, user_data)                   
           await client.query('COMMIT')
