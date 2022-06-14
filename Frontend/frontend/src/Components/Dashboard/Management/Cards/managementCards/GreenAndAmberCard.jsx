@@ -9,6 +9,24 @@ function GreenAndAnberCard() {
   const [data, setData] = useState([]);
   const [industry, setIndustry] = useState([]);
 
+  const [forecast2022, setForecast2022] = useState([])
+
+
+  useEffect(() => {
+    retrieveForecast();
+  }, []);
+
+  
+  const retrieveForecast = async() => {
+    await Service.getForecast()
+      .then((response) => {
+        setForecast2022(response.data.forecast[0]);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
   useEffect(() => {
     Service.getAllStaff()
       .then((res) => {
@@ -30,6 +48,12 @@ function GreenAndAnberCard() {
         // console.log(err);
       });
   }, []);
+
+  // magement metrics for green and amber
+  let greenAndAmberForecast2022 = +forecast2022.newdeals
+
+  let greenandAmberForecastValue = 0
+  greenandAmberForecastValue = (greenAndAmberForecast2022) * 1.5
 
   // get green and amber actual values and variances
   var amber = actual.reduce(function (filtered, arr) {
@@ -94,7 +118,7 @@ function GreenAndAnberCard() {
   var gandAactual = greenTotal + amberTotal;
   let gandAtarget = greenV + amberValue;
 
-  let varianceAmount = gandAtarget - gandAactual;
+  let varianceAmount = greenandAmberForecastValue - gandAactual;
 
   function varianceDisplay(variance) {
     if (variance < 1) {
@@ -102,23 +126,23 @@ function GreenAndAnberCard() {
       return <span style={{color: 'green'}}>↑ ₦ {(varianceAns).toFixed(1)}bn</span>;
     }
     else if (!isFinite(variance) || isFinite(variance)){
-      return <span style={{color: 'red'}}>↓ ₦ {-1 * (gandAactual - gandAtarget)}bn </span>;
+      return <span style={{color: 'red'}}>↓ ₦ {-1 * (gandAactual - greenandAmberForecastValue).toFixed(1)}bn </span>;
     }
     
     return <span style={{color: 'red'}}>↓ ₦ {(variance).toFixed(1)}bn </span>;
   }
 
-  if (gandAtarget == 0) {
-    let gandAtarget = 1;
+  if (greenandAmberForecastValue == 0) {
+    let greenandAmberForecastValue = 1;
     
-    var varianceP = (( varianceAmount / gandAtarget) * 100).toFixed(1);
+    var varianceP = (( varianceAmount / greenandAmberForecastValue) * 100).toFixed(1);
   } else  {
-    var varianceP = (( varianceAmount / gandAtarget) * 100).toFixed(1);
+    var varianceP = (( varianceAmount / greenandAmberForecastValue) * 100).toFixed(1);
   }
 
   let variancePercent = varianceP
 
-  // let variancePercent = ((varianceAmount / gandAtarget) * 100).toFixed(1);
+  // let variancePercent = ((varianceAmount / greenandAmberForecastValue) * 100).toFixed(1);
 
   function variancePerDisplay(variancePer) {
     if (variancePer < 1) {
@@ -143,7 +167,7 @@ function GreenAndAnberCard() {
             ₦{greenTotal + amberTotal.toFixed(2)}bn
               <br/>
               <small
-                style={{ fontSize: "11px", color: "blue", fontWeight: "bold" }}
+                style={{ fontSize: "11px", color: "black", fontWeight: "bold" }}
                 className=" mt-3"
               >
                 <br/>
@@ -154,7 +178,7 @@ function GreenAndAnberCard() {
           </Col>
           <Col sm={4}>
             <Stack gap={0} className="d-flex justify-content-center">
-            ₦ {greenV + amberValue.toFixed(2)}bn
+            ₦ {greenandAmberForecastValue.toFixed(0)}bn
               <br />
               <small
                 style={{ fontSize: "11px", color: "black", fontWeight: "bold" }}
@@ -173,7 +197,7 @@ function GreenAndAnberCard() {
               </small>
               <small className="mb-3">{varianceDisplay(varianceAmount)}</small>
               <small
-                style={{ fontSize: "11px", color: "red", fontWeight: "bold" }}
+                style={{ fontSize: "11px", color: "black", fontWeight: "bold" }}
               >
                 VARIANCE
               </small>

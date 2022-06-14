@@ -63,13 +63,13 @@ const AddDeal = () => {
     moratorium: 0,
     repaymentFrequency: "Semi-Annually",
     amortizationStyle: "Annuity",
-    mandateLetter: "2022-01-01",
-    nbc_approval_date: "2022-01-01",
-    nbc_submitted_date: "2022-01-01",
-    creditApproval: "2022-01-01",
-    feeLetter: "2022-01-01",
-    expectedClose: "2022-01-01",
-    actualClose: "2022-01-01",
+    mandateLetter: "",
+    nbc_approval_date: "",
+    nbc_submitted_date: "",
+    creditApproval: "",
+    feeLetter: "",
+    expectedClose: "",
+    actualClose: "",
     greenA: "false",
     greenB: "false",
     greenC: "false",
@@ -95,27 +95,27 @@ const AddDeal = () => {
     // PLIS Columns
     plis_1_b:"",
     plis_1_c:0.00,
-    plis_1_d:"2022-01-01",
+    plis_1_d:"",
     plis_1_e:"",
     plis_2_b:"",
     plis_2_c:0.00,
-    plis_2_d:"2022-01-01",
+    plis_2_d:"",
     plis_2_e:"",
     plis_3_b:"",
     plis_3_c:0.00,
-    plis_3_d:"2022-01-01",
+    plis_3_d:"",
     plis_3_e:"",
     plis_4_b:"",
     plis_4_c:0.00,
-    plis_4_d:"2022-01-01",
+    plis_4_d:"",
     plis_4_e:"",
     plis_5_b:"",
     plis_5_c:0.00,
-    plis_5_d:"2022-01-01",
+    plis_5_d:"",
     plis_5_e:"",
     plis_6_b:"",
     plis_6_c:0.00,
-    plis_6_d:"2022-01-01",
+    plis_6_d:"",
     plis_6_e:"",
 
     // Parties Columns
@@ -155,30 +155,30 @@ const AddDeal = () => {
 
     // NBC Focus Data
     nbc_focus_original_1_b:"false",
-    nbc_focus_original_1_c:"1900-01-01",
+    nbc_focus_original_1_c:"",
     nbc_focus_original_1_d:"",
     nbc_focus_original_2_b:"false",
-    nbc_focus_original_2_c:"1900-01-01",
+    nbc_focus_original_2_c:"",
     nbc_focus_original_2_d:"",
     nbc_focus_original_3_b:"false",
-    nbc_focus_original_3_c:"1900-01-01",
+    nbc_focus_original_3_c:"",
     nbc_focus_original_3_d:"",
     nbc_focus_original_4_b:"false",
-    nbc_focus_original_4_c:"1900-01-01",
+    nbc_focus_original_4_c:"",
     nbc_focus_original_4_d:"",
     nbc_focus_original_5_b:"false",
-    nbc_focus_original_5_c:"1900-01-01",
+    nbc_focus_original_5_c:"",
     nbc_focus_original_5_d:"",
     nbc_focus_apprv_1_b:"false",
-    nbc_focus_apprv_1_c:"1900-01-01",
+    nbc_focus_apprv_1_c:"",
     nbc_focus_apprv_2_b:"false",
-    nbc_focus_apprv_2_c:"1900-01-01",
+    nbc_focus_apprv_2_c:"",
     nbc_focus_apprv_3_b:"false",
-    nbc_focus_apprv_3_c:"1900-01-01",
+    nbc_focus_apprv_3_c:"",
     nbc_focus_apprv_4_b:"false",
-    nbc_focus_apprv_4_c:"1900-01-01",
+    nbc_focus_apprv_4_c:"",
     nbc_focus_apprv_5_b:"false",
-    nbc_focus_apprv_5_c:"1900-01-01",
+    nbc_focus_apprv_5_c:"",
 
     // Other CPS Data
     ocps_fac_1_b:"false",
@@ -281,7 +281,100 @@ const AddDeal = () => {
     ocps_fac_20_c:"",
     ocps_fac_20_d:"",
     ocps_fac_20_e:"",
-    ocps_fac_20_f:"",
+    ocps_fac_20_f: "",
+    
+    //KEY PERFORMANCE INDICATOR
+    key_deal_fac_1_b: "false",
+    key_deal_fac_1_c: "",
+    key_deal_fac_1_d: "",
+    key_deal_fac_1_e: "",
+    key_deal_fac_1_f: "",	
+    key_deal_fac_2_b: "false",
+    key_deal_fac_2_c: "",
+    key_deal_fac_2_d: "",
+    key_deal_fac_2_e: "",
+    key_deal_fac_2_f: "",
+    key_deal_fac_3_b: "false",
+    key_deal_fac_3_c: "",
+    key_deal_fac_3_d: "",
+    key_deal_fac_3_e: "",
+    key_deal_fac_3_f: "",
+    key_deal_fac_4_b: "false",
+    key_deal_fac_4_c: "",
+    key_deal_fac_4_d: "",
+    key_deal_fac_4_e: "",
+    key_deal_fac_4_f: "",
+    key_deal_fac_5_b: "false",
+    key_deal_fac_5_c: "",
+    key_deal_fac_5_d: "",
+    key_deal_fac_5_e: "",
+    key_deal_fac_5_f: "",
+    key_deal_fac_6_b: "false",
+    key_deal_fac_6_c: "",
+    key_deal_fac_6_d: "",
+    key_deal_fac_6_e: "",
+    key_deal_fac_6_f: "",
+    key_deal_fac_7_b: "false",
+    key_deal_fac_7_c: "",
+    key_deal_fac_7_d: "",
+    key_deal_fac_7_e: "",
+    key_deal_fac_7_f: "",
+    key_deal_fac_8_b: "false",
+    key_deal_fac_8_c: "",
+    key_deal_fac_8_d: "",
+    key_deal_fac_8_e: "",
+    key_deal_fac_8_f: "",
+    key_deal_fac_9_b: "false",
+    key_deal_fac_9_c: "",
+    key_deal_fac_9_d: "",
+    key_deal_fac_9_e: "",
+    key_deal_fac_9_f: "",
+    key_deal_fac_10_b:"false",
+    key_deal_fac_10_c:"",
+    key_deal_fac_10_d:"",
+    key_deal_fac_10_e:"",
+    key_deal_fac_10_f:"",
+    key_deal_fac_11_b:"false",
+    key_deal_fac_11_c:"",
+    key_deal_fac_11_d:"",
+    key_deal_fac_11_e:"",
+    key_deal_fac_11_f:"",
+    key_deal_fac_12_b:"false",
+    key_deal_fac_12_c:"",
+    key_deal_fac_12_d:"",
+    key_deal_fac_12_e:"",
+    key_deal_fac_12_f:"",
+    key_deal_fac_13_b:"false",
+    key_deal_fac_13_c:"",
+    key_deal_fac_13_d:"",
+    key_deal_fac_13_e:"",
+    key_deal_fac_13_f:"",
+    key_deal_fac_14_b:"false",
+    key_deal_fac_14_c:"",
+    key_deal_fac_14_d:"",
+    key_deal_fac_14_e:"",
+    key_deal_fac_14_f:"",
+    key_deal_fac_15_b:"false",
+    key_deal_fac_15_c:"",
+    key_deal_fac_15_d:"",
+    key_deal_fac_15_e:"",
+    key_deal_fac_15_f:"",
+    key_deal_fac_16_b:"false",
+    key_deal_fac_16_c:"",
+    key_deal_fac_17_b:"false",
+    key_deal_fac_17_c:"",
+    key_deal_fac_18_b:"false",
+    key_deal_fac_18_c:"",
+    key_deal_fac_19_b:"false",
+    key_deal_fac_19_c:"",
+    key_deal_fac_20_b:"false",
+    key_deal_fac_20_c:"",
+    key_deal_fac_21_b:"false",
+    key_deal_fac_21_c:"",
+    key_deal_fac_22_b:"false",
+    key_deal_fac_22_c:"",
+    key_deal_fac_23_b:"false",
+    key_deal_fac_23_c:"",
   };
 
   const [activeTab, setActiveTab] = useState('first');
@@ -737,6 +830,99 @@ const AddDeal = () => {
       ocps_fac_20_d: deal.ocps_fac_20_d,
       ocps_fac_20_e: deal.ocps_fac_20_e,
       ocps_fac_20_f: deal.ocps_fac_20_f,
+
+      // Key Performance Indicator
+      key_deal_fac_1_b: JSON.parse(deal.key_deal_fac_1_b),  //B//oolean,
+      key_deal_fac_1_c: deal.key_deal_fac_1_c,  //V//ARCHAR,
+      key_deal_fac_1_d: deal.key_deal_fac_1_d,  //D//ATE,
+      key_deal_fac_1_e: deal.key_deal_fac_1_e,  //V//ARCHAR,
+      key_deal_fac_1_f: deal.key_deal_fac_1_f,  //V//ARCHAR,	
+      key_deal_fac_2_b: JSON.parse(deal.key_deal_fac_2_b),  //B//oolean,
+      key_deal_fac_2_c: deal.key_deal_fac_2_c,  //V//ARCHAR,
+      key_deal_fac_2_d: deal.key_deal_fac_2_d,  //D//ATE,
+      key_deal_fac_2_e: deal.key_deal_fac_2_e,  //V//ARCHAR,
+      key_deal_fac_2_f: deal.key_deal_fac_2_f,  //V//ARCHAR,
+      key_deal_fac_3_b: JSON.parse(deal.key_deal_fac_3_b),  //B//oolean,
+      key_deal_fac_3_c: deal.key_deal_fac_3_c,  //V//ARCHAR,
+      key_deal_fac_3_d: deal.key_deal_fac_3_d,  //D//ATE,
+      key_deal_fac_3_e: deal.key_deal_fac_3_e,  //V//ARCHAR,
+      key_deal_fac_3_f: deal.key_deal_fac_3_f,  //V//ARCHAR,
+      key_deal_fac_4_b: JSON.parse(deal.key_deal_fac_4_b),  //B//oolean,
+      key_deal_fac_4_c: deal.key_deal_fac_4_c,  //V//ARCHAR,
+      key_deal_fac_4_d: deal.key_deal_fac_4_d,  //D//ATE,
+      key_deal_fac_4_e: deal.key_deal_fac_4_e,  //V//ARCHAR,
+      key_deal_fac_4_f: deal.key_deal_fac_4_f,  //V//ARCHAR,
+      key_deal_fac_5_b: JSON.parse(deal.key_deal_fac_5_b),  //B//oolean,
+      key_deal_fac_5_c: deal.key_deal_fac_5_c,  //V//ARCHAR,
+      key_deal_fac_5_d: deal.key_deal_fac_5_d,  //D//ATE,
+      key_deal_fac_5_e: deal.key_deal_fac_5_e,  //V//ARCHAR,
+      key_deal_fac_5_f: deal.key_deal_fac_5_f,  //V//ARCHAR,
+      key_deal_fac_6_b: JSON.parse(deal.key_deal_fac_6_b),  //B//oolean,
+      key_deal_fac_6_c: deal.key_deal_fac_6_c,  //V//ARCHAR,
+      key_deal_fac_6_d: deal.key_deal_fac_6_d,  //D//ATE,
+      key_deal_fac_6_e: deal.key_deal_fac_6_e,  //V//ARCHAR,
+      key_deal_fac_6_f: deal.key_deal_fac_6_f,  //V//ARCHAR,
+      key_deal_fac_7_b: JSON.parse(deal.key_deal_fac_7_b),  //B//oolean,
+      key_deal_fac_7_c: deal.key_deal_fac_7_c,  //V//ARCHAR,
+      key_deal_fac_7_d: deal.key_deal_fac_7_d,  //D//ATE,
+      key_deal_fac_7_e: deal.key_deal_fac_7_e,  //V//ARCHAR,
+      key_deal_fac_7_f: deal.key_deal_fac_7_f,  //V//ARCHAR,
+      key_deal_fac_8_b: JSON.parse(deal.key_deal_fac_8_b),  //B//oolean,
+      key_deal_fac_8_c: deal.key_deal_fac_8_c,  //V//ARCHAR,
+      key_deal_fac_8_d: deal.key_deal_fac_8_d,  //D//ATE,
+      key_deal_fac_8_e: deal.key_deal_fac_8_e,  //V//ARCHAR,
+      key_deal_fac_8_f: deal.key_deal_fac_8_f,  //V//ARCHAR,
+      key_deal_fac_9_b: JSON.parse(deal.key_deal_fac_9_b),  //B//oolean,
+      key_deal_fac_9_c: deal.key_deal_fac_9_c,  //V//ARCHAR,
+      key_deal_fac_9_d: deal.key_deal_fac_9_d,  //D//ATE,
+      key_deal_fac_9_e: deal.key_deal_fac_9_e,  //V//ARCHAR,
+      key_deal_fac_9_f: deal.key_deal_fac_9_f,  //V//ARCHAR,
+      key_deal_fac_10_b: JSON.parse(deal.key_deal_fac_10_b),	//Boolean,
+      key_deal_fac_10_c:deal.key_deal_fac_10_c,	//VARCHAR,
+      key_deal_fac_10_d:deal.key_deal_fac_10_d,	//DATE,
+      key_deal_fac_10_e:deal.key_deal_fac_10_e,	//VARCHAR,
+      key_deal_fac_10_f:deal.key_deal_fac_10_f,	//VARCHAR,
+      key_deal_fac_11_b: JSON.parse(deal.key_deal_fac_11_b),	//Boolean,
+      key_deal_fac_11_c:deal.key_deal_fac_11_c,	//VARCHAR,
+      key_deal_fac_11_d:deal.key_deal_fac_11_d,	//DATE,
+      key_deal_fac_11_e:deal.key_deal_fac_11_e,	//VARCHAR,
+      key_deal_fac_11_f:deal.key_deal_fac_11_f,	//VARCHAR,
+      key_deal_fac_12_b: JSON.parse(deal.key_deal_fac_12_b),	//Boolean,
+      key_deal_fac_12_c:deal.key_deal_fac_12_c,	//VARCHAR,
+      key_deal_fac_12_d:deal.key_deal_fac_12_d,	//DATE,
+      key_deal_fac_12_e:deal.key_deal_fac_12_e,	//VARCHAR,
+      key_deal_fac_12_f:deal.key_deal_fac_12_f,	//VARCHAR,
+      key_deal_fac_13_b: JSON.parse(deal.key_deal_fac_13_b),	//Boolean,
+      key_deal_fac_13_c:deal.key_deal_fac_13_c,	//VARCHAR,
+      key_deal_fac_13_d:deal.key_deal_fac_13_d,	//DATE,
+      key_deal_fac_13_e:deal.key_deal_fac_13_e,	//VARCHAR,
+      key_deal_fac_13_f:deal.key_deal_fac_13_f,	//VARCHAR,
+      key_deal_fac_14_b: JSON.parse(deal.key_deal_fac_14_b),	//Boolean,
+      key_deal_fac_14_c:deal.key_deal_fac_14_c,	//VARCHAR,
+      key_deal_fac_14_d:deal.key_deal_fac_14_d,	//DATE,
+      key_deal_fac_14_e:deal.key_deal_fac_14_e,	//VARCHAR,
+      key_deal_fac_14_f:deal.key_deal_fac_14_f,	//VARCHAR,
+      key_deal_fac_15_b: JSON.parse(deal.key_deal_fac_15_b),	//Boolean,
+      key_deal_fac_15_c:deal.key_deal_fac_15_c,	//VARCHAR,
+      key_deal_fac_15_d:deal.key_deal_fac_15_d,	//DATE,
+      key_deal_fac_15_e:deal.key_deal_fac_15_e,	//VARCHAR,
+      key_deal_fac_15_f:deal.key_deal_fac_15_f,	//VARCHAR,
+      key_deal_fac_16_b: JSON.parse(deal.key_deal_fac_16_b),	//Boolean,
+      key_deal_fac_16_c:deal.key_deal_fac_16_c,	//DATE,
+      key_deal_fac_17_b: JSON.parse(deal.key_deal_fac_17_b),	//Boolean,
+      key_deal_fac_17_c:deal.key_deal_fac_17_c,	//DATE,
+      key_deal_fac_18_b: JSON.parse(deal.key_deal_fac_18_b),	//Boolean,
+      key_deal_fac_18_c:deal.key_deal_fac_18_c,	//DATE,
+      key_deal_fac_19_b: JSON.parse(deal.key_deal_fac_19_b),	//Boolean,
+      key_deal_fac_19_c:deal.key_deal_fac_19_c,	//DATE,
+      key_deal_fac_20_b: JSON.parse(deal.key_deal_fac_20_b),	//Boolean,
+      key_deal_fac_20_c:deal.key_deal_fac_20_c,	//DATE,
+      key_deal_fac_21_b: JSON.parse(deal.key_deal_fac_21_b),	//Boolean,
+      key_deal_fac_21_c:deal.key_deal_fac_21_c,	//DATE,
+      key_deal_fac_22_b: JSON.parse(deal.key_deal_fac_22_b),	//Boolean,
+      key_deal_fac_22_c:deal.key_deal_fac_22_c,	//DATE,
+      key_deal_fac_23_b: JSON.parse(deal.key_deal_fac_23_b),	//Boolean,
+      key_deal_fac_23_c:deal.key_deal_fac_23_c,	//DATE  
     };
 
     Services.createDeal(data)
@@ -5222,9 +5408,1577 @@ const AddDeal = () => {
                       >
                         Next
                       </button> */}
-                  </Tab>
+                    </Tab>
+                    
 
-                  {/* ........................................................................................... */}
+
+
+
+
+
+
+
+                    
+
+
+                    {/* 10th //////////////////////////////////// */}
+
+                    <Tab
+                    eventKey="tenth"
+                    title="KEY PERFORMANCE INDICATOR"
+                    style={{ fontSize: "12px" }}
+                  >
+                    <br />
+                    <Row className="py-1">
+                      <Col sm={12}>
+                        <Row>
+                          <Col>
+                            <PWrapper>FACTORS</PWrapper>
+                            <br />
+                          </Col>
+                          <Col>
+                            <PWrapper>YES/NO</PWrapper>
+                          </Col>
+                          <Col>
+                            <PWrapper>CONCERN</PWrapper>
+                          </Col>
+                          <Col>
+                            <PWrapper>EXPECTED</PWrapper>
+                          </Col>
+                          <Col>
+                            <PWrapper>RESPONSIBLE PARTY</PWrapper>
+                          </Col>
+                          <Col>
+                            <PWrapper>STATUS</PWrapper>
+                          </Col>
+                        </Row>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Transaction Docs
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_1_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_1_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_1_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_1_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.key_deal_fac_1_d}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_1_d" 
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_1_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_1_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_1_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_1_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Risk CP Sign-Off
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_2_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_2_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_2_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_2_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date"
+                                    value={deal.key_deal_fac_2_d}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_2_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_2_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_2_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_2_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_2_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Reporting Acct Report 
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_3_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_3_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_3_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_3_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date"
+                                    value={deal.key_deal_fac_3_d}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_3_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_3_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_3_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_3_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_3_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Regulatory Approval
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_4_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_4_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_4_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_4_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date"
+                                    value={deal.key_deal_fac_4_d}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_4_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_4_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_4_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_4_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_4_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Parties Appointed
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_5_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_5_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_5_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_5_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date"
+                                    value={deal.key_deal_fac_5_d}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_5_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_5_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_5_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_5_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_5_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    New Equity Investment
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_6_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_6_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_6_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_6_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date"
+                                    value={deal.key_deal_fac_6_d}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_6_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_6_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_6_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_6_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_6_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Legal Opinions
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_7_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_7_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_7_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_7_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date"
+                                    value={deal.key_deal_fac_7_d}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_7_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_7_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_7_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_7_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_7_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Issue Ratings
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_8_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_8_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_8_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_8_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date"
+                                    value={deal.key_deal_fac_8_d}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_8_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_8_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_8_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_8_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_8_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Guarantee Docs
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_9_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_9_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_9_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_9_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="date"
+                                    value={deal.key_deal_fac_9_d}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_9_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_9_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_9_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_9_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_9_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Filed with SEC
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_10_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_10_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_10_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_10_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.key_deal_fac_10_d}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_10_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_10_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_10_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_10_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_10_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Fees
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_11_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_11_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_11_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_11_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.key_deal_fac_11_d}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_11_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_11_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_11_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_11_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_11_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    CP Letter / Risk Sign-Off 
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_12_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_12_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_12_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_12_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.key_deal_fac_12_d}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_12_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_12_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_12_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_12_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_12_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Consent of Legacy Lenders 
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_13_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_13_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_13_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_13_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.key_deal_fac_13_d}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_13_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_13_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_13_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_13_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_13_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Board Resolutions 
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_14_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_14_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_14_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_14_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.key_deal_fac_14_d}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_14_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_14_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_14_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_14_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_14_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Asset Valuation 
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_15_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_15_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_15_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_15_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col>
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.key_deal_fac_15_d}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_15_d"
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_15_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_15_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_15_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_15_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    MROC pre-CC Approval 
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_16_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_16_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_16_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_16_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col> */}
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.key_deal_fac_16_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_16_c"
+                                  />
+                                </Col>
+                                {/* // <Col sm={2}>
+                                //   <Input
+                                //     type="text"
+                                //     value={deal.key_deal_fac_16_e}
+                                //     onChange={handleInputChange}
+                                //     name="key_deal_fac_16_e"
+                                //     style={{ width: "100%", margin: "2px" }}
+                                //   />
+                                // </Col>
+                                // <Col sm={2}>
+                                //   <Input
+                                //     type="text"
+                                //     value={deal.key_deal_fac_16_f}
+                                //     onChange={handleInputChange}
+                                //     name="key_deal_fac_16_f"
+                                //     style={{ width: "100%", margin: "2px" }}
+                                //   />
+                                // </Col>  */}
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    MROC pre-CC Approval
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_17_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_17_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_17_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_17_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col> */}
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.key_deal_fac_17_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_17_c"
+                                  />
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_17_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_17_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_17_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_17_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col> */}
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    MROC pre-CC Minutes
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_18_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_18_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_18_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_18_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col> */}
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.key_deal_fac_18_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_18_c"
+                                  />
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_18_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_18_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_18_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_18_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col> */}
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    CC Approval
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_19_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_19_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_19_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_19_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col> */}
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.key_deal_fac_19_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_19_c"
+                                  />
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_19_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_19_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_19_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_19_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col> */}
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    CC Minutes
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_20_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_20_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_20_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_20_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col> */}
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.key_deal_fac_20_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_20_c"
+                                  />
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_20_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_20_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_20_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_20_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col> */}
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                        </Col>
+                        
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    CC Approval Terms
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_21_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_21_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_21_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_21_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col> */}
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.key_deal_fac_21_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_21_c"
+                                  />
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_21_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_21_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_21_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_21_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col> */}
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                     
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Updated Indicative Term Sheet
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_22_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_22_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_22_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_22_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col> */}
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.key_deal_fac_22_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_22_c"
+                                  />
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_20_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_20_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_20_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_20_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col> */}
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+                      
+                        
+                        <Col sm={12}>
+                          <Col className="pb-2">
+                            <Fm.Group>
+                              <Row>
+                                <Col sm={2}>
+                                  <Fm.Label style={{ paddingRight: "1rem" }}>
+                                    Fee Letter
+                                  </Fm.Label>
+                                </Col>
+                                <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_23_b}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_23_b"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Select
+                                    type = "text"
+                                    value={deal.key_deal_fac_20_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_20_c"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}>High</option>
+                                    <option value={"Low"}>Low</option>
+                                    <option value={"Medium"}>Medium</option>
+                                  </Select>{" "}
+                                </Col> */}
+                                <Col sm={2}>
+                                  <Input 
+                                    type="date" 
+                                    value={deal.key_deal_fac_23_c}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_23_c"
+                                  />
+                                </Col>
+                                {/* <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_20_e}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_20_e"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col>
+                                <Col sm={2}>
+                                  <Input
+                                    type="text"
+                                    value={deal.key_deal_fac_20_f}
+                                    onChange={handleInputChange}
+                                    name="key_deal_fac_20_f"
+                                    style={{ width: "100%", margin: "2px" }}
+                                  />
+                                </Col> */}
+                              </Row>
+                            </Fm.Group>
+                          </Col>
+                        </Col>
+            
+                      {/* <Row>
+                        
+                        
+                      </Row> */}
+                    </Row>
+                    {/* <button
+                      onClick={(e) => toPrevTab(e)}
+                      style={{
+                        display: "inlineblock",
+                        fontSize: "13px",
+                        padding: "2px 20px",
+                        margin: "10px",
+                        background: "green",
+                        color: "white",
+                        borderRadius: "3px",
+                      }}
+                    >
+                      {" "}
+                      Prev
+                    </button> */}
+                    {/* <button
+                        onClick={(e) => toNextTab(e)}
+                        style={{
+                          display: "inlineblock",
+                          fontSize: "13px",
+                          padding: "2px 20px",
+                          margin: "10px",
+                          background: "green",
+                          color: "white",
+                          borderRadius: "3px",
+                        }}
+                      >
+                        Next
+                      </button> */}
+                    </Tab>
+                    
+
+
+                  {/* ............10............................................................................... */}
                 </Tabs>
                 <div
                   className="d-flex justify-content-end"

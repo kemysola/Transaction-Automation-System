@@ -22,8 +22,12 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  Cell,
+  Line,
+  ReferenceLine,
   ResponsiveContainer,
 } from "recharts";
+
 
 const ProgressBarDiv = styled.div`
   display: grid;
@@ -58,11 +62,19 @@ export default function Progress() {
   const [staffName, setStaffName] = useState("All");
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [mandate, setMandate] = useState([]);
+  const [financialClose, setFinancialClose] = useState([]);
+  const [cca, setCca] = useState([]);
+  const [feeLetter, setFeeLetter] = useState([]);
+
+  
+  
 
   useEffect(() => {
     if (dealFilter === "All" && staffFilter === "All") {
       retrieveDeals();
       retrieveGuranteePipeline();
+
     }
     if (dealFilter !== "All" && staffFilter === "All") {
       retrieveGuranteePipeline();
@@ -161,7 +173,13 @@ export default function Progress() {
   const retrieveGuranteePipeline = () => {
     Service.getAllStaff()
       .then((response) => {
+        console.log(response)
         setTarget(response.data.staff);
+        // setMandate(response.data.staff.mandateletter);
+        // setFinancialClose(response.data.staff.financialclose);
+        // setCca(response.data.staff.creditcommiteeapproval);
+        // setFeeLetter(response.data.staff.feeletter);
+
       })
       .catch((e) => {
         console.log(e);
@@ -169,14 +187,55 @@ export default function Progress() {
   };
 
   const retrieveStaffTarget = () => {
+   
     Service.getOneStaff(staffFilter)
       .then((response) => {
+        console.log(response)
         setTarget(response.data.staffInfo);
+        setMandate(response.data.staffInfo[0].mandateletter);
+        setFinancialClose(response.data.staffInfo[0].financialclose);
+        setCca(response.data.staffInfo[0].creditcommiteeapproval);
+        setFeeLetter(response.data.staffInfo[0].feeletter);
       })
       .catch((e) => {
         console.log(e);
       });
   };
+
+  //data for cumulative performance 
+  const approvalData = [
+    {
+      name: "Mandate:2%",
+      value: mandate,
+      percent: `${(mandate * 1).toFixed(1)}%`,
+    },
+    {
+      name: `Credit Approval :10%`,
+      value: cca,
+      percent: `${(cca * 1).toFixed(1)}%`,
+    },
+    {
+      name: "Financial Close:100%",
+      value: financialClose,
+      percent: `${(financialClose * 1).toFixed(1)}%`,
+    },
+    {
+      name: "Fee Letter:20%",
+      value: feeLetter,
+      percent: `${(feeLetter * 1).toFixed(1)}%`,
+    },
+  ];
+  const colorBreakPoint = 0;
+  const { min, max } = data.reduce(
+    (result, datapoint) => ({
+      min: datapoint.value < result.min === 0 ? datapoint.value : result.min,
+      max: datapoint.value > result.max === 0 ? datapoint.value : result.max,
+    }),
+    { min: 0, max: 0 }
+  );
+  const colorBreakPointPercentage = `${
+    (1 - (colorBreakPoint - min) / (max / min)) * 100
+  }%`;
 
   // handle modal functions
   const handleClose = () => setShow(false);
@@ -1066,12 +1125,78 @@ export default function Progress() {
                       />
                     </BarChart>
                   )}
+                  <div>
+                    {/* cumulative performance */}
+                    {/* {mandate} */}
+                    
+                  </div>
                 </Container>
               </Col>
               {/*------------------------ Column ------------------------------- */}
             </Row>
           </Container>
         )}
+
+<BarChart
+          width={280}
+          height={250}
+          margin={{
+            top: 5,
+            right: 5,
+            left: 5,
+            bottom: 5,
+          }}
+          data={approvalData}
+          layout="horizontal"
+        >
+          <YAxis
+            style={{
+              fontSize: "0.52rem",
+              fontFamily: "Arial",
+              padding: "15px",
+            }}
+            stroke="black"
+          />
+
+          <XAxis
+            dataKey="name"
+            tickLine={false}
+            axisLine={false}
+            textAnchor="middle"
+            scaleToFit='true'
+            verticalAnchor = 'start'
+            interval={0}
+            angle="1"
+            style={{ fontSize: "0.5rem", paddingLeft:'1px', textAlign:'center', paddingRight:'2.9rem'}}
+          />
+
+          <XAxis
+            xAxisId={1}
+            dataKey="percent"
+            tickLine={false}
+            axisLine={false}
+            orientation="top"
+            style={{ fontSize: "0.5rem", padding:'1rem' }}
+          />
+          <Tooltip />
+
+          <Bar label dataKey="value" background={{ fill: "white" }}>
+            {approvalData.map((datacolor, entry, index) => (
+              <Cell
+                key={`cell-$${index}`}
+                fill={datacolor.value > 0 ? "green" : "red"}
+              />
+            ))}
+          </Bar>
+        </BarChart>
+        <small
+          style={{
+            fontSize: "12px",
+            fontWeight: "bold",
+          }}
+        >
+          CUMULATIVE PERFORMANCE INCENTIVE's EARNED
+        </small>
 
       {/* ---------- Exxecution Dashboard Table ----------- */}
       <Table dealFilter={dealFilter} staffFilter={staffFilter} />

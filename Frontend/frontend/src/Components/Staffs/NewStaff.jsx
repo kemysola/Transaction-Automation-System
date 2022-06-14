@@ -190,7 +190,7 @@ export default function NewStaff() {
                             {/* </PWrapper> */}
                             <br />
                             <div>
-                                <Tabs activeKey={activeTab} onSelect={(k) => handleTabChange} style={{ fontSize: '13px' }}>
+                                <Tabs  onSelect={(k) => handleTabChange} style={{ fontSize: '13px' }}>
                                     <Tab eventKey="first" title="STAFF">
                                         <br />
                                         <br />
@@ -246,7 +246,7 @@ export default function NewStaff() {
                             
                                             </Row>
 
-                                            <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button>
+                                            {/* <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button> */}
                                         </Container1>
                                         <br />
                                     </Tab>
@@ -285,8 +285,8 @@ export default function NewStaff() {
                                             </Row>
 
                                             <br />
-                                            <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Prev</button>
-                                            <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button>
+                                            {/* <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Prev</button>
+                                            <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button> */}
                                         </Container1>
 
                                         <br />
@@ -336,14 +336,15 @@ export default function NewStaff() {
                                                 </Col>
                                             </Row>
 
-                                            <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>
-                                                Prev
-                                            </button>
+                                            {/* <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> */}
+                                                {/* Prev
+                                            </button> */}
                                         </Container1>
                                         <br />
-                                        <br />
-
-                                        <div className='d-flex justify-content-end'>
+                                       
+                                    </Tab>
+                                </Tabs>
+                                <div className='d-flex justify-content-end'>
                                             <ButtonWrapper onClick={saveStaff} >
                                                 Submit
                                             </ButtonWrapper>
@@ -352,8 +353,6 @@ export default function NewStaff() {
                                                 Cancel
                                             </CancelWrapper>
                                         </div>
-                                    </Tab>
-                                </Tabs>
                             </div>
                         </Form>
                     )};

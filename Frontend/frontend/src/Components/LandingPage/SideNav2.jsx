@@ -113,19 +113,28 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                     Origination Dashboard
                   </Link>
                 </MenuItem>
-              </SubMenu>
+            </SubMenu>
+            {/* <MenuItem icon={<HiOutlineCalculator />}><Link to ='/annual_and_quarterly_report_page' style={{color:'#237cbf'}}>
+                    Report
+                  </Link></MenuItem> */}
 
               {/* ------------ Report Menu --------------- */}
-              <MenuItem icon={<HiOutlineCalculator />}>
-                <Link to ='#' style={{color:'#237cbf'}}>
-                  Report
-                </Link>
-              </MenuItem>
+              <SubMenu title='Report' icon={<ImUsers />}>
+                <MenuItem className="subMenu">
+                  <Link to='/annual_and_quarterly_report_page' style={{ color: '#237cbf' }}>
+                    Quarterly Report
+                  </Link>
+                </MenuItem>
+               
+              </SubMenu>
+             
 
               {/* ------------ Budget Menu --------------- */}
                 <MenuItem icon={<HiOutlineCalculator />}>
                   Budget
                 </MenuItem>
+
+                
 
               {/* --------------- Settings Menu ----------------- */}
                 <MenuItem icon={<FiSettings />}>
@@ -133,14 +142,25 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                     Settings
                   </Link>
                 </MenuItem>
+
+                
+                  
+                  {/* <MenuItem
+                onClick={authService.logout}>Logout
+
+                  </MenuItem> */}
+
+               
+
+            <MenuItem icon={<FiLogOut />} onClick={authService.logout} >
+              Logout
+            </MenuItem>
               </Menu>
             </SidebarContent>
 
-        <SidebarFooter>
-          <Menu iconShape="circle">
-            <MenuItem icon={<FiLogOut />} onClick={authService.logout}>Logout</MenuItem>
-          </Menu>
-        </SidebarFooter>
+        {/* <SidebarFooter>
+          
+        </SidebarFooter> */}
       </ProSidebar>
     </div>
   </>

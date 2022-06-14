@@ -139,7 +139,7 @@ function GuaranteePipeline() {
       return <span style={{color: 'green'}}>↑ ₦ {(varianceAns).toFixed(1)}bn</span>;
     }
     else if (!isFinite(variance) || isFinite(variance)){
-      return <span style={{color: 'red'}}>↓ ₦ {-1 * (actuallvalue - targetValue)}bn </span>;
+      return <span style={{color: 'red'}}>↓ ₦ {-1 * (actuallvalue - targetValue).toFixed(1)}bn </span>;
     }
     
     return <span style={{color: 'red'}}>↓ ₦ {(variance).toFixed(1)}bn </span>;
@@ -192,7 +192,7 @@ function GuaranteePipeline() {
           ₦ {actuallvalue.toFixed(2)} bn
             <br/>
             <small
-              style={{ fontSize: "11px", color: "blue", fontWeight:'bold' }}
+              style={{ fontSize: "11px", color: "black", fontWeight:'bold' }}
               className=" mt-3"
             >
               <br/>
@@ -221,7 +221,7 @@ function GuaranteePipeline() {
              {variancePerDisplay(variancePercent)}
             </small>
             <small className="mb-3">{varianceDisplay(varianceAmount)}</small>
-            <small style={{ fontSize: "11px", color: "red", fontWeight:'bold' }}>VARIANCE</small>
+            <small style={{ fontSize: "11px", color: "black", fontWeight:'bold' }}>VARIANCE</small>
 
             </Stack>
           </Col>
