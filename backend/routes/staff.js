@@ -309,9 +309,7 @@ router.get('/:user_email',verifyTokenAndAdmin, async (req, res) => {
       client.release()
     }
 
+    
 });
 
 module.exports = router;
-
-
-
