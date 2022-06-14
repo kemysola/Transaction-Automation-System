@@ -404,7 +404,7 @@ INSERT INTO trms.TB_TRS_USERS(
                   greenTransaction, amberTransaction, mandateLetter, creditCommiteeApproval,
                   feeLetter, financialClose, record_entry, status, isadmin
                   )
-values(nextval('trms.user_id_seq'), 'trms@infracredit.ng', 'U2FsdGVkX1/+HYRk+9HGscroXD/vVTXbCGYM43JRMVc=','appuser', 'appuser', 'mvp', false, 0, 0,0,0,0,0,0,0,'', 'Active', true)
+values(nextval('trms.user_id_seq'), 'trms@infracredit.ng', 'U2FsdGVkX1/+HYRk+9HGscroXD/vVTXbCGYM43JRMVc=','appuser', 'appuser', 'mvp', false, 0, 0,0,0,0,0,0,0,'', 'Active', true);
 
 -- Guarantee Projection Table as defined by Infracredit
 CREATE TABLE trms.TB_INFRCR_FORECAST
@@ -423,13 +423,14 @@ VALUES(2021, 146.9, 103.4, 335.3, 155.1, 108.6),
     (2022, 267, 120.1, 388.7, 180.2, 126.1),
     (2023, 406, 139, 448.5, 208.5, 146.0),
     (2024, 566, 160, 501.0, 240.0, 168.0),
-    (2025, 740, 174, 261.0, 261.0, 182.7)
+    (2025, 740, 174, 261.0, 261.0, 182.7);
+
 --- Added new columns to transaction table
-ALTER TABLE tb_infrcr_transaction
+ALTER TABLE trms.tb_infrcr_transaction
 ADD COLUMN nbc_approval_date DATE,
 ADD COLUMN nbc_submitted_date DATE;
 
-ALTER TABLE tb_infrcr_transaction_audit
+ALTER TABLE trms.tb_infrcr_transaction_audit
 ADD COLUMN nbc_approval_date DATE,
 ADD COLUMN nbc_submitted_date DATE;
 
