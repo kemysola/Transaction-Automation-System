@@ -100,6 +100,31 @@ const getForecast = () => { // get all staff
     return axios.get("configuration/forecast");
 }
 
+// admin module endpoints
+const addIndustry = (data) => { // add new industry, for privileged users only
+    return axios.post("admin/industry", data)
+}
+
+const updateIndustry = (id, data) => { // update industry, for privileged users only
+    return axios.put(`admin/industry/update/${id}`, data)
+}
+
+const addProduct = (data) => { // add new product, for privileged users only
+    return axios.post("admin/product", data)
+}
+
+const updateProduct = (id, data) => { // update product, for privileged users only
+    return axios.put(`admin/product/update/${id}`, data)
+}
+
+const addLevel = (data) => { // add new level, for privileged users only
+    return axios.post("admin/level", data)
+}
+
+const updateLevel = (id, data) => { // update level, for privileged users only
+    return axios.put(`admin/level/update/${id}`, data)
+}
+
 export default {
     LoginStaff,
     registerStaff,
@@ -124,5 +149,11 @@ export default {
     getStaffList,
     getForecast,
     downloadMyDealsByEmail,
-    downloadAllDeals
+    downloadAllDeals,
+    addIndustry,
+    updateIndustry,
+    addProduct,
+    updateProduct,
+    addLevel,
+    updateLevel
 };

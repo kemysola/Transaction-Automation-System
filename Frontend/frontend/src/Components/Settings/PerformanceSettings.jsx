@@ -7,12 +7,12 @@ import Input from "react-validation/build/input";
 import Select from "react-validation/build/select";
 
 const ButtonWrapper = styled.button`
-  background: green;
+  background: mediumseagreen;
   border: 1px solid white;
-  padding: 8px 15px;
-  margin-top: 3px;
-  margin-right: 2px;
-  font-size: 11px;
+  padding: 4px 8px;
+  margin-top: 1px;
+  margin-right: 1px;
+  font-size: 10px;
   border-radius: 5px;
   color: white;
 `;
@@ -22,7 +22,6 @@ const FormWrapper = styled.div`
   padding: 1px;
   // border-radius: 15px;
 `;
-
 
 const required = (value) => {
     if (!value) {
@@ -49,16 +48,16 @@ export default function PerformanceSettings () {
       <FormWrapper>
         <Row className="d-flex justify-content-between">
           <Col sm={5} md={5} lg={5} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px'}}>
-            <Row>
+            {/* <Row> */}
               <Form ref={form}>
-                <h5>Add Mandates Originated</h5>
+                <p style={{fontSize: "13px"}}><b>Add Mandates Originated</b></p>
 
                 <Fm.Group>
                   <Fm.Label>
                     Mandates Originated
                     <span style={{ color: "red" }}>*</span>
                   </Fm.Label>
-                  <Input type="text" name="mandatesOrg" placeholder="Enter Mandates Originated" validations={[required]} />
+                  <Input type="text" name="mandatesOrg" placeholder="Enter Mandates Originated" validations={[required]} style={{ width: "100%", padding: "4px 2px", focus: "none"}} />
                 </Fm.Group>
                 
                 <br />
@@ -73,78 +72,77 @@ export default function PerformanceSettings () {
                   </ButtonWrapper>
                 </div>
               </Form>
-            </Row>
+            {/* </Row> */}
           </Col>
+        </Row>
 
+        <Row>
           <Col sm={5} md={5} lg={5} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }} >
-            <Row>
-              <Form ref={form}>
-                <h5>Add Credit Committee Approval</h5>
+            <Form ref={form}>
+              <p style={{fontSize: "13px"}}><b>Add Credit Committee Approval</b></p>
 
-                <Fm.Group>
-                  <Fm.Label>
-                    Credit Committee Approval
-                    <span style={{ color: "red" }}>*</span>
-                  </Fm.Label>
-                  <Input type="text" name="creditCommApp" placeholder="Enter Credit Committee Approval" validations={[required]} />
-                </Fm.Group>
+              <Fm.Group>
+                <Fm.Label>
+                  Credit Committee Approval
+                  <span style={{ color: "red" }}>*</span>
+                </Fm.Label>
+                <Input type="text" name="creditCommApp" placeholder="Enter Credit Committee Approval" validations={[required]} style={{ width: "100%", padding: "4px 2px", focus: "none"}} />
+              </Fm.Group>
 
-                <br />
+              <br />
 
-                <div className="d-flex justify-content-end">
-                  <ButtonWrapper style={{ backgroundColor: "grey", color: "white" }}>
-                    Cancel
-                  </ButtonWrapper>
+              <div className="d-flex justify-content-end">
+                <ButtonWrapper style={{ backgroundColor: "grey", color: "white" }}>
+                  Cancel
+                </ButtonWrapper>
 
-                  <ButtonWrapper onClick={save} ref={form}>
-                    Save
-                  </ButtonWrapper>
-                </div>
-              </Form>
-            </Row>
-          </Col>
+                <ButtonWrapper onClick={save} ref={form}>
+                  Save
+                </ButtonWrapper>
+              </div>
+            </Form>
+        </Col>
         </Row>
 
         <Row className="d-flex justify-content-between">
           <Col sm={5} md={5} lg={5} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px'}}>
-            <Row>
-              <Form ref={form}>
-                <h5>Add Fee Letter</h5>
+            <Form ref={form}>
+              <p style={{fontSize: "13px"}}><b>Add Fee Letter</b></p>
 
-                <Fm.Group>
-                  <Fm.Label>
-                    Fee Letter
-                    <span style={{ color: "red" }}>*</span>
-                  </Fm.Label>
-                  <Input type="text" name="feeLetter" placeholder="Enter Fee Letter" validations={[required]} />
-                </Fm.Group>
-                
-                <br />
-                
-                <div className="d-flex justify-content-end">
-                  <ButtonWrapper style={{ backgroundColor: "grey", color: "white" }}>
-                    Cancel
-                  </ButtonWrapper>
+              <Fm.Group>
+                <Fm.Label>
+                  Fee Letter
+                  <span style={{ color: "red" }}>*</span>
+                </Fm.Label>
+                <Input type="text" name="feeLetter" placeholder="Enter Fee Letter" validations={[required]} style={{ width: "100%", padding: "4px 2px", focus: "none"}} />
+              </Fm.Group>
+              
+              <br />
+              
+              <div className="d-flex justify-content-end">
+                <ButtonWrapper style={{ backgroundColor: "grey", color: "white" }}>
+                  Cancel
+                </ButtonWrapper>
 
-                  <ButtonWrapper onClick={save} ref={form}>
-                    Save
-                  </ButtonWrapper>
-                </div>
-              </Form>
-            </Row>
+                <ButtonWrapper onClick={save} ref={form}>
+                  Save
+                </ButtonWrapper>
+              </div>
+            </Form>
           </Col>
+        </Row>
 
+        <Row>
           <Col sm={5} md={5} lg={5} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }} >
-            <Row>
               <Form ref={form}>
-                <h5>Add Financial Close</h5>
+                <p style={{fontSize: "13px"}}><b>Add Financial Close</b></p>
 
                 <Fm.Group>
                   <Fm.Label>
                     Financial Close
                     <span style={{ color: "red" }}>*</span>
                   </Fm.Label>
-                  <Input type="text" name="finClose" placeholder="Enter Financial Close" validations={[required]} />
+                  <Input type="text" name="finClose" placeholder="Enter Financial Close" validations={[required]} style={{ width: "100%", padding: "4px 2px", focus: "none"}} />
                 </Fm.Group>
 
                 <br />
@@ -159,8 +157,7 @@ export default function PerformanceSettings () {
                   </ButtonWrapper>
                 </div>
               </Form>
-            </Row>
-          </Col>
+             </Col>
         </Row>
       </FormWrapper>
     </React.Fragment>
