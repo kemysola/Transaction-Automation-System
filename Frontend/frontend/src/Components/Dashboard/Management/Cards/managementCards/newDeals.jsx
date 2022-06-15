@@ -28,7 +28,6 @@ function NewDeals() {
         setCurrentForecast(response.data.forecast[0]);
       })
       .catch((e) => {
-        console.log(e);
       });
   }
 

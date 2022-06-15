@@ -9,7 +9,7 @@ function GreenDealCard() {
   const [data, setData] = useState([]);
   const [industry, setIndustry] = useState([]);
 
-  const [forecast2022, setForecast2022] = useState([])
+  const [currentForecast, setCurrentForecast] = useState([])
 
   useEffect(() => {
     retrieveForecast();
@@ -19,32 +19,32 @@ function GreenDealCard() {
   const retrieveForecast = async() => {
     await Service.getForecast()
       .then((response) => {
-        setForecast2022(response.data.forecast[0]);
+        setCurrentForecast(response.data.forecast[0]);
       })
       .catch((e) => {
-        console.log(e);
+       
       });
   }
 
   useEffect(() => {
     Service.getAllStaff()
       .then((res) => {
-        //console.log(res.data.staff);
+        
         setData(res.data.staff);
       })
       .catch((err) => {
-        console.log(err);
+       
       });
   }, []);
 
   useEffect(() => {
     Service.getAllDeals()
       .then((res) => {
-        console.log(res.data.deals);
+        
         setActual(res.data.deals);
       })
       .catch((err) => {
-        // console.log(err);
+       
       });
   }, []);
 
@@ -54,34 +54,34 @@ function GreenDealCard() {
         setIndustry(res.data.industry.length);
       })
       .catch((err) => {
-        console.log(err);
+       
       });
   }, []);
 
   useEffect(() => {
     Service.getProduct()
       .then((res) => {
-        //console.log(res.data.product.length);
+        
         setProduct(res.data.product.length);
       })
       .catch((err) => {
-        console.log(err);
+       
       });
   }, []);
   useEffect(() => {
     Service.getRegion()
       .then((res) => {
-        //console.log(res.data.region.length);
+       
         setRegion(res.data.region.length);
       })
       .catch((err) => {
-        console.log(err);
+     
       });
   }, []);
 
   // magement metrics for green deal
   
-  let greendeal = +forecast2022.newdeals
+  let greendeal = +currentForecast.newdeals
 
   let greendealForecastValue = 0
   greendealForecastValue = (greendeal) * 1.5 * 0.7
