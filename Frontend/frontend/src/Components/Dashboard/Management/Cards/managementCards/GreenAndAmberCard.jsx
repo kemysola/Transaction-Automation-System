@@ -9,7 +9,7 @@ function GreenAndAnberCard() {
   const [data, setData] = useState([]);
   const [industry, setIndustry] = useState([]);
 
-  const [forecast2022, setForecast2022] = useState([])
+  const [currentForecast, setCurrentForecast] = useState([])
 
 
   useEffect(() => {
@@ -20,7 +20,7 @@ function GreenAndAnberCard() {
   const retrieveForecast = async() => {
     await Service.getForecast()
       .then((response) => {
-        setForecast2022(response.data.forecast[0]);
+        setCurrentForecast(response.data.forecast[0]);
       })
       .catch((e) => {
         console.log(e);
@@ -50,10 +50,10 @@ function GreenAndAnberCard() {
   }, []);
 
   // magement metrics for green and amber
-  let greenAndAmberForecast2022 = +forecast2022.newdeals
+  let greenAndAmbercurrentForecast = +currentForecast.newdeals
 
   let greenandAmberForecastValue = 0
-  greenandAmberForecastValue = (greenAndAmberForecast2022) * 1.5
+  greenandAmberForecastValue = (greenAndAmbercurrentForecast) * 1.5
 
   // get green and amber actual values and variances
   var amber = actual.reduce(function (filtered, arr) {

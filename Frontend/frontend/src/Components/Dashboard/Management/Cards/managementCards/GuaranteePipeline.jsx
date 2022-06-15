@@ -22,29 +22,27 @@ function GuaranteePipeline() {
         setNextForecast(response.data.forecast[1])
       })
       .catch((e) => {
-        console.log(e);
+        
       });
   }
 
   useEffect(() => {
     Service.getAllStaff()
       .then((res) => {
-        //console.log(res.data.staff);
         setData(res.data.staff);
       })
       .catch((err) => {
-        console.log(err);
+       
       });
   }, []);
 
   useEffect(() => {
     Service.getAllDeals()
       .then((res) => {
-        console.log(res.data.deals);
         setActual(res.data.deals);
       })
       .catch((err) => {
-        // console.log(err);
+        
       });
   }, []);
 
@@ -54,28 +52,26 @@ function GuaranteePipeline() {
         setIndustry(res.data.industry.length);
       })
       .catch((err) => {
-        console.log(err);
+       
       });
   }, []);
 
   useEffect(() => {
     Service.getProduct()
       .then((res) => {
-        //console.log(res.data.product.length);
         setProduct(res.data.product.length);
       })
       .catch((err) => {
-        console.log(err);
+        
       });
   }, []);
   useEffect(() => {
     Service.getRegion()
       .then((res) => {
-        //console.log(res.data.region.length);
         setRegion(res.data.region.length);
       })
       .catch((err) => {
-        console.log(err);
+        
       });
   }, []);
 

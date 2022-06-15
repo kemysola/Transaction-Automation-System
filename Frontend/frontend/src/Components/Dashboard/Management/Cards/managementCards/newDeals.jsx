@@ -18,10 +18,8 @@ function NewDeals() {
     await Service.getForecast()
       .then((response) => {
         setCurrentForecast(response.data.forecast[0]);
-        // setNextForecast(response.data.forecast[1])
       })
       .catch((e) => {
-        console.log(e);
       });
   }
 
@@ -29,11 +27,10 @@ function NewDeals() {
   useEffect(() => {
     Service.getAllDeals()
       .then((res) => {
-        console.log(res.data.deals);
         setClosedDeal(res.data.deals);
       })
       .catch((err) => {
-        // console.log(err);
+        
       });
   }, []);
 
@@ -52,12 +49,6 @@ function NewDeals() {
   let actualForecast = actual.reduce(function (tot, arr){
     return tot + parseFloat(arr)
   }, 0)
-
-  // console.log('#####,', targetValue)
-  // let newGuranteenextForecast = +nextForecast.newdeals
-
-  // let forecastValue = 0
-  // forecastValue = (newGuranteenextForecast + actualForecast) * 1.5
 
   let varianceAmount = targetValue  - actualForecast;
   
