@@ -73,7 +73,7 @@ export default function UpdateStaffs() {
     const [response, setResponse] = useState(false);
     const [isadmin, setisAdmin] = useState("");
     const [targs, setTargs] = useState("");
-    const [mands, setMands] = useState(0);
+    // const [mands, setMands] = useState(0);
 
 
 
@@ -115,7 +115,7 @@ export default function UpdateStaffs() {
 
       setisAdmin(staff_data.data.staffInfo[0].isadmin)
     setTargs(staff_data.data.staffInfo[0].hasoriginationtarget)
-    setMands(staff_data.data.staffInfo[0].mandateletter)
+    // setMands(staff_data.data.staffInfo[0].mandateletter)
 
 
 
@@ -149,12 +149,13 @@ export default function UpdateStaffs() {
             hasOriginationTarget:JSON.parse(targs),
             originationAmount: +originationAmount.current.value,
             guaranteePipeline: +guaranteePipeline.current.value,
-            mandateLetter:+mands,
-            creditCommitteApproval: +creditCommitteApproval.current.value,
+            // mandateLetter: +mands,
+            mandateLetter: +mandateLetter.current.value,
+            creditCommiteeApproval: +creditCommitteApproval.current.value,
             feeLetter: +feeLetter.current.value,
             
         }
-console.log(response.data)
+       
         Service.updateStaff(user_email, reqData)
             .then((response) => {
                 alert(response.data.message)
@@ -207,7 +208,7 @@ console.log(response.data)
         }
 
     }
-console.log(mands)
+console.log("eeee", staff[0])
 
     return (
         <React.Fragment>
@@ -414,17 +415,18 @@ console.log(mands)
                                                         <p style={{ fontWeight: 'normal', fontSize: '11px'  }}>Mandates Originated</p>
                                                     </Form.Label>
                                                     <Col sm="6">
-                                                        {/* <Form.Control
+                                                        <Form.Control
                                                             type="number"
                                                             placeholder="0"
                                                             size='sm'
                                                             id='mandateLetter'
                                                             ref={mandateLetter}
                                                             name="mandateLetter"
-                                                            value={mands}
-                                                            onChange={e => setMands(e.target.value)}
-                                                        /> */}
-                                                   <Form.Control type="number" placeholder="0" size='sm' id='mandateLetter' value={mands} name='mandateLetter' onChange={e => setMands(e.target.value)} />
+                                                            defaultValue={staff[0].mandateletter}
+                                                            // value={mands}
+                                                            // onChange={e => setMands(e.target.value)}
+                                                        />
+                                                   {/* <Form.Control type="" placeholder="0" size='sm' id='mandateLetter' value={mands} name='mandateLetter' onChange={e => setMands(e.target.value)} /> */}
 
                                                     </Col>
                                                     {/* {
@@ -444,6 +446,7 @@ console.log(mands)
                                                             size='sm'
                                                             id='creditCommiteeApproval'
                                                             ref={creditCommitteApproval}
+                                                            defaultValue={staff[0].creditcommiteeapproval}
                                                         />
                                                     </Col>
                                                     {
@@ -464,6 +467,7 @@ console.log(mands)
                                                             id='feeLetter'
                                                             ref={feeLetter}
                                                             name="feeLetter"
+                                                            defaultValue={staff[0].feeletter}
                                                         />
                                                     </Col>
                                                 </Form.Group>
@@ -479,6 +483,7 @@ console.log(mands)
                                                             size='sm'
                                                             id='financialClose'
                                                             name="financialClose"
+                                                           
                                                         />
 
                                                     </Col>
