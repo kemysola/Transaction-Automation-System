@@ -311,6 +311,9 @@ export default function Stats() {
     return null;
   };
 
+      // ******************************** Chart Data  **********************
+
+
   const chartRegion = [
     {
       name:"SE",
