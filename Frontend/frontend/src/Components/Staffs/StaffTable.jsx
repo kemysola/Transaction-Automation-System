@@ -115,14 +115,24 @@ const IndeterminateCheckbox = React.forwardRef(
 )
 
 const StaffTable = () => {
+
+// ******************************* use state hook to store state, useRef to retrieve current index and value **************
+
   const history = useHistory();
   const [staff, setStaff] = useState([]);
   const staffRef = useRef();
   staffRef.current = staff;
 
+
+// ****************************** useEffect : componentDidMount and ComponentWllReceive  ********************************
+
+
   useEffect(() => {
     retrieveStaff();
   }, []);
+
+
+  // ******************************************  Axios call : get all staff *********************************************
 
   const retrieveStaff = async() => {
     await Service.getAllStaff()
@@ -217,6 +227,9 @@ const StaffTable = () => {
     ],
     []
   );
+
+  // ******************************************  React Table initial state *******************************************
+
   const initialState = { hiddenColumns: ['lastname'] };
   const {
     getTableProps,

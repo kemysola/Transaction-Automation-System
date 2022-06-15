@@ -28,11 +28,18 @@ const ProgressBarDiv = styled.div`
   border-radius: 20px;
 `;
 export default function Progress() {
+
+      // ******************************************  useState Hook to store state data  ****************************************
+
   const [data, setData] = useState([]);
   const [forecast, setForecast] = useState([]);
   const [indFilter, setIndFilter] = useState("Value");
   const [prdFilter, setPrdFilter] = useState("Value");
  
+
+
+      // ******************************************  useEffect hook - ComponentDidMount   ****************************************
+
   useEffect(() => {
     retrieveDeals();
   }, []);
@@ -40,6 +47,10 @@ export default function Progress() {
   useEffect(() => {
     retrieveForecast();
   }, []);
+
+
+      // ******************************************  Axios :  get transactions  ****************************************
+
 
   const retrieveDeals = async() => {
     await Service.getAllDeals()
@@ -51,6 +62,9 @@ export default function Progress() {
       });
   };
 
+    // ******************************************  Axios :  get forecast  ****************************************
+
+
   const retrieveForecast = async() => {
     await Service.getForecast()
       .then((response) => {
@@ -60,6 +74,9 @@ export default function Progress() {
         console.log(e);
       });
   };
+
+  // ************************************** calculations for on-grid power industry  **********************
+
 
   let option1 = data.reduce(function (filtered, arr) {
     if (arr.industry === "On-grid Power") {
@@ -71,6 +88,9 @@ export default function Progress() {
     return filtered;
   }, []);
 
+    // ************************************** calculations for off-grid power industry  **********************
+
+
   let option2 = data.reduce(function (filtered, arr) {
     if (arr.industry === "Off-grid Power") {
       let someNewValue = arr.dealsize;
@@ -80,6 +100,8 @@ export default function Progress() {
 
     return filtered;
   }, []);
+
+    // ************************************** calculations for agric infra industry  **********************
 
   let option3 = data.reduce(function (filtered, arr) {
     if (arr.deal_category === "Agric Infra.") {
@@ -91,6 +113,9 @@ export default function Progress() {
     return filtered;
   }, []);
 
+    // ************************************** calculations for gas industry  **********************
+
+
   let option4 = data.reduce(function (filtered, arr) {
     if (arr.industry === "Gas") {
       let someNewValue = arr.dealsize;
@@ -100,6 +125,9 @@ export default function Progress() {
 
     return filtered;
   }, []);
+
+    // ************************************** calculations for transportation industry  **********************
+
 
   let option5 = data.reduce(function (filtered, arr) {
     if (arr.industry === "Transportation") {
@@ -111,6 +139,8 @@ export default function Progress() {
     return filtered;
   }, []);
 
+    // ************************************** calculations for inputs to Infra industry  **********************
+
   let option6 = data.reduce(function (filtered, arr) {
     if (arr.industry === "Inputs to Infra.") {
       let someNewValue = arr.dealsize;
@@ -120,6 +150,9 @@ export default function Progress() {
 
     return filtered;
   }, []);
+
+    // ******************************** calculations for Affordable Housing industry  **********************
+
 
   let option7 = data.reduce(function (filtered, arr) {
     if (arr.industry === "Affordable Housing") {
@@ -131,6 +164,9 @@ export default function Progress() {
     return filtered;
   }, []);
 
+  // ******************************** calculations for Education Infra industry  **********************
+
+
   let option8 = data.reduce(function (filtered, arr) {
     if (arr.industry === "Education Infra.") {
       let someNewValue = arr.dealsize;
@@ -140,6 +176,9 @@ export default function Progress() {
 
     return filtered;
   }, []);
+
+    // ******************************** calculations for Healthcare industry  **********************
+
 
   let option9 = data.reduce(function (filtered, arr) {
     if (arr.industry === "Healthcare") {
@@ -151,6 +190,10 @@ export default function Progress() {
     return filtered;
   }, []);
 
+
+      // ******************************** calculations for water/waste industry  **********************
+
+
   let option10 = data.reduce(function (filtered, arr) {
     if (arr.industry === "Water/Waste") {
       let someNewValue = arr.dealsize;
@@ -161,6 +204,8 @@ export default function Progress() {
     return filtered;
   }, []);
 
+      // ******************************** calculations for ICT/Telecoms industry  **********************
+
   let option11 = data.reduce(function (filtered, arr) {
     if (arr.industry === "ICT/Telecoms") {
       let someNewValue = arr.dealsize;
@@ -170,6 +215,10 @@ export default function Progress() {
 
     return filtered;
   }, []);
+
+
+      // ******************************** sumtotal    **********************
+
 
   let option1Total = option1.reduce(function (tot, arr) {
     return tot + parseFloat(arr);
@@ -218,6 +267,9 @@ export default function Progress() {
   var sumTotal = data.reduce(function (tot, arr) {
     return tot + parseFloat(arr.dealsize);
   }, 0);
+
+      // ******************************** calculations Chart Data **********************
+
 
   const chartData = [
     {
@@ -395,6 +447,10 @@ export default function Progress() {
   let productOption6Total = productOption6.reduce(function (tot, arr) {
     return tot + parseFloat(arr);
   }, 0);
+
+
+      // ******************************** Product Data  **********************
+
 
   const productChartData = [
     {

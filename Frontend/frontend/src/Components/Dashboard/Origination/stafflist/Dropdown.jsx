@@ -18,24 +18,20 @@ const ContainerWrapper = styled.div`
 
 
 const Dropdownmenu = () => {
+  // ******************************** useState Hook to store state data  ********************************
+  // ******************************** useHistory to navigate  *******************************************
+
+
   const history = useHistory();
   const [staff, setStaff] = useState([]);
   const [searchStaff, setSetSearch] = useState("")
-  // const staffRef = useRef();
-  // staffRef.current = staff;
-
-  // const [isOpen, setIsOpen] = useState(false);
-  // const [selectedItem, setSelectedItem] = useState(null);
   const [change, setChange] = useState(false)
-  // const toggling = () => setIsOpen(!isOpen);
-
-  // const onOptionClicked = value => () => {
-  //   setSelectedOption(value);
-  //   setIsOpen(false);
-  //   console.log(selectedOption);
-  // };
   const [selectedItem, setSelectedItem] = useState(localStorage.getItem('selectedItem'));
   const [onSelect, setOnSelect] = useState(false)
+
+
+    // *************************** useEffect Hook : ComponentDidReceive and ComponentDidMount **********
+
 
   useEffect(() => {
     if (onSelect === true) {
@@ -48,6 +44,9 @@ const Dropdownmenu = () => {
   useEffect(() => {
     retrieveStaff();
   }, []);
+
+
+  // ******************************** Axios : get all sttaff  *******************************************
 
   const retrieveStaff = () => {
     Service.getAllStaff()

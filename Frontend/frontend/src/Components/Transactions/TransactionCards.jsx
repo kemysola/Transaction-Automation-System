@@ -6,13 +6,19 @@ import Service from "../../Services/Service"
 
 
 export default function TransactionCards() {
+    // ******************************************  useState hook to store state data ***************************
+
+
   const [data, setData] = useState([]);
+
+    // ******************************************  useEffect hook : componentDidMount  ***********************
+
 
   useEffect(() => {
     retrieveDeals();
   }, []);
 
-  // .................................... Axios Endpoint ..............................
+  // .................................... Axios Endpoint  to get Deals     ..............................
   const retrieveDeals = async() => {
     await Service.getMyDeals()
       .then((response) => {

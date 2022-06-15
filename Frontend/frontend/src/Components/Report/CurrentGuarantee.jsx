@@ -15,6 +15,9 @@ import OriginationActivity from "./OriginationActivity";
 import StructuringExecution from "./StructuringExecution";
 
 export default function CurrentGuarantee() {
+
+    // ******************************************  static data shared  ****************************************
+
   const data = [
     { name: "GPC", value: 26 },
     { name: "GELUL", value: 17 },
@@ -29,6 +32,9 @@ export default function CurrentGuarantee() {
     { name: "LFZC", value: 4 },
     
   ];
+
+    // ******************************************  Color selection for the pie chart ****************************************
+
   const COLORSS = ["red", "#FFBB28", "#00C49F"];
 
 
@@ -192,16 +198,6 @@ export default function CurrentGuarantee() {
             {" "}
             Key Statistics on O & S Activity - Inception till Date
           </p>
-          {/* Table..... Summary of Key Activity  .... 2017-19, 2020, 2021, 2022 
-                  Period Ending Statistics:
-                  Size of Guaranteed Transactions Since Inception N31.5 billion , N43.5 billion , N77.6 billion
-                  Size of Mandated Deal Pipeline(period-end) N123.9 billion N203.5 billion N 311.5 billion
-                  Advanced Mandates (to close in < 6months) N62.5 billion , N70.6 billion, N63.6 billion
-                  Longer Mnadates ( to close in > 6 months) N43.9 billion,N93.0 billion,N191.4 billion
-                  Contingent Refs (long -led GreenField)  N17.5 billion,N39.9 billion, N56.5 billioN 
-                  Applying the
-            
-                  */}
 
           <Table striped bordered hover>
             <thead style={{ fontSize: "12px" }}>
@@ -210,41 +206,9 @@ export default function CurrentGuarantee() {
                 <th>2017-19 </th>
                 <th>2020</th>
                 <th>2021</th>
-
-                {/* <th>S/n</th>
-                <th>Size Of Guarantee Transactions since Inception </th>
-                <th>Size Of Mandated Deal Pipeline(period_end) </th>
-                <th>Advanced Mandates (to close in > 6 months) </th>
-                <th>Longer Mandates ( to close in > 6 months) </th>
-                <th>Contingent Refs (long -led GreenField) </th> */}
               </tr>
             </thead>
-            {/* <tbody>
-              <tr>
-                <td>1</td>
-                <td>N31.5 billion</td>
-                <td> N123.9 billion</td>
-                <td>N62.5 billion</td>
-                <td>N43.9 billion</td>
-                <td>N17.5 billion</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>N43.5 billion</td>
-                <td>N203.5 billion</td>
-                <td>N70.6 billion</td>
-                <td>N93.0 billion</td>
-                <td>N39.9 billion</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>N77.6 billion</td>
-                <td>N 311.5 billion</td>
-                <td>N 311.5 billion</td>
-                <td>N191.4 billion</td>
-                <td>N56.5 billion</td>
-              </tr>
-            </tbody> */}
+            
             <tbody>
             <tr>
               <td>New Guarantees Executed </td>

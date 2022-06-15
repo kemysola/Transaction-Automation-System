@@ -5,20 +5,27 @@ import { Row, Col, Card, Stack, Container } from "react-bootstrap";
 
 function NewDeals() {
 
+  // **************************************************** Store data in a useState hook *******************************
+
   const [currentForecast, setCurrentForecast] = useState([])
   const [nextForecast, setNextForecast] = useState("")
   const [closedDeal, setClosedDeal] = useState([]);
 
+
+  // ****************************************** ComponentDidMouunt using useEffect hook *******************************
+
   useEffect(() => {
     retrieveForecast();
   }, []);
+
+
+// ******************************************  Axios , get forecast, transactions  ****************************************
 
   
   const retrieveForecast = async() => {
     await Service.getForecast()
       .then((response) => {
         setCurrentForecast(response.data.forecast[0]);
-        // setNextForecast(response.data.forecast[1])
       })
       .catch((e) => {
         console.log(e);
@@ -29,13 +36,15 @@ function NewDeals() {
   useEffect(() => {
     Service.getAllDeals()
       .then((res) => {
-        console.log(res.data.deals);
         setClosedDeal(res.data.deals);
       })
       .catch((err) => {
-        // console.log(err);
+        console.log(err);
       });
   }, []);
+
+
+  // ******************************************  Variance calculation ****************************************
 
   let targetValue = 0
   targetValue = +currentForecast.newdeals
@@ -48,16 +57,15 @@ function NewDeals() {
     return filtered;
   }, []);
 
+  // ******************************************  Calculate Actual Forecast Values  ****************************************
 
   let actualForecast = actual.reduce(function (tot, arr){
     return tot + parseFloat(arr)
   }, 0)
 
-  // console.log('#####,', targetValue)
-  // let newGuranteenextForecast = +nextForecast.newdeals
 
-  // let forecastValue = 0
-  // forecastValue = (newGuranteenextForecast + actualForecast) * 1.5
+  // ******************************************  Calculate the variance   **************************************************
+
 
   let varianceAmount = targetValue  - actualForecast;
   
@@ -83,14 +91,11 @@ function NewDeals() {
   }
 
   let variancePercent = varianceP
-  // let variancePercent = ((varianceAmount / targetValue ) * 100).toFixed(1);
 
   function variancePerDisplay(variancePer) {
     if (variancePer < 1) {
       let varianceAns = variancePer * -1;
       return <span style={{ color: "green" }}>↑ {varianceAns}% </span>;
-    // } else if (!isFinite(variancePer) || isFinite(variancePer)) {
-    //   return ` - `;
     }
     return <span style={{ color: "red" }}>↓ {variancePer}% </span>;
   }
