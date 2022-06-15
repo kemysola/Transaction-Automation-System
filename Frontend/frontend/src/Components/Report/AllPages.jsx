@@ -23,11 +23,6 @@ export default function AllPages() {
         <Col sm ='8'>
         <p
         style={{
-          // marginTop: "20px",
-          // position: "fixed",
-          // top: "50%",
-          // left: "50%",
-          // transform: "translate(-50%, -50%)"
           fontWeight:'bold',
           marginLeft:'1.5rem'
         }}

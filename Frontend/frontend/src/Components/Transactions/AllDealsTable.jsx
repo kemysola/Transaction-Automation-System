@@ -109,10 +109,16 @@ const IndeterminateCheckbox = React.forwardRef(
 )
 
 const AllDealsTable = (props) => {
+  
+    // ****************************  use state hook to store state, useRef and useHistory for routing ***************
+
   const history = useHistory();
   const [deals, setDeals] = useState([]);
   const dealsRef = useRef();
   dealsRef.current = deals;
+
+  // ******************************************  useEffect hook *******************************************************
+
 
   useEffect(() => {
     retrieveDeals();
@@ -120,7 +126,8 @@ const AllDealsTable = (props) => {
 
 
   
-  
+    // ******************************************  Axios :Get Request  ***********************************************
+
 
   const retrieveDeals = async() => {
     await Service.getAllDeals()
@@ -143,6 +150,7 @@ const AllDealsTable = (props) => {
     });
   };
 
+  // ******************************************  Download Function  ****** ****************************************
 
   const downloadExcel = () =>{
     const newData = deals.map(row =>{

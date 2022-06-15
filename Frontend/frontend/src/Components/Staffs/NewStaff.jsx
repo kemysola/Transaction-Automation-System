@@ -64,15 +64,27 @@ export default function NewStaff() {
     isadmin: "false",
   };
 
+    // ******************************************  use state hook to store state ****************************************
+
+
   const [staff, setStaff] = useState(initialStaffState);
   const [submitted, setSubmitted] = useState(false);
   const [response, setResponse] = useState(false);
   const [target, setTarget] = useState();
   const [levels, setLevels] = useState([]);
 
+
+    // ******************************************  useEffect hook: componentDidMount and Receive - level ****************
+
+
   useEffect(() => {
     retrieveLevel();
   }, []);
+
+
+
+    // ******************************************  Axios call : get level ****************************************
+
 
   const retrieveLevel = () => {
     Services.getLevel()
@@ -85,6 +97,7 @@ export default function NewStaff() {
   };
 
   const handleInputChange = (event) => {
+
     // function to assign user's input to staff state
     const { name, value } = event.target;
     setStaff({ ...staff, [name]: value });
@@ -115,6 +128,9 @@ export default function NewStaff() {
       isadmin: JSON.parse(staff.isadmin),
     };
 
+    /// ******************************************  Axios post request  ****************************************
+
+
     Services.registerStaff(data)
       .then((response) => {
         setResponse(response.data.message);
@@ -131,6 +147,10 @@ export default function NewStaff() {
     setTarget(null);
     setSubmitted(false);
   };
+
+
+  // ****************************************** Next and Previous Button ****************************************
+
 
   const [activeTab, setActiveTab] = useState("first");
   function toNextTab(e) {
@@ -185,9 +205,6 @@ export default function NewStaff() {
 
                             {/*----------------------------- Title -------------------------------------------------- */}
                             <h5 className='text-secondary py-2 mb-2 mt-1'>New Staff</h5>
-
-                            {/* <PWrapper> */}
-                            {/* </PWrapper> */}
                             <br />
                             <div>
                                 <Tabs  onSelect={(k) => handleTabChange} style={{ fontSize: '13px' }}>

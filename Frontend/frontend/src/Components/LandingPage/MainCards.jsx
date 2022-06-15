@@ -12,11 +12,19 @@ import { Link } from 'react-router-dom'
 
 
 const MainCards = () => {
+      // ******************************************  use state hook to store state: email ****************************************
+
     const [userEmail, setUserEmail] = useState()
+
+      // *******************************     use effect hook - componentDidMount and ComponentDidReceive *************************
+
     useEffect(() => {
         users()
 
     })
+
+      // ****************************************** retrieve state from local storage ****************************************
+
     const users = () =>{
         const user = JSON.parse(localStorage.getItem('user'))
         const username = user.name

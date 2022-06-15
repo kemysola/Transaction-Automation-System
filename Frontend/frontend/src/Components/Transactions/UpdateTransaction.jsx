@@ -485,6 +485,9 @@ export default function UpdateTransactions() {
     setParties11C(data.data.dealInfo[0].parties_11_c)
   } ;
 
+    // ******************************************  Axios :  get staff  ****************************************
+
+
   const retrieveStaffList = () => {
     Service.getStaffList()
     .then((response) => {
@@ -494,6 +497,9 @@ export default function UpdateTransactions() {
       console.log(e);
     });
   };
+
+      // ******************************************  Axios :  get industry ****************************************
+
 
   const retrieveIndustry = () => {
     Service.getIndustry()
@@ -505,6 +511,8 @@ export default function UpdateTransactions() {
       });
   };
 
+      // ******************************************  Axios :  get product ****************************************
+
   const retrieveProduct = () => {
     Service.getProduct()
     .then((response) => {
@@ -514,6 +522,8 @@ export default function UpdateTransactions() {
         console.log(e);
       });
   };
+
+      // ******************************************  Axios :  get region  ****************************************
 
   const retrieveRegion = () => {
     Service.getRegion()
@@ -525,6 +535,8 @@ export default function UpdateTransactions() {
       });
   };
 
+    // ******************************************  Axios :  get repayment Frequency  ****************************
+
   const retrieveRepaymentFreq = () => {
     Service.getRepaymentFreq()
     .then((response) => {
@@ -535,6 +547,9 @@ export default function UpdateTransactions() {
       });
   };
 
+      // ******************************************  Axios :  get Amortization Style ****************************
+
+
   const retrieveAmortizationStyle = () => {
     Service.getAmortizationSty()
     .then((response) => {
@@ -544,6 +559,10 @@ export default function UpdateTransactions() {
         console.log(e);
       });
   };
+
+
+      // ******************************************  Next and Previous Function  ****************************************
+
 
   function toNextTab(e) {
     e.preventDefault();
@@ -612,16 +631,26 @@ function goToLastPage(e) {
   setActiveTab('ninth')
 }
 
+
+  // ******************************************  EndFunction  ****************************************
+
+    // ******************************************  Back function  ****************************************
+
   function handleBack() {
     history.push({
       pathname: "/transaction",
     });
   }
 
+
   function postData(e) {
     e.preventDefault()
     let allNotes = noteList.map(({ note }) => note)
     let note = allNotes.join("|")
+
+
+  // ******************************************  Request body payload to the db  ***********************************
+
 
     const data = {
       clientName: clientName.current.value,
@@ -993,9 +1022,10 @@ function goToLastPage(e) {
       key_deal_fac_23_c: key_deal_fac_23_c.current.value,	//DATE
     }
 
+        // ******************************************  Axios :  put request  ****************************************
+
       Service.updateDeal(id, data)
         .then((response) => {
-          //alert(response.data.message)
           history.push({
             pathname: "/transaction",
           });
@@ -1014,12 +1044,6 @@ function goToLastPage(e) {
             <Form> 
               <h5 className='text-secondary pb-3 mb-2'>Update Transaction</h5>
               <br/>
-              
-
-              {/* <PWrapper>
-                <h5>Update Transaction</h5>
-              </PWrapper> */}
-
               <div> 
 
        

@@ -17,8 +17,6 @@ export default function MenuOption() {
 
   return (
     <div>
-      {/* <a href='/logout'><i class="bi bi-power" style={{ padding: "1px 5px", color: "red" }}></i></a>
-      <i class="bi bi-bell" style={{ padding: "0 2px" }}></i> */}
       <Button
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}

@@ -88,22 +88,6 @@ export default function Reset() {
 
     }
     
-    
-    /*await AuthService.updatePassword(oldPassword, newPassword, user.name).then(
-      () => {
-        history.push("/");
-        window.location.reload();
-      },
-      (error) => {
-        const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-        setMessage(resMessage);
-      }
-    );*/
   };
   return (
     <React.Fragment>
