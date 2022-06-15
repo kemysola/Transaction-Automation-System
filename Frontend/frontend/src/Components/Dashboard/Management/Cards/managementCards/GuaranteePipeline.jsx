@@ -8,6 +8,23 @@ function GuaranteePipeline() {
   const [product, setProduct] = useState([]);
   const [data, setData] = useState([]);
   const [industry, setIndustry] = useState([]);
+  const [currentForecast, setCurrentForecast] = useState([])
+  const [nextForecast, setNextForecast] = useState("")
+
+  useEffect(() => {
+    retrieveForecast();
+  }, []);
+
+  const retrieveForecast = async() => {
+    await Service.getForecast()
+      .then((response) => {
+        setCurrentForecast(response.data.forecast[0]);
+        setNextForecast(response.data.forecast[1])
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
 
   useEffect(() => {
     Service.getAllStaff()
@@ -87,9 +104,9 @@ function GuaranteePipeline() {
     return tot + parseFloat(arr);
   }, 0);
 
-  var targetValue = data.reduce(function (tot, arr) {
-    return tot + parseFloat(arr.guaranteepipeline);
-  }, 0);
+  // var targetValue = data.reduce(function (tot, arr) {
+  //   return tot + parseFloat(arr.guaranteepipeline);
+  // }, 0);
 
   var greenV = data.reduce(function (tot, arr) {
     return tot + Number(arr.greentransaction);
@@ -126,12 +143,19 @@ function GuaranteePipeline() {
     return tot + parseFloat(arr);
   }, 0);
 
-  var totalGreenAndAmberDeals = greenTotal + amberTotal;
+  // var totalGreenAndAmberDeals = greenTotal + amberTotal;
 
   var actuallvalue = actual.reduce(function (tot, arr) {
     return tot + parseFloat(arr.dealsize);
   }, 0);
 
+  let newGuranteecurrentForecast = +currentForecast.newdeals
+  let newGuranteenextForecast = +nextForecast.newdeals
+
+  let forecastValue = 0
+  forecastValue = (newGuranteenextForecast + newGuranteecurrentForecast) * 1.5
+
+  let targetValue = forecastValue
   let varianceAmount = targetValue - actuallvalue;
   function varianceDisplay(variance) {
     if (variance < 1) {
@@ -204,7 +228,7 @@ function GuaranteePipeline() {
           </Col>
           <Col sm={4}>
           <Stack gap={0} className="d-flex justify-content-center">
-          ₦ {targetValue.toFixed(2) }bn
+          ₦ {targetValue.toFixed(0) }bn
               <br/>
               <br/>
               <small

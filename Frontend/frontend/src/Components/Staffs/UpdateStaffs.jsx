@@ -483,7 +483,7 @@ console.log("eeee", staff[0])
                                                             size='sm'
                                                             id='financialClose'
                                                             name="financialClose"
-                                                           
+                                                            disabled
                                                         />
 
                                                     </Col>
