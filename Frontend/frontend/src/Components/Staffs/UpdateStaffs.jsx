@@ -100,8 +100,8 @@ export default function UpdateStaffs() {
 
   const retrieveStaff = async () => {
     const staff_data = await axios.get(
-    //    `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
-         `http://localhost:5001/api/v1/staff/${user_email}`, 
+       `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
+        //  `http://localhost:5001/api/v1/staff/${user_email}`, 
 
       {headers: {
         token: `Bearer ${localStorage.getItem('token')}`,
@@ -155,7 +155,7 @@ export default function UpdateStaffs() {
             feeLetter: +feeLetter.current.value,
             
         }
-        console.log("||||", reqData)
+       
         Service.updateStaff(user_email, reqData)
             .then((response) => {
                 alert(response.data.message)
