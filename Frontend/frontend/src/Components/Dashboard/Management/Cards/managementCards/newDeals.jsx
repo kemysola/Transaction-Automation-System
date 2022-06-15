@@ -110,7 +110,7 @@ function NewDeals() {
         <br/>
           <Col sm={4}>
           <Stack gap={0} className="d-flex justify-content-center">
-          ₦ {actualForecast.toFixed(0)}bn
+          ₦ {actualForecast}bn
           <br/>
           <br/>
             <small
@@ -124,7 +124,7 @@ function NewDeals() {
           </Col>
           <Col sm={4}>
           <Stack gap={0} className="d-flex justify-content-center">
-          ₦ {targetValue}bn
+          ₦ {targetValue.toFixed(0)}bn
               <br/>
               <br/>
               <small

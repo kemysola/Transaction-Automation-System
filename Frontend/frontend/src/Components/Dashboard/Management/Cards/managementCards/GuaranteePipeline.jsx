@@ -30,7 +30,7 @@ function GuaranteePipeline() {
         setNextForecast(response.data.forecast[1])
       })
       .catch((e) => {
-        
+        console.log(e);
       });
   }
 
@@ -43,6 +43,7 @@ function GuaranteePipeline() {
   useEffect(() => {
     Service.getAllStaff()
       .then((res) => {
+
         setData(res.data.staff);
       })
       .catch((err) => {
@@ -235,7 +236,7 @@ function GuaranteePipeline() {
           </Col>
           <Col sm={4}>
           <Stack gap={0} className="d-flex justify-content-center">
-          ₦ {targetValue.toFixed(0) }bn
+          ₦ {targetValue.toFixed(1)}bn
               <br/>
               <br/>
               <small
