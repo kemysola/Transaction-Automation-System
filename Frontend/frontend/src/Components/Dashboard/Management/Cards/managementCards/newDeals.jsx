@@ -5,32 +5,68 @@ import { Row, Col, Card, Stack, Container } from "react-bootstrap";
 
 function NewDeals() {
 
-  const [forecast2022, setForecast2022] = useState([])
-  const [forecast2023, setForecast2023] = useState("")
+  // **************************************************** Store data in a useState hook *******************************
+
+  const [currentForecast, setCurrentForecast] = useState([])
+  const [nextForecast, setNextForecast] = useState("")
+  const [closedDeal, setClosedDeal] = useState([]);
+
+
+  // ****************************************** ComponentDidMouunt using useEffect hook *******************************
 
   useEffect(() => {
     retrieveForecast();
   }, []);
 
+
+// ******************************************  Axios , get forecast, transactions  ****************************************
+
   
   const retrieveForecast = async() => {
     await Service.getForecast()
       .then((response) => {
-        setForecast2022(response.data.forecast[0]);
-        setForecast2023(response.data.forecast[1])
+        setCurrentForecast(response.data.forecast[0]);
       })
       .catch((e) => {
-        console.log(e);
       });
   }
 
-  let newGuranteeForecast2022 = +forecast2022.newdeals
-  let newGuranteeForecast2023 = +forecast2023.newdeals
+  
+  useEffect(() => {
+    Service.getAllDeals()
+      .then((res) => {
+        setClosedDeal(res.data.deals);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-  let forecastValue = 0
-  forecastValue = (newGuranteeForecast2023 + newGuranteeForecast2022) * 1.5
 
-  let varianceAmount = forecastValue - 103.4;
+  // ******************************************  Variance calculation ****************************************
+
+  let targetValue = 0
+  targetValue = +currentForecast.newdeals
+
+  var actual = closedDeal.reduce(function (filtered, arr) {
+    if (arr.closed === true) {
+      var someNewValue = arr.dealsize;
+      filtered.push(someNewValue);
+    }
+    return filtered;
+  }, []);
+
+  // ******************************************  Calculate Actual Forecast Values  ****************************************
+
+  let actualForecast = actual.reduce(function (tot, arr){
+    return tot + parseFloat(arr)
+  }, 0)
+
+
+  // ******************************************  Calculate the variance   **************************************************
+
+
+  let varianceAmount = targetValue  - actualForecast;
   
   function varianceDisplay(variance) {
     if (variance < 1) {
@@ -39,29 +75,26 @@ function NewDeals() {
         <span style={{ color: "green" }}>↑ ₦ {varianceAns.toFixed(1)}bn</span>
       );
     } else if (!isFinite(variance) || isFinite(variance)) {
-      return <span style={{color: 'red'}}>↓ ₦ {-1 * (103.4 - forecastValue)}bn </span>;
+      return <span style={{color: 'red'}}>↓ ₦ {-1 * (actualForecast - targetValue).toFixed(1)}bn </span>;
     }
 
     return <span style={{ color: "red" }}>↓ ₦ {variance.toFixed(1)}bn </span>;
   }
 
-  if (forecastValue == 0) {
-    let forecastValue = 1;
+  if (targetValue  == 0) {
+    let targetValue  = 1;
     
-    var varianceP = (( varianceAmount / forecastValue) * 100).toFixed(1);
+    var varianceP = (( varianceAmount / targetValue ) * 100).toFixed(1);
   } else  {
-    var varianceP = (( varianceAmount / forecastValue) * 100).toFixed(1);
+    var varianceP = (( varianceAmount / targetValue ) * 100).toFixed(1);
   }
 
   let variancePercent = varianceP
-  // let variancePercent = ((varianceAmount / forecastValue) * 100).toFixed(1);
 
   function variancePerDisplay(variancePer) {
     if (variancePer < 1) {
       let varianceAns = variancePer * -1;
       return <span style={{ color: "green" }}>↑ {varianceAns}% </span>;
-    // } else if (!isFinite(variancePer) || isFinite(variancePer)) {
-    //   return ` - `;
     }
     return <span style={{ color: "red" }}>↓ {variancePer}% </span>;
   }
@@ -77,7 +110,7 @@ function NewDeals() {
         <br/>
           <Col sm={4}>
           <Stack gap={0} className="d-flex justify-content-center">
-            ₦ 103.4 bn
+          ₦ {actualForecast}bn
           <br/>
           <br/>
             <small
@@ -91,7 +124,7 @@ function NewDeals() {
           </Col>
           <Col sm={4}>
           <Stack gap={0} className="d-flex justify-content-center">
-          ₦ {forecastValue.toFixed(0)} bn
+          ₦ {targetValue.toFixed(0)}bn
               <br/>
               <br/>
               <small

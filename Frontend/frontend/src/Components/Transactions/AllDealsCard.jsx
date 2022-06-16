@@ -6,6 +6,8 @@ import Service from "../../Services/Service"
 
 
 export default function TransactionCards() {
+    // ******************************************  use state hook to store state ****************************************
+
   const [data, setData] = useState([]);
 
   useEffect(() => {

@@ -303,7 +303,6 @@ router.get('/:user_email',verifyTokenAndAdmin, async (req, res) => {
       }
       
   } catch (e) {
-    console.log("#", e)
       res.status(403).json({ Error: e.stack });
   }finally{
       client.release()

@@ -49,6 +49,9 @@ const required = (value) => {
 };
 
 const AddDeal = () => {
+
+    // ******************************************  Declare Initial state ****************************************
+
   const initialDealState = {
     clientName: "",
     originator: "",
@@ -377,6 +380,8 @@ const AddDeal = () => {
     key_deal_fac_23_c:null,
   };
 
+  // ******************************************  use state hook to store state ****************************************
+
   const [activeTab, setActiveTab] = useState('first');
   const [deal, setDeal] = useState(initialDealState);
   const [submitted, setSubmitted] = useState(false);
@@ -389,6 +394,10 @@ const AddDeal = () => {
   const [style, setStyle] = useState([]);
   const [staffList, setStaffList] = useState([]);
   const form = useRef();
+
+
+    // ************************************ use Effect : ComponentDidMount - ComponentWillReceive **************
+
 
   useEffect(() => {
     retrieveIndustry();
@@ -404,6 +413,8 @@ const AddDeal = () => {
     retrieveStaffList();
   }, []);
 
+  // ******************************************  Axios :  get industry ****************************************
+
   const retrieveIndustry = () => {
     Services.getIndustry()
       .then((response) => {
@@ -413,6 +424,8 @@ const AddDeal = () => {
         console.log(e);
       });
   };
+
+  // ******************************************  Axios :  get product ****************************************
 
   const retrieveProduct = () => {
     Services.getProduct()
@@ -424,6 +437,9 @@ const AddDeal = () => {
       });
   };
 
+  // ******************************************  Axios :  get Region ****************************************
+
+
   const retrieveRegion = () => {
     Services.getRegion()
       .then((response) => {
@@ -433,6 +449,9 @@ const AddDeal = () => {
         console.log(e);
       });
   };
+
+   // ******************************************  Axios :  get repayment Frequency ************************
+
 
   const retrieveRepaymentFreq = () => {
     Services.getRepaymentFreq()
@@ -444,6 +463,9 @@ const AddDeal = () => {
       });
   };
 
+ // ******************************************  Axios :  get Amortization ****************************************
+
+
   const retrieveAmortizationStyle = () => {
     Services.getAmortizationSty()
       .then((response) => {
@@ -453,6 +475,7 @@ const AddDeal = () => {
         console.log(e);
       });
   };
+  // ******************************************  Axios :  get all staff  ****************************************
 
   const retrieveStaffList = () => {
     Services.getStaffList()
@@ -463,6 +486,9 @@ const AddDeal = () => {
         console.log(e);
       });
   };
+
+
+  // ******************************************  Next and Previous function  ****************************************
 
   function toNextTab(e) {
     e.preventDefault();
@@ -520,6 +546,8 @@ const AddDeal = () => {
       setActiveTab("eigth");
     }
   }
+  
+  // ******************************************  req body event ****************************************
 
   const handleInputChange = (event) => {
     // function to save user data to deal state
@@ -551,6 +579,11 @@ const AddDeal = () => {
 
     let allNotes = noteList.map(({ note }) => note);
     let note = allNotes.join("|");
+
+
+  // ******************************************  End Function  ****************************************
+
+  // ************************************* Request body Payload to be sent to the DB ******************
 
     let data = {
       // store user's inpt in a variable called data
@@ -923,6 +956,9 @@ const AddDeal = () => {
       key_deal_fac_23_c: `${deal.key_deal_fac_23_c ? deal.key_deal_fac_23_c : 19000101}`,	//DATE  
     };
 
+  // ******************************************  Axios : Post Request ****************************************
+
+
     Services.createDeal(data)
       .then((res) => {
         setResponse(res.data.message);
@@ -941,6 +977,9 @@ const AddDeal = () => {
     setActiveTab("first");
     setResponse("");
   };
+
+  // ******************************************  End Axios Call  ****************************************
+
 
   return (
     <React.Fragment>
@@ -3864,31 +3903,7 @@ const AddDeal = () => {
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={2}>
-                                    {/* <Dropdown size={1}>
-                                      <Dropdown.Toggle
-                                        variant="secondary"
-                                        id=""
-                                      >
-                                        Concern
-                                      </Dropdown.Toggle>
-                                      <Dropdown.Menu>
-                                        <Dropdown.Item name="appA" value={true}>
-                                          High
-                                        </Dropdown.Item>
-                                        <Dropdown.Item
-                                          name="appA"
-                                          value={false}
-                                        >
-                                          Low
-                                        </Dropdown.Item>
-                                        <Dropdown.Item
-                                          name="appA"
-                                          value={false}
-                                        >
-                                          Medium
-                                        </Dropdown.Item>
-                                      </Dropdown.Menu>
-                                    </Dropdown>{" "} */}
+                                    
 
                                     <Select
                                       type = "text"
@@ -3946,32 +3961,6 @@ const AddDeal = () => {
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={2}>
-                                    {/* <Dropdown size={1}>
-                                      <Dropdown.Toggle
-                                        variant="secondary"
-                                        id=""
-                                      >
-                                        Concern
-                                      </Dropdown.Toggle>
-                                      <Dropdown.Menu>
-                                        <Dropdown.Item name="appA" value={true}>
-                                          High
-                                        </Dropdown.Item>
-                                        <Dropdown.Item
-                                          name="appA"
-                                          value={false}
-                                        >
-                                          Low
-                                        </Dropdown.Item>
-                                        <Dropdown.Item
-                                          name="appA"
-                                          value={false}
-                                        >
-                                          Medium
-                                        </Dropdown.Item>
-                                      </Dropdown.Menu>
-                                    </Dropdown>{" "} */}
-
                                     <Select
                                       type = "text"
                                       value={deal.plis_6_b}
@@ -4019,35 +4008,7 @@ const AddDeal = () => {
                           </Col>
                         </Col>
                       </Row>
-                      {/* <button
-                        onClick={(e) => toPrevTab(e)}
-                        style={{
-                          display: "inlineblock",
-                          fontSize: "13px",
-                          padding: "2px 20px",
-                          margin: "10px",
-                          background: "green",
-                          color: "white",
-                          borderRadius: "3px",
-                        }}
-                      >
-                        {" "}
-                        Prev
-                      </button>
-                      <button
-                        onClick={(e) => toNextTab(e)}
-                        style={{
-                          display: "inlineblock",
-                          fontSize: "13px",
-                          padding: "2px 20px",
-                          margin: "10px",
-                          background: "green",
-                          color: "white",
-                          borderRadius: "3px",
-                        }}
-                      >
-                        Next
-                      </button> */}
+                      
                     </Container1>
                   </Tab>
                   {/* ninth tab  other cpis */}
@@ -6441,19 +6402,7 @@ const AddDeal = () => {
                                     <option value={false}>No</option>
                                   </Select>{" "}
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Select
-                                    type = "text"
-                                    value={deal.key_deal_fac_16_c}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_16_c"
-                                  >
-                                    <option>Concern</option>
-                                    <option value={"High"}>High</option>
-                                    <option value={"Low"}>Low</option>
-                                    <option value={"Medium"}>Medium</option>
-                                  </Select>{" "}
-                                </Col> */}
+                                
                                 <Col sm={2}>
                                   <Input 
                                     type="date" 
@@ -6462,24 +6411,7 @@ const AddDeal = () => {
                                     name="key_deal_fac_16_c"
                                   />
                                 </Col>
-                                {/* // <Col sm={2}>
-                                //   <Input
-                                //     type="text"
-                                //     value={deal.key_deal_fac_16_e}
-                                //     onChange={handleInputChange}
-                                //     name="key_deal_fac_16_e"
-                                //     style={{ width: "100%", margin: "2px" }}
-                                //   />
-                                // </Col>
-                                // <Col sm={2}>
-                                //   <Input
-                                //     type="text"
-                                //     value={deal.key_deal_fac_16_f}
-                                //     onChange={handleInputChange}
-                                //     name="key_deal_fac_16_f"
-                                //     style={{ width: "100%", margin: "2px" }}
-                                //   />
-                                // </Col>  */}
+                                
                               </Row>
                             </Fm.Group>
                           </Col>
@@ -6505,19 +6437,6 @@ const AddDeal = () => {
                                     <option value={false}>No</option>
                                   </Select>{" "}
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Select
-                                    type = "text"
-                                    value={deal.key_deal_fac_17_c}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_17_c"
-                                  >
-                                    <option>Concern</option>
-                                    <option value={"High"}>High</option>
-                                    <option value={"Low"}>Low</option>
-                                    <option value={"Medium"}>Medium</option>
-                                  </Select>{" "}
-                                </Col> */}
                                 <Col sm={2}>
                                   <Input 
                                     type="date" 
@@ -6526,24 +6445,6 @@ const AddDeal = () => {
                                     name="key_deal_fac_17_c"
                                   />
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Input
-                                    type="text"
-                                    value={deal.key_deal_fac_17_e}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_17_e"
-                                    style={{ width: "100%", margin: "2px" }}
-                                  />
-                                </Col>
-                                <Col sm={2}>
-                                  <Input
-                                    type="text"
-                                    value={deal.key_deal_fac_17_f}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_17_f"
-                                    style={{ width: "100%", margin: "2px" }}
-                                  />
-                                </Col> */}
                               </Row>
                             </Fm.Group>
                           </Col>
@@ -6569,19 +6470,7 @@ const AddDeal = () => {
                                     <option value={false}>No</option>
                                   </Select>{" "}
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Select
-                                    type = "text"
-                                    value={deal.key_deal_fac_18_c}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_18_c"
-                                  >
-                                    <option>Concern</option>
-                                    <option value={"High"}>High</option>
-                                    <option value={"Low"}>Low</option>
-                                    <option value={"Medium"}>Medium</option>
-                                  </Select>{" "}
-                                </Col> */}
+                                
                                 <Col sm={2}>
                                   <Input 
                                     type="date" 
@@ -6590,24 +6479,6 @@ const AddDeal = () => {
                                     name="key_deal_fac_18_c"
                                   />
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Input
-                                    type="text"
-                                    value={deal.key_deal_fac_18_e}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_18_e"
-                                    style={{ width: "100%", margin: "2px" }}
-                                  />
-                                </Col>
-                                <Col sm={2}>
-                                  <Input
-                                    type="text"
-                                    value={deal.key_deal_fac_18_f}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_18_f"
-                                    style={{ width: "100%", margin: "2px" }}
-                                  />
-                                </Col> */}
                               </Row>
                             </Fm.Group>
                           </Col>
@@ -6633,19 +6504,7 @@ const AddDeal = () => {
                                     <option value={false}>No</option>
                                   </Select>{" "}
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Select
-                                    type = "text"
-                                    value={deal.key_deal_fac_19_c}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_19_c"
-                                  >
-                                    <option>Concern</option>
-                                    <option value={"High"}>High</option>
-                                    <option value={"Low"}>Low</option>
-                                    <option value={"Medium"}>Medium</option>
-                                  </Select>{" "}
-                                </Col> */}
+                               
                                 <Col sm={2}>
                                   <Input 
                                     type="date" 
@@ -6654,24 +6513,7 @@ const AddDeal = () => {
                                     name="key_deal_fac_19_c"
                                   />
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Input
-                                    type="text"
-                                    value={deal.key_deal_fac_19_e}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_19_e"
-                                    style={{ width: "100%", margin: "2px" }}
-                                  />
-                                </Col>
-                                <Col sm={2}>
-                                  <Input
-                                    type="text"
-                                    value={deal.key_deal_fac_19_f}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_19_f"
-                                    style={{ width: "100%", margin: "2px" }}
-                                  />
-                                </Col> */}
+                               
                               </Row>
                             </Fm.Group>
                           </Col>
@@ -6697,19 +6539,7 @@ const AddDeal = () => {
                                     <option value={false}>No</option>
                                   </Select>{" "}
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Select
-                                    type = "text"
-                                    value={deal.key_deal_fac_20_c}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_20_c"
-                                  >
-                                    <option>Concern</option>
-                                    <option value={"High"}>High</option>
-                                    <option value={"Low"}>Low</option>
-                                    <option value={"Medium"}>Medium</option>
-                                  </Select>{" "}
-                                </Col> */}
+                                
                                 <Col sm={2}>
                                   <Input 
                                     type="date" 
@@ -6718,24 +6548,7 @@ const AddDeal = () => {
                                     name="key_deal_fac_20_c"
                                   />
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Input
-                                    type="text"
-                                    value={deal.key_deal_fac_20_e}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_20_e"
-                                    style={{ width: "100%", margin: "2px" }}
-                                  />
-                                </Col>
-                                <Col sm={2}>
-                                  <Input
-                                    type="text"
-                                    value={deal.key_deal_fac_20_f}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_20_f"
-                                    style={{ width: "100%", margin: "2px" }}
-                                  />
-                                </Col> */}
+                               
                               </Row>
                             </Fm.Group>
                           </Col>
@@ -6763,19 +6576,7 @@ const AddDeal = () => {
                                     <option value={false}>No</option>
                                   </Select>{" "}
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Select
-                                    type = "text"
-                                    value={deal.key_deal_fac_21_c}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_21_c"
-                                  >
-                                    <option>Concern</option>
-                                    <option value={"High"}>High</option>
-                                    <option value={"Low"}>Low</option>
-                                    <option value={"Medium"}>Medium</option>
-                                  </Select>{" "}
-                                </Col> */}
+                               
                                 <Col sm={2}>
                                   <Input 
                                     type="date" 
@@ -6784,24 +6585,7 @@ const AddDeal = () => {
                                     name="key_deal_fac_21_c"
                                   />
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Input
-                                    type="text"
-                                    value={deal.key_deal_fac_21_e}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_21_e"
-                                    style={{ width: "100%", margin: "2px" }}
-                                  />
-                                </Col>
-                                <Col sm={2}>
-                                  <Input
-                                    type="text"
-                                    value={deal.key_deal_fac_21_f}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_21_f"
-                                    style={{ width: "100%", margin: "2px" }}
-                                  />
-                                </Col> */}
+                               
                               </Row>
                             </Fm.Group>
                           </Col>
@@ -6828,19 +6612,7 @@ const AddDeal = () => {
                                     <option value={false}>No</option>
                                   </Select>{" "}
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Select
-                                    type = "text"
-                                    value={deal.key_deal_fac_22_c}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_22_c"
-                                  >
-                                    <option>Concern</option>
-                                    <option value={"High"}>High</option>
-                                    <option value={"Low"}>Low</option>
-                                    <option value={"Medium"}>Medium</option>
-                                  </Select>{" "}
-                                </Col> */}
+                                
                                 <Col sm={2}>
                                   <Input 
                                     type="date" 
@@ -6849,24 +6621,7 @@ const AddDeal = () => {
                                     name="key_deal_fac_22_c"
                                   />
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Input
-                                    type="text"
-                                    value={deal.key_deal_fac_20_e}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_20_e"
-                                    style={{ width: "100%", margin: "2px" }}
-                                  />
-                                </Col>
-                                <Col sm={2}>
-                                  <Input
-                                    type="text"
-                                    value={deal.key_deal_fac_20_f}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_20_f"
-                                    style={{ width: "100%", margin: "2px" }}
-                                  />
-                                </Col> */}
+                                
                               </Row>
                             </Fm.Group>
                           </Col>
@@ -6894,19 +6649,7 @@ const AddDeal = () => {
                                     <option value={false}>No</option>
                                   </Select>{" "}
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Select
-                                    type = "text"
-                                    value={deal.key_deal_fac_20_c}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_20_c"
-                                  >
-                                    <option>Concern</option>
-                                    <option value={"High"}>High</option>
-                                    <option value={"Low"}>Low</option>
-                                    <option value={"Medium"}>Medium</option>
-                                  </Select>{" "}
-                                </Col> */}
+                               
                                 <Col sm={2}>
                                   <Input 
                                     type="date" 
@@ -6915,33 +6658,14 @@ const AddDeal = () => {
                                     name="key_deal_fac_23_c"
                                   />
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Input
-                                    type="text"
-                                    value={deal.key_deal_fac_20_e}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_20_e"
-                                    style={{ width: "100%", margin: "2px" }}
-                                  />
-                                </Col>
-                                <Col sm={2}>
-                                  <Input
-                                    type="text"
-                                    value={deal.key_deal_fac_20_f}
-                                    onChange={handleInputChange}
-                                    name="key_deal_fac_20_f"
-                                    style={{ width: "100%", margin: "2px" }}
-                                  />
-                                </Col> */}
+                                
                               </Row>
                             </Fm.Group>
                           </Col>
                         </Col>
             
-                      {/* <Row>
                         
                         
-                      </Row> */}
                     </Row>
                     {/* <button
                       onClick={(e) => toPrevTab(e)}

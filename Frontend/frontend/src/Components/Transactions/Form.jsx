@@ -23,12 +23,9 @@ const Form = () => {
     e.preventDefault();
 
     if(color.deal_category === 'green' && !input) return setFormError(true);
-    console.log("submitted!!!")
 
   }
 
-
-  console.log("Our color value", color)
 
   return <div style={{marginTop: '40px'}}>
     {

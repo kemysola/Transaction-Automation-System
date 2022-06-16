@@ -2,32 +2,62 @@ import React, { useEffect, useState } from "react";
 import Service from "../../../../../Services/Service";
 import { Row, Col, Card, Stack, Container } from "react-bootstrap";
 function GuaranteePipeline() {
+  
+  // ******************************************  use state hook to store state ****************************************
   const [guarPipeline, setGuarPipeline] = useState([]);
   const [actual, setActual] = useState([]);
   const [region, setRegion] = useState([]);
   const [product, setProduct] = useState([]);
   const [data, setData] = useState([]);
   const [industry, setIndustry] = useState([]);
+  const [currentForecast, setCurrentForecast] = useState([])
+  const [nextForecast, setNextForecast] = useState("")
+
+  // ******************************************  use Effect Hook : Component Did mount and update ***********************
+
+  useEffect(() => {
+    retrieveForecast();
+  }, []);
+
+
+// ******************************************  Axios call to get forecast *************************************************
+
+
+  const retrieveForecast = async() => {
+    await Service.getForecast()
+      .then((response) => {
+        setCurrentForecast(response.data.forecast[0]);
+        setNextForecast(response.data.forecast[1])
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+  // ************************************** Use Effect hook  and Axios: component did mount, receive and update ********************
+
+  // ********************************** Axios - get request to get all staff, all transactions, industry, product, region **********
+
+
 
   useEffect(() => {
     Service.getAllStaff()
       .then((res) => {
-        //console.log(res.data.staff);
+
         setData(res.data.staff);
       })
       .catch((err) => {
-        console.log(err);
+       
       });
   }, []);
 
   useEffect(() => {
     Service.getAllDeals()
       .then((res) => {
-        console.log(res.data.deals);
         setActual(res.data.deals);
       })
       .catch((err) => {
-        // console.log(err);
+        console.log(err);
       });
   }, []);
 
@@ -37,32 +67,32 @@ function GuaranteePipeline() {
         setIndustry(res.data.industry.length);
       })
       .catch((err) => {
-        console.log(err);
+       
       });
   }, []);
 
   useEffect(() => {
     Service.getProduct()
       .then((res) => {
-        //console.log(res.data.product.length);
         setProduct(res.data.product.length);
       })
       .catch((err) => {
-        console.log(err);
+        
       });
   }, []);
   useEffect(() => {
     Service.getRegion()
       .then((res) => {
-        //console.log(res.data.region.length);
         setRegion(res.data.region.length);
       })
       .catch((err) => {
-        console.log(err);
+        
       });
   }, []);
 
-  // get green and amber actual values and variances
+
+
+  //************************************************ Get green and amber actual values and variances  ********************
   var amber = actual.reduce(function (filtered, arr) {
     if (arr.deal_category === "Yellow") {
       var someNewValue = arr.dealsize;
@@ -87,9 +117,6 @@ function GuaranteePipeline() {
     return tot + parseFloat(arr);
   }, 0);
 
-  var targetValue = data.reduce(function (tot, arr) {
-    return tot + parseFloat(arr.guaranteepipeline);
-  }, 0);
 
   var greenV = data.reduce(function (tot, arr) {
     return tot + Number(arr.greentransaction);
@@ -100,7 +127,9 @@ function GuaranteePipeline() {
   }, 0);
 
   var greenAndAmberVariance = 0;
-  //green and amber total
+
+
+  //**************************************** Get green and amber total **********************************************************
   var amber = actual.reduce(function (filtered, arr) {
     if (arr.deal_category === "Yellow") {
       var someNewValue = arr.dealsize;
@@ -117,7 +146,8 @@ function GuaranteePipeline() {
     return filtered;
   }, []);
 
-  //**green total*/
+
+  //****************************************************** Green total *********************************************************
   var amberTotal = amber.reduce(function (tot, arr) {
     return tot + parseFloat(arr);
   }, 0);
@@ -126,12 +156,26 @@ function GuaranteePipeline() {
     return tot + parseFloat(arr);
   }, 0);
 
-  var totalGreenAndAmberDeals = greenTotal + amberTotal;
+
+
+  //********************************************* Get total Green And Amber Deals = greenTotal + amberTotal ***********************
+
+  // ******************************************  GGet the actual value  ***********************************************************
 
   var actuallvalue = actual.reduce(function (tot, arr) {
     return tot + parseFloat(arr.dealsize);
   }, 0);
 
+
+  // ******************************************  Forecast Projection Analysis ****************************************************
+
+  let newGuranteecurrentForecast = +currentForecast.newdeals
+  let newGuranteenextForecast = +nextForecast.newdeals
+
+  let forecastValue = 0
+  forecastValue = (newGuranteenextForecast + newGuranteecurrentForecast) * 1.5
+
+  let targetValue = forecastValue
   let varianceAmount = targetValue - actuallvalue;
   function varianceDisplay(variance) {
     if (variance < 1) {
@@ -145,17 +189,7 @@ function GuaranteePipeline() {
     return <span style={{color: 'red'}}>↓ ₦ {(variance).toFixed(1)}bn </span>;
   }
 
-  // function varianceDisplay(variance) {
-  //   if (variance < 1) {
-  //     let varianceAns = variance * -1;
-  //     return <span style={{color: 'green'}}>↑ {varianceAns}%</span>;
-
-  //   }else {
-  //     return <span style={{color: 'red'}}>↓ {variance}% </span>;
-  //   }
-  // }
-
-
+  
   if (targetValue == 0) {
     let targetValue = 1;
     
@@ -170,8 +204,6 @@ function GuaranteePipeline() {
     if (variancePer < 1) {
       let varianceAns = (variancePer * -1)
       return <span style={{color: 'green'}}>↑ {varianceAns}%</span>;
-    // } else if(!isFinite(variancePer) || isFinite(variancePer)){
-    //   return !isFinite(((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)) ?<span style={{color: 'red'}}> 0%</span>: <span style={{color: 'red'}}>↓ {((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)}%</span>;
     } else {
     return <span style={{color: 'red'}}>↓ {variancePer}% </span>;
   }
@@ -204,7 +236,7 @@ function GuaranteePipeline() {
           </Col>
           <Col sm={4}>
           <Stack gap={0} className="d-flex justify-content-center">
-          ₦ {targetValue.toFixed(2) }bn
+          ₦ {targetValue.toFixed(1)}bn
               <br/>
               <br/>
               <small
@@ -225,8 +257,6 @@ function GuaranteePipeline() {
 
             </Stack>
           </Col>
-
-
         </Row>
       </Card>
 

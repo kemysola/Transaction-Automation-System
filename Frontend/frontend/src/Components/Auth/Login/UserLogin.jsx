@@ -36,21 +36,32 @@ const required = (value) => {
 };
 
 const UserLogin = () => {
+  // ******************************************  useState Hook to store state data  ***************************************
+  // ******************************************  useEffect hook - ComponentDidMount   *************************************
+  // ******************************************  useRef hook - Current Index and Data   ***********************************
+
   const history = useHistory();
   const form = useRef();
   const checkBtn = useRef();
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+
+  // ******************************************  Get Email from URL Params  *********************************************
+
   const query_ = useLocation().search;
   const name = new URLSearchParams(query_).get("user");
   const email =  { name };
+
+  //**************************************** store state in the localstorage in a useEffect hook   ************************
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(email));
   }, [email]);
 
   
+  //**************************************** Password input   ************************
+
   const onChangePassword = (e) => {
     const password = e.target.value;
     setPassword(password);
@@ -60,6 +71,9 @@ const UserLogin = () => {
     e.preventDefault();
     setMessage("");
     setLoading(true);
+
+  //**************************************** Validate form inputs  **********************
+
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(email.name, password).then(

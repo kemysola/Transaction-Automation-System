@@ -23,6 +23,9 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
   };
 
+
+    // ******************************************  get user from local storage   ****************************************
+
   const user = JSON.parse(localStorage.getItem('user'))
   const username = user.name
         var name   = username.substring(0, username.lastIndexOf("@"));
@@ -114,9 +117,7 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                   </Link>
                 </MenuItem>
             </SubMenu>
-            {/* <MenuItem icon={<HiOutlineCalculator />}><Link to ='/annual_and_quarterly_report_page' style={{color:'#237cbf'}}>
-                    Report
-                  </Link></MenuItem> */}
+            
 
               {/* ------------ Report Menu --------------- */}
               <SubMenu title='Report' icon={<ImUsers />}>
@@ -143,14 +144,7 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                   </Link>
                 </MenuItem>
 
-                
-                  
-                  {/* <MenuItem
-                onClick={authService.logout}>Logout
-
-                  </MenuItem> */}
-
-               
+             
 
             <MenuItem icon={<FiLogOut />} onClick={authService.logout} >
               Logout
@@ -158,9 +152,7 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
               </Menu>
             </SidebarContent>
 
-        {/* <SidebarFooter>
-          
-        </SidebarFooter> */}
+        
       </ProSidebar>
     </div>
   </>
