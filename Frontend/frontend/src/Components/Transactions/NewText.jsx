@@ -7,6 +7,8 @@ import Services from "../../Services/Service";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import Select from "react-validation/build/select";
+import { GrAdd } from 'react-icons/gr';
+
 
 const ButtonWrapper = styled.button`
   background: green;
@@ -387,6 +389,7 @@ const AddDeal = () => {
   const [submitted, setSubmitted] = useState(false);
   const [response, setResponse] = useState(false);
   const [noteList, setNoteList] = useState([{ note: "" }]);
+  const [dealTracking, setDealTracking] = useState({})
   const [industry, setIndustry] = useState([]);
   const [product, setProduct] = useState([]);
   const [region, setRegion] = useState([]);
@@ -572,6 +575,26 @@ const AddDeal = () => {
     setNoteList(list);
   };
 
+
+  // Daniel's features
+  // const addDealTracking = () => {
+  //   setNoteList([...noteList, { note: "" }]);
+  // };
+
+  // const removeDealTracking = (index) => {
+  //   const list = [...noteList];
+  //   list.splice(index, 1);
+  //   setNoteList(list);
+  // };
+
+  // const handleNoteChange = (e, index) => {
+  //   const { name, value } = e.target;
+  //   const list = [...noteList];
+  //   list[index][name] = value;
+  //   setNoteList(list);
+  // };
+
+  // ******************************************* Save Deal and Send to the Backend ***********************************
   const saveDeal = (e) => {
     // function to save users data and post to db
     e.preventDefault();
@@ -973,6 +996,7 @@ const AddDeal = () => {
   const newDeal = () => {
     setDeal(initialDealState);
     setNoteList([{ note: "" }]);
+    // setDealTracking()
     setSubmitted(false);
     setActiveTab("first");
     setResponse("");
@@ -2329,18 +2353,200 @@ const AddDeal = () => {
                         <Col sm={12}>
                           <Row>
                             <Col>
-                              <PWrapper>ORIGINAL NBC DD FOCUS</PWrapper>
+                            {/* NBC DD FOCUS */}
+                              <small>ORIGINAL 
+                              <span> <GrAdd onClick={handleNoteAdd}/></span>
+                              </small>
+                              {noteList.map((singleNote, index) => (
+                              <div class="input-group">
+                                <Fm.Control
+                                  type='text'
+                                  style={{ margin: "0.8em", width: "60%" }}
+                                  size="sm"
+                                  value={singleNote.note}
+                                  name="note"
+                                  onChange={(e) => handleNoteChange(e, index)}
+                                />
+                                <br/>
+                                {/* <button
+                                  type="button"
+                                  onClick={handleNoteRemove}
+                                >
+                                  x
+                                </button> */}
+                              </div>
+                            ))}
+                              {/* <button
+                              type="button"
+                              onClick={handleNoteAdd}
+                              style={{
+                                fontSize: "10px",
+                                padding: "2px 10px",
+                                margin: "8px",
+                                background: "steelblue",
+                                color: "white",
+                                borderRadius: "3px",
+                              }}
+                            >
+                              Add
+                            </button> */}
+                            {/* {noteList.map((singleNote, index) => (
+                              <div class="input-group">
+                                <Fm.Control
+                                  type='text'
+                                  style={{ margin: "0.8em", width: "60%" }}
+                                  size="sm"
+                                  value={singleNote.note}
+                                  name="note"
+                                  onChange={(e) => handleNoteChange(e, index)}
+                                /> */}
+                                
+                                {/* <button
+                                  type="button"
+                                  style={{
+                                    fontSize: "10px",
+                                    padding: "2px 10px",
+                                    margin: "8px",
+                                    background: "steelblue",
+                                    color: "white",
+                                    borderRadius: "3px",
+                                  }}
+                                  onClick={handleNoteRemove}
+                                >
+                                  x
+                                </button>
+                              </div>
+                            ))} */}
+                             
                               <br />
                             </Col>
                             <Col>
-                              <PWrapper>YES/NO</PWrapper>
+                            <small >Yes/No
+                              <span> <GrAdd onClick={handleNoteAdd}/></span>
+                              </small>
+                              {noteList.map((singleNote, index) => (
+                              <div class="input-group">
+                                {/* <Fm.Control
+                                  type='text'
+                                  style={{ margin: "0.8em", width: "60%" }}
+                                  size="sm"
+                                  value={singleNote.note}
+                                  name="note"
+                                  onChange={(e) => handleNoteChange(e, index)}
+                                /> */}
+                                
+                                <Select className='py-1 mt-3'
+                                    type = "text"
+                                    size="md"
+                                    value={singleNote.note}   
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_1_b"
+                                  >
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                <br/>
+                                {/* <button
+                                  type="button"
+                                  onClick={handleNoteRemove}
+                                >
+                                  x
+                                </button> */}
+                              </div>
+                            ))}
+                             
                             </Col>
                             <Col>
-                              <PWrapper>DATE</PWrapper>
+                            <small>Date
+                              <span> <GrAdd onClick={handleNoteAdd}/></span>
+                              </small>
+                              {noteList.map((singleNote, index) => (
+                              <div class="input-group">
+                                <Fm.Control
+                                  type='date'
+                                  style={{ margin: "0.8em", width: "60%" }}
+                                  size="sm"
+                                  value={singleNote.note}
+                                  name="note"
+                                  onChange={(e) => handleNoteChange(e, index)}
+                                />
+                                
+                                {/* <button
+                                  type="button"
+                                  onClick={handleNoteRemove}
+                                >
+                                  x
+                                </button> */}
+                              </div>
+                            ))}
+                              {/* <span class="iconify" data-icon="fluent:add-circle-16-filled"></span> */}
+                              {/* <button
+                              type="button"
+                              onClick={handleNoteAdd}
+                              style={{
+                                fontSize: "10px",
+                                padding: "2px 10px",
+                                margin: "8px",
+                                background: "steelblue",
+                                color: "white",
+                                borderRadius: "3px",
+                              }}
+                            >
+                              Add
+                            </button>
+                            {noteList.map((singleNote, index) => (
+                              <div class="input-group">
+                                <Fm.Control
+                                  type='date'
+                                  style={{ margin: "0.8em", width: "60%" }}
+                                  size="sm"
+                                  value={singleNote.note}
+                                  name="note"
+                                  onChange={(e) => handleNoteChange(e, index)}
+                                />
+                                
+                                <button
+                                  type="button"
+                                  style={{
+                                    fontSize: "10px",
+                                    padding: "2px 10px",
+                                    margin: "8px",
+                                    background: "steelblue",
+                                    color: "white",
+                                    borderRadius: "3px",
+                                  }}
+                                  onClick={handleNoteRemove}
+                                >
+                                  x
+                                </button>
+                              </div>
+                            ))} */}
                             </Col>
                             <Col>
-                              <PWrapper>METHODOLOGY</PWrapper>
+                            <small>Methodology
+                              <span> <GrAdd onClick={handleNoteAdd}/></span>
+                              </small>
+                              {noteList.map((singleNote, index) => (
+                              <div class="input-group">
+                                <Fm.Control
+                                  type ='text'
+                                  style={{ margin: "0.8em", width: "60%" }}
+                                  size="sm"
+                                  value={singleNote.note}
+                                  name="note"
+                                  onChange={(e) => handleNoteChange(e, index)}
+                                />
+                                
+                                <button
+                                  type="button"
+                                  onClick={handleNoteRemove}
+                                >
+                                  x
+                                </button>
+                              </div>
+                            ))}
                             </Col>
+                           
                           </Row>
                         </Col>
 
@@ -2350,19 +2556,19 @@ const AddDeal = () => {
                               <Row>
                                 <Col sm={3}>
                                   <Fm.Label style={{ paddingRight: "1rem" }}>
-                                    Strength of Contracts:
+                                    {/* Strength of Contracts: */}
                                   </Fm.Label>
                                 </Col>
                                 <Col sm={3}>
-                                  <Fm.Check
+                                  {/* <Fm.Check
                                     inline
                                     label="Yes"
                                     type="radio"
                                     onChange={handleInputChange}
                                     name="nbc_focus_original_1_b"
                                     value={true}
-                                  />
-                                  <Fm.Check
+                                  /> */}
+                                  {/* <Fm.Check
                                     inline
                                     label="No"
                                     type="radio"
@@ -2370,10 +2576,10 @@ const AddDeal = () => {
                                     name="nbc_focus_original_1_b"
                                     value={false}
                                     defaultChecked
-                                  />
+                                  /> */}
                                 </Col>
                                 <Col sm={3}>
-                                  <Input
+                                  {/* <Input
                                     size="sm"
                                     type="date"
                                     value={deal.nbc_focus_original_1_c}
@@ -2384,24 +2590,24 @@ const AddDeal = () => {
                                       padding: "2px 1px",
                                       focus: "none",
                                     }}
-                                  />
+                                  /> */}
                                 </Col>
                                 <Col sm={3}>
-                                  <Fm.Control
+                                  {/* <Fm.Control
                                     as="textarea"
                                     placeholder=" "
                                     value={deal.nbc_focus_original_1_d}
                                     onChange={handleInputChange}
                                     name="nbc_focus_original_1_d"
                                     style={{ height: "30px" }}
-                                  ></Fm.Control>
+                                  ></Fm.Control> */}
                                 </Col>
                               </Row>
                             </Fm.Group>
                           </Col>
                         </Col>
 
-                        <Col sm={12}>
+                        {/* <Col sm={12}>
                           <Col className="pb-2">
                             <Fm.Group>
                               <Row>
@@ -2455,8 +2661,8 @@ const AddDeal = () => {
                                 </Col>
                               </Row>
                             </Fm.Group>
-                          </Col>
-                          <Col sm={12}>
+                          </Col> */}
+                          {/* <Col sm={12}>
                             <Col className="pb-2">
                               <Fm.Group>
                                 <Row>
@@ -2511,8 +2717,8 @@ const AddDeal = () => {
                                 </Row>
                               </Fm.Group>
                             </Col>
-                          </Col>
-                          <Col sm={12}>
+                          </Col> */}
+                          {/* <Col sm={12}>
                             <Col className="pb-2">
                               <Fm.Group>
                                 <Row>
@@ -2623,8 +2829,8 @@ const AddDeal = () => {
                                 </Row>
                               </Fm.Group>
                             </Col>
-                          </Col>
-                          <Col sm={12}>
+                          </Col> */}
+                          {/* <Col sm={12}>
                             <p style={{ fontWeight: "bold" }}>
                               NBC Paper (Link to Doc)
                             </p>
@@ -2726,8 +2932,8 @@ const AddDeal = () => {
                                 </Row>
                               </Fm.Group>
                             </Col>
-                          </Col>
-                          <Col sm={12}>
+                          </Col> */}
+                          {/* <Col sm={12}>
                             <Col className="pb-2">
                               <Fm.Group>
                                 <Row>
@@ -2869,7 +3075,7 @@ const AddDeal = () => {
                               </Col>
                             </Col>
                           </Col>
-                        </Col>
+                        </Col> */}
                       </Row>
                       {/* <button
                         onClick={(e) => toPrevTab(e)}
