@@ -24,7 +24,7 @@ export default function AllStaff() {
           <Col sm={3} style={{padding:'10px 10px 10px 0px'}}>
             <SideNav2 />
           </Col>
-          <Col sm={9} className='my-1'>
+          <Col sm={8} className='my-1'>
           <h2 style={{color: "steelblue",fontSize:'15px', marginLeft:'13px'}} >All Staff</h2>
 
             <StaffTable />

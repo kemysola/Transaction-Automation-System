@@ -28,34 +28,33 @@ const GridDiv = styled.div`
   grid-template-columns: 1.5fr 2fr;
 `;
 const RedDiv = styled.div`
-  border-radius: 50px;
-  background: red;
-  color: white;
-  height: 30px;
-  width: 30px;
-  margin-top: 10px,
-  margin-bottom: 2px;
-  text-align:center;
-  padding-top:8px;
-  font-size: 10px;
-  display:inline-block;
-  margin-left:18px;
+border-radius: 50px;
+background: red;
+color: white;
+height: 30px;
+width: 30px;
+margin-top: 10px,
+margin-bottom: 10px;
+text-align:center;
+padding-top:8px;
+font-size: 10px;
+display:inline-block;
+margin-left:1px;
 `;
 const WhiteDiv = styled.div`
-  border-radius: 50px;
-  background: white;
-  color: royalblue;
-  height: 30px;
-  width: 30px;
-  margin-top: 10px,
-  margin-bottom: 2px;
-  text-align:center;
-  padding-top:6px;
-  font-size: 10px;
-  display:inline-block;
-  margin-left:14px;
-  border:2px solid royalblue;
-  font-weight:bold;
+border-radius: 50px;
+border:2px solid blue;
+background: white;
+color:black;
+height: 30px;
+width: 30px;
+margin-top: 10px,
+margin-bottom: 10px;
+text-align:center;
+padding-top:8px;
+font-size: 10px;
+display:inline-block;
+margin-left:1px;
 `;
 
 const GreenDiv = styled.div`
@@ -70,7 +69,7 @@ const GreenDiv = styled.div`
   padding-top:8px;
   font-size: 10px;
   display:inline-block;
-  margin-left:5px;
+  margin-left:1px;
 `;
 
 const AmberDiv = styled.div`
@@ -380,7 +379,7 @@ export default function PieCard ({dealFilter, staffFilter}) {
     return (
       <React.Fragment>
         {/*---------------------------- Div ------------------------------------------- */}
-        <Container fluid className="mb-3 bg-light" style={{borderRadius: "10px"}}>
+        <Container fluid className="mb-3 " style={{borderRadius: "10px"}}>
 
       {loading ? (
         <Spinner animation="border" role="status" variant="secondary">
@@ -402,7 +401,7 @@ export default function PieCard ({dealFilter, staffFilter}) {
             </p>
 
             <Row>
-              <Col className="mt-1 mx-0 d-none d-sm-block" sm={5} style={{marginLeft: "0px"}} >
+              <Col className="mt-1 mx-0 d-none d-sm-block" sm={3} style={{marginLeft: "0px"}} >
               <small>Total </small>
                 <WhiteDiv className="my-1">{((dealFilter !== "All") || (staffFilter !== "All")) ? count.length : data.length}</WhiteDiv>
                 <br/>
@@ -416,7 +415,7 @@ export default function PieCard ({dealFilter, staffFilter}) {
                 <RedDiv className="my-1">{red.length}</RedDiv>
               </Col>
 
-              <Col sm={7} >
+              <Col sm={9} >
                 <PieChart width={300} height={210}>
                   <Pie
                     data={chartData}
