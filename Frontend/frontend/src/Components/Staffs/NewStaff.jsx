@@ -117,7 +117,6 @@ export default function NewStaff() {
       firstName: staff.firstName,
       lastName: staff.lastName,
       level: staff.level,
-      originator: 1,
       hasOriginationTarget: JSON.parse(target),
       originationAmount: +staff.amount,
       guaranteePipeline: +staff.guarantee,

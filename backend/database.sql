@@ -1283,3 +1283,48 @@ WHERE f2.projectionYear = f.projectionYear;
 
 INSERT INTO trms.TB_INFRCR_FORECAST(projectionYear, cumulativeGrowth, newDeals, guaranteePipeline, greenAndAmberDeals, greenDeals, status)
 VALUES(2026, 740.0, 155.6, 233.4, 233.4, 163.38, 'Active');
+
+-- 17 June, 2022. Changed data type from VARCHAR to DAte in table tb_infrcr_transaction_other_cps and TB_INFRCR_TRANSACTION_OTHER_CPS_AUDIT
+ALTER TABLE trms.TB_INFRCR_TRANSACTION_OTHER_CPS
+	ALTER COLUMN ocps_fac_1_d SET DATA TYPE DATE USING ocps_fac_1_d::date,
+	ALTER COLUMN ocps_fac_2_d SET DATA TYPE DATE USING ocps_fac_2_d::date,
+	ALTER COLUMN ocps_fac_3_d SET DATA TYPE DATE USING ocps_fac_3_d::date,
+	ALTER COLUMN ocps_fac_4_d SET DATA TYPE DATE USING ocps_fac_4_d::date,
+	ALTER COLUMN ocps_fac_5_d SET DATA TYPE DATE USING ocps_fac_5_d::date,
+	ALTER COLUMN ocps_fac_6_d SET DATA TYPE DATE USING ocps_fac_6_d::date,
+	ALTER COLUMN ocps_fac_7_d SET DATA TYPE DATE USING ocps_fac_7_d::date,
+	ALTER COLUMN ocps_fac_8_d SET DATA TYPE DATE USING ocps_fac_8_d::date,
+	ALTER COLUMN ocps_fac_9_d SET DATA TYPE DATE USING ocps_fac_9_d::date,
+	ALTER COLUMN ocps_fac_10_d SET DATA TYPE DATE USING ocps_fac_10_d::date,
+	ALTER COLUMN ocps_fac_11_d SET DATA TYPE DATE USING ocps_fac_11_d::date,
+	ALTER COLUMN ocps_fac_12_d SET DATA TYPE DATE USING ocps_fac_12_d::date,
+	ALTER COLUMN ocps_fac_13_d SET DATA TYPE DATE USING ocps_fac_13_d::date,
+	ALTER COLUMN ocps_fac_14_d SET DATA TYPE DATE USING ocps_fac_14_d::date,
+	ALTER COLUMN ocps_fac_15_d SET DATA TYPE DATE USING ocps_fac_15_d::date,
+	ALTER COLUMN ocps_fac_16_d SET DATA TYPE DATE USING ocps_fac_16_d::date,
+	ALTER COLUMN ocps_fac_17_d SET DATA TYPE DATE USING ocps_fac_17_d::date,
+	ALTER COLUMN ocps_fac_18_d SET DATA TYPE DATE USING ocps_fac_18_d::date,
+	ALTER COLUMN ocps_fac_19_d SET DATA TYPE DATE USING ocps_fac_19_d::date,
+	ALTER COLUMN ocps_fac_20_d SET DATA TYPE DATE USING ocps_fac_20_d::date;
+
+ALTER TABLE trms.TB_INFRCR_TRANSACTION_OTHER_CPS_AUDIT
+	ALTER COLUMN ocps_fac_1_d SET DATA TYPE DATE USING ocps_fac_1_d::date,
+	ALTER COLUMN ocps_fac_2_d SET DATA TYPE DATE USING ocps_fac_2_d::date,
+	ALTER COLUMN ocps_fac_3_d SET DATA TYPE DATE USING ocps_fac_3_d::date,
+	ALTER COLUMN ocps_fac_4_d SET DATA TYPE DATE USING ocps_fac_4_d::date,
+	ALTER COLUMN ocps_fac_5_d SET DATA TYPE DATE USING ocps_fac_5_d::date,
+	ALTER COLUMN ocps_fac_6_d SET DATA TYPE DATE USING ocps_fac_6_d::date,
+	ALTER COLUMN ocps_fac_7_d SET DATA TYPE DATE USING ocps_fac_7_d::date,
+	ALTER COLUMN ocps_fac_8_d SET DATA TYPE DATE USING ocps_fac_8_d::date,
+	ALTER COLUMN ocps_fac_9_d SET DATA TYPE DATE USING ocps_fac_9_d::date,
+	ALTER COLUMN ocps_fac_10_d SET DATA TYPE DATE USING ocps_fac_10_d::date,
+	ALTER COLUMN ocps_fac_11_d SET DATA TYPE DATE USING ocps_fac_11_d::date,
+	ALTER COLUMN ocps_fac_12_d SET DATA TYPE DATE USING ocps_fac_12_d::date,
+	ALTER COLUMN ocps_fac_13_d SET DATA TYPE DATE USING ocps_fac_13_d::date,
+	ALTER COLUMN ocps_fac_14_d SET DATA TYPE DATE USING ocps_fac_14_d::date,
+	ALTER COLUMN ocps_fac_15_d SET DATA TYPE DATE USING ocps_fac_15_d::date,
+	ALTER COLUMN ocps_fac_16_d SET DATA TYPE DATE USING ocps_fac_16_d::date,
+	ALTER COLUMN ocps_fac_17_d SET DATA TYPE DATE USING ocps_fac_17_d::date,
+	ALTER COLUMN ocps_fac_18_d SET DATA TYPE DATE USING ocps_fac_18_d::date,
+	ALTER COLUMN ocps_fac_19_d SET DATA TYPE DATE USING ocps_fac_19_d::date,
+	ALTER COLUMN ocps_fac_20_d SET DATA TYPE DATE USING ocps_fac_20_d::date;
