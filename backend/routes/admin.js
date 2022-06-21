@@ -209,4 +209,43 @@ router.put('/level/update/:levelid', verifyTokenAndAdmin, async (req, res) => {
       }
 });
 
+
+// b.	Forecasting Values; New Guarantee Forecast, Guarantee Pipeline Forecast, Deal Category Forecast 
+
+// fetch all guarantee projection data  by authorized users
+function projected_gurantee_pipeline(previous_projection_year, newdeals) {
+    let nextprojectyear = projection_year + 1
+}
+
+router.post('/forecast', verifyTokenAndAdmin, async (req, res) => {
+    const client = await pool.connect();
+    try {
+        const new_forecast = { projectionyear, cumulativegrowth, newdeals } = req.body
+
+        const forecast_data = [
+            new_forecast.projectionyear, new_forecast.cumulativegrowth, new_forecast.newdeals
+        ]
+
+        await client.query('BEGIN')
+        
+        const write_to_db = 
+        `INSERT INTO TB_INFRCR_FORECAST(projectionYear, cumulativeGrowth, newDeals) VALUES ($1, $2, $3) RETURNING *`
+    
+        
+        const res_ = await client.query(write_to_db, forecast_data)
+
+        await client.query('COMMIT')
+
+        res.json({
+            status: (res.statusCode = 200),
+            message: "Forecast Created Successfully",
+            forecast: res_.rows[0],      
+          });
+
+    } catch (e) {
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+    }
+})
 module.exports = router;
