@@ -11,15 +11,15 @@ import Input from "react-validation/build/input";
 const ContainerWrapper = styled.div`
 font-size:11px;
 margin-top: 0.55rem;
-padding: 1rem 2rem;
-border-radius: 10px;
+padding: 1rem 1rem;
+border-radius: 5px;
 `;
 
 const TableWrapper = styled.div`
   margin-top: 130px;
   padding: 0rem 1rem;
   background: white;
-  border-radius: 10px;
+  border-radius: 5px;
   table {
     border-spacing: 0;
     border: 1px solid black;
@@ -55,17 +55,19 @@ const ButtonWrapper = styled.button`
   border-radius: 3px
 `;
 
+
+
 const DateWrapper = styled.button`
   display: flex;
-  border: 1px solid grey;
-  padding-bottom: 1rem;
-  border-radius: 10px;
-  justify-content: end;
+  align-items: left;
+  background: white;
+  border: none;
+  justify-content: start;
   position: absolute;
   margin-right: 1.8rem;
-  right: 25px;
+  right: 120px;
+  padding-bottom: 1rem;
 `;
-
 const Pagination = styled.div`
   padding: 1em;
 
@@ -371,35 +373,35 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
           <DateWrapper className="bg-light">
             <Form ref={form}>
               <Row>
-                <Col>
+                <Col sm={2}>
                   <Fm.Group className="mb-0 mt-2 pt-2 pb-1">
                     <Fm.Label style={{fontSize: "12px"}}>Start Date <span style={{color: "red"}}>*</span></Fm.Label>
                     <Input size="sm" type="date" value={date.start_date} max={date.end_date} onChange={handleInputChange} name='start_date' validations={[required]}/>
                   </Fm.Group>
                 </Col>
 
-                <Col>
+                <Col sm={2}>
                   <Fm.Group className="mb-0 mt-2 pt-2 pb-1">
                     <Fm.Label style={{fontSize: "12px"}}>End Date <span style={{color: "red"}}>*</span></Fm.Label>
                     <Input size="sm" type="date" value={date.end_date} min={date.start_date} onChange={handleInputChange} name='end_date' validations={[required]}/>
                   </Fm.Group>
                 </Col>
 
-                <Col>
+                <Col sm={3}>
                   <Fm.Group className="mb-0 mt-2 pt-2 pb-1">
                     <Fm.Label style={{fontSize: "12px"}}>Client Name</Fm.Label>
                     <Input size="sm" type="text" value={date.client_name} onChange={handleInputChange} name='client_name' />
                   </Fm.Group>
                 </Col>
 
-                <Col >
+                <Col sm={2} >
                   <ButtonWrapper onClick={saveDate} ref={form}>
                     Submit
                   </ButtonWrapper>
                   <div className='invalid-feedback d-block text-danger'>{response}</div>
                 </Col>
 
-                <Col >
+                <Col sm={2} >
                   <ButtonWrapper onClick={downloadExcel}>
                   Download
                   </ButtonWrapper>

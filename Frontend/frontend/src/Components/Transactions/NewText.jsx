@@ -7,6 +7,8 @@ import Services from "../../Services/Service";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import Select from "react-validation/build/select";
+import { GrAdd } from 'react-icons/gr';
+
 
 const ButtonWrapper = styled.button`
   background: green;
@@ -387,6 +389,7 @@ const AddDeal = () => {
   const [submitted, setSubmitted] = useState(false);
   const [response, setResponse] = useState(false);
   const [noteList, setNoteList] = useState([{ note: "" }]);
+  const [dealTracking, setDealTracking] = useState({})
   const [industry, setIndustry] = useState([]);
   const [product, setProduct] = useState([]);
   const [region, setRegion] = useState([]);
@@ -555,6 +558,12 @@ const AddDeal = () => {
     setDeal({ ...deal, [name]: value });
   };
 
+  const handleInputChanges = (event) => {
+    // function to save user data to deal state
+    const { name, value } = event.target;
+    setDeal({ ...deal, [name]: value });
+  };
+
   const handleNoteChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...noteList];
@@ -572,6 +581,26 @@ const AddDeal = () => {
     setNoteList(list);
   };
 
+
+  // Daniel's features
+  // const addDealTracking = () => {
+  //   setNoteList([...noteList, { note: "" }]);
+  // };
+
+  // const removeDealTracking = (index) => {
+  //   const list = [...noteList];
+  //   list.splice(index, 1);
+  //   setNoteList(list);
+  // };
+
+  // const handleNoteChange = (e, index) => {
+  //   const { name, value } = e.target;
+  //   const list = [...noteList];
+  //   list[index][name] = value;
+  //   setNoteList(list);
+  // };
+
+  // ******************************************* Save Deal and Send to the Backend ***********************************
   const saveDeal = (e) => {
     // function to save users data and post to db
     e.preventDefault();
@@ -973,6 +1002,7 @@ const AddDeal = () => {
   const newDeal = () => {
     setDeal(initialDealState);
     setNoteList([{ note: "" }]);
+    // setDealTracking()
     setSubmitted(false);
     setActiveTab("first");
     setResponse("");
@@ -1322,7 +1352,7 @@ const AddDeal = () => {
                           <Col sm={6}>
                             <Fm.Group className="pt-1">
                               <Fm.Label>Coupon(%)</Fm.Label>
-                              <Input
+                              <Fm.Control
                                 size="sm"
                                 type="number"
                                 value={deal.coupon}
@@ -1340,7 +1370,7 @@ const AddDeal = () => {
                           <Col sm={6}>
                             <Fm.Group className="pt-1">
                               <Fm.Label>Tenor(yrs)</Fm.Label>
-                              <Input
+                              <Fm.Control
                                 size="sm"
                                 type="number"
                                 value={deal.tenor}
@@ -1358,7 +1388,7 @@ const AddDeal = () => {
                           <Col sm={6}>
                             <Fm.Group className="pt-1">
                               <Fm.Label>Moratorium(yrs)</Fm.Label>
-                              <Input
+                              <Fm.Control
                                 size="sm"
                                 type="number"
                                 value={deal.moratorium}
@@ -1478,7 +1508,7 @@ const AddDeal = () => {
                           <Col sm={6}>
                             <Fm.Group className="pt-1">
                               <Fm.Label>Fee Letter</Fm.Label>
-                              <Input
+                              <Fm.Control
                                 size="sm"
                                 type="date"
                                 value={deal.feeLetter}
@@ -1496,7 +1526,7 @@ const AddDeal = () => {
                           <Col sm={6}>
                             <Fm.Group className="pt-1">
                               <Fm.Label>Expected Close</Fm.Label>
-                              <Input
+                              <Fm.Control
                                 size="sm"
                                 type="date"
                                 value={deal.expectedClose}
@@ -1514,7 +1544,7 @@ const AddDeal = () => {
                           <Col sm={6}>
                             <Fm.Group className="pt-1">
                               <Fm.Label>Actual Close</Fm.Label>
-                              <Input
+                              <Fm.Control
                                 size="sm"
                                 type="date"
                                 value={deal.actualClose}
@@ -1532,7 +1562,7 @@ const AddDeal = () => {
                           <Col sm={6}>
                             <Fm.Group className="pt-1">
                               <Fm.Label>NBC Approval</Fm.Label>
-                              <Input
+                              <Fm.Control
                                 size="sm"
                                 type="date"
                                 value={deal.nbc_approval_date}
@@ -1550,7 +1580,7 @@ const AddDeal = () => {
                           <Col sm={6}>
                             <Fm.Group className="pt-1">
                               <Fm.Label>NBC Submission</Fm.Label>
-                              <Input
+                              <Fm.Control
                                 size="sm"
                                 type="date"
                                 value={deal.nbc_submitted_date}
@@ -1611,7 +1641,7 @@ const AddDeal = () => {
                           <Col sm={6} className="my-0 py-0">
                             <Fm.Group>
                               <Fm.Label>Amount (₦'MN)</Fm.Label>
-                              <Input
+                              <Fm.Control
                                 size="sm"
                                 type="number"
                                 value={deal.structuringFeeAmount}
@@ -1629,7 +1659,7 @@ const AddDeal = () => {
                           <Col sm={6} className="my-0 py-0">
                             <Fm.Group>
                               <Fm.Label>Advance(%)</Fm.Label>
-                              <Input
+                              <Fm.Control
                                 size="sm"
                                 type="number"
                                 value={deal.structuringFeeAdvance}
@@ -1647,7 +1677,7 @@ const AddDeal = () => {
                           <Col sm={6} className="my-0 py-0">
                             <Fm.Group className="pt-1">
                               <Fm.Label>Final(%)</Fm.Label>
-                              <Input
+                              <Fm.Control
                                 size="sm"
                                 type="number"
                                 value={deal.structuringFeeFinal}
@@ -1671,7 +1701,7 @@ const AddDeal = () => {
                           <Col sm={6} className="my-0 py-0">
                             <Fm.Group className="pt-1">
                               <Fm.Label>Guarantee (%)</Fm.Label>
-                              <Input
+                              <Fm.Control
                                 size="sm"
                                 type="number"
                                 value={deal.guaranteeFee}
@@ -1689,7 +1719,7 @@ const AddDeal = () => {
                           <Col sm={6} className="my-0 py-0">
                             <Fm.Group className="pt-1">
                               <Fm.Label>Monitoring(₦'MN)</Fm.Label>
-                              <Input
+                              <Fm.Control
                                 size="sm"
                                 type="number"
                                 value={deal.monitoringFee}
@@ -1707,7 +1737,7 @@ const AddDeal = () => {
                           <Col sm={6} className="my-0 py-0">
                             <Fm.Group className="pt-1">
                               <Fm.Label>Reimbursible(₦'MN)</Fm.Label>
-                              <Input
+                              <Fm.Control
                                 size="sm"
                                 type="number"
                                 value={deal.reimbursible}
@@ -2329,18 +2359,200 @@ const AddDeal = () => {
                         <Col sm={12}>
                           <Row>
                             <Col>
-                              <PWrapper>ORIGINAL NBC DD FOCUS</PWrapper>
+                            {/* NBC DD FOCUS */}
+                              <small>ORIGINAL 
+                              <span> <GrAdd onClick={handleNoteAdd}/></span>
+                              </small>
+                              {noteList.map((singleNote, index) => (
+                              <div class="input-group">
+                                <Fm.Control
+                                  type='text'
+                                  style={{ margin: "0.8em", width: "60%" }}
+                                  size="sm"
+                                  value={singleNote.note}
+                                  name="note"
+                                  onChange={(e) => handleNoteChange(e, index)}
+                                />
+                                <br/>
+                                {/* <button
+                                  type="button"
+                                  onClick={handleNoteRemove}
+                                >
+                                  x
+                                </button> */}
+                              </div>
+                            ))}
+                              {/* <button
+                              type="button"
+                              onClick={handleNoteAdd}
+                              style={{
+                                fontSize: "10px",
+                                padding: "2px 10px",
+                                margin: "8px",
+                                background: "steelblue",
+                                color: "white",
+                                borderRadius: "3px",
+                              }}
+                            >
+                              Add
+                            </button> */}
+                            {/* {noteList.map((singleNote, index) => (
+                              <div class="input-group">
+                                <Fm.Control
+                                  type='text'
+                                  style={{ margin: "0.8em", width: "60%" }}
+                                  size="sm"
+                                  value={singleNote.note}
+                                  name="note"
+                                  onChange={(e) => handleNoteChange(e, index)}
+                                /> */}
+                                
+                                {/* <button
+                                  type="button"
+                                  style={{
+                                    fontSize: "10px",
+                                    padding: "2px 10px",
+                                    margin: "8px",
+                                    background: "steelblue",
+                                    color: "white",
+                                    borderRadius: "3px",
+                                  }}
+                                  onClick={handleNoteRemove}
+                                >
+                                  x
+                                </button>
+                              </div>
+                            ))} */}
+                             
                               <br />
                             </Col>
                             <Col>
-                              <PWrapper>YES/NO</PWrapper>
+                            <small >Yes/No
+                              <span> <GrAdd onClick={handleNoteAdd}/></span>
+                              </small>
+                              {noteList.map((singleNote, index) => (
+                              <div class="input-group">
+                                {/* <Fm.Control
+                                  type='text'
+                                  style={{ margin: "0.8em", width: "60%" }}
+                                  size="sm"
+                                  value={singleNote.note}
+                                  name="note"
+                                  onChange={(e) => handleNoteChange(e, index)}
+                                /> */}
+                                
+                                <Select className='py-1 mt-3'
+                                    type = "text"
+                                    size="md"
+                                    value={singleNote.note}   
+                                    onChange={handleInputChange}
+                                    name="ocps_fac_1_b"
+                                  >
+                                    <option value={true}>Yes</option>
+                                    <option value={false}>No</option>
+                                  </Select>{" "}
+                                <br/>
+                                {/* <button
+                                  type="button"
+                                  onClick={handleNoteRemove}
+                                >
+                                  x
+                                </button> */}
+                              </div>
+                            ))}
+                             
                             </Col>
                             <Col>
-                              <PWrapper>DATE</PWrapper>
+                            <small>Date
+                              <span> <GrAdd onClick={handleNoteAdd}/></span>
+                              </small>
+                              {noteList.map((singleNote, index) => (
+                              <div class="input-group">
+                                <Fm.Control
+                                  type='date'
+                                  style={{ margin: "0.8em", width: "60%" }}
+                                  size="sm"
+                                  value={singleNote.note}
+                                  name="note"
+                                  onChange={(e) => handleNoteChange(e, index)}
+                                />
+                                
+                                {/* <button
+                                  type="button"
+                                  onClick={handleNoteRemove}
+                                >
+                                  x
+                                </button> */}
+                              </div>
+                            ))}
+                              {/* <span class="iconify" data-icon="fluent:add-circle-16-filled"></span> */}
+                              {/* <button
+                              type="button"
+                              onClick={handleNoteAdd}
+                              style={{
+                                fontSize: "10px",
+                                padding: "2px 10px",
+                                margin: "8px",
+                                background: "steelblue",
+                                color: "white",
+                                borderRadius: "3px",
+                              }}
+                            >
+                              Add
+                            </button>
+                            {noteList.map((singleNote, index) => (
+                              <div class="input-group">
+                                <Fm.Control
+                                  type='date'
+                                  style={{ margin: "0.8em", width: "60%" }}
+                                  size="sm"
+                                  value={singleNote.note}
+                                  name="note"
+                                  onChange={(e) => handleNoteChange(e, index)}
+                                />
+                                
+                                <button
+                                  type="button"
+                                  style={{
+                                    fontSize: "10px",
+                                    padding: "2px 10px",
+                                    margin: "8px",
+                                    background: "steelblue",
+                                    color: "white",
+                                    borderRadius: "3px",
+                                  }}
+                                  onClick={handleNoteRemove}
+                                >
+                                  x
+                                </button>
+                              </div>
+                            ))} */}
                             </Col>
                             <Col>
-                              <PWrapper>METHODOLOGY</PWrapper>
+                            <small>Methodology
+                              <span> <GrAdd onClick={handleNoteAdd}/></span>
+                              </small>
+                              {noteList.map((singleNote, index) => (
+                              <div class="input-group">
+                                <Fm.Control
+                                  type ='text'
+                                  style={{ margin: "0.8em", width: "60%" }}
+                                  size="sm"
+                                  value={singleNote.note}
+                                  name="note"
+                                  onChange={(e) => handleNoteChange(e, index)}
+                                />
+                                
+                                <button
+                                  type="button"
+                                  onClick={handleNoteRemove}
+                                >
+                                  x
+                                </button>
+                              </div>
+                            ))}
                             </Col>
+                           
                           </Row>
                         </Col>
 
@@ -2350,19 +2562,19 @@ const AddDeal = () => {
                               <Row>
                                 <Col sm={3}>
                                   <Fm.Label style={{ paddingRight: "1rem" }}>
-                                    Strength of Contracts:
+                                    {/* Strength of Contracts: */}
                                   </Fm.Label>
                                 </Col>
                                 <Col sm={3}>
-                                  <Fm.Check
+                                  {/* <Fm.Check
                                     inline
                                     label="Yes"
                                     type="radio"
                                     onChange={handleInputChange}
                                     name="nbc_focus_original_1_b"
                                     value={true}
-                                  />
-                                  <Fm.Check
+                                  /> */}
+                                  {/* <Fm.Check
                                     inline
                                     label="No"
                                     type="radio"
@@ -2370,10 +2582,10 @@ const AddDeal = () => {
                                     name="nbc_focus_original_1_b"
                                     value={false}
                                     defaultChecked
-                                  />
+                                  /> */}
                                 </Col>
                                 <Col sm={3}>
-                                  <Input
+                                  {/* <Input
                                     size="sm"
                                     type="date"
                                     value={deal.nbc_focus_original_1_c}
@@ -2384,24 +2596,24 @@ const AddDeal = () => {
                                       padding: "2px 1px",
                                       focus: "none",
                                     }}
-                                  />
+                                  /> */}
                                 </Col>
                                 <Col sm={3}>
-                                  <Fm.Control
+                                  {/* <Fm.Control
                                     as="textarea"
                                     placeholder=" "
                                     value={deal.nbc_focus_original_1_d}
                                     onChange={handleInputChange}
                                     name="nbc_focus_original_1_d"
                                     style={{ height: "30px" }}
-                                  ></Fm.Control>
+                                  ></Fm.Control> */}
                                 </Col>
                               </Row>
                             </Fm.Group>
                           </Col>
                         </Col>
 
-                        <Col sm={12}>
+                        {/* <Col sm={12}>
                           <Col className="pb-2">
                             <Fm.Group>
                               <Row>
@@ -2455,8 +2667,8 @@ const AddDeal = () => {
                                 </Col>
                               </Row>
                             </Fm.Group>
-                          </Col>
-                          <Col sm={12}>
+                          </Col> */}
+                          {/* <Col sm={12}>
                             <Col className="pb-2">
                               <Fm.Group>
                                 <Row>
@@ -2511,8 +2723,8 @@ const AddDeal = () => {
                                 </Row>
                               </Fm.Group>
                             </Col>
-                          </Col>
-                          <Col sm={12}>
+                          </Col> */}
+                          {/* <Col sm={12}>
                             <Col className="pb-2">
                               <Fm.Group>
                                 <Row>
@@ -2623,8 +2835,8 @@ const AddDeal = () => {
                                 </Row>
                               </Fm.Group>
                             </Col>
-                          </Col>
-                          <Col sm={12}>
+                          </Col> */}
+                          {/* <Col sm={12}>
                             <p style={{ fontWeight: "bold" }}>
                               NBC Paper (Link to Doc)
                             </p>
@@ -2726,8 +2938,8 @@ const AddDeal = () => {
                                 </Row>
                               </Fm.Group>
                             </Col>
-                          </Col>
-                          <Col sm={12}>
+                          </Col> */}
+                          {/* <Col sm={12}>
                             <Col className="pb-2">
                               <Fm.Group>
                                 <Row>
@@ -2869,7 +3081,7 @@ const AddDeal = () => {
                               </Col>
                             </Col>
                           </Col>
-                        </Col>
+                        </Col> */}
                       </Row>
                       {/* <button
                         onClick={(e) => toPrevTab(e)}
@@ -2938,10 +3150,10 @@ const AddDeal = () => {
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Fm.Control
                                       type="text"
                                       value={deal.parties_1_b}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_1_b"
                                       style={{ height: "30px" }}
                                     />
@@ -2961,7 +3173,7 @@ const AddDeal = () => {
                                       type="radio"
                                       name="parties_1_c"
                                       value={false}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       defaultChecked
                                     />
                                   </Col>
@@ -2970,7 +3182,7 @@ const AddDeal = () => {
                                       as="textarea"
                                       placeholder=" "
                                       value={deal.parties_1_d}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_1_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
@@ -2990,10 +3202,10 @@ const AddDeal = () => {
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Fm.Control
                                       type="text"
                                       value={deal.parties_2_b}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_2_b"
                                       style={{ height: "30px" }}
                                     />
@@ -3003,7 +3215,7 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_2_c"
                                       value={true}
                                     />
@@ -3011,7 +3223,7 @@ const AddDeal = () => {
                                       inline
                                       label="No"
                                       type="radio"
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_2_c"
                                       value={false}
                                       defaultChecked
@@ -3022,7 +3234,7 @@ const AddDeal = () => {
                                       as="textarea"
                                       placeholder=" "
                                       value={deal.parties_2_d}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_2_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
@@ -3042,10 +3254,10 @@ const AddDeal = () => {
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Fm.Control
                                       type="text"
                                       value={deal.parties_3_b}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_3_b"
                                       style={{ height: "30px" }}
                                     />
@@ -3055,7 +3267,7 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_3_c"
                                       value={true}
                                     />
@@ -3063,7 +3275,7 @@ const AddDeal = () => {
                                       inline
                                       label="No"
                                       type="radio"
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_3_c"
                                       value={false}
                                       defaultChecked
@@ -3074,7 +3286,7 @@ const AddDeal = () => {
                                       as="textarea"
                                       placeholder=" "
                                       value={deal.parties_3_d}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_3_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
@@ -3094,10 +3306,10 @@ const AddDeal = () => {
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Fm.Control
                                       type="text"
                                       value={deal.parties_4_b}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_4_b"
                                       style={{ height: "30px" }}
                                     />
@@ -3107,7 +3319,7 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_4_c"
                                       value={true}
                                     />
@@ -3115,7 +3327,7 @@ const AddDeal = () => {
                                       inline
                                       label="No"
                                       type="radio"
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_4_c"
                                       value={false}
                                       defaultChecked
@@ -3126,7 +3338,7 @@ const AddDeal = () => {
                                       as="textarea"
                                       placeholder=" "
                                       value={deal.parties_4_d}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_4_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
@@ -3146,10 +3358,10 @@ const AddDeal = () => {
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Fm.Control
                                       type="text"
                                       value={deal.parties_5_b}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_5_b"
                                       style={{ height: "30px" }}
                                     />
@@ -3159,7 +3371,7 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_5_c"
                                       value={true}
                                     />
@@ -3167,7 +3379,7 @@ const AddDeal = () => {
                                       inline
                                       label="No"
                                       type="radio"
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_5_c"
                                       value={false}
                                       defaultChecked
@@ -3178,7 +3390,7 @@ const AddDeal = () => {
                                       as="textarea"
                                       placeholder=" "
                                       value={deal.parties_5_d}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_5_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
@@ -3198,10 +3410,10 @@ const AddDeal = () => {
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Fm.Control
                                       type="text"
                                       value={deal.parties_6_b}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_6_b"
                                       style={{ height: "30px" }}
                                     />
@@ -3211,7 +3423,7 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_6_c"
                                       value={true}
                                     />
@@ -3219,7 +3431,7 @@ const AddDeal = () => {
                                       inline
                                       label="No"
                                       type="radio"
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_6_c"
                                       value={false}
                                       defaultChecked
@@ -3249,10 +3461,10 @@ const AddDeal = () => {
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Fm.Control
                                       type="text"
                                       value={deal.parties_7_b}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_7_b"
                                       style={{ height: "30px" }}
                                     />
@@ -3262,7 +3474,7 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_7_c"
                                       value={true}
                                     />
@@ -3270,7 +3482,7 @@ const AddDeal = () => {
                                       inline
                                       label="No"
                                       type="radio"
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_7_c"
                                       value={false}
                                       defaultChecked
@@ -3281,7 +3493,7 @@ const AddDeal = () => {
                                       as="textarea"
                                       placeholder=" "
                                       value={deal.parties_7_d}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_7_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
@@ -3300,10 +3512,10 @@ const AddDeal = () => {
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Fm.Control
                                       type="text"
                                       value={deal.parties_8_b}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_8_b"
                                       style={{ height: "30px" }}
                                     />
@@ -3313,7 +3525,7 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_8_c"
                                       value={true}
                                     />
@@ -3321,7 +3533,7 @@ const AddDeal = () => {
                                       inline
                                       label="No"
                                       type="radio"
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_8_c"
                                       value={false}
                                       defaultChecked
@@ -3332,7 +3544,7 @@ const AddDeal = () => {
                                       as="textarea"
                                       placeholder=" "
                                       value={deal.parties_8_d}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_8_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
@@ -3351,10 +3563,10 @@ const AddDeal = () => {
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Fm.Control
                                       type="text"
                                       value={deal.parties_9_b}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_9_b"
                                       style={{ height: "30px" }}
                                     />
@@ -3364,7 +3576,7 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_9_c"
                                       value={true}
                                     />
@@ -3372,7 +3584,7 @@ const AddDeal = () => {
                                       inline
                                       label="No"
                                       type="radio"
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_9_c"
                                       value={false}
                                       defaultChecked
@@ -3383,7 +3595,7 @@ const AddDeal = () => {
                                       as="textarea"
                                       placeholder=" "
                                       value={deal.parties_9_d}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_9_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
@@ -3403,10 +3615,10 @@ const AddDeal = () => {
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Fm.Control
                                       type="text"
                                       value={deal.parties_10_b}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_10_b"
                                       style={{ height: "30px" }}
                                     />
@@ -3416,7 +3628,7 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_10_c"
                                       value={true}
                                     />
@@ -3424,7 +3636,7 @@ const AddDeal = () => {
                                       inline
                                       label="No"
                                       type="radio"
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_10_c"
                                       value={false}
                                       defaultChecked
@@ -3435,7 +3647,7 @@ const AddDeal = () => {
                                       as="textarea"
                                       placeholder=" "
                                       value={deal.parties_10_d}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_10_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
@@ -3455,10 +3667,10 @@ const AddDeal = () => {
                                     </Fm.Label>
                                   </Col>
                                   <Col sm={3}>
-                                    <Input
+                                    <Fm.Control
                                       type="text"
                                       value={deal.parties_11_b}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_11_b"
                                       style={{ height: "30px" }}
                                     />
@@ -3468,7 +3680,7 @@ const AddDeal = () => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_11_c"
                                       value={true}
                                     />
@@ -3476,7 +3688,7 @@ const AddDeal = () => {
                                       inline
                                       label="No"
                                       type="radio"
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_11_c"
                                       value={false}
                                       defaultChecked
@@ -3487,7 +3699,7 @@ const AddDeal = () => {
                                       as="textarea"
                                       placeholder=" "
                                       value={deal.parties_11_d}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="parties_11_d"
                                       style={{ height: "30px" }}
                                     ></Fm.Control>
@@ -3602,7 +3814,7 @@ const AddDeal = () => {
                                     <Select
                                       type = "text"
                                       value={deal.plis_1_b}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_1_b"
                                     >
                                       <option>Concern</option>
@@ -3612,19 +3824,19 @@ const AddDeal = () => {
                                     </Select>
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Fm.Control
                                       type="number"
                                       value={deal.plis_1_c}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_1_c"
                                       style={{ width: "100%", margin: "2px" }}
                                     />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input 
+                                    <Fm.Control
                                       type="date"
                                       value={deal.plis_1_d}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_1_d"
                                       style={{
                                         width: "100%", margin: "2px"
@@ -3632,10 +3844,10 @@ const AddDeal = () => {
                                     />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Fm.Control
                                       type="text"
                                       value={deal.plis_1_e}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_1_e"
                                       style={{margin: "2px" }}
                                     />
@@ -3684,7 +3896,7 @@ const AddDeal = () => {
                                     <Select
                                       type = "text"
                                       value={deal.plis_2_b}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_2_b"
                                     >
                                       <option>Concern</option>
@@ -3694,19 +3906,19 @@ const AddDeal = () => {
                                     </Select>
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Fm.Control
                                       type="number"
                                       value={deal.plis_2_c}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_2_c"
                                       style={{ width: "100%", margin: "2px" }}
                                     />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input 
+                                    <Fm.Control
                                       type="date"
                                       value={deal.plis_2_d}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_2_d"
                                       style={{
                                         width: "100%", margin: "2px"
@@ -3714,10 +3926,10 @@ const AddDeal = () => {
                                     />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Fm.Control
                                       type="text"
                                       value={deal.plis_2_e}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_2_e"
                                       style={{ margin: "2px" }}
                                     />
@@ -3766,7 +3978,7 @@ const AddDeal = () => {
                                     <Select
                                       type = "text"
                                       value={deal.plis_3_b}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_3_b"
                                     >
                                       <option>Concern</option>
@@ -3776,19 +3988,19 @@ const AddDeal = () => {
                                     </Select>
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Fm.Control
                                       type="number"
                                       value={deal.plis_3_c}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_3_c"
                                       style={{ width: "100%", margin: "2px" }}
                                     />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input 
+                                    <Fm.Control 
                                       type="date"
                                       value={deal.plis_3_d}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_3_d"
                                       style={{
                                         width: "100%", margin: "2px"
@@ -3796,10 +4008,10 @@ const AddDeal = () => {
                                     />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Fm.Control
                                       type="text"
                                       value={deal.plis_3_e}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_3_e"
                                       style={{ margin: "2px" }}
                                     />
@@ -3849,7 +4061,7 @@ const AddDeal = () => {
                                     <Select
                                       type = "text"
                                       value={deal.plis_4_b}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_4_b"
                                     >
                                       <option>Concern</option>
@@ -3859,19 +4071,19 @@ const AddDeal = () => {
                                     </Select>
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Fm.Control
                                       type="number"
                                       value={deal.plis_4_c}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_4_c"
                                       style={{ width: "100%", margin: "2px" }}
                                     />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input 
+                                    <Fm.Control
                                       type="date"
                                       value={deal.plis_4_d}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_4_d"
                                       style={{
                                         width: "100%", margin: "2px"
@@ -3879,10 +4091,10 @@ const AddDeal = () => {
                                     />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Fm.Control
                                       type="text"
                                       value={deal.plis_4_e}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_4_e"
                                       style={{ margin: "2px" }}
                                     />
@@ -3908,7 +4120,7 @@ const AddDeal = () => {
                                     <Select
                                       type = "text"
                                       value={deal.plis_5_b}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_5_b"
                                     >
                                       <option>Concern</option>
@@ -3918,19 +4130,19 @@ const AddDeal = () => {
                                     </Select>
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Fm.Control
                                       type="number"
                                       value={deal.plis_5_c}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_5_c"
                                       style={{ width: "100%", margin: "2px" }}
                                     />
                                   </Col>
                                   <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control
                                       type="date"
                                       value={deal.plis_5_d}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_5_d"
                                       style={{
                                         width: "100%", margin: "2px"
@@ -3938,10 +4150,10 @@ const AddDeal = () => {
                                     />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Fm.Control
                                       type="text"
                                       value={deal.plis_5_e}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_5_e"
                                       style={{ margin: "2px" }}
                                     />
@@ -3964,7 +4176,7 @@ const AddDeal = () => {
                                     <Select
                                       type = "text"
                                       value={deal.plis_6_b}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_6_b"
                                     >
                                       <option>Concern</option>
@@ -3974,19 +4186,19 @@ const AddDeal = () => {
                                     </Select>
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Fm.Control
                                       type="number"
                                       value={deal.plis_6_c}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_6_c"
                                       style={{ width: "100%", margin: "2px" }}
                                     />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input 
+                                    <Fm.Control
                                       type="date"
                                       value={deal.plis_6_d}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_6_d"
                                       style={{
                                         width: "100%", margin: "2px"
@@ -3994,10 +4206,10 @@ const AddDeal = () => {
                                     />
                                   </Col>
                                   <Col sm={2}>
-                                    <Input
+                                    <Fm.Control
                                       type="text"
                                       value={deal.plis_6_e}
-                                      onChange={handleInputChange}
+                                      onChange={handleInputChanges}
                                       name="plis_6_e"
                                       style={{ margin: "2px" }}
                                     />
@@ -4054,7 +4266,7 @@ const AddDeal = () => {
                                   <Select
                                     type = "text"
                                     value={deal.ocps_fac_1_b}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_1_b"
                                   >
                                     <option>Yes/No</option>
@@ -4066,7 +4278,7 @@ const AddDeal = () => {
                                   <Select
                                     type = "text"
                                     value={deal.ocps_fac_1_c}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_1_c"
                                   >
                                     <option>Concern</option>
@@ -4076,27 +4288,27 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control
                                     type="date" 
                                     value={deal.ocps_fac_1_d}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_1_d" 
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_1_e}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_1_e"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_1_f}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_1_f"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -4119,7 +4331,7 @@ const AddDeal = () => {
                                   <Select
                                     type = "text"
                                     value={deal.ocps_fac_2_b}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_2_b"
                                   >
                                     <option>Yes/No</option>
@@ -4131,7 +4343,7 @@ const AddDeal = () => {
                                   <Select
                                     type = "text"
                                     value={deal.ocps_fac_2_c}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_2_c"
                                   >
                                     <option>Concern</option>
@@ -4141,24 +4353,24 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control
                                     type="date"
                                     value={deal.ocps_fac_2_d}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_2_d"
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_2_e}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_2_e"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_2_f}
                                     onChange={handleInputChange}
@@ -4184,7 +4396,7 @@ const AddDeal = () => {
                                   <Select
                                     type = "text"
                                     value={deal.ocps_fac_3_b}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_3_b"
                                   >
                                     <option>Yes/No</option>
@@ -4196,7 +4408,7 @@ const AddDeal = () => {
                                   <Select
                                     type = "text"
                                     value={deal.ocps_fac_3_c}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_3_c"
                                   >
                                     <option>Concern</option>
@@ -4206,27 +4418,27 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date"
                                     value={deal.ocps_fac_3_d}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_3_d"
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_3_e}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_3_e"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_3_f}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_3_f"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -4249,7 +4461,7 @@ const AddDeal = () => {
                                   <Select
                                     type = "text"
                                     value={deal.ocps_fac_4_b}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_4_b"
                                   >
                                     <option>Yes/No</option>
@@ -4261,7 +4473,7 @@ const AddDeal = () => {
                                   <Select
                                     type = "text"
                                     value={deal.ocps_fac_4_c}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_4_c"
                                   >
                                     <option>Concern</option>
@@ -4271,27 +4483,27 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control
                                     type="date"
                                     value={deal.ocps_fac_4_d}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_4_d"
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_4_e}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_4_e"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_4_f}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_4_f"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -4314,7 +4526,7 @@ const AddDeal = () => {
                                   <Select
                                     type = "text"
                                     value={deal.ocps_fac_5_b}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_5_b"
                                   >
                                     <option>Yes/No</option>
@@ -4326,7 +4538,7 @@ const AddDeal = () => {
                                   <Select
                                     type = "text"
                                     value={deal.ocps_fac_5_c}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_5_c"
                                   >
                                     <option>Concern</option>
@@ -4336,27 +4548,27 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control
                                     type="date"
                                     value={deal.ocps_fac_5_d}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_5_d"
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_5_e}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_5_e"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_5_f}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_5_f"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -4379,7 +4591,7 @@ const AddDeal = () => {
                                   <Select
                                     type = "text"
                                     value={deal.ocps_fac_6_b}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_6_b"
                                   >
                                     <option>Yes/No</option>
@@ -4391,7 +4603,7 @@ const AddDeal = () => {
                                   <Select
                                     type = "text"
                                     value={deal.ocps_fac_6_c}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_6_c"
                                   >
                                     <option>Concern</option>
@@ -4401,27 +4613,27 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control
                                     type="date"
                                     value={deal.ocps_fac_6_d}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_6_d"
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_6_e}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_6_e"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_6_f}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_6_f"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -4443,7 +4655,7 @@ const AddDeal = () => {
                                   <Select
                                     type = "text"
                                     value={deal.ocps_fac_7_b}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_7_b"
                                   >
                                     <option>Yes/No</option>
@@ -4455,7 +4667,7 @@ const AddDeal = () => {
                                   <Select
                                     type = "text"
                                     value={deal.ocps_fac_7_c}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_7_c"
                                   >
                                     <option>Concern</option>
@@ -4465,27 +4677,27 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control
                                     type="date"
                                     value={deal.ocps_fac_7_d}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_7_d"
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_7_e}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_7_e"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_7_f}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_7_f"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -4507,7 +4719,7 @@ const AddDeal = () => {
                                   <Select
                                     type = "text"
                                     value={deal.ocps_fac_8_b}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_8_b"
                                   >
                                     <option>Yes/No</option>
@@ -4519,7 +4731,7 @@ const AddDeal = () => {
                                   <Select
                                     type = "text"
                                     value={deal.ocps_fac_8_c}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_8_c"
                                   >
                                     <option>Concern</option>
@@ -4529,27 +4741,27 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control
                                     type="date"
                                     value={deal.ocps_fac_8_d}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_8_d"
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_8_e}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_8_e"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_8_f}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_8_f"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -4571,7 +4783,7 @@ const AddDeal = () => {
                                   <Select
                                     type = "text"
                                     value={deal.ocps_fac_9_b}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_9_b"
                                   >
                                     <option>Yes/No</option>
@@ -4583,7 +4795,7 @@ const AddDeal = () => {
                                   <Select
                                     type = "text"
                                     value={deal.ocps_fac_9_c}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_9_c"
                                   >
                                     <option>Concern</option>
@@ -4593,27 +4805,27 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="date"
                                     value={deal.ocps_fac_9_d}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_9_d"
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_9_e}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_9_e"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_9_f}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_9_f"
                                     style={{ width: "100%", margin: "2px" }}
                                   />
@@ -4636,7 +4848,7 @@ const AddDeal = () => {
                                   <Select
                                     type = "text"
                                     value={deal.ocps_fac_10_b}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_10_b"
                                   >
                                     <option>Yes/No</option>
@@ -4648,7 +4860,7 @@ const AddDeal = () => {
                                   <Select
                                     type = "text"
                                     value={deal.ocps_fac_10_c}
-                                    onChange={handleInputChange}
+                                    onChange={handleInputChanges}
                                     name="ocps_fac_10_c"
                                   >
                                     <option>Concern</option>
@@ -4658,7 +4870,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.ocps_fac_10_d}
                                     onChange={handleInputChange}
@@ -4666,7 +4878,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_10_e}
                                     onChange={handleInputChange}
@@ -4675,7 +4887,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_10_f}
                                     onChange={handleInputChange}
@@ -4723,7 +4935,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.ocps_fac_11_d}
                                     onChange={handleInputChange}
@@ -4731,7 +4943,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_11_e}
                                     onChange={handleInputChange}
@@ -4740,7 +4952,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_11_f}
                                     onChange={handleInputChange}
@@ -4787,7 +4999,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.ocps_fac_12_d}
                                     onChange={handleInputChange}
@@ -4795,7 +5007,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_12_e}
                                     onChange={handleInputChange}
@@ -4804,7 +5016,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_12_f}
                                     onChange={handleInputChange}
@@ -4852,7 +5064,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.ocps_fac_13_d}
                                     onChange={handleInputChange}
@@ -4860,7 +5072,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_13_e}
                                     onChange={handleInputChange}
@@ -4869,7 +5081,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_13_f}
                                     onChange={handleInputChange}
@@ -4917,7 +5129,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.ocps_fac_14_d}
                                     onChange={handleInputChange}
@@ -4925,7 +5137,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_14_e}
                                     onChange={handleInputChange}
@@ -4934,7 +5146,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_14_f}
                                     onChange={handleInputChange}
@@ -4982,7 +5194,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.ocps_fac_15_d}
                                     onChange={handleInputChange}
@@ -4990,7 +5202,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_15_e}
                                     onChange={handleInputChange}
@@ -4999,7 +5211,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_15_f}
                                     onChange={handleInputChange}
@@ -5046,7 +5258,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.ocps_fac_16_d}
                                     onChange={handleInputChange}
@@ -5054,7 +5266,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_16_e}
                                     onChange={handleInputChange}
@@ -5063,7 +5275,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_16_f}
                                     onChange={handleInputChange}
@@ -5110,7 +5322,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.ocps_fac_17_d}
                                     onChange={handleInputChange}
@@ -5118,7 +5330,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_17_e}
                                     onChange={handleInputChange}
@@ -5127,7 +5339,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_17_f}
                                     onChange={handleInputChange}
@@ -5174,7 +5386,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.ocps_fac_18_d}
                                     onChange={handleInputChange}
@@ -5182,7 +5394,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_18_e}
                                     onChange={handleInputChange}
@@ -5191,7 +5403,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_18_f}
                                     onChange={handleInputChange}
@@ -5238,7 +5450,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.ocps_fac_19_d}
                                     onChange={handleInputChange}
@@ -5246,7 +5458,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_19_e}
                                     onChange={handleInputChange}
@@ -5255,7 +5467,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_19_f}
                                     onChange={handleInputChange}
@@ -5302,7 +5514,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.ocps_fac_20_d}
                                     onChange={handleInputChange}
@@ -5310,7 +5522,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_20_e}
                                     onChange={handleInputChange}
@@ -5319,7 +5531,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.ocps_fac_20_f}
                                     onChange={handleInputChange}
@@ -5446,7 +5658,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.key_deal_fac_1_d}
                                     onChange={handleInputChange}
@@ -5454,7 +5666,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_1_e}
                                     onChange={handleInputChange}
@@ -5463,7 +5675,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_1_f}
                                     onChange={handleInputChange}
@@ -5511,7 +5723,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date"
                                     value={deal.key_deal_fac_2_d}
                                     onChange={handleInputChange}
@@ -5519,7 +5731,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_2_e}
                                     onChange={handleInputChange}
@@ -5528,7 +5740,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_2_f}
                                     onChange={handleInputChange}
@@ -5576,7 +5788,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date"
                                     value={deal.key_deal_fac_3_d}
                                     onChange={handleInputChange}
@@ -5584,7 +5796,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_3_e}
                                     onChange={handleInputChange}
@@ -5593,7 +5805,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_3_f}
                                     onChange={handleInputChange}
@@ -5641,7 +5853,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date"
                                     value={deal.key_deal_fac_4_d}
                                     onChange={handleInputChange}
@@ -5649,7 +5861,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_4_e}
                                     onChange={handleInputChange}
@@ -5658,7 +5870,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_4_f}
                                     onChange={handleInputChange}
@@ -5706,7 +5918,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date"
                                     value={deal.key_deal_fac_5_d}
                                     onChange={handleInputChange}
@@ -5714,7 +5926,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_5_e}
                                     onChange={handleInputChange}
@@ -5723,7 +5935,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_5_f}
                                     onChange={handleInputChange}
@@ -5771,7 +5983,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date"
                                     value={deal.key_deal_fac_6_d}
                                     onChange={handleInputChange}
@@ -5779,7 +5991,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_6_e}
                                     onChange={handleInputChange}
@@ -5788,7 +6000,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_6_f}
                                     onChange={handleInputChange}
@@ -5835,7 +6047,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date"
                                     value={deal.key_deal_fac_7_d}
                                     onChange={handleInputChange}
@@ -5843,7 +6055,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_7_e}
                                     onChange={handleInputChange}
@@ -5852,7 +6064,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_7_f}
                                     onChange={handleInputChange}
@@ -5899,7 +6111,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date"
                                     value={deal.key_deal_fac_8_d}
                                     onChange={handleInputChange}
@@ -5907,7 +6119,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_8_e}
                                     onChange={handleInputChange}
@@ -5916,7 +6128,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_8_f}
                                     onChange={handleInputChange}
@@ -5963,7 +6175,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="date"
                                     value={deal.key_deal_fac_9_d}
                                     onChange={handleInputChange}
@@ -5971,7 +6183,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_9_e}
                                     onChange={handleInputChange}
@@ -5980,7 +6192,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_9_f}
                                     onChange={handleInputChange}
@@ -6028,7 +6240,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.key_deal_fac_10_d}
                                     onChange={handleInputChange}
@@ -6036,7 +6248,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_10_e}
                                     onChange={handleInputChange}
@@ -6045,7 +6257,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_10_f}
                                     onChange={handleInputChange}
@@ -6093,7 +6305,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.key_deal_fac_11_d}
                                     onChange={handleInputChange}
@@ -6101,7 +6313,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_11_e}
                                     onChange={handleInputChange}
@@ -6110,7 +6322,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_11_f}
                                     onChange={handleInputChange}
@@ -6157,7 +6369,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.key_deal_fac_12_d}
                                     onChange={handleInputChange}
@@ -6165,7 +6377,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_12_e}
                                     onChange={handleInputChange}
@@ -6174,7 +6386,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_12_f}
                                     onChange={handleInputChange}
@@ -6222,7 +6434,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.key_deal_fac_13_d}
                                     onChange={handleInputChange}
@@ -6230,7 +6442,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_13_e}
                                     onChange={handleInputChange}
@@ -6239,7 +6451,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_13_f}
                                     onChange={handleInputChange}
@@ -6287,7 +6499,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.key_deal_fac_14_d}
                                     onChange={handleInputChange}
@@ -6295,7 +6507,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_14_e}
                                     onChange={handleInputChange}
@@ -6304,7 +6516,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_14_f}
                                     onChange={handleInputChange}
@@ -6352,7 +6564,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.key_deal_fac_15_d}
                                     onChange={handleInputChange}
@@ -6360,7 +6572,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_15_e}
                                     onChange={handleInputChange}
@@ -6369,7 +6581,7 @@ const AddDeal = () => {
                                   />
                                 </Col>
                                 <Col sm={2}>
-                                  <Input
+                                  <Fm.Control
                                     type="text"
                                     value={deal.key_deal_fac_15_f}
                                     onChange={handleInputChange}
@@ -6404,7 +6616,7 @@ const AddDeal = () => {
                                 </Col>
                                 
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.key_deal_fac_16_c}
                                     onChange={handleInputChange}
@@ -6438,7 +6650,7 @@ const AddDeal = () => {
                                   </Select>{" "}
                                 </Col>
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.key_deal_fac_17_c}
                                     onChange={handleInputChange}
@@ -6472,7 +6684,7 @@ const AddDeal = () => {
                                 </Col>
                                 
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.key_deal_fac_18_c}
                                     onChange={handleInputChange}
@@ -6506,7 +6718,7 @@ const AddDeal = () => {
                                 </Col>
                                
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control
                                     type="date" 
                                     value={deal.key_deal_fac_19_c}
                                     onChange={handleInputChange}
@@ -6541,7 +6753,7 @@ const AddDeal = () => {
                                 </Col>
                                 
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.key_deal_fac_20_c}
                                     onChange={handleInputChange}
@@ -6578,7 +6790,7 @@ const AddDeal = () => {
                                 </Col>
                                
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.key_deal_fac_21_c}
                                     onChange={handleInputChange}
@@ -6614,7 +6826,7 @@ const AddDeal = () => {
                                 </Col>
                                 
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.key_deal_fac_22_c}
                                     onChange={handleInputChange}
@@ -6651,7 +6863,7 @@ const AddDeal = () => {
                                 </Col>
                                
                                 <Col sm={2}>
-                                  <Input 
+                                  <Fm.Control 
                                     type="date" 
                                     value={deal.key_deal_fac_23_c}
                                     onChange={handleInputChange}

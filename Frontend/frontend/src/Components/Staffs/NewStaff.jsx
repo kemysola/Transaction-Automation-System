@@ -20,13 +20,13 @@ const FormWrapper = styled.div`
   font-size: 2px;
   margin: 0;
   background: white;
-  border-radius: 10px;
+  border-radius: 5px;
 `;
 
 const Container1 = styled.div`
   font-size: 10px;
   padding: 3px 10px;
-  border-radius: 10px;
+  border-radius: 5px;
   width: 52vw;
   margin: 0;
 `;
@@ -262,7 +262,6 @@ export default function NewStaff() {
                             
                                             </Row>
 
-                                            {/* <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button> */}
                                         </Container1>
                                         <br />
                                     </Tab>
@@ -301,8 +300,6 @@ export default function NewStaff() {
                                             </Row>
 
                                             <br />
-                                            {/* <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Prev</button>
-                                            <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button> */}
                                         </Container1>
 
                                         <br />
@@ -351,10 +348,6 @@ export default function NewStaff() {
                                                     </Form.Group>
                                                 </Col>
                                             </Row>
-
-                                            {/* <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> */}
-                                                {/* Prev
-                                            </button> */}
                                         </Container1>
                                         <br />
                                        

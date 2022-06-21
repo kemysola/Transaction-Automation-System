@@ -22,7 +22,7 @@ function MgtView() {
                         <Col sm={2} style={{padding:'10px 10px 10px 0px'}}>
                             <SideNav2  />
                         </Col>
-                        <Col sm={10}> 
+                        <Col sm={9}> 
                             <Progress/>
                         </Col>
                     </Row>
