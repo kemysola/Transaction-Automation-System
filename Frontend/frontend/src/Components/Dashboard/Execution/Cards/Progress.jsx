@@ -682,29 +682,19 @@ export default function Progress() {
 
   return (
     <React.Fragment>
-      <Container fluid style={{marginLeft: "1rem ", background:'white', borderRadius: "10px"}}>
+      <Container Fluid style={{marginLeft: "0.22rem ", borderRadius: "5px"}} className='bg-light'>
         <Row className="d-flex justify-content-between">
           <Col sm={6} lg={8}>
             <p class="animate__animated animate__pulse pt-2">
               <b>Execution Summary</b>
             </p>
-            {/* <span>{staffName}</span> */}
           </Col>
 
-          {/* <Col sm={6} lg={4}>
-            <Button
-              variant="info"
-              className="my-1"
-              size="sm"
-              onClick={handleShow}
-            >
-              Filter
-            </Button>
-          </Col> */}
+         
         </Row>
 
         {/* -------------------- Filter Bar -------------------------- */}
-        <Container>
+        <Container Fluid> 
           <Card className="m-1 bg-light" style={{ width: "30rem", borderRadius: "10px" }}>
             <Card.Body>
               <Card.Title style={{fontSize: "13px"}}>Filter</Card.Title>
@@ -851,7 +841,7 @@ export default function Progress() {
             <span className="visually-hidden">Loading...</span>
           </Spinner>
         ) : (
-          <Container>
+          <Container Fluid>
             {/* ---------------------- Actual, Target, Variance Cards ------------------------- */}
             <Row style={{marginTop: "10px"}}>
               <Col
@@ -861,7 +851,7 @@ export default function Progress() {
                 className="my-1"
                 style={{ display: "flex", flexDirection: "row" }}
               >
-                <Card className='bg-light' style={{ width: "18rem", flex: 1 }}>
+                <Card style={{ width: "18rem", flex: 1 , background:'white'}}>
                   <Card.Body>
                     <Card.Title>{`₦${sumTotal.toFixed(1)}bn`}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
@@ -877,7 +867,7 @@ export default function Progress() {
                 className="my-1"
                 style={{ display: "flex", flexDirection: "row" }}
               >
-                <Card className='bg-light' style={{ width: "18rem", flex: 1 }}>
+                <Card  style={{ width: "18rem", flex: 1, background:'white' }}>
                   <Card.Body>
                     <Card.Title>{`₦${targetValue.toFixed(1)}bn`}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
@@ -893,7 +883,7 @@ export default function Progress() {
                 className="my-1"
                 style={{ display: "flex", flexDirection: "row" }}
               >
-                <Card className='bg-light' style={{ width: "18rem", flex: 1 }}>
+                <Card  style={{ width: "18rem", flex: 1,background:'white' }}>
                   <Card.Body>
                     <Card.Title>
                       {variancePerDisplay(variancePercent)}
@@ -916,7 +906,7 @@ export default function Progress() {
 
               {/* Industry Bar Chart */}
               <Col sm={12} lg={4} md={12} className="my-1">
-                <Container className="bg-light py-3" style={{borderRadius: "10px"}}>
+                <Container Fluid className="py-3" style={{borderRadius: "10px"}}>
                   <p
                     style={{
                       fontSize: "13px",
@@ -1012,7 +1002,7 @@ export default function Progress() {
 
               {/* Product BarChart */}
               <Col sm={12} lg={4} className="my-1">
-                <Container className="bg-light py-3" style={{borderRadius: "10px"}}>
+                <Container Fluid className="py-1" style={{borderRadius: "5px"}}>
                   <p
                     style={{
                       fontSize: "13px",
@@ -1025,14 +1015,14 @@ export default function Progress() {
 
                   {prdFilter === "Value" ? (
                     <BarChart
-                      width={280}
+                      width={260}
                       height={250}
                       data={productChartData}
                       barSize={15}
                       margin={{
                         top: 25,
-                        right: 10,
-                        left: 10,
+                        right: 5,
+                        left: 5,
                         bottom: 22,
                       }}
                       style={{
@@ -1076,14 +1066,14 @@ export default function Progress() {
                     </BarChart>
                   ) : (
                     <BarChart
-                      width={280}
+                      width={260}
                       height={250}
                       data={productChartData}
                       barSize={15}
                       margin={{
                         top: 25,
-                        right: 10,
-                        left: 10,
+                        right: 5,
+                        left: 5,
                         bottom: 22,
                       }}
                       style={{
@@ -1199,7 +1189,8 @@ export default function Progress() {
         </small>
 
       {/* ---------- Exxecution Dashboard Table ----------- */}
-      <Table dealFilter={dealFilter} staffFilter={staffFilter} />
+        <Table  dealFilter={dealFilter} staffFilter={staffFilter} />
+
       <br />
     </Container>
     <br />

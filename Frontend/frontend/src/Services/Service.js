@@ -16,7 +16,7 @@ const updateStaff = (email, data) => { // update staff information
     return axios.put(`staff/update/${email}`, data);
 };
 
-const createDeal = data => { // create new deal/transaction
+const createDeal = (data) => { // create new deal/transaction
     return axios.post("transaction/createdeal", data);
 };
 

@@ -104,7 +104,7 @@ function NewDeals() {
   return (
     <React.Fragment>
       <Card style={{ padding: "10px" , background:'white' }}>
-      <Row className='my-1 py-2'>
+      <Row className='my-2 py-2'>
         <small style={{ fontSize: "13px" , fontWeight:'bold'}}>NEW GUARANTEES</small>
         <br/>
         <br/>
@@ -133,6 +133,7 @@ function NewDeals() {
               >
                 TARGET
               </small>
+              <small  style={{ fontSize: "10px", color: "black"}}>1.5x target of 2022 </small>
             </Stack>
           </Col>
           <Col sm={4}>

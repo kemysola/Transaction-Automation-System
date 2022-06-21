@@ -55,12 +55,12 @@ const ButtonWrapper = styled.button`
 
 const DateWrapper = styled.button`
   display: flex;
-  align-items: center;
+  align-items: left;
   background: white;
   border: none;
-  justify-content: center;
+  justify-content: end;
   position: absolute;
-  right: 100px;
+  right: 120px;
 `;
 
 const Pagination = styled.div`
