@@ -5840,19 +5840,7 @@ function goToLastPage(e) {
                                     ))}
                                   </Form.Select>
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Form.Select
-                                      type = "text"
-                                      size = "sm"
-                                      ref={key_deal_fac_16_c}
-                                      style={{ fontSize: "12px", width: "110%" }}
-                                    >
-                                      <option value=""> </option>
-                                      {concernGroup.map((item, index) => (
-                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_16_c}>{item}</option>
-                                      ))}
-                                    </Form.Select>
-                                </Col> */}
+                                
                                 <Col sm={2}>
                                   <Form.Control 
                                     type="date" 
@@ -5867,24 +5855,7 @@ function goToLastPage(e) {
                                     }}
                                   />
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Form.Control
-                                    type="text"
-                                    size="sm"
-                                    defaultValue={deal[0].key_deal_fac_16_e}
-                                    ref={key_deal_fac_16_e}
-                                    style={{ width: "100%", fontSize:"12px" }}
-                                  />
-                                </Col> */}
-                                {/* <Col sm={2}>
-                                  <Form.Control
-                                    type="text"
-                                    size="sm"
-                                    defaultValue={deal[0].key_deal_fac_16_f}
-                                    ref={key_deal_fac_16_f}
-                                    style={{ width: "100%", fontSize:"12px" }}
-                                  />
-                                </Col> */}
+                                
                               </Row>
                             </Form.Group>
                           </Col>
@@ -5910,19 +5881,7 @@ function goToLastPage(e) {
                                     ))}
                                   </Form.Select>
                                 </Col>
-                                {/* <Col sm={2}>
-                                <Form.Select
-                                      type = "text"
-                                      size = "sm"
-                                      ref={key_deal_fac_17_c}
-                                      style={{ fontSize: "12px", width: "110%" }}
-                                    >
-                                      <option value=""> </option>
-                                      {concernGroup.map((item, index) => (
-                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_17_c}>{item}</option>
-                                      ))}
-                                    </Form.Select>
-                                </Col> */}
+                               
                                 <Col sm={2}>
                                   <Form.Control 
                                     type="date" 
@@ -5937,24 +5896,7 @@ function goToLastPage(e) {
                                     }}
                                   />
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Form.Control
-                                    type="text"
-                                    size="sm"
-                                    defaultValue={deal[0].key_deal_fac_17_e}
-                                    ref={key_deal_fac_17_e}
-                                    style={{ width: "100%", fontSize:"12px" }}
-                                  />
-                                </Col>
-                                <Col sm={2}>
-                                  <Form.Control
-                                    type="text"
-                                    size="sm"
-                                    defaultValue={deal[0].key_deal_fac_17_f}
-                                    ref={key_deal_fac_17_f}
-                                    style={{ width: "100%", fontSize:"12px" }}
-                                  />
-                                </Col> */}
+                                
                               </Row>
                             </Form.Group>
                           </Col>
@@ -5980,19 +5922,7 @@ function goToLastPage(e) {
                                     ))}
                                   </Form.Select>
                                 </Col>
-                                {/* <Col sm={2}>
-                                <Form.Select
-                                      type = "text"
-                                      size = "sm"
-                                      ref={key_deal_fac_18_c}
-                                      style={{ fontSize: "12px", width: "110%" }}
-                                    >
-                                      <option value=""> </option>
-                                      {concernGroup.map((item, index) => (
-                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_18_c}>{item}</option>
-                                      ))}
-                                    </Form.Select>
-                                </Col> */}
+                                
                                 <Col sm={2}>
                                   <Form.Control 
                                     type="date" 
@@ -6007,24 +5937,7 @@ function goToLastPage(e) {
                                     }}
                                   />
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Form.Control
-                                    type="text"
-                                    size="sm"
-                                    defaultValue={deal[0].key_deal_fac_18_e}
-                                    ref={key_deal_fac_18_e}
-                                    style={{ width: "100%", fontSize:"12px" }}
-                                  />
-                                </Col> */}
-                                {/* <Col sm={2}>
-                                  <Form.Control
-                                    type="text"
-                                    size="sm"
-                                    defaultValue={deal[0].key_deal_fac_18_f}
-                                    ref={key_deal_fac_18_f}
-                                    style={{ width: "100%", fontSize:"12px" }}
-                                  />
-                                </Col> */}
+                                
                               </Row>
                             </Form.Group>
                           </Col>
@@ -6050,19 +5963,7 @@ function goToLastPage(e) {
                                     ))}
                                   </Form.Select>
                                 </Col>
-                                {/* <Col sm={2}>
-                                <Form.Select
-                                      type = "text"
-                                      size = "sm"
-                                      ref={key_deal_fac_19_c}
-                                      style={{ fontSize: "12px", width: "110%" }}
-                                    >
-                                      <option value=""> </option>
-                                      {concernGroup.map((item, index) => (
-                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_19_c}>{item}</option>
-                                      ))}
-                                    </Form.Select>
-                                </Col> */}
+                               
                                 <Col sm={2}>
                                   <Form.Control 
                                     type="date" 
@@ -6077,24 +5978,7 @@ function goToLastPage(e) {
                                     }}
                                   />
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Form.Control
-                                    type="text"
-                                    size="sm"
-                                    defaultValue={deal[0].key_deal_fac_19_e}
-                                    ref={key_deal_fac_19_e}
-                                    style={{ width: "100%", fontSize:"12px" }}
-                                  />
-                                </Col> */}
-                                {/* <Col sm={2}>
-                                  <Form.Control
-                                    type="text"
-                                    size="sm"
-                                    defaultValue={deal[0].key_deal_fac_19_f}
-                                    ref={key_deal_fac_19_f}
-                                    style={{ width: "100%", fontSize:"12px" }}
-                                  />
-                                </Col> */}
+                               
                               </Row>
                             </Form.Group>
                           </Col>
@@ -6120,19 +6004,7 @@ function goToLastPage(e) {
                                     ))}
                                   </Form.Select>
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Form.Select
-                                      type = "text"
-                                      size = "sm"
-                                      ref={key_deal_fac_20_c}
-                                      style={{ fontSize: "12px", width: "110%" }}
-                                    >
-                                      <option value=""> </option>
-                                      {concernGroup.map((item, index) => (
-                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_20_c}>{item}</option>
-                                      ))}
-                                    </Form.Select>
-                                </Col> */}
+                                
                                 <Col sm={2}>
                                   <Form.Control 
                                     type="date" 
@@ -6147,24 +6019,7 @@ function goToLastPage(e) {
                                     }}
                                   />
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Form.Control
-                                    type="text"
-                                    size="sm"
-                                    defaultValue={deal[0].key_deal_fac_20_e}
-                                    ref={key_deal_fac_20_e}
-                                    style={{ width: "100%", fontSize:"12px" }}
-                                  />
-                                </Col>
-                                <Col sm={2}>
-                                  <Form.Control
-                                    type="text"
-                                    size="sm"
-                                    defaultValue={deal[0].key_deal_fac_20_f}
-                                    ref={key_deal_fac_20_f}
-                                    style={{ width: "100%", fontSize:"12px" }}
-                                  />
-                                </Col> */}
+                                
                               </Row>
                             </Form.Group>
                           </Col>
@@ -6191,19 +6046,7 @@ function goToLastPage(e) {
                                     ))}
                                   </Form.Select>
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Form.Select
-                                      type = "text"
-                                      size = "sm"
-                                      ref={key_deal_fac_20_c}
-                                      style={{ fontSize: "12px", width: "110%" }}
-                                    >
-                                      <option value=""> </option>
-                                      {concernGroup.map((item, index) => (
-                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_20_c}>{item}</option>
-                                      ))}
-                                    </Form.Select>
-                                </Col> */}
+                                
                                 <Col sm={2}>
                                   <Form.Control 
                                     type="date" 
@@ -6218,24 +6061,7 @@ function goToLastPage(e) {
                                     }}
                                   />
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Form.Control
-                                    type="text"
-                                    size="sm"
-                                    defaultValue={deal[0].key_deal_fac_20_e}
-                                    ref={key_deal_fac_20_e}
-                                    style={{ width: "100%", fontSize:"12px" }}
-                                  />
-                                </Col>
-                                <Col sm={2}>
-                                  <Form.Control
-                                    type="text"
-                                    size="sm"
-                                    defaultValue={deal[0].key_deal_fac_20_f}
-                                    ref={key_deal_fac_20_f}
-                                    style={{ width: "100%", fontSize:"12px" }}
-                                  />
-                                </Col> */}
+                               
                               </Row>
                             </Form.Group>
                           </Col>
@@ -6261,19 +6087,7 @@ function goToLastPage(e) {
                                     ))}
                                   </Form.Select>
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Form.Select
-                                      type = "text"
-                                      size = "sm"
-                                      ref={key_deal_fac_20_c}
-                                      style={{ fontSize: "12px", width: "110%" }}
-                                    >
-                                      <option value=""> </option>
-                                      {concernGroup.map((item, index) => (
-                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_20_c}>{item}</option>
-                                      ))}
-                                    </Form.Select>
-                                </Col> */}
+                                
                                 <Col sm={2}>
                                   <Form.Control 
                                     type="date" 
@@ -6288,24 +6102,7 @@ function goToLastPage(e) {
                                     }}
                                   />
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Form.Control
-                                    type="text"
-                                    size="sm"
-                                    defaultValue={deal[0].key_deal_fac_20_e}
-                                    ref={key_deal_fac_20_e}
-                                    style={{ width: "100%", fontSize:"12px" }}
-                                  />
-                                </Col>
-                                <Col sm={2}>
-                                  <Form.Control
-                                    type="text"
-                                    size="sm"
-                                    defaultValue={deal[0].key_deal_fac_20_f}
-                                    ref={key_deal_fac_20_f}
-                                    style={{ width: "100%", fontSize:"12px" }}
-                                  />
-                                </Col> */}
+                               
                               </Row>
                             </Form.Group>
                           </Col>
@@ -6331,19 +6128,7 @@ function goToLastPage(e) {
                                     ))}
                                   </Form.Select>
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Form.Select
-                                      type = "text"
-                                      size = "sm"
-                                      ref={key_deal_fac_20_c}
-                                      style={{ fontSize: "12px", width: "110%" }}
-                                    >
-                                      <option value=""> </option>
-                                      {concernGroup.map((item, index) => (
-                                        <option key={index} value={item} selected={item === deal[0].key_deal_fac_20_c}>{item}</option>
-                                      ))}
-                                    </Form.Select>
-                                </Col> */}
+                                
                                 <Col sm={2}>
                                   <Form.Control 
                                     type="date" 
@@ -6358,52 +6143,15 @@ function goToLastPage(e) {
                                     }}
                                   />
                                 </Col>
-                                {/* <Col sm={2}>
-                                  <Form.Control
-                                    type="text"
-                                    size="sm"
-                                    defaultValue={deal[0].key_deal_fac_20_e}
-                                    ref={key_deal_fac_20_e}
-                                    style={{ width: "100%", fontSize:"12px" }}
-                                  />
-                                </Col>
-                                <Col sm={2}>
-                                  <Form.Control
-                                    type="text"
-                                    size="sm"
-                                    defaultValue={deal[0].key_deal_fac_20_f}
-                                    ref={key_deal_fac_20_f}
-                                    style={{ width: "100%", fontSize:"12px" }}
-                                  />
-                                </Col> */}
+                                
                               </Row>
                             </Form.Group>
                           </Col>
                         </Col>
                   
-                      
-
-                      {/* <Row>
-                        
-                        
-                      </Row> */}
+                    
                     </Row>
-                    {/* <button
-                      onClick={(e) => toPrevTab(e)}
-                      style={{
-                        display: "inlineblock",
-                        fontSize: "13px",
-                        padding: "2px 20px",
-                        margin: "10px",
-                        background: "green",
-                        color: "white",
-                        borderRadius: "3px",
-                      }}
-                    >
-                      {" "}
-                      Prev
-                    </button>
-                     */}
+                    
                   </Tab>
 
 	    </Tabs> 

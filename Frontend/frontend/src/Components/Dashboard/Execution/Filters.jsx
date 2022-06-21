@@ -42,6 +42,9 @@ const Filters = (props) => {
   return (
     <div className='filterParameters'>
         <div className='datePicker'>
+            <Row>
+                <Col sm={6}></Col>
+            </Row>
             <form>
                 <label>Start Date:</label>
                 <input type="date" name="startDate" id="startDate" value={startDate} onChange={handleStartDate} />

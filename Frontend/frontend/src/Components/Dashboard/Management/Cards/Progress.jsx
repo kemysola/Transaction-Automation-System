@@ -542,13 +542,13 @@ export default function Progress() {
   
   return (
     <React.Fragment>
-      <Container Fluid style={{ marginLeft: "1rem ", background:'white', borderRadius: "15px" }}>
+      <Container Fluid style={{ marginLeft: "0.22rem ", background:'white', borderRadius: "5px" }}>
         {/* --------- Title and Filter Bar */}
-        <div style={{display: "flex", justifyContent: "space-between", padding: "1rem 0rem", marginRight: "1rem"}}>
-          <p class='animate__animated animate__pulse py-1' style={{marginLeft:'1rem'}}><b>Management Dashboard</b></p>
+        <div style={{display: "flex", justifyContent: "space-between", padding: "0.22rem 0rem", marginRight: "0.22rem"}}>
+          <p class='animate__animated animate__pulse py-1' style={{}}><b>Management Dashboard</b></p>
         {/* ---------- Filter Bar ------------ */}
           <Row>
-            <Card className="my-1" style={{ borderRadius: "10px" }}>
+            <Card className="my-1" style={{ borderRadius: "5px",boxShadow:'10px 5px 5px whitesmoke' }}>
               <Card.Body>
                 <Card.Subtitle className="mb-2">
                   <h6 style={{width: "250px", fontSize: "13px"}}>Filter</h6>
@@ -640,7 +640,7 @@ export default function Progress() {
                 height: "65.4vh",
               }}
             >
-                <Container className='bg-light py-3' style={{borderRadius: "10px"}}>
+                <Container Fluid className='bg-light py-3' style={{borderRadius: "5px"}}>
                 <p
                 style={{
                   fontSize: "13px",
@@ -650,13 +650,13 @@ export default function Progress() {
                 New Guarantee Forecast (₦'Billions)
               </p>
               <BarChart
-                width={280}
+                width={250}
                 height={250}
                 data={newGuaranteeData}
                 barSize={15}
                 margin={{
                   top: 5,
-                  right: 15,
+                  right: 2,
                   left: 2,
                   bottom: 1,
                 }}
@@ -711,7 +711,7 @@ export default function Progress() {
                 height: "65.4vh",
               }}
             >
-                <Container className='bg-light py-3' style={{borderRadius: "10px"}}>
+                <Container Fluid className='bg-light py-3' style={{borderRadius: "5px"}}>
                 <p
                 style={{
                   fontSize: "13px",
@@ -721,13 +721,13 @@ export default function Progress() {
                 Guarantee Pipeline Forecast (₦'Billions)
               </p>
               <BarChart
-                width={280}
+                width={250}
                 height={250}
                 data={guaranteePipelineData}
                 barSize={20}
                 margin={{
                   top: 5,
-                  right: 15,
+                  right: 5,
                   left: 5,
                   bottom: 2,
                 }}
@@ -771,7 +771,7 @@ export default function Progress() {
                 height: "65.4vh",
               }}
             >
-                <Container className='bg-light py-3' style={{borderRadius: "10px"}}>
+                <Container Fluid className='bg-light py-3' style={{borderRadius: "5px"}}>
                 <p
                 style={{
                   fontSize: "13px",
@@ -781,13 +781,13 @@ export default function Progress() {
                 Deal Category Forecast (₦'Billions)
               </p>
               <BarChart
-                width={280}
+                width={250}
                 height={250}
                 data={dealCategoryData}
                 barSize={15}
                 margin={{
                   top: 10,
-                  right: 15,
+                  right: 5,
                   left: 5,
                   bottom: 1,
                 }}
@@ -842,7 +842,7 @@ export default function Progress() {
                 borderRadius: "15px",
               }}
             >
-              <Container className='bg-light py-3' style={{borderRadius: "10px"}}>
+              <Container  Fluid className='bg-light py-2' style={{borderRadius: "5px"}}>
               <p
               style={{
                 fontSize: "13px",
@@ -854,7 +854,7 @@ export default function Progress() {
 
             {indFilter === "Value" ? (
               <BarChart
-                width={450}
+                width={400}
                 height={340}
                 data={chartData}
                 barSize={15}
@@ -898,7 +898,7 @@ export default function Progress() {
               </BarChart>
             ) : (
               <BarChart
-                width={450}
+                width={400}
                 height={340}
                 data={chartData}
                 barSize={15}
@@ -954,11 +954,10 @@ export default function Progress() {
                 height: "65.4vh",
               }}
             >
-              <Container className='bg-light py-3' style={{borderRadius: "10px"}}>
+              <Container Fluid className='bg-light py-2' style={{borderRadius: "5px"}}>
               <p
               style={{
                 fontSize: "13px",
-                // paddingLeft: "10px",
                 fontWeight: "bold",
               }}
             >
@@ -967,14 +966,14 @@ export default function Progress() {
 
             {prdFilter === "Value" ? (
               <BarChart
-                width={450}
+                width={400}
                 height={250}
                 data={productChartData}
                 barSize={15}
                 margin={{
                   top: 25,
-                  right: 15,
-                  left: 15,
+                  right: 5,
+                  left: 5,
                   bottom: 22,
                 }}
                 style={{
@@ -1017,14 +1016,14 @@ export default function Progress() {
               </BarChart>
             ) : (
               <BarChart
-                width={450}
+                width={400}
                 height={250}
                 data={productChartData}
                 barSize={15}
                 margin={{
                   top: 25,
-                  right: 15,
-                  left: 15,
+                  right: 5,
+                  left: 5,
                   bottom: 22,
                 }}
                 style={{

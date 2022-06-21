@@ -245,6 +245,8 @@ function GuaranteePipeline() {
               >
                 TARGET
               </small>
+              <small  style={{ fontSize: "10px", color: "black"}}>1.5x target of 2022 -2023 </small>
+
             </Stack>
           </Col>
           <Col sm={4}>
