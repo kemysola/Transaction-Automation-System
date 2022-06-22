@@ -249,3 +249,20 @@ Body => {
 }
 
 
+---forecast
+Create New Forecast: [ http://localhost:5001/api/v1/admin/forecast]
+METHOD = POST
+Body => { 
+    "projectionyear":"2022", 
+    "cumulativegrowth":"300.4",
+    "newdeals": "103.4"
+}
+
+Update Forecast: [http://localhost:5001/api/v1/admin/forecast/update/33]
+METHOD = PUT 
+Body => { 
+    "projectionyear":"2022", 
+    "cumulativegrowth":"300.4",
+    "newdeals": "103.4"
+}
+
