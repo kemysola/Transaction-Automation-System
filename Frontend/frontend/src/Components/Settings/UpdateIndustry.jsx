@@ -2,30 +2,49 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Container, Form as Fm, Row, Col, ListGroup} from "react-bootstrap";
 import styled from "styled-components";
 import Services from "../../Services/Service";
-import { FiEdit, FiSave } from 'react-icons/fi'
+import Industry from "./IndustryMode";
+
 
 const ListWrapper = styled.div`
   font-size: 12px;
   padding: 1px;
+  margin-top: 5px;
   // border-radius: 15px;
 `;
 
-export default function Industry () {
-  const [industries, setIndustries] = useState([]);
-  const [isEditing, setIsEditing] = useState(false);
+// This file takes the list of industries and ensures the functionality to edit them in view
 
+export default function UpdateIndustry (props) {
+  const [industries, setIndustries] = useState([]);
+  const [saved, setSaved] = useState(false)
+  
   useEffect(() => {
     retrieveIndustry();
   }, []);
 
-  const handleEdit = (id) => {
-    console.log("industry id is", id)
-    setIsEditing(true)
-  }
+  function editIndustry(id, newIndustryName) {
+    const editedIndustryList = industries.map(item => {
+    // if this industry has the same ID as the currently edited industry
+      if (id === industries.industryid) {
+        //
+        return {...item, industry: newIndustryName}
+      }
+      return item;
+    });
+    setIndustries(editedIndustryList);
 
-  const handleSave = (id) => {
-    console.log("industry id is", id)
-    setIsEditing(false)
+    let data = {
+      industry: newIndustryName
+    };
+
+    Services.updateIndustry(id, data)
+      .then((res) => {
+        console.log("industry updated")
+        setSaved(true)
+      })
+      .catch(() => {
+        console.log("an error occured")
+      })
   }
 
 
@@ -38,35 +57,28 @@ export default function Industry () {
         console.log(e);
       });
   };
+
+  const industryList = industries
+  .map(item => (
+    <Industry 
+      id={item.industryid}
+      industry={item.industry}
+      key={item.industryid}
+      editIndustry={editIndustry}
+    />
+  ));
+
   return (
     <>
       <ListWrapper>
-        <Container className="bg-light py-1" style={{ borderRadius: 10 + 'px'}}>
+        <Row className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px'}}>
           <p style={{fontSize: "13px"}}><b>Update Industry</b></p>
+        
           <ListGroup variant="flush" >
-            {industries.map((item) => (
-              <ListGroup.Item
-                key={item.industryid}
-                style={{width: "80%", cursor: "pointer"}}
-              >
-                <Row className="d-flex justify-content-between">
-                  <Col md={8}>
-                    <span>
-                      {item.industry}
-                    </span>
-                  </Col>
-                  <Col md={3}>
-                    {isEditing ? (
-                      <FiSave onClick={() => handleSave(item.industryid)} />
-                    ) : (
-                      <FiEdit onClick={() => handleEdit(item.industryid)} />
-                    )}
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-            ))}
+            {industryList}
           </ListGroup>
-        </Container>
+
+        </Row>
     </ListWrapper>
     </>
   )
