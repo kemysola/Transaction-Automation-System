@@ -3,11 +3,14 @@ import styled from 'styled-components';
 import {Row, Col, Container} from 'react-bootstrap';
 import SideNav2 from '../LandingPage/SideNav2';
 import Navbar from '../LandingPage/Navbar';
-import ForecastSettings from './ForecastSettings';
-import IndustrySettings from './IndustrySettings';
-import ProductSettings from './ProductSettings';
-import LevelSettings from './LevelSettings';
-import PerformanceSettings from './PerformanceSettings';
+import AddForecast from './AddForecast';
+import AddIndustry from './AddIndustry';
+import AddProduct from './AddProduct';
+import AddLevel from './AddLevel';
+import AddPerformancePay from './AddPerformancePay';
+import UpdateIndustry from './UpdateIndustry';
+import UpdateProduct from './UpdateProduct';
+import UpdateLevel from './UpdateLevel';
 
 const ViewWrapper = styled.div`
   margin:0;
@@ -24,18 +27,27 @@ export default function Settings () {
               <SideNav2/>
             </Col>
 
-            <Col sm={10}>
+            <Col sm={5}>
               <Container style={{ marginLeft: "1rem ", background:'white', borderRadius: "15px" }}>
-                    <ForecastSettings />
-                    <IndustrySettings />
-                    <ProductSettings />
-                    <LevelSettings />
-                    <PerformanceSettings />
+                    <AddForecast />
+                    <AddIndustry />
+                    <AddProduct />
+                    <AddLevel />
+                    {/* <AddPerformancePay /> */}
+              </Container>
+            </Col>
+
+            <Col sm={5}>
+              <Container style={{ marginLeft: "1rem ", background:'white', borderRadius: "15px" }}>
+                    <AddForecast />
+                    <UpdateIndustry />
+                    <UpdateProduct />
+                    <UpdateLevel />
+                    {/* <PerformanceSettings /> */}
               </Container>
             </Col>
           </Row>
         </ViewWrapper>
       </>
     )
-  
 }

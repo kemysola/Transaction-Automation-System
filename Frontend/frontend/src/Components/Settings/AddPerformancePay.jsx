@@ -47,7 +47,7 @@ export default function PerformanceSettings () {
     <React.Fragment>
       <FormWrapper>
         <Row className="d-flex justify-content-between">
-          <Col sm={5} md={5} lg={5} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px'}}>
+          <Col sm={10} md={10} lg={10} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px'}}>
             {/* <Row> */}
               <Form ref={form}>
                 <p style={{fontSize: "13px"}}><b>Add Mandates Originated</b></p>
@@ -77,7 +77,7 @@ export default function PerformanceSettings () {
         </Row>
 
         <Row>
-          <Col sm={5} md={5} lg={5} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }} >
+          <Col sm={10} md={10} lg={10} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }} >
             <Form ref={form}>
               <p style={{fontSize: "13px"}}><b>Add Credit Committee Approval</b></p>
 
@@ -105,7 +105,7 @@ export default function PerformanceSettings () {
         </Row>
 
         <Row className="d-flex justify-content-between">
-          <Col sm={5} md={5} lg={5} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px'}}>
+          <Col sm={10} md={10} lg={10} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px'}}>
             <Form ref={form}>
               <p style={{fontSize: "13px"}}><b>Add Fee Letter</b></p>
 
@@ -133,7 +133,7 @@ export default function PerformanceSettings () {
         </Row>
 
         <Row>
-          <Col sm={5} md={5} lg={5} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }} >
+          <Col sm={10} md={10} lg={10} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }} >
               <Form ref={form}>
                 <p style={{fontSize: "13px"}}><b>Add Financial Close</b></p>
 

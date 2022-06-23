@@ -74,9 +74,9 @@ export default function IndustrySettings () {
     <React.Fragment>
       <FormWrapper>
         <Row className="d-flex justify-content-between">
-          <Col sm={5} md={5} lg={5} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px'}}>
+          <Col sm={10} md={10} lg={10} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px'}}>
             <Form ref={form}>
-              <p style={{fontSize: "13px"}}><b>Add Industry</b></p>
+              <p style={{fontSize: "13px"}}><b>Add New Industry</b></p>
 
               <Fm.Group style={{ marginBottom: "5px"}}>
                 <Fm.Label>
@@ -109,20 +109,19 @@ export default function IndustrySettings () {
             </Form>
           </Col>
 
-          {/* <Col sm={1} md={1} lg={1} >
+          <Col sm={2} md={2} lg={2} >
             {status ? (
               <div class='animate__animated animate__pulse py-1'>
                 <GrCheckmark />
                 {message}
               </div>
-
             ) : (
               <div class='animate__animated animate__pulse py-1'>
                 <GrClose />
                 {message}
               </div>
             )}
-          </Col> */}
+          </Col> 
         </Row>
       </FormWrapper>
     </React.Fragment>

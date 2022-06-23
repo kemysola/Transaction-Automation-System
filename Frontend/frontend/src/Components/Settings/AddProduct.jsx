@@ -65,7 +65,7 @@ export default function IndustrySettings () {
     <React.Fragment>
       <FormWrapper>        
         <Row>
-          <Col sm={5} md={5} lg={5} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }} >
+          <Col sm={10} md={10} lg={10} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }} >
             <Form ref={form}>
               <p style={{fontSize: "13px"}}><b>Add Product</b></p>
 
