@@ -64,7 +64,7 @@ export default function ForecastSettings () {
           <Form ref={form}>
             <Row className="d-flex justify-content-between">
               <p style={{fontSize: "13px"}}><b>New Guarantee Forecast</b></p>
-              <Col sm={5} md={5} lg={5} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }}>
+              <Col sm={10} md={10} lg={10} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }}>
                 {/* <Col sm={4} md={4} lg={4} > */}
                   <Fm.Group style={{ marginBottom: "5px"}}>
                     <Fm.Label>
@@ -114,7 +114,7 @@ export default function ForecastSettings () {
           <Form ref={form}>
             <Row style={{ borderRadius: 10 + 'px' }}>
               <p style={{fontSize: "13px"}}><b>Guarantee Pipeline Forecast</b></p>
-              <Col sm={5} md={5} lg={5} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }}>
+              <Col sm={10} md={10} lg={10} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }}>
                 <Fm.Group style={{ marginBottom: "5px"}}>
                   <Fm.Label>
                     Year
@@ -152,7 +152,7 @@ export default function ForecastSettings () {
           <Form ref={form}>
             <Row style={{ borderRadius: 10 + 'px' }}>
               <p style={{fontSize: "13px"}}><b>Deal Category Forecast</b></p>
-              <Col sm={5} md={5} lg={5} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }}>
+              <Col sm={10} md={10} lg={10} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }}>
                 <Fm.Group style={{ marginBottom: "5px"}}>
                   <Fm.Label>
                     Year

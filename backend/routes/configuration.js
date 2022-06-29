@@ -32,6 +32,7 @@ router.get('/industry', verifyTokenAndAuthorization, async (req, res) => {
     try {
         const industry = await client.query(
             `SELECT * FROM TB_INFRCR_INDUSTRY
+            ORDER BY industryid
             `);
         
         if (industry) { 
