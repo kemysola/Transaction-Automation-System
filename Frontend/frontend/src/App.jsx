@@ -29,8 +29,37 @@ import StaffList from "./Components/Dashboard/Origination/stafflist/StaffList";
 import SingleStaff from "./Components/Dashboard/Origination/deals/SingleStaff";
 import SingleView from "./Components/Dashboard/Origination/deals/SingleView";
 import Settings from "./Components/Settings/SettingsView";
+import jwt_decode from "jwt-decode";
+import LogOut from "./Components/Auth/Log out/LogOut";
+import authService from "./Services/auth.Service"
+import { useLocation } from 'react-router-dom';
+
+
 
 export default function App() {
+
+  let location = useLocation()
+
+
+
+  const parseJwt = (token) => {
+    try {
+      return jwt_decode(token);
+    } catch (e) {
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    const user = localStorage.getItem("token");
+    if (user) {
+      const decodedJwt = parseJwt(user);
+      if (decodedJwt.exp * 1000 < Date.now()) {
+        authService.logout()
+        alert("Session timed out")
+      }
+    }
+  }, [location])
  
   return (
     <React.Fragment>
@@ -88,7 +117,6 @@ export default function App() {
         <Route path="/*">
           <NotFound />
         </Route>
-  
       </Switch>
     </React.Fragment>
   );
