@@ -5,10 +5,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router} from 'react-router-dom'
+// import CartState from './context/cart/CartState';
+import TitleState from './context/TitleState'
+
 
 ReactDOM.render( 
     <Router>
+        <TitleState>
         <App />
+
+        </TitleState>
     </Router>
     ,
 
