@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Container, Row, Col, Stack, Table } from "react-bootstrap";
 import {
   PieChart,
@@ -13,8 +13,27 @@ import GuaranteePortGrowthVsTar from "./GuaranteePortGrowthVsTar";
 import FinancialYearGPipeline from "./FinancialYearGPipeline";
 import OriginationActivity from "./OriginationActivity";
 import StructuringExecution from "./StructuringExecution";
+import Editable from "react-editable-title";
+import TitleContext from "../../context/TitleContext";
 
 export default function CurrentGuarantee() {
+  const [title, setTitle] = useState("")
+  // useState("Current Guarantee Portfolio")
+  const handleTextUpdate = current => {
+    setTitle(current);
+    addTitle(current)
+
+  };
+  const {addTitle, cartTitle} = useContext(TitleContext)
+
+  // console.log(addTitle('yes'))
+  console.log(cartTitle)
+
+  // console.log(addTitle)
+
+
+  
+
 
     // ******************************************  static data shared  ****************************************
 
@@ -36,6 +55,8 @@ export default function CurrentGuarantee() {
     // ******************************************  Color selection for the pie chart ****************************************
 
   const COLORSS = ["red", "#FFBB28", "#00C49F"];
+
+  
 
 
   const COLORS = ["#FF4500", "#FFBB28", "#00C49F", "GREEN", "BLUE", "PURPLE"];
@@ -104,10 +125,29 @@ export default function CurrentGuarantee() {
   return (
     <React.Fragment>
       <Container fluid>
+      <p
+        style={{
+          fontWeight:'bold',
+          marginLeft:'1.5rem'
+        }}
+      >
+
+        <Editable
+          text={cartTitle}
+          editButtonStyle={{ lineHeight: "unset" }}
+          editButton
+          editControlButtons
+          placeholder="Type here"
+          cb={handleTextUpdate}
+          
+        />
+        {/* {cartTitle} */}
+        </p>
         {/* <Stack gap={2}>
           <div className="pb-3 mb-3" style={{ fontWeight: "bold" , color:'black'}}>
           </div>
         </Stack> */}
+        
         <div>
           Gross guarantee fee income is based on total guarantee guarantees
           issued since inception of 77.6 Billion through 31 December 2021. In

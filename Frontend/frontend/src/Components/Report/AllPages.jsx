@@ -1,4 +1,4 @@
-import React , {useState} from 'react'
+import React , {useState,useEffect} from 'react'
 import { Container,Row,Col } from 'react-bootstrap'
 import Navbar from '../LandingPage/Navbar'
 import Sidenav from '../LandingPage/SideNav2'
@@ -11,7 +11,13 @@ export default function AllPages() {
   const [title, setTitle] = useState("Current Guarantee Portfolio")
   const handleTextUpdate = current => {
     setTitle(current);
+
   };
+
+  useEffect(() => {
+
+  }, []);
+
 
   return (
     <React.Fragment>
