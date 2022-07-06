@@ -311,4 +311,50 @@ router.get('/:user_email',verifyTokenAndAdmin, async (req, res) => {
     
 });
 
+// Forgot Password
+router.post('/forgotPassword', async (req, res) => {
+  const client = await pool.connect();
+  try {
+
+      const user_rec = { newPassword, newPasswordConfirm, email} = req.body;
+      const user_data = [CryptoJS.AES.encrypt(user_rec.newPassword, process.env.PASSWORD_SECRET_PASSPHRASE ).toString(), user_rec.email]
+     
+      const user = await client.query("SELECT * FROM TB_TRS_USERS WHERE email = $1", [req.body.email] );
+       
+        if (user) {
+               // Confirm that the cmain and confirmation passwords match
+          if (user_rec.newPassword === newPasswordConfirm) {
+
+            await client.query('BEGIN')
+              const update_db =
+              `UPDATE TB_TRS_USERS
+              SET   password = $1
+              WHERE email = $2
+              RETURNING *`
+              const res_ = await client.query(update_db, user_data)                  
+            await client.query('COMMIT')
+           
+            res.setHeader("Password-Reset-Email", user_rec.email);
+            res.setHeader("Activation-Status", (res.statusCode = 200));
+           
+            res.json({
+                status: (res_.statusCode = 200),
+                message: "Password Reset Successfully",
+              });
+          }else{
+            res.json({
+              status: (res.statusCode = 403),
+              message: "The Two Password Values Must Match",
+            });
+          }
+    }
+  } catch (e) {
+      await client.query('ROLLBACK')
+      res.status(403).json({ Error: e.stack });
+  }finally{
+      client.release()
+    }
+
+});
+
 module.exports = router;
