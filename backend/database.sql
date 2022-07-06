@@ -1,3 +1,19 @@
+-- This script contains all DDLs for the application
+
+-- Instruction: Run these commands on your Postgres instance
+-- > psql -U <database username>  -P <databse passwprd>
+-- postgres=# <your database commands> [lookup commands for working with Postgres]
+CREATE DATABASE "trmsdb"
+    WITH 
+    OWNER = trmsdbserveradmin
+    ENCODING = 'UTF8'
+    CONNECTION LIMIT = -1;
+
+-- CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE SCHEMA IF NOT EXISTS trms;
+
+ALTER USER trmsdbserveradmin SET search_path = trms, public;
+
 CREATE TABLE TB_TRS_USERS(
     -- userID uuid DEFAULT uuid_generate_v4 (),
     userID INT NOT NULL,

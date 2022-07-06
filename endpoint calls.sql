@@ -4,7 +4,7 @@ REGISTER FIRST USER: [http://localhost:5001/api/v1/staff/first_onboard] --Disabl
 METHOD = POST
 Body =>
 {
-    "email":"superadmin@infracredit.com", 
+    "email":"kunleogunlaja@leezro365.onmicrosoft.com", 
     "password":"superadmin", 
     "firstName":"super", 
     "lastName":"admin", 
@@ -42,53 +42,175 @@ Body =>
     "feeLetter":11
 }
 
+FORGOT PASSWORD: [http://localhost:5001/api/v1/staff/forgotPassword]
+METHOD = POST
+Body =>
+
+{
+    "email":"eIsung@infracredit.ng",
+    "newPassword":"password",
+    "newPasswordConfirm":"password"
+}
+
 UPDATE DEAL RECORD: [http://localhost:5001/api/v1/transaction/update/3]
 METHOD = PUT
 BODY =>
 
-{ 
-    "clientName": "Exalz Holdings",
-    "originator": "James Chukwuma",
-    "transactor": "Daniels Chidiebere",
-    "transactionLegalLead": "AbdulAfiz Odogwu",
-    "industry": "Energy", 
+{
+    "transid": 70,
+    "clientName": "Arab Energy Inc",
+    "originator": "Kunle Ogunlaja",
+    "transactor": "Kunle Ogunlaja",
+    "transactionLegalLead": "Obong James",
+    "industry": "Gas", 
     "product": "CRG",
-    "region": "SE",
-    "dealSize": 110000000,
+    "region": "NC",
+    "dealSize": 100000000,
     "coupon": 0,
-    "tenor": 10,
+    "tenor": 4,
     "moratorium": 0,
     "repaymentFrequency": "Annually",
     "amortizationStyle": "Annuity",
-    "mandateLetter": 20211203,
-    "creditApproval": 20211203,
-    "feeLetter": 20211203,
-    "expectedClose": null,
-    "actualClose": null,
-    "greenA": false,
-    "greenB": false,
-    "greenC": false,
-    "greenD": false,
-    "greenE": false,
-    "greenF": false,
-    "amberA": false, 
-    "amberB": false, 
-    "amberC": false, 
-    "amberD": false, 
-    "amberE": false, 
+    "mandateLetter": 20221203,
+    "creditApproval": 20221203,
+    "feeLetter": 20221203,
+    "expectedClose": 19000101,
+    "actualClose": 19000101,
+    "NBC_approval_date": 19000101,
+    "NBC_submitted_date": 19000101,
+    "greenA": true, 
+    "greenB": true,
+    "greenC": true,
+    "greenD": true,
+    "greenE": true,
+    "greenF": true,
+    "amberA": true, 
+    "amberB": true, 
+    "amberC": true, 
+    "amberD": true, 
+    "amberE": true, 
     "redA": true, 
     "redB": true, 
     "redC": true, 
-    "redD": false, 
-    "redE": false, 
+    "redD": true, 
+    "redE": true, 
     "structuringFeeAmount": 3,
     "structuringFeeAdvance": 5,
     "structuringFeeFinal": 5,
     "guaranteeFee": 2,
-    "monitoringFee": 5001.00,
+    "monitoringFee": 5000.00,
     "reimbursible": 8000.90,
     "notes": "",
-    "closed": false
+    "closed": false,
+   
+    "nbcFocus":[
+        {"id":23,
+        "nbc_focus_original":"no information Updated", 
+        "nbc_focus_original_yes_no":0, 
+        "nbc_focus_original_date":"2022-06-14", 
+        "nbc_focus_original_methodology":"testing",
+        "nbc_focus_apprv_1_b":"Information will be later",
+        "nbc_focus_apprv_1_c":"2022-06-14",
+        "nbc_focus_apprv_2_b":"VARCHAR",
+        "nbc_focus_apprv_2_c":"2022-06-01",
+        "nbc_focus_apprv_3_b":"Some characters",
+        "nbc_focus_apprv_3_c":"2022-05-20",
+        "nbc_focus_apprv_4_b":"Got some ideas",
+        "nbc_focus_apprv_4_c":"2022-03-19",
+        "nbc_focus_apprv_5_b":"Coding is fun",
+        "nbc_focus_apprv_5_c":"2021-01-11"
+    },
+    {   "id":24,
+        "nbc_focus_original":"got some info Updated", 
+        "nbc_focus_original_yes_no":1, 
+        "nbc_focus_original_date":"2022-06-23", 
+        "nbc_focus_original_methodology":"automatic ticket",
+        "nbc_focus_apprv_1_c":"2022-06-14",
+        "nbc_focus_apprv_2_b":"VARCHAR",
+        "nbc_focus_apprv_2_c":"2022-06-01",
+        "nbc_focus_apprv_3_b":"Not so many characters",
+        "nbc_focus_apprv_3_c":"2022-05-20",
+        "nbc_focus_apprv_4_b":"No playing around ideas",
+        "nbc_focus_apprv_4_c":"2022-03-19",
+        "nbc_focus_apprv_5_b":"Never Give Up",
+        "nbc_focus_apprv_5_c":"2021-01-11"
+    }],
+    "parties":[
+        {"id":25,
+        "parties_role":"This is the main role Updated", 
+        "parties_party":"party info is cool", 
+        "parties_appointed":0, 
+        "parties_status":"Status is Good to Go"
+    },
+    {   "id":26,
+        "parties_role":"This is the secondary role Updated II", 
+        "parties_party":"all party info is undefined", 
+        "parties_appointed":1, 
+        "parties_status":"Emergency"
+    },
+    {   "id":27,
+        "parties_role":"This is the third role Updated III", 
+        "parties_party":"party three", 
+        "parties_appointed":1, 
+        "parties_status":"Victory"
+    }
+    ],
+    "plis":[
+        {"id":29,
+        "plis_particulars":"Just the particulars", 
+        "plis_concern":"No Concerns", 
+        "plis_weighting":10, 
+        "plis_expected":"2021-01-11",
+        "plis_status":"Active"
+    },
+    {   "id":30,
+       "plis_particulars":"Backup particulars", 
+        "plis_concern":"Limited Concerns", 
+        "plis_weighting":5, 
+        "plis_expected":"2023-01-14",
+        "plis_status":"Pending"
+    },{
+        "id":31,
+        "plis_particulars":"Just the particulars II", 
+        "plis_concern":"No Concerns II", 
+        "plis_weighting":10, 
+        "plis_expected":"2021-01-11",
+        "plis_status":"Active"
+    },
+    {   "id":32,
+       "plis_particulars":"Backup particulars II", 
+        "plis_concern":"Limited Concerns II", 
+        "plis_weighting":5, 
+        "plis_expected":"2023-01-14",
+        "plis_status":"Pending"
+    }
+    ],
+    "ocps":[
+        {"id":17,
+        "ocps_factors":"Fear Factor Updated Mutilated", 
+        "ocps_yes_no":1, 
+        "ocps_concern":"Power Outage Updated", 
+        "ocps_expected":"2023-01-14",
+        "ocps_resp_party":"DISCOs Updated",
+        "ocps_status":"Unknown"
+    },
+    {   "id":18,
+       "ocps_factors":"Fear Factor II Updated Mutilated II", 
+        "ocps_yes_no":0, 
+        "ocps_concern":"Power Outage II Updated", 
+        "ocps_expected":"2023-01-14",
+        "ocps_resp_party":"DISCOs II Updated",
+        "ocps_status":"Pending"
+    }],
+    "kpi":[
+        {"id":9,
+        "kpi_factors":"KPI Factor", 
+        "kpi_yes_no":0, 
+        "kpi_concern":"KPI Power Outage", 
+        "kpi_expected":"2023-01-14",
+        "kpi_resp_party":"KPI DISCOs",
+        "kpi_status":"Pending"
+    }]
 }
 
 GET DEAL BY ID: [http://localhost:5001/api/v1/transaction/item/3]
@@ -105,48 +227,158 @@ METHOD = POST
 BODY =>
 
 {
-    "clientName": "Exalz Holdings",
-    "originator": "James Chukwuma",
-    "transactor": "Daniels Chidiebere",
-    "transactionLegalLead": "AbdulAfiz Odogwu",
-    "industry": "Energy", 
+    "clientName": "Arab Energy Inc",
+    "originator": "Kunle Ogunlaja",
+    "transactor": "Kunle Ogunlaja",
+    "transactionLegalLead": "Obong James",
+    "industry": "Gas", 
     "product": "CRG",
-    "region": "SE",
-    "dealSize": 110000000,
+    "region": "NC",
+    "dealSize": 100000000,
     "coupon": 0,
-    "tenor": 10,
+    "tenor": 4,
     "moratorium": 0,
     "repaymentFrequency": "Annually",
     "amortizationStyle": "Annuity",
-    "mandateLetter": 20211203,
-    "creditApproval": 20211203,
-    "feeLetter": 20211203,
-    "expectedClose": null,
-    "actualClose": null,
-    "greenA": false,
-    "greenB": false,
-    "greenC": false,
-    "greenD": false,
-    "greenE": false,
-    "greenF": false,
-    "amberA": false, 
-    "amberB": false, 
-    "amberC": false, 
-    "amberD": false, 
-    "amberE": false, 
+    "mandateLetter": 20221203,
+    "creditApproval": 20221203,
+    "feeLetter": 20221203,
+    "expectedClose": 19000101,
+    "actualClose": 19000101,
+    "NBC_approval_date": 19000101,
+    "NBC_submitted_date": 19000101,
+    "greenA": true, 
+    "greenB": true,
+    "greenC": true,
+    "greenD": true,
+    "greenE": true,
+    "greenF": true,
+    "amberA": true, 
+    "amberB": true, 
+    "amberC": true, 
+    "amberD": true, 
+    "amberE": true, 
     "redA": true, 
     "redB": true, 
     "redC": true, 
-    "redD": false, 
-    "redE": false, 
+    "redD": true, 
+    "redE": true, 
     "structuringFeeAmount": 3,
     "structuringFeeAdvance": 5,
     "structuringFeeFinal": 5,
     "guaranteeFee": 2,
-    "monitoringFee": 5001.00,
+    "monitoringFee": 5000.00,
     "reimbursible": 8000.90,
     "notes": "",
-    "closed": false
+    "closed": false,
+   
+    "nbcFocus":[
+        {
+        "nbc_focus_original":"no information", 
+        "nbc_focus_original_yes_no":0, 
+        "nbc_focus_original_date":"2022-06-14", 
+        "nbc_focus_original_methodology":"testing",
+        "nbc_focus_apprv_1_b":"Information will be later",
+        "nbc_focus_apprv_1_c":"2022-06-14",
+        "nbc_focus_apprv_2_b":"VARCHAR",
+        "nbc_focus_apprv_2_c":"2022-06-01",
+        "nbc_focus_apprv_3_b":"Some characters",
+        "nbc_focus_apprv_3_c":"2022-05-20",
+        "nbc_focus_apprv_4_b":"Got some ideas",
+        "nbc_focus_apprv_4_c":"2022-03-19",
+        "nbc_focus_apprv_5_b":"Coding is fun",
+        "nbc_focus_apprv_5_c":"2021-01-11"
+    },
+    {
+        "nbc_focus_original":"got some info", 
+        "nbc_focus_original_yes_no":1, 
+        "nbc_focus_original_date":"2022-06-23", 
+        "nbc_focus_original_methodology":"automatic ticket",
+        "nbc_focus_apprv_1_c":"2022-06-14",
+        "nbc_focus_apprv_2_b":"VARCHAR",
+        "nbc_focus_apprv_2_c":"2022-06-01",
+        "nbc_focus_apprv_3_b":"Not so many characters",
+        "nbc_focus_apprv_3_c":"2022-05-20",
+        "nbc_focus_apprv_4_b":"No playing around ideas",
+        "nbc_focus_apprv_4_c":"2022-03-19",
+        "nbc_focus_apprv_5_b":"Never Give Up",
+        "nbc_focus_apprv_5_c":"2021-01-11"
+    }],
+    "parties":[
+        {
+        "parties_role":"This is the main role", 
+        "parties_party":"party info is cool", 
+        "parties_appointed":0, 
+        "parties_status":"Status is Good to Go"
+    },
+    {
+        "parties_role":"This is the secondary role", 
+        "parties_party":"all party info is undefined", 
+        "parties_appointed":1, 
+        "parties_status":"Emergency"
+    },
+    {
+        "parties_role":"This is the third role", 
+        "parties_party":"party three", 
+        "parties_appointed":1, 
+        "parties_status":"Victory"
+    }
+    ],
+    "plis":[
+        {
+        "plis_particulars":"Just the particulars", 
+        "plis_concern":"No Concerns", 
+        "plis_weighting":10, 
+        "plis_expected":"2021-01-11",
+        "plis_status":"Active"
+    },
+    {
+       "plis_particulars":"Backup particulars", 
+        "plis_concern":"Limited Concerns", 
+        "plis_weighting":5, 
+        "plis_expected":"2023-01-14",
+        "plis_status":"Pending"
+    },{
+        "plis_particulars":"Just the particulars II", 
+        "plis_concern":"No Concerns II", 
+        "plis_weighting":10, 
+        "plis_expected":"2021-01-11",
+        "plis_status":"Active"
+    },
+    {
+       "plis_particulars":"Backup particulars II", 
+        "plis_concern":"Limited Concerns II", 
+        "plis_weighting":5, 
+        "plis_expected":"2023-01-14",
+        "plis_status":"Pending"
+    }
+    ],
+    "ocps":[
+        {
+        "ocps_factors":"Fear Factor", 
+        "ocps_yes_no":1, 
+        "ocps_concern":"Power Outage", 
+        "ocps_expected":"2023-01-14",
+        "ocps_resp_party":"DISCOs",
+        "ocps_status":"Unknown"
+    },
+    {
+       "ocps_factors":"Fear Factor II", 
+        "ocps_yes_no":0, 
+        "ocps_concern":"Power Outage II", 
+        "ocps_expected":"2023-01-14",
+        "ocps_resp_party":"DISCOs II",
+        "ocps_status":"Pending"
+    }],
+    "kpi":[
+        {
+        "kpi_factors":"KPI Factor", 
+        "kpi_yes_no":0, 
+        "kpi_concern":"KPI Power Outage", 
+        "kpi_expected":"2023-01-14",
+        "kpi_resp_party":"KPI DISCOs",
+        "kpi_status":"Pending"
+    }]
 }
 
 LOGIN: [http://localhost:5001/api/v1/auth/app/login]
@@ -248,21 +480,4 @@ Body => {
     "level": "CFO"
 }
 
-
----forecast
-Create New Forecast: [ http://localhost:5001/api/v1/admin/forecast]
-METHOD = POST
-Body => { 
-    "projectionyear":"2022", 
-    "cumulativegrowth":"300.4",
-    "newdeals": "103.4"
-}
-
-Update Forecast: [http://localhost:5001/api/v1/admin/forecast/update/33]
-METHOD = PUT 
-Body => { 
-    "projectionyear":"2022", 
-    "cumulativegrowth":"300.4",
-    "newdeals": "103.4"
-}
 

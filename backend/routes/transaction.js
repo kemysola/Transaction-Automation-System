@@ -86,7 +86,7 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
         // convert notes field to list
         if (res_.rows.length !== 0) {
             res_.rows[0]['notes'] = res_.rows[0]['notes'].split('|')
-        }
+        
         // NBC FOCUS 
         
         let funcNbcFocus =  (transID) => {
@@ -195,7 +195,12 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
           message: "New Deal Created Successfully",
           dealInfo:  sqlResp.rows,
         });
-
+    }else{
+        res.json({
+            status: (res.statusCode = 400),
+            message: "New Deal Creation Failed - Duplicate Transaction Registration, Please confirm the exact transaction doesn't already exist in the system"
+          });
+    }
     } catch (e) {
         await client.query('ROLLBACK')
         res.status(403).json({ ErrorStatus: e.status, Error: e.stack });
@@ -204,7 +209,6 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
         client.release()
     }
 });
-
 
 /*Fetch Deal by ID - priviledged users*/
 router.get('/item/:deal',verifyTokenAndAuthorization, async (req, res) => {
@@ -465,9 +469,6 @@ router.get('/download_staff_deals/:email', verifyTokenAndAuthorization, async (r
 
 });
 
-
-// 
-
 /*
         Deal Record Modification[only deal owner(originator or Transactor can modify deal)]
     get the owner of deal when retrieving deals from transaction, check the owner is active or an admin
@@ -516,7 +517,7 @@ router.put('/update/:dealID', verifyTokenAndAuthorization, async (req, res) => {
 
         let funcOtherCPsUpdate =  () => {
             updated_rec.ocps.forEach(async element => {
-                var rows = [req.params.dealID, element.ocps_id, element.ocps_factors, element.ocps_yes_no, element.ocps_concern, element.ocps_expected, element.ocps_resp_party, element.ocps_status];
+                var rows = [req.params.dealID, element.id, element.ocps_factors, element.ocps_yes_no, element.ocps_concern, element.ocps_expected, element.ocps_resp_party, element.ocps_status];
                 const update_to_ocps = `
                 UPDATE TB_INFRCR_TRANSACTION_OTHER_CPS
                 SET ocps_factors = $3
@@ -525,10 +526,9 @@ router.put('/update/:dealID', verifyTokenAndAuthorization, async (req, res) => {
                     ,ocps_expected = $6
                     ,ocps_resp_party = $7
                     ,ocps_status = $8
-                WHERE transID = $1 AND ocps_id = $2
+                WHERE transID = $1 AND id = $2
                 `
-
-                const res_ocps = await client.query(format(update_to_ocps,[rows]))
+                const res_ocps = await client.query(update_to_ocps,rows)
 
                 await client.query('COMMIT')
 
@@ -537,154 +537,102 @@ router.put('/update/:dealID', verifyTokenAndAuthorization, async (req, res) => {
             });
         }
         var vfuncOtherCPsUpdate = funcOtherCPsUpdate()
+        
+        // UPDATE NBC FOCUS
+        let funcNbcFocusUpdate =  () => {
+            updated_rec.nbcFocus.forEach(async element => {
+                var rows = [req.params.dealID, element.id, element.nbc_focus_original, element.nbc_focus_original_yes_no, element.nbc_focus_original_date, element.nbc_focus_original_methodology];
+                const update_to_nbcfocus = `
+                UPDATE TB_INFRCR_TRANSACTION_NBC_FOCUS
+                SET nbc_focus_original = $3
+                    ,nbc_focus_original_yes_no = $4
+                    ,nbc_focus_original_date = $5
+                    ,nbc_focus_original_methodology = $6
+                WHERE transID = $1 AND id = $2
+                `
+                const res_nbc_focus = await client.query(update_to_nbcfocus,rows)
 
+                await client.query('COMMIT')
 
-        const update_ocps_data = [ updated_rec.ocps_fac_1_b,updated_rec.ocps_fac_1_c,updated_rec.ocps_fac_1_d,updated_rec.ocps_fac_1_e,updated_rec.ocps_fac_1_f,updated_rec.ocps_fac_2_b,updated_rec.ocps_fac_2_c,updated_rec.ocps_fac_2_d,updated_rec.ocps_fac_2_e,updated_rec.ocps_fac_2_f,
-            updated_rec.ocps_fac_3_b,updated_rec.ocps_fac_3_c,updated_rec.ocps_fac_3_d,updated_rec.ocps_fac_3_e,updated_rec.ocps_fac_3_f,updated_rec.ocps_fac_4_b,updated_rec.ocps_fac_4_c,updated_rec.ocps_fac_4_d,updated_rec.ocps_fac_4_e,updated_rec.ocps_fac_4_f,
-            updated_rec.ocps_fac_5_b,updated_rec.ocps_fac_5_c,updated_rec.ocps_fac_5_d,updated_rec.ocps_fac_5_e,updated_rec.ocps_fac_5_f,updated_rec.ocps_fac_6_b,updated_rec.ocps_fac_6_c,updated_rec.ocps_fac_6_d,updated_rec.ocps_fac_6_e,updated_rec.ocps_fac_6_f,
-            updated_rec.ocps_fac_7_b,updated_rec.ocps_fac_7_c,updated_rec.ocps_fac_7_d,updated_rec.ocps_fac_7_e,updated_rec.ocps_fac_7_f,updated_rec.ocps_fac_8_b,updated_rec.ocps_fac_8_c,updated_rec.ocps_fac_8_d,updated_rec.ocps_fac_8_e,updated_rec.ocps_fac_8_f,
-            updated_rec.ocps_fac_9_b,updated_rec.ocps_fac_9_c,updated_rec.ocps_fac_9_d,updated_rec.ocps_fac_9_e,updated_rec.ocps_fac_9_f,updated_rec.ocps_fac_10_b,updated_rec.ocps_fac_10_c,updated_rec.ocps_fac_10_d,updated_rec.ocps_fac_10_e,updated_rec.ocps_fac_10_f,
-            updated_rec.ocps_fac_11_b,updated_rec.ocps_fac_11_c,updated_rec.ocps_fac_11_d,updated_rec.ocps_fac_11_e,updated_rec.ocps_fac_11_f,updated_rec.ocps_fac_12_b,updated_rec.ocps_fac_12_c,updated_rec.ocps_fac_12_d,updated_rec.ocps_fac_12_e,updated_rec.ocps_fac_12_f,
-            updated_rec.ocps_fac_13_b,updated_rec.ocps_fac_13_c,updated_rec.ocps_fac_13_d,updated_rec.ocps_fac_13_e,updated_rec.ocps_fac_13_f,updated_rec.ocps_fac_14_b,updated_rec.ocps_fac_14_c,updated_rec.ocps_fac_14_d,updated_rec.ocps_fac_14_e,updated_rec.ocps_fac_14_f,
-            updated_rec.ocps_fac_15_b,updated_rec.ocps_fac_15_c,updated_rec.ocps_fac_15_d,updated_rec.ocps_fac_15_e,updated_rec.ocps_fac_15_f,updated_rec.ocps_fac_16_b,updated_rec.ocps_fac_16_c,updated_rec.ocps_fac_16_d,updated_rec.ocps_fac_16_e,updated_rec.ocps_fac_16_f,
-            updated_rec.ocps_fac_17_b,updated_rec.ocps_fac_17_c,updated_rec.ocps_fac_17_d,updated_rec.ocps_fac_17_e,updated_rec.ocps_fac_17_f,updated_rec.ocps_fac_18_b,updated_rec.ocps_fac_18_c,updated_rec.ocps_fac_18_d,updated_rec.ocps_fac_18_e,updated_rec.ocps_fac_18_f,
-            updated_rec.ocps_fac_19_b,updated_rec.ocps_fac_19_c,updated_rec.ocps_fac_19_d,updated_rec.ocps_fac_19_e,updated_rec.ocps_fac_19_f,updated_rec.ocps_fac_20_b,updated_rec.ocps_fac_20_c,updated_rec.ocps_fac_20_d,updated_rec.ocps_fac_20_e,updated_rec.ocps_fac_20_f, req.params.dealID]
+                return res_nbc_focus.rows[0]
+ 
+            });
+        }
+        var vfuncNbcFocusUpdate = funcNbcFocusUpdate()
 
+        // UPDATE PARTIES
+        let funcPartiesUpdate =  () => {
+            updated_rec.parties.forEach(async element => {
+                var rows = [req.params.dealID, element.id, element.parties_role, element.parties_party, element.parties_appointed, element.parties_status];
+                const update_to_parties = `
+                UPDATE TB_INFRCR_TRANSACTION_PARTIES
+                SET parties_role = $3
+                    ,parties_party = $4
+                    ,parties_appointed = $5
+                    ,parties_status = $6
+                WHERE transID = $1 AND id = $2
+                `
+                const res_parties = await client.query(update_to_parties,rows)
 
-        const update_db_ocps = 
-        `UPDATE TB_INFRCR_TRANSACTION_OTHER_CPS
-            SET 
-                ocps_fac_1_b = $1, ocps_fac_1_c = $2, ocps_fac_1_d = $3, ocps_fac_1_e = $4, ocps_fac_1_f = $5, ocps_fac_2_b = $6, ocps_fac_2_c = $7, ocps_fac_2_d = $8, 
-                ocps_fac_2_e = $9, ocps_fac_2_f = $10, ocps_fac_3_b = $11, ocps_fac_3_c = $12, ocps_fac_3_d = $13, ocps_fac_3_e = $14, ocps_fac_3_f = $15, ocps_fac_4_b = $16, 
-                ocps_fac_4_c = $17, ocps_fac_4_d = $18, ocps_fac_4_e = $19, ocps_fac_4_f = $20, ocps_fac_5_b = $21, ocps_fac_5_c = $22, ocps_fac_5_d = $23, ocps_fac_5_e = $24, 
-                ocps_fac_5_f = $25, ocps_fac_6_b = $26, ocps_fac_6_c = $27, ocps_fac_6_d = $28, ocps_fac_6_e = $29, ocps_fac_6_f = $30, ocps_fac_7_b = $31, ocps_fac_7_c = $32, 
-                ocps_fac_7_d = $33, ocps_fac_7_e = $34, ocps_fac_7_f = $35, ocps_fac_8_b = $36, ocps_fac_8_c = $37, ocps_fac_8_d = $38, ocps_fac_8_e = $39, ocps_fac_8_f = $40, 
-                ocps_fac_9_b = $41, ocps_fac_9_c = $42, ocps_fac_9_d = $43, ocps_fac_9_e = $44, ocps_fac_9_f = $45, ocps_fac_10_b = $46, ocps_fac_10_c = $47, ocps_fac_10_d = $48, 
-                ocps_fac_10_e = $49, ocps_fac_10_f = $50, ocps_fac_11_b = $51, ocps_fac_11_c = $52, ocps_fac_11_d = $53, ocps_fac_11_e = $54, ocps_fac_11_f = $55, ocps_fac_12_b = $56, 
-                ocps_fac_12_c = $57, ocps_fac_12_d = $58, ocps_fac_12_e = $59, ocps_fac_12_f = $60, ocps_fac_13_b = $61, ocps_fac_13_c = $62, ocps_fac_13_d = $63, ocps_fac_13_e = $64, 
-                ocps_fac_13_f = $65, ocps_fac_14_b = $66, ocps_fac_14_c = $67, ocps_fac_14_d = $68, ocps_fac_14_e = $69, ocps_fac_14_f = $70, ocps_fac_15_b = $71, ocps_fac_15_c = $72, 
-                ocps_fac_15_d = $73, ocps_fac_15_e = $74, ocps_fac_15_f = $75, ocps_fac_16_b = $76, ocps_fac_16_c = $77, ocps_fac_16_d = $78, ocps_fac_16_e = $79, ocps_fac_16_f = $80, 
-                ocps_fac_17_b = $81, ocps_fac_17_c = $82, ocps_fac_17_d = $83, ocps_fac_17_e = $84, ocps_fac_17_f = $85, ocps_fac_18_b = $86, ocps_fac_18_c = $87, ocps_fac_18_d = $88, 
-                ocps_fac_18_e = $89, ocps_fac_18_f = $90, ocps_fac_19_b = $91, ocps_fac_19_c = $92, ocps_fac_19_d = $93, ocps_fac_19_e = $94, ocps_fac_19_f = $95, ocps_fac_20_b = $96,
-                ocps_fac_20_c = $97, ocps_fac_20_d = $98, ocps_fac_20_e = $99, ocps_fac_20_f = $100
+                await client.query('COMMIT')
 
-            WHERE transID = $101
-        RETURNING *`
-        const res_ocps_upd = await client.query(update_db_ocps, update_ocps_data)
+                return res_parties.rows[0]
+ 
+            });
+        }
+        var vfuncPartiesUpdate = funcPartiesUpdate()
 
+    // UPDATE PLIs
+    let funcPLIsUpdate =  () => {
+        updated_rec.plis.forEach(async element => {
+            var rows = [req.params.dealID, element.id, element.plis_particulars, element.plis_concern, element.plis_weighting, element.plis_expected, element.plis_status];
+            const update_to_plis = `
+            UPDATE TB_INFRCR_TRANSACTION_PLIS
+            SET plis_particulars = $3
+                ,plis_concern = $4
+                ,plis_weighting = $5
+                ,plis_expected = $6
+                ,plis_status = $7
+            WHERE transID = $1 AND id = $2
+            `
+            const res_plis = await client.query(update_to_plis,rows)
 
-        // NBC FOCUS Columns
-        const update_nbc_focus_data = [ 
-            updated_rec.nbc_focus_original_1_b, updated_rec.nbc_focus_original_1_c, updated_rec.nbc_focus_original_1_d, updated_rec.nbc_focus_original_2_b, updated_rec.nbc_focus_original_2_c, 
-            updated_rec.nbc_focus_original_2_d, updated_rec.nbc_focus_original_3_b, updated_rec.nbc_focus_original_3_c, updated_rec.nbc_focus_original_3_d, updated_rec.nbc_focus_original_4_b, 
-            updated_rec.nbc_focus_original_4_c, updated_rec.nbc_focus_original_4_d, updated_rec.nbc_focus_original_5_b, updated_rec.nbc_focus_original_5_c, updated_rec.nbc_focus_original_5_d, 
-            updated_rec.nbc_focus_apprv_1_b, updated_rec.nbc_focus_apprv_1_c, updated_rec.nbc_focus_apprv_2_b, updated_rec.nbc_focus_apprv_2_c, updated_rec.nbc_focus_apprv_3_b, 
-            updated_rec.nbc_focus_apprv_3_c, updated_rec.nbc_focus_apprv_4_b, updated_rec.nbc_focus_apprv_4_c, updated_rec.nbc_focus_apprv_5_b, updated_rec.nbc_focus_apprv_5_c,
-            req.params.dealID]
+            await client.query('COMMIT')
 
+            return res_plis.rows[0]
 
-        const update_db_nbc_focus = 
-        `UPDATE TB_INFRCR_TRANSACTION_NBC_FOCUS
-            SET 
-            nbc_focus_original_1_b = $1, nbc_focus_original_1_c = $2, nbc_focus_original_1_d = $3, nbc_focus_original_2_b = $4, nbc_focus_original_2_c = $5, nbc_focus_original_2_d = $6, nbc_focus_original_3_b = $7, 
-            nbc_focus_original_3_c = $8, nbc_focus_original_3_d = $9, nbc_focus_original_4_b = $10, nbc_focus_original_4_c = $11, nbc_focus_original_4_d = $12, nbc_focus_original_5_b = $13,
-            nbc_focus_original_5_c = $14, nbc_focus_original_5_d = $15, nbc_focus_apprv_1_b = $16, nbc_focus_apprv_1_c = $17, nbc_focus_apprv_2_b = $18, nbc_focus_apprv_2_c = $19, nbc_focus_apprv_3_b = $20, 
-            nbc_focus_apprv_3_c = $21, nbc_focus_apprv_4_b = $22, nbc_focus_apprv_4_c = $23, nbc_focus_apprv_5_b = $24, nbc_focus_apprv_5_c = $25
+        });
+    }
 
-            WHERE transID = $26
-        RETURNING *`
-        const res_nbc_focus_upd = await client.query(update_db_nbc_focus, update_nbc_focus_data)
+    // UPDATE KPIs
+    let funcKPIsUpdate =  () => {
+        updated_rec.kpi.forEach(async element => {
+            var rows = [req.params.dealID, element.id, element.kpi_factors, element.kpi_yes_no, element.kpi_concern, element.kpi_expected, element.kpi_resp_party, element.kpi_status];
+            const update_to_kpi = `
+            UPDATE TB_INFRCR_TRANSACTION_KPI
+            SET kpi_factors = $3
+                ,kpi_yes_no = $4
+                ,kpi_concern = $5
+                ,kpi_expected = $6
+                ,kpi_resp_party = $7
+                ,kpi_status = $8
+            WHERE transID = $1 AND id = $2
+            `
+            const res_kpi = await client.query(update_to_kpi,rows)
 
+            await client.query('COMMIT')
 
-        // PARTIES Columns
-        const update_parties_data = [ 
-            updated_rec.parties_1_b, updated_rec.parties_1_c, updated_rec.parties_1_d, updated_rec.parties_2_b, updated_rec.parties_2_c, updated_rec.parties_2_d, updated_rec.parties_3_b, updated_rec.parties_3_c, 
-            updated_rec.parties_3_d, updated_rec.parties_4_b, updated_rec.parties_4_c, updated_rec.parties_4_d, updated_rec.parties_5_b, updated_rec.parties_5_c, updated_rec.parties_5_d,
-            updated_rec.parties_6_b, updated_rec.parties_6_c, updated_rec.parties_6_d, updated_rec.parties_7_b, updated_rec.parties_7_c, updated_rec.parties_7_d, updated_rec.parties_8_b, 
-            updated_rec.parties_8_c, updated_rec.parties_8_d, updated_rec.parties_9_b, updated_rec.parties_9_c, updated_rec.parties_9_d, updated_rec.parties_10_b, updated_rec.parties_10_c, updated_rec.parties_10_d,
-            updated_rec.parties_11_b, updated_rec.parties_11_c, updated_rec.parties_11_d,req.params.dealID]
+            return res_kpi.rows[0]
 
+        });
+    }
 
-        const update_db_parties = 
-        `UPDATE TB_INFRCR_TRANSACTION_PARTIES
-            SET 
-            parties_1_b = $1, parties_1_c = $2, parties_1_d = $3, parties_2_b = $4, parties_2_c = $5, parties_2_d = $6, parties_3_b = $7, parties_3_c = $8, parties_3_d = $9, 
-            parties_4_b = $10, parties_4_c = $11, parties_4_d = $12, parties_5_b = $13, parties_5_c = $14, parties_5_d = $15, parties_6_b = $16, parties_6_c = $17, parties_6_d = $18, parties_7_b = $19, parties_7_c = $20, parties_7_d = $21,
-            parties_8_b = $22, parties_8_c = $23, parties_8_d = $24, parties_9_b = $25, parties_9_c = $26, parties_9_d = $27, parties_10_b = $28, parties_10_c = $29, parties_10_d = $30, parties_11_b = $31, parties_11_c = $32, parties_11_d = $33
-
-            WHERE transID = $34
-        RETURNING *`
-        const res_parties_upd = await client.query(update_db_parties, update_parties_data)
-
-
-     // PLIS Columns
-     const update_plis_data = [ 
-            updated_rec.plis_1_b, updated_rec.plis_1_c, updated_rec.plis_1_d, updated_rec.plis_1_e, updated_rec.plis_2_b, updated_rec.plis_2_c, updated_rec.plis_2_d, updated_rec.plis_2_e, 
-            updated_rec.plis_3_b, updated_rec.plis_3_c, updated_rec.plis_3_d, updated_rec.plis_3_e, updated_rec.plis_4_b, updated_rec.plis_4_c, updated_rec.plis_4_d, updated_rec.plis_4_e, updated_rec.plis_5_b, updated_rec.plis_5_c,
-            updated_rec.plis_5_d, updated_rec.plis_5_e, updated_rec.plis_6_b, updated_rec.plis_6_c, updated_rec.plis_6_d, updated_rec.plis_6_e, req.params.dealID]
-
-    const update_db_plis = 
-    `UPDATE TB_INFRCR_TRANSACTION_PLIS
-        SET 
-        plis_1_b=$1, plis_1_c=$2, plis_1_d=$3, plis_1_e=$4, plis_2_b=$5, plis_2_c=$6, plis_2_d=$7, plis_2_e=$8, plis_3_b=$9, plis_3_c=$10, plis_3_d=$11, 
-        plis_3_e=$12, plis_4_b=$13, plis_4_c=$14, plis_4_d=$15, plis_4_e=$16, plis_5_b=$17, plis_5_c=$18, plis_5_d=$19, plis_5_e=$20, plis_6_b=$21, plis_6_c=$22, plis_6_d=$23, plis_6_e=$24
-        WHERE transID = $25
-    RETURNING *`
-    const res_plis_upd = await client.query(update_db_plis, update_plis_data)
-
-
-    // KEY DEAL FACTORS Columns
-    const update_kdf_data = [ 
-        updated_rec.key_deal_fac_1_b, updated_rec.key_deal_fac_1_c, updated_rec.key_deal_fac_1_d, updated_rec.key_deal_fac_1_e, updated_rec.key_deal_fac_1_f, updated_rec.key_deal_fac_2_b, updated_rec.key_deal_fac_2_c, 
-        updated_rec.key_deal_fac_2_d, updated_rec.key_deal_fac_2_e, updated_rec.key_deal_fac_2_f, updated_rec.key_deal_fac_3_b, updated_rec.key_deal_fac_3_c, updated_rec.key_deal_fac_3_d,
-        updated_rec.key_deal_fac_3_e, updated_rec.key_deal_fac_3_f, updated_rec.key_deal_fac_4_b, updated_rec.key_deal_fac_4_c, updated_rec.key_deal_fac_4_d, updated_rec.key_deal_fac_4_e, 
-        updated_rec.key_deal_fac_4_f, updated_rec.key_deal_fac_5_b, updated_rec.key_deal_fac_5_c, updated_rec.key_deal_fac_5_d, updated_rec.key_deal_fac_5_e, updated_rec.key_deal_fac_5_f, updated_rec.key_deal_fac_6_b,
-        updated_rec.key_deal_fac_6_c, updated_rec.key_deal_fac_6_d, updated_rec.key_deal_fac_6_e, updated_rec.key_deal_fac_6_f, updated_rec.key_deal_fac_7_b, updated_rec.key_deal_fac_7_c, updated_rec.key_deal_fac_7_d, 
-        updated_rec.key_deal_fac_7_e, updated_rec.key_deal_fac_7_f, updated_rec.key_deal_fac_8_b, updated_rec.key_deal_fac_8_c, updated_rec.key_deal_fac_8_d, updated_rec.key_deal_fac_8_e,
-        updated_rec.key_deal_fac_8_f, updated_rec.key_deal_fac_9_b, updated_rec.key_deal_fac_9_c, updated_rec.key_deal_fac_9_d, updated_rec.key_deal_fac_9_e, updated_rec.key_deal_fac_9_f, updated_rec.key_deal_fac_10_b, 
-        updated_rec.key_deal_fac_10_c, updated_rec.key_deal_fac_10_d, updated_rec.key_deal_fac_10_e, updated_rec.key_deal_fac_10_f, updated_rec.key_deal_fac_11_b, updated_rec.key_deal_fac_11_c,
-        updated_rec.key_deal_fac_11_d, updated_rec.key_deal_fac_11_e, updated_rec.key_deal_fac_11_f, updated_rec.key_deal_fac_12_b, updated_rec.key_deal_fac_12_c, updated_rec.key_deal_fac_12_d, 
-        updated_rec.key_deal_fac_12_e, updated_rec.key_deal_fac_12_f, updated_rec.key_deal_fac_13_b, updated_rec.key_deal_fac_13_c, updated_rec.key_deal_fac_13_d, updated_rec.key_deal_fac_13_e,
-        updated_rec.key_deal_fac_13_f, updated_rec.key_deal_fac_14_b, updated_rec.key_deal_fac_14_c, updated_rec.key_deal_fac_14_d, updated_rec.key_deal_fac_14_e, updated_rec.key_deal_fac_14_f, 
-        updated_rec.key_deal_fac_15_b, updated_rec.key_deal_fac_15_c, updated_rec.key_deal_fac_15_d, updated_rec.key_deal_fac_15_e, updated_rec.key_deal_fac_15_f, updated_rec.key_deal_fac_16_b,
-        updated_rec.key_deal_fac_16_c, updated_rec.key_deal_fac_17_b, updated_rec.key_deal_fac_17_c, updated_rec.key_deal_fac_18_b, updated_rec.key_deal_fac_18_c, updated_rec.key_deal_fac_19_b, 
-        updated_rec.key_deal_fac_19_c, updated_rec.key_deal_fac_20_b, updated_rec.key_deal_fac_20_c, updated_rec.key_deal_fac_21_b, updated_rec.key_deal_fac_21_c, updated_rec.key_deal_fac_22_b,
-        updated_rec.key_deal_fac_22_c, updated_rec.key_deal_fac_23_b, updated_rec.key_deal_fac_23_c,
-
-         req.params.dealID]
-
-    const update_db_kdf = 
-    `UPDATE TB_INFRCR_TRANSACTION_KPI
-        SET 
-        key_deal_fac_1_b = $1, key_deal_fac_1_c = $2, key_deal_fac_1_d = $3, key_deal_fac_1_e = $4, key_deal_fac_1_f = $5, key_deal_fac_2_b = $6, key_deal_fac_2_c = $7, key_deal_fac_2_d = $8, key_deal_fac_2_e = $9, key_deal_fac_2_f = $10, 
-        key_deal_fac_3_b = $11, key_deal_fac_3_c = $12, key_deal_fac_3_d = $13, key_deal_fac_3_e = $14, key_deal_fac_3_f = $15, key_deal_fac_4_b = $16, key_deal_fac_4_c = $17, key_deal_fac_4_d = $18, key_deal_fac_4_e = $19, key_deal_fac_4_f = $20, 
-        key_deal_fac_5_b = $21, key_deal_fac_5_c = $22, key_deal_fac_5_d = $23, key_deal_fac_5_e = $24, key_deal_fac_5_f = $25, key_deal_fac_6_b = $26, 
-        key_deal_fac_6_c = $27, key_deal_fac_6_d = $28, key_deal_fac_6_e = $29, key_deal_fac_6_f = $30, key_deal_fac_7_b = $31, key_deal_fac_7_c = $32, key_deal_fac_7_d = $33,
-        key_deal_fac_7_e = $34, key_deal_fac_7_f = $35, key_deal_fac_8_b = $36, key_deal_fac_8_c = $37, key_deal_fac_8_d = $38, key_deal_fac_8_e = $39, key_deal_fac_8_f = $40, 
-        key_deal_fac_9_b = $41, key_deal_fac_9_c = $42, key_deal_fac_9_d = $43, key_deal_fac_9_e = $44, key_deal_fac_9_f = $45, key_deal_fac_10_b = $46, key_deal_fac_10_c = $47, 
-        key_deal_fac_10_d = $48, key_deal_fac_10_e = $49, key_deal_fac_10_f = $50, key_deal_fac_11_b = $51, key_deal_fac_11_c = $52, key_deal_fac_11_d = $53, key_deal_fac_11_e = $54, 
-        key_deal_fac_11_f = $55, key_deal_fac_12_b = $56, key_deal_fac_12_c = $57, key_deal_fac_12_d = $58, key_deal_fac_12_e = $59, key_deal_fac_12_f = $60, key_deal_fac_13_b = $61, key_deal_fac_13_c = $62, 
-        key_deal_fac_13_d = $63, key_deal_fac_13_e = $64, key_deal_fac_13_f = $65, key_deal_fac_14_b = $66, key_deal_fac_14_c = $67, key_deal_fac_14_d = $68, key_deal_fac_14_e = $69, key_deal_fac_14_f = $70, 
-        key_deal_fac_15_b = $71, key_deal_fac_15_c = $72, key_deal_fac_15_d = $73, key_deal_fac_15_e = $74, key_deal_fac_15_f = $75, key_deal_fac_16_b = $76, key_deal_fac_16_c = $77, key_deal_fac_17_b = $78, 
-        key_deal_fac_17_c = $79, key_deal_fac_18_b = $80, key_deal_fac_18_c = $81, key_deal_fac_19_b = $82, key_deal_fac_19_c = $83, key_deal_fac_20_b = $84, key_deal_fac_20_c = $85, key_deal_fac_21_b = $86, 
-        key_deal_fac_21_c = $87, key_deal_fac_22_b = $88, key_deal_fac_22_c = $89, key_deal_fac_23_b = $90, key_deal_fac_23_c = $91
-
-        WHERE transID = $92
-    RETURNING *`
-
-    const res_kdf_upd = await client.query(update_db_kdf, update_kdf_data)
-
-
-        await client.query('COMMIT')
-
-
-        let transUpdateResp = Object.assign(res_.rows[0], res_ocps_upd.rows[0], res_nbc_focus_upd.rows[0], res_parties_upd.rows[0], res_plis_upd.rows[0], res_kdf_upd.rows[0]);
-        // let transUpdateResp = Object.assign( res_.rows[0], res_ocps_upd.rows[0]);
+    var vffuncKPIsUpdate = funcKPIsUpdate()
 
         res.json({
             status: (res.statusCode = 200),
             message: "Deal UPDATED Successfully",
-            // dealInfo: transUpdateResp,
+            dealInfo: vffuncKPIsUpdate,
 
           });
 
