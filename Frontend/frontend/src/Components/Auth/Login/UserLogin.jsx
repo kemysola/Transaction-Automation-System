@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation ,Link} from "react-router-dom";
 import CheckButton from "react-validation/build/button";
 import AuthService from "../../../Services/auth.Service";
 import styled from "styled-components";
@@ -180,6 +180,9 @@ const UserLogin = () => {
           <br />
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
+        <div>
+          <p style={{}}>Forgot Password? <Link to='/forgot_password' style={{color:'black'}}>Click here</Link></p>
+        </div>
         <div className="alert">{setMessage}</div>
       </BorderDiv>
     </Container>

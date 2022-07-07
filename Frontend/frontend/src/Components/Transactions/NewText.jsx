@@ -95,301 +95,65 @@ const AddDeal = () => {
     reimbursible: 0,
     notes: "",
     closed: false,
-    nbcFocus: [{ label: "", concern: "", date: "", methodology: "" }],
-    keyPerformanceI: [
+    nbcFocus: [
       {
-        factors: "",
-        option: "",
-        expected: "",
-        concern: "",
-        date: "",
-        party: "",
-        status: "",
+        //  label: "", concern: "", date: "", methodology: "",
+        nbc_focus_original: "",
+        nbc_focus_original_yes_no: 0,
+        nbc_focus_original_date: null,
+        nbc_focus_original_methodology: "",
+        nbc_focus_apprv_1_b: "",
+        nbc_focus_apprv_1_c: null,
+        nbc_focus_apprv_2_b: "",
+        nbc_focus_apprv_2_c: null,
+        nbc_focus_apprv_3_b: "",
+        nbc_focus_apprv_3_c: null,
+        nbc_focus_apprv_4_b: "",
+        nbc_focus_apprv_4_c: null,
+        nbc_focus_apprv_5_b: "",
+        nbc_focus_apprv_5_c: null,
+      },
+    ],
+    kpi: [
+      {
+        kpi_factors: "",
+        kpi_yes_no: 0,
+        kpi_concern: "",
+        kpi_expected: null,
+        kpi_resp_party: "",
+        kpi_status: "Pending",
       },
     ],
     // Performance Linked Indicators Columns
-    plis_1_b: "",
-    plis_1_c: 0.0,
-    plis_1_d: null,
-    plis_1_e: "",
-    plis_2_b: "",
-    plis_2_c: 0.0,
-    plis_2_d: null,
-    plis_2_e: "",
-    plis_3_b: "",
-    plis_3_c: 0.0,
-    plis_3_d: null,
-    plis_3_e: "",
-    plis_4_b: "",
-    plis_4_c: 0.0,
-    plis_4_d: null,
-    plis_4_e: "",
-    plis_5_b: "",
-    plis_5_c: 0.0,
-    plis_5_d: null,
-    plis_5_e: "",
-    plis_6_b: "",
-    plis_6_c: 0.0,
-    plis_6_d: null,
-    plis_6_e: "",
+    plis: [
+      {
+        plis_particulars: "",
+        plis_concern: "",
+        plis_weighting: 10,
+        plis_expected:"2022-06-14",
+        plis_status: "Active",
+      },
+    ],
 
     // Parties Columns
-    parties_1_b: "",
-    parties_1_c: "false",
-    parties_1_d: "",
-    parties_2_b: "",
-    parties_2_c: "false",
-    parties_2_d: "",
-    parties_3_b: "",
-    parties_3_c: "false",
-    parties_3_d: "",
-    parties_4_b: "",
-    parties_4_c: "false",
-    parties_4_d: "",
-    parties_5_b: "",
-    parties_5_c: "false",
-    parties_5_d: "",
-    parties_6_b: "",
-    parties_6_c: "false",
-    parties_6_d: "",
-    parties_7_b: "",
-    parties_7_c: "false",
-    parties_7_d: "",
-    parties_8_b: "",
-    parties_8_c: "false",
-    parties_8_d: "",
-    parties_9_b: "",
-    parties_9_c: "false",
-    parties_9_d: "",
-    parties_10_b: "",
-    parties_10_c: "false",
-    parties_10_d: "",
-    parties_11_b: "",
-    parties_11_c: "false",
-    parties_11_d: "",
-
-    // NBC Focus Data
-    // nbc_focus_original_1_b:"false",
-    // nbc_focus_original_1_c:null,
-    // nbc_focus_original_1_d:"",
-    // nbc_focus_original_2_b:"false",
-    // nbc_focus_original_2_c:null,
-    // nbc_focus_original_2_d:"",
-    // nbc_focus_original_3_b:"false",
-    // nbc_focus_original_3_c:null,
-    // nbc_focus_original_3_d:"",
-    // nbc_focus_original_4_b:"false",
-    // nbc_focus_original_4_c:null,
-    // nbc_focus_original_4_d:"",
-    // nbc_focus_original_5_b:"false",
-    // nbc_focus_original_5_c:null,
-    // nbc_focus_original_5_d:"",
-    // nbc_focus_apprv_1_b:"false",
-    // nbc_focus_apprv_1_c:null,
-    // nbc_focus_apprv_2_b:"false",
-    // nbc_focus_apprv_2_c:null,
-    // nbc_focus_apprv_3_b:"false",
-    // nbc_focus_apprv_3_c:null,
-    // nbc_focus_apprv_4_b:"false",
-    // nbc_focus_apprv_4_c:null,
-    // nbc_focus_apprv_5_b:"false",
-    // nbc_focus_apprv_5_c:null,
-
-    // Other CPS Data
-    ocps_fac_1_b: "false",
-    ocps_fac_1_c: "",
-    ocps_fac_1_d: null,
-    ocps_fac_1_e: "",
-    ocps_fac_1_f: "",
-    ocps_fac_2_b: "false",
-    ocps_fac_2_c: "",
-    ocps_fac_2_d: null,
-    ocps_fac_2_e: "",
-    ocps_fac_2_f: "",
-    ocps_fac_3_b: "false",
-    ocps_fac_3_c: "",
-    ocps_fac_3_d: null,
-    ocps_fac_3_e: "",
-    ocps_fac_3_f: "",
-    ocps_fac_4_b: "false",
-    ocps_fac_4_c: "",
-    ocps_fac_4_d: null,
-    ocps_fac_4_e: "",
-    ocps_fac_4_f: "",
-    ocps_fac_5_b: "false",
-    ocps_fac_5_c: "",
-    ocps_fac_5_d: null,
-    ocps_fac_5_e: "",
-    ocps_fac_5_f: "",
-    ocps_fac_6_b: "false",
-    ocps_fac_6_c: "",
-    ocps_fac_6_d: null,
-    ocps_fac_6_e: "",
-    ocps_fac_6_f: "",
-    ocps_fac_7_b: "false",
-    ocps_fac_7_c: "",
-    ocps_fac_7_d: null,
-    ocps_fac_7_e: "",
-    ocps_fac_7_f: "",
-    ocps_fac_8_b: "false",
-    ocps_fac_8_c: "",
-    ocps_fac_8_d: null,
-    ocps_fac_8_e: "",
-    ocps_fac_8_f: "",
-    ocps_fac_9_b: "false",
-    ocps_fac_9_c: "",
-    ocps_fac_9_d: null,
-    ocps_fac_9_e: "",
-    ocps_fac_9_f: "",
-
-    ocps_fac_10_b: "false",
-    ocps_fac_10_c: "",
-    ocps_fac_10_d: null,
-    ocps_fac_10_e: "",
-    ocps_fac_10_f: "",
-    ocps_fac_11_b: "false",
-    ocps_fac_11_c: "",
-    ocps_fac_11_d: null,
-    ocps_fac_11_e: "",
-    ocps_fac_11_f: "",
-    ocps_fac_12_b: "false",
-    ocps_fac_12_c: "",
-    ocps_fac_12_d: null,
-    ocps_fac_12_e: "",
-    ocps_fac_12_f: "",
-    ocps_fac_13_b: "false",
-    ocps_fac_13_c: "",
-    ocps_fac_13_d: null,
-    ocps_fac_13_e: "",
-    ocps_fac_13_f: "",
-    ocps_fac_14_b: "false",
-    ocps_fac_14_c: "",
-    ocps_fac_14_d: null,
-    ocps_fac_14_e: "",
-    ocps_fac_14_f: "",
-    ocps_fac_15_b: "false",
-    ocps_fac_15_c: "",
-    ocps_fac_15_d: null,
-    ocps_fac_15_e: "",
-    ocps_fac_15_f: "",
-    ocps_fac_16_b: "false",
-    ocps_fac_16_c: "",
-    ocps_fac_16_d: null,
-    ocps_fac_16_e: "",
-    ocps_fac_16_f: "",
-    ocps_fac_17_b: "false",
-    ocps_fac_17_c: "",
-    ocps_fac_17_d: null,
-    ocps_fac_17_e: "",
-    ocps_fac_17_f: "",
-    ocps_fac_18_b: "false",
-    ocps_fac_18_c: "",
-    ocps_fac_18_d: null,
-    ocps_fac_18_e: "",
-    ocps_fac_18_f: "",
-    ocps_fac_19_b: "false",
-    ocps_fac_19_c: "",
-    ocps_fac_19_d: null,
-    ocps_fac_19_e: "",
-    ocps_fac_19_f: "",
-    ocps_fac_20_b: "false",
-    ocps_fac_20_c: "",
-    ocps_fac_20_d: null,
-    ocps_fac_20_e: "",
-    ocps_fac_20_f: "",
-
-    //KEY PERFORMANCE INDICATOR
-    key_deal_fac_1_b: "false",
-    key_deal_fac_1_c: "",
-    key_deal_fac_1_d: null,
-    key_deal_fac_1_e: "",
-    key_deal_fac_1_f: "",
-    key_deal_fac_2_b: "false",
-    key_deal_fac_2_c: "",
-    key_deal_fac_2_d: null,
-    key_deal_fac_2_e: "",
-    key_deal_fac_2_f: "",
-    key_deal_fac_3_b: "false",
-    key_deal_fac_3_c: "",
-    key_deal_fac_3_d: null,
-    key_deal_fac_3_e: "",
-    key_deal_fac_3_f: "",
-    key_deal_fac_4_b: "false",
-    key_deal_fac_4_c: "",
-    key_deal_fac_4_d: null,
-    key_deal_fac_4_e: "",
-    key_deal_fac_4_f: "",
-    key_deal_fac_5_b: "false",
-    key_deal_fac_5_c: "",
-    key_deal_fac_5_d: null,
-    key_deal_fac_5_e: "",
-    key_deal_fac_5_f: "",
-    key_deal_fac_6_b: "false",
-    key_deal_fac_6_c: "",
-    key_deal_fac_6_d: null,
-    key_deal_fac_6_e: "",
-    key_deal_fac_6_f: "",
-    key_deal_fac_7_b: "false",
-    key_deal_fac_7_c: "",
-    key_deal_fac_7_d: null,
-    key_deal_fac_7_e: "",
-    key_deal_fac_7_f: "",
-    key_deal_fac_8_b: "false",
-    key_deal_fac_8_c: "",
-    key_deal_fac_8_d: null,
-    key_deal_fac_8_e: "",
-    key_deal_fac_8_f: "",
-    key_deal_fac_9_b: "false",
-    key_deal_fac_9_c: "",
-    key_deal_fac_9_d: null,
-    key_deal_fac_9_e: "",
-    key_deal_fac_9_f: "",
-    key_deal_fac_10_b: "false",
-    key_deal_fac_10_c: "",
-    key_deal_fac_10_d: null,
-    key_deal_fac_10_e: "",
-    key_deal_fac_10_f: "",
-    key_deal_fac_11_b: "false",
-    key_deal_fac_11_c: "",
-    key_deal_fac_11_d: null,
-    key_deal_fac_11_e: "",
-    key_deal_fac_11_f: "",
-    key_deal_fac_12_b: "false",
-    key_deal_fac_12_c: "",
-    key_deal_fac_12_d: null,
-    key_deal_fac_12_e: "",
-    key_deal_fac_12_f: "",
-    key_deal_fac_13_b: "false",
-    key_deal_fac_13_c: "",
-    key_deal_fac_13_d: null,
-    key_deal_fac_13_e: "",
-    key_deal_fac_13_f: "",
-    key_deal_fac_14_b: "false",
-    key_deal_fac_14_c: "",
-    key_deal_fac_14_d: null,
-    key_deal_fac_14_e: "",
-    key_deal_fac_14_f: "",
-    key_deal_fac_15_b: "false",
-    key_deal_fac_15_c: "",
-    key_deal_fac_15_d: null,
-    key_deal_fac_15_e: "",
-    key_deal_fac_15_f: "",
-    key_deal_fac_16_b: "false",
-    key_deal_fac_16_c: null,
-    key_deal_fac_17_b: "false",
-    key_deal_fac_17_c: null,
-    key_deal_fac_18_b: "false",
-    key_deal_fac_18_c: null,
-    key_deal_fac_19_b: "false",
-    key_deal_fac_19_c: null,
-    key_deal_fac_20_b: "false",
-    key_deal_fac_20_c: null,
-    key_deal_fac_21_b: "false",
-    key_deal_fac_21_c: null,
-    key_deal_fac_22_b: "false",
-    key_deal_fac_22_c: null,
-    key_deal_fac_23_b: "false",
-    key_deal_fac_23_c: null,
+    parties: [
+      {
+        parties_role: "",
+        parties_party: "",
+        parties_appointed: 0,
+        parties_status: "Pending",
+      },
+    ],
+    ocps: [
+      {
+        ocps_factors: "",
+        ocps_yes_no: 1,
+        ocps_concern: "",
+        ocps_expected: null,
+        ocps_resp_party: "",
+        ocps_status: "Active",
+      },
+    ],
   };
 
   // ******************************************  use state hook to store state ****************************************
@@ -399,8 +163,52 @@ const AddDeal = () => {
   const [submitted, setSubmitted] = useState(false);
   const [response, setResponse] = useState(false);
   const [noteList, setNoteList] = useState([{ note: "" }]);
+  const [ocps, setOcps] = useState([
+    {
+      ocps_factors: "",
+      ocps_yes_no: 1,
+      ocps_concern: "",
+      ocps_expected: null,
+      ocps_resp_party: "",
+      ocps_status: "Active",
+    },
+  ]);
   const [nbcFocus, setNbcFocus] = useState([
-    { label: "", concern: "", date: "", methodology: "" },
+    {
+      nbc_focus_original: "",
+      nbc_focus_original_yes_no: 0,
+      nbc_focus_original_date: null,
+      nbc_focus_original_methodology: "",
+      nbc_focus_apprv_1_b: "",
+      nbc_focus_apprv_1_c: null,
+      nbc_focus_apprv_2_b: "",
+      nbc_focus_apprv_2_c: null,
+      nbc_focus_apprv_3_b: "",
+      nbc_focus_apprv_3_c: null,
+      nbc_focus_apprv_4_b: "",
+      nbc_focus_apprv_4_c: null,
+      nbc_focus_apprv_5_b: "",
+      nbc_focus_apprv_5_c: null,
+    }
+  ]);
+
+  const [plis, setPlis] = useState([
+      {
+        plis_particulars: "",
+        plis_concern: "",
+        plis_weighting: 10,
+        plis_expected: null,
+        plis_status: "",
+      }
+  ]);
+
+  const [parties, setParties] = useState([
+    {
+      parties_role: "",
+      parties_party: "",
+      parties_appointed: 0,
+      parties_status: "Pending",
+    },
   ]);
   const [keyPerformanceI, setKeyPerformanceI] = useState([
     {
@@ -413,6 +221,18 @@ const AddDeal = () => {
       status: "",
     },
   ]);
+
+  const [kpi, setKpi] = useState([
+    {
+      kpi_factors: "",
+      kpi_yes_no: 0,
+      kpi_concern: "",
+      kpi_expected: null,
+      kpi_resp_party: "",
+      kpi_status: "Pending",
+    },
+  ]);
+
   const [dealTracking, setDealTracking] = useState({});
   const [industry, setIndustry] = useState([]);
   const [product, setProduct] = useState([]);
@@ -574,6 +394,7 @@ const AddDeal = () => {
     // function to save user data to deal state
     const { name, value } = event.target;
     setDeal({ ...deal, [name]: value });
+
   };
 
   const handleInputChanges = (event) => {
@@ -593,7 +414,22 @@ const AddDeal = () => {
   const handleNbcAdd = () => {
     setNbcFocus([
       ...nbcFocus,
-      { label: "", concern: "", date: "", methodology: "" },
+      {nbc_focus_original: "",
+    nbc_focus_original_yes_no: 0,
+    nbc_focus_original_date: null,
+    nbc_focus_original_methodology: "",
+    nbc_focus_apprv_1_b: "",
+    nbc_focus_apprv_1_c: null,
+    nbc_focus_apprv_2_b: "",
+    nbc_focus_apprv_2_c: null,
+    nbc_focus_apprv_3_b: "",
+    nbc_focus_apprv_3_c: null,
+    nbc_focus_apprv_4_b: "",
+    nbc_focus_apprv_4_c: null,
+    nbc_focus_apprv_5_b: "",
+    nbc_focus_apprv_5_c: null
+
+     }
     ]);
   };
 
@@ -606,22 +442,111 @@ const AddDeal = () => {
   // **************************************************** Key Performance Indicators ************************
   const handleKpiChange = (e, index) => {
     const { name, value } = e.target;
-    const list = [...keyPerformanceI];
+    const list = [...kpi];
     list[index][name] = value;
-    setKeyPerformanceI(list);
+    setKpi(list);
   };
 
   const handleKpiAdd = () => {
-    setKeyPerformanceI([
-      ...keyPerformanceI,
-      { label: "", concern: "", date: "", methodology: "" },
+    setKpi([
+      ...kpi,
+      {
+        kpi_factors: "",
+        kpi_yes_no: 0,
+        kpi_concern: "",
+        kpi_expected: null,
+        kpi_resp_party: "",
+        kpi_status: "",
+      }
     ]);
   };
 
   const handleKpiRemove = (index) => {
-    const list = [...keyPerformanceI];
+    const list = [...kpi];
     list.splice(index, 1);
-    setKeyPerformanceI(list);
+    setKpi(list);
+  };
+
+
+  // ***************************************  PLIS *********************************************************
+  const handlePlisChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...plis];
+    list[index][name] = value;
+    setPlis(list);
+  };
+
+  const handlePlisAdd = () => {
+    setPlis([
+      ...plis,
+      {
+        plis_particulars: "",
+        plis_concern: "",
+        plis_weighting: 10,
+        plis_expected:null,
+        plis_status: "",
+      }
+    ]);
+  };
+
+  const handlePlisRemove = (index) => {
+    const list = [...plis];
+    list.splice(index, 1);
+    setPlis(list);
+  };
+
+  //***********************************      Other Conditions precedents    ***************** */
+  const handleOcpsChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...ocps];
+    list[index][name] = value;
+    setOcps(list);
+  };
+
+  const handleOcpsAdd = () => {
+    setOcps([
+      ...ocps,
+      {
+        ocps_factors: "",
+        ocps_yes_no: 1,
+        ocps_concern: "",
+        ocps_expected: null,
+        ocps_resp_party: "",
+        ocps_status: "Active",
+      }
+    ]);
+  };
+
+  const handleOcpsRemove = (index) => {
+    const list = [...ocps];
+    list.splice(index, 1);
+    setOcps(list);
+  };
+
+  //***********************************************PARTIES ********************************************** */
+  const handlePartyChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...parties];
+    list[index][name] = value;
+    setParties(list);
+  };
+
+  const handlePartyAdd = () => {
+    setParties([
+      ...parties,
+      {
+        parties_role: "",
+        parties_party: "",
+        parties_appointed: 0,
+        parties_status: "Pending",
+      }
+    ]);
+  };
+
+  const handlePartyRemove = (index) => {
+    const list = [...parties];
+    list.splice(index, 1);
+    setParties(list);
   };
   // ******************************** note feature ******************************************************/
   const handleNoteChange = (e, index) => {
@@ -640,24 +565,6 @@ const AddDeal = () => {
     list.splice(index, 1);
     setNoteList(list);
   };
-
-  // Daniel's features
-  // const addDealTracking = () => {
-  //   setNoteList([...noteList, { note: "" }]);
-  // };
-
-  // const removeDealTracking = (index) => {
-  //   const list = [...noteList];
-  //   list.splice(index, 1);
-  //   setNoteList(list);
-  // };
-
-  // const handleNoteChange = (e, index) => {
-  //   const { name, value } = e.target;
-  //   const list = [...noteList];
-  //   list[index][name] = value;
-  //   setNoteList(list);
-  // };
 
   // ******************************************* Save Deal and Send to the Backend ***********************************
   const saveDeal = (e) => {
@@ -687,11 +594,17 @@ const AddDeal = () => {
       moratorium: +deal.moratorium,
       repaymentFrequency: deal.repaymentFrequency,
       amortizationStyle: deal.amortizationStyle,
-      mandateLetter: `${deal.mandateLetter ? deal.mandateLetter : 19000101}`,
-      creditApproval: `${deal.creditApproval ? deal.creditApproval : 19000101}`,
-      feeLetter: `${deal.feeLetter ? deal.feeLetter : 19000101}`,
-      expectedClose: `${deal.expectedClose ? deal.expectedClose : 19000101}`,
-      actualClose: `${deal.actualClose ? deal.actualClose : 19000101}`,
+      mandateLetter: `${deal.mandateLetter ? deal.mandateLetter : 20221203}`,
+      creditApproval: `${deal.creditApproval ? deal.creditApproval : 20221203}`,
+      feeLetter: `${deal.feeLetter ? deal.feeLetter : 20221203}`,
+      expectedClose: `${deal.expectedClose ? deal.expectedClose : 20221203}`,
+      actualClose: `${deal.actualClose ? deal.actualClose : 20221203}`,
+      NBC_approval_date: `${
+        deal.nbc_approval_date ? deal.nbc_approval_date : 20221203
+      }`,
+      NBC_submitted_date: `${
+        deal.nbc_submitted_date ? deal.nbc_submitted_date : 20221203
+      }`,
       greenA: JSON.parse(deal.greenA),
       greenB: JSON.parse(deal.greenB),
       greenC: JSON.parse(deal.greenC),
@@ -711,388 +624,14 @@ const AddDeal = () => {
       guaranteeFee: +deal.guaranteeFee,
       monitoringFee: +deal.monitoringFee,
       reimbursible: +deal.reimbursible,
-      NBC_approval_date: `${
-        deal.nbc_approval_date ? deal.nbc_approval_date : 19000101
-      }`,
-      NBC_submitted_date: `${
-        deal.nbc_submitted_date ? deal.nbc_submitted_date : 19000101
-      }`,
       notes: note,
       closed: false,
       nbcFocus: nbcFocus,
-      // keyPerformanceI:keyPerformanceI,
+      parties: parties,
+      plis:plis,
+      ocps: ocps,
 
-      //Parties data
-      parties_1_b: deal.parties_1_b,
-      parties_1_c: JSON.parse(deal.parties_1_c),
-      parties_1_d: deal.parties_1_d,
-
-      parties_2_b: deal.parties_2_b,
-      parties_2_c: JSON.parse(deal.parties_2_c),
-      parties_2_d: deal.parties_2_d,
-
-      parties_3_b: deal.parties_3_b,
-      parties_3_c: JSON.parse(deal.parties_3_c),
-      parties_3_d: deal.parties_3_d,
-
-      parties_4_b: deal.parties_4_b,
-      parties_4_c: JSON.parse(deal.parties_4_c),
-      parties_4_d: deal.parties_4_d,
-
-      parties_5_b: deal.parties_5_b,
-      parties_5_c: JSON.parse(deal.parties_5_c),
-      parties_5_d: deal.parties_5_d,
-
-      parties_6_b: deal.parties_6_b,
-      parties_6_c: JSON.parse(deal.parties_6_c),
-      parties_6_d: deal.parties_6_d,
-
-      parties_7_b: deal.parties_7_b,
-      parties_7_c: JSON.parse(deal.parties_7_c),
-      parties_7_d: deal.parties_7_d,
-
-      parties_8_b: deal.parties_8_b,
-      parties_8_c: JSON.parse(deal.parties_8_c),
-      parties_8_d: deal.parties_8_d,
-
-      parties_9_b: deal.parties_9_b,
-      parties_9_c: JSON.parse(deal.parties_9_c),
-      parties_9_d: deal.parties_9_d,
-
-      parties_10_b: deal.parties_10_b,
-      parties_10_c: JSON.parse(deal.parties_10_c),
-      parties_10_d: deal.parties_10_d,
-
-      parties_11_b: deal.parties_11_b,
-      parties_11_c: JSON.parse(deal.parties_11_c),
-      parties_11_d: deal.parties_11_d,
-
-      // NBC Focus Data
-      // nbc_focus_original_1_b: JSON.parse(deal.nbc_focus_original_1_b),
-      // nbc_focus_original_1_c: `${deal.nbc_focus_original_1_c ? deal.nbc_focus_original_1_c : 19000101}`,
-      // nbc_focus_original_1_d: deal.nbc_focus_original_1_d,
-
-      // nbc_focus_original_2_b: JSON.parse(deal.nbc_focus_original_2_b),
-      // nbc_focus_original_2_c: `${deal.nbc_focus_original_2_c ? deal.nbc_focus_original_2_c : 19000101}`,
-      // nbc_focus_original_2_d: deal.nbc_focus_original_2_d,
-
-      // nbc_focus_original_3_b: JSON.parse(deal.nbc_focus_original_3_b),
-      // nbc_focus_original_3_c: `${deal.nbc_focus_original_3_c ? deal.nbc_focus_original_3_c : 19000101}`,
-      // nbc_focus_original_3_d: deal.nbc_focus_original_3_d,
-
-      // nbc_focus_original_4_b: JSON.parse(deal.nbc_focus_original_4_b),
-      // nbc_focus_original_4_c: `${deal.nbc_focus_original_4_c ? deal.nbc_focus_original_4_c : 19000101}`,
-      // nbc_focus_original_4_d: deal.nbc_focus_original_4_d,
-
-      // nbc_focus_original_5_b: JSON.parse(deal.nbc_focus_original_5_b),
-      // nbc_focus_original_5_c: `${deal.nbc_focus_original_5_c ? deal.nbc_focus_original_5_c : 19000101}`,
-      // nbc_focus_original_5_d: deal.nbc_focus_original_5_d,
-
-      // nbc_focus_apprv_1_b: deal.nbc_focus_apprv_1_b,
-      // nbc_focus_apprv_1_c: `${deal.nbc_focus_apprv_1_c ? deal.nbc_focus_apprv_1_c : 19000101}`,
-
-      // nbc_focus_apprv_2_b: deal.nbc_focus_apprv_2_b,
-      // nbc_focus_apprv_2_c: `${deal.nbc_focus_apprv_2_c ? deal.nbc_focus_apprv_2_c : 19000101}`,
-
-      // nbc_focus_apprv_3_b: deal.nbc_focus_apprv_3_b,
-      // nbc_focus_apprv_3_c: `${deal.nbc_focus_apprv_3_c ? deal.nbc_focus_apprv_3_c : 19000101}`,
-
-      // nbc_focus_apprv_4_b: deal.nbc_focus_apprv_4_b,
-      // nbc_focus_apprv_4_c: `${deal.nbc_focus_apprv_4_c ? deal.nbc_focus_apprv_4_c : 19000101}`,
-
-      // nbc_focus_apprv_5_b: deal.nbc_focus_apprv_5_b,
-      // nbc_focus_apprv_5_c: `${deal.nbc_focus_apprv_5_c ? deal.nbc_focus_apprv_5_c : 19000101}`,
-
-      // PLIS data
-      plis_1_b: deal.plis_1_b,
-      plis_1_c: deal.plis_1_c,
-      plis_1_d: `${deal.plis_1_d ? deal.plis_1_d : 19000101}`,
-      plis_1_e: deal.plis_1_e,
-
-      plis_2_b: deal.plis_2_b,
-      plis_2_c: deal.plis_2_c,
-      plis_2_d: `${deal.plis_2_d ? deal.plis_2_d : 19000101}`,
-      plis_2_e: deal.plis_2_e,
-
-      plis_3_b: deal.plis_3_b,
-      plis_3_c: deal.plis_3_c,
-      plis_3_d: `${deal.plis_3_d ? deal.plis_3_d : 19000101}`,
-      plis_3_e: deal.plis_3_e,
-
-      plis_4_b: deal.plis_4_b,
-      plis_4_c: deal.plis_4_c,
-      plis_4_d: `${deal.plis_4_d ? deal.plis_4_d : 19000101}`,
-      plis_4_e: deal.plis_4_e,
-
-      plis_5_b: deal.plis_5_b,
-      plis_5_c: deal.plis_5_c,
-      plis_5_d: `${deal.plis_5_d ? deal.plis_5_d : 19000101}`,
-      plis_5_e: deal.plis_5_e,
-
-      plis_6_b: deal.plis_6_b,
-      plis_6_c: deal.plis_6_c,
-      plis_6_d: `${deal.plis_6_d ? deal.plis_6_d : 19000101}`,
-      plis_6_e: deal.plis_6_e,
-
-      // other cps data
-      ocps_fac_1_b: JSON.parse(deal.ocps_fac_1_b),
-      ocps_fac_1_c: deal.ocps_fac_1_c,
-      ocps_fac_1_d: `${deal.ocps_fac_1_d ? deal.ocps_fac_1_d : 19000101}`,
-      ocps_fac_1_e: deal.ocps_fac_1_e,
-      ocps_fac_1_f: deal.ocps_fac_1_f,
-
-      ocps_fac_2_b: JSON.parse(deal.ocps_fac_2_b),
-      ocps_fac_2_c: deal.ocps_fac_2_c,
-      ocps_fac_2_d: `${deal.ocps_fac_2_d ? deal.ocps_fac_2_d : 19000101}`,
-      ocps_fac_2_e: deal.ocps_fac_2_e,
-      ocps_fac_2_f: deal.ocps_fac_2_f,
-
-      ocps_fac_3_b: JSON.parse(deal.ocps_fac_3_b),
-      ocps_fac_3_c: deal.ocps_fac_3_c,
-      ocps_fac_3_d: `${deal.ocps_fac_3_d ? deal.ocps_fac_3_d : 19000101}`,
-      ocps_fac_3_e: deal.ocps_fac_3_e,
-      ocps_fac_3_f: deal.ocps_fac_3_f,
-
-      ocps_fac_4_b: JSON.parse(deal.ocps_fac_4_b),
-      ocps_fac_4_c: deal.ocps_fac_4_c,
-      ocps_fac_4_d: `${deal.ocps_fac_4_d ? deal.ocps_fac_4_d : 19000101}`,
-      ocps_fac_4_e: deal.ocps_fac_4_e,
-      ocps_fac_4_f: deal.ocps_fac_4_f,
-
-      ocps_fac_5_b: JSON.parse(deal.ocps_fac_5_b),
-      ocps_fac_5_c: deal.ocps_fac_5_c,
-      ocps_fac_5_d: `${deal.ocps_fac_5_d ? deal.ocps_fac_5_d : 19000101}`,
-      ocps_fac_5_e: deal.ocps_fac_5_e,
-      ocps_fac_5_f: deal.ocps_fac_5_f,
-
-      ocps_fac_6_b: JSON.parse(deal.ocps_fac_6_b),
-      ocps_fac_6_c: deal.ocps_fac_6_c,
-      ocps_fac_6_d: `${deal.ocps_fac_6_d ? deal.ocps_fac_6_d : 19000101}`,
-      ocps_fac_6_e: deal.ocps_fac_6_e,
-      ocps_fac_6_f: deal.ocps_fac_6_f,
-
-      ocps_fac_7_b: JSON.parse(deal.ocps_fac_7_b),
-      ocps_fac_7_c: deal.ocps_fac_7_c,
-      ocps_fac_7_d: `${deal.ocps_fac_7_d ? deal.ocps_fac_7_d : 19000101}`,
-      ocps_fac_7_e: deal.ocps_fac_7_e,
-      ocps_fac_7_f: deal.ocps_fac_7_f,
-
-      ocps_fac_8_b: JSON.parse(deal.ocps_fac_8_b),
-      ocps_fac_8_c: deal.ocps_fac_8_c,
-      ocps_fac_8_d: `${deal.ocps_fac_8_d ? deal.ocps_fac_8_d : 19000101}`,
-      ocps_fac_8_e: deal.ocps_fac_8_e,
-      ocps_fac_8_f: deal.ocps_fac_8_f,
-
-      ocps_fac_9_b: JSON.parse(deal.ocps_fac_9_b),
-      ocps_fac_9_c: deal.ocps_fac_9_c,
-      ocps_fac_9_d: `${deal.ocps_fac_9_d ? deal.ocps_fac_9_d : 19000101}`,
-      ocps_fac_9_e: deal.ocps_fac_9_e,
-      ocps_fac_9_f: deal.ocps_fac_9_f,
-
-      ocps_fac_10_b: JSON.parse(deal.ocps_fac_10_b),
-      ocps_fac_10_c: deal.ocps_fac_10_c,
-      ocps_fac_10_d: `${deal.ocps_fac_10_d ? deal.ocps_fac_10_d : 19000101}`,
-      ocps_fac_10_e: deal.ocps_fac_10_e,
-      ocps_fac_10_f: deal.ocps_fac_10_f,
-
-      ocps_fac_11_b: JSON.parse(deal.ocps_fac_11_b),
-      ocps_fac_11_c: deal.ocps_fac_11_c,
-      ocps_fac_11_d: `${deal.ocps_fac_11_d ? deal.ocps_fac_11_d : 19000101}`,
-      ocps_fac_11_e: deal.ocps_fac_11_e,
-      ocps_fac_11_f: deal.ocps_fac_11_f,
-
-      ocps_fac_12_b: JSON.parse(deal.ocps_fac_12_b),
-      ocps_fac_12_c: deal.ocps_fac_12_c,
-      ocps_fac_12_d: `${deal.ocps_fac_12_d ? deal.ocps_fac_12_d : 19000101}`,
-      ocps_fac_12_e: deal.ocps_fac_12_e,
-      ocps_fac_12_f: deal.ocps_fac_12_f,
-
-      ocps_fac_13_b: JSON.parse(deal.ocps_fac_13_b),
-      ocps_fac_13_c: deal.ocps_fac_13_c,
-      ocps_fac_13_d: `${deal.ocps_fac_13_d ? deal.ocps_fac_13_d : 19000101}`,
-      ocps_fac_13_e: deal.ocps_fac_13_e,
-      ocps_fac_13_f: deal.ocps_fac_13_f,
-
-      ocps_fac_14_b: JSON.parse(deal.ocps_fac_14_b),
-      ocps_fac_14_c: deal.ocps_fac_14_c,
-      ocps_fac_14_d: `${deal.ocps_fac_14_d ? deal.ocps_fac_14_d : 19000101}`,
-      ocps_fac_14_e: deal.ocps_fac_14_e,
-      ocps_fac_14_f: deal.ocps_fac_14_f,
-
-      ocps_fac_15_b: JSON.parse(deal.ocps_fac_15_b),
-      ocps_fac_15_c: deal.ocps_fac_15_c,
-      ocps_fac_15_d: `${deal.ocps_fac_15_d ? deal.ocps_fac_15_d : 19000101}`,
-      ocps_fac_15_e: deal.ocps_fac_15_e,
-      ocps_fac_15_f: deal.ocps_fac_15_f,
-
-      ocps_fac_16_b: JSON.parse(deal.ocps_fac_16_b),
-      ocps_fac_16_c: deal.ocps_fac_16_c,
-      ocps_fac_16_d: `${deal.ocps_fac_16_d ? deal.ocps_fac_16_d : 19000101}`,
-      ocps_fac_16_e: deal.ocps_fac_16_e,
-      ocps_fac_16_f: deal.ocps_fac_16_f,
-
-      ocps_fac_17_b: JSON.parse(deal.ocps_fac_17_b),
-      ocps_fac_17_c: deal.ocps_fac_17_c,
-      ocps_fac_17_d: `${deal.ocps_fac_17_d ? deal.ocps_fac_17_d : 19000101}`,
-      ocps_fac_17_e: deal.ocps_fac_17_e,
-      ocps_fac_17_f: deal.ocps_fac_17_f,
-
-      ocps_fac_18_b: JSON.parse(deal.ocps_fac_18_b),
-      ocps_fac_18_c: deal.ocps_fac_18_c,
-      ocps_fac_18_d: `${deal.ocps_fac_18_d ? deal.ocps_fac_18_d : 19000101}`,
-      ocps_fac_18_e: deal.ocps_fac_18_e,
-      ocps_fac_18_f: deal.ocps_fac_18_f,
-
-      ocps_fac_19_b: JSON.parse(deal.ocps_fac_19_b),
-      ocps_fac_19_c: deal.ocps_fac_19_c,
-      ocps_fac_19_d: `${deal.ocps_fac_19_d ? deal.ocps_fac_19_d : 19000101}`,
-      ocps_fac_19_e: deal.ocps_fac_19_e,
-      ocps_fac_19_f: deal.ocps_fac_19_f,
-
-      ocps_fac_20_b: JSON.parse(deal.ocps_fac_20_b),
-      ocps_fac_20_c: deal.ocps_fac_20_c,
-      ocps_fac_20_d: `${deal.ocps_fac_20_d ? deal.ocps_fac_20_d : 19000101}`,
-      ocps_fac_20_e: deal.ocps_fac_20_e,
-      ocps_fac_20_f: deal.ocps_fac_20_f,
-
-      // Key Performance Indicator
-      key_deal_fac_1_b: JSON.parse(deal.key_deal_fac_1_b), //B//oolean,
-      key_deal_fac_1_c: deal.key_deal_fac_1_c, //V//ARCHAR,
-      key_deal_fac_1_d: `${
-        deal.key_deal_fac_1_d ? deal.key_deal_fac_1_d : 19000101
-      }`, //D//ATE,
-      key_deal_fac_1_e: deal.key_deal_fac_1_e, //V//ARCHAR,
-      key_deal_fac_1_f: deal.key_deal_fac_1_f, //V//ARCHAR,
-      key_deal_fac_2_b: JSON.parse(deal.key_deal_fac_2_b), //B//oolean,
-      key_deal_fac_2_c: deal.key_deal_fac_2_c, //V//ARCHAR,
-      key_deal_fac_2_d: `${
-        deal.key_deal_fac_2_d ? deal.key_deal_fac_2_d : 19000101
-      }`, //D//ATE,
-      key_deal_fac_2_e: deal.key_deal_fac_2_e, //V//ARCHAR,
-      key_deal_fac_2_f: deal.key_deal_fac_2_f, //V//ARCHAR,
-      key_deal_fac_3_b: JSON.parse(deal.key_deal_fac_3_b), //B//oolean,
-      key_deal_fac_3_c: deal.key_deal_fac_3_c, //V//ARCHAR,
-      key_deal_fac_3_d: `${
-        deal.key_deal_fac_3_d ? deal.key_deal_fac_3_d : 19000101
-      }`, //D//ATE,
-      key_deal_fac_3_e: deal.key_deal_fac_3_e, //V//ARCHAR,
-      key_deal_fac_3_f: deal.key_deal_fac_3_f, //V//ARCHAR,
-      key_deal_fac_4_b: JSON.parse(deal.key_deal_fac_4_b), //B//oolean,
-      key_deal_fac_4_c: deal.key_deal_fac_4_c, //V//ARCHAR,
-      key_deal_fac_4_d: `${
-        deal.key_deal_fac_4_d ? deal.key_deal_fac_4_d : 19000101
-      }`, //D//ATE,
-      key_deal_fac_4_e: deal.key_deal_fac_4_e, //V//ARCHAR,
-      key_deal_fac_4_f: deal.key_deal_fac_4_f, //V//ARCHAR,
-      key_deal_fac_5_b: JSON.parse(deal.key_deal_fac_5_b), //B//oolean,
-      key_deal_fac_5_c: deal.key_deal_fac_5_c, //V//ARCHAR,
-      key_deal_fac_5_d: `${
-        deal.key_deal_fac_5_d ? deal.key_deal_fac_5_d : 19000101
-      }`, //D//ATE,
-      key_deal_fac_5_e: deal.key_deal_fac_5_e, //V//ARCHAR,
-      key_deal_fac_5_f: deal.key_deal_fac_5_f, //V//ARCHAR,
-      key_deal_fac_6_b: JSON.parse(deal.key_deal_fac_6_b), //B//oolean,
-      key_deal_fac_6_c: deal.key_deal_fac_6_c, //V//ARCHAR,
-      key_deal_fac_6_d: `${
-        deal.key_deal_fac_6_d ? deal.key_deal_fac_6_d : 19000101
-      }`, //D//ATE,
-      key_deal_fac_6_e: deal.key_deal_fac_6_e, //V//ARCHAR,
-      key_deal_fac_6_f: deal.key_deal_fac_6_f, //V//ARCHAR,
-      key_deal_fac_7_b: JSON.parse(deal.key_deal_fac_7_b), //B//oolean,
-      key_deal_fac_7_c: deal.key_deal_fac_7_c, //V//ARCHAR,
-      key_deal_fac_7_d: `${
-        deal.key_deal_fac_7_d ? deal.key_deal_fac_7_d : 19000101
-      }`, //D//ATE,
-      key_deal_fac_7_e: deal.key_deal_fac_7_e, //V//ARCHAR,
-      key_deal_fac_7_f: deal.key_deal_fac_7_f, //V//ARCHAR,
-      key_deal_fac_8_b: JSON.parse(deal.key_deal_fac_8_b), //B//oolean,
-      key_deal_fac_8_c: deal.key_deal_fac_8_c, //V//ARCHAR,
-      key_deal_fac_8_d: `${
-        deal.key_deal_fac_8_d ? deal.key_deal_fac_8_d : 19000101
-      }`, //D//ATE,
-      key_deal_fac_8_e: deal.key_deal_fac_8_e, //V//ARCHAR,
-      key_deal_fac_8_f: deal.key_deal_fac_8_f, //V//ARCHAR,
-      key_deal_fac_9_b: JSON.parse(deal.key_deal_fac_9_b), //B//oolean,
-      key_deal_fac_9_c: deal.key_deal_fac_9_c, //V//ARCHAR,
-      key_deal_fac_9_d: `${
-        deal.key_deal_fac_9_d ? deal.key_deal_fac_9_d : 19000101
-      }`, //D//ATE,
-      key_deal_fac_9_e: deal.key_deal_fac_9_e, //V//ARCHAR,
-      key_deal_fac_9_f: deal.key_deal_fac_9_f, //V//ARCHAR,
-      key_deal_fac_10_b: JSON.parse(deal.key_deal_fac_10_b), //Boolean,
-      key_deal_fac_10_c: deal.key_deal_fac_10_c, //VARCHAR,
-      key_deal_fac_10_d: `${
-        deal.key_deal_fac_10_d ? deal.key_deal_fac_10_d : 19000101
-      }`, //DATE,
-      key_deal_fac_10_e: deal.key_deal_fac_10_e, //VARCHAR,
-      key_deal_fac_10_f: deal.key_deal_fac_10_f, //VARCHAR,
-      key_deal_fac_11_b: JSON.parse(deal.key_deal_fac_11_b), //Boolean,
-      key_deal_fac_11_c: deal.key_deal_fac_11_c, //VARCHAR,
-      key_deal_fac_11_d: `${
-        deal.key_deal_fac_11_d ? deal.key_deal_fac_11_d : 19000101
-      }`, //DATE,
-      key_deal_fac_11_e: deal.key_deal_fac_11_e, //VARCHAR,
-      key_deal_fac_11_f: deal.key_deal_fac_11_f, //VARCHAR,
-      key_deal_fac_12_b: JSON.parse(deal.key_deal_fac_12_b), //Boolean,
-      key_deal_fac_12_c: deal.key_deal_fac_12_c, //VARCHAR,
-      key_deal_fac_12_d: `${
-        deal.key_deal_fac_12_d ? deal.key_deal_fac_12_d : 19000101
-      }`, //DATE,
-      key_deal_fac_12_e: deal.key_deal_fac_12_e, //VARCHAR,
-      key_deal_fac_12_f: deal.key_deal_fac_12_f, //VARCHAR,
-      key_deal_fac_13_b: JSON.parse(deal.key_deal_fac_13_b), //Boolean,
-      key_deal_fac_13_c: deal.key_deal_fac_13_c, //VARCHAR,
-      key_deal_fac_13_d: `${
-        deal.key_deal_fac_13_d ? deal.key_deal_fac_13_d : 19000101
-      }`, //DATE,
-      key_deal_fac_13_e: deal.key_deal_fac_13_e, //VARCHAR,
-      key_deal_fac_13_f: deal.key_deal_fac_13_f, //VARCHAR,
-      key_deal_fac_14_b: JSON.parse(deal.key_deal_fac_14_b), //Boolean,
-      key_deal_fac_14_c: deal.key_deal_fac_14_c, //VARCHAR,
-      key_deal_fac_14_d: `${
-        deal.key_deal_fac_14_d ? deal.key_deal_fac_14_d : 19000101
-      }`, //DATE,
-      key_deal_fac_14_e: deal.key_deal_fac_14_e, //VARCHAR,
-      key_deal_fac_14_f: deal.key_deal_fac_14_f, //VARCHAR,
-      key_deal_fac_15_b: JSON.parse(deal.key_deal_fac_15_b), //Boolean,
-      key_deal_fac_15_c: deal.key_deal_fac_15_c, //VARCHAR,
-      key_deal_fac_15_d: `${
-        deal.key_deal_fac_15_d ? deal.key_deal_fac_15_d : 19000101
-      }`, //DATE,
-      key_deal_fac_15_e: deal.key_deal_fac_15_e, //VARCHAR,
-      key_deal_fac_15_f: deal.key_deal_fac_15_f, //VARCHAR,
-      key_deal_fac_16_b: JSON.parse(deal.key_deal_fac_16_b), //Boolean,
-      key_deal_fac_16_c: `${
-        deal.key_deal_fac_16_c ? deal.key_deal_fac_16_c : 19000101
-      }`, //DATE,
-      key_deal_fac_17_b: JSON.parse(deal.key_deal_fac_17_b), //Boolean,
-      key_deal_fac_17_c: `${
-        deal.key_deal_fac_17_c ? deal.key_deal_fac_17_c : 19000101
-      }`, //DATE,
-      key_deal_fac_18_b: JSON.parse(deal.key_deal_fac_18_b), //Boolean,
-      key_deal_fac_18_c: `${
-        deal.key_deal_fac_18_c ? deal.key_deal_fac_18_c : 19000101
-      }`, //DATE,
-      key_deal_fac_19_b: JSON.parse(deal.key_deal_fac_19_b), //Boolean,
-      key_deal_fac_19_c: `${
-        deal.key_deal_fac_19_c ? deal.key_deal_fac_19_c : 19000101
-      }`, //DATE,
-      key_deal_fac_20_b: JSON.parse(deal.key_deal_fac_20_b), //Boolean,
-      key_deal_fac_20_c: `${
-        deal.key_deal_fac_20_c ? deal.key_deal_fac_20_c : 19000101
-      }`, //DATE,
-      key_deal_fac_21_b: JSON.parse(deal.key_deal_fac_21_b), //Boolean,
-      key_deal_fac_21_c: `${
-        deal.key_deal_fac_21_c ? deal.key_deal_fac_21_c : 19000101
-      }`, //DATE,
-      key_deal_fac_22_b: JSON.parse(deal.key_deal_fac_22_b), //Boolean,
-      key_deal_fac_22_c: `${
-        deal.key_deal_fac_22_c ? deal.key_deal_fac_22_c : 19000101
-      }`, //DATE,
-      key_deal_fac_23_b: JSON.parse(deal.key_deal_fac_23_b), //Boolean,
-      key_deal_fac_23_c: `${
-        deal.key_deal_fac_23_c ? deal.key_deal_fac_23_c : 19000101
-      }`, //DATE
+      kpi: kpi,
     };
 
     // ******************************************  Axios : Post Request ****************************************
@@ -1111,8 +650,23 @@ const AddDeal = () => {
   const newDeal = () => {
     setDeal(initialDealState);
     setNoteList([{ note: "" }]);
-    setNbcFocus([{ label: "", concern: "", date: "", methodology: "" }]);
-    setKeyPerformanceI([{ label: "", concern: "", date: "", methodology: "" }]);
+    setNbcFocus([{nbc_focus_original: "",
+    nbc_focus_original_yes_no: 0,
+    nbc_focus_original_date: null,
+    nbc_focus_original_methodology: "",
+    nbc_focus_apprv_1_b: "",
+    nbc_focus_apprv_1_c: null,
+    nbc_focus_apprv_2_b: "",
+    nbc_focus_apprv_2_c: null,
+    nbc_focus_apprv_3_b: "",
+    nbc_focus_apprv_3_c: null,
+    nbc_focus_apprv_4_b: "",
+    nbc_focus_apprv_4_c: null,
+    nbc_focus_apprv_5_b: "",
+    nbc_focus_apprv_5_c: null
+
+     }]);
+    // setKeyPerformanceI([{ label: "", concern: "", date: "", methodology: "" }]);
     // setDealTracking()
     setSubmitted(false);
     setActiveTab("first");
@@ -2484,7 +2038,7 @@ const AddDeal = () => {
                                     // style={{ margin: "0.8em", width: "60%" }}
                                     size="sm"
                                     value={singleNote.nbcFocus}
-                                    name="label"
+                                    name="nbc_focus_original"
                                     onChange={(e) => handleNbcChange(e, index)}
                                   />
                                   <br />
@@ -2496,60 +2050,13 @@ const AddDeal = () => {
                                 </button> */}
                                 </div>
                               ))}
-                              {/* <button
-                              type="button"
-                              onClick={handleNoteAdd}
-                              style={{
-                                fontSize: "10px",
-                                padding: "2px 10px",
-                                margin: "8px",
-                                background: "steelblue",
-                                color: "white",
-                                borderRadius: "3px",
-                              }}
-                            >
-                              Add
-                            </button> */}
-                              {/* {noteList.map((singleNote, index) => (
-                              <div class="input-group">
-                                <Fm.Control
-                                  type='text'
-                                  style={{ margin: "0.8em", width: "60%" }}
-                                  size="sm"
-                                  value={singleNote.note}
-                                  name="note"
-                                  onChange={(e) => handleNoteChange(e, index)}
-                                /> */}
-
-                              {/* <button
-                                  type="button"
-                                  style={{
-                                    fontSize: "10px",
-                                    padding: "2px 10px",
-                                    margin: "8px",
-                                    background: "steelblue",
-                                    color: "white",
-                                    borderRadius: "3px",
-                                  }}
-                                  onClick={handleNoteRemove}
-                                >
-                                  x
-                                </button>
-                              </div>
-                            ))} */}
+                              
                             </Col>
                             <Col sm={2} className="mt-1 mb-1">
                               <p>CONCERNS</p>
                               {nbcFocus.map((singleNote, index) => (
                                 <div class="input-group mt-2 ">
-                                  {/* <Fm.Control
-                                  type='text'
-                                  style={{ margin: "0.8em", width: "60%" }}
-                                  size="sm"
-                                  value={singleNote.note}
-                                  name="note"
-                                  onChange={(e) => handleNoteChange(e, index)}
-                                /> */}
+                                 
 
                                   <Select
                                     className="py-1 mt-1 "
@@ -2558,19 +2065,13 @@ const AddDeal = () => {
                                     value={singleNote.nbcFocus}
                                     // onChange={handleInputChange}
                                     onChange={(e) => handleNbcChange(e, index)}
-                                    name="concern"
+                                    name="nbc_focus_original_yes_no"
                                   >
                                     <option>Yes/No</option>
-                                    <option value={"Yes"}>Yes</option>
-                                    <option value={"No"}>No</option>
+                                    <option value={1} name="nbc_focus_original_yes_no">Yes</option>
+                                    <option value={0} name="nbc_focus_original_yes_no">No</option>
                                   </Select>
 
-                                  {/* <button
-                                  type="button"
-                                  onClick={handleNoteRemove}
-                                >
-                                  x
-                                </button> */}
                                 </div>
                               ))}
                             </Col>
@@ -2582,60 +2083,12 @@ const AddDeal = () => {
                                     type="date"
                                     size="sm"
                                     value={singleNote.nbcFocus}
-                                    name="date"
+                                    name="nbc_focus_original_date"
                                     onChange={(e) => handleNbcChange(e, index)}
                                   />
-
-                                  {/* <button
-                                  type="button"
-                                  onClick={handleNoteRemove}
-                                >
-                                  x
-                                </button> */}
                                 </div>
                               ))}
-                              {/* <span class="iconify" data-icon="fluent:add-circle-16-filled"></span> */}
-                              {/* <button
-                              type="button"
-                              onClick={handleNoteAdd}
-                              style={{
-                                fontSize: "10px",
-                                padding: "2px 10px",
-                                margin: "8px",
-                                background: "steelblue",
-                                color: "white",
-                                borderRadius: "3px",
-                              }}
-                            >
-                              Add
-                            </button>
-                            {noteList.map((singleNote, index) => (
-                              <div class="input-group">
-                                <Fm.Control
-                                  type='date'
-                                  style={{ margin: "0.8em", width: "60%" }}
-                                  size="sm"
-                                  value={singleNote.note}
-                                  name="note"
-                                  onChange={(e) => handleNoteChange(e, index)}
-                                />
-                                
-                                <button
-                                  type="button"
-                                  style={{
-                                    fontSize: "10px",
-                                    padding: "2px 10px",
-                                    margin: "8px",
-                                    background: "steelblue",
-                                    color: "white",
-                                    borderRadius: "3px",
-                                  }}
-                                  onClick={handleNoteRemove}
-                                >
-                                  x
-                                </button>
-                              </div>
-                            ))} */}
+                             
                             </Col>
                             <Col sm={3} className="">
                               <p>METHODOLOGY</p>
@@ -2646,7 +2099,7 @@ const AddDeal = () => {
                                     style={{ width: "30%", height: "10px" }}
                                     size="sm"
                                     value={singleNote.nbcFocus}
-                                    name="methodology"
+                                    name="nbc_focus_original_methodology"
                                     onChange={(e) => handleNbcChange(e, index)}
                                   />
 
@@ -2680,276 +2133,14 @@ const AddDeal = () => {
                                   </Fm.Label>
                                 </Col>
                                 <Col sm={3}>
-                                  {/* <Fm.Check
-                                    inline
-                                    label="Yes"
-                                    type="radio"
-                                    onChange={handleInputChange}
-                                    name="nbc_focus_original_1_b"
-                                    value={true}
-                                  /> */}
-                                  {/* <Fm.Check
-                                    inline
-                                    label="No"
-                                    type="radio"
-                                    onChange={handleInputChange}
-                                    name="nbc_focus_original_1_b"
-                                    value={false}
-                                    defaultChecked
-                                  /> */}
-                                </Col>
-                                <Col sm={3}>
-                                  {/* <Input
-                                    size="sm"
-                                    type="date"
-                                    value={deal.nbc_focus_original_1_c}
-                                    onChange={handleInputChange}
-                                    name="nbc_focus_original_1_c"
-                                    style={{
-                                      width: "80%",
-                                      padding: "2px 1px",
-                                      focus: "none",
-                                    }}
-                                  /> */}
-                                </Col>
-                                <Col sm={3}>
-                                  {/* <Fm.Control
-                                    as="textarea"
-                                    placeholder=" "
-                                    value={deal.nbc_focus_original_1_d}
-                                    onChange={handleInputChange}
-                                    name="nbc_focus_original_1_d"
-                                    style={{ height: "30px" }}
-                                  ></Fm.Control> */}
+                                 
                                 </Col>
                               </Row>
                             </Fm.Group>
                           </Col>
                         </Col>
 
-                        {/* <Col sm={12}>
-                          <Col className="pb-2">
-                            <Fm.Group>
-                              <Row>
-                                <Col sm={3}>
-                                  <Fm.Label style={{ paddingRight: "1rem" }}>
-                                    Sponsor Equity:
-                                  </Fm.Label>
-                                </Col>
-                                <Col sm={3}>
-                                  <Fm.Check
-                                    inline
-                                    label="Yes"
-                                    type="radio"
-                                    onChange={handleInputChange}
-                                    name="nbc_focus_original_2_b"
-                                    value={true}
-                                  />
-                                  <Fm.Check
-                                    inline
-                                    label="No"
-                                    type="radio"
-                                    onChange={handleInputChange}
-                                    name="nbc_focus_original_2_b"
-                                    value={false}
-                                    defaultChecked
-                                  />
-                                </Col>
-                                <Col sm={3}>
-                                  <Input
-                                    size="sm"
-                                    type="date"
-                                    value={deal.nbc_focus_original_2_c}
-                                    onChange={handleInputChange}
-                                    name="nbc_focus_original_2_c"
-                                    style={{
-                                      width: "80%",
-                                      padding: "2px 1px",
-                                      focus: "none",
-                                    }}
-                                  />
-                                </Col>
-                                <Col sm={3}>
-                                  <Fm.Control
-                                    as="textarea"
-                                    placeholder=""
-                                    value={deal.nbc_focus_original_2_d}
-                                    onChange={handleInputChange}
-                                    name="nbc_focus_original_2_d"
-                                    style={{ height: "30px" }}
-                                  ></Fm.Control>
-                                </Col>
-                              </Row>
-                            </Fm.Group>
-                          </Col> */}
-                        {/* <Col sm={12}>
-                            <Col className="pb-2">
-                              <Fm.Group>
-                                <Row>
-                                  <Col sm={3}>
-                                    <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      Regulatory Approval:
-                                    </Fm.Label>
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Check
-                                      inline
-                                      label="Yes"
-                                      type="radio"
-                                      onChange={handleInputChange}
-                                      name="nbc_focus_original_3_b"
-                                      value={true}
-                                    />
-                                    <Fm.Check
-                                      inline
-                                      label="No"
-                                      type="radio"
-                                      onChange={handleInputChange}
-                                      name="nbc_focus_original_3_b"
-                                      value={false}
-                                      defaultChecked
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Input
-                                      size="sm"
-                                      type="date"
-                                      value={deal.nbc_focus_original_3_c}
-                                      onChange={handleInputChange}
-                                      name="nbc_focus_original_3_c"
-                                      style={{
-                                        width: "80%",
-                                        padding: "2px 1px",
-                                        focus: "none",
-                                      }}
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Control
-                                      as="textarea"
-                                      placeholder=""
-                                      value={deal.nbc_focus_original_3_d}
-                                      onChange={handleInputChange}
-                                      name="nbc_focus_original_3_d"
-                                      style={{ height: "30px" }}
-                                    ></Fm.Control>
-                                  </Col>
-                                </Row>
-                              </Fm.Group>
-                            </Col>
-                          </Col> */}
-                        {/* <Col sm={12}>
-                            <Col className="pb-2">
-                              <Fm.Group>
-                                <Row>
-                                  <Col sm={3}>
-                                    <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      Technical Validation:
-                                    </Fm.Label>
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Check
-                                      inline
-                                      label="Yes"
-                                      type="radio"
-                                      onChange={handleInputChange}
-                                      name="nbc_focus_original_4_b"
-                                      value={true}
-                                    />
-                                    <Fm.Check
-                                      inline
-                                      label="No"
-                                      type="radio"
-                                      onChange={handleInputChange}
-                                      name="nbc_focus_original_4_b"
-                                      value={false}
-                                      defaultChecked
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Input
-                                      size="sm"
-                                      type="date"
-                                      value={deal.nbc_focus_original_4_c}
-                                      onChange={handleInputChange}
-                                      name="nbc_focus_original_4_c"
-                                      style={{
-                                        width: "80%",
-                                        padding: "2px 1px",
-                                        focus: "none",
-                                      }}
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Control
-                                      as="textarea"
-                                      placeholder=" "
-                                      value={deal.nbc_focus_original_4_d}
-                                      onChange={handleInputChange}
-                                      name="nbc_focus_original_4_d"
-                                      style={{ height: "30px" }}
-                                    ></Fm.Control>
-                                  </Col>
-                                </Row>
-                              </Fm.Group>
-                            </Col>
-                          </Col>
-                          <Col sm={12}>
-                            <Col className="pb-2">
-                              <Fm.Group>
-                                <Row>
-                                  <Col sm={3}>
-                                    <Fm.Label style={{ paddingRight: "1rem" }}>
-                                      Competitive Landscape:
-                                    </Fm.Label>
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Check
-                                      inline
-                                      label="Yes"
-                                      type="radio"
-                                      onChange={handleInputChange}
-                                      name="nbc_focus_original_5_b"
-                                      value={true}
-                                    />
-                                    <Fm.Check
-                                      inline
-                                      label="No"
-                                      type="radio"
-                                      onChange={handleInputChange}
-                                      name="nbc_focus_original_5_b"
-                                      value={false}
-                                      defaultChecked
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Input
-                                      size="sm"
-                                      type="date"
-                                      value={deal.nbc_focus_original_5_c}
-                                      onChange={handleInputChange}
-                                      name="nbc_focus_original_5_c"
-                                      style={{
-                                        width: "80%",
-                                        padding: "2px 1px",
-                                        focus: "none",
-                                      }}
-                                    />
-                                  </Col>
-                                  <Col sm={3}>
-                                    <Fm.Control
-                                      as="textarea"
-                                      placeholder=""
-                                      value={deal.nbc_focus_original_5_d}
-                                      onChange={handleInputChange}
-                                      name="nbc_focus_original_5_d"
-                                      style={{ height: "30px" }}
-                                    ></Fm.Control>
-                                  </Col>
-                                </Row>
-                              </Fm.Group>
-                            </Col>
-                          </Col> */}
+                        
                         <Col sm={12}>
                           <p style={{ fontWeight: "bold" }}>
                             NBC Paper (Link to Doc)
@@ -2977,7 +2168,7 @@ const AddDeal = () => {
                                     type="radio"
                                     onChange={handleInputChange}
                                     name="nbc_focus_apprv_1_b"
-                                    value={true}
+                                    value={"Yes"}
                                   />
                                   <Fm.Check
                                     inline
@@ -2985,7 +2176,7 @@ const AddDeal = () => {
                                     type="radio"
                                     onChange={handleInputChange}
                                     name="nbc_focus_apprv_1_b"
-                                    value={false}
+                                    value={"No"}
                                     defaultChecked
                                   />
                                 </Col>
@@ -3239,14 +2430,14 @@ const AddDeal = () => {
                           <Row>
                             <Col sm={3} className="mt-1 mb-1">
                               <p>Role</p>
-                              {nbcFocus.map((singleNote, index) => (
+                              {parties.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                                   <Fm.Control
                                     type="text"
                                     size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="label"
-                                    onChange={(e) => handleNbcChange(e, index)}
+                                    value={singleNote.parties}
+                                    name="parties_role"
+                                    onChange={(e) => handlePartyChange(e, index)}
                                   />
                                   <br />
                                 </div>
@@ -3254,51 +2445,51 @@ const AddDeal = () => {
                             </Col>
                             <Col sm={2} className="mt-1 mb-1">
                               <p>Appointed</p>
-                              {nbcFocus.map((singleNote, index) => (
+                              {parties.map((singleNote, index) => (
                                 <div class="input-group mt-2 ">
                                   <Select
                                     className="py-1 mt-1 "
                                     type="text"
                                     size="md"
-                                    value={singleNote.nbcFocus}
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                    name="appointed"
+                                    value={singleNote.parties}
+                                    onChange={(e) => handlePartyChange(e, index)}
+                                    name="parties_appointed"
                                   >
                                     <option>Yes/No</option>
-                                    <option value={"Yes"}>Yes</option>
-                                    <option value={"No"}>No</option>
+                                    <option value={1} name="parties_appointed">Yes</option>
+                                    <option value={2} name="parties_appointed">No</option>
                                   </Select>
                                 </div>
                               ))}
                             </Col>
                             <Col sm={3} className=" mb-1">
                               <p>Party</p>
-                              {nbcFocus.map((singleNote, index) => (
+                              {parties.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                                   <Fm.Control
                                     type="text"
                                     size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="party"
-                                    onChange={(e) => handleNbcChange(e, index)}
+                                    value={singleNote.parties}
+                                    name="parties_party"
+                                    onChange={(e) => handlePartyChange(e, index)}
                                   />
                                 </div>
                               ))}
                             </Col>
                             <Col sm={3} className="">
                               <p>Status</p>
-                              {nbcFocus.map((singleNote, index) => (
+                              {parties.map((singleNote, index) => (
                                 <div class="input-group  mt-2">
                                   <Fm.Control
                                     type="text"
                                     style={{ width: "30%", height: "10px" }}
                                     size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="transactionstatus"
-                                    onChange={(e) => handleNbcChange(e, index)}
+                                    value={singleNote.parties}
+                                    name="parties_status"
+                                    onChange={(e) => handlePartyChange(e, index)}
                                   />
                                   <button
-                                    onClick={handleNbcRemove}
+                                    onClick={handlePartyRemove}
                                     className="mt-1"
                                     style={{ height: "25px", border: "none" }}
                                   >
@@ -3313,7 +2504,7 @@ const AddDeal = () => {
                         </Col>
                         <div className="d-flex justify-content-end ml-2">
                           <p className="">
-                            <GrAdd onClick={handleNbcAdd} />
+                            <GrAdd onClick={handlePartyAdd} />
                           </p>
                         </div>
                       </Row>
@@ -3329,19 +2520,18 @@ const AddDeal = () => {
                     <Container1>
                       <br />
                       <Row className="py-1">
-                        
                       <Col sm={12}>
                           <Row>
                             <Col sm={2} className="mt-1 mb-1">
                               <p>Particulars</p>
-                              {nbcFocus.map((singleNote, index) => (
+                              {plis.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                                   <Fm.Control
                                     type="text"
                                     size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="label"
-                                    onChange={(e) => handleNbcChange(e, index)}
+                                    value={singleNote.plis}
+                                    name="plis_particulars"
+                                    onChange={(e) => handlePlisChange(e, index)}
                                   />
                                   <br />
                                 </div>
@@ -3349,66 +2539,66 @@ const AddDeal = () => {
                             </Col>
                             <Col sm={2} className="mb-1">
                               <p>Concern</p>
-                              {nbcFocus.map((singleNote, index) => (
+                              {plis.map((singleNote, index) => (
                                 <div class="input-group mt-1 mb-1 ">
                                   <Select
                                     className="py-1 mt-1 "
                                     type="text"
                                     size="md"
-                                    value={singleNote.nbcFocus}
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                    name="appointed"
+                                    value={singleNote.plis}
+                                    onChange={(e) => handlePlisChange(e, index)}
+                                    name="plis_concern"
                                   >
                                     <option>Concern</option>
-                                    <option value={"High"}>High</option>
-                                    <option value={"medium"}>Medium</option>
-                                    <option value={"Low"}>Low</option>
+                                    <option value={"High"}  name="plis_concern">High</option>
+                                    <option value={"medium"}  name="plis_concern">Medium</option>
+                                    <option value={"Low"}  name="plis_concern">Low</option>
                                   </Select>
                                 </div>
                               ))}
                             </Col>
                             <Col sm={2} className=" mb-1">
                               <p>Weight (%)</p>
-                              {nbcFocus.map((singleNote, index) => (
+                              {plis.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                                   <Fm.Control
                                     type="number"
                                     size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="party"
-                                    onChange={(e) => handleNbcChange(e, index)}
+                                    value={singleNote.plis}
+                                    name="plis_weighting"
+                                    onChange={(e) => handlePlisChange(e, index)}
                                   />
                                 </div>
                               ))}
                             </Col>
                             <Col sm={2} className=" mb-1">
                               <p>Expected</p>
-                              {nbcFocus.map((singleNote, index) => (
+                              {plis.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                                   <Fm.Control
                                     type="text"
                                     size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="party"
-                                    onChange={(e) => handleNbcChange(e, index)}
+                                    value={singleNote.plis}
+                                    name="plis_expected"
+                                    onChange={(e) => handlePlisChange(e, index)}
                                   />
                                 </div>
                               ))}
                             </Col>
                             <Col sm={3} className="">
                               <p>Status</p>
-                              {nbcFocus.map((singleNote, index) => (
+                              {plis.map((singleNote, index) => (
                                 <div class="input-group  mt-2">
                                   <Fm.Control
                                     type="date"
                                     style={{ width: "30%", height: "10px" }}
                                     size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="transactionstatus"
-                                    onChange={(e) => handleNbcChange(e, index)}
+                                    value={singleNote.plis}
+                                    name="plis_status"
+                                    onChange={(e) => handlePlisChange(e, index)}
                                   />
                                   <button
-                                    onClick={handleNbcRemove}
+                                    onClick={handlePlisRemove}
                                     className="mt-1"
                                     style={{ height: "25px", border: "none" }}
                                   >
@@ -3423,7 +2613,7 @@ const AddDeal = () => {
                         </Col>
                         <div className="d-flex justify-content-end ml-2">
                           <p className="">
-                            <GrAdd onClick={handleNbcAdd} />
+                            <GrAdd onClick={handlePlisAdd} />
                           </p>
                         </div>
                       </Row>
@@ -3435,135 +2625,121 @@ const AddDeal = () => {
                     title="OTHER CONDITIONS PRECEDENT"
                     style={{ fontSize: "12px" }}
                   >
-
                     <Row className="py-1">
-                    <Col sm={12}>
-                          <Row>
-                            <Col sm={2} className="mt-1 mb-1">
-                              <p>Factors</p>
-                              {nbcFocus.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                                  <Fm.Control
-                                    type="text"
-                                    size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="label"
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                  />
-                                  <br />
-                                </div>
-                              ))}
-                            </Col>
-                            <Col sm={2} className="mb-1">
-                              <p>Yes/No</p>
-                              {nbcFocus.map((singleNote, index) => (
-                                <div class="input-group mt-1 mb-1 ">
-                                  <Select
-                                    className="py-1 mt-1 "
-                                    type="text"
-                                    size="md"
-                                    value={singleNote.nbcFocus}
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                    name="appointed"
-                                  >
-                                    <option >Select</option>
-                                    <option value={"Yes"}>Yes</option>
-                                    <option value={"No"}>No</option>
-                                  </Select>
-                                </div>
-                              ))}
-                            </Col>
-                            <Col sm={2} className="mb-1">
-                              <p>Concern</p>
-                              {nbcFocus.map((singleNote, index) => (
-                                <div class="input-group mt-1 mb-1 ">
-                                  <Select
-                                    className="py-1 mt-1 "
-                                    type="text"
-                                    size="md"
-                                    value={singleNote.nbcFocus}
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                    name="appointed"
-                                  >
-                                    <option>Concern</option>
-                                    <option value={"High"}>High</option>
-                                    <option value={"Medium"}>Medium</option>
-                                    <option value={"Low"}>Low</option>
-                                  </Select>
-                                </div>
-                              ))}
-                            </Col>
-                            <Col sm={2} className=" mb-1">
-                              <p>Expected Date</p>
-                              {nbcFocus.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                                  <Fm.Control
-                                    type="date"
-                                    size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="party"
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                  />
-                                </div>
-                              ))}
-                            </Col>
-                            <Col sm={2} className=" mb-1">
-                              <p>Resp Party</p>
-                              {nbcFocus.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                                  <Fm.Control
-                                    type="text"
-                                    size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="party"
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                  />
-                                </div>
-                              ))}
-                            </Col>
-                            <Col sm={2} className="">
-                              <p>Status</p>
-                              {nbcFocus.map((singleNote, index) => (
-                                <div class="input-group  mt-2">
-                                  <Fm.Control
-                                    type="text"
-                                    // style={{ width: "30%", height: "10px" }}
-                                    size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="transactionstatus"
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                  />
-                                  <button
-                                    onClick={handleNbcRemove}
-                                    className="mt-1"
-                                    style={{ height: "25px", border: "none" }}
-                                  >
-                                    <i className="">
-                                      <FiDelete />
-                                    </i>
-                                  </button>
-                                </div>
-                              ))}
-                            </Col>
-                          </Row>
-                        </Col>
-                        <div className="d-flex justify-content-end ml-2">
-                          <p className="">
-                            <GrAdd onClick={handleNbcAdd} />
-                          </p>
-                        </div>
-
-                      
-                        
-                        
-                        
-                       
-                        
-                        
-                         
-
-                      
-                    
+                      <Col sm={12}>
+                        <Row>
+                          <Col sm={2} className="mt-1 mb-1">
+                            <p>Factors</p>
+                            {ocps.map((singleNote, index) => (
+                              <div class="input-group mt-2">
+                                <Fm.Control
+                                  type="text"
+                                  size="sm"
+                                  value={singleNote.ocps}
+                                  name="ocps_factors"
+                                  onChange={(e) => handleOcpsChange(e, index)}
+                                />
+                                <br />
+                              </div>
+                            ))}
+                          </Col>
+                          <Col sm={2} className="mb-1">
+                            <p>Yes/No</p>
+                            {ocps.map((singleNote, index) => (
+                              <div class="input-group mt-1 mb-1 ">
+                                <Select
+                                  className="py-1 mt-1 "
+                                  type="text"
+                                  size="md"
+                                  value={singleNote.ocps}
+                                  onChange={(e) => handleOcpsChange(e, index)}
+                                  name="ocps_yes_no"
+                                >
+                                  <option>Select</option>
+                                  <option value={1} name="ocps_yes_no">Yes</option>
+                                  <option value={0} name="ocps_yes_no">No</option>
+                                </Select>
+                              </div>
+                            ))}
+                          </Col>
+                          <Col sm={2} className="mb-1">
+                            <p>Concern</p>
+                            {ocps.map((singleNote, index) => (
+                              <div class="input-group mt-1 mb-1 ">
+                                <Select
+                                  className="py-1 mt-1 "
+                                  type="text"
+                                  size="md"
+                                  value={singleNote.ocps}
+                                  onChange={(e) => handleOcpsChange(e, index)}
+                                  name="ocps_concern"
+                                >
+                                  <option>Concern</option>
+                                  <option value={"High"}  name="ocps_concern">High</option>
+                                  <option value={"Medium"}  name="ocps_concern">Medium</option>
+                                  <option value={"Low"}  name="ocps_concern">Low</option>
+                                </Select>
+                              </div>
+                            ))}
+                          </Col>
+                          <Col sm={2} className=" mb-1">
+                            <p>Expected Date</p>
+                            {ocps.map((singleNote, index) => (
+                              <div class="input-group mt-2">
+                                <Fm.Control
+                                  type="date"
+                                  size="sm"
+                                  value={singleNote.ocps}
+                                  name="ocps_expected"
+                                  onChange={(e) => handleOcpsChange(e, index)}
+                                />
+                              </div>
+                            ))}
+                          </Col>
+                          <Col sm={2} className=" mb-1">
+                            <p>Resp Party</p>
+                            {ocps.map((singleNote, index) => (
+                              <div class="input-group mt-2">
+                                <Fm.Control
+                                  type="text"
+                                  size="sm"
+                                  value={singleNote.ocps}
+                                  name="ocps_resp_party"
+                                  onChange={(e) => handleOcpsChange(e, index)}
+                                />
+                              </div>
+                            ))}
+                          </Col>
+                          <Col sm={2} className="">
+                            <p>Status</p>
+                            {ocps.map((singleNote, index) => (
+                              <div class="input-group  mt-2">
+                                <Fm.Control
+                                  type="text"
+                                  size="sm"
+                                  value={singleNote.ocps}
+                                  name="ocps_status"
+                                  onChange={(e) => handleOcpsChange(e, index)}
+                                />
+                                <button
+                                  onClick={handleOcpsRemove}
+                                  className="mt-1"
+                                  style={{ height: "25px", border: "none" }}
+                                >
+                                  <i className="">
+                                    <FiDelete />
+                                  </i>
+                                </button>
+                              </div>
+                            ))}
+                          </Col>
+                        </Row>
+                      </Col>
+                      <div className="d-flex justify-content-end ml-2">
+                        <p className="">
+                          <GrAdd onClick={handleOcpsAdd} />
+                        </p>
+                      </div>
                     </Row>
                   </Tab>
 
@@ -3576,8 +2752,128 @@ const AddDeal = () => {
                   >
                     <br />
                     <Row className="py-1">
+
+                    <Col sm={12}>
+                          <Row>
+                            <Col sm={2} className="mt-1 mb-1">
+                              <p>Factors</p>
+                              {kpi.map((singleNote, index) => (
+                                <div class="input-group mt-2">
+                                  <Fm.Control
+                                    type="text"
+                                    size="sm"
+                                    value={singleNote.kpi}
+                                    name="kpi_factors"
+                                    onChange={(e) => handleKpiChange(e, index)}
+                                  />
+                                  <br />
+                                </div>
+                              ))}
+                            </Col>
+                            <Col sm={2} className="mb-1">
+                              <p>Yes/No</p>
+                              {kpi.map((singleNote, index) => (
+                                <div class="input-group mt-1 mb-1 ">
+                                  <Select
+                                    className="py-1 mt-1 "
+                                    type="text"
+                                    size="md"
+                                    value={singleNote.kpi}
+                                    onChange={(e) => handleKpiChange(e, index)}
+                                    name="kpi_yes_no"
+                                  >
+                                    <option>Yes/No</option>
+                                    <option value={1}  name="kpi_yes_no">Yes</option>
+                                    <option value={0}  name="kpi_yes_no">No</option>
+                                  </Select>
+                                </div>
+                              ))}
+                            </Col>
+                            <Col sm={2} className="mb-1">
+                              <p>Concern</p>
+                              {kpi.map((singleNote, index) => (
+                                <div class="input-group mt-1 mb-1 ">
+                                  <Select
+                                    className="py-1 mt-1 "
+                                    type="text"
+                                    size="md"
+                                    value={singleNote.kpi}
+                                    onChange={(e) => handleKpiChange(e, index)}
+                                    name="kpi_concern"
+                                  >
+                                    <option>Concern</option>
+                                    <option value={"High"}  name="kpi_concern">High</option>
+                                    <option value={"medium"}  name="kpi_concern">Medium</option>
+                                    <option value={"Low"}  name="kpi_concern">Low</option>
+                                  </Select>
+                                </div>
+                              ))}
+                            </Col>
+                           
+                            <Col sm={2} className=" mb-1">
+                              <p>Expected</p>
+                              {kpi.map((singleNote, index) => (
+                                <div class="input-group mt-2">
+                                  <Fm.Control
+                                    type="date"
+                                    size="sm"
+                                    value={singleNote.kpi}
+                                    name="kpi_expected"
+                                    onChange={(e) => handleKpiChange(e, index)}
+                                  />
+                                </div>
+                              ))}
+                            </Col>
+                            <Col sm={2} className=" mb-1">
+                              <p>Responsible Party</p>
+                              {kpi.map((singleNote, index) => (
+                                <div class="input-group mt-2">
+                                  <Fm.Control
+                                    type="text"
+                                    size="sm"
+                                    value={singleNote.kpi}
+                                    name="kpi_resp_party"
+                                    onChange={(e) => handleKpiChange(e, index)}
+                                  />
+                                </div>
+                              ))}
+                            </Col>
+                            <Col sm={2} className="">
+                              <p>Status</p>
+                              {kpi.map((singleNote, index) => (
+                                <div class="input-group  mt-2">
+                                  <Fm.Control
+                                    type="text"
+                                    style={{ width: "30%", height: "10px" }}
+                                    size="sm"
+                                    value={singleNote.kpi}
+                                    name="kpi_status"
+                                    onChange={(e) => handleKpiChange(e, index)}
+                                  />
+                                  <button
+                                    onClick={handleKpiRemove}
+                                    className="mt-1"
+                                    style={{ height: "25px", border: "none" }}
+                                  >
+                                    <i className="">
+                                      <FiDelete />
+                                    </i>
+                                  </button>
+                                </div>
+                              ))}
+                            </Col>
+                          </Row>
+                        </Col>
+                        <div className="d-flex justify-content-end ml-2">
+                          <p className="">
+                            <GrAdd onClick={handleKpiAdd} />
+                          </p>
+                        </div>
+
+
+
                       <Col sm={12}>
-                        <Row>
+                        {/* <Row>
                           <Col>
                             <PWrapper>FACTORS</PWrapper>
                             <br />
@@ -3597,8 +2893,17 @@ const AddDeal = () => {
                           <Col>
                             <PWrapper>STATUS</PWrapper>
                           </Col>
-                        </Row>
-                        <Col sm={12}>
+                        </Row> */}
+
+
+
+
+
+
+
+
+                        
+                        {/* <Col sm={12}>
                           <Col className="pb-2">
                             <Fm.Group>
                               <Row>
@@ -3661,7 +2966,7 @@ const AddDeal = () => {
                               </Row>
                             </Fm.Group>
                           </Col>
-                        </Col>
+                        </Col> */}
 
                         {/* <Col sm={12}>
                           <Col className="pb-2">
@@ -3728,7 +3033,7 @@ const AddDeal = () => {
                           </Col>
                         </Col> */}
 
-                        <Col sm={12}>
+                        {/* <Col sm={12}>
                           <Col className="pb-2">
                             <Fm.Group>
                               <Row>
@@ -3856,9 +3161,9 @@ const AddDeal = () => {
                               </Row>
                             </Fm.Group>
                           </Col>
-                        </Col>
+                        </Col> */}
 
-                        <Col sm={12}>
+                        {/* <Col sm={12}>
                           <Col className="pb-2">
                             <Fm.Group>
                               <Row>
@@ -3921,9 +3226,9 @@ const AddDeal = () => {
                               </Row>
                             </Fm.Group>
                           </Col>
-                        </Col>
+                        </Col> */}
 
-                        <Col sm={12}>
+                        {/* <Col sm={12}>
                           <Col className="pb-2">
                             <Fm.Group>
                               <Row>
@@ -4114,8 +3419,8 @@ const AddDeal = () => {
                               </Row>
                             </Fm.Group>
                           </Col>
-                        </Col>
-                        <Col sm={12}>
+                        </Col> */}
+                        {/* <Col sm={12}>
                           <Col className="pb-2">
                             <Fm.Group>
                               <Row>
@@ -4243,9 +3548,9 @@ const AddDeal = () => {
                               </Row>
                             </Fm.Group>
                           </Col>
-                        </Col>
+                        </Col> */}
 
-                        <Col sm={12}>
+                        {/* <Col sm={12}>
                           <Col className="pb-2">
                             <Fm.Group>
                               <Row>
@@ -4437,9 +3742,9 @@ const AddDeal = () => {
                               </Row>
                             </Fm.Group>
                           </Col>
-                        </Col>
+                        </Col> */}
 
-                        <Col sm={12}>
+                        {/* <Col sm={12}>
                           <Col className="pb-2">
                             <Fm.Group>
                               <Row>
@@ -4702,8 +4007,8 @@ const AddDeal = () => {
                               </Row>
                             </Fm.Group>
                           </Col>
-                        </Col>
-                        <Col sm={12}>
+                        </Col> */}
+                        {/* <Col sm={12}>
                           <Col className="pb-2">
                             <Fm.Group>
                               <Row>
@@ -4841,7 +4146,7 @@ const AddDeal = () => {
                               </Col>
                             </Row>
                           </Fm.Group>
-                        </Col>
+                        </Col> */}
                       </Col>
                     </Row>
                     {/* <button

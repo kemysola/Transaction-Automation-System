@@ -128,7 +128,7 @@ export default function CurrentGuarantee() {
       <p
         style={{
           fontWeight:'bold',
-          marginLeft:'1.5rem'
+          marginLeft:''
         }}
       >
 
