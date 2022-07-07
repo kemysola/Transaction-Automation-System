@@ -6,7 +6,6 @@ import Input from "react-validation/build/input";
 import AuthService from "../../../Services/auth.Service";
 import CheckButton from "react-validation/build/button";
 
-
 //*****************************************************Create Validation Function****************************************
 
 const required = (value) => {
@@ -19,7 +18,6 @@ const required = (value) => {
 
 //   ****************************************************** End Validation ***************************************
 
-
 function ForgotPassword() {
   const history = useHistory();
   const form = useRef();
@@ -30,13 +28,12 @@ function ForgotPassword() {
 
   //   ************************************************* Event Trigger *****************************************
 
-
   const onChangePassword = (e) => {
     const newPassword = e.target.value;
     setNewPassword(newPassword);
   };
 
-//   ****************************************************** Event Trigger ***************************************
+  //   ****************************************************** Event Trigger ***************************************
   const onChangePasswordConfirm = (e) => {
     const newPasswordConfirm = e.target.value;
     setNewPasswordConfirm(newPasswordConfirm);
@@ -53,76 +50,107 @@ function ForgotPassword() {
 
   const saveUser = (e) => {
     e.preventDefault();
-    let data={
-        email:email,
-        newPassword:newPassword,
-        newPasswordConfirm:newPasswordConfirm
-      }
-        
+    let data = {
+      email: email,
+      newPassword: newPassword,
+      newPasswordConfirm: newPasswordConfirm,
+    };
+
     //   ******************************************  Validate the form data ***************************************
 
     form.current.validateAll();
 
     //   ***************************************   Call Axios Post Request Method  ***********************************
 
-    AuthService.forgotPassword(data).then((res) =>{
-        alert(res.data.message)
-        history.push('/')
-
-    }).catch((err) =>{
-        console.log(err)
-    })
-
-
+    AuthService.forgotPassword(data)
+      .then((res) => {
+        alert(res.data.message);
+        history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
     <React.Fragment>
-      <div>
-        <Form ref={form} onSubmit={saveUser}>
-          <div>
-            <Fm.Label>Email:</Fm.Label>
-            <Input
-              type="email"
-              name="email"
-              value={email}
-              validations={[required]}
-              onChange={onChangeEmail}
-            />
+      <Row>
+        <Col sm={2}></Col>
+        <Col sm={8}>
+          <div className="d-flex justify-content-center mt-3 pt-3">
+            <Container>
+              <Container>
+                <Container className="py-3 my-3 bg-light">
+                  <div
+                    className="pt-3 mt-3"
+                    style={{
+                      textAlign: "center",
+                      background: "#237cbf",
+                      margin: "19px",
+                    }}
+                  >
+                    <p style={{ color: "black" }}>
+                      Kindly Enter Your new Password
+                    </p>
+
+                    <Form ref={form} onSubmit={saveUser}>
+                      <div>
+                        <Fm.Label className="pt-1">Email:</Fm.Label>
+                        <Input
+                          type="email"
+                          name="email"
+                          value={email}
+                          validations={[required]}
+                          onChange={onChangeEmail}
+                        />
+                      </div>
+                      <div>
+                        <Fm.Label className="pt-1">New Password:</Fm.Label>
+                        <Input
+                          type="password"
+                          name="newPassword"
+                          value={newPassword}
+                          validations={[required]}
+                          onChange={onChangePassword}
+                        />
+                      </div>
+
+                      <div>
+                        <Fm.Label className="pt-1">Confirm Password:</Fm.Label>
+                        <Input
+                          type="password"
+                          name="newPasswordConfirm"
+                          value={newPasswordConfirm}
+                          validations={[required]}
+                          onChange={onChangePasswordConfirm}
+                        />
+                        <br />
+                        <input
+                          className="mb-2 pt-1"
+                          size="sm"
+                          type="submit"
+                          style={{
+                            background: "white",
+                            width: "200px",
+                            justifyContent: "center",
+
+                            color: "black",
+                            fontWeight: "light",
+                            border: "none",
+                          }}
+                        />
+                        <br />
+                        <br />
+                      </div>
+                      <CheckButton style={{ display: "none" }} ref={checkBtn} />
+                    </Form>
+                  </div>
+                </Container>
+              </Container>
+            </Container>
           </div>
-          <div>
-            <Fm.Label>New Password:</Fm.Label>
-            <Input
-              type="password"
-              name="newPassword"
-              value={newPassword}
-              validations={[required]}
-              onChange={onChangePassword}
-            />
-          </div>
-          <div>
-            <Fm.Label>Confirm Password:</Fm.Label>
-            <Input
-              type="password"
-              name="newPasswordConfirm"
-              value={newPasswordConfirm}
-              validations={[required]}
-              onChange={onChangePasswordConfirm}
-            />
-          </div>
-          <CheckButton style={{ display: "none" }} ref={checkBtn} />
-          <Fm.Control
-            size="sm"
-            type="submit"
-            style={{
-              background: "#4cab48",
-              color: "white",
-              fontWeight: "light",
-              width: "190px",
-            }}
-          />
-        </Form>
-      </div>
+        </Col>
+      </Row>
     </React.Fragment>
   );
 }
