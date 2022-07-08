@@ -2576,7 +2576,7 @@ const AddDeal = () => {
                               {plis.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                                   <Fm.Control
-                                    type="text"
+                                    type="date"
                                     size="sm"
                                     value={singleNote.plis}
                                     name="plis_expected"
@@ -2590,7 +2590,7 @@ const AddDeal = () => {
                               {plis.map((singleNote, index) => (
                                 <div class="input-group  mt-2">
                                   <Fm.Control
-                                    type="date"
+                                    type="text"
                                     style={{ width: "30%", height: "10px" }}
                                     size="sm"
                                     value={singleNote.plis}
