@@ -41,7 +41,7 @@ router.post("/onboard", verifyTokenAndAdmin, async (req, res) => {
     
     // Destrucuring the request body to grab required fields
     const new_user = { email, firstName, lastName, level, hasOriginationTarget, originationAmount, guaranteePipeline, greenTransaction,
-      amberTransaction, originator, mandateLetter, creditCommiteeApproval, feeLetter, status, isadmin} = req.body;
+      amberTransaction, mandateLetter, creditCommiteeApproval, feeLetter, status, isadmin} = req.body;
 
     // create confirmation token for account activation: 2022-Feb-15th
     const activationToken = jwt.sign(
@@ -58,17 +58,17 @@ router.post("/onboard", verifyTokenAndAdmin, async (req, res) => {
     const user_data = [ 
       new_user.email, CryptoJS.AES.encrypt(one_time_password, process.env.PASSWORD_SECRET_PASSPHRASE ).toString(),
       new_user.firstName, new_user.lastName, new_user.level, new_user.hasOriginationTarget, new_user.originationAmount,
-      new_user.guaranteePipeline, new_user.greenTransaction, new_user.amberTransaction, new_user.originator, new_user.mandateLetter,
+      new_user.guaranteePipeline, new_user.greenTransaction, new_user.amberTransaction, new_user.mandateLetter,
       new_user.creditCommiteeApproval, new_user.feeLetter, 
-      funcFinancialClose(new_user.originator, new_user.mandateLetter,  new_user.creditCommiteeApproval, new_user.feeLetter), 
+      funcFinancialClose(new_user.mandateLetter,  new_user.creditCommiteeApproval, new_user.feeLetter), 
       req.user.Email, new_user.status, new_user.isadmin, activationToken
     ]
 
     await client.query('BEGIN')
     const write_to_db = 
       `INSERT INTO TB_TRS_USERS(email, password, firstName, lastName, level, hasOriginationTarget, originationAmount, guaranteePipeline,
-        greenTransaction, amberTransaction, originator, mandateLetter, creditCommiteeApproval, feeLetter, financialClose, record_entry, status, isadmin, activationCode, userID
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, nextval('trms.user_id_seq')) RETURNING *`
+        greenTransaction, amberTransaction, mandateLetter, creditCommiteeApproval, feeLetter, financialClose, record_entry, status, isadmin, activationCode, userID
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, nextval('trms.user_id_seq')) RETURNING *`
 
     const res_ = await client.query(write_to_db, user_data)              
     
