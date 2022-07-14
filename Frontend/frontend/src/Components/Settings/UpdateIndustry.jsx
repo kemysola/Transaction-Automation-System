@@ -39,7 +39,6 @@ export default function UpdateIndustry (props) {
 
     Services.updateIndustry(id, data)
       .then((res) => {
-        console.log("industry updated")
         setSaved(true)
       })
       .catch(() => {
