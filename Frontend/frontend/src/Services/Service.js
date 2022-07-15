@@ -12,6 +12,7 @@ const registerStaff = data => { // register new staff
     return axios.post("staff/onboard", data);
 };
 
+
 const updateStaff = (email, data) => { // update staff information
     return axios.put(`staff/update/${email}`, data);
 };
@@ -125,7 +126,7 @@ const updateLevel = (id, data) => { // update level, for privileged users only
     return axios.put(`admin/level/update/${id}`, data)
 }
 
-export default {
+const Services = {
     LoginStaff,
     registerStaff,
     updateStaff,
@@ -155,5 +156,6 @@ export default {
     addProduct,
     updateProduct,
     addLevel,
-    updateLevel
-};
+    updateLevel,
+}
+export default Services

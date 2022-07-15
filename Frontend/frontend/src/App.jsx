@@ -33,6 +33,7 @@ import jwt_decode from "jwt-decode";
 import LogOut from "./Components/Auth/Log out/LogOut";
 import authService from "./Services/auth.Service"
 import { useLocation } from 'react-router-dom';
+import ForgotPassword from "./Components/Auth/forgot/ForgotPassword";
 
 
 
@@ -72,6 +73,9 @@ export default function App() {
         </Route>
         <Route exact path="/login">
           <Main />
+        </Route>
+        <Route exact path='/forgot_password'>
+          <ForgotPassword/>
         </Route>
 
         <Route exact path="/transaction">

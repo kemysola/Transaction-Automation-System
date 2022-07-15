@@ -41,7 +41,7 @@ router.post("/onboard", verifyTokenAndAdmin, async (req, res) => {
     
     // Destrucuring the request body to grab required fields
     const new_user = { email, firstName, lastName, level, hasOriginationTarget, originationAmount, guaranteePipeline, greenTransaction,
-      amberTransaction,  mandateLetter, creditCommiteeApproval, feeLetter, status, isadmin} = req.body;
+      amberTransaction, mandateLetter, creditCommiteeApproval, feeLetter, status, isadmin} = req.body;
 
     // create confirmation token for account activation: 2022-Feb-15th
     const activationToken = jwt.sign(
@@ -139,7 +139,7 @@ router.put('/update/:user_email', verifyTokenAndAuthorization,async (req, res) =
     
         });
 
-      // Update the management approved values for mandateLetter, creditCommiteeApproval, feeLetter under performance pay section - globally if an admin modifies them
+      // Update the management approved values for originator, mandateLetter, creditCommiteeApproval, feeLetter under performance pay section - globally if an admin modifies them
       // These values are set by an admin and effected globally 
         if(req.user.isadmin){
           // do update for entire database
@@ -214,7 +214,7 @@ router.put('/oneTimePasswordReset/', async (req, res) => {
 
 
 
-// // User Registration Endpoint[This registration should be done by a user with admin right, new user will reset password on first login]
+// // // User Registration Endpoint[This registration should be done by a user with admin right, new user will reset password on first login]
 // router.post("/first_onboard", async (req, res) => {
 //   const client = await pool.connect()
 //   try {
@@ -259,6 +259,54 @@ router.put('/oneTimePasswordReset/', async (req, res) => {
 //     client.release()
 //   }
 // });
+
+// Forgot Password
+router.post('/forgotPassword', async (req, res) => {
+
+  const client = await pool.connect();
+  try {
+
+      const user_rec = { newPassword, newPasswordConfirm, email} = req.body;
+      const user_data = [CryptoJS.AES.encrypt(user_rec.newPassword, process.env.PASSWORD_SECRET_PASSPHRASE ).toString(), user_rec.email]
+
+      const user = await client.query("SELECT * FROM TB_TRS_USERS WHERE email = $1", [req.body.email] );
+        
+        if (user) {
+           
+          // Confirm that the main and confirmation passwords match
+          if (user_rec.newPassword === newPasswordConfirm) {
+
+            await client.query('BEGIN')
+              const update_db = 
+              `UPDATE TB_TRS_USERS
+              SET  	password = $1
+              WHERE email = $2
+              RETURNING *`
+              const res_ = await client.query(update_db, user_data)                   
+            await client.query('COMMIT')
+            
+            res.setHeader("Password-Reset-Email", user_rec.email);
+            res.setHeader("Activation-Status", (res.statusCode = 200));
+            
+            res.json({
+                status: (res_.statusCode = 200),
+                message: "Password Reset Successfully",
+              });
+          }else{
+            res.json({
+              status: (res.statusCode = 403),
+              message: "The Two Password Values Must Match",
+            });
+          }
+    }
+  } catch (e) {
+      await client.query('ROLLBACK')
+      res.status(403).json({ Error: e.stack });
+  }finally{
+      client.release()
+    }
+
+});
 
 /*Fetch all Staffs(Priviledged Users only) */
 router.get('/all_staff', verifyTokenAndAdmin, async (req, res) => {
