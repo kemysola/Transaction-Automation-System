@@ -59,11 +59,12 @@ export default function UpdateStaffs() {
   const mandateLetter = useRef("");
   const creditCommitteApproval = useRef("");
   const feeLetter = useRef("");
+  const status = useRef("");
 
   let user_email = window.location.search.split("?")[1];
 
   const [staff, setStaff] = useState([]);
-  const [status, setStatus] = useState(false);
+  const [saved, setSaved] = useState(false);
   const [levels, setLevels] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [response, setResponse] = useState(false);
@@ -91,11 +92,22 @@ export default function UpdateStaffs() {
     retrieveStaff();
   }, []);
 
+  const statusOption = [
+    {
+      id: 1,
+      option: "Active"
+    },
+    {
+      id: 2,
+      option: "Inactive"
+    }
+  ]
+
   const retrieveStaff = async () => {
     const staff_data = await axios
       .get(
-           `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
-        // `http://localhost:5001/api/v1/staff/${user_email}`,
+          //  `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
+        `http://localhost:5001/api/v1/staff/${user_email}`,
 
         {
           headers: {
@@ -110,7 +122,7 @@ export default function UpdateStaffs() {
     setStaff(staff_data.data.staffInfo);
     setisAdmin(staff_data.data.staffInfo[0].isadmin);
     setTargs(staff_data.data.staffInfo[0].hasoriginationtarget);
-    setStatus(true);
+    setSaved(true);
   };
 
   const handleSubmit = (e) => {
@@ -137,6 +149,7 @@ export default function UpdateStaffs() {
       mandateLetter: +mandateLetter.current.value,
       creditCommiteeApproval: +creditCommitteApproval.current.value,
       feeLetter: +feeLetter.current.value,
+      status: status.current.value,
     };
 
     Service.updateStaff(user_email, reqData)
@@ -195,7 +208,7 @@ export default function UpdateStaffs() {
     <React.Fragment>
       <FormWrapper>
         <Container fluid>
-          {status ? (
+          {saved ? (
             <Form onSubmit={handleSubmit}>
               <h5 className="text-secondary mb-2 py-2 mt-1">Update Staff</h5>
               <br />
@@ -248,36 +261,6 @@ export default function UpdateStaffs() {
                         </Form.Group>
                       </Col>
 
-                      <Col sm={6} className="mt-1 pt-1">
-                        <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                          <Row>
-                            {/* <Col sm={2}  className='mt-3 pt-2'> */}
-                            <Form.Label className="pt-1">Admin</Form.Label>
-                            {/* </Col> */}
-                            <Col sm={6}>
-                              <Form.Check
-                                inline
-                                label="Yes"
-                                type="radio"
-                                value={true}
-                                defaultChecked={staff[0].isadmin === true}
-                                name="isadmin"
-                                onChange={(e) => setisAdmin(e.target.value)}
-                              />
-                              <Form.Check
-                                inline
-                                label="No"
-                                type="radio"
-                                value={false}
-                                defaultChecked={staff[0].isadmin === false}
-                                name="isadmin"
-                                onChange={(e) => setisAdmin(e.target.value)}
-                              />
-                            </Col>
-                          </Row>
-                        </Form.Group>
-                      </Col>
-
                       {/*--------------------------------- Form ----------------------------------------- */}
                       <Col sm={6} className="mt-1 pt-1">
                         <Form.Group>
@@ -307,6 +290,66 @@ export default function UpdateStaffs() {
                             Please enter your level
                           </p>
                         )}
+                      </Col>
+
+                      <Col sm={6} className="mt-1 pt-1">
+                        <Form.Group>
+                          <Form.Label className="pt-1">Status</Form.Label>
+                          <Form.Select
+                            size="sm"
+                            value={staff.status}
+                            name="status"
+                            ref={status}
+                            required
+                          >
+                            {statusOption.map((item, i) => (
+                              <option
+                                key={statusOption[i].id}
+                                value={statusOption[i].option}
+                                selected={
+                                  statusOption[i].option === staff[0].status
+                                }
+                              >
+                                {statusOption[i].option}
+                              </option>
+                            ))}
+                          </Form.Select>
+                        </Form.Group>
+                        {!status && (
+                          <p className="text-danger mt-1">
+                            Please select status
+                          </p>
+                        )}
+                      </Col>
+
+                      <Col sm={6} className="mt-1 pt-1">
+                        <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                          <Row>
+                            {/* <Col sm={2}  className='mt-3 pt-2'> */}
+                            <Form.Label className="pt-1">Admin</Form.Label>
+                            {/* </Col> */}
+                            <Col sm={6}>
+                              <Form.Check
+                                inline
+                                label="Yes"
+                                type="radio"
+                                value={true}
+                                defaultChecked={staff[0].isadmin === true}
+                                name="isadmin"
+                                onChange={(e) => setisAdmin(e.target.value)}
+                              />
+                              <Form.Check
+                                inline
+                                label="No"
+                                type="radio"
+                                value={false}
+                                defaultChecked={staff[0].isadmin === false}
+                                name="isadmin"
+                                onChange={(e) => setisAdmin(e.target.value)}
+                              />
+                            </Col>
+                          </Row>
+                        </Form.Group>
                       </Col>
 
                       {/*------------------------------- Form -------------------------------------------- */}
@@ -344,7 +387,7 @@ export default function UpdateStaffs() {
                             type="radio"
                             value={true}
                             defaultChecked={
-                              staff[0].hasOriginationTarget === true
+                              staff[0].hasoriginationtarget === true
                             }
                             name="hasOriginationTarget"
                             onChange={(e) => setTargs(e.target.value)}
@@ -355,7 +398,7 @@ export default function UpdateStaffs() {
                             type="radio"
                             value={false}
                             defaultChecked={
-                              staff[0].hasOriginationTarget === false
+                              staff[0].hasoriginationtarget === false
                             }
                             name="hasOriginationTarget"
                             onChange={(e) => setTargs(e.target.value)}
