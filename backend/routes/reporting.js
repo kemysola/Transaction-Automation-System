@@ -164,22 +164,41 @@ router.get('/:create_date',verifyTokenAndAuthorization, async (req, res) => {
         const create_date = req.params.create_date;
         const returned_date = await client.query(
             "SELECT * FROM TB_INFRCR_TRANSACTION WHERE createdate::text LIKE $1", [create_date + '%']);
-        if (staff) { 
+        // if (staff) { 
   
             res.status(200).send({
                 status: (res.statusCode = 200),
                 dateInfo: returned_date.rows
             })
-        }
+        // }
         
     } catch (e) {
-      console.log("#", e)
         res.status(403).json({ Error: e.stack });
     }finally{
         client.release()
       }
   
   });
+
+
+router.get('/report_data/all',verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+     try {
+    // query transaction table
+        const transaction_data = await client.query("SELECT clientname, originator, transactor, transactionlegallead, industry, product, region, dealsize, coupon, tenor, moratorium, repaymentfrequency, mandateletter, creditapproval, feeletter, expectedclose, actualclose, structuringfeeamount, structuringfeeadvance, structuringfeefinal, guaranteefee, monitoringfee, reimbursible,   deal_category, closed, nbc_approval_date, nbc_submitted_date FROM TB_INFRCR_TRANSACTION");
+    // query staff table   
+        const staff_data = await  client.query("SELECT originationamount, guaranteepipeline, mandateletter, creditcommiteeapproval, feeletter, financialclose FROM TB_TRS_USERS");
+        res.status(200).send({
+            status: (res.statusCode = 200),
+            transactionInfo: transaction_data.rows,
+            staffInfo: staff_data.rows
+        })
+} catch (e) {
+    res.status(403).json({ Error: e.stack });
+}finally{
+    client.release()
+}
+  })
 
 
 

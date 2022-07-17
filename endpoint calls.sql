@@ -481,3 +481,50 @@ Body => {
 }
 
 
+GET all data for reporting http://localhost:5001/api/v1/report/report_data/all 
+METHOD = GET
+Response => {
+"status": 200,
+"transactionInfo": [
+{
+"clientname": "Arab Energy Inc",
+"originator": "Kunle Ogunlaja",
+"transactor": "Kunle Ogunlaja",
+"transactionlegallead": "Obong James",
+"industry": "Gas",
+"product": "CRG",
+"region": "NC",
+"dealsize": "10",
+"coupon": "0",
+"tenor": 4,
+"moratorium": 0,
+"repaymentfrequency": "Annually",
+"mandateletter": "2022-12-02T23:00:00.000Z",
+"creditapproval": "2022-12-02T23:00:00.000Z",
+"feeletter": "2022-12-02T23:00:00.000Z",
+"expectedclose": "1899-12-31T23:46:25.000Z",
+"actualclose": "1899-12-31T23:46:25.000Z",
+"structuringfeeamount": "3",
+"structuringfeeadvance": 5,
+"structuringfeefinal": 5,
+"guaranteefee": "2",
+"monitoringfee": "50",
+"reimbursible": "80.9",
+"deal_category": "Red",
+"closed": false,
+"nbc_approval_date": "1899-12-31T23:46:25.000Z",
+"nbc_submitted_date": "1899-12-31T23:46:25.000Z"
+},
+"staffInfo": [
+{
+"originationamount": "0",
+"guaranteepipeline": "0",
+"mandateletter": 0,
+"creditcommiteeapproval": 0,
+"feeletter": 0,
+"financialclose": 0
+},
+]
+}_
+
+
