@@ -97,7 +97,7 @@ const getDealCategory = () => { // get all deal category
     return axios.get("configuration/category");
 }
 
-const getForecast = () => { // get all staff
+const getForecast = () => { // get all forecast
     return axios.get("configuration/forecast");
 }
 
@@ -124,6 +124,14 @@ const addLevel = (data) => { // add new level, for privileged users only
 
 const updateLevel = (id, data) => { // update level, for privileged users only
     return axios.put(`admin/level/update/${id}`, data)
+}
+
+const addForecast = (data) => { // add new forecast values, for privileged users only
+    return axios.post("admin/forecast", data)
+}
+
+const updateForecast = (id, data) => { // update new forecast values, for privileged users only
+    return axios.put(`admin/forecast/update/${id}`, data)
 }
 
 const Services = {
@@ -157,5 +165,7 @@ const Services = {
     updateProduct,
     addLevel,
     updateLevel,
+    addForecast,
+    updateForecast
 }
 export default Services

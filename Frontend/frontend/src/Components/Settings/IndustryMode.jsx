@@ -15,6 +15,15 @@ function usePrevious(value) {
 const Industry = ((props) => {
   const [isEditing, setEditing] = useState(false);
   const [newIndustryName, setNewIndustryName] = useState('');
+  const [isHovering, setIsHovering] = useState(false);
+
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHovering(false);
+  };
 
   const editFieldRef = useRef(null);
   const editButtonRef = useRef(null);
@@ -82,7 +91,9 @@ const Industry = ((props) => {
                   <FiSave 
                     onClick={handleSubmit} 
                     style={{ height: "1rem", width: "1rem", marginTop: "3px", cursor: "pointer"}}
-                  />
+                    onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}
+                  /> 
+                  {/* {isHovering && <span>Save</span>} */}
                 </Col>
               </Row>
             </div>

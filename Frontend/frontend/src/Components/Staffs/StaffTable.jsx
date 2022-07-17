@@ -188,8 +188,9 @@ const StaffTable = () => {
         accessor: "level",
       },
       {
+        id: "hasoriginationtarget",
         Header: "Has Target",
-        accessor: "hasoriginationtarget",
+        accessor: d => d.hasoriginationtarget ? "Yes" : "No",
       },
       {
         Header: "Fee Letter",
@@ -208,20 +209,17 @@ const StaffTable = () => {
         accessor: "guaranteepipeline",
       },
       {
-        Header: "Green Transaction",
-        accessor: "greentransaction",
-      },
-      {
-        Header: "Amber Transaction",
-        accessor: "ambertransaction",
-      },
-      {
         Header: "Mandate Letter",
         accessor: "mandateletter",
       },
       {
+        id: "creditcommitteapproval",
         Header: "Credit Committe Approval",
         accessor: "creditcommitteapproval",
+      },
+      {
+        Header: "Status",
+        accessor: "status",
       }
 
     ],

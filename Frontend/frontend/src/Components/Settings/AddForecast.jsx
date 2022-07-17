@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Container, Form as Fm, Row, Col } from "react-bootstrap";
 import styled from "styled-components";
 import Services from "../../Services/Service";
@@ -23,6 +23,13 @@ const FormWrapper = styled.div`
   // border-radius: 15px;
 `;
 
+const TrueWrapper = styled.div`
+  color: green
+`
+
+const FalseWrapper = styled.div`
+  color: red
+`
 
 const required = (value) => {
   if (!value) {
@@ -37,150 +44,120 @@ const required = (value) => {
 export default function ForecastSettings () {
   const form = useRef();
 
+  const initialForecastState = {
+    projectionyear: "", 
+    cumulativegrowth: 0,
+    newdeals: 0,
+  }
+
+  const [forecast, setForecast] = useState(initialForecastState);
+  const [status, setStatus] = useState();
+  const [message, setMessage] = useState("");
+
   const getYearList = () => {
   	const year = new Date().getFullYear();
+    // const year = 2020
     return (
-    	Array.from( new Array(30), (v,i) =>
+    	Array.from( new Array(20), (v,i) =>
       	<option key={i} value={year+i}>{year+i}</option>
       )
     );
   };
 
-  const onChange = e => {
-  	console.log("selected value:", e.target.value);
+  const handleInputChange = (e) => {
+    const { name, value} = e.target;
+    setForecast({ ...forecast, [name]: value})
   };
 
   const save = (e) => {
     e.preventDefault();
     form.current.validateAll();
   
-    console.log("User clicked save")
+    let data = {
+      // store user's input in a variable called data
+      projectionyear: forecast.projectionyear, 
+      cumulativegrowth: forecast.cumulativegrowth,
+      newdeals: forecast.newdeals,
+    }
+
+    Services.addForecast(data)
+      .then((res) => {
+        setStatus(true)
+        setForecast(initialForecastState)
+        setMessage(res.data.message)
+      })
+      .catch((error) => {
+        setStatus(false)
+        setMessage("Failed. Please Try Again")
+      });
   }
 
   return (
     <React.Fragment>
       <FormWrapper>
-        {/* <Container fluid > */}
-          <Form ref={form}>
-            <Row className="d-flex justify-content-between">
+        <Form ref={form}>
+          <Row className="d-flex justify-content-between">
+            <Col className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }}>
               <p style={{fontSize: "13px"}}><b>New Guarantee Forecast</b></p>
-              <Col sm={10} md={10} lg={10} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }}>
-                {/* <Col sm={4} md={4} lg={4} > */}
-                  <Fm.Group style={{ marginBottom: "5px"}}>
-                    <Fm.Label>
-                      Year
-                      <span style={{ color: "red" }}>*</span>
-                    </Fm.Label>
-                    <Select name="year" placeholder="Enter Year" onChange={onChange} validations={[required]} style={{ width: "100%", padding: "4px 2px", focus: "none"}}>
-                      {getYearList()}
-                    </Select>
-                    {/* <Input type="text" name="year" placeholder="Enter Year" validations={[required]} style={{ width: "100%", padding: "4px 2px", focus: "none"}} /> */}
-                  </Fm.Group>
-                {/* </Col> */}
-
-                {/* <Col sm={4} md={4} lg={4} > */}
-                  <Fm.Group style={{ marginBottom: "5px"}}>
-                    <Fm.Label>
-                      Cumulative Growth (₦'BN)
-                      <span style={{ color: "red" }}>*</span>
-                    </Fm.Label>
-                    <Input type="number" name="cumuGrowth" placeholder="Enter Cumulative Growth Value" validations={[required]} style={{ width: "100%", padding: "4px 2px", focus: "none"}} />
-                  </Fm.Group>
-                {/* </Col> */}
-
-                {/* <Col sm={4} md={4} lg={4}> */}
-                  <Fm.Group style={{ marginBottom: "5px"}}>
-                    <Fm.Label>
-                      New Deals (₦'BN)
-                      <span style={{ color: "red" }}>*</span>
-                    </Fm.Label>
-                    <Input type="number" name="newDeals" placeholder="Enter New Deals Value" validations={[required]} style={{ width: "100%", padding: "4px 2px", focus: "none"}} />
-                  </Fm.Group>
-                {/* </Col> */}
-
-                <div className="d-flex justify-content-end">
-                  <ButtonWrapper style={{ backgroundColor: "grey", color: "white" }}>
-                    Cancel
-                  </ButtonWrapper>
-
-                  <ButtonWrapper onClick={save} ref={form}>
-                    Save
-                  </ButtonWrapper>
-                </div>
-              </Col>
-            </Row>
-          </Form>
-
-          <Form ref={form}>
-            <Row style={{ borderRadius: 10 + 'px' }}>
-              <p style={{fontSize: "13px"}}><b>Guarantee Pipeline Forecast</b></p>
-              <Col sm={10} md={10} lg={10} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }}>
                 <Fm.Group style={{ marginBottom: "5px"}}>
                   <Fm.Label>
                     Year
                     <span style={{ color: "red" }}>*</span>
                   </Fm.Label>
-                  <Select name="year" placeholder="Enter Year" validations={[required]} style={{ width: "100%", padding: "4px 2px", focus: "none"}}>
+                  <Select 
+                    name="projectionyear" 
+                    value={forecast.projectionyear}
+                    onChange={handleInputChange} 
+                    validations={[required]} 
+                    style={{ 
+                      width: "100%", 
+                      padding: "4px 2px", 
+                      focus: "none"
+                    }}
+                  >
+                    <option value=""></option>
                     {getYearList()}
                   </Select>
                 </Fm.Group>
-              {/* </Col>
 
-              <Col sm={4} md={4} lg={4} > */}
                 <Fm.Group style={{ marginBottom: "5px"}}>
                   <Fm.Label>
-                    Pipeline (₦'BN)
+                    Cumulative Growth (₦'BN)
                     <span style={{ color: "red" }}>*</span>
                   </Fm.Label>
-                  <Input type="number" name="pipeline" placeholder="Enter Pipeline Value" validations={[required]} style={{ width: "100%", padding: "4px 2px", focus: "none"}} />
+                  <Input 
+                    type="number" 
+                    name="cumulativegrowth" 
+                    // placeholder="Enter Cumulative Growth Value" 
+                    value={forecast.cumulativegrowth}
+                    onChange={handleInputChange}
+                    validations={[required]} 
+                    style={{ 
+                      width: "100%", 
+                      padding: "4px 2px", 
+                      focus: "none"
+                    }} 
+                  />
                 </Fm.Group>
-              
 
-              <div className="d-flex justify-content-end">
-                <ButtonWrapper style={{ backgroundColor: "grey", color: "white" }}>
-                  Cancel
-                </ButtonWrapper>
-
-                <ButtonWrapper onClick={save} ref={form}>
-                  Save
-                </ButtonWrapper>
-              </div>
-              </Col>
-            </Row>
-          </Form>
-
-          <Form ref={form}>
-            <Row style={{ borderRadius: 10 + 'px' }}>
-              <p style={{fontSize: "13px"}}><b>Deal Category Forecast</b></p>
-              <Col sm={10} md={10} lg={10} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }}>
                 <Fm.Group style={{ marginBottom: "5px"}}>
                   <Fm.Label>
-                    Year
+                    New Deals (₦'BN)
                     <span style={{ color: "red" }}>*</span>
                   </Fm.Label>
-                  <Select name="year" placeholder="Enter Year" validations={[required]} style={{ width: "100%", padding: "4px 2px", focus: "none"}}>
-                    {getYearList()}
-                  </Select>
-                </Fm.Group>
-              {/* </Col>
-
-              <Col sm={4} md={4} lg={4} > */}
-                <Fm.Group style={{ marginBottom: "5px"}}>
-                  <Fm.Label>
-                    Green Deals (₦'BN)
-                    <span style={{ color: "red" }}>*</span>
-                  </Fm.Label>
-                  <Input type="number" name="greenDeals" placeholder="Enter Green Deals Value" validations={[required]} style={{ width: "100%", padding: "4px 2px", focus: "none"}} />
-                </Fm.Group>
-              {/* </Col>
-
-              <Col sm={4} md={4} lg={4}> */}
-                <Fm.Group style={{ marginBottom: "5px"}}>
-                  <Fm.Label>
-                    Green and Amber Deals (₦'BN)
-                    <span style={{ color: "red" }}>*</span>
-                  </Fm.Label>
-                  <Input type="number" name="greenAmberDeals" placeholder="Enter Green and Amber Deals Value" validations={[required]} style={{ width: "100%", padding: "4px 2px", focus: "none"}} />
+                  <Input 
+                    type="number" 
+                    name="newdeals" 
+                    // placeholder="Enter New Deals Value" 
+                    value={forecast.newdeals}
+                    onChange={handleInputChange}
+                    validations={[required]} 
+                    style={{ 
+                      width: "100%", 
+                      padding: "4px 2px", 
+                      focus: "none"
+                    }} 
+                  />
                 </Fm.Group>
 
               <div className="d-flex justify-content-end">
@@ -192,10 +169,21 @@ export default function ForecastSettings () {
                   Save
                 </ButtonWrapper>
               </div>
-              </Col>
-            </Row>
-          </Form>
-        {/* </Container> */}
+
+              <div className="d-flex justify-content-end">
+                {status ? (
+                  <TrueWrapper>
+                    {message}
+                  </TrueWrapper>
+                ) : (
+                  <FalseWrapper>
+                    {message}
+                  </FalseWrapper>
+                )}
+              </div>
+            </Col>
+          </Row>
+        </Form>
       </FormWrapper>
     </React.Fragment>
   )
