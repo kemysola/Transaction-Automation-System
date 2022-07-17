@@ -22,6 +22,14 @@ const FormWrapper = styled.div`
   // border-radius: 15px;
 `;
 
+const TrueWrapper = styled.div`
+  color: green
+`
+
+const FalseWrapper = styled.div`
+  color: red
+`
+
 
 const required = (value) => {
   if (!value) {
@@ -65,7 +73,7 @@ export default function IndustrySettings () {
     <React.Fragment>
       <FormWrapper>
         <Row>
-          <Col sm={10} md={10} lg={10} className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }}>
+          <Col className="bg-light py-1 my-2" style={{ borderRadius: 10 + 'px' }}>
             <Form ref={form}>
               <p style={{fontSize: "13px"}}><b>Add Level</b></p>
 
@@ -93,7 +101,18 @@ export default function IndustrySettings () {
                   Save
                 </ButtonWrapper>
                 <br />
-                {message}
+              </div>
+
+              <div className="d-flex justify-content-end">
+                {status ? (
+                  <TrueWrapper>
+                    {message}
+                  </TrueWrapper>
+                ) : (
+                  <FalseWrapper>
+                    {message}
+                  </FalseWrapper>
+                )}
               </div>
             </Form>
           </Col>
