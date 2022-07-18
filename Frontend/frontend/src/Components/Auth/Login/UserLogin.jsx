@@ -150,8 +150,7 @@ const UserLogin = () => {
 
           <div className="">
             {loading && (
-              <div>
-                <Spinner animation="border" variant="success" />
+              <div className="d-flex justify-content-center" >
                 <Spinner animation="border" variant="success" />
               </div>
             )}

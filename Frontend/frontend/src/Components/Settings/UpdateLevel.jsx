@@ -17,13 +17,16 @@ const ListWrapper = styled.div`
 
 export default function UpdateLevel (props) {
   const [level, setLevel] = useState([]);
-  const [saved, setSaved] = useState(false)
+  const [saved, setSaved] = useState(false);
+  const [name, setName] = useState("");
   
   useEffect(() => {
     retrieveLevel();
-  }, [saved]);
+  }, [name]);
 
   function editLevel(id, newLevel) {
+    setName(newLevel)
+    
     const editedLevelList = level.map(item => {
     // if this level has the same ID as the curent edited level
       if (id === level.levelid) {

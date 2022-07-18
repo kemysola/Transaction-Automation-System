@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Container, Form as Fm, Row, Col, ListGroup} from "react-bootstrap";
+import Services from "../../Services/Service";
 import { FiEdit, FiSave } from 'react-icons/fi'
 import { MdOutlineCancel } from 'react-icons/md'
 
@@ -13,21 +14,15 @@ function usePrevious(value) {
 }
 
 const Forecast = ((props) => {
-  const initialForecastState = {
-    projectionyear: "", 
-    cumulativegrowth: 0,
-    newdeals: 0,
-  }
-
+  // const [data, setData] = useState([])
   const [isEditing, setEditing] = useState(false);
-  const [newForecastValues, setNewForecastValues] = useState(initialForecastState);
+  const [cumuGrowth, setCumuGrowth] = useState();
+  const [newDeals, setNewDeals] = useState();
 
   const editFieldRef = useRef(null);
   const editButtonRef = useRef(null);
   
   const wasEditing = usePrevious(isEditing);
-
-  // console.log("forecast values here", newForecastValues)
 
   useEffect(() => {
     if (!wasEditing && isEditing) {
@@ -38,28 +33,26 @@ const Forecast = ((props) => {
     }
   }, [wasEditing, isEditing]);
 
-  const getYearList = () => {
-    const year = new Date().getFullYear();
-    // const year = 2020
-    return (
-      Array.from( new Array(20), (v,i) =>
-        <option key={i} value={year+i}>{year+i}</option>
-      )
-    );
-  };
+  // useEffect(() => {
+  //   retrieveInitialData();
+  // }, [])
 
-  function handleChange(e) {
-    const { name, value} = e.target;
-    setNewForecastValues({ ...newForecastValues, [name]: value})
-  }
+  // const retrieveInitialData = () => {
+  //   Services.getForecast()
+  //   .then((response) => {
+  //       setData(response.data.forecast);
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // };
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!newForecastValues.trim()) {
-      return;
-    }
-    props.editForecast(props.id, newForecastValues);
-    setNewForecastValues(initialForecastState);
+
+    props.editForecast(props.id, props.projectionyear, cumuGrowth, newDeals);
+    setCumuGrowth();
+    setNewDeals();
     setEditing(false);
   }
 
@@ -73,11 +66,11 @@ const Forecast = ((props) => {
           <Fm>
             <div className="form-group">
               <label htmlFor={props.id}>
-                Update {props.projectionyear} Values
+                Update <strong> {props.projectionyear} </strong> Values
               </label>
 
               <Row>
-                <Col sm={4} md={4} lg={4}>
+                {/* <Col sm={4} md={4} lg={4}>
                   <Fm.Label>Year</Fm.Label>
                   <Fm.Select
                     id={props.id}
@@ -88,32 +81,32 @@ const Forecast = ((props) => {
                     size="sm"
                     style={{fontSize: "12px", width: "60%"}}
                   >
-                    {/* <option>Select</option> */}
                     {getYearList()}
-                  </Fm.Select>
-                </Col>
+                  </Fm.Select> 
+                </Col> */}
 
-                <Col sm={3} md={3} lg={3}>
+                <Col lg={5}>
                   <Fm.Label>Cu. Growth</Fm.Label>
                   <Fm.Control
                     id={props.id}
                     className="todo-text"
                     type="text"
-                    value={newForecastValues.cumulativegrowth}
-                    onChange={handleChange}
+                    value={cumuGrowth}
+                    onChange={(e) => setCumuGrowth(e.target.value)}
+                    ref={editFieldRef}
                     size="sm"
                     style={{fontSize: "12px", width: "60%"}}
                   />
                 </Col>
 
-                <Col sm={3} md={3} lg={3}>
+                <Col lg={5}>
                   <Fm.Label>New Deals</Fm.Label>
                   <Fm.Control
                     id={props.id}
                     className="todo-text"
                     type="text"
-                    value={newForecastValues.newdeals}
-                    onChange={handleChange}
+                    value={newDeals}
+                    onChange={(e) => setNewDeals(e.target.value)}
                     size="sm"
                     style={{fontSize: "12px", width: "60%"}}
                   />

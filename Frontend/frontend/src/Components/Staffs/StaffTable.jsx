@@ -66,6 +66,32 @@ const Pagination = styled.div`
   }
 `
 
+const TableStyle = styled.div`
+  padding: 1rem;
+  table {
+    border-spacing: 0;
+    border: 1px solid black;
+    tr {
+      :last-child {
+        td {
+          border-bottom: 0;
+        }
+      }
+    }
+    th,
+    td {
+      margin: 0;
+      padding: 0.5rem;
+      border-spacing: 0;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+      :last-child {
+        border-right: 0;
+      }
+    }
+  }
+`
+
 
 //Define a default UI for filtering
 const GlobalFilter =({
@@ -295,33 +321,36 @@ const StaffTable = () => {
   return (
     <React.Fragment>
       <ContainerWrapper  className='bg-light'>
-      <Row>
-              <Col sm={3} className='d-sm-none d-lg-block d-md-block'>
-              <small style={{fontSize:'12px',paddingTop:'10px'}} >
-                All ({staff.length})
-              </small></Col>
+        <Row>
+          <Col sm={3} className='d-sm-none d-lg-block d-md-block'>
+            <small style={{fontSize:'12px',paddingTop:'10px'}} >
+              All ({staff.length})
+            </small>
+          </Col>
 
-              <Col sm={3} className='d-sm-none d-lg-block d-md-block'>
-              <small style={{fontSize:'12px',paddingTop:'10px'}}>
-                Trash (0) 
-                </small>
-              </Col>
-              <Col sm={3} className='d-sm-none d-lg-block'>
-              <small style={{fontSize:'12px',paddingTop:'10px'}}>
-                Bulk Actions
-                </small>
-                </Col>
+          <Col sm={3} className='d-sm-none d-lg-block d-md-block'>
+            <small style={{fontSize:'12px',paddingTop:'10px'}}>
+              Trash (0) 
+            </small>
+          </Col>
 
-                <Col sm={3}>
+          <Col sm={3} className='d-sm-none d-lg-block'>
+            <small style={{fontSize:'12px',paddingTop:'10px'}}>
+              Bulk Actions
+            </small>
+          </Col>
+
+          <Col sm={3}>
             <GlobalFilter
                 preGlobalFilteredRows={preGlobalFilteredRows}
                 globalFilter={state.globalFilter}
                 setGlobalFilter={setGlobalFilter}
               />
-            </Col>
+          </Col>
+        </Row>
 
-                
-            </Row>
+            {/* ------------ Staff Table ------- */}
+        <TableStyle>
           <div className="table-responsive mt-2 pt-2">
             <table
               className="table py-3 mt-3  table-hover table striped  align-middle table-bordered"
@@ -363,6 +392,7 @@ const StaffTable = () => {
               </tbody>
             </table>
           </div>
+        </TableStyle>
         <Pagination>
           <div className='pagination mt-1 pt-1'>
             <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>

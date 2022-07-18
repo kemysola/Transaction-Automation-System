@@ -16,27 +16,34 @@ const ListWrapper = styled.div`
 
 export default function UpdateForecast (props) {
   const [forecast, setForecast] = useState([]);
-  const [saved, setSaved] = useState(false)
+  const [saved, setSaved] = useState(false);
+  const [cumuValue, setCumuValue] = useState();
+  const [dealValue, setDealValue] = useState();
   
   useEffect(() => {
     retrieveForecast();
-  }, []);
+  }, [cumuValue, dealValue]);
 
-  function editForecast(id, newForecastValues) {
+  console.log(cumuValue, dealValue)
+
+  function editForecast(id, projectionyear, cumuGrowth, newDeals) {
+    setCumuValue(cumuGrowth)
+    setDealValue(newDeals)
+
     const editedForecastList = forecast.map(item => {
-    // if this set of values have the same ID as the currently edited forecast values
-      if (id === forecast.projectionid) {
+    // if this set of values have the same projectionyear as the currently edited forecast values
+      if (projectionyear === forecast.projectionid) {
         //
-        return {...item, forecast: newForecastValues}
+        return {...item, newdeals: newDeals, cumulativegrowth: cumuGrowth}
       }
       return item;
     });
     setForecast(editedForecastList);
 
     let data = {
-      projectionyear: newForecastValues.projectionyear,
-      cumulativegrowth: newForecastValues.cumulativegrowth,
-      newdeals: newForecastValues.newdeals
+      projectionyear: projectionyear,
+      cumulativegrowth: +cumuGrowth,
+      newdeals: +newDeals
     };
 
     Services.updateForecast (id, data)
