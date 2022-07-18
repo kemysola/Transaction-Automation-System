@@ -197,6 +197,7 @@ router.get('/forecast', verifyTokenAndAuthorization, async (req, res) => {
         const forecast = await client.query(
             `SELECT * FROM TB_INFRCR_FORECAST
             WHERE status = 'Active'
+            ORDER BY projectionyear ASC
             `);
         
         if (forecast) { 

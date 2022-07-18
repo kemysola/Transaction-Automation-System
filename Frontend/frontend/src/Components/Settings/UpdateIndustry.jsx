@@ -16,13 +16,16 @@ const ListWrapper = styled.div`
 
 export default function UpdateIndustry (props) {
   const [industries, setIndustries] = useState([]);
-  const [saved, setSaved] = useState(false)
+  const [saved, setSaved] = useState(false);
+  const [name, setName] = useState("");
   
   useEffect(() => {
     retrieveIndustry();
-  }, []);
+  }, [name]);
 
   function editIndustry(id, newIndustryName) {
+    setName(newIndustryName);
+    
     const editedIndustryList = industries.map(item => {
     // if this industry has the same ID as the currently edited industry
       if (id === industries.industryid) {

@@ -16,13 +16,16 @@ const ListWrapper = styled.div`
 
 export default function UpdateProduct (props) {
   const [product, setProduct] = useState([]);
-  const [saved, setSaved] = useState(false)
+  const [saved, setSaved] = useState(false);
+  const [name, setName] = useState("");
   
   useEffect(() => {
     retrieveProduct();
-  }, [saved]);
+  }, [name]);
 
   function editProduct(id, newProductName) {
+    setName(newProductName)
+
     const editedProductList = product.map(item => {
     // if this product has the same ID as the curent edited product
       if (id === product.productid) {

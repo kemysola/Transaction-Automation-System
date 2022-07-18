@@ -12,7 +12,6 @@ const registerStaff = data => { // register new staff
     return axios.post("staff/onboard", data);
 };
 
-
 const updateStaff = (email, data) => { // update staff information
     return axios.put(`staff/update/${email}`, data);
 };
