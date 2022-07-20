@@ -359,4 +359,42 @@ router.get('/:user_email',verifyTokenAndAdmin, async (req, res) => {
     
 });
 
+
+/*Fetch Origination and Structuring Staff(Priviledged Users only) */
+router.get('/origination_structuring_users/all', verifyTokenAndAdmin, async (req, res) => {
+  const client = await pool.connect();
+
+  try {
+      const OandSTeam = await client.query(
+          `
+          SELECT * 
+          FROM TB_TRS_USERS 
+          WHERE CONCAT(firstname,' ',lastname) IN (
+                              SELECT originator 
+                              FROM TB_INFRCR_TRANSACTION 
+                              UNION 
+                              SELECT transactor 
+                              FROM TB_INFRCR_TRANSACTION
+                              UNION 
+                              SELECT transactor 
+                              FROM TB_INFRCR_TRANSACTION 
+                              )
+          `);
+            
+      if (OandSTeam) { 
+         
+          res.status(200).send({
+              status: (res.statusCode = 200),
+              staff: OandSTeam.rows
+          })
+      }
+      
+  } catch (e) {
+      res.status(403).json({ Error: e.stack });
+  }finally{
+      client.release()
+    }
+
+});
+
 module.exports = router;

@@ -286,14 +286,14 @@ export default function NewStaff() {
                                                 <Col sm={6}>
                                                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                                                         <Form.Label>Origination (₦'BN)</Form.Label>
-                                                        <Form.Control size="sm" type="number" value={staff.amount} name='amount' onChange={handleInputChange} disabled={target === "false"}/>
+                                                        <Form.Control size="sm" type="text" value={staff.amount} name='amount' onChange={handleInputChange} disabled={target === "false"}/>
                                                     </Form.Group>
                                                 </Col>
 
                                                 <Col sm={6}>
                                                     <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                                                         <Form.Label>Guarantee Pipeline (₦'BN)</Form.Label>
-                                                        <Form.Control size="sm" type="number" value={staff.guarantee} name='guarantee' onChange={handleInputChange}/>
+                                                        <Form.Control size="sm" type="text" value={staff.guarantee} name='guarantee' onChange={handleInputChange}/>
                                                     </Form.Group>
                                                 </Col>
 
