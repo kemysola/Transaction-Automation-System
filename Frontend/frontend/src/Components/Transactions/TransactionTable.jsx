@@ -195,7 +195,7 @@ const DealsTable = (props) => {
           const amount = parseInt(props.row.original['dealsize'])
           return (
             <div>
-              {`${(amount).toFixed(1)}`}
+              {`${(amount).toFixed(2)}`}
             </div>
           )
         }
@@ -349,10 +349,26 @@ const DealsTable = (props) => {
       {
         Header: "Structuring Fee Amount(₦'MN)",
         accessor: "structuringfeeamount",
+        Cell: (props) => {
+          const amount = parseInt(props.row.original['structuringfeeamount'])
+          return (
+            <div>
+              {`${(amount).toFixed(2)}`}
+            </div>
+          )
+        }
       },
       {
         Header: "Structuring Fee Advance(%)",
         accessor: "structuringfeeadvance",
+        Cell: (props) => {
+          const amount = parseInt(props.row.original['structuringfeeadvance'])
+          return (
+            <div>
+              {`${(amount).toFixed(2)}`}
+            </div>
+          )
+        }
       },
       {
         Header: "Structuring Fee Final(%)",
