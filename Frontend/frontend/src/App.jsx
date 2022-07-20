@@ -6,13 +6,14 @@ import Main from "./Components/Auth/MainPage/Main";
 import Landing from "./Components/LandingPage/Landing";
 import TransactionView from "./Components/Transactions/TransactionView";
 import AllDeals from "./Components/Transactions/AllDeals";
-import UpdateStaffs from "./Components/Staffs/UpdateStaffs";
+// import UpdateStaffs from "./Components/Staffs/UpdateStaffs";
 import StaffView from "./Components/Staffs/StaffView";
 import UpdateTransaction from "./Pages/Transactions/UpdateTransaction";
 import MgtView from "./Components/Dashboard/Management/ManagementView";
 import Origination from "./Components/Dashboard/Origination/Origination";
 import NewText from "./Pages/Transactions/NewText";
 import AllStaff from "./Pages/Staffs/AllStaff";
+import DrillTeamView from "./Pages/Staffs/DrillTeamView";
 import Home from "./Components/Home";
 import Execution from "./Components/Dashboard/Execution/Execution";
 import StaffTable from "./Components/Staffs/StaffTable";
@@ -95,16 +96,16 @@ export default function App() {
         </Route>
         
         <Route exact path="/landing" component={Landing} />
-        <ProtectedRoute exact path="/staff" component={StaffView}/>
-        <ProtectedRoute exact path="/staffs" component={AllStaff} />
-        <ProtectedRoute exact path="/update" component={UpdateStaffs} />
+        <ProtectedRoute exact path="/create_user" component={StaffView}/>
+        <ProtectedRoute exact path="/all_users" component={AllStaff} />
+        <ProtectedRoute exact path="/drill_team" component={DrillTeamView} />
         <ProtectedRoute exact path="/all_transactions" component={AllDeals} />
-        <ProtectedRoute exact path="staffview" component={AllStaff }/>
+        {/* <ProtectedRoute exact path="staffview" component={AllStaff }/> */}
         <ProtectedRoute exact path="/dashboard" component={MgtView}/>
-        <ProtectedRoute exact path="/org-dashboard" component={Origination} />
+        <ProtectedRoute exact path="/org_dashboard" component={Origination} />
         <ProtectedRoute exact path="/execution" component={Execution} />
         <ProtectedRoute exact path="/staff_transaction_report" component={SingleView} />
-        <ProtectedRoute exact path="/one_view" component={Updates} />
+        <ProtectedRoute exact path="/update_users" component={Updates} />
         <ProtectedRoute exact path="/annual_and_quarterly_report_page" component={Report} />
 
         <ProtectedRoute exact path="/settings" component={Settings} />
