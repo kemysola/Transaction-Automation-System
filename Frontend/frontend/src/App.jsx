@@ -99,6 +99,7 @@ export default function App() {
         <ProtectedRoute exact path="/staff" component={StaffView}/>
         <ProtectedRoute exact path="/staffs" component={AllStaff} />
         <ProtectedRoute exact path="/update" component={UpdateStaffs} />
+        {/* get all transaction for porfolio */}
         <ProtectedRoute exact path="/all_transactions_portfolio" component={PortfolioAllDeals} />
         <ProtectedRoute exact path="/all_transactions" component={AllDeals} />
         <ProtectedRoute exact path="staffview" component={AllStaff }/>
