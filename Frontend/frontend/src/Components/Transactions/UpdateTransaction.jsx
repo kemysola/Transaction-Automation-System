@@ -471,16 +471,16 @@ export default function UpdateTransactions() {
   // console.log(allData);
 
   const uniqueId = Array.from(new Set(allData.map((a) => a.cid))).map((id) => {
-    return allData.find((a) => a.cid !== id);
+    return allData.find((a) => a.cid === id);
   });
   const partyId = Array.from(new Set(allData.map((a) => a.pid))).map((id) => {
-    return allData.find((a) => a.pid !== id);
+    return allData.find((a) => a.pid === id);
   });
   const ocpId = Array.from(new Set(allData.map((a) => a.ocid))).map((id) => {
-    return allData.find((a) => a.ocid !== id);
+    return allData.find((a) => a.ocid === id);
   });
   const pliid = Array.from(new Set(allData.map((a) => a.plid))).map((id) => {
-    return allData.find((a) => a.plid !== id);
+    return allData.find((a) => a.plid === id);
   });
   const uId = Array.from(new Set(allData.map((a) => a.kid))).map((id) => {
     console.log(id);

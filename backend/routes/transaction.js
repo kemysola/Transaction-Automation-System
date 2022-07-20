@@ -131,6 +131,7 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
                 const write_to_plis = `INSERT INTO TB_INFRCR_TRANSACTION_PLIS(transID, plis_particulars, plis_concern, plis_weighting, plis_expected, plis_status) VALUES %L RETURNING *`
 
                 const res_plis = await client.query(format(write_to_plis,[rows]))
+                console.log(rows)
 
                 await client.query('COMMIT')
                 return res_plis.rows[0]
@@ -222,7 +223,7 @@ router.get('/item/:deal',verifyTokenAndAuthorization, async (req, res) => {
 
             b.id as ocid,b.ocps_factors, b.ocps_yes_no, b.ocps_concern, b.ocps_expected, b.ocps_resp_party, b.ocps_status,
 
-            c.id as cid,c.nbc_focus_original, c.nbc_focus_original_yes_no, c.nbc_focus_original_date, c.nbc_focus_original_methodology, c.nbc_focus_apprv_1_c, c.nbc_focus_apprv_2_b, c.nbc_focus_apprv_2_c, c.nbc_focus_apprv_3_b, c.nbc_focus_apprv_3_c,
+            c.id as nbcid,c.nbc_focus_original, c.nbc_focus_original_yes_no, c.nbc_focus_original_date, c.nbc_focus_original_methodology, c.nbc_focus_apprv_1_c, c.nbc_focus_apprv_2_b, c.nbc_focus_apprv_2_c, c.nbc_focus_apprv_3_b, c.nbc_focus_apprv_3_c,
             c.nbc_focus_apprv_4_b, c.nbc_focus_apprv_4_c, c.nbc_focus_apprv_5_b, c.nbc_focus_apprv_5_c,
             
             d.id as pid,d.parties_role, d.parties_party, d.parties_appointed, d.parties_status,
@@ -267,28 +268,35 @@ router.get('/my_deals', verifyTokenAndAuthorization, async (req, res) => {
         const current_user = req.user
 
         const my_deals = await client.query(
-            `SELECT a.* ,
+            // `SELECT a.* ,
 
-            b.ocps_factors, b.ocps_yes_no, b.ocps_concern, b.ocps_expected, b.ocps_resp_party, b.ocps_status,
+            // b.ocps_factors, b.ocps_yes_no, b.ocps_concern, b.ocps_expected, b.ocps_resp_party, b.ocps_status,
 
-            c.nbc_focus_original, c.nbc_focus_original_yes_no, c.nbc_focus_original_date, c.nbc_focus_original_methodology, c.nbc_focus_apprv_1_c, c.nbc_focus_apprv_2_b, c.nbc_focus_apprv_2_c, c.nbc_focus_apprv_3_b, c.nbc_focus_apprv_3_c,
-            c.nbc_focus_apprv_4_b, c.nbc_focus_apprv_4_c, c.nbc_focus_apprv_5_b, c.nbc_focus_apprv_5_c,
+            // c.nbc_focus_original, c.nbc_focus_original_yes_no, c.nbc_focus_original_date, c.nbc_focus_original_methodology, c.nbc_focus_apprv_1_c, c.nbc_focus_apprv_2_b, c.nbc_focus_apprv_2_c, c.nbc_focus_apprv_3_b, c.nbc_focus_apprv_3_c,
+            // c.nbc_focus_apprv_4_b, c.nbc_focus_apprv_4_c, c.nbc_focus_apprv_5_b, c.nbc_focus_apprv_5_c,
             
-            d.parties_role, d.parties_party, d.parties_appointed, d.parties_status,
+            // d.parties_role, d.parties_party, d.parties_appointed, d.parties_status,
            
-            e.plis_particulars, e.plis_concern, e.plis_weighting, e.plis_expected, e.plis_status,
+            // e.plis_particulars, e.plis_concern, e.plis_weighting, e.plis_expected, e.plis_status,
 
-            f.kpi_factors, f.kpi_yes_no, f.kpi_concern, f.kpi_expected, f.kpi_resp_party, f.kpi_status 
+            // f.kpi_factors, f.kpi_yes_no, f.kpi_concern, f.kpi_expected, f.kpi_resp_party, f.kpi_status 
+        
+            // FROM TB_INFRCR_TRANSACTION a
+            // LEFT JOIN TB_INFRCR_TRANSACTION_OTHER_CPS b ON b.transID = a.transID
+            // LEFT JOIN TB_INFRCR_TRANSACTION_NBC_FOCUS c ON c.transID = a.transID
+            // LEFT JOIN TB_INFRCR_TRANSACTION_PARTIES d ON d.transID = a.transID
+            // LEFT JOIN TB_INFRCR_TRANSACTION_PLIS e ON e.transID = a.transID
+            // LEFT JOIN TB_INFRCR_TRANSACTION_KPI f ON f.transID = a.transID
+            // WHERE a.originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
+            // OR a.transactor = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
+            // `
+            `SELECT a.*
         
             FROM TB_INFRCR_TRANSACTION a
-            LEFT JOIN TB_INFRCR_TRANSACTION_OTHER_CPS b ON b.transID = a.transID
-            LEFT JOIN TB_INFRCR_TRANSACTION_NBC_FOCUS c ON c.transID = a.transID
-            LEFT JOIN TB_INFRCR_TRANSACTION_PARTIES d ON d.transID = a.transID
-            LEFT JOIN TB_INFRCR_TRANSACTION_PLIS e ON e.transID = a.transID
-            LEFT JOIN TB_INFRCR_TRANSACTION_KPI f ON f.transID = a.transID
             WHERE a.originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
             OR a.transactor = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
-            `,
+            `
+            ,
             [current_user.Email]);
         if (my_deals) { 
             // convert notes field to list
@@ -367,27 +375,32 @@ router.get('/all_deals', verifyTokenAndAdmin, async (req, res) => {
     try {
         const all_deals = await client.query(
             `SELECT 
-
-                a.* ,
-
-                b.ocps_factors, b.ocps_yes_no, b.ocps_concern, b.ocps_expected, b.ocps_resp_party, b.ocps_status,
-
-            c.nbc_focus_original, c.nbc_focus_original_yes_no, c.nbc_focus_original_date, c.nbc_focus_original_methodology, c.nbc_focus_apprv_1_c, c.nbc_focus_apprv_2_b, c.nbc_focus_apprv_2_c, c.nbc_focus_apprv_3_b, c.nbc_focus_apprv_3_c,
-            c.nbc_focus_apprv_4_b, c.nbc_focus_apprv_4_c, c.nbc_focus_apprv_5_b, c.nbc_focus_apprv_5_c,
-            
-            d.parties_role, d.parties_party, d.parties_appointed, d.parties_status,
-           
-            e.plis_particulars, e.plis_concern, e.plis_weighting, e.plis_expected, e.plis_status,
-
-            f.kpi_factors, f.kpi_yes_no, f.kpi_concern, f.kpi_expected, f.kpi_resp_party, f.kpi_status 
-
+                a.* 
             FROM TB_INFRCR_TRANSACTION a
-            LEFT JOIN TB_INFRCR_TRANSACTION_OTHER_CPS b ON b.transID = a.transID
-            LEFT JOIN TB_INFRCR_TRANSACTION_NBC_FOCUS c ON c.transID = a.transID
-            LEFT JOIN TB_INFRCR_TRANSACTION_PARTIES d ON d.transID = a.transID
-            LEFT JOIN TB_INFRCR_TRANSACTION_PLIS e ON e.transID = a.transID
-            LEFT JOIN TB_INFRCR_TRANSACTION_KPI f ON f.transID = a.transID
-            `);
+            `
+            // `SELECT 
+
+            //     a.* ,
+
+            //     b.ocps_factors, b.ocps_yes_no, b.ocps_concern, b.ocps_expected, b.ocps_resp_party, b.ocps_status,
+
+            // c.nbc_focus_original, c.nbc_focus_original_yes_no, c.nbc_focus_original_date, c.nbc_focus_original_methodology, c.nbc_focus_apprv_1_c, c.nbc_focus_apprv_2_b, c.nbc_focus_apprv_2_c, c.nbc_focus_apprv_3_b, c.nbc_focus_apprv_3_c,
+            // c.nbc_focus_apprv_4_b, c.nbc_focus_apprv_4_c, c.nbc_focus_apprv_5_b, c.nbc_focus_apprv_5_c,
+            
+            // d.parties_role, d.parties_party, d.parties_appointed, d.parties_status,
+           
+            // e.plis_particulars, e.plis_concern, e.plis_weighting, e.plis_expected, e.plis_status,
+
+            // f.kpi_factors, f.kpi_yes_no, f.kpi_concern, f.kpi_expected, f.kpi_resp_party, f.kpi_status 
+
+            // FROM TB_INFRCR_TRANSACTION a
+            // LEFT JOIN TB_INFRCR_TRANSACTION_OTHER_CPS b ON b.transID = a.transID
+            // LEFT JOIN TB_INFRCR_TRANSACTION_NBC_FOCUS c ON c.transID = a.transID
+            // LEFT JOIN TB_INFRCR_TRANSACTION_PARTIES d ON d.transID = a.transID
+            // LEFT JOIN TB_INFRCR_TRANSACTION_PLIS e ON e.transID = a.transID
+            // LEFT JOIN TB_INFRCR_TRANSACTION_KPI f ON f.transID = a.transID
+            // `
+            );
 
         if (all_deals) { 
 
@@ -556,6 +569,7 @@ router.put('/update/:dealID', verifyTokenAndAuthorization, async (req, res) => {
                 await client.query('COMMIT')
 
                 return res_nbc_focus.rows[0]
+                
  
             });
         }
@@ -597,8 +611,11 @@ router.put('/update/:dealID', verifyTokenAndAuthorization, async (req, res) => {
             WHERE transID = $1 AND id = $2
             `
             const res_plis = await client.query(update_to_plis,rows)
+            console.log(rows)
+
 
             await client.query('COMMIT')
+
 
             return res_plis.rows[0]
 

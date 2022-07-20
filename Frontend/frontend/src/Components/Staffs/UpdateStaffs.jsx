@@ -106,8 +106,8 @@ export default function UpdateStaffs() {
   const retrieveStaff = async () => {
     const staff_data = await axios
       .get(
-          //  `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
-        `http://localhost:5001/api/v1/staff/${user_email}`,
+           `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
+        // `http://localhost:5001/api/v1/staff/${user_email}`,
 
         {
           headers: {
@@ -433,7 +433,7 @@ export default function UpdateStaffs() {
                         <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                           <Form.Label>Guarantee Pipeline (₦'BN)</Form.Label>
                           <Form.Control
-                            type="number"
+                            type="text"
                             placeholder="0"
                             size="sm"
                             id="guaranteePipeline"
