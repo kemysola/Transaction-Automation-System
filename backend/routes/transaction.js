@@ -377,29 +377,38 @@ router.get('/all_deals', verifyTokenAndAdmin, async (req, res) => {
             `SELECT 
                 a.* 
             FROM TB_INFRCR_TRANSACTION a
+            WHERE closed = false
             `
-            // `SELECT 
+            );
 
-            //     a.* ,
+        if (all_deals) { 
 
-            //     b.ocps_factors, b.ocps_yes_no, b.ocps_concern, b.ocps_expected, b.ocps_resp_party, b.ocps_status,
+            myArray = all_deals.rows
+            myNotes = myArray.forEach(convertNotesFiledsToList)
 
-            // c.nbc_focus_original, c.nbc_focus_original_yes_no, c.nbc_focus_original_date, c.nbc_focus_original_methodology, c.nbc_focus_apprv_1_c, c.nbc_focus_apprv_2_b, c.nbc_focus_apprv_2_c, c.nbc_focus_apprv_3_b, c.nbc_focus_apprv_3_c,
-            // c.nbc_focus_apprv_4_b, c.nbc_focus_apprv_4_c, c.nbc_focus_apprv_5_b, c.nbc_focus_apprv_5_c,
-            
-            // d.parties_role, d.parties_party, d.parties_appointed, d.parties_status,
-           
-            // e.plis_particulars, e.plis_concern, e.plis_weighting, e.plis_expected, e.plis_status,
+            res.status(200).send({
+                status: (res.statusCode = 200),
+                deals: all_deals.rows
+            })
+        }
 
-            // f.kpi_factors, f.kpi_yes_no, f.kpi_concern, f.kpi_expected, f.kpi_resp_party, f.kpi_status 
+    } catch (e) {
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+});
 
-            // FROM TB_INFRCR_TRANSACTION a
-            // LEFT JOIN TB_INFRCR_TRANSACTION_OTHER_CPS b ON b.transID = a.transID
-            // LEFT JOIN TB_INFRCR_TRANSACTION_NBC_FOCUS c ON c.transID = a.transID
-            // LEFT JOIN TB_INFRCR_TRANSACTION_PARTIES d ON d.transID = a.transID
-            // LEFT JOIN TB_INFRCR_TRANSACTION_PLIS e ON e.transID = a.transID
-            // LEFT JOIN TB_INFRCR_TRANSACTION_KPI f ON f.transID = a.transID
-            // `
+/*Fetch all Deals(Priviledged Users only) */
+router.get('/all_deals/portfolio', verifyTokenAndAdmin, async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+        const all_deals = await client.query(
+            `SELECT 
+                a.* 
+            FROM TB_INFRCR_TRANSACTION a
+            `
             );
 
         if (all_deals) { 

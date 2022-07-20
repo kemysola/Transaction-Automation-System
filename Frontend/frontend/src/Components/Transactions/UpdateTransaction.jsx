@@ -6,10 +6,9 @@ import styled from "styled-components";
 import Service from "../../Services/Service";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import Input from "react-validation/build/input";
-import Select from "react-validation/build/select";
-import { GrAdd } from "react-icons/gr";
-import { FiDelete } from "react-icons/fi";
+import { makeStyles } from "@material-ui/styles";
+
+//******************************************* Material UI styled Components ************************* */
 const ButtonWrapper = styled.button`
   color: white;
   background: green;
@@ -43,9 +42,11 @@ const PWrapper = styled.p`
   padding: 0;
 `;
 
-export default function UpdateTransactions() {
+export default function UpdateTransactions({}) {
   // form ref values
   const clientName = useRef("");
+  const [allData, setAllData] = useState([]);
+
   const originator = useRef("");
   const transactor = useRef("");
   const transactionLegalLead = useRef("");
@@ -72,6 +73,29 @@ export default function UpdateTransactions() {
   const nbcApprovalDate = useRef("");
   const nbcSubmittedDate = useRef("");
 
+  const uniqueId = Array.from(new Set(allData.map((a) => a.nbcid))).map(
+    (id) => {
+      return allData.find((a) => a.nbcid === id);
+    }
+  );
+
+  // const no1 = uniqueId.map((mst, index) => mst.nbc_focus_original);
+
+  // console.log(no1);
+
+  const partyId = Array.from(new Set(allData.map((a) => a.pid))).map((id) => {
+    return allData.find((a) => a.pid === id);
+  });
+  const ocpId = Array.from(new Set(allData.map((a) => a.onbcid))).map((id) => {
+    return allData.find((a) => a.onbcid === id);
+  });
+  const pliid = Array.from(new Set(allData.map((a) => a.plid))).map((id) => {
+    return allData.find((a) => a.plid === id);
+  });
+  const uId = Array.from(new Set(allData.map((a) => a.kid))).map((id) => {
+    return allData.find((a) => a.kid === id);
+  });
+
   let id = window.location.search.split("?")[1];
 
   const history = useHistory();
@@ -86,6 +110,7 @@ export default function UpdateTransactions() {
   const [frequency, setFrequency] = useState([]);
   const [style, setStyle] = useState([]);
   const [staffList, setStaffList] = useState([]);
+  const [sety, setSety] = useState();
 
   const [ocps, setOcps] = useState([
     {
@@ -98,8 +123,10 @@ export default function UpdateTransactions() {
     },
   ]);
 
+
   const [nbcFocus, setNbcFocus] = useState([
     {
+      id: 0,
       nbc_focus_original: "",
       nbc_focus_original_yes_no: 0,
       nbc_focus_original_date: null,
@@ -119,6 +146,7 @@ export default function UpdateTransactions() {
 
   const [plis, setPlis] = useState([
     {
+      id: 0,
       plis_particulars: "",
       plis_concern: "",
       plis_weighting: 10,
@@ -129,23 +157,13 @@ export default function UpdateTransactions() {
 
   const [parties, setParties] = useState([
     {
+      id: 0,
       parties_role: "",
       parties_party: "",
       parties_appointed: 0,
       parties_status: "Pending",
     },
   ]);
-  // const [keyPerformanceI, setKeyPerformanceI] = useState([
-  //   {
-  //     factors: "",
-  //     option: "",
-  //     expected: "",
-  //     concern: "",
-  //     date: "",
-  //     party: "",
-  //     status: "",
-  //   },
-  // ]);
 
   const [kpi, setKpi] = useState([
     {
@@ -174,27 +192,6 @@ export default function UpdateTransactions() {
   const [redB, setRedB] = useState("");
   const [redC, setRedC] = useState("");
 
-  //**************************************************************** */
-  //implement daniels features here
-  // const [parties1, setParties1] = useState("");
-  // const [parties2, setParties2] = useState("");
-  // const [parties3, setParties3] = useState("");
-  // const [parties4, setParties4] = useState("");
-  //   const [parties5, setParties5] = useState("");
-
-  const [nbc1, setNbc1] = useState([]);
-  const [nbc2, setNbc2] = useState("");
-  const [nbc3, setNbc3] = useState("");
-  const [nbc4, setNbc4] = useState("");
-  const [nbc5, setNbc5] = useState("");
-  const [nbc6, setNbc6] = useState("");
-  const [nbc7, setNbc7] = useState("");
-  const [nbc8, setNbc8] = useState("");
-  const [nbc9, setNbc9] = useState("");
-  const [nbc10, setNbc10] = useState("");
-  const [nbc11, setNbc11] = useState("");
-  const [nbc12, setNbc12] = useState("");
-  const [nbc13, setNbc13] = useState("");
   //**********************************************************   Key Performance Indicators **************** */
   const handleKpiChange = (e, index) => {
     const { name, value } = e.target;
@@ -227,10 +224,17 @@ export default function UpdateTransactions() {
 
   const handlePartyChange = (e, index) => {
     const { name, value } = e.target;
-    const list = [...parties];
+    const list = [...partyId];
     list[index][name] = value;
+    const partiesId = partyId.map((pid) => pid.pid);
+    if (index >= 0) {
+      list[index].id = partiesId[index];
+    }
+    console.log("i am parties index", index);
     setParties(list);
   };
+
+  // console.log(parties)
 
   const handlePartyAdd = () => {
     setParties([
@@ -306,6 +310,40 @@ export default function UpdateTransactions() {
   };
 
   //***********************************************************   Nbc Focus ********************************************************** */
+  
+  // const handleNbcChange = (e, inx) => {
+  //   const { name, value } = e.target;
+  //   const list = [...nbcFocus];
+
+
+  //   // console.log(inx)
+   
+  //     list[inx][name] = value;
+  //     // console.log(list)
+
+  //     var mnid = uniqueId.map((mst) => mst.nbcid);
+  //     // console.log('i am n', mnid)
+  //   console.log('..', inx)
+  //     if (inx === mnid) {
+  //       list[inx].id = mnid[inx];
+  //       console.log(list)
+  //       setNbcFocus([...list]);
+
+  //     }  
+
+      
+  //     // setNbcFocus([...list, {
+  //     //   id:mnid,
+  //     //   nbc_focus_original:list.nbc_focus_original,
+        
+
+  //     // }]);
+
+
+    
+  // };
+
+  // console.log(nbcFocus);
 
   const handleNbcChange = (e, index) => {
     const { name, value } = e.target;
@@ -318,6 +356,7 @@ export default function UpdateTransactions() {
     setNbcFocus([
       ...nbcFocus,
       {
+        id: 0,
         nbc_focus_original: "",
         nbc_focus_original_yes_no: 0,
         nbc_focus_original_date: null,
@@ -334,12 +373,6 @@ export default function UpdateTransactions() {
         nbc_focus_apprv_5_c: null,
       },
     ]);
-  };
-
-  const handleNbcRemove = (index) => {
-    const list = [...nbcFocus];
-    list.splice(index, 1);
-    setNbcFocus(list);
   };
 
   //************************************************************* Note Change ************************************************* */
@@ -359,19 +392,7 @@ export default function UpdateTransactions() {
     list.splice(index, 1);
     setNoteList(list);
   };
-
-  const concernGroup = ["High", "Medium", "Low"];
-
-  const optionsGroup = [
-    {
-      text: "Yes",
-      value: true,
-    },
-    {
-      text: "No",
-      value: false,
-    },
-  ];
+  //********************************************************* Use Effect Hook ************************ */
 
   useEffect(() => {
     retrieveDeal();
@@ -389,11 +410,8 @@ export default function UpdateTransactions() {
     retrieveAmortizationStyle();
   }, []);
 
-  const [allData, setAllData] = useState([]);
-
-  const [testData, setTestData] = useState([]);
   const retrieveDeal = async () => {
-    // function to get deal by id from the database
+    //******************************************** function to get deal by id from the database *************************
     const data = await axios
       .get(
          `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}`,
@@ -409,28 +427,7 @@ export default function UpdateTransactions() {
         console.log(e);
       });
 
-    // set the deal and status stateA
-
     setAllData(data.data.dealInfo);
-    //test state
-    setTestData(data.data.dealInfo);
-
-    setNbc1(data.data.dealInfo[0].nbc_focus_original);
-    setNbc1(data.data.dealInfo[0].nbc_focus_original);
-
-    setNbc2(data.data.dealInfo[0].nbc_focus_original_yes_no);
-    setNbc3(data.data.dealInfo[0].nbc_focus_original_date);
-    setNbc4(data.data.dealInfo[0].nbc_focus_original_methodology);
-    setNbc5(data.data.dealInfo[0].nbc_focus_apprv_1_c);
-    setNbc6(data.data.dealInfo[0].nbc_focus_apprv_2_b);
-    setNbc7(data.data.dealInfo[0].nbc_focus_apprv_2_c);
-    setNbc8(data.data.dealInfo[0].nbc_focus_apprv_3_b);
-    setNbc9(data.data.dealInfo[0].nbc_focus_apprv_3_c);
-    setNbc10(data.data.dealInfo[0].nbc_focus_apprv_4_b);
-    setNbc11(data.data.dealInfo[0].nbc_focus_apprv_4_c);
-    setNbc12(data.data.dealInfo[0].nbc_focus_apprv_5_b);
-    setNbc13(data.data.dealInfo[0].nbc_focus_apprv_5_c);
-
     setNoteList(data.data.dealInfo[0].notes);
     setDeal(data.data.dealInfo);
     setStatus(true);
@@ -448,46 +445,9 @@ export default function UpdateTransactions() {
     setRedA(data.data.dealInfo[0].reda);
     setRedB(data.data.dealInfo[0].redb);
     setRedC(data.data.dealInfo[0].redc);
-
-    // ********************************* Parties state and Data ********************
-    //       setParties1(data.data.dealInfo[0].parties_role);
-    //      setParties2(data.data.dealInfo[0].parties_appointed);
-    //    setParties3(data.data.dealInfo[0].parties_status);
-    // setParties4(data.data.dealInfo[0].parties_party);
-
-    // *****************************      End Parties Data Collection *****************
-    // ******************************       Plis setStates and Data     *****************
-    // setPlis1(data.data.dealInfo[0].plis_particulars);
-    // setPlis2(data.data.dealInfo[0].plis_concern);
-    //  setPlis3(data.data.dealInfo[0].plis_weighting);
-    // setPlis4(data.data.dealInfo[0].plis_expected);
-    //  setPlis5(data.data.dealInfo[0].plis_status);
-
-    //********************************** End Block                   *******************
   };
 
   // ******************************************  Axios :  get staff  ****************************************
-
-  // console.log(allData);
-
-  const uniqueId = Array.from(new Set(allData.map((a) => a.cid))).map((id) => {
-    return allData.find((a) => a.cid === id);
-  });
-  const partyId = Array.from(new Set(allData.map((a) => a.pid))).map((id) => {
-    return allData.find((a) => a.pid === id);
-  });
-  const ocpId = Array.from(new Set(allData.map((a) => a.ocid))).map((id) => {
-    return allData.find((a) => a.ocid === id);
-  });
-  const pliid = Array.from(new Set(allData.map((a) => a.plid))).map((id) => {
-    return allData.find((a) => a.plid === id);
-  });
-  const uId = Array.from(new Set(allData.map((a) => a.kid))).map((id) => {
-    console.log(id);
-    return allData.find((a) => a.kid === id);
-  });
-
-  console.log("hey", uId);
 
   const retrieveStaffList = () => {
     Service.getStaffList()
@@ -630,6 +590,7 @@ export default function UpdateTransactions() {
 
   // ******************************************  EndFunction  ****************************************
 
+  const [kemy, setKemy] = useState([]);
   // ******************************************  Back function  ****************************************
 
   function handleBack() {
@@ -641,7 +602,6 @@ export default function UpdateTransactions() {
   function postData(e) {
     e.preventDefault();
     let allNotes = noteList.map(({ note }) => note);
-    // let nbcNotes = nbcFocus.map()
     let note = allNotes.join("|");
 
     // ******************************************  Request body payload to the db  ***********************************
@@ -688,13 +648,18 @@ export default function UpdateTransactions() {
       redB: JSON.parse(redB),
       redC: JSON.parse(redC),
       notes: note,
-      //nbcFocus:nbcFocus
+      nbcFocus: nbcFocus,
+      parties: parties,
+      plis: plis,
+      ocps: ocps,
+      kpi: kpi,
     };
 
     // ******************************************  Axios :  put request  ****************************************
 
     Service.updateDeal(id, data)
       .then((response) => {
+        alert(response.data.message);
         history.push({
           pathname: "/transaction",
         });
@@ -811,58 +776,8 @@ export default function UpdateTransactions() {
                               </Form.Select>
                             </Form.Group>
                           </Col>
-
-                          <Col sm={12}>
-                            <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                              <Form.Label>Note</Form.Label>{" "}
-                              <button
-                                type="button"
-                                style={{
-                                  fontSize: "10px",
-                                  padding: "2px 10px",
-                                  margin: "8px",
-                                  background: "steelblue",
-                                  color: "white",
-                                  borderRadius: "3px",
-                                }}
-                                onClick={handleNoteAdd}
-                              >
-                                +
-                              </button>
-                              {noteList.map((singleNote, index) => (
-                                <div class="input-group">
-                                  <Form.Control
-                                    style={{ margin: "0.8em", width: "60%" }}
-                                    size="sm"
-                                    type="text"
-                                    defaultValue={singleNote}
-                                    value={singleNote.note}
-                                    name="note"
-                                    onChange={(e) => handleNoteChange(e, index)}
-                                    required
-                                  />
-                                  <button
-                                    type="button"
-                                    style={{
-                                      fontSize: "10px",
-                                      padding: "2px 10px",
-                                      margin: "8px",
-                                      background: "steelblue",
-                                      color: "white",
-                                      borderRadius: "3px",
-                                    }}
-                                    onClick={handleNoteRemove}
-                                  >
-                                    x
-                                  </button>
-                                </div>
-                              ))}
-                            </Form.Group>
-                          </Col>
                         </Row>
                         <br />
-                        {/* <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next </button> */}
-                        {/* <button onClick={e => goToLastPage(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>{'>>'}</button> */}
                       </Container>
                     </Container1>
                   </Tab>
@@ -1190,9 +1105,6 @@ export default function UpdateTransactions() {
                     </Container1>
                   </Tab>
                   {/*---------------------------------------------- End Tab ----------------------------------- */}
-
-                  {/*------------------------------------------------ Structuring Fees ------------------------- */}
-
                   <Tab eventKey="third" title="FEES">
                     <div className="mt-2">
                       <Container1>
@@ -1278,11 +1190,13 @@ export default function UpdateTransactions() {
                           </Col>
                         </Row>
                         <br />
-                        {/* <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button> */}
-                        {/* <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button> */}
                       </Container1>
                     </div>
                   </Tab>
+
+                  {/*--------------------------------------------- End Tab --------------------------------- */}
+
+                  {/*------------------------------------------------ Structuring Fees ------------------------- */}
 
                   {/*--------------------------------------------- End Tab --------------------------------- */}
 
@@ -1849,7 +1763,6 @@ export default function UpdateTransactions() {
                     {/* </Tab> */}
                     {/* </Tabs> */}
                   </Tab>
-
                   <Tab
                     eventKey="sixth"
                     title="NBC FOCUS AREAS"
@@ -1862,130 +1775,172 @@ export default function UpdateTransactions() {
                           <Row>
                             <Col sm={3} className="mt-1 mb-1">
                               <p>ORIGINAL</p>
-                              {nbcFocus.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                                  {uniqueId.map((mst) => (
-                                    <div>
-                                      <Form.Control
-                                        type="text"
-                                        size="sm"
-                                        defaultValue={mst.nbc_focus_original}
-                                        value={singleNote.nbcFocus}
-                                        name="nbc_focus_original"
-                                        onChange={(e) =>
-                                          handleNbcChange(e, index)
-                                        }
-                                      />
-                                    </div>
-                                  ))}
 
+                             
+                              {nbcFocus.map((singleNote, index) => (
+                                <div
+                                  class="input-group mt-2"
+                                 
+                                >                                      
+
+                                  {uniqueId.map((mst,index) =>(
+                                    <div >
+                                    <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={mst.nbc_focus_original}
+                                    value={singleNote.nbcFocus}
+                                    name="nbc_focus_original"
+                                    onChange={(e) => handleNbcChange(e,index)}
+                                  />
+
+                                 
+                                    
+                                    </div>
+                                   
+
+                                  ))}
+                                  
                                   <br />
+                                  {/* <button
+                                  type="button"
+                                  onClick={handleNoteRemove}
+                                >
+                                  x
+                                </button> */}
                                 </div>
-                              ))}
+                             ))} 
+
+
+
                             </Col>
+
                             <Col sm={2} className="mt-1 mb-1">
                               <p>CONCERNS</p>
 
-                              {nbcFocus.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                                  {uniqueId.map((mst) => (
-                                    <div>
-                                      <Form.Select
-                                        type="text"
-                                        size="sm"
-                                        value={singleNote.nbcFocus}
+                              <div class="input-group mt-2">
+                                {nbcFocus.map((singleNote, index) => (
+                                  <div class="input-group mt-2 ">
+                                    <Form.Select
+                                      type="text"
+                                      size="sm"
+                                      name="nbc_focus_original_yes_no"
+                                      onChange={(e) =>
+                                        handleNbcChange(e, index)
+                                      }
+                                    >
+                                      <option
+                                        value={1}
                                         name="nbc_focus_original_yes_no"
-                                        onChange={(e) =>
-                                          handleNbcChange(e, index)
+                                        selected={
+                                          singleNote.nbc_focus_original_yes_no ===
+                                          true
                                         }
+                                        key={singleNote.cid}
                                       >
-                                        <option
-                                          value={1}
-                                          name="nbc_focus_original_yes_no"
-                                          selected={
-                                            mst.nbc_focus_original_yes_no ===
-                                            true
-                                          }
-                                          key={mst.nbc_focus_original_yes_no}
-                                        >
-                                          Yes
-                                        </option>
-                                        <option
-                                          selected={
-                                            mst.nbc_focus_original_yes_no ===
-                                            false
-                                          }
-                                          value={0}
-                                          name="nbc_focus_original_yes_no"
-                                        >
-                                          No
-                                        </option>
-                                      </Form.Select>
-                                    </div>
-                                  ))}
+                                        Yes
+                                      </option>
+                                      <option
+                                        value={0}
+                                        selected="nbc_focus_original_yes_no ===false"
+                                        name="nbc_focus_original_yes_no"
+                                      >
+                                        No
+                                      </option>
+                                    </Form.Select>
+                                  </div>
+                                ))}
 
-                                  <br />
-                                </div>
-                              ))}
+                                <br />
+                              </div>
                             </Col>
                             <Col sm={3} className=" mb-1">
                               <p>DATE</p>
                               {nbcFocus.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                                  {uniqueId.map((mst) => (
-                                    <div>
-                                      <Form.Control
-                                        type="date"
-                                        size="sm"
-                                        defaultValue={
-                                          mst.nbc_focus_original_date
-                                            ? new Date(
-                                                mst.nbc_focus_original_date
-                                              )
-                                                .toISOString()
-                                                .split("T")[0]
-                                            : ""
-                                        }
-                                        value={singleNote.nbcFocus}
-                                        name="nbc_focus_original_date"
-                                        onChange={(e) =>
-                                          handleNbcChange(e, index)
-                                        }
-                                      />
-                                    </div>
-                                  ))}
+                                <div class="input-group mt-2" >
+                                  <Form.Control
+                                    type="date"
+                                    size="sm"
+                                    value={singleNote.nbcFocus}
+                                    name="nbc_focus_original_date"
+                                    onChange={(e) => handleNbcChange(e, index)}
+                                  />
                                 </div>
                               ))}
+                              {/* <div class="input-group mt-2"> */}
+
+                              {/* {uniqueId.map((mst, index) => (
+                                  <div key={mst.nbcid}>
+                                    <Form.Control
+                                      type="date"
+                                      size="sm"
+                                      defaultValue={
+                                        mst.nbc_focus_original_date
+                                          ? new Date(
+                                              mst.nbc_focus_original_date
+                                            )
+                                              .toISOString()
+                                              .split("T")[0]
+                                          : mst.nbc_focus_original_date
+                                      }
+                                      value={mst.nbc_original_focus_date}
+                                      name="nbc_focus_original_date"
+                                      onChange={(e) =>
+                                        handleNbcChange(e, index)
+                                      }
+                                    />
+                                  </div>
+                                ))} */}
+                              {/* </div> */}
                             </Col>
                             <Col sm={3} className="">
                               <p>METHODOLOGY</p>
-                              {nbcFocus.map((singleNote, index) => (
-                                <div class="input-group  mt-2">
-                                  {uniqueId.map((mst) => (
-                                    <div>
-                                      <Form.Control
-                                        type="text"
-                                        style={{
-                                          width: "100%",
-                                          height: "10px",
-                                        }}
-                                        size="sm"
-                                        defaultValue={
-                                          mst.nbc_focus_original_methodology
-                                        }
-                                        value={singleNote.nbcFocus}
-                                        name="nbc_focus_original_methodology"
-                                        onChange={(e) =>
-                                          handleNbcChange(e, index)
-                                        }
-                                      />
-                                      {/* <button onClick={handleNbcRemove}> <i className="">
-                                      <FiDelete />
-                                    </i></button> */}
-                                    </div>
-                                  ))}
-                                </div>
-                              ))}
+                              <div class="input-group  mt-2">
+                                {nbcFocus.map((singleNote, index) => (
+                                  <div class="input-group  mt-2">
+                                    {uniqueId.map((mst) => (
+                                      <div>
+                                        <Form.Control
+                                          type="text"
+                                          style={{
+                                            width: "30%",
+                                            height: "10px",
+                                          }}
+                                          size="sm"
+                                          defaultValue={
+                                            mst.nbc_focus_original_methodology
+                                          }
+                                          value={singleNote.nbcFocus}
+                                          name="nbc_focus_original_methodology"
+                                          onChange={(e) =>
+                                            handleNbcChange(e, index)
+                                          }
+                                        />
+                                      </div>
+                                    ))}
+                                  </div>
+                                ))}
+                                {/* {uniqueId.map((mst, index) => (
+                                  <div key={mst.nbcid}>
+                                    <Form.Control
+                                      type="text"
+                                      style={{
+                                        width: "100%",
+                                        height: "10px",
+                                      }}
+                                      size="sm"
+                                      defaultValue={
+                                        mst.nbc_focus_original_methodology
+                                      }
+                                      value={mst.nbc_focus_original_methodology}
+                                      name="nbc_focus_original_methodology"
+                                      onChange={(e) =>
+                                        handleNbcChange(e, index)
+                                      }
+                                    />
+                                  </div>
+                                ))} */}
+                              </div>
                             </Col>
                           </Row>
                         </Col>
@@ -2258,7 +2213,7 @@ export default function UpdateTransactions() {
                       </Row>
                     </Container1>
                   </Tab>
-                  <Tab
+  <Tab
                     eventKey="seventh"
                     title="TRANSACTION PARTIES"
                     style={{ fontSize: "12px" }}
@@ -2270,125 +2225,125 @@ export default function UpdateTransactions() {
                           <Row>
                             <Col sm={3} className="mt-1 mb-1">
                               <p>Role</p>
-                              {parties.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                                  {partyId.map((mst) => (
-                                    <div>
-                                      <Form.Control
-                                        style={{
-                                          width: "100%",
-                                          height: "35px",
-                                        }}
-                                        type="text"
-                                        size="sm"
-                                        defaultValue={mst.parties_role}
-                                        value={singleNote.parties}
-                                        name="parties_role"
-                                        onChange={(e) =>
-                                          handlePartyChange(e, index)
-                                        }
-                                      />
-                                    </div>
-                                  ))}
+                              {/* {parties.map((singleNote, index) => ( */}
+                              <div class="input-group mt-2">
+                                {partyId.map((mst, index) => (
+                                  <div>
+                                    <Form.Control
+                                      style={{
+                                        width: "100%",
+                                        height: "35px",
+                                      }}
+                                      type="text"
+                                      size="sm"
+                                      defaultValue={mst.parties_role}
+                                      value={mst.parties}
+                                      name="parties_role"
+                                      onChange={(e) =>
+                                        handlePartyChange(e, index)
+                                      }
+                                    />
+                                  </div>
+                                ))}
 
-                                  <br />
-                                </div>
-                              ))}
+                                <br />
+                              </div>
+                              {/* ))} */}
                             </Col>
                             <Col sm={3} className="mt-1 mb-1">
                               <p>Appointed</p>
-                              {parties.map((singleNote, index) => (
-                                <div class="input-group mt-2 ">
-                                  {partyId.map((mst) => (
-                                    <div>
-                                      <Form.Select
-                                        className="py-1 mt-1 "
-                                        type="text"
-                                        style={{
-                                          width: "120%",
-                                          height: "30px",
-                                        }}
-                                        size="md"
-                                        value={singleNote.parties}
-                                        onChange={(e) =>
-                                          handlePartyChange(e, index)
-                                        }
+                              {/* {parties.map((singleNote, index) => ( */}
+                              <div class="input-group mt-2 ">
+                                {partyId.map((mst, index) => (
+                                  <div>
+                                    <Form.Select
+                                      className="py-1 mt-1 "
+                                      type="text"
+                                      style={{
+                                        width: "120%",
+                                        height: "30px",
+                                      }}
+                                      size="md"
+                                      value={mst.parties}
+                                      onChange={(e) =>
+                                        handlePartyChange(e, index)
+                                      }
+                                      name="parties_appointed"
+                                    >
+                                      <option>Yes/No</option>
+                                      <option
+                                        value={1}
                                         name="parties_appointed"
+                                        selected={
+                                          mst.parties_appointed === true
+                                        }
                                       >
-                                        <option>Yes/No</option>
-                                        <option
-                                          value={1}
-                                          name="parties_appointed"
-                                          selected={
-                                            mst.parties_appointed === true
-                                          }
-                                        >
-                                          Yes
-                                        </option>
-                                        <option
-                                          value={2}
-                                          name="parties_appointed"
-                                          selected={
-                                            mst.parties_appointed === false
-                                          }
-                                        >
-                                          No
-                                        </option>
-                                      </Form.Select>
-                                    </div>
-                                  ))}
-                                </div>
-                              ))}
+                                        Yes
+                                      </option>
+                                      <option
+                                        value={2}
+                                        name="parties_appointed"
+                                        selected={
+                                          mst.parties_appointed === false
+                                        }
+                                      >
+                                        No
+                                      </option>
+                                    </Form.Select>
+                                  </div>
+                                ))}
+                              </div>
+                              {/* ))} */}
                             </Col>
                             <Col sm={3} className=" mb-1">
                               <p>Party</p>
-                              {parties.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                                  {partyId.map((mst) => (
-                                    <div>
-                                      <Form.Control
-                                        style={{
-                                          width: "100%",
-                                          height: "38px",
-                                        }}
-                                        type="text"
-                                        size="sm"
-                                        default={mst.parties_party}
-                                        value={singleNote.parties}
-                                        name="parties_party"
-                                        onChange={(e) =>
-                                          handlePartyChange(e, index)
-                                        }
-                                      />
-                                    </div>
-                                  ))}
-                                </div>
-                              ))}
+                              {/* {parties.map((singleNote, index) => ( */}
+                              <div class="input-group mt-2">
+                                {partyId.map((mst, index) => (
+                                  <div>
+                                    <Form.Control
+                                      style={{
+                                        width: "100%",
+                                        height: "38px",
+                                      }}
+                                      type="text"
+                                      size="sm"
+                                      default={mst.parties_party}
+                                      value={mst.parties}
+                                      name="parties_party"
+                                      onChange={(e) =>
+                                        handlePartyChange(e, index)
+                                      }
+                                    />
+                                  </div>
+                                ))}
+                              </div>
+                              {/* ))} */}
                             </Col>
                             <Col sm={3} className="">
                               <p>Status</p>
-                              {parties.map((singleNote, index) => (
-                                <div class="input-group  mt-2">
-                                  {partyId.map((mst) => (
-                                    <div>
-                                      <Form.Control
-                                        type="text"
-                                        style={{
-                                          width: "100%",
-                                          height: "38px",
-                                        }}
-                                        size="sm"
-                                        defaultValue={mst.parties_status}
-                                        value={singleNote.parties}
-                                        name="parties_status"
-                                        onChange={(e) =>
-                                          handlePartyChange(e, index)
-                                        }
-                                      />
-                                    </div>
-                                  ))}
-                                </div>
-                              ))}
+                              {/* {parties.map((singleNote, index) => ( */}
+                              <div class="input-group  mt-2">
+                                {partyId.map((mst, index) => (
+                                  <div>
+                                    <Form.Control
+                                      type="text"
+                                      style={{
+                                        width: "100%",
+                                        height: "38px",
+                                      }}
+                                      size="sm"
+                                      defaultValue={mst.parties_status}
+                                      value={mst.parties}
+                                      name="parties_status"
+                                      onChange={(e) =>
+                                        handlePartyChange(e, index)
+                                      }
+                                    />
+                                  </div>
+                                ))}
+                              </div>
+                              {/* ))} */}
                             </Col>
                           </Row>
                         </Col>
@@ -4192,6 +4147,11 @@ export default function UpdateTransactions() {
                         Next
                       </button> */}
                   </Tab>
+
+
+
+                 
+                
                 </Tabs>
               </div>
 
