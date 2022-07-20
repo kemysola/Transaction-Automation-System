@@ -1812,7 +1812,6 @@ export default function UpdateTransactions({}) {
                               />
                               <Form.Check
                                 inline
-                    
                                 style={deal[0].closed === false ? {visibility:"visible"} : {visibility:"hidden"}}
                                 label="Close Deal"
                                 type="radio"
