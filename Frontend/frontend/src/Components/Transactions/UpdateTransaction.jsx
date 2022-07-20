@@ -1799,7 +1799,7 @@ export default function UpdateTransactions({}) {
                             {/* </Col> */}
                         
                             <Col sm={12} style={{fontSize: "4em", alignContent: "centre"}}>
-                              {console.log('Closed == ', deal[0].closed, typeof(deal[0].closed))}
+                             
                               <Form.Check
                                style={deal[0].closed === true ? {visibility:"visible"} : {visibility:"hidden"}}
                                 inline
@@ -1812,6 +1812,7 @@ export default function UpdateTransactions({}) {
                               />
                               <Form.Check
                                 inline
+                    
                                 style={deal[0].closed === false ? {visibility:"visible"} : {visibility:"hidden"}}
                                 label="Close Deal"
                                 type="radio"
