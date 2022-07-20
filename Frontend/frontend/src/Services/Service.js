@@ -44,6 +44,10 @@ const getAllDeals = async() => { // get all deals, for privileged users only
     return await  axios.get("transaction/all_deals");
 };
 
+const getPortfolioAllDeals = async() => { // get all deals, for privileged users only
+    return await  axios.get("/transaction/all_deals/portfolio");
+};
+
 const downloadAllDeals = async() => { // get all deals, for privileged users only
     return await  axios.get("transaction/download_all_deals");
 };
@@ -143,6 +147,7 @@ const Services = {
     getMyDealsByEmail,
     getMyDeals,
     getAllDeals,
+    getPortfolioAllDeals,
     getAllStaff,
     getOneStaff,
     getClient,
