@@ -166,7 +166,7 @@ const AllDealsTable = (props) => {
     XLSX.writeFile(workBook,"Transaction_report.xlsx")
   }
 
-
+ // transaction table
   const columns = useMemo(
     () => [
       {
@@ -223,7 +223,7 @@ const AllDealsTable = (props) => {
           const amount = parseInt(props.row.original['dealsize'])
           return (
             <div>
-              {`${(amount).toFixed(1)}`}
+              {`${(amount).toFixed(2)}`}
             </div>
           )
         }
@@ -377,26 +377,74 @@ const AllDealsTable = (props) => {
       {
         Header: "Structuring Fee Amount(₦'MN)",
         accessor: "structuringfeeamount",
+        Cell: (props) => {
+          const amount = parseInt(props.row.original['structuringfeeamount'])
+          return (
+            <div>
+              {`${(amount).toFixed(2)}`}
+            </div>
+          )
+        }
       },
       {
         Header: "Structuring Fee Advance(%)",
         accessor: "structuringfeeadvance",
+        Cell: (props) => {
+          const amount = parseInt(props.row.original['structuringfeeadvance'])
+          return (
+            <div>
+              {`${(amount).toFixed(2)}`}
+            </div>
+          )
+        }
       },
       {
         Header: "Structuring Fee Final(%)",
         accessor: "structuringfeefinal",
+        Cell: (props) => {
+          const amount = parseInt(props.row.original['structuringfeefinal'])
+          return (
+            <div>
+              {`${(amount).toFixed(2)}`}
+            </div>
+          )
+        }
       },
       {
         Header: "Guarantee Fee(%)",
         accessor: "guaranteefee",
+        Cell: (props) => {
+          const amount = parseInt(props.row.original['guaranteefee'])
+          return (
+            <div>
+              {`${(amount).toFixed(2)}`}
+            </div>
+          )
+        }
       },
       {
         Header: "Monitoring Fee(₦'MN)",
         accessor: "monitoringfee",
+        Cell: (props) => {
+          const amount = parseInt(props.row.original['monitoringfee'])
+          return (
+            <div>
+              {`${(amount).toFixed(2)}`}
+            </div>
+          )
+        }
       },
       {
         Header: "Reimbursible Expense(₦'MN)",
         accessor: "reimbursible",
+        Cell: (props) => {
+          const amount = parseInt(props.row.original['reimbursible'])
+          return (
+            <div>
+              {`${(amount).toFixed(2)}`}
+            </div>
+          )
+        }
       },
       {
         Header: "Notes",
