@@ -139,6 +139,7 @@ const DealsTable = (props) => {
     });
   };
 
+  // transaction table
   const columns = useMemo(
     () => [
       {

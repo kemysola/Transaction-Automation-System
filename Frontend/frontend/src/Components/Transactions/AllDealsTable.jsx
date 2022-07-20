@@ -166,7 +166,7 @@ const AllDealsTable = (props) => {
     XLSX.writeFile(workBook,"Transaction_report.xlsx")
   }
 
-
+ // transaction table
   const columns = useMemo(
     () => [
       {
