@@ -34,6 +34,7 @@ import LogOut from "./Components/Auth/Log out/LogOut";
 import authService from "./Services/auth.Service"
 import { useLocation } from 'react-router-dom';
 import ForgotPassword from "./Components/Auth/forgot/ForgotPassword";
+import PortfolioAllDeals from "./Components/Transactions/PortfolioAllDeals";
 
 
 
@@ -98,6 +99,8 @@ export default function App() {
         <ProtectedRoute exact path="/staff" component={StaffView}/>
         <ProtectedRoute exact path="/staffs" component={AllStaff} />
         <ProtectedRoute exact path="/update" component={UpdateStaffs} />
+        {/* get all transaction for porfolio */}
+        <ProtectedRoute exact path="/all_transactions_portfolio" component={PortfolioAllDeals} />
         <ProtectedRoute exact path="/all_transactions" component={AllDeals} />
         <ProtectedRoute exact path="staffview" component={AllStaff }/>
         <ProtectedRoute exact path="/dashboard" component={MgtView}/>
