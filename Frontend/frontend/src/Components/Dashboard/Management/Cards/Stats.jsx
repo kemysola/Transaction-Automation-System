@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Stack } from "react-bootstrap";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import Scope from './managementCards/Scope';
 
@@ -42,7 +42,7 @@ const RedDiv = styled.div`
   padding-top:12px;
   font-size: 10px;
   display:inline-block;
-  margin-left:19px;
+  margin-left:8%;
 `;
 const WhiteDiv = styled.div`
   border-radius: 50px;
@@ -192,7 +192,7 @@ export default function Stats() {
   }, 0)
 
   
-  // .......................... Get transactions according to deal category ...................
+  // .......................... Get transactions dealsize according to deal category ...................
 
   var red = data.reduce(function (filtered, arr) {
     if (arr.deal_category === "Red") {
@@ -219,8 +219,7 @@ export default function Stats() {
   }, []);
 
 
-
-  // ......... Return deal_category total ...............................................
+  // ......... Return deal_category dealsize total ...............................................
 
   var redTotal = red.reduce(function (tot, arr) {
     return tot + parseFloat(arr);
@@ -245,6 +244,22 @@ export default function Stats() {
     { name: "Amber", value: amberTotal },
     { name: "Green", value: greenTotal },
   ];
+
+  const chartLegend = chartData.map((item, i) => {
+    if (`${item.name}` === "Amber") {
+      return (
+      <li key={i} style={{color: "#FFBF00"}} >
+        {item.name}:  ₦{item.value}bn
+      </li>
+      )
+    }
+    return (
+      <li key={i} style={{color: `${item.name}`}} >
+        {item.name}:  ₦{item.value}bn
+      </li>
+    );
+  });
+
 
   // ................................. Rechart Piechart Customized Label ...........................
 
@@ -311,7 +326,7 @@ export default function Stats() {
     return null;
   };
 
-      // ******************************** Chart Data  **********************
+    // ******************************** Chart Data  **********************
 
 
   const chartRegion = [
@@ -373,46 +388,63 @@ export default function Stats() {
                 Deal Category
               </p>
 
+              <Stack className="mb-2" direction="horizontal" gap={3}>
+                <div className="bg-light">
+                  <small>Total:</small>
+                  <WhiteDiv>{green.length+ amber.length + red.length}</WhiteDiv>
+                </div>
+
+                <div className="vr" />
+                <div className="bg-light">
+                  <GreenDiv>{green.length}</GreenDiv>
+                </div>
+
+                <div className="bg-light">
+                  <AmberDiv>{amber.length}</AmberDiv>
+                </div>
+
+                <div className="bg-light">
+                  <RedDiv style={{marginLeft: "2%"}} >{red.length}</RedDiv>
+                </div>
+              </Stack>
+
               <Row>
-                <Col md={4} className="mt-1 d-none d-sm-block">
-                <small>Total </small>
-                <WhiteDiv className="my-2">{green.length+ amber.length + red.length}</WhiteDiv>
-                  <br/>
-                  <small>Green </small>
-                  <GreenDiv className="my-2">{green.length}</GreenDiv>
-                  <br/>
-                  <small>Amber </small>
-                  <AmberDiv className="my-2">{amber.length}</AmberDiv>
-                  <br/>
-                  <small>Red </small>
-                  <RedDiv className="my-2">{red.length}</RedDiv>
-                </Col>
-                <Col md={6}>
-                  <PieChart width={340} height={210}>
-                    <Pie
-                      data={chartData}
-                      dataKey="value"
-                      nameKey="name"
-                      cx="30%"
-                      cy="40%"
-                      fill="#8884d8"
-                      innerRadius={55}
-                      outerRadius={75}
-                      paddingAngle={1}
-                      isAnimationActive={false}
-                      labelLine={false}
-                      label={renderCustomizedLabel}
-                    >
-                      {data.map((entry, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={COLORS[index % COLORS.length]}
-                        />
-                      ))}
-                    </Pie>
-                    <Tooltip content={customTooltip} />
-                  </PieChart>
-                </Col>
+                <div className="mt-3 d-flex justify-content-space-evenly align-items-center">
+                  <ResponsiveContainer width="100%" height={210}>
+                    <PieChart margin={{ top: 20, left: 50, right: 0, bottom: 0 }}>
+                      <Pie
+                        data={chartData}
+                        dataKey="value"
+                        nameKey="name"
+                        cx="30%"
+                        cy="40%"
+                        fill="#8884d8"
+                        innerRadius={55}
+                        outerRadius={75}
+                        paddingAngle={1}
+                        isAnimationActive={false}
+                        labelLine={false}
+                        label={renderCustomizedLabel}
+                      >
+                        {data.map((entry, index) => (
+                          <Cell
+                            key={`cell-${index}`}
+                            fill={COLORS[index % COLORS.length]}
+                          />
+                        ))}
+                      </Pie>
+                      <Tooltip content={customTooltip} />
+                    </PieChart>
+                  </ResponsiveContainer>
+
+                  <div style={{width: "40%", fontSize: "12px" }}>
+                    <ul>
+                      {chartLegend}
+                    </ul>
+                  </div>
+                  
+                </div>
+ 
               </Row>
             </Container>
           </Col>

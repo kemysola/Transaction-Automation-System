@@ -13,7 +13,7 @@ import MgtView from "./Components/Dashboard/Management/ManagementView";
 import Origination from "./Components/Dashboard/Origination/Origination";
 import NewText from "./Pages/Transactions/NewText";
 import AllStaff from "./Pages/Staffs/AllStaff";
-import DrillTeamView from "./Pages/Staffs/DrillTeamView";
+import DealTeamView from "./Pages/Staffs/DealTeamView";
 import Home from "./Components/Home";
 import Execution from "./Components/Dashboard/Execution/Execution";
 import StaffTable from "./Components/Staffs/StaffTable";
@@ -98,7 +98,7 @@ export default function App() {
         <Route exact path="/landing" component={Landing} />
         <ProtectedRoute exact path="/create_user" component={StaffView}/>
         <ProtectedRoute exact path="/all_users" component={AllStaff} />
-        <ProtectedRoute exact path="/drill_team" component={DrillTeamView} />
+        <ProtectedRoute exact path="/deal_team" component={DealTeamView} />
         <ProtectedRoute exact path="/all_transactions" component={AllDeals} />
         {/* <ProtectedRoute exact path="staffview" component={AllStaff }/> */}
         <ProtectedRoute exact path="/dashboard" component={MgtView}/>

@@ -52,6 +52,10 @@ const getAllStaff = async() => { // get all staff, for privileged users only
     return await axios.get("staff/all_staff");
 };
 
+const getDealStaff = async() => { // get all o and s team, for privileged users only
+    return await axios.get("staff/origination_structuring_users/all")
+}
+
 const getOneStaff = async(user_email) => { // get all staff, for privileged users only
     return await axios.get(`staff/${user_email}`);
 };
@@ -144,6 +148,7 @@ const Services = {
     getMyDeals,
     getAllDeals,
     getAllStaff,
+    getDealStaff,
     getOneStaff,
     getClient,
     getDealByDate,
