@@ -26,13 +26,8 @@ export default function CurrentGuarantee() {
   };
   const {addTitle, cartTitle} = useContext(TitleContext)
 
-  // console.log(addTitle('yes'))
   console.log(cartTitle)
 
-  // console.log(addTitle)
-
-
-  
 
 
     // ******************************************  static data shared  ****************************************

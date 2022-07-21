@@ -68,10 +68,10 @@ function SingleStaff() {
               user_email
 
           ).then((res) =>{
-            //console.log(res.data.deals)
+
               setStaff(res.data.deals)
           })
-          //console.log(staff)  
+ 
           
       } ;
 
@@ -82,7 +82,7 @@ function SingleStaff() {
       const downloadSingleStaff = async() => {
         Service.downloadMyDealsByEmail(user_email).
         then((res) => {
-          //console.log(res.data.deals)
+   
           setDownloadStaff(res.data.deals)
         }).catch((err) =>{
           console.log(err)

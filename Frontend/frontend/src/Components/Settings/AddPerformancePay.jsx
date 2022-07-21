@@ -40,7 +40,6 @@ export default function PerformanceSettings () {
     e.preventDefault();
     form.current.validateAll();
   
-    console.log("User clicked save")
   }
 
   return (

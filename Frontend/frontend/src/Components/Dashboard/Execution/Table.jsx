@@ -203,7 +203,6 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
       })
       .catch((e) => {
         setResponse("Please Fill All Required Fields")
-        console.log("Invalid Dates");
       });
   };
 

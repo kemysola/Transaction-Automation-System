@@ -24,8 +24,6 @@ export default function UpdateForecast (props) {
     retrieveForecast();
   }, [cumuValue, dealValue]);
 
-  console.log(cumuValue, dealValue)
-
   function editForecast(id, projectionyear, cumuGrowth, newDeals) {
     setCumuValue(cumuGrowth)
     setDealValue(newDeals)

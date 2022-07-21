@@ -180,7 +180,6 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
   const downloadSingleStaff = async() => {
     Service.downloadAllDeals().
     then((res) => {
-      //console.log(res.data.deals)
       setDownloadStaff(res.data.deals)
     }).catch((err) =>{
       console.log(err)
