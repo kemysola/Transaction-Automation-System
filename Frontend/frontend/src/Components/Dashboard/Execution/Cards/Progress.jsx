@@ -173,7 +173,6 @@ export default function Progress() {
   const retrieveGuranteePipeline = () => {
     Service.getAllStaff()
       .then((response) => {
-        console.log(response)
         setTarget(response.data.staff);
         // setMandate(response.data.staff.mandateletter);
         // setFinancialClose(response.data.staff.financialclose);
@@ -190,7 +189,6 @@ export default function Progress() {
    
     Service.getOneStaff(staffFilter)
       .then((response) => {
-        console.log(response)
         setTarget(response.data.staffInfo);
         setMandate(response.data.staffInfo[0].mandateletter);
         setFinancialClose(response.data.staffInfo[0].financialclose);

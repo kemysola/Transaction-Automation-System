@@ -30,7 +30,6 @@ function GreenAndAnberCard() {
   useEffect(() => {
     Service.getAllStaff()
       .then((res) => {
-        //console.log(res.data.staff);
         setData(res.data.staff);
       })
       .catch((err) => {
@@ -44,7 +43,6 @@ function GreenAndAnberCard() {
         setActual(res.data.deals);
       })
       .catch((err) => {
-        // console.log(err);
       });
   }, []);
 

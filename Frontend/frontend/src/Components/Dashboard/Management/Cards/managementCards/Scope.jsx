@@ -94,7 +94,6 @@ function GuaranteePipeline() {
   useEffect(() => {
     Service.getProduct()
       .then((res) => {
-        //console.log(res.data.product.length);
         setProduct(res.data.product.length)
       })
       .catch((err) => {
@@ -104,7 +103,6 @@ function GuaranteePipeline() {
   useEffect(() => {
     Service.getRegion()
       .then((res) => {
-        //console.log(res.data.region.length);
         setRegion(res.data.region.length)
       })
       .catch((err) => {
