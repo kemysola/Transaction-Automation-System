@@ -83,22 +83,28 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
 
                 <MenuItem className="subMenu">
                   <Link to='/create_transaction' style={{ color: '#237cbf' }}>
-                    New Transaction
+                    Create Transaction
                   </Link>
                 </MenuItem>
               </SubMenu>
 
-              {/* -------------------------------- Staff SideNav with React RouterLink -------------------- */}
-              <SubMenu title='Staff' icon={<ImUsers />}>
+              {/* -------------------------------- Users SideNav with React RouterLink -------------------- */}
+              <SubMenu title='Users' icon={<ImUsers />}>
                 <MenuItem className="subMenu">
-                  <Link to='/staffs' style={{ color: '#237cbf' }}>
-                    All Staff
+                  <Link to='/all_users' style={{ color: '#237cbf' }}>
+                    All Users
                   </Link>
                 </MenuItem>
 
                 <MenuItem className="subMenu">
-                  <Link to='/staff' style={{ color: '#237cbf' }}>
-                    New Staff
+                  <Link to='/deal_team' style={{ color: '#237cbf' }}>
+                    Deal Team
+                  </Link>
+                </MenuItem>
+
+                <MenuItem className="subMenu">
+                  <Link to='/create_user' style={{ color: '#237cbf' }}>
+                    Create User
                   </Link>
                 </MenuItem>
               </SubMenu>
@@ -118,7 +124,7 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                 </MenuItem>
 
                 <MenuItem className="subMenu">
-                  <Link to ='/org-dashboard' style={{color:'#237cbf'}}>
+                  <Link to ='/org_dashboard' style={{color:'#237cbf'}}>
                     Origination Dashboard
                   </Link>
                 </MenuItem>

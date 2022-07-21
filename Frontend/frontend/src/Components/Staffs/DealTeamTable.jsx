@@ -154,14 +154,14 @@ const StaffTable = () => {
 
 
   useEffect(() => {
-    retrieveStaff();
+    retrieveDealStaff();
   }, []);
 
 
   // ******************************************  Axios call : get all staff *********************************************
 
-  const retrieveStaff = async() => {
-    await Service.getAllStaff()
+  const retrieveDealStaff = async() => {
+    await Service.getDealStaff()
       .then((response) => {
         setStaff(response.data.staff);
       })

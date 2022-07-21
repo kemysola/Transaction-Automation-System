@@ -41,7 +41,6 @@ function GreenAndAnberCard() {
   useEffect(() => {
     Service.getAllDeals()
       .then((res) => {
-        console.log(res.data.deals);
         setActual(res.data.deals);
       })
       .catch((err) => {

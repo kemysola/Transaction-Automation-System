@@ -197,18 +197,18 @@ export default function NewStaff() {
                     {submitted ? (
                         <Container1>
                             <p style={{ fontWeight: 'bold', fontSize: '12px', color: 'black', marginTop: '1rem' }}>{response}</p>
-                            <ButtonWrapper onClick={newStaff}>Add New Staff</ButtonWrapper>
+                            <ButtonWrapper onClick={newStaff}>Create a New User</ButtonWrapper>
                         </Container1>
 
                     ) : (
                         <Form>
 
                             {/*----------------------------- Title -------------------------------------------------- */}
-                            <h5 className='text-secondary py-2 mb-2 mt-1'>New Staff</h5>
+                            <h5 className='text-secondary py-2 mb-2 mt-1'>Create a New User</h5>
                             <br />
                             <div>
                                 <Tabs  onSelect={(k) => handleTabChange} style={{ fontSize: '13px' }}>
-                                    <Tab eventKey="first" title="STAFF">
+                                    <Tab eventKey="first" title="USER">
                                         <br />
                                         <br />
                                         <Container1 style={{ marginBottom: '3px', padding: '2px 20px', fontSize: '11px' }}>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Row, Col } from "react-bootstrap";
 import SideNav2 from "../../Components/LandingPage/SideNav2";
 import Navbar from "../../Components/LandingPage/Navbar";
-import StaffTable from "../../Components/Staffs/StaffTable";
+import DealTeamTable from "../../Components/Staffs/DealTeamTable"
 
 
 const ViewWrapper = styled.div`
@@ -26,9 +26,8 @@ export default function AllStaff() {
             <SideNav2 />
           </Col>
           <Col sm={9} className='my-1'>
-          <h2 style={{color: "steelblue",fontSize:'15px', marginLeft:'13px'}} >All Users</h2>
-
-            <StaffTable />
+            <h2 style={{color: "steelblue",fontSize:'15px', marginLeft:'13px'}} >Deal Team</h2>
+            <DealTeamTable />
           </Col>
         </Row>
       </ViewWrapper>

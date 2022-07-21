@@ -106,8 +106,8 @@ export default function UpdateStaffs() {
   const retrieveStaff = async () => {
     const staff_data = await axios
       .get(
-           `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
-        // `http://localhost:5001/api/v1/staff/${user_email}`,
+          //  `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
+        `http://localhost:5001/api/v1/staff/${user_email}`,
 
         {
           headers: {
@@ -210,7 +210,7 @@ export default function UpdateStaffs() {
         <Container fluid>
           {saved ? (
             <Form onSubmit={handleSubmit}>
-              <h5 className="text-secondary mb-2 py-2 mt-1">Update Staff</h5>
+              <h5 className="text-secondary mb-2 py-2 mt-1">Update User</h5>
               <br />
 
               {/*------------------------------------- Container Div ------------------------ */}
@@ -219,7 +219,7 @@ export default function UpdateStaffs() {
                 onSelect={(k) => handleTabChange}
                 style={{ fontSize: "13px" }}
               >
-                <Tab eventKey="first" title="STAFF">
+                <Tab eventKey="first" title="USER">
                   <br />
                   <br />
                   <Container1

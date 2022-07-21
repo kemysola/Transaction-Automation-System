@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Container, Row, Col, Spinner } from "react-bootstrap";
+import { Container, Row, Col, Spinner, Stack} from "react-bootstrap";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import Service from "../../../../Services/Service";
-import { Chart } from "react-google-charts";
 import "./../style.css";
 import {
   BarChart,
@@ -336,6 +335,22 @@ export default function PieCard ({dealFilter, staffFilter}) {
       }
       return null;
     };
+
+    const chartLegend = chartData.map((item, i) => {
+      if (`${item.name}` === "Amber") {
+        return (
+        <li key={i} style={{color: "#FFBF00"}} >
+          {item.name}:  ₦{item.value}bn
+        </li>
+        )
+      }
+      return (
+        <li key={i} style={{color: `${item.name}`}} >
+          {item.name}:  ₦{item.value}bn
+        </li>
+      );
+    });
+
     const chartRegion = [
       {
         name:"South",
@@ -400,47 +415,62 @@ export default function PieCard ({dealFilter, staffFilter}) {
               DEAL CATEGORY
             </p>
 
-            <Row>
-              <Col className="mt-1 mx-0 d-none d-sm-block" sm={3} style={{marginLeft: "0px"}} >
-              <small>Total </small>
-                <WhiteDiv className="my-1">{((dealFilter !== "All") || (staffFilter !== "All")) ? count.length : data.length}</WhiteDiv>
-                <br/>
-                <small>Green </small>
-                <GreenDiv className="my-1">{green.length}</GreenDiv>
-                <br/>
-                <small >Amber </small>
-                <AmberDiv className="my-1">{amber.length}</AmberDiv>
-                <br/>
-                <small >Red </small>
-                <RedDiv className="my-1">{red.length}</RedDiv>
-              </Col>
+              <Stack className="mb-2" direction="horizontal" gap={3}>
+                <div className="bg-light">
+                  <small>Total:</small>
+                  <WhiteDiv>{((dealFilter !== "All") || (staffFilter !== "All")) ? count.length : data.length}</WhiteDiv>
+                </div>
 
-              <Col sm={9} >
-                <PieChart width={300} height={210}>
-                  <Pie
-                    data={chartData}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="25%"
-                    cy="40%"
-                    fill="#8884d8"
-                    innerRadius={55}
-                    outerRadius={75}
-                    paddingAngle={1}
-                    isAnimationActive={false}
-                    labelLine={false}
-                    label={renderCustomizedLabel}
-                  >
-                    {data.map((entry, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={COLORS[index % COLORS.length]}
-                      />
-                    ))}
-                  </Pie>
-                  <Tooltip content={customTooltip} />
-                </PieChart>
-              </Col>
+                <div className="vr" />
+                <div className="bg-light">
+                  <GreenDiv>{green.length}</GreenDiv>
+                </div>
+
+                <div className="bg-light">
+                  <AmberDiv>{amber.length}</AmberDiv>
+                </div>
+
+                <div className="bg-light">
+                  <RedDiv style={{marginLeft: "2%"}} >{red.length}</RedDiv>
+                </div>
+              </Stack>
+
+            <Row>
+              <div className="mt-3">
+                <ResponsiveContainer width="100%" height={210}>
+                  <PieChart margin={{ top: 20, left: 80, right: 0, bottom: 0 }}>
+                    <Pie
+                      data={chartData}
+                      dataKey="value"
+                      nameKey="name"
+                      cx="25%"
+                      cy="40%"
+                      fill="#8884d8"
+                      innerRadius={55}
+                      outerRadius={75}
+                      paddingAngle={1}
+                      isAnimationActive={false}
+                      labelLine={false}
+                      label={renderCustomizedLabel}
+                    >
+                      {data.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip content={customTooltip} />
+                  </PieChart>
+                </ResponsiveContainer>
+
+                <div style={{width: "40%", fontSize: "12px", display: "inline" }}>
+                  <ul className="d-flex justify-content-center align-items-center">
+                    {chartLegend}
+                    <br />
+                  </ul>
+                </div>
+              </div>
             </Row>
           </Col>
         </Row>
