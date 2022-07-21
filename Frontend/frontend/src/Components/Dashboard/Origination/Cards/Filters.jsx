@@ -7,13 +7,11 @@ const Filters = (props) => {
 
     const handleStartDate = (e) => {
         let date = e.target.value
-        console.log("startDate", e.target.value)
         setStartDate(date);
     }
 
     const handleEndDate = (e) => {
         let date = e.target.value
-        console.log("endDate", e.target.value)
         setEndDate(date);
     }
 
@@ -24,10 +22,8 @@ const Filters = (props) => {
 
     // filter table by startDate and endDate
     const filterByDate = () => {
-        console.log("are you filtering")
         if (startDate && endDate) {
-            props.setFilter("expectedclose", [startDate, endDate]);
-            console.log("what's the issue")
+
         }
     }
 

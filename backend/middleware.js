@@ -50,7 +50,6 @@ const verifyUser = async (req, res, next) => {
       [req.params.confirmationCode]
     );
     if (user) {
-      // console.log('user from VerifyUser', req.params.confirmationCode)
       const user_data = [req.params.confirmationCode];
 
       await client.query("BEGIN");

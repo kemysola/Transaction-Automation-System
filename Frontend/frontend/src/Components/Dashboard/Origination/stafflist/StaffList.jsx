@@ -81,7 +81,7 @@ function StaffList() {
    const retrieveStaff = () => {
     Service.getAllStaff()
       .then((response) => {
-         console.log("Output", response.data.staff)
+
          setStaff(response.data.staff);
        })
        .catch((e) => {

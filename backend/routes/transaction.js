@@ -43,8 +43,6 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
             
         } = req.body;
 
-        // console.log(new_transaction.nbcFocus)
-
         const transaction_data = [new_transaction.clientName, new_transaction.originator, new_transaction.transactor,
         new_transaction.industry, new_transaction.product, new_transaction.region,
         new_transaction.dealSize, new_transaction.coupon, new_transaction.tenor,
@@ -131,7 +129,6 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
                 const write_to_plis = `INSERT INTO TB_INFRCR_TRANSACTION_PLIS(transID, plis_particulars, plis_concern, plis_weighting, plis_expected, plis_status) VALUES %L RETURNING *`
 
                 const res_plis = await client.query(format(write_to_plis,[rows]))
-                console.log(rows)
 
                 await client.query('COMMIT')
                 return res_plis.rows[0]
@@ -620,8 +617,6 @@ router.put('/update/:dealID', verifyTokenAndAuthorization, async (req, res) => {
             WHERE transID = $1 AND id = $2
             `
             const res_plis = await client.query(update_to_plis,rows)
-            console.log(rows)
-
 
             await client.query('COMMIT')
 
