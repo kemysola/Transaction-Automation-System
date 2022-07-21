@@ -110,7 +110,7 @@ const IndeterminateCheckbox = React.forwardRef(
   }
 )
 
-const AllDealsTable = (props) => {
+const PortfolioAllDealsTable = (props) => {
   
     // ****************************  use state hook to store state, useRef and useHistory for routing ***************
 
@@ -132,7 +132,7 @@ const AllDealsTable = (props) => {
 
 
   const retrieveDeals = async() => {
-    await Service.getAllDeals()
+    await Service.getPortfolioAllDeals()
       .then((response) => {
         setDeals(response.data.deals);
       })
@@ -714,4 +714,4 @@ const AllDealsTable = (props) => {
     </React.Fragment>
 )}
 
-export default AllDealsTable;
+export default PortfolioAllDealsTable;
