@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Button, Row, Col} from 'react-bootstrap';
 import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters, useSortBy } from "react-table";
 import { FiEdit } from "react-icons/fi";
+import { FaLock, FaLockOpen } from "react-icons/fa"
+import { GrStatusDisabled } from "react-icons/gr"
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Service from "../../Services/Service";
@@ -169,6 +171,22 @@ const AllDealsTable = (props) => {
  // transaction table
   const columns = useMemo(
     () => [
+      {
+        Header: <GrStatusDisabled />,
+        accessor: "closed",
+        disableResizing: true,
+        minWidth: 20,
+        width: 35,
+        maxWidth: 35,
+        Cell: (props) => {
+          const status = (props.row.original['closed'])
+          return (
+            <div>
+              {status ? <FaLock /> : <FaLockOpen />} 
+            </div>
+          )
+        }
+      },
       {
         Header: "Edit",
         accessor: "edit",
@@ -450,10 +468,18 @@ const AllDealsTable = (props) => {
         Header: "Notes",
         accessor: "notes",
       },
-      {
-        Header: "Closed",
-        accessor: "closed",
-      },
+      // {
+      //   Header: "Closed",
+      //   accessor: "closed",
+      //   Cell: (props) => {
+      //     const status = (props.row.original['closed'])
+      //     return (
+      //       <div>
+      //         {status ? "True" : "False"}
+      //       </div>
+      //     )
+      //   }
+      // },
     ],
     []
   );
@@ -513,39 +539,39 @@ const AllDealsTable = (props) => {
     useFlexLayout,
     useSortBy,
     usePagination,
-    useRowSelect,
-    hooks => {
-      hooks.allColumns.push(columns => [
-        // Let's make a column for selection
-        {
-          id: 'selection',
-          disableResizing: true,
-          minWidth: 20,
-          width: 35,
-          maxWidth: 35,
-          // The header can use the table's getToggleAllRowsSelectedProps method
-          // to render a checkbox
-          Header: ({ getToggleAllRowsSelectedProps }) => (
-            <div>
-              <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-            </div>
-          ),
-          // The cell can use the individual row's getToggleRowSelectedProps method
-          // to the render a checkbox
-          Cell: ({ row }) => (
-            <div>
-              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-            </div>
-          ),
-        },
-        ...columns,
-      ])
-      hooks.useInstanceBeforeDimensions.push(({ headerGroups }) => {
-        // fix the parent group of the selection button to not be resizable
-        const selectionGroupHeader = headerGroups[0].headers[0]
-        selectionGroupHeader.canResize = false
-      })
-    },
+    // useRowSelect,
+    // hooks => {
+    //   hooks.allColumns.push(columns => [
+    //     // Let's make a column for selection
+    //     {
+    //       id: 'selection',
+    //       disableResizing: true,
+    //       minWidth: 20,
+    //       width: 35,
+    //       maxWidth: 35,
+    //       // The header can use the table's getToggleAllRowsSelectedProps method
+    //       // to render a checkbox
+    //       Header: ({ getToggleAllRowsSelectedProps }) => (
+    //         <div>
+    //           <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+    //         </div>
+    //       ),
+    //       // The cell can use the individual row's getToggleRowSelectedProps method
+    //       // to the render a checkbox
+    //       Cell: ({ row }) => (
+    //         <div>
+    //           <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+    //         </div>
+    //       ),
+    //     },
+    //     ...columns,
+    //   ])
+    //   hooks.useInstanceBeforeDimensions.push(({ headerGroups }) => {
+    //     // fix the parent group of the selection button to not be resizable
+    //     const selectionGroupHeader = headerGroups[0].headers[0]
+    //     selectionGroupHeader.canResize = false
+    //   })
+    // },
     
     );
 
