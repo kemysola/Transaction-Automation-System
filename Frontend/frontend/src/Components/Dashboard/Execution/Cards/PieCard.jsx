@@ -336,17 +336,23 @@ export default function PieCard ({dealFilter, staffFilter}) {
       return null;
     };
 
+    console.log(chartData)
+
     const chartLegend = chartData.map((item, i) => {
       if (`${item.name}` === "Amber") {
         return (
         <li key={i} style={{color: "#FFBF00"}} >
-          {item.name}:  ₦{item.value}bn
+          {item.name}:  ₦{(item.value).toLocaleString("en-US", {
+                maximumFractionDigits: 2,
+              })}bn
         </li>
         )
       }
       return (
         <li key={i} style={{color: `${item.name}`}} >
-          {item.name}:  ₦{item.value}bn
+          {item.name}: ₦{(item.value).toLocaleString("en-US", {
+                maximumFractionDigits: 2,
+              })}bn
         </li>
       );
     });
