@@ -4,9 +4,8 @@ import styled from 'styled-components';
 import {Row, Col, Container} from 'react-bootstrap';
 import SideNav2 from '../LandingPage/SideNav2';
 import TransactionTable from './PortfolioAllDealsTable';
-import TransactionCards from './AllDealsCard';
+import TransactionCards from './PortfolioAllDealsCard';
 import Navbar from '../LandingPage/Navbar';
-
 
 const ViewWrapper = styled.div`
   margin:0;
