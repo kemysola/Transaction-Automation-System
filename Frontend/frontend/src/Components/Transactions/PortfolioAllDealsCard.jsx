@@ -35,7 +35,7 @@ export default function TransactionCards() {
   return (
     <React.Fragment>
       <Container>
-        <h2 style={{color: "steelblue",fontSize:'15px'}}>All Transactions</h2>
+        <h2 style={{color: "steelblue",fontSize:'15px'}}>Pipelines Portfolio</h2>
           
         <Row>
           <Col sm={6} md={6} className='d-md-block'>
