@@ -7,7 +7,6 @@ import TransactionTable from './PortfolioAllDealsTable';
 import TransactionCards from './PortfolioAllDealsCard';
 import Navbar from '../LandingPage/Navbar';
 
-
 const ViewWrapper = styled.div`
   margin:0;
   padding: 0 10px;
