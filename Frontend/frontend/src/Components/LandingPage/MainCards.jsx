@@ -74,7 +74,7 @@ const MainCards = () => {
                     <Col sm={6}  lg={4} md={6} className='my-1'>
                         <div className="bg-light py-2">
                             <li className='text-center' style={{ fontWeight: 'bold', listStyleType: 'none' }}>
-                                <Link to='/newPages' style={{ textDecoration: "none", color: '#1184C2',fontFamily:'PT Serif' }}>
+                                <Link to='/create_transaction' style={{ textDecoration: "none", color: '#1184C2',fontFamily:'PT Serif' }}>
                                     DEAL MANAGER
                                 </Link>
                             </li>
