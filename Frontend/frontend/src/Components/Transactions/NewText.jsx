@@ -9,6 +9,7 @@ import Input from "react-validation/build/input";
 import Select from "react-validation/build/select";
 import { GrAdd } from "react-icons/gr";
 import { FiDelete } from "react-icons/fi";
+import NewTransaction from "./NewTransaction";
 
 const ButtonWrapper = styled.button`
   background: green;
@@ -51,6 +52,7 @@ const required = (value) => {
 };
 
 const AddDeal = () => {
+
   // ******************************************  Declare Initial state ****************************************
 
   const initialDealState = {
@@ -240,7 +242,7 @@ const AddDeal = () => {
   const [frequency, setFrequency] = useState([]);
   const [style, setStyle] = useState([]);
   const [staffList, setStaffList] = useState([]);
-  const form = useRef();
+  // const form = useRef();
 
   // ************************************ use Effect : ComponentDidMount - ComponentWillReceive **************
 
@@ -439,7 +441,7 @@ const AddDeal = () => {
     setNbcFocus(list);
   };
 
-  // **************************************************** Key Performance Indicators ************************
+  // **************************************************** Key Performance Indicators ************************//
   const handleKpiChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...kpi];
@@ -570,7 +572,7 @@ const AddDeal = () => {
   const saveDeal = (e) => {
     // function to save users data and post to db
     e.preventDefault();
-    form.current.validateAll();
+    // form.current.validateAll();
 
     let allNotes = noteList.map(({ note }) => note);
     let note = allNotes.join("|");
@@ -647,6 +649,8 @@ const AddDeal = () => {
       });
   };
 
+  //******************************************************** new function to handle default upon submission    ****/
+
   const newDeal = () => {
     setDeal(initialDealState);
     setNoteList([{ note: "" }]);
@@ -666,8 +670,7 @@ const AddDeal = () => {
     nbc_focus_apprv_5_c: null
 
      }]);
-    // setKeyPerformanceI([{ label: "", concern: "", date: "", methodology: "" }]);
-    // setDealTracking()
+    
     setSubmitted(false);
     setActiveTab("first");
     setResponse("");
@@ -698,7 +701,7 @@ const AddDeal = () => {
               </ButtonWrapper>
             </div>
           ) : (
-            <Form ref={form}>
+            <Form onSubmit={saveDeal}>
               <PWrapper>
                 <h5 className="py-3 text-secondary">New Transaction</h5>
               </PWrapper>
@@ -1424,35 +1427,7 @@ const AddDeal = () => {
                       </div>
                       <br />
                       <br />
-                      {/* <button
-                        onClick={(e) => toPrevTab(e)}
-                        style={{
-                          display: "inlineblock",
-                          fontSize: "13px",
-                          padding: "2px 20px",
-                          margin: "10px",
-                          background: "green",
-                          color: "white",
-                          borderRadius: "3px",
-                        }}
-                      >
-                        {" "}
-                        Prev
-                      </button> */}
-                      {/* <button
-                        onClick={(e) => toNextTab(e)}
-                        style={{
-                          display: "inlineblock",
-                          fontSize: "13px",
-                          padding: "2px 20px",
-                          margin: "10px",
-                          background: "green",
-                          color: "white",
-                          borderRadius: "3px",
-                        }}
-                      >
-                        Next
-                      </button> */}
+                      
                     </Container1>
                   </Tab>
 
@@ -1987,35 +1962,7 @@ const AddDeal = () => {
                       <br />
                       <br />
                     </Container1>
-                    {/* <button
-                      onClick={(e) => toPrevTab(e)}
-                      style={{
-                        display: "inlineblock",
-                        fontSize: "13px",
-                        padding: "2px 20px",
-                        margin: "10px",
-                        background: "green",
-                        color: "white",
-                        borderRadius: "3px",
-                      }}
-                    >
-                      {" "}
-                      Prev */}
-                    {/* </button>
-                    <button
-                      onClick={(e) => toNextTab(e)}
-                      style={{
-                        display: "inlineblock",
-                        fontSize: "13px",
-                        padding: "2px 20px",
-                        margin: "10px",
-                        background: "green",
-                        color: "white",
-                        borderRadius: "3px",
-                      }}
-                    >
-                      Next
-                    </button> */}
+                   
                   </Tab>
                   <Tab
                     eventKey="sixth"
@@ -4192,7 +4139,7 @@ const AddDeal = () => {
                 </div>
 
                 <div className="d-flex justify-content-end">
-                  <ButtonWrapper onClick={saveDeal} ref={form}>
+                  <ButtonWrapper >
                     Submit
                   </ButtonWrapper>
 
@@ -4206,7 +4153,10 @@ const AddDeal = () => {
             </Form>
           )}
         </Container>
+
       </FormWrapper>
+      <NewTransaction/>
+
     </React.Fragment>
   );
 };
