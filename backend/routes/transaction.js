@@ -157,8 +157,7 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
          let funcKPI =  (transID) => {
             new_transaction.kpi.forEach(async element => {
                 var rows = [transID, element.kpi_factors, element.kpi_yes_no, element.kpi_concern, element.kpi_expected, element.kpi_resp_party, element.kpi_status];
-                const write_to_kpi = `
-                INSERT INTO TB_INFRCR_TRANSACTION_KPI(transID, kpi_factors, kpi_yes_no, kpi_concern, kpi_expected, kpi_resp_party, kpi_status) VALUES %L RETURNING *`
+                const write_to_kpi = `INSERT INTO TB_INFRCR_TRANSACTION_KPI(transID, kpi_factors, kpi_yes_no, kpi_concern, kpi_expected, kpi_resp_party, kpi_status) VALUES %L RETURNING *`
 
                 const res_kpi = await client.query(format(write_to_kpi,[rows]))
 
@@ -265,28 +264,6 @@ router.get('/my_deals', verifyTokenAndAuthorization, async (req, res) => {
         const current_user = req.user
 
         const my_deals = await client.query(
-            // `SELECT a.* ,
-
-            // b.ocps_factors, b.ocps_yes_no, b.ocps_concern, b.ocps_expected, b.ocps_resp_party, b.ocps_status,
-
-            // c.nbc_focus_original, c.nbc_focus_original_yes_no, c.nbc_focus_original_date, c.nbc_focus_original_methodology, c.nbc_focus_apprv_1_c, c.nbc_focus_apprv_2_b, c.nbc_focus_apprv_2_c, c.nbc_focus_apprv_3_b, c.nbc_focus_apprv_3_c,
-            // c.nbc_focus_apprv_4_b, c.nbc_focus_apprv_4_c, c.nbc_focus_apprv_5_b, c.nbc_focus_apprv_5_c,
-            
-            // d.parties_role, d.parties_party, d.parties_appointed, d.parties_status,
-           
-            // e.plis_particulars, e.plis_concern, e.plis_weighting, e.plis_expected, e.plis_status,
-
-            // f.kpi_factors, f.kpi_yes_no, f.kpi_concern, f.kpi_expected, f.kpi_resp_party, f.kpi_status 
-        
-            // FROM TB_INFRCR_TRANSACTION a
-            // LEFT JOIN TB_INFRCR_TRANSACTION_OTHER_CPS b ON b.transID = a.transID
-            // LEFT JOIN TB_INFRCR_TRANSACTION_NBC_FOCUS c ON c.transID = a.transID
-            // LEFT JOIN TB_INFRCR_TRANSACTION_PARTIES d ON d.transID = a.transID
-            // LEFT JOIN TB_INFRCR_TRANSACTION_PLIS e ON e.transID = a.transID
-            // LEFT JOIN TB_INFRCR_TRANSACTION_KPI f ON f.transID = a.transID
-            // WHERE a.originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
-            // OR a.transactor = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
-            // `
             `SELECT a.*
         
             FROM TB_INFRCR_TRANSACTION a
@@ -529,132 +506,135 @@ router.put('/update/:dealID', verifyTokenAndAuthorization, async (req, res) => {
             WHERE transID = $37
         RETURNING *`
         const res_ = await client.query(update_db, updated) 
+        
+        await client.query('COMMIT')
 
          // convert notes field to list
         res_.rows[0]['notes'] = res_.rows[0]['notes'].split('|')
 
-        // UPDATE OCPS
+        // // UPDATE OCPS
 
-        let funcOtherCPsUpdate =  () => {
-            updated_rec.ocps.forEach(async element => {
-                var rows = [req.params.dealID, element.id, element.ocps_factors, element.ocps_yes_no, element.ocps_concern, element.ocps_expected, element.ocps_resp_party, element.ocps_status];
-                const update_to_ocps = `
-                UPDATE TB_INFRCR_TRANSACTION_OTHER_CPS
-                SET ocps_factors = $3
-                    ,ocps_yes_no = $4
-                    ,ocps_concern = $5
-                    ,ocps_expected = $6
-                    ,ocps_resp_party = $7
-                    ,ocps_status = $8
-                WHERE transID = $1 AND id = $2
-                `
-                const res_ocps = await client.query(update_to_ocps,rows)
+        // let funcOtherCPsUpdate =  () => {
+        //     updated_rec.ocps.forEach(async element => {
+        //         var rows = [req.params.dealID, element.id, element.ocps_factors, element.ocps_yes_no, element.ocps_concern, element.ocps_expected, element.ocps_resp_party, element.ocps_status];
+        //         const update_to_ocps = `
+        //         UPDATE TB_INFRCR_TRANSACTION_OTHER_CPS
+        //         SET ocps_factors = $3
+        //             ,ocps_yes_no = $4
+        //             ,ocps_concern = $5
+        //             ,ocps_expected = $6
+        //             ,ocps_resp_party = $7
+        //             ,ocps_status = $8
+        //         WHERE transID = $1 AND id = $2
+        //         `
+        //         const res_ocps = await client.query(update_to_ocps,rows)
 
-                await client.query('COMMIT')
+        //         await client.query('COMMIT')
 
-                return res_ocps.rows[0]
+        //         return res_ocps.rows[0]
  
-            });
-        }
-        var vfuncOtherCPsUpdate = funcOtherCPsUpdate()
+        //     });
+        // }
+        // var vfuncOtherCPsUpdate = funcOtherCPsUpdate()
         
-        // UPDATE NBC FOCUS
-        let funcNbcFocusUpdate =  () => {
-            updated_rec.nbcFocus.forEach(async element => {
-                var rows = [req.params.dealID, element.id, element.nbc_focus_original, element.nbc_focus_original_yes_no, element.nbc_focus_original_date, element.nbc_focus_original_methodology];
-                const update_to_nbcfocus = `
-                UPDATE TB_INFRCR_TRANSACTION_NBC_FOCUS
-                SET nbc_focus_original = $3
-                    ,nbc_focus_original_yes_no = $4
-                    ,nbc_focus_original_date = $5
-                    ,nbc_focus_original_methodology = $6
-                WHERE transID = $1 AND id = $2
-                `
-                const res_nbc_focus = await client.query(update_to_nbcfocus,rows)
+        // // UPDATE NBC FOCUS
+        // let funcNbcFocusUpdate =  () => {
+        //     updated_rec.nbcFocus.forEach(async element => {
+        //         var rows = [req.params.dealID, element.id, element.nbc_focus_original, element.nbc_focus_original_yes_no, element.nbc_focus_original_date, element.nbc_focus_original_methodology];
+        //         const update_to_nbcfocus = `
+        //         UPDATE TB_INFRCR_TRANSACTION_NBC_FOCUS
+        //         SET nbc_focus_original = $3
+        //             ,nbc_focus_original_yes_no = $4
+        //             ,nbc_focus_original_date = $5
+        //             ,nbc_focus_original_methodology = $6
+        //         WHERE transID = $1 AND id = $2
+        //         `
+        //         const res_nbc_focus = await client.query(update_to_nbcfocus,rows)
 
-                await client.query('COMMIT')
+        //         await client.query('COMMIT')
 
-                return res_nbc_focus.rows[0]
+        //         return res_nbc_focus.rows[0]
                 
  
-            });
-        }
-        var vfuncNbcFocusUpdate = funcNbcFocusUpdate()
+        //     });
+        // }
+        // var vfuncNbcFocusUpdate = funcNbcFocusUpdate()
 
-        // UPDATE PARTIES
-        let funcPartiesUpdate =  () => {
-            updated_rec.parties.forEach(async element => {
-                var rows = [req.params.dealID, element.id, element.parties_role, element.parties_party, element.parties_appointed, element.parties_status];
-                const update_to_parties = `
-                UPDATE TB_INFRCR_TRANSACTION_PARTIES
-                SET parties_role = $3
-                    ,parties_party = $4
-                    ,parties_appointed = $5
-                    ,parties_status = $6
-                WHERE transID = $1 AND id = $2
-                `
-                const res_parties = await client.query(update_to_parties,rows)
+        // // UPDATE PARTIES
+        // let funcPartiesUpdate =  () => {
+        //     updated_rec.parties.forEach(async element => {
+        //         var rows = [req.params.dealID, element.id, element.parties_role, element.parties_party, element.parties_appointed, element.parties_status];
+        //         const update_to_parties = `
+        //         UPDATE TB_INFRCR_TRANSACTION_PARTIES
+        //         SET parties_role = $3
+        //             ,parties_party = $4
+        //             ,parties_appointed = $5
+        //             ,parties_status = $6
+        //         WHERE transID = $1 AND id = $2
+        //         `
+        //         const res_parties = await client.query(update_to_parties,rows)
 
-                await client.query('COMMIT')
+        //         await client.query('COMMIT')
 
-                return res_parties.rows[0]
+        //         return res_parties.rows[0]
  
-            });
-        }
-        var vfuncPartiesUpdate = funcPartiesUpdate()
+        //     });
+        // }
+        // var vfuncPartiesUpdate = funcPartiesUpdate()
 
-    // UPDATE PLIs
-    let funcPLIsUpdate =  () => {
-        updated_rec.plis.forEach(async element => {
-            var rows = [req.params.dealID, element.id, element.plis_particulars, element.plis_concern, element.plis_weighting, element.plis_expected, element.plis_status];
-            const update_to_plis = `
-            UPDATE TB_INFRCR_TRANSACTION_PLIS
-            SET plis_particulars = $3
-                ,plis_concern = $4
-                ,plis_weighting = $5
-                ,plis_expected = $6
-                ,plis_status = $7
-            WHERE transID = $1 AND id = $2
-            `
-            const res_plis = await client.query(update_to_plis,rows)
+    // // UPDATE PLIs
+    // let funcPLIsUpdate =  () => {
+    //     updated_rec.plis.forEach(async element => {
+    //         var rows = [req.params.dealID, element.id, element.plis_particulars, element.plis_concern, element.plis_weighting, element.plis_expected, element.plis_status];
+    //         const update_to_plis = `
+    //         UPDATE TB_INFRCR_TRANSACTION_PLIS
+    //         SET plis_particulars = $3
+    //             ,plis_concern = $4
+    //             ,plis_weighting = $5
+    //             ,plis_expected = $6
+    //             ,plis_status = $7
+    //         WHERE transID = $1 AND id = $2
+    //         `
+    //         const res_plis = await client.query(update_to_plis,rows)
 
-            await client.query('COMMIT')
+    //         await client.query('COMMIT')
 
 
-            return res_plis.rows[0]
+    //         return res_plis.rows[0]
 
-        });
-    }
+    //     });
+    // }
+    // var vfuncPLIsUpdate = funcPLIsUpdate()
 
-    // UPDATE KPIs
-    let funcKPIsUpdate =  () => {
-        updated_rec.kpi.forEach(async element => {
-            var rows = [req.params.dealID, element.id, element.kpi_factors, element.kpi_yes_no, element.kpi_concern, element.kpi_expected, element.kpi_resp_party, element.kpi_status];
-            const update_to_kpi = `
-            UPDATE TB_INFRCR_TRANSACTION_KPI
-            SET kpi_factors = $3
-                ,kpi_yes_no = $4
-                ,kpi_concern = $5
-                ,kpi_expected = $6
-                ,kpi_resp_party = $7
-                ,kpi_status = $8
-            WHERE transID = $1 AND id = $2
-            `
-            const res_kpi = await client.query(update_to_kpi,rows)
+    // // UPDATE KPIs
+    // let funcKPIsUpdate =  () => {
+    //     updated_rec.kpi.forEach(async element => {
+    //         var rows = [req.params.dealID, element.id, element.kpi_factors, element.kpi_yes_no, element.kpi_concern, element.kpi_expected, element.kpi_resp_party, element.kpi_status];
+    //         const update_to_kpi = `
+    //         UPDATE TB_INFRCR_TRANSACTION_KPI
+    //         SET kpi_factors = $3
+    //             ,kpi_yes_no = $4
+    //             ,kpi_concern = $5
+    //             ,kpi_expected = $6
+    //             ,kpi_resp_party = $7
+    //             ,kpi_status = $8
+    //         WHERE transID = $1 AND id = $2
+    //         `
+    //         const res_kpi = await client.query(update_to_kpi,rows)
 
-            await client.query('COMMIT')
+    //         await client.query('COMMIT')
 
-            return res_kpi.rows[0]
+    //         return res_kpi.rows[0]
 
-        });
-    }
+    //     });
+    // }
 
-    var vffuncKPIsUpdate = funcKPIsUpdate()
+    // var vffuncKPIsUpdate = funcKPIsUpdate()
 
         res.json({
             status: (res.statusCode = 200),
             message: "Deal UPDATED Successfully",
-            dealInfo: vffuncKPIsUpdate,
+            dealInfo: res_.rows[0],
 
           });
 
@@ -667,4 +647,338 @@ router.put('/update/:dealID', verifyTokenAndAuthorization, async (req, res) => {
 
 });
 
-module.exports = router;
+
+// UPDATE NBC FOCUS
+router.put('/update/nbcfocus/:dealID', verifyTokenAndAuthorization, async (req, res) => {
+
+    const client = await pool.connect();
+    try {
+        const updated_rec = { nbcFocus } = req.body;
+        const updNBCFocus = [updated_rec]
+
+        // UPDATE NBC FOCUS
+        let funcNbcFocusUpdate =  () => {
+                updNBCFocus.forEach(async element => {
+                
+                var rows = [req.params.dealID, element.id, element.nbc_focus_original, element.nbc_focus_original_yes_no, element.nbc_focus_original_date, element.nbc_focus_original_methodology];
+                
+                const res_check_rec = await client.query(`SELECT * FROM TB_INFRCR_TRANSACTION_NBC_FOCUS WHERE id in ($1)`, [rows[1]])
+                    
+                if (res_check_rec.rows.length <= 0){
+                    var insert_rows = [req.params.dealID, element.nbc_focus_original, element.nbc_focus_original_yes_no, element.nbc_focus_original_date, element.nbc_focus_original_methodology]
+                    const insert_to_nbcfocus = `
+                            INSERT INTO TB_INFRCR_TRANSACTION_NBC_FOCUS(transID, nbc_focus_original, nbc_focus_original_yes_no, nbc_focus_original_date, nbc_focus_original_methodology) 
+                            VALUES ($1, $2, $3, $4, $5)
+                            `
+                            const res_ins_nbc_focus = await client.query(insert_to_nbcfocus, insert_rows)
+                            
+                            await client.query('COMMIT')
+                            
+                }else{
+
+                    const update_to_nbcfocus = `
+                        UPDATE TB_INFRCR_TRANSACTION_NBC_FOCUS
+                        SET nbc_focus_original = coalesce($3, nbc_focus_original)
+                            ,nbc_focus_original_yes_no = coalesce($4, nbc_focus_original_yes_no)
+                            ,nbc_focus_original_date = coalesce($5, nbc_focus_original_date)
+                            ,nbc_focus_original_methodology = coalesce($6, nbc_focus_original_methodology)
+                        WHERE transID = $1 AND id = $2
+                    `
+                    const res_nbc_focus = await client.query(update_to_nbcfocus, rows)
+                    
+                    await client.query('COMMIT')
+                    
+                    return res_nbc_focus.rows[0]
+                }
+
+ 
+            });
+        }
+        var vfuncNbcFocusUpdate = funcNbcFocusUpdate()
+
+        res.json({
+            status: (res.statusCode = 200),
+            message: "Deal UPDATED Successfully",
+            // dealInfo: vfuncNbcFocusUpdate,
+
+          });
+
+    } catch (e) {
+        await client.query('ROLLBACK')
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+
+});
+
+
+// UPDATE OCPS
+router.put('/update/ocps/:dealID', verifyTokenAndAuthorization, async (req, res) => {
+
+    const client = await pool.connect();
+    try {
+        const updated_rec = { ocps } = req.body;
+        const updOCPs = [updated_rec]
+
+       let funcOtherCPsUpdate =  () => {
+            updOCPs.forEach(async element => {
+            var rows = [req.params.dealID, element.id, element.ocps_factors, element.ocps_yes_no, element.ocps_concern, element.ocps_expected, element.ocps_resp_party, element.ocps_status];
+            
+            const res_check_rec = await client.query(`SELECT * FROM TB_INFRCR_TRANSACTION_OTHER_CPS WHERE id in ($1)`, [rows[1]])
+
+            if(res_check_rec.rows.length <= 0){
+                var insert_ocp_rows = [req.params.dealID, element.ocps_factors, element.ocps_yes_no, element.ocps_concern, element.ocps_expected, element.ocps_resp_party, element.ocps_status];
+                const insert_to_ocps = `INSERT INTO TB_INFRCR_TRANSACTION_OTHER_CPS(transID, ocps_factors, ocps_yes_no, ocps_concern, ocps_expected, ocps_resp_party, ocps_status) VALUES ($1, $2, $3, $4, $5, $6, $7)`
+
+                            const res_ins_ocps = await client.query(insert_to_ocps, insert_ocp_rows)
+                            
+                            await client.query('COMMIT')
+            }else{
+
+                const update_to_ocps = `
+                UPDATE TB_INFRCR_TRANSACTION_OTHER_CPS
+                SET ocps_factors = coalesce($3,ocps_factors)
+                    ,ocps_yes_no = coalesce($4,ocps_yes_no)
+                    ,ocps_concern = coalesce($5,ocps_concern)
+                    ,ocps_expected = coalesce($6,ocps_expected)
+                    ,ocps_resp_party = coalesce($7,ocps_resp_party)
+                    ,ocps_status = coalesce($8,ocps_status)
+                WHERE transID = $1 AND id = $2
+                `
+                const res_ocps = await client.query(update_to_ocps,rows)
+    
+                await client.query('COMMIT')
+    
+                return res_ocps.rows[0]
+            }
+
+        });
+    }
+    var vfuncOtherCPsUpdate = funcOtherCPsUpdate()
+
+        res.json({
+            status: (res.statusCode = 200),
+            message: "Deal UPDATED Successfully",
+            dealInfo: vfuncOtherCPsUpdate,
+
+          });
+
+    } catch (e) {
+        await client.query('ROLLBACK')
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+
+});
+       
+
+// UPDATE PARTIES
+router.put('/update/parties/:dealID', verifyTokenAndAuthorization,async (req, res) => {
+
+    const client = await pool.connect();
+    try {
+        const updated_rec = { parties } = req.body;
+        const updParties = [updated_rec]
+
+        let funcPartiesUpdate =  () => {
+            updParties.forEach(async element => {
+                var rows = [req.params.dealID, element.id, element.parties_role, element.parties_party, element.parties_appointed, element.parties_status];
+            
+            const res_check_rec = await client.query(`SELECT * FROM TB_INFRCR_TRANSACTION_PARTIES WHERE id in ($1)`, [rows[1]])
+            if (res_check_rec.rows.length <= 0) {
+                var insert_rows = [req.params.dealID, element.parties_role, element.parties_party, element.parties_appointed, element.parties_status];
+            
+                const insert_to_parties = `INSERT INTO TB_INFRCR_TRANSACTION_PARTIES(transID, parties_role, parties_party, parties_appointed, parties_status) VALUES ($1, $2, $3, $4, $5)`
+
+                const res_ins_parties = await client.query(insert_to_parties, insert_rows)
+                            
+                await client.query('COMMIT')
+
+            } else {
+                
+                const update_to_parties = `
+                UPDATE TB_INFRCR_TRANSACTION_PARTIES
+                SET parties_role = coalesce($3,parties_role)
+                    ,parties_party = coalesce($4,parties_party)
+                    ,parties_appointed = coalesce($5,parties_appointed)
+                    ,parties_status = coalesce($6,parties_status)
+                WHERE transID = $1 AND id = $2
+                `
+                const res_parties = await client.query(update_to_parties,rows)
+    
+                await client.query('COMMIT')
+    
+                return res_parties.rows[0]
+            }
+        });
+                
+        }
+        var vfuncPartiesUpdate = funcPartiesUpdate()
+        res.json({
+            status: (res.statusCode = 200),
+            message: "Deal UPDATED Successfully",
+            // dealInfo: vfuncPartiesUpdate,
+          });
+
+    } catch (e) {
+        await client.query('ROLLBACK')
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+
+});
+
+
+// UPDATE PLIs
+router.put('/update/plis/:dealID', verifyTokenAndAuthorization, async (req, res) => {
+
+    const client = await pool.connect();
+    try {
+        const updated_rec = { plis } = req.body;
+        const updPLIs = [updated_rec]
+
+        let funcPLIsUpdate =  () => {
+            updPLIs.forEach(async element => {
+                var rows = [req.params.dealID, element.id, element.plis_particulars, element.plis_concern, element.plis_weighting, element.plis_expected, element.plis_status];
+                const res_check_rec = await client.query(`SELECT * FROM TB_INFRCR_TRANSACTION_PLIS WHERE id in ($1)`, [rows[1]])
+                
+                if (res_check_rec.rows.length <= 0) {
+                    var insert_rows = [req.params.dealID, element.plis_particulars, element.plis_concern, element.plis_weighting, element.plis_expected, element.plis_status];
+                
+                    const insert_to_plis = `INSERT INTO TB_INFRCR_TRANSACTION_PLIS(transID, plis_particulars, plis_concern, plis_weighting, plis_expected, plis_status) VALUES ($1, $2, $3, $4, $5, $6)`
+                    const res_ins_plis = await client.query(insert_to_plis, insert_rows)        
+                    await client.query('COMMIT')
+
+                } else {
+                    
+                    const update_to_plis = `
+                    UPDATE TB_INFRCR_TRANSACTION_PLIS
+                    SET plis_particulars = coalesce($3,plis_particulars)
+                        ,plis_concern = coalesce($4,plis_concern)
+                        ,plis_weighting = coalesce($5,plis_weighting)
+                        ,plis_expected = coalesce($6,plis_expected)
+                        ,plis_status = coalesce($7,plis_status)
+                    WHERE transID = $1 AND id = $2
+                    `
+                    const res_plis = await client.query(update_to_plis,rows)
+            
+                    await client.query('COMMIT')
+            
+                    return res_plis.rows[0]
+                }
+        
+            });
+        }
+        var vfuncPLIsUpdate = funcPLIsUpdate()
+
+        res.json({
+            status: (res.statusCode = 200),
+            message: "Deal UPDATED Successfully",
+            dealInfo: vfuncPLIsUpdate,
+          });
+
+    } catch (e) {
+        await client.query('ROLLBACK')
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+
+});
+
+ // UPDATE KPIs
+router.put('/update/kpis/:dealID', verifyTokenAndAuthorization, async (req, res) => {
+
+    const client = await pool.connect();
+    try {
+        const updated_rec = { kpi } = req.body;
+        const updKPI = [updated_rec]
+
+        let funcKPIsUpdate =  () => {
+            updKPI.forEach(async element => {
+                var rows = [req.params.dealID, element.id, element.kpi_factors, element.kpi_yes_no, element.kpi_concern, element.kpi_expected, element.kpi_resp_party, element.kpi_status];
+                const res_check_rec = await client.query(`SELECT * FROM TB_INFRCR_TRANSACTION_KPI WHERE id in ($1)`, [rows[1]])
+                if (res_check_rec.rows.length <= 0) {
+                    var insert_rows = [req.params.dealID, element.kpi_factors, element.kpi_yes_no, element.kpi_concern, element.kpi_expected, element.kpi_resp_party, element.kpi_status];
+                
+                    const insert_to_kpis = `INSERT INTO TB_INFRCR_TRANSACTION_KPI(transID, kpi_factors, kpi_yes_no, kpi_concern, kpi_expected, kpi_resp_party, kpi_status) VALUES ($1, $2, $3, $4, $5, $6, $7)`
+                    const res_ins_kpis = await client.query(insert_to_kpis, insert_rows)
+                    await client.query('COMMIT')
+
+                } else {
+                    
+                    const update_to_kpi = `
+                    UPDATE TB_INFRCR_TRANSACTION_KPI
+                    SET kpi_factors = coalesce($3,kpi_factors)
+                        ,kpi_yes_no = coalesce($4,kpi_yes_no)
+                        ,kpi_concern = coalesce($5,kpi_concern)
+                        ,kpi_expected = coalesce($6,kpi_expected)
+                        ,kpi_resp_party = coalesce($7,kpi_resp_party)
+                        ,kpi_status = coalesce($8,kpi_status)
+                    WHERE transID = $1 AND id = $2
+                    `
+                    const res_kpi = await client.query(update_to_kpi,rows)
+            
+                    await client.query('COMMIT')
+            
+                    return res_kpi.rows[0]
+                }
+        
+            });
+        }
+        
+        var vffuncKPIsUpdate = funcKPIsUpdate()
+
+        res.json({
+            status: (res.statusCode = 200),
+            message: "Deal UPDATED Successfully",
+            dealInfo: vffuncKPIsUpdate,
+          });
+
+    } catch (e) {
+        await client.query('ROLLBACK')
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+
+});
+
+// DELETE
+// router.delete('/delete/:dealID', verifyTokenAndAuthorization,async (req, res) => {
+
+//     const client = await pool.connect();
+//     try {
+//             var rows = [req.params.dealID, element.id];
+            
+//             const res_check_rec = await client.query(`SELECT * FROM TB_INFRCR_TRANSACTION_PARTIES WHERE id in ($1)`, [rows[1]])
+
+//             if (res_check_rec.rows.length <= 0) {
+                
+//                 const insert_to_parties = `DELETE FROM TB_INFRCR_TRANSACTION_PARTIES WHERE transID = $1 AND id = $2`
+
+//                 const res_ins_parties = await client.query(insert_to_parties, rows)
+                            
+//                 await client.query('COMMIT')
+
+//             } 
+//         var vfuncPartiesUpdate = funcPartiesUpdate()
+//         res.json({
+//             status: (res.statusCode = 200),
+//             message: "Deal UPDATED Successfully",
+//             // dealInfo: vfuncPartiesUpdate,
+//           });
+
+//     } catch (e) {
+//         await client.query('ROLLBACK')
+//         res.status(403).json({ Error: e.stack });
+//     }finally{
+//         client.release()
+//       }
+
+// });
+
+// module.exports = router;
