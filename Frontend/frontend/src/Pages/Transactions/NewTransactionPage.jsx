@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Row, Col } from 'react-bootstrap';
 import SideNav2 from '../../Components/LandingPage/SideNav2';
 import Navbar from '../../Components/HomePage/Navbar';
-import NewText from '../../Components/Transactions/NewText';
+import NewTransaction from '../../Components/Transactions/NewTransaction';
 
 const ViewWrapper = styled.div`
   background: #eff1f1;
@@ -11,7 +11,7 @@ const ViewWrapper = styled.div`
   padding: 0 10px;
 `;
 
-export default function NewTransaction() {
+export default function NewTransactionPage() {
     return(
         <React.Fragment>
             <Navbar />
@@ -21,7 +21,7 @@ export default function NewTransaction() {
                     <SideNav2/>
                 </Col>
                 <Col sm={7} className='bg-light'> 
-                    <NewText/>
+                    <NewTransaction/>
                 </Col>
                 </Row>
             </ViewWrapper>

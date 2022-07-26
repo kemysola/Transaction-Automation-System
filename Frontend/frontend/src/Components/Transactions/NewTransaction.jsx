@@ -1,0 +1,2214 @@
+//***************************************** Import Dependencies and Hooks ****************************/
+import React, { useState, useEffect } from "react";
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab";
+import { Form, Container, Row, Col} from "react-bootstrap";
+import styled from "styled-components";
+import Services from "../../Services/Service";
+import { useHistory} from "react-router-dom";
+import { GrAdd } from "react-icons/gr";
+import { FiDelete } from "react-icons/fi";
+import { useForm ,Controller, useFieldArray, useWatch} from "react-hook-form";
+
+
+
+//********************************* Material UI styled Components    **********************************/
+
+const ButtonWrapper = styled.button`
+  background: green;
+  border: 1px solid white;
+  padding: 12px 21px;
+  margin-top: 3px;
+  margin-right: 3px;
+  font-size: 11px;
+  border-radius: 2px;
+  color: white;
+`;
+const FormWrapper = styled.div`
+  margin: 0;
+  font-size: 5px;
+  padding: 0;
+`;
+
+const Container1 = styled.div`
+  font-size: 12px;
+  padding: 1px 1rem;
+  border-radius: 15px;
+`;
+
+const PWrapper = styled.p`
+  color: #1e2f97;
+  font-weight: bold;
+  font-size: 11px;
+  margin: 0;
+  padding: 0;
+`;
+
+
+//************************************************* New Transaction Module ******************************************* */
+const NewTransaction = () => {
+
+//*********************************************** Instantiate useHistory hook **************************************** */
+  const history = useHistory();
+  //*****************************************    Use React-Use-fORM hook     ******************************************/
+  const {
+    register,
+    formState: {
+      errors,
+      isDirty,
+      dirtyFields,
+      isSubmitting,
+      touchedFields,
+      submitCount,
+    },
+    handleSubmit,
+    setFocus,
+    reset,
+  } = useForm({
+    clientName: "",
+    originator: "",
+    transactor: "",
+    transactionlegallead: "",
+    industry: "",
+    product: "",
+    region: "",
+    dealSize: 0,
+    coupon: 0,
+    tenor: 0,
+    moratorium: 0,
+    repaymentFrequency: "Semi-Annually",
+    amortizationStyle: "Annuity",
+    mandateLetter: null,
+    nbc_approval_date: null,
+    nbc_submitted_date: null,
+    creditApproval: null,
+    feeLetter: null,
+    expectedClose: null,
+    actualClose: null,
+    greenA: "false",
+    greenB: "false",
+    greenC: "false",
+    greenD: "false",
+    greenE: "false",
+    greenF: "false",
+    amberA: "false",
+    amberB: "false",
+    amberC: "false",
+    amberD: "false",
+    amberE: "false",
+    redA: "false",
+    redB: "false",
+    redC: "false",
+    structuringFeeAmount: 0,
+    structuringFeeAdvance: 0,
+    guaranteeFee: 0,
+    monitoringFee: 0,
+    reimbursible: 0,
+    notes: "",
+    closed: false,
+    nbcFocus: [
+      {
+        nbc_focus_original: "",
+        nbc_focus_original_yes_no: 0,
+        nbc_focus_original_date: null,
+        nbc_focus_original_methodology: "",
+        nbc_focus_apprv_1_b: "",
+        nbc_focus_apprv_1_c: null,
+        nbc_focus_apprv_2_b: "",
+        nbc_focus_apprv_2_c: null,
+        nbc_focus_apprv_3_b: "",
+        nbc_focus_apprv_3_c: null,
+        nbc_focus_apprv_4_b: "",
+        nbc_focus_apprv_4_c: null,
+        nbc_focus_apprv_5_b: "",
+        nbc_focus_apprv_5_c: null,
+      },
+    ],
+    kpi: [
+      {
+        kpi_factors: "",
+        kpi_yes_no: 0,
+        kpi_concern: "",
+        kpi_expected: null,
+        kpi_resp_party: "",
+        kpi_status: "Pending",
+      },
+    ],
+    plis: [
+      {
+        plis_particulars: "",
+        plis_concern: "",
+        plis_weighting: 10,
+        plis_expected: "2022-06-14",
+        plis_status: "Active",
+      },
+    ],
+
+   
+    parties: [
+      {
+        parties_role: "",
+        parties_party: "",
+        parties_appointed: 0,
+        parties_status: "Pending",
+      },
+    ],
+    ocps: [
+      {
+        ocps_factors: "",
+        ocps_yes_no: 1,
+        ocps_concern: "",
+        ocps_expected: null,
+        ocps_resp_party: "",
+        ocps_status: "Active",
+      },
+    ],
+  });
+
+
+  //********************************************************* Deal Tracking features - state and functions ************************ */
+
+  const [ocps, setOcps] = useState([
+    {
+      ocps_factors: "",
+      ocps_yes_no: 1,
+      ocps_concern: "",
+      ocps_expected: null,
+      ocps_resp_party: "",
+      ocps_status: "Active",
+    },
+  ]);
+  const [nbcFocus, setNbcFocus] = useState([
+    {
+      nbc_focus_original: "",
+      nbc_focus_original_yes_no: 0,
+      nbc_focus_original_date: null,
+      nbc_focus_original_methodology: "",
+      nbc_focus_apprv_1_b: "",
+      nbc_focus_apprv_1_c: null,
+      nbc_focus_apprv_2_b: "",
+      nbc_focus_apprv_2_c: null,
+      nbc_focus_apprv_3_b: "",
+      nbc_focus_apprv_3_c: null,
+      nbc_focus_apprv_4_b: "",
+      nbc_focus_apprv_4_c: null,
+      nbc_focus_apprv_5_b: "",
+      nbc_focus_apprv_5_c: null,
+    },
+  ]);
+
+  const [plis, setPlis] = useState([
+    {
+      plis_particulars: "",
+      plis_concern: "",
+      plis_weighting: 10,
+      plis_expected: null,
+      plis_status: "",
+    },
+  ]);
+
+  const [parties, setParties] = useState([
+    {
+      parties_role: "",
+      parties_party: "",
+      parties_appointed: 0,
+      parties_status: "Pending",
+    },
+  ]);
+
+  const [kpi, setKpi] = useState([
+    {
+      kpi_factors: "",
+      kpi_yes_no: 0,
+      kpi_concern: "",
+      kpi_expected: null,
+      kpi_resp_party: "",
+      kpi_status: "Pending",
+    },
+  ]);
+
+
+
+//************************************************************ Create states and default values ******************************* */
+
+  const [activeTab, setActiveTab] = useState("first");
+  const [submitted, setSubmitted] = useState(false);
+  const [response, setResponse] = useState(false);
+  const [noteList, setNoteList] = useState([{ note: "" }]);
+  const [industry, setIndustry] = useState([]);
+  const [product, setProduct] = useState([]);
+  const [region, setRegion] = useState([]);
+  const [frequency, setFrequency] = useState([]);
+  const [style, setStyle] = useState([]);
+  const [staffList, setStaffList] = useState([]);
+
+  // ************************************ use Effect : ComponentDidMount - ComponentWillReceive ***********************************/
+
+  //************************************* UseEffect hook for componentDidMount, componentWillReceive and ComponentWillUpdate  ****/
+  useEffect(() => {
+    setFocus("clientName");
+    retrieveIndustry();
+
+    retrieveProduct();
+
+    retrieveRegion();
+
+    retrieveRepaymentFreq();
+
+    retrieveAmortizationStyle();
+
+    retrieveStaffList();
+  }, [setFocus]);
+
+// ******************************************  Axios :  get industry *********************************************/
+
+  const retrieveIndustry = () => {
+    Services.getIndustry()
+      .then((response) => {
+        setIndustry(response.data.industry);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  // ******************************************  Axios :  get product ****************************************
+
+  const retrieveProduct = () => {
+    Services.getProduct()
+      .then((response) => {
+        setProduct(response.data.product);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  // ******************************************  Axios :  get Region ****************************************
+
+  const retrieveRegion = () => {
+    Services.getRegion()
+      .then((response) => {
+        setRegion(response.data.region);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  // ******************************************  Axios :  get repayment Frequency ************************
+
+  const retrieveRepaymentFreq = () => {
+    Services.getRepaymentFreq()
+      .then((response) => {
+        setFrequency(response.data.frequency);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  // ******************************************  Axios :  get Amortization ****************************************
+
+  const retrieveAmortizationStyle = () => {
+    Services.getAmortizationSty()
+      .then((response) => {
+        setStyle(response.data.amortization);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  // ******************************************  Axios :  get all staff  ****************************************
+
+  const retrieveStaffList = () => {
+    Services.getStaffList()
+      .then((response) => {
+        setStaffList(response.data.staffList);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  // ******************************************  Next and Previous function  ****************************************
+  //***********************************************PARTIES ********************************************** */
+  const handlePartyChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...parties];
+    list[index][name] = value;
+    setParties(list);
+  };
+
+  const handlePartyAdd = () => {
+    setParties([
+      ...parties,
+      {
+        parties_role: "",
+        parties_party: "",
+        parties_appointed: 0,
+        parties_status: "Pending",
+      },
+    ]);
+  };
+
+  const handlePartyRemove = (index) => {
+    const list = [...parties];
+    list.splice(index, 1);
+    setParties(list);
+  };
+
+  const handleNbcChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...nbcFocus];
+    list[index][name] = value;
+    setNbcFocus(list);
+  };
+
+  const handleNbcAdd = () => {
+    setNbcFocus([
+      ...nbcFocus,
+      {
+        nbc_focus_original: "",
+        nbc_focus_original_yes_no: 0,
+        nbc_focus_original_date: null,
+        nbc_focus_original_methodology: "",
+        nbc_focus_apprv_1_b: "",
+        nbc_focus_apprv_1_c: null,
+        nbc_focus_apprv_2_b: "",
+        nbc_focus_apprv_2_c: null,
+        nbc_focus_apprv_3_b: "",
+        nbc_focus_apprv_3_c: null,
+        nbc_focus_apprv_4_b: "",
+        nbc_focus_apprv_4_c: null,
+        nbc_focus_apprv_5_b: "",
+        nbc_focus_apprv_5_c: null,
+      },
+    ]);
+  };
+
+  const handleNbcRemove = (index) => {
+    const list = [...nbcFocus];
+    list.splice(index, 1);
+    setNbcFocus(list);
+  };
+  // **************************************************** Key Performance Indicators ************************//
+  const handleKpiChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...kpi];
+    list[index][name] = value;
+    setKpi(list);
+  };
+
+  const handleKpiAdd = () => {
+    setKpi([
+      ...kpi,
+      {
+        kpi_factors: "",
+        kpi_yes_no: 0,
+        kpi_concern: "",
+        kpi_expected: null,
+        kpi_resp_party: "",
+        kpi_status: "",
+      },
+    ]);
+  };
+
+  const handleKpiRemove = (index) => {
+    const list = [...kpi];
+    list.splice(index, 1);
+    setKpi(list);
+  };
+
+  //***********************************      Other Conditions precedents    ***************** */
+  const handleOcpsChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...ocps];
+    list[index][name] = value;
+    setOcps(list);
+  };
+
+  const handleOcpsAdd = () => {
+    setOcps([
+      ...ocps,
+      {
+        ocps_factors: "",
+        ocps_yes_no: 1,
+        ocps_concern: "",
+        ocps_expected: null,
+        ocps_resp_party: "",
+        ocps_status: "Active",
+      },
+    ]);
+  };
+
+  const handleOcpsRemove = (index) => {
+    const list = [...ocps];
+    list.splice(index, 1);
+    setOcps(list);
+  };
+
+  const handlePlisChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...plis];
+    list[index][name] = value;
+    setPlis(list);
+  };
+
+  const handlePlisAdd = () => {
+    setPlis([
+      ...plis,
+      {
+        plis_particulars: "",
+        plis_concern: "",
+        plis_weighting: 10,
+        plis_expected: null,
+        plis_status: "",
+      },
+    ]);
+  };
+
+  const handlePlisRemove = (index) => {
+    const list = [...plis];
+    list.splice(index, 1);
+    setPlis(list);
+  };
+
+  function toNextTab(e) {
+    e.preventDefault();
+    handleTabChange();
+  }
+
+  function toPrevTab(e) {
+    e.preventDefault();
+    handlePrevChange();
+  }
+
+  function handleTabChange() {
+    if (activeTab === "first") {
+      setActiveTab("second");
+    }
+    if (activeTab === "second") {
+      setActiveTab("third");
+    }
+    if (activeTab === "third") {
+      setActiveTab("fourth");
+    }
+    if (activeTab === "fourth") {
+      setActiveTab("sixth");
+    }
+    if (activeTab === "sixth") {
+      setActiveTab("seventh");
+    }
+    if (activeTab === "seventh") {
+      setActiveTab("eigth");
+    }
+    if (activeTab === "eigth") {
+      setActiveTab("ninth");
+    }
+  }
+  function handlePrevChange() {
+    if (activeTab === "second") {
+      setActiveTab("first");
+    }
+    if (activeTab === "third") {
+      setActiveTab("second");
+    }
+    if (activeTab === "fourth") {
+      setActiveTab("third");
+    }
+    if (activeTab === "sixth") {
+      setActiveTab("fourth");
+    }
+    if (activeTab === "seventh") {
+      setActiveTab("sixth");
+    }
+    if (activeTab === "eigth") {
+      setActiveTab("seventh");
+    }
+    if (activeTab === "ninth") {
+      setActiveTab("eigth");
+    }
+  }
+
+  const newDeal = () => {
+    history.push({
+      pathname: "/create_transaction",
+    });
+    window.location.reload();
+  };
+
+  // ******************************************  req body event ****************************************
+  //******************************************* Handle Note functions ******************************** */
+  const handleNoteChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...noteList];
+    list[index][name] = value;
+    setNoteList(list);
+  };
+
+  const handleNoteAdd = () => {
+    setNoteList([...noteList, { note: "" }]);
+  };
+
+  const handleNoteRemove = (index) => {
+    const list = [...noteList];
+    list.splice(index, 1);
+    setNoteList(list);
+  };
+//********************************************************************* Handle Submit Function ********************************** */
+  const onSubmit = (reqdata, e) => {
+    e.preventDefault();
+    console.log(reqdata, e);
+    let allNotes = noteList.map(({ note }) => note);
+    let note = allNotes.join("|");
+
+//****************************************************************** Object to handle request data to the server ***************** */
+
+    const data = {
+      clientName: reqdata.clientName,
+      originator: reqdata.originator,
+      transactor: reqdata.transactor,
+      transactionLegalLead: reqdata.transactionLegalLead,
+      industry: reqdata.industry,
+      product: reqdata.product,
+      region: reqdata.region,
+      dealSize: +reqdata.dealSize,
+      coupon: +reqdata.coupon,
+      tenor: +reqdata.tenor,
+      mandateLetter: `${reqdata.mandateLetter ? reqdata.mandateLetter : 20221203}`,
+      creditApproval: `${reqdata.creditApproval ? reqdata.creditApproval : 20221203}`,
+      expectedClose: `${reqdata.expectedClose ? reqdata.expectedClose : 20221203}`,
+      moratorium: +reqdata.moratorium,
+      repaymentFrequency: reqdata.repaymentFrequency,
+      amortizationStyle: reqdata.amortizationStyle,
+      actualClose: `${reqdata.actualClose ? reqdata.actualClose : 20221203}`,
+      feeLetter: `${reqdata.feeLetter ? reqdata.feeLetter : 20221203}`,
+      NBC_approval_date: `${reqdata.nbc_approval_date ? reqdata.nbc_approval_date : 20221203}`,
+      NBC_submitted_date: `${reqdata.nbc_submitted_date ? reqdata.nbc_submitted_date : 20221203}`,
+      greenA: JSON.parse(reqdata.greenA),
+      greenB: JSON.parse(reqdata.greenB),
+      greenC: JSON.parse(reqdata.greenC),
+      greenD: JSON.parse(reqdata.greenD),
+      greenE: JSON.parse(reqdata.greenE),
+      greenF: JSON.parse(reqdata.greenF),
+      amberA: JSON.parse(reqdata.amberA),
+      amberB: JSON.parse(reqdata.amberB),
+      amberC: JSON.parse(reqdata.amberC),
+      amberD: JSON.parse(reqdata.amberD),
+      amberE: JSON.parse(reqdata.amberE),
+      redA: JSON.parse(reqdata.redA),
+      redB: JSON.parse(reqdata.redB),
+      redC: JSON.parse(reqdata.redC),
+      structuringFeeAmount: +reqdata.structuringFeeAmount,
+      structuringFeeAdvance: +reqdata.structuringFeeAdvance,
+      guaranteeFee: +reqdata.guaranteeFee,
+      monitoringFee: +reqdata.monitoringFee,
+      reimbursible: +reqdata.reimbursible,
+      notes: note,
+      nbcFocus,
+      parties,
+      kpi,
+      plis,
+      ocps,
+    };
+
+
+//********************************************************** Send data using rest api in a promise! **************************** */
+    Services.createDeal(data)
+      .then((res) => {
+        setResponse(res.data.message);
+        setSubmitted(true);
+      })
+      .catch((error) => {
+        setResponse("Failed to Create Deal. Please Fill all required fields");
+        setSubmitted(false);
+      });
+  };
+
+  return (
+    <React.Fragment>
+      <FormWrapper>
+        <Container fluid style={{ marginTop: "0" }}>
+          {submitted ? (
+            <div>
+              <p
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "12px",
+                  color: "steelblue",
+                  marginTop: "1rem",
+                }}
+              >
+                {response}
+              </p>
+              <ButtonWrapper onClick={newDeal}>
+                Add New Transaction
+              </ButtonWrapper>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <PWrapper>
+                <h5 className="py-3 text-secondary">New Transaction</h5>
+              </PWrapper>
+              <br />
+
+              <div>
+                <Tabs
+                  //activeKey={activeTab}
+                  onSelect={(k) => handleTabChange}
+                  style={{ fontSize: "12px" }}
+                >
+                  <Tab eventKey="first" title="CLIENT">
+                    <Container1>
+                      <br />
+                      <Row>
+                        <Col sm={6}>
+                          <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                            <Form.Label>Client Name:</Form.Label>
+                            <Form.Control
+                              style={{
+                                width: "100%",
+                                padding: "4px 2px",
+                                focus: "none",
+                              }}
+                              {...register("clientName", { required: true })}
+                            />
+                            <div className="text-danger">
+                              {errors.clientName?.type === "required" &&
+                                "Client name is required"}
+                            </div>
+                          </Form.Group>
+                        </Col>
+                        <Col sm={6}>
+                          <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                            <Form.Label>Originator:</Form.Label>
+
+                            {/* <Form.Control {...register("originator", { required: true })} /> */}
+                            <Form.Select
+                              {...register("originator", { required: true })}
+                              style={{
+                                width: "100%",
+                                padding: "4px 2px",
+                                focus: "none",
+                              }}
+                            >
+                              <option></option>
+                              {staffList.map((opt, i) => (
+                                <option
+                                  key={staffList[i].email}
+                                  value={staffList[i].stafflist}
+                                >
+                                  {staffList[i].stafflist}
+                                </option>
+                              ))}
+                            </Form.Select>
+                            <div className="text-danger">
+                              {errors.originator?.type === "required" &&
+                                "Originator name is required"}
+                            </div>
+                          </Form.Group>
+                        </Col>
+                        <Col sm={6}>
+                          <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                            <Form.Label>Transactor:</Form.Label>
+                            {/* <Form.Control {...register("transactor", { required: true })} /> */}
+                            <Form.Select
+                              {...register("transactor", { required: true })}
+                              style={{
+                                width: "100%",
+                                padding: "4px 2px",
+                                focus: "none",
+                              }}
+                            >
+                              <option></option>
+                              {staffList.map((opt, i) => (
+                                <option
+                                  key={staffList[i].email}
+                                  value={staffList[i].stafflist}
+                                >
+                                  {staffList[i].stafflist}
+                                </option>
+                              ))}
+                            </Form.Select>
+                            <div className="text-danger">
+                              {errors.transactor?.type === "required" &&
+                                "Transactor name is required"}
+                            </div>
+                          </Form.Group>
+                        </Col>
+                        <Col sm={6}>
+                          <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                            <Form.Label>Transactor Legal Lead:</Form.Label>
+
+                            <Form.Select
+                              {...register("transactionLegalLead", {
+                                required: true,
+                              })}
+                              style={{
+                                width: "100%",
+                                padding: "4px 2px",
+                                focus: "none",
+                              }}
+                            >
+                              <option></option>
+                              {staffList.map((opt, i) => (
+                                <option
+                                  key={staffList[i].email}
+                                  value={staffList[i].stafflist}
+                                >
+                                  {staffList[i].stafflist}
+                                </option>
+                              ))}
+                            </Form.Select>
+                            <div className="text-danger">
+                              {errors.transactionLegalLead?.type ===
+                                "required" &&
+                                "Transactor Lead Name  is required"}
+                            </div>
+                          </Form.Group>
+                        </Col>
+                        <Col sm={12}>
+                          <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                            <Form.Label>Note</Form.Label>{" "}
+                            <button
+                              type="button"
+                              onClick={handleNoteAdd}
+                              style={{
+                                fontSize: "10px",
+                                padding: "2px 10px",
+                                margin: "8px",
+                                background: "steelblue",
+                                color: "white",
+                                borderRadius: "3px",
+                              }}
+                            >
+                              Add
+                            </button>
+                            {noteList.map((singleNote, index) => (
+                              <div class="input-group">
+                                <Form.Control
+                                  as="textarea"
+                                  style={{ margin: "0.8em", width: "60%" }}
+                                  size="sm"
+                                  value={singleNote.note}
+                                  name="note"
+                                  onChange={(e) => handleNoteChange(e, index)}
+                                />
+                                <button
+                                  type="button"
+                                  style={{
+                                    fontSize: "10px",
+                                    padding: "2px 10px",
+                                    margin: "8px",
+                                    background: "steelblue",
+                                    color: "white",
+                                    borderRadius: "3px",
+                                  }}
+                                  onClick={handleNoteRemove}
+                                >
+                                  x
+                                </button>
+                              </div>
+                            ))}
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                    </Container1>
+                  </Tab>
+
+                  <Tab eventKey="second" title="DEAL PROFILE ">
+                    <Container1>
+                      <div className="mt-2">
+                        <Row>
+                          <Col sm={6} className="my-0 py-0">
+                            <Form.Label>Industry:</Form.Label>
+                            {/* <Form.Control {...register("industry", { required: true })} /> */}
+                            <Form.Select
+                              {...register("industry", { required: true })}
+                              style={{
+                                width: "100%",
+                                padding: "4px 1px",
+                                focus: "none",
+                              }}
+                            >
+                              <option></option>
+                              {industry.map((opt, i) => (
+                                <option
+                                  key={industry[i].industryid}
+                                  value={industry[i].industry}
+                                >
+                                  {industry[i].industry}
+                                </option>
+                              ))}
+                            </Form.Select>
+                            <div className="text-danger">
+                              {errors.industry?.type === "required" &&
+                                "This field is required"}
+                            </div>
+                          </Col>
+                          <Col sm={6} className="my-0 py-0">
+                            <Form.Group className="">
+                              <Form.Label>Product:</Form.Label>
+                              <Form.Select
+                                {...register("product", { required: true })}
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 1px",
+                                  focus: "none",
+                                }}
+                              >
+                                <option></option>
+                                {product.map((opt, i) => (
+                                  <option
+                                    key={product[i].productid}
+                                    value={product[i].product}
+                                  >
+                                    {product[i].product}
+                                  </option>
+                                ))}
+                              </Form.Select>
+                              <div className="text-danger">
+                                {errors.product?.type === "required" &&
+                                  "This field is required"}
+                              </div>
+                            </Form.Group>
+                          </Col>
+                          <Col sm={6} className="my-0 py-0">
+                            <Form.Group className="">
+                              <Form.Label>Region:</Form.Label>
+                              <Form.Select
+                                {...register("region", { required: true })}
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 1px",
+                                  focus: "none",
+                                }}
+                              >
+                                <option></option>
+                                {region.map((opt, i) => (
+                                  <option
+                                    key={region[i].regionid}
+                                    value={region[i].region}
+                                  >
+                                    {region[i].region}
+                                  </option>
+                                ))}
+                              </Form.Select>
+
+                              <div className="text-danger">
+                                {errors.region?.type === "required" &&
+                                  "This field is required"}
+                              </div>
+                            </Form.Group>
+                          </Col>
+                        </Row>
+                        <Row className="mt-1">
+                          <Col sm={6}>
+                            <Form.Group className="pt-1">
+                              <Form.Label>Deal Size(₦'BN): </Form.Label>
+                              <Form.Control
+                                type="number"
+                                {...register("dealSize", { required: true })}
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 1px",
+                                  focus: "none",
+                                }}
+                              />
+                              <div className="text-danger">
+                                {errors.dealSize?.type === "required" &&
+                                  "This field is required"}
+                              </div>
+                            </Form.Group>
+                          </Col>
+
+                          <Col sm={6}>
+                            <Form.Group className="pt-1">
+                              <Form.Label>Coupon(%)</Form.Label>
+                              <Form.Control
+                                type="number"
+                                {...register("coupon", { required: false })}
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 1px",
+                                  focus: "none",
+                                }}
+                              />
+                            </Form.Group>
+                          </Col>
+
+                          <Col sm={6}>
+                            <Form.Group className="pt-1">
+                              <Form.Label>Tenor(yrs)</Form.Label>
+                              <Form.Control
+                                type="number"
+                                {...register("tenor", { required: false })}
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 1px",
+                                  focus: "none",
+                                }}
+                              />
+                            </Form.Group>
+                          </Col>
+
+                          <Col sm={6}>
+                            <Form.Group className="pt-1">
+                              <Form.Label>Moratorium(yrs)</Form.Label>
+                              <Form.Control
+                                type="number"
+                                {...register("moratorium", { required: false })}
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 1px",
+                                  focus: "none",
+                                }}
+                              />
+                            </Form.Group>
+                          </Col>
+                          <Col sm={6}>
+                            <Form.Group className="">
+                              <Form.Label>Repayment Frequency</Form.Label>
+                              <Form.Select
+                                {...register("repaymentFrequency")}
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 1px",
+                                  focus: "none",
+                                }}
+                              >
+                                <option></option>
+                                {frequency.map((opt, i) => (
+                                  <option
+                                    key={frequency[i].id}
+                                    value={frequency[i].frequency}
+                                  >
+                                    {frequency[i].frequency}
+                                  </option>
+                                ))}
+                              </Form.Select>
+                            </Form.Group>
+                          </Col>
+                          <Col sm={6}>
+                            <Form.Group className="pt-1">
+                              <Form.Label>Amortization Style</Form.Label>
+                              <Form.Select
+                                {...register("amortizationStyle")}
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 1px",
+                                  focus: "none",
+                                }}
+                              >
+                                <option></option>
+                                {style.map((opt, i) => (
+                                  <option
+                                    key={style[i].id}
+                                    value={style[i].amortizationstyle}
+                                  >
+                                    {style[i].amortizationstyle}
+                                  </option>
+                                ))}
+                              </Form.Select>
+                            </Form.Group>
+                          </Col>
+                          <Col sm={6}>
+                            <Form.Group className="pt-1">
+                              <Form.Label>Mandate Letter:</Form.Label>
+                              <Form.Control
+                                type="date"
+                                {...register("mandateLetter", {
+                                  required: true,
+                                })}
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 1px",
+                                  focus: "none",
+                                }}
+                              />
+                              <div className="text-danger">
+                                {errors.mandateLetter?.type === "required" &&
+                                  "Kindly enter a date"}
+                              </div>
+                            </Form.Group>
+                          </Col>
+                          <Col sm={6}>
+                            <Form.Group className="pt-1">
+                              <Form.Label>Credit Approval:</Form.Label>
+                              <Form.Control
+                                type="date"
+                                {...register("creditApproval", {
+                                  required: true,
+                                })}
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 1px",
+                                  focus: "none",
+                                }}
+                              />
+                              <div className="text-danger">
+                                {errors.creditApproval?.type === "required" &&
+                                  "Kindly enter a date"}
+                              </div>
+                            </Form.Group>
+                          </Col>
+                          <Col sm={6}>
+                            <Form.Group className="pt-1">
+                              <Form.Label>Fee Letter:</Form.Label>
+                              <Form.Control
+                                type="date"
+                                {...register("feeLetter")}
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 1px",
+                                  focus: "none",
+                                }}
+                              />
+                            </Form.Group>
+                          </Col>
+                          <Col sm={6}>
+                            <Form.Group className="pt-1">
+                              <Form.Label>Expected Close:</Form.Label>
+                              <Form.Control
+                                type="date"
+                                {...register("expectedClose")}
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 1px",
+                                  focus: "none",
+                                }}
+                              />
+                            </Form.Group>
+                          </Col>
+                          <Col sm={6}>
+                            <Form.Group className="pt-1">
+                              <Form.Label>Actual Close:</Form.Label>
+                              <Form.Control
+                                type="date"
+                                {...register("actualClose")}
+                              />
+                            </Form.Group>
+                          </Col>
+                          <Col sm={6}>
+                            <Form.Group className="pt-1">
+                              <Form.Label>NBC Approval Date:</Form.Label>
+                              <Form.Control
+                                type="date"
+                                {...register("NBC_approval_date")}
+                              />
+                            </Form.Group>
+                          </Col>
+                          <Col sm={6}>
+                            <Form.Group className="pt-1">
+                              <Form.Label>NBC Submitted Date:</Form.Label>
+                              <Form.Control
+                                type="date"
+                                {...register("NBC_submitted_date")}
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 1px",
+                                  focus: "none",
+                                }}
+                              />
+                            </Form.Group>
+                          </Col>
+                        </Row>
+                      </div>
+                    </Container1>
+                  </Tab>
+                  <Tab eventKey="third" title="FEES">
+                    <Container1>
+                      <div className="mt-2">
+                        <Row>
+                          <Col sm={6} className="my-0 py-0">
+                            <Form.Group>
+                              <Form.Label>Amount (₦'MN)</Form.Label>
+                              <Form.Control
+                                {...register("structuringFeeAmount")}
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 1px",
+                                  focus: "none",
+                                }}
+                              />
+                            </Form.Group>
+                          </Col>
+                          <Col sm={6} className="my-0 py-0">
+                            <Form.Group>
+                              <Form.Label>Advance (%)</Form.Label>
+                              <Form.Control
+                                {...register("structuringFeeAdvance")}
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 1px",
+                                  focus: "none",
+                                }}
+                              />
+                            </Form.Group>
+                          </Col>
+                          <Col sm={6} className="my-0 py-0">
+                            <Form.Group>
+                              <Form.Label>Final (%)</Form.Label>
+                              <Form.Control
+                                {...register("structuringFeeFinal")}
+                                disabled
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 1px",
+                                  focus: "none",
+                                }}
+                              />
+                            </Form.Group>
+                          </Col>
+                          <Col sm={6} className="my-0 py-0">
+                            <Form.Group>
+                              <Form.Label>Guarantee(%)</Form.Label>
+                              <Form.Control
+                                {...register("guaranteeFee")}
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 1px",
+                                  focus: "none",
+                                }}
+                              />
+                            </Form.Group>
+                          </Col>
+                          <Col sm={6} className="my-0 py-0">
+                            <Form.Group>
+                              <Form.Label>Monitoring(₦'MN)</Form.Label>
+                              <Form.Control
+                                {...register("monitoringFee")}
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 1px",
+                                  focus: "none",
+                                }}
+                              />
+                            </Form.Group>
+                          </Col>
+                          <Col sm={6} className="my-0 py-0">
+                            <Form.Group>
+                              <Form.Label>Reimbursible(₦'MN)</Form.Label>
+
+                              <Form.Control
+                                {...register("reimbursible")}
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 1px",
+                                  focus: "none",
+                                }}
+                              />
+                            </Form.Group>
+                          </Col>
+                        </Row>
+                      </div>
+                    </Container1>
+                  </Tab>
+                  <Tab
+                    eventKey="fourth"
+                    title="DEAL CATEGORY"
+                    style={{ fontSize: "12px" }}
+                  >
+                    <Container1>
+                      <div name="redCategory" className="py-3">
+                        <PWrapper>
+                          <h6
+                            className="pt-1"
+                            style={{ fontSize: "10px", color: "red" }}
+                          >
+                            RED CATEGORY
+                          </h6>
+                        </PWrapper>
+                      </div>
+                      <Form.Group>
+                        <Row>
+                          <Col sm={6}>
+                            <Form.Label style={{ paddingRight: "1rem" }}>
+                              Mandate Letter signed:
+                            </Form.Label>
+                          </Col>
+                          <Col sm={6}>
+                            <Form.Check
+                              inline
+                              label="Yes"
+                              type="radio"
+                              {...register("redA")}
+                              value={true}
+                            />
+                            <Form.Check
+                              inline
+                              label="No"
+                              type="radio"
+                              {...register("redA")}
+                              value={false}
+                              defaultChecked
+                            />
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col sm={6}>
+                            <Form.Label style={{ paddingRight: "1rem" }}>
+                              Due dilligence ongoing:
+                            </Form.Label>
+                          </Col>
+                          <Col sm={6}>
+                            <Form.Check
+                              inline
+                              label="Yes"
+                              type="radio"
+                              {...register("redB")}
+                              value={true}
+                            />
+                            <Form.Check
+                              inline
+                              label="No"
+                              type="radio"
+                              {...register("redB")}
+                              value={false}
+                              defaultChecked
+                            />
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col sm={6}>
+                            <Form.Label style={{ paddingRight: "1rem" }}>
+                              Pending Credit Committee approval:
+                            </Form.Label>
+                          </Col>
+                          <Col sm={6}>
+                            <Form.Check
+                              inline
+                              label="Yes"
+                              type="radio"
+                              {...register("redC")}
+                              value={true}
+                            />
+                            <Form.Check
+                              inline
+                              label="No"
+                              type="radio"
+                              {...register("redC")}
+                              value={false}
+                              defaultChecked
+                            />
+                          </Col>
+                        </Row>
+                      </Form.Group>
+                    </Container1>
+                    <Container1 className="mt-2 pt-3">
+                      <div name="amberCategory">
+                        <PWrapper>
+                          <h6
+                            className="pt-1"
+                            style={{ fontSize: "10px", color: "#FFC200" }}
+                          >
+                            AMBER CATEGORY
+                          </h6>
+                        </PWrapper>
+                        <div>
+                          <Row>
+                            <Form.Group>
+                              <Row>
+                                <Col sm={6}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Mandate Letter signed:
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={6}>
+                                  <Form.Check
+                                    inline
+                                    label="Yes"
+                                    type="radio"
+                                    {...register("amberA")}
+                                    value={true}
+                                  />
+                                  <Form.Check
+                                    inline
+                                    label="No"
+                                    type="radio"
+                                    {...register("amberA")}
+                                    value={false}
+                                    defaultChecked
+                                  />
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col sm={6}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Transaction has obtained Credit Committe
+                                    approval:
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={6}>
+                                  <Form.Check
+                                    inline
+                                    label="Yes"
+                                    type="radio"
+                                    {...register("amberB")}
+                                    value={true}
+                                  />
+                                  <Form.Check
+                                    inline
+                                    label="No"
+                                    type="radio"
+                                    {...register("amberB")}
+                                    value={false}
+                                    defaultChecked
+                                  />
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col sm={6}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Professional Parties to the Bond issue
+                                    appointed or selected:
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={6}>
+                                  <Form.Check
+                                    inline
+                                    label="Yes"
+                                    type="radio"
+                                    {...register("amberC")}
+                                    value={true}
+                                  />
+                                  <Form.Check
+                                    inline
+                                    label="No"
+                                    type="radio"
+                                    {...register("amberC")}
+                                    value={false}
+                                    defaultChecked
+                                  />
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col sm={6}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    Fee Letter and/or Guarantee Documentation
+                                    expected to be negotiated and/or signed
+                                    within 8 weeks:
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={6}>
+                                  <Form.Check
+                                    inline
+                                    label="Yes"
+                                    type="radio"
+                                    {...register("amberD")}
+                                    value={true}
+                                  />
+                                  <Form.Check
+                                    inline
+                                    label="No"
+                                    type="radio"
+                                    {...register("amberD")}
+                                    value={false}
+                                    defaultChecked
+                                  />
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col sm={6}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    All Materials CPs with timelines for
+                                    completion agreed with the client:
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={6}>
+                                  <Form.Check
+                                    inline
+                                    label="Yes"
+                                    type="radio"
+                                    {...register("amberE")}
+                                    value={true}
+                                  />
+                                  <Form.Check
+                                    inline
+                                    label="No"
+                                    type="radio"
+                                    {...register("amberE")}
+                                    value={false}
+                                    defaultChecked
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Row>
+                        </div>
+                      </div>
+                    </Container1>
+                    <Container1 className="mt-2 pt-3">
+                      <div name="greenCategory">
+                        <PWrapper>
+                          <br />
+                          <h6
+                            className="pt-1"
+                            style={{ fontSize: "10px", color: "green" }}
+                          >
+                            GREEN CATEGORY
+                          </h6>
+                        </PWrapper>
+                        <div></div>
+                        <Row>
+                          <Form.Group>
+                            <Row>
+                              <Col sm={6}>
+                                <Form.Label style={{ paddingRight: "1rem" }}>
+                                  Transaction has obtained Credit Committee
+                                  approval:
+                                </Form.Label>
+                              </Col>
+                              <Col sm={6}>
+                                <Form.Check
+                                  inline
+                                  label="Yes"
+                                  type="radio"
+                                  {...register("greenA")}
+                                  value={true}
+                                />
+                                <Form.Check
+                                  inline
+                                  label="No"
+                                  type="radio"
+                                  {...register("greenA")}
+                                  value={false}
+                                  defaultChecked
+                                />
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col sm={6}>
+                                <Form.Label style={{ paddingRight: "1rem" }}>
+                                  Guarantee Document in agreed form:
+                                </Form.Label>
+                              </Col>
+                              <Col sm={6}>
+                                <Form.Check
+                                  inline
+                                  label="Yes"
+                                  type="radio"
+                                  {...register("greenB")}
+                                  value={true}
+                                />
+                                <Form.Check
+                                  inline
+                                  label="No"
+                                  type="radio"
+                                  {...register("greenB")}
+                                  value={false}
+                                  defaultChecked
+                                />
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col sm={6}>
+                                <Form.Label style={{ paddingRight: "1rem" }}>
+                                  Professional Parties to the Bond Issue
+                                  appointed or selected:
+                                </Form.Label>
+                              </Col>
+                              <Col sm={6}>
+                                <Form.Check
+                                  inline
+                                  label="Yes"
+                                  type="radio"
+                                  {...register("greenC")}
+                                  value={true}
+                                />
+                                <Form.Check
+                                  inline
+                                  label="No"
+                                  type="radio"
+                                  {...register("greenC")}
+                                  value={false}
+                                  defaultChecked
+                                />
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col sm={6}>
+                                <Form.Label style={{ paddingRight: "1rem" }}>
+                                  Already filed or expected filing with SEC (or
+                                  equivalent Exchange) within 6 weeks:
+                                </Form.Label>
+                              </Col>
+                              <Col sm={6}>
+                                <Form.Check
+                                  inline
+                                  label="Yes"
+                                  type="radio"
+                                  {...register("greenD")}
+                                  value={true}
+                                />
+                                <Form.Check
+                                  inline
+                                  label="No"
+                                  type="radio"
+                                  {...register("greenD")}
+                                  value={false}
+                                  defaultChecked
+                                />
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col sm={6}>
+                                <Form.Label style={{ paddingRight: "1rem" }}>
+                                  All Materials CPs to Financial Close have been
+                                  satisfactorily met or committed by the Client
+                                  for completion on or before Financial Close:
+                                </Form.Label>
+                              </Col>
+                              <Col sm={6}>
+                                <Form.Check
+                                  inline
+                                  label="Yes"
+                                  type="radio"
+                                  {...register("greenE")}
+                                  value={true}
+                                />
+                                <Form.Check
+                                  inline
+                                  label="No"
+                                  type="radio"
+                                  {...register("greenE")}
+                                  value={false}
+                                  defaultChecked
+                                />
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col sm={6}>
+                                <Form.Label style={{ paddingRight: "1rem" }}>
+                                  Financial Close expected within 3-6 months:
+                                </Form.Label>
+                              </Col>
+                              <Col sm={6}>
+                                <Form.Check
+                                  inline
+                                  label="Yes"
+                                  type="radio"
+                                  {...register("greenF")}
+                                  value={true}
+                                />
+                                <Form.Check
+                                  inline
+                                  label="No"
+                                  type="radio"
+                                  {...register("greenF")}
+                                  value={false}
+                                  defaultChecked
+                                />
+                              </Col>
+                            </Row>
+                          </Form.Group>
+                        </Row>
+                      </div>
+                    </Container1>
+                  </Tab>
+                  <Tab
+                    eventKey="sixth"
+                    title="NBC FOCUS AREAS"
+                    style={{ fontSize: "12px" }}
+                  >
+                    <Container1>
+                      <Row className="py-1">
+                        <Col sm={3} className="mt-1 mb-1">
+                          <p>ORIGINAL</p>
+                          {nbcFocus.map((singleNote, index) => (
+                            <div class="input-group mt-2">
+                              <Form.Control
+                                // type="text"
+                                style={{ margin: "0.8em", width: "60%" }}
+                                size="sm"
+                                value={singleNote.nbcFocus}
+                                // {...register('nbc_focus_original')}
+                                name="nbc_focus_original"
+                                onChange={(e) => handleNbcChange(e, index)}
+                              />
+                              <br />
+                            </div>
+                          ))}
+                        </Col>
+                        <Col sm={2} className="mt-1 mb-1">
+                          <p>CONCERNS</p>
+                          {nbcFocus.map((singleNote, index) => (
+                            <div class="input-group mt-2 ">
+                              <Form.Select
+                                className="py-1 mt-1 "
+                                type="text"
+                                size="md"
+                                value={singleNote.nbcFocus}
+                                // onChange={handleInputChange}
+                                onChange={(e) => handleNbcChange(e, index)}
+                                name="nbc_focus_original_yes_no"
+                              >
+                                <option>Yes/No</option>
+                                <option
+                                  value={1}
+                                  name="nbc_focus_original_yes_no"
+                                >
+                                  Yes
+                                </option>
+                                <option
+                                  value={0}
+                                  name="nbc_focus_original_yes_no"
+                                >
+                                  No
+                                </option>
+                              </Form.Select>
+                            </div>
+                          ))}
+                        </Col>
+                        <Col sm={3} className=" mb-1">
+                          <p>DATE</p>
+                          {nbcFocus.map((singleNote, index) => (
+                            <div class="input-group mt-2">
+                              <Form.Control
+                                type="date"
+                                size="sm"
+                                value={singleNote.nbcFocus}
+                                name="nbc_focus_original_date"
+                                onChange={(e) => handleNbcChange(e, index)}
+                              />
+                            </div>
+                          ))}
+                        </Col>
+                        <Col sm={3} className="">
+                          <p>METHODOLOGY</p>
+                          {nbcFocus.map((singleNote, index) => (
+                            <div class="input-group  mt-2">
+                              <Form.Control
+                                type="text"
+                                style={{ width: "30%", height: "10px" }}
+                                size="sm"
+                                value={singleNote.nbcFocus}
+                                name="nbc_focus_original_methodology"
+                                onChange={(e) => handleNbcChange(e, index)}
+                              />
+
+                              <button
+                                onClick={handleNbcRemove}
+                                className="mt-1"
+                                style={{ height: "25px", border: "none" }}
+                              >
+                                <i className="">
+                                  <FiDelete />
+                                </i>
+                              </button>
+                            </div>
+                          ))}
+                        </Col>
+                      </Row>
+                      <div className="d-flex justify-content-end ml-2">
+                        <p className="">
+                          <GrAdd onClick={handleNbcAdd} />
+                        </p>
+                      </div>
+                    </Container1>
+                  </Tab>
+                  <Tab
+                    eventKey="seventh"
+                    title="TRANSACTION PARTIES"
+                    style={{ fontSize: "12px" }}
+                  >
+                    <Container1>
+                      <br />
+                      <Row className="py-1">
+                        <Col sm={3} className="mt-1 mb-1">
+                          <p>Role</p>
+                          {parties.map((singleNote, index) => (
+                            <div class="input-group mt-2">
+                              <Form.Control
+                                type="text"
+                                size="sm"
+                                value={singleNote.parties}
+                                name="parties_role"
+                                onChange={(e) => handlePartyChange(e, index)}
+                              />
+                              <br />
+                            </div>
+                          ))}
+                        </Col>
+                        <Col sm={2} className="mt-1 mb-1">
+                          <p>Appointed</p>
+                          {parties.map((singleNote, index) => (
+                            <div class="input-group mt-2 ">
+                              <Form.Select
+                                className="py-1 mt-1 "
+                                type="text"
+                                size="md"
+                                value={singleNote.parties}
+                                onChange={(e) => handlePartyChange(e, index)}
+                                name="parties_appointed"
+                              >
+                                <option>Yes/No</option>
+                                <option value={1} name="parties_appointed">
+                                  Yes
+                                </option>
+                                <option value={2} name="parties_appointed">
+                                  No
+                                </option>
+                              </Form.Select>
+                            </div>
+                          ))}
+                        </Col>
+                        <Col sm={3} className=" mb-1">
+                          <p>Party</p>
+                          {parties.map((singleNote, index) => (
+                            <div class="input-group mt-2">
+                              <Form.Control
+                                type="text"
+                                size="sm"
+                                value={singleNote.parties}
+                                name="parties_party"
+                                onChange={(e) => handlePartyChange(e, index)}
+                              />
+                            </div>
+                          ))}
+                        </Col>
+                        <Col sm={3} className="">
+                          <p>Status</p>
+                          {parties.map((singleNote, index) => (
+                            <div class="input-group  mt-2">
+                              <Form.Control
+                                type="text"
+                                style={{ width: "30%", height: "10px" }}
+                                size="sm"
+                                value={singleNote.parties}
+                                name="parties_status"
+                                onChange={(e) => handlePartyChange(e, index)}
+                              />
+                              <button
+                                onClick={handlePartyRemove}
+                                className="mt-1"
+                                style={{ height: "25px", border: "none" }}
+                              >
+                                <i className="">
+                                  <FiDelete />
+                                </i>
+                              </button>
+                            </div>
+                          ))}
+                        </Col>
+                      </Row>
+                      <div className="d-flex justify-content-end ml-2">
+                        <p className="">
+                          <GrAdd onClick={handlePartyAdd} />
+                        </p>
+                      </div>
+                    </Container1>
+                  </Tab>
+                  <Tab
+                    eventKey="eigth"
+                    title="PERFORMANCE-LINKED INDICATORS"
+                    style={{ fontSize: "12px" }}
+                  >
+                    <Container1>
+                      <br />
+                      <Row className="py-1">
+                        <Col sm={2} className="mt-1 mb-1">
+                          <p>Particulars</p>
+                          {plis.map((singleNote, index) => (
+                            <div class="input-group mt-2">
+                              <Form.Control
+                                type="text"
+                                size="sm"
+                                value={singleNote.plis}
+                                name="plis_particulars"
+                                onChange={(e) => handlePlisChange(e, index)}
+                              />
+                              <br />
+                            </div>
+                          ))}
+                        </Col>
+                        <Col sm={2} className="mb-1">
+                          <p>Concern</p>
+                          {plis.map((singleNote, index) => (
+                            <div class="input-group mt-1 mb-1 ">
+                              <Form.Select
+                                className="py-1 mt-1 "
+                                type="text"
+                                size="md"
+                                value={singleNote.plis}
+                                onChange={(e) => handlePlisChange(e, index)}
+                                name="plis_concern"
+                              >
+                                <option>Concern</option>
+                                <option value={"High"} name="plis_concern">
+                                  High
+                                </option>
+                                <option value={"medium"} name="plis_concern">
+                                  Medium
+                                </option>
+                                <option value={"Low"} name="plis_concern">
+                                  Low
+                                </option>
+                              </Form.Select>
+                            </div>
+                          ))}
+                        </Col>
+                        <Col sm={2} className=" mb-1">
+                          <p>Weight (%)</p>
+                          {plis.map((singleNote, index) => (
+                            <div class="input-group mt-2">
+                              <Form.Control
+                                type="number"
+                                size="sm"
+                                value={singleNote.plis}
+                                name="plis_weighting"
+                                onChange={(e) => handlePlisChange(e, index)}
+                              />
+                            </div>
+                          ))}
+                        </Col>
+                        <Col sm={2} className=" mb-1">
+                          <p>Expected</p>
+                          {plis.map((singleNote, index) => (
+                            <div class="input-group mt-2">
+                              <Form.Control
+                                type="date"
+                                size="sm"
+                                value={singleNote.plis}
+                                name="plis_expected"
+                                onChange={(e) => handlePlisChange(e, index)}
+                              />
+                            </div>
+                          ))}
+                        </Col>
+                        <Col sm={3} className="">
+                          <p>Status</p>
+                          {plis.map((singleNote, index) => (
+                            <div class="input-group  mt-2">
+                              <Form.Control
+                                type="text"
+                                style={{ width: "30%", height: "10px" }}
+                                size="sm"
+                                value={singleNote.plis}
+                                name="plis_status"
+                                onChange={(e) => handlePlisChange(e, index)}
+                              />
+                              <button
+                                onClick={handlePlisRemove}
+                                className="mt-1"
+                                style={{ height: "25px", border: "none" }}
+                              >
+                                <i className="">
+                                  <FiDelete />
+                                </i>
+                              </button>
+                            </div>
+                          ))}
+                        </Col>
+                      </Row>
+                      <div className="d-flex justify-content-end ml-2">
+                        <p className="">
+                          <GrAdd onClick={handlePlisAdd} />
+                        </p>
+                      </div>
+                    </Container1>
+                  </Tab>
+
+                  <Tab
+                    eventKey="ninth"
+                    title="OTHER CONDITIONS PRECEDENT"
+                    style={{ fontSize: "12px" }}
+                  >
+                    <Row className="py-1">
+                      <Col sm={2} className="mt-1 mb-1">
+                        <p>Factors</p>
+                        {ocps.map((singleNote, index) => (
+                          <div class="input-group mt-2">
+                            <Form.Control
+                              type="text"
+                              size="sm"
+                              value={singleNote.ocps}
+                              name="ocps_factors"
+                              onChange={(e) => handleOcpsChange(e, index)}
+                            />
+                            <br />
+                          </div>
+                        ))}
+                      </Col>
+                      <Col sm={2} className="mb-1">
+                        <p>Yes/No</p>
+                        {ocps.map((singleNote, index) => (
+                          <div class="input-group mt-1 mb-1 ">
+                            <Form.Select
+                              className="py-1 mt-1 "
+                              type="text"
+                              size="md"
+                              value={singleNote.ocps}
+                              onChange={(e) => handleOcpsChange(e, index)}
+                              name="ocps_yes_no"
+                            >
+                              <option>Select</option>
+                              <option value={1} name="ocps_yes_no">
+                                Yes
+                              </option>
+                              <option value={0} name="ocps_yes_no">
+                                No
+                              </option>
+                            </Form.Select>
+                          </div>
+                        ))}
+                      </Col>
+                      <Col sm={2} className="mb-1">
+                        <p>Concern</p>
+                        {ocps.map((singleNote, index) => (
+                          <div class="input-group mt-1 mb-1 ">
+                            <Form.Select
+                              className="py-1 mt-1 "
+                              type="text"
+                              size="md"
+                              value={singleNote.ocps}
+                              onChange={(e) => handleOcpsChange(e, index)}
+                              name="ocps_concern"
+                            >
+                              <option>Concern</option>
+                              <option value={"High"} name="ocps_concern">
+                                High
+                              </option>
+                              <option value={"Medium"} name="ocps_concern">
+                                Medium
+                              </option>
+                              <option value={"Low"} name="ocps_concern">
+                                Low
+                              </option>
+                            </Form.Select>
+                          </div>
+                        ))}
+                      </Col>
+                      <Col sm={2} className=" mb-1">
+                        <p>Expected Date</p>
+                        {ocps.map((singleNote, index) => (
+                          <div class="input-group mt-2">
+                            <Form.Control
+                              type="date"
+                              size="sm"
+                              value={singleNote.ocps}
+                              name="ocps_expected"
+                              onChange={(e) => handleOcpsChange(e, index)}
+                            />
+                          </div>
+                        ))}
+                      </Col>
+                      <Col sm={2} className=" mb-1">
+                        <p>Resp Party</p>
+                        {ocps.map((singleNote, index) => (
+                          <div class="input-group mt-2">
+                            <Form.Control
+                              type="text"
+                              size="sm"
+                              value={singleNote.ocps}
+                              name="ocps_resp_party"
+                              onChange={(e) => handleOcpsChange(e, index)}
+                            />
+                          </div>
+                        ))}
+                      </Col>
+                      <Col sm={2} className="">
+                        <p>Status</p>
+                        {ocps.map((singleNote, index) => (
+                          <div class="input-group  mt-2">
+                            <Form.Control
+                              type="text"
+                              size="sm"
+                              value={singleNote.ocps}
+                              name="ocps_status"
+                              onChange={(e) => handleOcpsChange(e, index)}
+                            />
+                            <button
+                              onClick={handleOcpsRemove}
+                              className="mt-1"
+                              style={{ height: "25px", border: "none" }}
+                            >
+                              <i className="">
+                                <FiDelete />
+                              </i>
+                            </button>
+                          </div>
+                        ))}
+                      </Col>
+                    </Row>
+                    <div className="d-flex justify-content-end ml-2">
+                      <p className="">
+                        <GrAdd onClick={handleOcpsAdd} />
+                      </p>
+                    </div>
+                  </Tab>
+                  <Tab
+                    eventKey="tenth"
+                    title="KEY PERFORMANCE INDICATOR"
+                    style={{ fontSize: "12px" }}
+                  >
+                    <br />
+                    <Row className="py-1">
+                      <Col sm={2} className="mt-1 mb-1">
+                        <p>Factors</p>
+                        {kpi.map((singleNote, index) => (
+                          <div class="input-group mt-2">
+                            <Form.Control
+                              type="text"
+                              size="sm"
+                              value={singleNote.kpi}
+                              name="kpi_factors"
+                              onChange={(e) => handleKpiChange(e, index)}
+                            />
+                            <br />
+                          </div>
+                        ))}
+                      </Col>
+                      <Col sm={2} className="mb-1">
+                        <p>Yes/No</p>
+                        {kpi.map((singleNote, index) => (
+                          <div class="input-group mt-1 mb-1 ">
+                            <Form.Select
+                              className="py-1 mt-1 "
+                              type="text"
+                              size="md"
+                              value={singleNote.kpi}
+                              onChange={(e) => handleKpiChange(e, index)}
+                              name="kpi_yes_no"
+                            >
+                              <option>Yes/No</option>
+                              <option value={1} name="kpi_yes_no">
+                                Yes
+                              </option>
+                              <option value={0} name="kpi_yes_no">
+                                No
+                              </option>
+                            </Form.Select>
+                          </div>
+                        ))}
+                      </Col>
+                      <Col sm={2} className="mb-1">
+                        <p>Concern</p>
+                        {kpi.map((singleNote, index) => (
+                          <div class="input-group mt-1 mb-1 ">
+                            <Form.Select
+                              className="py-1 mt-1 "
+                              type="text"
+                              size="md"
+                              value={singleNote.kpi}
+                              onChange={(e) => handleKpiChange(e, index)}
+                              name="kpi_concern"
+                            >
+                              <option>Concern</option>
+                              <option value={"High"} name="kpi_concern">
+                                High
+                              </option>
+                              <option value={"medium"} name="kpi_concern">
+                                Medium
+                              </option>
+                              <option value={"Low"} name="kpi_concern">
+                                Low
+                              </option>
+                            </Form.Select>
+                          </div>
+                        ))}
+                      </Col>
+                      <Col sm={2} className=" mb-1">
+                        <p>Expected</p>
+                        {kpi.map((singleNote, index) => (
+                          <div class="input-group mt-2">
+                            <Form.Control
+                              type="date"
+                              size="sm"
+                              value={singleNote.kpi}
+                              name="kpi_expected"
+                              onChange={(e) => handleKpiChange(e, index)}
+                            />
+                          </div>
+                        ))}
+                      </Col>
+                      <Col sm={2} className=" mb-1">
+                        <p>Responsible Party</p>
+                        {kpi.map((singleNote, index) => (
+                          <div class="input-group mt-2">
+                            <Form.Control
+                              type="text"
+                              size="sm"
+                              value={singleNote.kpi}
+                              name="kpi_resp_party"
+                              onChange={(e) => handleKpiChange(e, index)}
+                            />
+                          </div>
+                        ))}
+                      </Col>
+                      <Col sm={2} className="">
+                        <p>Status</p>
+                        {kpi.map((singleNote, index) => (
+                          <div class="input-group  mt-2">
+                            <Form.Control
+                              type="text"
+                              style={{ width: "30%", height: "10px" }}
+                              size="sm"
+                              value={singleNote.kpi}
+                              name="kpi_status"
+                              onChange={(e) => handleKpiChange(e, index)}
+                            />
+                            <button
+                              onClick={handleKpiRemove}
+                              className="mt-1"
+                              style={{ height: "25px", border: "none" }}
+                            >
+                              <i className="">
+                                <FiDelete />
+                              </i>
+                            </button>
+                          </div>
+                        ))}
+                      </Col>
+                    </Row>
+                    <div className="d-flex justify-content-end ml-2">
+                      <p className="">
+                        <GrAdd onClick={handleKpiAdd} />
+                      </p>
+                    </div>
+                  </Tab>
+                </Tabs>
+                <div
+                  className="d-flex justify-content-end"
+                  style={{ fontSize: "13px", color: "red" }}
+                >
+                  {/* <p class="animate__animated animate__pulse pt-2">
+                   {response}
+                  </p> */}
+                  <div className="text-danger">
+                  {(
+                    errors.clientName || 
+                  errors.dealSize ||
+                  errors.product 
+                  ||errors.region || 
+                  errors.transactor 
+                  ||errors.originator 
+                  ||errors.transactionLegalLead
+                  ||errors.industry
+                  ||errors.region
+                  ||errors.mandateLetter
+                  ||errors.creditApproval
+                  ) && 
+                  <p>Kindly fill out all required fields.</p>}
+                              </div>
+                </div>
+              </div>
+              <div className="d-flex justify-content-end">
+                <ButtonWrapper type="submit">Submit</ButtonWrapper>
+                <ButtonWrapper
+                  type="reset"
+                 
+                >
+                  Reset
+                </ButtonWrapper>
+              </div>
+            </form>
+          )}
+        </Container>
+      </FormWrapper>
+    </React.Fragment>
+  );
+};
+
+export default NewTransaction;

@@ -11,7 +11,6 @@ import StaffView from "./Components/Staffs/StaffView";
 import UpdateTransaction from "./Pages/Transactions/UpdateTransaction";
 import MgtView from "./Components/Dashboard/Management/ManagementView";
 import Origination from "./Components/Dashboard/Origination/Origination";
-import NewText from "./Pages/Transactions/NewText";
 import AllStaff from "./Pages/Staffs/AllStaff";
 import DealTeamView from "./Pages/Staffs/DealTeamView";
 import Home from "./Components/Home";
@@ -36,6 +35,7 @@ import authService from "./Services/auth.Service"
 import { useLocation } from 'react-router-dom';
 import ForgotPassword from "./Components/Auth/forgot/ForgotPassword";
 import PortfolioAllDeals from "./Components/Transactions/PortfolioAllDeals";
+import NewTransactionPage from "./Pages/Transactions/NewTransactionPage";
 
 
 
@@ -89,8 +89,9 @@ export default function App() {
         </Route> */}
 
         <Route path="/create_transaction">
-          <NewText />
+          <NewTransactionPage/>
         </Route>
+        
 
         <Route path="/update_transactions">
           <UpdateTransaction />
