@@ -762,7 +762,7 @@ const NewTransaction = () => {
                               ))}
                             </Form.Select>
                             <div className="text-danger">
-                              {errors.ttransactionLegalLead?.type ===
+                              {errors.transactionLegalLead?.type ===
                                 "required" &&
                                 "Transactor Lead Name  is required"}
                             </div>
