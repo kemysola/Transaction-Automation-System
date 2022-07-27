@@ -24,6 +24,10 @@ const updateDeal = (id, data) => { // update deal information
     return axios.put(`transaction/update/${id}`, data);
 };
 
+const updateNBCFocus = (id, data) => { // update NBC Focus table per deal
+    return axios.put(`transaction/update/nbcfocus/${id}`, data);
+}
+
 const getDealById = async (id) => { // get deal by id, for privileged users 
     return await axios.get(`transaction/item/${id}`);
 };
@@ -175,6 +179,7 @@ const Services = {
     addLevel,
     updateLevel,
     addForecast,
-    updateForecast
+    updateForecast,
+    updateNBCFocus
 }
 export default Services
