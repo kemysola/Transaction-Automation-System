@@ -33,20 +33,6 @@ const Forecast = ((props) => {
     }
   }, [wasEditing, isEditing]);
 
-  // useEffect(() => {
-  //   retrieveInitialData();
-  // }, [])
-
-  // const retrieveInitialData = () => {
-  //   Services.getForecast()
-  //   .then((response) => {
-  //       setData(response.data.forecast);
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-  // };
-
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -70,21 +56,6 @@ const Forecast = ((props) => {
               </label>
 
               <Row>
-                {/* <Col sm={4} md={4} lg={4}>
-                  <Fm.Label>Year</Fm.Label>
-                  <Fm.Select
-                    id={props.id}
-                    className="todo-text"
-                    value={newForecastValues.projectionyear}
-                    onChange={handleChange}
-                    ref={editFieldRef}
-                    size="sm"
-                    style={{fontSize: "12px", width: "60%"}}
-                  >
-                    {getYearList()}
-                  </Fm.Select> 
-                </Col> */}
-
                 <Col lg={5}>
                   <Fm.Label>Cu. Growth</Fm.Label>
                   <Fm.Control

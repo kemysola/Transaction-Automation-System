@@ -54,7 +54,6 @@ export default function UpdateForecast (props) {
       })
   }
 
-
   const retrieveForecast = () => {
     Services.getForecast()
     .then((response) => {
