@@ -1792,7 +1792,7 @@ export default function UpdateTransactions({}) {
                   Update
                 </ButtonWrapper>
               </div>
-
+                   {/* The guy starts from here */}
                     <Row>
                             {/* <Col sm={2}  className='mt-3 pt-2'> */}
                             <Form.Label className="pt-1"> </Form.Label>
