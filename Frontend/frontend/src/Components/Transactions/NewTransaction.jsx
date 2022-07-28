@@ -68,6 +68,7 @@ const NewTransaction = () => {
     setFocus,
     reset,
     watch,
+    getValues,
   } = useForm([
     {
       clientName: "",
@@ -111,24 +112,6 @@ const NewTransaction = () => {
       reimbursible: 0,
       notes: "",
       closed: false,
-      // nbcFocus: [
-      //   {
-      //     nbc_focus_original: "",
-      //     nbc_focus_original_yes_no: 0,
-      //     nbc_focus_original_date: null,
-      //     nbc_focus_original_methodology: "",
-      //     nbc_focus_apprv_1_b: "",
-      //     nbc_focus_apprv_1_c: null,
-      //     nbc_focus_apprv_2_b: "",
-      //     nbc_focus_apprv_2_c: null,
-      //     nbc_focus_apprv_3_b: "",
-      //     nbc_focus_apprv_3_c: null,
-      //     nbc_focus_apprv_4_b: "",
-      //     nbc_focus_apprv_4_c: null,
-      //     nbc_focus_apprv_5_b: "",
-      //     nbc_focus_apprv_5_c: null,
-      //   },
-      // ],
       kpi: [
         {
           kpi_factors: "",
@@ -169,7 +152,7 @@ const NewTransaction = () => {
       ],
     },
   ]);
-  const { fields, append, prepend, remove, swap, move, insert, replace } =
+  const { fields, append,  remove} =
     useFieldArray({
       control,
       name: "nbcFocus",
@@ -527,6 +510,13 @@ const NewTransaction = () => {
     list.splice(index, 1);
     setNoteList(list);
   };
+
+  const handleInputChange = (event) => {
+    // function to save user data to deal state
+    const { name, value } = event.target;
+    // setNbcFocus({ ...nbcFocus, [name]: value });
+
+  };
   //********************************************************************* Handle Submit Function ********************************** */
   const onSubmit = (reqdata, e) => {
     e.preventDefault();
@@ -535,7 +525,6 @@ const NewTransaction = () => {
     let note = allNotes.join("|");
 
     //****************************************************************** Object to handle request data to the server ***************** */
-
     const data = {
       clientName: reqdata.clientName,
       originator: reqdata.originator,
@@ -1129,6 +1118,7 @@ const NewTransaction = () => {
                               <Form.Label>Final (%)</Form.Label>
                               <Form.Control
                                 {...register("structuringFeeFinal")}
+                                defaultValue ={getValues('structuringFeeAmount')}
                                 disabled
                                 style={{
                                   width: "100%",
@@ -1631,13 +1621,13 @@ const NewTransaction = () => {
                                           sx={{
                                             "& > :not(style)": {
                                               m: 1,
-                                              width: "15ch",
+                                              width: "11ch",
                                             },
                                           }}
                                           noValidate
                                           autoComplete="off"
                                         >
-                                          <TextField
+                                          <Form.Control
                                             {...field}
                                             variant="standard"
                                           />
@@ -1661,11 +1651,11 @@ const NewTransaction = () => {
                                           noValidate
                                           autoComplete="off"
                                         >
-                                          <Select {...field} variant="standard">
-                                            <MenuItem value="">
+                                          <Form.Select {...field} variant="standard">
+                                            <option value="">
                                               <em>select</em>
-                                            </MenuItem>
-                                            <MenuItem
+                                            </option>
+                                            <option
                                               value={1}
                                               selected={
                                                 item.status === "1"
@@ -1674,8 +1664,8 @@ const NewTransaction = () => {
                                               }
                                             >
                                               Yes
-                                            </MenuItem>
-                                            <MenuItem
+                                            </option>
+                                            <option
                                               value={0}
                                               selected={
                                                 item.status === "0"
@@ -1684,8 +1674,8 @@ const NewTransaction = () => {
                                               }
                                             >
                                               No
-                                            </MenuItem>
-                                          </Select>
+                                            </option>
+                                          </Form.Select>
                                         </Box>
                                       )}
                                       name={`nbcFocus.${index}.nbc_focus_original_yes_no`}
@@ -1700,13 +1690,13 @@ const NewTransaction = () => {
                                           sx={{
                                             "& > :not(style)": {
                                               m: 1,
-                                              width: "14ch",
+                                              width: "11ch",
                                             },
                                           }}
                                           noValidate
                                           autoComplete="off"
                                         >
-                                          <TextField
+                                          <Form.Control
                                             type="date"
                                             {...field}
                                             variant="standard"
@@ -1732,7 +1722,7 @@ const NewTransaction = () => {
                                           noValidate
                                           autoComplete="off"
                                         >
-                                          <TextField
+                                          <Form.Control
                                             type="text"
                                             {...field}
                                             variant="standard"
@@ -1755,13 +1745,13 @@ const NewTransaction = () => {
                                     </p>
                                   </Col>
                                 </Row>
+                                
                               </li>
                             </div>
                           );
                         })}
-                      </ul>
-                      <section>
-                        <button
+                        <div className='d-flex justify-content-end'> 
+                            <button
                           type="button"
                           onClick={() => {
                             append({
@@ -1772,10 +1762,13 @@ const NewTransaction = () => {
                             });
                           }}
                         >
-                          Add
-                        </button>
+                          +
+                        </button></div>
+                         <section>
+                            
+                       
 
-                        <button
+                        {/* <button
                           type="button"
                           onClick={() =>
                             reset({
@@ -1789,11 +1782,172 @@ const NewTransaction = () => {
                           }
                         >
                           Clear
-                        </button>
+                        </button> */}
                       </section>
+                        
+                      </ul>
+                      <div>
+                      <Col sm={12}>
+                          <Col className="pb-2">
+                            <Form.Group>
+                              <Row>
+                                <Col sm={5}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                    MROC Pre_NBC Approval ( Link to Doc)
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={3}>
+                                  
+                                  <input
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_apprv_1_b"
+                                    value=''
+                                  />
+                                </Col>
+                                <Col sm={3}>
+                                  <input
+                                    size="sm"
+                                    type="date"
+                                    // value={deal.nbc_focus_apprv_1_c}
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_apprv_1_c"
+                                    style={{
+                                      width: "80%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                    }}
+                                  />
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col sm={5}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  MROC Pre_NBC Minutes. ( Link to Doc)
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={3}>
+                                  
+                                  <input
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_apprv_2_b"
+                                    value=''
+                                  />
+                                </Col>
+                                <Col sm={3}>
+                                  <input
+                                    size="sm"
+                                    type="date"
+                                    // value={deal.nbc_focus_apprv_1_c}
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_apprv_2_c"
+                                    style={{
+                                      width: "80%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                    }}
+                                  />
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col sm={5}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  NBC Approval ( Link to Doc)
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={3}>
+                                  
+                                  <input
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_apprv_3_b"
+                                    value=''
+                                  />
+                                </Col>
+                                <Col sm={3}>
+                                  <input
+                                    size="sm"
+                                    type="date"
+                                    // value={deal.nbc_focus_apprv_1_c}
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_apprv_3_c"
+                                    style={{
+                                      width: "80%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                    }}
+                                  />
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col sm={5}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  NBC Minutes ( Link to Doc)
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={3}>
+                                  
+                                  <input
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_apprv_4_b"
+                                    value=''
+                                  />
+                                </Col>
+                                <Col sm={3}>
+                                  <input
+                                    size="sm"
+                                    type="date"
+                                    // value={deal.nbc_focus_apprv_1_c}
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_apprv_4_c"
+                                    style={{
+                                      width: "80%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                    }}
+                                  />
+                                </Col>
+                                
+                              </Row>
+                              <Row>
+                                <Col sm={5}>
+                                  <Form.Label style={{ paddingRight: "1rem" }}>
+                                  Mandate Letter with Indicative Term Sheet
+                                      On-Boarding Documents ( Link to Doc)
+                                  </Form.Label>
+                                </Col>
+                                <Col sm={3}>
+                                  
+                                  <input
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_apprv_5_b"
+                                    value=''
+                                  />
+                                </Col>
+                                <Col sm={3}>
+                                  <input
+                                    size="sm"
+                                    type="date"
+                                    // value={deal.nbc_focus_apprv_1_c}
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_apprv_5_c"
+                                    style={{
+                                      width: "80%",
+                                      padding: "2px 1px",
+                                      focus: "none",
+                                    }}
+                                  />
+                                </Col>
+                              </Row>
+                            </Form.Group>
+                          </Col>
+                          </Col>
+                        
+                      </div>
+                     
                       <div className="d-flex justify-content-end ml-2">
                         <p className=""></p>
                       </div>
+
+
                     </Container1>
                   </Tab>
                   <Tab
@@ -2319,7 +2473,7 @@ const NewTransaction = () => {
                 </div>
               </div>
               <div className="d-flex justify-content-end">
-                <ButtonWrapper type="submit">Submit</ButtonWrapper>
+                <ButtonWrapper type="submit" >Submit</ButtonWrapper>
                 <ButtonWrapper type="reset">Reset</ButtonWrapper>
               </div>
             </form>
