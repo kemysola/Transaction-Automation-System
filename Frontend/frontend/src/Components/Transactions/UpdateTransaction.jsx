@@ -10,6 +10,9 @@ import Input from "react-validation/build/input";
 import Select from "react-validation/build/select";
 import { GrAdd } from "react-icons/gr";
 import { FiDelete } from "react-icons/fi";
+
+import NbcFocusMode from "./NbcFocusMode";
+
 const ButtonWrapper = styled.button`
   color: white;
   background: green;
@@ -86,6 +89,7 @@ export default function UpdateTransactions() {
   const [frequency, setFrequency] = useState([]);
   const [style, setStyle] = useState([]);
   const [staffList, setStaffList] = useState([]);
+  const [nbcChanged, setNbcChanged] = useState("")
 
   const [ocps, setOcps] = useState([
     {
@@ -282,10 +286,6 @@ export default function UpdateTransactions() {
     const { name, value } = e.target;
     const list = [...uniqueId];
    console.log(list)
-   
-
-
-
   };
 
   console.log("handle", nbcFocus)
@@ -314,9 +314,12 @@ export default function UpdateTransactions() {
         nbc_focus_apprv_4_b: "",
         nbc_focus_apprv_4_c: null,
         nbc_focus_apprv_5_b: "",
-        nbc_focus_apprv_5_c: null,
-      },
+        nbc_focus_apprv_5_c: null
+      }
     ]);
+
+    console.log("i'm hereeeee")
+    console.log("nbc", nbcFocus)
   };
 
   const handleNbcRemove = (index) => {
@@ -324,6 +327,12 @@ export default function UpdateTransactions() {
     list.splice(index, 1);
     setNbcFocus(list);
   };
+
+  // const handleNbcRemove = (index) => {
+  //   const list = [...nbcFocus];
+  //   list.splice(index, 1);
+  //   setNbcFocus(list);
+  // };
 
   //************************************************************* Note Change ************************************************* */
   const handleNoteChange = (e, index) => {
@@ -358,7 +367,9 @@ export default function UpdateTransactions() {
 
   useEffect(() => {
     retrieveDeal();
+  }, [nbcChanged])
 
+  useEffect(() => {
     retrieveStaffList();
 
     retrieveIndustry();
@@ -379,8 +390,8 @@ export default function UpdateTransactions() {
     // function to get deal by id from the database
     const data = await axios
       .get(
-         `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}`,
-        // `http://localhost:5001/api/v1/transaction/item/${id}`,
+        //  `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}`,
+        `http://localhost:5001/api/v1/transaction/item/${id}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
@@ -456,8 +467,6 @@ export default function UpdateTransactions() {
     return allData.find((a) => a.kid === id);
   });
 
-  console.log("hey", uId);
-
   const retrieveStaffList = () => {
     Service.getStaffList()
       .then((response) => {
@@ -527,6 +536,46 @@ export default function UpdateTransactions() {
         console.log(e);
       });
   };
+
+
+  // *************************************** Edit NBC Focus Function ***************************** *************
+
+  function editNBCFocus(id, transid, nbcFocusOriginal, nbcFocusOriginalYesNo, nbcFocusOriginalDate, nbcFocusOriginalMethod) {
+    let data = {
+      id: id,
+      nbc_focus_original: nbcFocusOriginal,
+      nbc_focus_original_date: nbcFocusOriginalDate,
+      nbc_focus_original_yes_no: nbcFocusOriginalYesNo,
+      nbc_focus_original_methodology: nbcFocusOriginalMethod,
+    };
+
+    console.log("nbc focus data", data)
+
+    Service.updateNBCFocus (transid, data)
+      .then((res) => {
+        console.log("updated")
+        setNbcChanged("success")
+      })
+      .catch(() => {
+        console.log("an error occured")
+      })
+  }
+
+  // **************************************** NBC Focus List ***************************************************
+
+  const nbcFocusList = uniqueId
+  .map(item => (
+    <NbcFocusMode 
+      transid={item.transid}
+      id={item.nbcid}
+      nbcFocusOriginal={item.nbc_focus_original}
+      nbcFocusOriginalYesNo={item.nbc_focus_original_yes_no}
+      nbcFocusOriginalDate={item.nbc_focus_original_date}
+      nbcFocusOriginalMethod={item.nbc_focus_original_methodology}
+      key={item.nbcid}
+      editNBCFocus={editNBCFocus}
+    />
+  ));
 
   // ******************************************  Next and Previous Function  ****************************************
 
@@ -670,7 +719,7 @@ export default function UpdateTransactions() {
       .then((response) => {
         console.log(response.data)
         alert(response.data.message)
-        alert('deal went well')
+        // alert('deal went well')
         history.push({
           pathname: "/transaction",
         });
@@ -678,6 +727,8 @@ export default function UpdateTransactions() {
       .catch((error) => {
         setMessage("Failed to update deal");
       });
+    
+      console.log("nbc add", nbcFocus)
   }
 
   return (
@@ -1834,143 +1885,135 @@ export default function UpdateTransactions() {
                     <Container1>
                       <br />
                       <Row className="py-1">
+                        <Col sm={3} className="mt-1 mb-1">
+                          <p>ORIGINAL</p>
+                        </Col>
+
+                        <Col sm={3} className="mt-1 mb-1">
+                          <p>CONCERNS</p>
+                        </Col>
+
+                        <Col sm={3} className="mt-1 mb-1">
+                          <p>DATE</p>
+                        </Col>
+
+                        <Col sm={3} className="mt-1 mb-1">
+                          <p>METHODOLOGY</p>
+                        </Col>
+
+                        {nbcFocusList}
+                      </Row>
+
+                      <Row className="py-1">
                         <Col sm={12}>
                           <Row>
                             <Col sm={3} className="mt-1 mb-1">
-                              <p>ORIGINAL</p>
-                                <div class="input-group mt-2">
-                                  {uniqueId.map((mst,index) => (
-                                    <div>
-                                      <Form.Control
-                                        type="text"
-                                        size="sm"
-                                        value={mst.nbc_focus_original}
-                                        // value={mst.nbc_focus_original}
-                                        name="nbc_focus_original"
-                                        onChange={(e) =>
-                                          handleNbcChange(e, index)
-                                        }
-                                      />
-                                    </div>
-                                  ))}
-                                  
-
-
-                                  <br />
-                                </div>
+                              {/* <p>ORIGINAL</p> */}
+                                {nbcFocus.map((singleNote, index) => (
+                                  <div class="input-group  mt-2">
+                                    <Form.Control
+                                      type="text"
+                                      style={{
+                                        width: "100%",
+                                        height: "10px",
+                                      }}
+                                      size="sm"
+                                      value={singleNote.nbcFocus}
+                                      name="nbc_focus_original"
+                                      onChange={(e) =>
+                                        handleNbcChange(e, index)
+                                      }
+                                    />
+                                  </div>
+                                ))}
                             
                             </Col>
+
                             <Col sm={2} className="mt-1 mb-1">
-                              <p>CONCERNS</p>
-
+                              {/* <p>CONCERNS</p> */}
                               {nbcFocus.map((singleNote, index) => (
                                 <div class="input-group mt-2">
-                                  {uniqueId.map((mst) => (
-                                    <div>
-                                      <Form.Select
-                                        type="text"
-                                        size="sm"
-                                        value={singleNote.nbcFocus}
-                                        name="nbc_focus_original_yes_no"
-                                        onChange={(e) =>
-                                          handleNbcChange(e, index)
-                                        }
-                                      >
-                                        <option
-                                          value={1}
-                                          name="nbc_focus_original_yes_no"
-                                          selected={
-                                            mst.nbc_focus_original_yes_no ===
-                                            true
-                                          }
-                                          key={mst.nbc_focus_original_yes_no}
-                                        >
-                                          Yes
-                                        </option>
-                                        <option
-                                          selected={
-                                            mst.nbc_focus_original_yes_no ===
-                                            false
-                                          }
-                                          value={0}
-                                          name="nbc_focus_original_yes_no"
-                                        >
-                                          No
-                                        </option>
-                                      </Form.Select>
-                                    </div>
-                                  ))}
-
-                                  <br />
+                                  <Form.Select
+                                    type="text"
+                                    size="sm"
+                                    value={singleNote.nbcFocus}
+                                    name="nbc_focus_original_yes_no"
+                                    onChange={(e) =>
+                                      handleNbcChange(e, index)
+                                    }
+                                  >
+                                    <option value=""></option>
+                                    <option
+                                      value={1}
+                                      name="nbc_focus_original_yes_no"
+                                    >
+                                      Yes
+                                    </option>
+                                    <option
+                                      value={0}
+                                      name="nbc_focus_original_yes_no"
+                                    >
+                                      No
+                                    </option>
+                                  </Form.Select>
                                 </div>
                               ))}
                             </Col>
-                            <Col sm={3} className=" mb-1">
-                              <p>DATE</p>
+
+                            <Col sm={3} className="mt-1 mb-1">
+                              {/* <p>DATE</p> */}
                               {nbcFocus.map((singleNote, index) => (
                                 <div class="input-group mt-2">
-                                  {uniqueId.map((mst) => (
-                                    <div>
-                                      <Form.Control
-                                        type="date"
-                                        size="sm"
-                                        defaultValue={
-                                          mst.nbc_focus_original_date
-                                            ? new Date(
-                                                mst.nbc_focus_original_date
-                                              )
-                                                .toISOString()
-                                                .split("T")[0]
-                                            : ""
-                                        }
-                                        value={singleNote.nbcFocus}
-                                        name="nbc_focus_original_date"
-                                        onChange={(e) =>
-                                          handleNbcChange(e, index)
-                                        }
-                                      />
-                                    </div>
-                                  ))}
+                                  <Form.Control
+                                    type="date"
+                                    size="sm"
+                                    value={singleNote.nbcFocus}
+                                    name="nbc_focus_original_date"
+                                    onChange={(e) =>
+                                      handleNbcChange(e, index)
+                                    }
+                                  />
                                 </div>
                               ))}
                             </Col>
-                            <Col sm={3} className="">
-                              <p>METHODOLOGY</p>
+
+                            <Col sm={3} className="mt-1 mb-1">
+                              {/* <p>METHODOLOGY</p> */}
                               {nbcFocus.map((singleNote, index) => (
                                 <div class="input-group  mt-2">
-                                  {uniqueId.map((mst) => (
-                                    <div>
-                                      <Form.Control
-                                        type="text"
-                                        style={{
-                                          width: "100%",
-                                          height: "10px",
-                                        }}
-                                        size="sm"
-                                        defaultValue={
-                                          mst.nbc_focus_original_methodology
-                                        }
-                                        value={singleNote.nbcFocus}
-                                        name="nbc_focus_original_methodology"
-                                        onChange={(e) =>
-                                          handleNbcChange(e, index)
-                                        }
-                                      />
-                                      {/* <button onClick={handleNbcRemove}> <i className="">
+                                  <Form.Control
+                                    type="text"
+                                    style={{
+                                      width: "70%",
+                                      height: "10px",
+                                      marginRight: "3px"
+                                    }}
+                                    size="sm"
+                                    value={singleNote.nbcFocus}
+                                    name="nbc_focus_original_methodology"
+                                    onChange={(e) =>
+                                      handleNbcChange(e, index)
+                                    }
+                                  />
+                                  <button 
+                                    onClick={handleNbcRemove} 
+                                    className="mt-1"
+                                    style={{ height: "25px", border: "none" }}
+                                  >
+                                    <i className="">
                                       <FiDelete />
-                                    </i></button> */}
-                                    </div>
-                                  ))}
+                                    </i>
+                                  </button>
                                 </div>
                               ))}
                             </Col>
                           </Row>
                         </Col>
-                        <div className="d-flex justify-content-end ml-2">
-                          {/* <p className="">
-                            <GrAdd onClick={handleNbcAdd} />
-                          </p> */}
+                        <div className="d-flex justify-content-end ml-2" style={{ cursor: "pointer", height: "1rem"}}>
+                          <GrAdd onClick={handleNbcAdd} />
                         </div>
+
+                        {/* -------- NBC Approval and File Upload Section --------- */}
 
                         <Col sm={12}>
                           <Col className="pb-2">
@@ -1979,7 +2022,7 @@ export default function UpdateTransactions() {
                                 <Col sm={3}>
                                   <Form.Label style={{ paddingRight: "1rem" }}>
                                     {/* Strength of Contracts: */}
-                                  </Form.Label>
+                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}></Col>
                               </Row>
@@ -2229,10 +2272,10 @@ export default function UpdateTransactions() {
                                 </Row>
                               </Form.Group>
                             </Col>
-                            {/* </Col> */}
-                          </Col>
+                            </Col>
+                           {/* </Col> */}
                         </Col>
-                      </Row>
+                      </Row> 
                     </Container1>
                   </Tab>
                   <Tab

@@ -233,7 +233,8 @@ router.get('/item/:deal',verifyTokenAndAuthorization, async (req, res) => {
             LEFT JOIN TB_INFRCR_TRANSACTION_NBC_FOCUS c ON c.transID = a.transID
             LEFT JOIN TB_INFRCR_TRANSACTION_PARTIES d ON d.transID = a.transID
             LEFT JOIN TB_INFRCR_TRANSACTION_PLIS e ON e.transID = a.transID
-            LEFT JOIN TB_INFRCR_TRANSACTION_KPI f ON f.transID = a.transID WHERE a.transID = $1`, [deal_record_id]);
+            LEFT JOIN TB_INFRCR_TRANSACTION_KPI f ON f.transID = a.transID WHERE a.transID = $1
+            ORDER BY b.id, c.id, d.id, e.id, f.id;`, [deal_record_id]);
         if (deal) { 
             res.deal_info = deal
 
@@ -981,4 +982,4 @@ router.put('/update/kpis/:dealID', verifyTokenAndAuthorization, async (req, res)
 
 // });
 
-// module.exports = router;
+module.exports = router;
