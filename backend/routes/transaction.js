@@ -948,38 +948,63 @@ router.put('/update/kpis/:dealID', verifyTokenAndAuthorization, async (req, res)
 
 });
 
-// DELETE
-// router.delete('/delete/:dealID', verifyTokenAndAuthorization,async (req, res) => {
+// // DELETE Daniel Feature
+router.delete('/delete/:dealID', async (req, res) => {
 
-//     const client = await pool.connect();
-//     try {
-//             var rows = [req.params.dealID, element.id];
-            
-//             const res_check_rec = await client.query(`SELECT * FROM TB_INFRCR_TRANSACTION_PARTIES WHERE id in ($1)`, [rows[1]])
+    const client = await pool.connect();
+    try {
+            var rows = [req.params.dealID, req.body['id'], req.body['tableID']];
 
-//             if (res_check_rec.rows.length <= 0) {
+            var targetTable = '';
+ 
+            if(rows[2] === 'nbcFocus'){
+                targetTable = 'TB_INFRCR_TRANSACTION_NBC_FOCUS';
+
+            }else if(rows[2] === 'parties'){
+                targetTable = 'TB_INFRCR_TRANSACTION_PARTIES';
+
+            }else if(rows[2] === 'plis'){
+                targetTable = 'TB_INFRCR_TRANSACTION_PLIS';
+
+            }else if(rows[2] === 'ocps'){
+                targetTable = 'TB_INFRCR_TRANSACTION_OTHER_CPS';
+
+            }else if(rows[2] === 'kpi'){
+                targetTable = 'TB_INFRCR_TRANSACTION_KPI';
+
+            }
+
+            const res_check_rec = await client.query(`SELECT * FROM ` + targetTable +` WHERE id in ($1)`, [rows[1]])
+
+            if (res_check_rec.rows.length > 0) {
                 
-//                 const insert_to_parties = `DELETE FROM TB_INFRCR_TRANSACTION_PARTIES WHERE transID = $1 AND id = $2`
+                const insert_to_parties = `DELETE FROM ` +targetTable+ ` WHERE transID = $1 AND id = $2`
+                const del_cols = [rows[0], rows[1]]
 
-//                 const res_ins_parties = await client.query(insert_to_parties, rows)
+                const res_ins_parties = await client.query(insert_to_parties, del_cols)
                             
-//                 await client.query('COMMIT')
+                await client.query('COMMIT')
 
-//             } 
-//         var vfuncPartiesUpdate = funcPartiesUpdate()
-//         res.json({
-//             status: (res.statusCode = 200),
-//             message: "Deal UPDATED Successfully",
-//             // dealInfo: vfuncPartiesUpdate,
-//           });
+                res.json({
+                    status: (res.statusCode = 200),
+                    message: "Record Deleted Successfully",
+                  });
 
-//     } catch (e) {
-//         await client.query('ROLLBACK')
-//         res.status(403).json({ Error: e.stack });
-//     }finally{
-//         client.release()
-//       }
+            }else{
 
-// });
+                res.json({
+                    status: (res.statusCode = 404),
+                    message: "Record Not Found",
+                  });
+            }
+
+    } catch (e) {
+        await client.query('ROLLBACK')
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+
+});
 
 module.exports = router;

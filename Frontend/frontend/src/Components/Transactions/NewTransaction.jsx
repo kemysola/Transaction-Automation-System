@@ -2,15 +2,18 @@
 import React, { useState, useEffect } from "react";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
-import { Form, Container, Row, Col} from "react-bootstrap";
+import { Form, Container, Row, Col } from "react-bootstrap";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 import styled from "styled-components";
 import Services from "../../Services/Service";
-import { useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { GrAdd } from "react-icons/gr";
 import { FiDelete } from "react-icons/fi";
-import { useForm ,Controller, useFieldArray, useWatch} from "react-hook-form";
-
-
+import { useForm, Controller, useFieldArray, useWatch } from "react-hook-form";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 //********************************* Material UI styled Components    **********************************/
 
@@ -44,11 +47,10 @@ const PWrapper = styled.p`
   padding: 0;
 `;
 
-
 //************************************************* New Transaction Module ******************************************* */
+let renderCount = 0;
 const NewTransaction = () => {
-
-//*********************************************** Instantiate useHistory hook **************************************** */
+  //*********************************************** Instantiate useHistory hook **************************************** */
   const history = useHistory();
   //*****************************************    Use React-Use-fORM hook     ******************************************/
   const {
@@ -61,110 +63,119 @@ const NewTransaction = () => {
       touchedFields,
       submitCount,
     },
+    control,
     handleSubmit,
     setFocus,
     reset,
-  } = useForm({
-    clientName: "",
-    originator: "",
-    transactor: "",
-    transactionlegallead: "",
-    industry: "",
-    product: "",
-    region: "",
-    dealSize: 0,
-    coupon: 0,
-    tenor: 0,
-    moratorium: 0,
-    repaymentFrequency: "Semi-Annually",
-    amortizationStyle: "Annuity",
-    mandateLetter: null,
-    nbc_approval_date: null,
-    nbc_submitted_date: null,
-    creditApproval: null,
-    feeLetter: null,
-    expectedClose: null,
-    actualClose: null,
-    greenA: "false",
-    greenB: "false",
-    greenC: "false",
-    greenD: "false",
-    greenE: "false",
-    greenF: "false",
-    amberA: "false",
-    amberB: "false",
-    amberC: "false",
-    amberD: "false",
-    amberE: "false",
-    redA: "false",
-    redB: "false",
-    redC: "false",
-    structuringFeeAmount: 0,
-    structuringFeeAdvance: 0,
-    guaranteeFee: 0,
-    monitoringFee: 0,
-    reimbursible: 0,
-    notes: "",
-    closed: false,
-    nbcFocus: [
-      {
-        nbc_focus_original: "",
-        nbc_focus_original_yes_no: 0,
-        nbc_focus_original_date: null,
-        nbc_focus_original_methodology: "",
-        nbc_focus_apprv_1_b: "",
-        nbc_focus_apprv_1_c: null,
-        nbc_focus_apprv_2_b: "",
-        nbc_focus_apprv_2_c: null,
-        nbc_focus_apprv_3_b: "",
-        nbc_focus_apprv_3_c: null,
-        nbc_focus_apprv_4_b: "",
-        nbc_focus_apprv_4_c: null,
-        nbc_focus_apprv_5_b: "",
-        nbc_focus_apprv_5_c: null,
-      },
-    ],
-    kpi: [
-      {
-        kpi_factors: "",
-        kpi_yes_no: 0,
-        kpi_concern: "",
-        kpi_expected: null,
-        kpi_resp_party: "",
-        kpi_status: "Pending",
-      },
-    ],
-    plis: [
-      {
-        plis_particulars: "",
-        plis_concern: "",
-        plis_weighting: 10,
-        plis_expected: "2022-06-14",
-        plis_status: "Active",
-      },
-    ],
+    watch,
+  } = useForm([
+    {
+      clientName: "",
+      originator: "",
+      transactor: "",
+      transactionlegallead: "",
+      industry: "",
+      product: "",
+      region: "",
+      dealSize: 0,
+      coupon: 0,
+      tenor: 0,
+      moratorium: 0,
+      repaymentFrequency: "Semi-Annually",
+      amortizationStyle: "Annuity",
+      mandateLetter: null,
+      nbc_approval_date: null,
+      nbc_submitted_date: null,
+      creditApproval: null,
+      feeLetter: null,
+      expectedClose: null,
+      actualClose: null,
+      greenA: "false",
+      greenB: "false",
+      greenC: "false",
+      greenD: "false",
+      greenE: "false",
+      greenF: "false",
+      amberA: "false",
+      amberB: "false",
+      amberC: "false",
+      amberD: "false",
+      amberE: "false",
+      redA: "false",
+      redB: "false",
+      redC: "false",
+      structuringFeeAmount: 0,
+      structuringFeeAdvance: 0,
+      guaranteeFee: 0,
+      monitoringFee: 0,
+      reimbursible: 0,
+      notes: "",
+      closed: false,
+      // nbcFocus: [
+      //   {
+      //     nbc_focus_original: "",
+      //     nbc_focus_original_yes_no: 0,
+      //     nbc_focus_original_date: null,
+      //     nbc_focus_original_methodology: "",
+      //     nbc_focus_apprv_1_b: "",
+      //     nbc_focus_apprv_1_c: null,
+      //     nbc_focus_apprv_2_b: "",
+      //     nbc_focus_apprv_2_c: null,
+      //     nbc_focus_apprv_3_b: "",
+      //     nbc_focus_apprv_3_c: null,
+      //     nbc_focus_apprv_4_b: "",
+      //     nbc_focus_apprv_4_c: null,
+      //     nbc_focus_apprv_5_b: "",
+      //     nbc_focus_apprv_5_c: null,
+      //   },
+      // ],
+      kpi: [
+        {
+          kpi_factors: "",
+          kpi_yes_no: 0,
+          kpi_concern: "",
+          kpi_expected: null,
+          kpi_resp_party: "",
+          kpi_status: "Pending",
+        },
+      ],
+      plis: [
+        {
+          plis_particulars: "",
+          plis_concern: "",
+          plis_weighting: 10,
+          plis_expected: "2022-06-14",
+          plis_status: "Active",
+        },
+      ],
 
-   
-    parties: [
-      {
-        parties_role: "",
-        parties_party: "",
-        parties_appointed: 0,
-        parties_status: "Pending",
-      },
-    ],
-    ocps: [
-      {
-        ocps_factors: "",
-        ocps_yes_no: 1,
-        ocps_concern: "",
-        ocps_expected: null,
-        ocps_resp_party: "",
-        ocps_status: "Active",
-      },
-    ],
-  });
+      parties: [
+        {
+          parties_role: "",
+          parties_party: "",
+          parties_appointed: 0,
+          parties_status: "Pending",
+        },
+      ],
+      ocps: [
+        {
+          ocps_factors: "",
+          ocps_yes_no: 1,
+          ocps_concern: "",
+          ocps_expected: null,
+          ocps_resp_party: "",
+          ocps_status: "Active",
+        },
+      ],
+    },
+  ]);
+  const { fields, append, prepend, remove, swap, move, insert, replace } =
+    useFieldArray({
+      control,
+      name: "nbcFocus",
+    });
 
+  renderCount++;
 
   //********************************************************* Deal Tracking features - state and functions ************************ */
 
@@ -176,24 +187,6 @@ const NewTransaction = () => {
       ocps_expected: null,
       ocps_resp_party: "",
       ocps_status: "Active",
-    },
-  ]);
-  const [nbcFocus, setNbcFocus] = useState([
-    {
-      nbc_focus_original: "",
-      nbc_focus_original_yes_no: 0,
-      nbc_focus_original_date: null,
-      nbc_focus_original_methodology: "",
-      nbc_focus_apprv_1_b: "",
-      nbc_focus_apprv_1_c: null,
-      nbc_focus_apprv_2_b: "",
-      nbc_focus_apprv_2_c: null,
-      nbc_focus_apprv_3_b: "",
-      nbc_focus_apprv_3_c: null,
-      nbc_focus_apprv_4_b: "",
-      nbc_focus_apprv_4_c: null,
-      nbc_focus_apprv_5_b: "",
-      nbc_focus_apprv_5_c: null,
     },
   ]);
 
@@ -227,9 +220,7 @@ const NewTransaction = () => {
     },
   ]);
 
-
-
-//************************************************************ Create states and default values ******************************* */
+  //************************************************************ Create states and default values ******************************* */
 
   const [activeTab, setActiveTab] = useState("first");
   const [submitted, setSubmitted] = useState(false);
@@ -260,7 +251,7 @@ const NewTransaction = () => {
     retrieveStaffList();
   }, [setFocus]);
 
-// ******************************************  Axios :  get industry *********************************************/
+  // ******************************************  Axios :  get industry *********************************************/
 
   const retrieveIndustry = () => {
     Services.getIndustry()
@@ -358,40 +349,20 @@ const NewTransaction = () => {
     setParties(list);
   };
 
-  const handleNbcChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...nbcFocus];
-    list[index][name] = value;
-    setNbcFocus(list);
-  };
+  //         nbc_focus_apprv_1_b: "",
+  //         nbc_focus_apprv_1_c: null,
+  //         nbc_focus_apprv_2_b: "",
+  //         nbc_focus_apprv_2_c: null,
+  //         nbc_focus_apprv_3_b: "",
+  //         nbc_focus_apprv_3_c: null,
+  //         nbc_focus_apprv_4_b: "",
+  //         nbc_focus_apprv_4_c: null,
+  //         nbc_focus_apprv_5_b: "",
+  //         nbc_focus_apprv_5_c: null,
+  //       },
+  //     ]);
+  //   };
 
-  const handleNbcAdd = () => {
-    setNbcFocus([
-      ...nbcFocus,
-      {
-        nbc_focus_original: "",
-        nbc_focus_original_yes_no: 0,
-        nbc_focus_original_date: null,
-        nbc_focus_original_methodology: "",
-        nbc_focus_apprv_1_b: "",
-        nbc_focus_apprv_1_c: null,
-        nbc_focus_apprv_2_b: "",
-        nbc_focus_apprv_2_c: null,
-        nbc_focus_apprv_3_b: "",
-        nbc_focus_apprv_3_c: null,
-        nbc_focus_apprv_4_b: "",
-        nbc_focus_apprv_4_c: null,
-        nbc_focus_apprv_5_b: "",
-        nbc_focus_apprv_5_c: null,
-      },
-    ]);
-  };
-
-  const handleNbcRemove = (index) => {
-    const list = [...nbcFocus];
-    list.splice(index, 1);
-    setNbcFocus(list);
-  };
   // **************************************************** Key Performance Indicators ************************//
   const handleKpiChange = (e, index) => {
     const { name, value } = e.target;
@@ -556,14 +527,14 @@ const NewTransaction = () => {
     list.splice(index, 1);
     setNoteList(list);
   };
-//********************************************************************* Handle Submit Function ********************************** */
+  //********************************************************************* Handle Submit Function ********************************** */
   const onSubmit = (reqdata, e) => {
     e.preventDefault();
     console.log(reqdata, e);
     let allNotes = noteList.map(({ note }) => note);
     let note = allNotes.join("|");
 
-//****************************************************************** Object to handle request data to the server ***************** */
+    //****************************************************************** Object to handle request data to the server ***************** */
 
     const data = {
       clientName: reqdata.clientName,
@@ -576,16 +547,26 @@ const NewTransaction = () => {
       dealSize: +reqdata.dealSize,
       coupon: +reqdata.coupon,
       tenor: +reqdata.tenor,
-      mandateLetter: `${reqdata.mandateLetter ? reqdata.mandateLetter : 20221203}`,
-      creditApproval: `${reqdata.creditApproval ? reqdata.creditApproval : 20221203}`,
-      expectedClose: `${reqdata.expectedClose ? reqdata.expectedClose : 20221203}`,
+      mandateLetter: `${
+        reqdata.mandateLetter ? reqdata.mandateLetter : 20221203
+      }`,
+      creditApproval: `${
+        reqdata.creditApproval ? reqdata.creditApproval : 20221203
+      }`,
+      expectedClose: `${
+        reqdata.expectedClose ? reqdata.expectedClose : 20221203
+      }`,
       moratorium: +reqdata.moratorium,
       repaymentFrequency: reqdata.repaymentFrequency,
       amortizationStyle: reqdata.amortizationStyle,
       actualClose: `${reqdata.actualClose ? reqdata.actualClose : 20221203}`,
       feeLetter: `${reqdata.feeLetter ? reqdata.feeLetter : 20221203}`,
-      NBC_approval_date: `${reqdata.nbc_approval_date ? reqdata.nbc_approval_date : 20221203}`,
-      NBC_submitted_date: `${reqdata.nbc_submitted_date ? reqdata.nbc_submitted_date : 20221203}`,
+      NBC_approval_date: `${
+        reqdata.nbc_approval_date ? reqdata.nbc_approval_date : 20221203
+      }`,
+      NBC_submitted_date: `${
+        reqdata.nbc_submitted_date ? reqdata.nbc_submitted_date : 20221203
+      }`,
       greenA: JSON.parse(reqdata.greenA),
       greenB: JSON.parse(reqdata.greenB),
       greenC: JSON.parse(reqdata.greenC),
@@ -606,15 +587,14 @@ const NewTransaction = () => {
       monitoringFee: +reqdata.monitoringFee,
       reimbursible: +reqdata.reimbursible,
       notes: note,
-      nbcFocus,
+      nbcFocus: reqdata.nbcFocus,
       parties,
       kpi,
       plis,
       ocps,
     };
 
-
-//********************************************************** Send data using rest api in a promise! **************************** */
+    //********************************************************** Send data using rest api in a promise! **************************** */
     Services.createDeal(data)
       .then((res) => {
         setResponse(res.data.message);
@@ -683,8 +663,6 @@ const NewTransaction = () => {
                         <Col sm={6}>
                           <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                             <Form.Label>Originator:</Form.Label>
-
-                            {/* <Form.Control {...register("originator", { required: true })} /> */}
                             <Form.Select
                               {...register("originator", { required: true })}
                               style={{
@@ -712,7 +690,6 @@ const NewTransaction = () => {
                         <Col sm={6}>
                           <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                             <Form.Label>Transactor:</Form.Label>
-                            {/* <Form.Control {...register("transactor", { required: true })} /> */}
                             <Form.Select
                               {...register("transactor", { required: true })}
                               style={{
@@ -739,7 +716,7 @@ const NewTransaction = () => {
                         </Col>
                         <Col sm={6}>
                           <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                            <Form.Label>Transactor Legal Lead:</Form.Label>
+                            <Form.Label>Transaction Legal Lead:</Form.Label>
 
                             <Form.Select
                               {...register("transactionLegalLead", {
@@ -1614,97 +1591,208 @@ const NewTransaction = () => {
                   >
                     <Container1>
                       <Row className="py-1">
-                        <Col sm={3} className="mt-1 mb-1">
+                        <Col
+                          sm={2}
+                          className="mt-1 mb-1 d-flex justify-content-end"
+                        >
                           <p>ORIGINAL</p>
-                          {nbcFocus.map((singleNote, index) => (
-                            <div class="input-group mt-2">
-                              <Form.Control
-                                // type="text"
-                                style={{ margin: "0.8em", width: "60%" }}
-                                size="sm"
-                                value={singleNote.nbcFocus}
-                                // {...register('nbc_focus_original')}
-                                name="nbc_focus_original"
-                                onChange={(e) => handleNbcChange(e, index)}
-                              />
-                              <br />
-                            </div>
-                          ))}
                         </Col>
-                        <Col sm={2} className="mt-1 mb-1">
+                        <Col
+                          sm={2}
+                          className="mt-1 mb-1  mb-1 mt-1 d-flex justify-content-end"
+                        >
                           <p>CONCERNS</p>
-                          {nbcFocus.map((singleNote, index) => (
-                            <div class="input-group mt-2 ">
-                              <Form.Select
-                                className="py-1 mt-1 "
-                                type="text"
-                                size="md"
-                                value={singleNote.nbcFocus}
-                                // onChange={handleInputChange}
-                                onChange={(e) => handleNbcChange(e, index)}
-                                name="nbc_focus_original_yes_no"
-                              >
-                                <option>Yes/No</option>
-                                <option
-                                  value={1}
-                                  name="nbc_focus_original_yes_no"
-                                >
-                                  Yes
-                                </option>
-                                <option
-                                  value={0}
-                                  name="nbc_focus_original_yes_no"
-                                >
-                                  No
-                                </option>
-                              </Form.Select>
-                            </div>
-                          ))}
                         </Col>
-                        <Col sm={3} className=" mb-1">
+                        <Col
+                          sm={2}
+                          className=" mb-1 mt-1 d-flex justify-content-center"
+                        >
                           <p>DATE</p>
-                          {nbcFocus.map((singleNote, index) => (
-                            <div class="input-group mt-2">
-                              <Form.Control
-                                type="date"
-                                size="sm"
-                                value={singleNote.nbcFocus}
-                                name="nbc_focus_original_date"
-                                onChange={(e) => handleNbcChange(e, index)}
-                              />
-                            </div>
-                          ))}
                         </Col>
-                        <Col sm={3} className="">
-                          <p>METHODOLOGY</p>
-                          {nbcFocus.map((singleNote, index) => (
-                            <div class="input-group  mt-2">
-                              <Form.Control
-                                type="text"
-                                style={{ width: "30%", height: "10px" }}
-                                size="sm"
-                                value={singleNote.nbcFocus}
-                                name="nbc_focus_original_methodology"
-                                onChange={(e) => handleNbcChange(e, index)}
-                              />
-
-                              <button
-                                onClick={handleNbcRemove}
-                                className="mt-1"
-                                style={{ height: "25px", border: "none" }}
-                              >
-                                <i className="">
-                                  <FiDelete />
-                                </i>
-                              </button>
-                            </div>
-                          ))}
+                        <Col
+                          sm={4}
+                          className="mb-1 mt-1d-flex justify-content-end "
+                        >
+                          <p className="text-center">METHODOLOGY</p>
                         </Col>
                       </Row>
+
+                      <ul>
+                        {fields.map((item, index) => {
+                          return (
+                            <div>
+                              <li style={{ listStyle: "none" }}>
+                                <Row>
+                                  <Col sm={2}>
+                                    <Controller
+                                      render={({ field }) => (
+                                        <Box
+                                          component="div"
+                                          sx={{
+                                            "& > :not(style)": {
+                                              m: 1,
+                                              width: "15ch",
+                                            },
+                                          }}
+                                          noValidate
+                                          autoComplete="off"
+                                        >
+                                          <TextField
+                                            {...field}
+                                            variant="standard"
+                                          />
+                                        </Box>
+                                      )}
+                                      name={`nbcFocus.${index}.nbc_focus_original`}
+                                      control={control}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Controller
+                                      render={({ field }) => (
+                                        <Box
+                                          component="div"
+                                          sx={{
+                                            "& > :not(style)": {
+                                              m: 1,
+                                              width: "10ch",
+                                            },
+                                          }}
+                                          noValidate
+                                          autoComplete="off"
+                                        >
+                                          <Select {...field} variant="standard">
+                                            <MenuItem value="">
+                                              <em>select</em>
+                                            </MenuItem>
+                                            <MenuItem
+                                              value={1}
+                                              selected={
+                                                item.status === "1"
+                                                  ? "selected"
+                                                  : true
+                                              }
+                                            >
+                                              Yes
+                                            </MenuItem>
+                                            <MenuItem
+                                              value={0}
+                                              selected={
+                                                item.status === "0"
+                                                  ? "selected"
+                                                  : false
+                                              }
+                                            >
+                                              No
+                                            </MenuItem>
+                                          </Select>
+                                        </Box>
+                                      )}
+                                      name={`nbcFocus.${index}.nbc_focus_original_yes_no`}
+                                      control={control}
+                                    />
+                                  </Col>
+                                  <Col sm={2}>
+                                    <Controller
+                                      render={({ field }) => (
+                                        <Box
+                                          component="div"
+                                          sx={{
+                                            "& > :not(style)": {
+                                              m: 1,
+                                              width: "14ch",
+                                            },
+                                          }}
+                                          noValidate
+                                          autoComplete="off"
+                                        >
+                                          <TextField
+                                            type="date"
+                                            {...field}
+                                            variant="standard"
+                                          />
+                                        </Box>
+                                      )}
+                                      name={`nbcFocus.${index}.nbc_focus_original_date`}
+                                      control={control}
+                                    />
+                                  </Col>
+
+                                  <Col sm={4}>
+                                    <Controller
+                                      render={({ field }) => (
+                                        <Box
+                                          component="div"
+                                          sx={{
+                                            "& > :not(style)": {
+                                              m: 1,
+                                              width: "18ch",
+                                            },
+                                          }}
+                                          noValidate
+                                          autoComplete="off"
+                                        >
+                                          <TextField
+                                            type="text"
+                                            {...field}
+                                            variant="standard"
+                                            style={{ marginLeft: "10px" }}
+                                            multiline
+                                          />
+                                        </Box>
+                                      )}
+                                      name={`nbcFocus.${index}.nbc_focus_original_methodology`}
+                                      control={control}
+                                    />
+                                  </Col>
+                                  <Col sm={1}>
+                                    <p
+                                      type="button"
+                                      onClick={() => remove(index)}
+                                      className="mt-3 pt-2"
+                                    >
+                                      x
+                                    </p>
+                                  </Col>
+                                </Row>
+                              </li>
+                            </div>
+                          );
+                        })}
+                      </ul>
+                      <section>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            append({
+                              nbc_focus_original: "",
+                              nbc_focus_original_yes_no: 0,
+                              nbc_focus_original_date: null,
+                              nbc_focus_original_methodology: "",
+                            });
+                          }}
+                        >
+                          Add
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() =>
+                            reset({
+                              nbcFocus: [
+                                {
+                                  nbc_focus_original: "",
+                                  nbc_focus_original_date: null,
+                                },
+                              ],
+                            })
+                          }
+                        >
+                          Clear
+                        </button>
+                      </section>
                       <div className="d-flex justify-content-end ml-2">
-                        <p className="">
-                          <GrAdd onClick={handleNbcAdd} />
-                        </p>
+                        <p className=""></p>
                       </div>
                     </Container1>
                   </Tab>
@@ -1717,15 +1805,17 @@ const NewTransaction = () => {
                       <br />
                       <Row className="py-1">
                         <Col sm={3} className="mt-1 mb-1">
+                            
                           <p>Role</p>
                           {parties.map((singleNote, index) => (
                             <div class="input-group mt-2">
-                              <Form.Control
+                              <TextField
                                 type="text"
                                 size="sm"
                                 value={singleNote.parties}
                                 name="parties_role"
                                 onChange={(e) => handlePartyChange(e, index)}
+                                variant='standard'
                               />
                               <br />
                             </div>
@@ -1735,22 +1825,22 @@ const NewTransaction = () => {
                           <p>Appointed</p>
                           {parties.map((singleNote, index) => (
                             <div class="input-group mt-2 ">
-                              <Form.Select
-                                className="py-1 mt-1 "
+                              <Select
                                 type="text"
                                 size="md"
                                 value={singleNote.parties}
                                 onChange={(e) => handlePartyChange(e, index)}
                                 name="parties_appointed"
+                                variant='standard'
                               >
-                                <option>Yes/No</option>
-                                <option value={1} name="parties_appointed">
+                                <MenuItem>Select</MenuItem>
+                                <MenuItem value={1} name="parties_appointed">
                                   Yes
-                                </option>
-                                <option value={2} name="parties_appointed">
+                                </MenuItem>
+                                <MenuItem value={2} name="parties_appointed">
                                   No
-                                </option>
-                              </Form.Select>
+                                </MenuItem>
+                              </Select>
                             </div>
                           ))}
                         </Col>
@@ -1758,12 +1848,13 @@ const NewTransaction = () => {
                           <p>Party</p>
                           {parties.map((singleNote, index) => (
                             <div class="input-group mt-2">
-                              <Form.Control
+                              <TextField
                                 type="text"
                                 size="sm"
                                 value={singleNote.parties}
                                 name="parties_party"
                                 onChange={(e) => handlePartyChange(e, index)}
+                                variant='standard'
                               />
                             </div>
                           ))}
@@ -1772,13 +1863,14 @@ const NewTransaction = () => {
                           <p>Status</p>
                           {parties.map((singleNote, index) => (
                             <div class="input-group  mt-2">
-                              <Form.Control
+                              <TextField
                                 type="text"
                                 style={{ width: "30%", height: "10px" }}
                                 size="sm"
                                 value={singleNote.parties}
                                 name="parties_status"
                                 onChange={(e) => handlePartyChange(e, index)}
+                                variant='standard'
                               />
                               <button
                                 onClick={handlePartyRemove}
@@ -1811,70 +1903,78 @@ const NewTransaction = () => {
                         <Col sm={2} className="mt-1 mb-1">
                           <p>Particulars</p>
                           {plis.map((singleNote, index) => (
-                            <div class="input-group mt-2">
-                              <Form.Control
-                                type="text"
-                                size="sm"
-                                value={singleNote.plis}
-                                name="plis_particulars"
-                                onChange={(e) => handlePlisChange(e, index)}
-                              />
-                              <br />
-                            </div>
+                            <TextField
+                              type="text"
+                              size="sm"
+                              value={singleNote.plis}
+                              name="plis_particulars"
+                              onChange={(e) => handlePlisChange(e, index)}
+                              variant="standard"
+                            />
                           ))}
                         </Col>
                         <Col sm={2} className="mb-1">
                           <p>Concern</p>
                           {plis.map((singleNote, index) => (
-                            <div class="input-group mt-1 mb-1 ">
-                              <Form.Select
-                                className="py-1 mt-1 "
+                            <div>
+                              <Select
+                                className=""
                                 type="text"
                                 size="md"
                                 value={singleNote.plis}
                                 onChange={(e) => handlePlisChange(e, index)}
                                 name="plis_concern"
+                                variant="standard"
                               >
-                                <option>Concern</option>
-                                <option value={"High"} name="plis_concern">
+                                <MenuItem>Concern</MenuItem>
+                                <MenuItem value={"High"} name="plis_concern">
                                   High
-                                </option>
-                                <option value={"medium"} name="plis_concern">
+                                </MenuItem>
+                                <MenuItem value={"medium"} name="plis_concern">
                                   Medium
-                                </option>
-                                <option value={"Low"} name="plis_concern">
+                                </MenuItem>
+                                <MenuItem value={"Low"} name="plis_concern">
                                   Low
-                                </option>
-                              </Form.Select>
+                                </MenuItem>
+                              </Select>
                             </div>
                           ))}
                         </Col>
                         <Col sm={2} className=" mb-1">
                           <p>Weight (%)</p>
                           {plis.map((singleNote, index) => (
-                            <div class="input-group mt-2">
-                              <Form.Control
-                                type="number"
-                                size="sm"
-                                value={singleNote.plis}
-                                name="plis_weighting"
-                                onChange={(e) => handlePlisChange(e, index)}
-                              />
-                            </div>
+                            <TextField
+                              type="number"
+                              size="sm"
+                              value={singleNote.plis}
+                              name="plis_weighting"
+                              onChange={(e) => handlePlisChange(e, index)}
+                              variant="standard"
+                            />
                           ))}
                         </Col>
                         <Col sm={2} className=" mb-1">
                           <p>Expected</p>
                           {plis.map((singleNote, index) => (
-                            <div class="input-group mt-2">
-                              <Form.Control
+                            <Box
+                              component="div"
+                              sx={{
+                                "& > :not(style)": {
+                                  width: "13ch",
+                                },
+                              }}
+                              noValidate
+                              autoComplete="off"
+                            >
+                              <TextField
                                 type="date"
                                 size="sm"
                                 value={singleNote.plis}
                                 name="plis_expected"
                                 onChange={(e) => handlePlisChange(e, index)}
+                                variant="standard"
                               />
-                            </div>
+                            </Box>
                           ))}
                         </Col>
                         <Col sm={3} className="">
@@ -1919,106 +2019,124 @@ const NewTransaction = () => {
                       <Col sm={2} className="mt-1 mb-1">
                         <p>Factors</p>
                         {ocps.map((singleNote, index) => (
-                          <div class="input-group mt-2">
-                            <Form.Control
-                              type="text"
-                              size="sm"
-                              value={singleNote.ocps}
-                              name="ocps_factors"
-                              onChange={(e) => handleOcpsChange(e, index)}
-                            />
-                            <br />
-                          </div>
+                          <TextField
+                            type="text"
+                            size="sm"
+                            value={singleNote.ocps}
+                            name="ocps_factors"
+                            onChange={(e) => handleOcpsChange(e, index)}
+                            variant="standard"
+                          />
                         ))}
                       </Col>
                       <Col sm={2} className="mb-1">
                         <p>Yes/No</p>
                         {ocps.map((singleNote, index) => (
-                          <div class="input-group mt-1 mb-1 ">
-                            <Form.Select
-                              className="py-1 mt-1 "
+                          <div>
+                            <Select
                               type="text"
                               size="md"
                               value={singleNote.ocps}
                               onChange={(e) => handleOcpsChange(e, index)}
                               name="ocps_yes_no"
+                              variant="standard"
                             >
-                              <option>Select</option>
-                              <option value={1} name="ocps_yes_no">
+                              <MenuItem>Select</MenuItem>
+                              <MenuItem value={1} name="ocps_yes_no">
                                 Yes
-                              </option>
-                              <option value={0} name="ocps_yes_no">
+                              </MenuItem>
+                              <MenuItem value={0} name="ocps_yes_no">
                                 No
-                              </option>
-                            </Form.Select>
+                              </MenuItem>
+                            </Select>
                           </div>
                         ))}
                       </Col>
                       <Col sm={2} className="mb-1">
                         <p>Concern</p>
                         {ocps.map((singleNote, index) => (
-                          <div class="input-group mt-1 mb-1 ">
-                            <Form.Select
-                              className="py-1 mt-1 "
+                          <div>
+                            <Select
                               type="text"
                               size="md"
                               value={singleNote.ocps}
                               onChange={(e) => handleOcpsChange(e, index)}
                               name="ocps_concern"
+                              variant="standard"
                             >
-                              <option>Concern</option>
-                              <option value={"High"} name="ocps_concern">
+                              <MenuItem>Concern</MenuItem>
+                              <MenuItem value={"High"} name="ocps_concern">
                                 High
-                              </option>
-                              <option value={"Medium"} name="ocps_concern">
+                              </MenuItem>
+                              <MenuItem value={"Medium"} name="ocps_concern">
                                 Medium
-                              </option>
-                              <option value={"Low"} name="ocps_concern">
+                              </MenuItem>
+                              <MenuItem value={"Low"} name="ocps_concern">
                                 Low
-                              </option>
-                            </Form.Select>
+                              </MenuItem>
+                            </Select>
                           </div>
                         ))}
                       </Col>
                       <Col sm={2} className=" mb-1">
                         <p>Expected Date</p>
                         {ocps.map((singleNote, index) => (
-                          <div class="input-group mt-2">
-                            <Form.Control
+                          <Box
+                            component="div"
+                            sx={{
+                              "& > :not(style)": {
+                                width: "13ch",
+                              },
+                            }}
+                            noValidate
+                            autoComplete="off"
+                          >
+                            <TextField
                               type="date"
                               size="sm"
                               value={singleNote.ocps}
                               name="ocps_expected"
                               onChange={(e) => handleOcpsChange(e, index)}
+                              variant="standard"
                             />
-                          </div>
+                          </Box>
                         ))}
                       </Col>
                       <Col sm={2} className=" mb-1">
                         <p>Resp Party</p>
                         {ocps.map((singleNote, index) => (
-                          <div class="input-group mt-2">
-                            <Form.Control
-                              type="text"
-                              size="sm"
-                              value={singleNote.ocps}
-                              name="ocps_resp_party"
-                              onChange={(e) => handleOcpsChange(e, index)}
-                            />
-                          </div>
+                          <TextField
+                            type="text"
+                            size="sm"
+                            value={singleNote.ocps}
+                            name="ocps_resp_party"
+                            onChange={(e) => handleOcpsChange(e, index)}
+                            variant="standard"
+                          />
                         ))}
                       </Col>
                       <Col sm={2} className="">
                         <p>Status</p>
                         {ocps.map((singleNote, index) => (
-                          <div class="input-group  mt-2">
-                            <Form.Control
-                              type="text"
-                              size="sm"
-                              value={singleNote.ocps}
-                              name="ocps_status"
-                              onChange={(e) => handleOcpsChange(e, index)}
-                            />
+                          <div>
+                            <Box
+                              component="span"
+                              sx={{
+                                "& > :not(style)": {
+                                  width: "8ch",
+                                },
+                              }}
+                              noValidate
+                              autoComplete="off"
+                            >
+                              <TextField
+                                type="text"
+                                value={singleNote.ocps}
+                                name="ocps_status"
+                                onChange={(e) => handleOcpsChange(e, index)}
+                                variant="standard"
+                              />
+                            </Box>
                             <button
                               onClick={handleOcpsRemove}
                               className="mt-1"
@@ -2045,109 +2163,115 @@ const NewTransaction = () => {
                   >
                     <br />
                     <Row className="py-1">
-                      <Col sm={2} className="mt-1 mb-1">
+                      <Col sm={2} className=" mb-1">
                         <p>Factors</p>
                         {kpi.map((singleNote, index) => (
-                          <div class="input-group mt-2">
-                            <Form.Control
-                              type="text"
-                              size="sm"
-                              value={singleNote.kpi}
-                              name="kpi_factors"
-                              onChange={(e) => handleKpiChange(e, index)}
-                            />
-                            <br />
-                          </div>
+                          <TextField
+                            type="text"
+                            size="sm"
+                            value={singleNote.kpi}
+                            name="kpi_factors"
+                            onChange={(e) => handleKpiChange(e, index)}
+                            variant="standard"
+                          />
                         ))}
                       </Col>
                       <Col sm={2} className="mb-1">
                         <p>Yes/No</p>
                         {kpi.map((singleNote, index) => (
-                          <div class="input-group mt-1 mb-1 ">
-                            <Form.Select
-                              className="py-1 mt-1 "
+                          <div>
+                            <Select
                               type="text"
-                              size="md"
                               value={singleNote.kpi}
                               onChange={(e) => handleKpiChange(e, index)}
                               name="kpi_yes_no"
+                              variant="standard"
                             >
-                              <option>Yes/No</option>
-                              <option value={1} name="kpi_yes_no">
+                              <MenuItem>Yes/No</MenuItem>
+                              <MenuItem value={1} name="kpi_yes_no">
                                 Yes
-                              </option>
-                              <option value={0} name="kpi_yes_no">
+                              </MenuItem>
+                              <MenuItem value={0} name="kpi_yes_no">
                                 No
-                              </option>
-                            </Form.Select>
+                              </MenuItem>
+                            </Select>
                           </div>
                         ))}
                       </Col>
                       <Col sm={2} className="mb-1">
                         <p>Concern</p>
                         {kpi.map((singleNote, index) => (
-                          <div class="input-group mt-1 mb-1 ">
-                            <Form.Select
-                              className="py-1 mt-1 "
+                          <div>
+                            <Select
                               type="text"
-                              size="md"
                               value={singleNote.kpi}
                               onChange={(e) => handleKpiChange(e, index)}
                               name="kpi_concern"
+                              variant="standard"
                             >
-                              <option>Concern</option>
-                              <option value={"High"} name="kpi_concern">
+                              <MenuItem>Concern</MenuItem>
+                              <MenuItem value={"High"} name="kpi_concern">
                                 High
-                              </option>
-                              <option value={"medium"} name="kpi_concern">
+                              </MenuItem>
+                              <MenuItem value={"medium"} name="kpi_concern">
                                 Medium
-                              </option>
-                              <option value={"Low"} name="kpi_concern">
+                              </MenuItem>
+                              <MenuItem value={"Low"} name="kpi_concern">
                                 Low
-                              </option>
-                            </Form.Select>
+                              </MenuItem>
+                            </Select>
                           </div>
                         ))}
                       </Col>
-                      <Col sm={2} className=" mb-1">
+                      <Col sm={2}>
                         <p>Expected</p>
                         {kpi.map((singleNote, index) => (
-                          <div class="input-group mt-2">
-                            <Form.Control
+                          <Box
+                            component="div"
+                            sx={{
+                              "& > :not(style)": {
+                                width: "13ch",
+                              },
+                            }}
+                            noValidate
+                            autoComplete="off"
+                          >
+                            <TextField
                               type="date"
                               size="sm"
                               value={singleNote.kpi}
                               name="kpi_expected"
                               onChange={(e) => handleKpiChange(e, index)}
+                              variant="standard"
                             />
-                          </div>
+                          </Box>
                         ))}
                       </Col>
                       <Col sm={2} className=" mb-1">
-                        <p>Responsible Party</p>
+                        <p>Resp. Party</p>
                         {kpi.map((singleNote, index) => (
-                          <div class="input-group mt-2">
-                            <Form.Control
-                              type="text"
-                              size="sm"
-                              value={singleNote.kpi}
-                              name="kpi_resp_party"
-                              onChange={(e) => handleKpiChange(e, index)}
-                            />
-                          </div>
+                          <TextField
+                            type="text"
+                            size="sm"
+                            value={singleNote.kpi}
+                            name="kpi_resp_party"
+                            onChange={(e) => handleKpiChange(e, index)}
+                            variant="standard"
+                          />
                         ))}
                       </Col>
                       <Col sm={2} className="">
                         <p>Status</p>
                         {kpi.map((singleNote, index) => (
-                          <div class="input-group  mt-2">
-                            <Form.Control
+                          <div>
+                            <TextField
                               type="text"
                               style={{ width: "30%", height: "10px" }}
                               size="sm"
                               value={singleNote.kpi}
                               name="kpi_status"
                               onChange={(e) => handleKpiChange(e, index)}
+                              variant="standard"
                             />
                             <button
                               onClick={handleKpiRemove}
@@ -2169,39 +2293,34 @@ const NewTransaction = () => {
                     </div>
                   </Tab>
                 </Tabs>
+
                 <div
                   className="d-flex justify-content-end"
                   style={{ fontSize: "13px", color: "red" }}
                 >
-                  {/* <p class="animate__animated animate__pulse pt-2">
-                   {response}
-                  </p> */}
+                  <p class="animate__animated animate__pulse pt-2">
+                    {response}
+                  </p>
                   <div className="text-danger">
-                  {(
-                    errors.clientName || 
-                  errors.dealSize ||
-                  errors.product 
-                  ||errors.region || 
-                  errors.transactor 
-                  ||errors.originator 
-                  ||errors.transactionLegalLead
-                  ||errors.industry
-                  ||errors.region
-                  ||errors.mandateLetter
-                  ||errors.creditApproval
-                  ) && 
-                  <p>Kindly fill out all required fields.</p>}
-                              </div>
+                    {(errors.clientName ||
+                      errors.dealSize ||
+                      errors.product ||
+                      errors.region ||
+                      errors.transactor ||
+                      errors.originator ||
+                      errors.transactionLegalLead ||
+                      errors.industry ||
+                      errors.region ||
+                      errors.mandateLetter ||
+                      errors.creditApproval) && (
+                      <p>Kindly fill out all required fields.</p>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="d-flex justify-content-end">
                 <ButtonWrapper type="submit">Submit</ButtonWrapper>
-                <ButtonWrapper
-                  type="reset"
-                 
-                >
-                  Reset
-                </ButtonWrapper>
+                <ButtonWrapper type="reset">Reset</ButtonWrapper>
               </div>
             </form>
           )}
