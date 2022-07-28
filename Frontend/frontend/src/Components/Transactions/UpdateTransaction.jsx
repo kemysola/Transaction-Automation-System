@@ -89,7 +89,8 @@ export default function UpdateTransactions() {
   const [frequency, setFrequency] = useState([]);
   const [style, setStyle] = useState([]);
   const [staffList, setStaffList] = useState([]);
-  const [nbcChanged, setNbcChanged] = useState("")
+  const [nbcChanged, setNbcChanged] = useState("");
+  const [closed, setisClosed] = useState("");
 
   const [ocps, setOcps] = useState([
     {
@@ -430,6 +431,7 @@ export default function UpdateTransactions() {
     setRedA(data.data.dealInfo[0].reda);
     setRedB(data.data.dealInfo[0].redb);
     setRedC(data.data.dealInfo[0].redc);
+    setisClosed(data.data.dealInfo[0].closed);
 
     // ********************************* Parties state and Data ********************
     //       setParties1(data.data.dealInfo[0].parties_role);
@@ -4286,6 +4288,36 @@ export default function UpdateTransactions() {
                   Update
                 </ButtonWrapper>
               </div>
+                   {/* The guy starts from here */}
+                    <Row>
+                            {/* <Col sm={2}  className='mt-3 pt-2'> */}
+                            <Form.Label className="pt-1"> </Form.Label>
+                            {/* </Col> */}
+                        
+                            <Col sm={12} style={{fontSize: "4em", alignContent: "centre"}}>
+                             
+                              <Form.Check
+                               style={deal[0].closed === true ? {visibility:"visible"} : {visibility:"hidden"}}
+                                inline
+                                label="Activate Deal"
+                                type="radio"
+                                value={false}
+                                defaultChecked={deal[0].closed === false}
+                                name="closed"
+                                onChange={(e) => setisClosed(e.target.value)}
+                              />
+                              <Form.Check
+                                inline
+                                style={deal[0].closed === false ? {visibility:"visible"} : {visibility:"hidden"}}
+                                label="Close Deal"
+                                type="radio"
+                                value={true}
+                                defaultChecked={deal[0].closed === true}
+                                name="closed"
+                                onChange={(e) => setisClosed(e.target.value)}
+                              />
+                            </Col>
+                    </Row>
             </Form>
           ) : (
             <div>
