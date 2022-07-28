@@ -737,6 +737,7 @@ export default function UpdateTransactions() {
       guaranteeFee: +guarantee.current.value,
       monitoringFee: +monitoring.current.value,
       reimbursible: +reimbursible.current.value,
+      closed: JSON.parse(closed),
       greenA: JSON.parse(greenA),
       greenB: JSON.parse(greenB),
       greenC: JSON.parse(greenC),
@@ -4288,7 +4289,6 @@ export default function UpdateTransactions() {
                   Update
                 </ButtonWrapper>
               </div>
-                   {/* The guy starts from here */}
                     <Row>
                             {/* <Col sm={2}  className='mt-3 pt-2'> */}
                             <Form.Label className="pt-1"> </Form.Label>
@@ -4297,7 +4297,7 @@ export default function UpdateTransactions() {
                             <Col sm={12} style={{fontSize: "4em", alignContent: "centre"}}>
                              
                               <Form.Check
-                               style={deal[0].closed === true ? {visibility:"visible"} : {visibility:"hidden"}}
+                                style={deal[0].closed === true ? {visibility:"visible"} : {visibility:"hidden"}}
                                 inline
                                 label="Activate Deal"
                                 type="radio"
