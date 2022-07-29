@@ -8,8 +8,8 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Input from "react-validation/build/input";
 import Select from "react-validation/build/select";
-import { GrAdd } from "react-icons/gr";
-import { FiDelete } from "react-icons/fi";
+import { GrAddCircle } from "react-icons/gr";
+import { FiDelete, FiSave } from "react-icons/fi";
 
 import NbcFocusMode from "./NbcFocusMode";
 
@@ -89,7 +89,8 @@ export default function UpdateTransactions() {
   const [frequency, setFrequency] = useState([]);
   const [style, setStyle] = useState([]);
   const [staffList, setStaffList] = useState([]);
-  const [nbcChanged, setNbcChanged] = useState("")
+  const [nbcChanged, setNbcChanged] = useState("");
+  const [closed, setisClosed] = useState("");
 
   const [ocps, setOcps] = useState([
     {
@@ -284,8 +285,10 @@ export default function UpdateTransactions() {
 
   const handleNbcChange = (e, index) => {
     const { name, value } = e.target;
-    const list = [...uniqueId];
-   console.log(list)
+    const list = [...nbcFocus];
+    list[index][name] = value;
+    setNbcFocus(list);
+    console.log("i am your list", list)
   };
 
   console.log("handle", nbcFocus)
@@ -318,8 +321,8 @@ export default function UpdateTransactions() {
       }
     ]);
 
-    console.log("i'm hereeeee")
-    console.log("nbc", nbcFocus)
+    // console.log("i'm hereeeee")
+    // console.log("nbc", nbcFocus)
   };
 
   const handleNbcRemove = (index) => {
@@ -390,8 +393,8 @@ export default function UpdateTransactions() {
     // function to get deal by id from the database
     const data = await axios
       .get(
-        //  `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}`,
-        `http://localhost:5001/api/v1/transaction/item/${id}`,
+         `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}`,
+        // `http://localhost:5001/api/v1/transaction/item/${id}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
@@ -428,6 +431,7 @@ export default function UpdateTransactions() {
     setRedA(data.data.dealInfo[0].reda);
     setRedB(data.data.dealInfo[0].redb);
     setRedC(data.data.dealInfo[0].redc);
+    setisClosed(data.data.dealInfo[0].closed);
 
     // ********************************* Parties state and Data ********************
     //       setParties1(data.data.dealInfo[0].parties_role);
@@ -549,7 +553,7 @@ export default function UpdateTransactions() {
       nbc_focus_original_methodology: nbcFocusOriginalMethod,
     };
 
-    console.log("nbc focus data", data)
+    // console.log("nbc focus data", data)
 
     Service.updateNBCFocus (transid, data)
       .then((res) => {
@@ -576,6 +580,48 @@ export default function UpdateTransactions() {
       editNBCFocus={editNBCFocus}
     />
   ));
+
+  // ***************************************** Send New NBC Focus Values to DB ************************************
+
+  const addNewNBCFocus = () => {
+    let data = {
+      id: 1000000000,
+      nbc_focus_original: nbcFocus[0].nbc_focus_original,
+      nbc_focus_original_date: nbcFocus[0].nbc_focus_original_date,
+      nbc_focus_original_yes_no: nbcFocus[0].nbc_focus_original_yes_no,
+      nbc_focus_original_methodology: nbcFocus[0].nbc_focus_original_methodology,
+    };
+
+    Service.updateNBCFocus(id, data)
+      .then((res) => {
+        console.log("updated")
+        setNbcChanged("success")
+        handleNbcAdd()
+        setNbcFocus([
+          {
+            id: 0,
+            nbc_focus_original: "",
+            nbc_focus_original_yes_no: 0,
+            nbc_focus_original_date: null,
+            nbc_focus_original_methodology: "",
+            nbc_focus_apprv_1_b: "",
+            nbc_focus_apprv_1_c: null,
+            nbc_focus_apprv_2_b: "",
+            nbc_focus_apprv_2_c: null,
+            nbc_focus_apprv_3_b: "",
+            nbc_focus_apprv_3_c: null,
+            nbc_focus_apprv_4_b: "",
+            nbc_focus_apprv_4_c: null,
+            nbc_focus_apprv_5_b: "",
+            nbc_focus_apprv_5_c: null
+          }
+        ]);
+      })
+      .catch(() => {
+        console.log("an error occured")
+      })
+
+  }
 
   // ******************************************  Next and Previous Function  ****************************************
 
@@ -691,6 +737,7 @@ export default function UpdateTransactions() {
       guaranteeFee: +guarantee.current.value,
       monitoringFee: +monitoring.current.value,
       reimbursible: +reimbursible.current.value,
+      closed: JSON.parse(closed),
       greenA: JSON.parse(greenA),
       greenB: JSON.parse(greenB),
       greenC: JSON.parse(greenC),
@@ -706,7 +753,7 @@ export default function UpdateTransactions() {
       redB: JSON.parse(redB),
       redC: JSON.parse(redC),
       notes: note,
-      nbcFocus: nbcFocus,
+      // nbcFocus: nbcFocus,
       parties: parties,
       plis:plis,
       ocps: ocps,
@@ -728,7 +775,7 @@ export default function UpdateTransactions() {
         setMessage("Failed to update deal");
       });
     
-      console.log("nbc add", nbcFocus)
+      // console.log("nbc add", nbcFocus)
   }
 
   return (
@@ -1977,14 +2024,14 @@ export default function UpdateTransactions() {
                               ))}
                             </Col>
 
-                            <Col sm={3} className="mt-1 mb-1">
+                            <Col sm={4} className="mt-1 mb-1">
                               {/* <p>METHODOLOGY</p> */}
                               {nbcFocus.map((singleNote, index) => (
                                 <div class="input-group  mt-2">
                                   <Form.Control
                                     type="text"
                                     style={{
-                                      width: "70%",
+                                      width: "50%",
                                       height: "10px",
                                       marginRight: "3px"
                                     }}
@@ -1998,10 +2045,19 @@ export default function UpdateTransactions() {
                                   <button 
                                     onClick={handleNbcRemove} 
                                     className="mt-1"
-                                    style={{ height: "25px", border: "none" }}
+                                    style={{ height: "25px", width: "20%", border: "none", marginRight: "3px" }}
                                   >
                                     <i className="">
                                       <FiDelete />
+                                    </i>
+                                  </button>
+                                  <button 
+                                    onClick={addNewNBCFocus} 
+                                    className="mt-1"
+                                    style={{ height: "25px", width: "20%", border: "none" }}
+                                  >
+                                    <i className="">
+                                      <FiSave />
                                     </i>
                                   </button>
                                 </div>
@@ -2010,7 +2066,7 @@ export default function UpdateTransactions() {
                           </Row>
                         </Col>
                         <div className="d-flex justify-content-end ml-2" style={{ cursor: "pointer", height: "1rem"}}>
-                          <GrAdd onClick={handleNbcAdd} />
+                          <GrAddCircle onClick={handleNbcAdd} style={{ width:"1rem", height:"1rem" }} />
                         </div>
 
                         {/* -------- NBC Approval and File Upload Section --------- */}
@@ -2414,7 +2470,7 @@ export default function UpdateTransactions() {
                         </Col>
                         <div className="d-flex justify-content-end ml-2">
                           {/* <p className="">
-                            <GrAdd onClick={handlePartyAdd} />
+                            <GrAddCircle onClick={handlePartyAdd} />
                           </p> */}
                         </div>
                       </Row>
@@ -2566,7 +2622,7 @@ export default function UpdateTransactions() {
                         </Col>
                         <div className="d-flex justify-content-end ml-2">
                           <p className="">
-                            {/* <GrAdd onClick={handlePlisAdd} /> */}
+                            {/* <GrAddCircle onClick={handlePlisAdd} /> */}
                           </p>
                         </div>
                       </Row>
@@ -2737,7 +2793,7 @@ export default function UpdateTransactions() {
                       </Col>
                       <div className="d-flex justify-content-end ml-2">
                         {/* <p className="">
-                          <GrAdd onClick={handleOcpsAdd} />
+                          <GrAddCircle onClick={handleOcpsAdd} />
                         </p> */}
                       </div>
                     </Row>
@@ -2909,7 +2965,7 @@ export default function UpdateTransactions() {
                       </Col>
                       <div className="d-flex justify-content-end ml-2">
                         {/* <p className="">
-                            <GrAdd onClick={handleKpiAdd} />
+                            <GrAddCircle onClick={handleKpiAdd} />
                           </p> */}
                       </div>
 
@@ -4233,6 +4289,35 @@ export default function UpdateTransactions() {
                   Update
                 </ButtonWrapper>
               </div>
+                    <Row>
+                            {/* <Col sm={2}  className='mt-3 pt-2'> */}
+                            <Form.Label className="pt-1"> </Form.Label>
+                            {/* </Col> */}
+                        
+                            <Col sm={12} style={{fontSize: "4em", alignContent: "centre"}}>
+                             
+                              <Form.Check
+                                style={deal[0].closed === true ? {visibility:"visible"} : {visibility:"hidden"}}
+                                inline
+                                label="Activate Deal"
+                                type="radio"
+                                value={false}
+                                defaultChecked={deal[0].closed === false}
+                                name="closed"
+                                onChange={(e) => setisClosed(e.target.value)}
+                              />
+                              <Form.Check
+                                inline
+                                style={deal[0].closed === false ? {visibility:"visible"} : {visibility:"hidden"}}
+                                label="Close Deal"
+                                type="radio"
+                                value={true}
+                                defaultChecked={deal[0].closed === true}
+                                name="closed"
+                                onChange={(e) => setisClosed(e.target.value)}
+                              />
+                            </Col>
+                    </Row>
             </Form>
           ) : (
             <div>
