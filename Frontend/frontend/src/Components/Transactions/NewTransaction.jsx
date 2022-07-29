@@ -4,16 +4,12 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import { Form, Container, Row, Col } from "react-bootstrap";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import styled from "styled-components";
 import Services from "../../Services/Service";
 import { useHistory } from "react-router-dom";
 import { GrAdd } from "react-icons/gr";
 import { FiDelete } from "react-icons/fi";
-import { useForm, Controller, useFieldArray, useWatch } from "react-hook-form";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
+import { useForm, Controller, useFieldArray } from "react-hook-form";
 
 //********************************* Material UI styled Components    **********************************/
 
@@ -1599,40 +1595,17 @@ const NewTransaction = () => {
                   >
                     <Container1>
                       <Row className="py-1">
-                        <Col
-                          sm={2}
-                          className="mt-1 mb-1 d-flex justify-content-end"
-                        >
-                          <p>ORIGINAL</p>
-                        </Col>
-                        <Col
-                          sm={2}
-                          className="mt-1 mb-1  mb-1 mt-1 d-flex justify-content-end"
-                        >
-                          <p>CONCERNS</p>
-                        </Col>
-                        <Col
-                          sm={2}
-                          className=" mb-1 mt-1 d-flex justify-content-center"
-                        >
-                          <p>DATE</p>
-                        </Col>
-                        <Col
-                          sm={4}
-                          className="mb-1 mt-1d-flex justify-content-end "
-                        >
-                          <p className="text-center">METHODOLOGY</p>
-                        </Col>
-                      </Row>
 
-                      <ul>
-                        {fields.map((item, index) => {
+                        <Col
+                          sm={2}
+                        >
+                          <div>
+                          ORIGINAL
+
+                          {fields.map((item, index) => {
                           return (
-                            <div>
-                              <li style={{ listStyle: "none" }}>
-                                <Row>
-                                  <Col sm={2}>
-                                    <Controller
+                      
+                              <Controller
                                       render={({ field }) => (
                                         <Box
                                           component="div"
@@ -1648,28 +1621,38 @@ const NewTransaction = () => {
                                           <Form.Control
                                             style={{ height: "30px" }}
                                             {...field}
-                                            variant="standard"
                                           />
                                         </Box>
                                       )}
                                       name={`nbcFocus.${index}.nbc_focus_original`}
                                       control={control}
                                     />
-                                  </Col>
-                                  <Col sm={2}>
-                                    <Controller
+                          )
+                          })}
+                          </div>
+                          
+                        </Col>
+                        <Col sm={2}>
+                          <div>
+
+                          CONCERNS
+
+                          {fields.map((item,index) => {
+                            return(
+
+                                <Controller
                                       render={({ field }) => (
                                         <Box
                                           component="div"
                                           sx={{
                                             "& > :not(style)": {
-                                              m: 1,
                                               width: "10ch",
                                             },
                                           }}
                                           noValidate
                                           autoComplete="off"
                                         >
+                                          <div className="mt-2">
                                           <Form.Select
                                             style={{
                                               height: "30px",
@@ -1702,21 +1685,34 @@ const NewTransaction = () => {
                                               No
                                             </option>
                                           </Form.Select>
+
+                                          </div>
+                                         
                                         </Box>
                                       )}
                                       name={`nbcFocus.${index}.nbc_focus_original_yes_no`}
                                       control={control}
                                     />
-                                  </Col>
-                                  <Col sm={2}>
-                                    <Controller
+                            )
+                          })}
+
+                          </div>
+                        </Col>
+                        <Col
+                          sm={2}
+                        >
+                          <div className='text-start'>
+                         <>DATE</> 
+                          {fields.map((item, index) => {
+                            return(
+                              <div className='mt-2'>
+                                  <Controller
                                       render={({ field }) => (
                                         <Box
-                                          component="div"
+                                          
                                           sx={{
                                             "& > :not(style)": {
-                                              m: 1,
-                                              width: "11ch",
+                                              width: "12ch",
                                             },
                                           }}
                                           noValidate
@@ -1726,19 +1722,30 @@ const NewTransaction = () => {
                                             style={{ height: "30px" }}
                                             type="date"
                                             {...field}
-                                            variant="standard"
                                           />
                                         </Box>
                                       )}
                                       name={`nbcFocus.${index}.nbc_focus_original_date`}
                                       control={control}
                                     />
-                                  </Col>
+                              </div>
+                            
+                            )
+                          })}
 
-                                  <Col sm={5} className='mt-2 mb-1' style={{marginLeft:'5px'}}>
-                                    <Controller
+
+                          </div>
+                        </Col>
+                        <Col
+                          sm={4}>
+                          <div>
+                          METHODOLOGY
+                          {fields.map((item,index) => {
+                            return(
+                              <div>
+                                 <Controller
                                       render={({ field }) => (
-                                        <div >
+                                        <div className='mt-2' >
                                           
                                             <Form.Control
                                               style={{
@@ -1770,25 +1777,15 @@ const NewTransaction = () => {
                                       name={`nbcFocus.${index}.nbc_focus_original_methodology`}
                                       control={control}
                                     />
-                                  </Col>
-                                  {/* <Col sm={1}>
-                                    <p
-                                      type="button"
-                                      onClick={() => remove(index)}
-                                      className="mt-3 pt-2"
-                                    >
-                                      x
-                                    </p>
-                                  </Col> */}
-                                </Row>
-                              </li>
-                            </div>
-                          );
-                        })}
+                                
+                              </div>
+
+                            )
+                          })}
+                          </div>
+                        </Col>
                         <div className="d-flex justify-content-end">
-                          <button
-                            type="button"
-                            onClick={() => {
+                        <GrAdd onClick={() => {
                               append({
                                 nbc_focus_original: "",
                                 nbc_focus_original_yes_no: 0,
@@ -1796,28 +1793,11 @@ const NewTransaction = () => {
                                 nbc_focus_original_methodology: "",
                               });
                             }}
-                          >
-                            +
-                          </button>
+                          />
+                           
                         </div>
-                        <section>
-                          {/* <button
-                          type="button"
-                          onClick={() =>
-                            reset({
-                              nbcFocus: [
-                                {
-                                  nbc_focus_original: "",
-                                  nbc_focus_original_date: null,
-                                },
-                              ],
-                            })
-                          }
-                        >
-                          Clear
-                        </button> */}
-                        </section>
-                      </ul>
+                      </Row>
+
                       <div>
                         <Col sm={12}>
                           <Col className="pb-2">
