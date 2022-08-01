@@ -8,10 +8,8 @@ const LabelStyle = styled.label`
 border: 1px solid #d9d9d9;
 padding: 3px;
 background-color: #f2f2f2;
-width: 150px;
-
+width: 120px;
 `
-
 
 function usePrevious(value) {
   const ref = useRef();
@@ -21,13 +19,15 @@ function usePrevious(value) {
   return ref.current;
 }
 
-const NBCFocus = ((props) => {
+const Plis = ((props) => {
   // const [data, setData] = useState([])
   const [isEditing, setEditing] = useState(false);
-  const [nbcFocusOriginal, setnbcFocusOriginal] = useState(null);
-  const [nbcFocusOriginalYesNo, setnbcFocusOriginalYesNo] = useState(null);
-  const [nbcFocusOriginalDate, setnbcFocusOriginalDate] = useState(null);
-  const [nbcFocusOriginalMethod, setnbcFocusOriginalMethod] = useState(null);
+  const [plisParticulars, setplisParticulars] = useState(null);
+  const [plisConcern, setplisConcern] = useState(null);
+  const [plisWeighting, setplisWeighting] = useState(null);
+  const [plisExpected, setplisExpected] = useState(null);
+  const [plisStatus, setplisStatus] = useState(null);
+
 
   const editFieldRef = useRef(null);
   const editButtonRef = useRef(null);
@@ -46,11 +46,15 @@ const NBCFocus = ((props) => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    props.editNBCFocus(props.id, props.transid, nbcFocusOriginal, nbcFocusOriginalYesNo, nbcFocusOriginalDate, nbcFocusOriginalMethod);
-    setnbcFocusOriginal(null);
-    setnbcFocusOriginalYesNo(null);
-    setnbcFocusOriginalDate(null);
-    setnbcFocusOriginalMethod(null);
+    // console.log(props.id, props.transid, plisParticulars, plisConcern, plisWeighting, plisExpected, plisStatus);
+
+
+    props.editPlis(props.id, props.transid, plisParticulars, plisConcern, plisWeighting, plisExpected, plisStatus);
+    setplisParticulars(null);
+    setplisConcern(null);
+    setplisWeighting(null);
+    setplisExpected(null);
+    setplisStatus(null);
     setEditing(false);
   }
 
@@ -66,15 +70,15 @@ const NBCFocus = ((props) => {
               <Row className="py-1">
                 <Col sm={12}>
                   <Row>
-                    <Col sm={3} className="mt-1 mb-1">
+                    <Col sm={2} className="mt-1 mb-1">
                       {/* <Fm.Label>Original</Fm.Label> */}
                       <Fm.Control
                         id={props.id}
                         className="todo-text"
                         type="text"
-                        defaultValue={props.nbcFocusOriginal}
-                        // value={nbcFocusOriginal}
-                        onChange={(e) => setnbcFocusOriginal(e.target.value)}
+                        defaultValue={props.plisParticulars}
+                        // value={plisParticulars}
+                        onChange={(e) => setplisParticulars(e.target.value)}
                         ref={editFieldRef}
                         size="sm"
                         style={{fontSize: "12px"}}
@@ -87,27 +91,49 @@ const NBCFocus = ((props) => {
                         id={props.id}
                         className="todo-text"
                         type="text"
-                        // defaultValue={props.nbcFocusOriginalYesNo}
-                        value={nbcFocusOriginalYesNo}
-                        onChange={(e) => setnbcFocusOriginalYesNo(e.target.value)}
+                        // defaultValue={props.plisConcern}
+                        value={plisConcern}
+                        onChange={(e) => setplisConcern(e.target.value)}
                         size="sm"
                         style={{fontSize: "12px"}}
                       >
                         <option value=""></option>
                         <option 
-                          value={1}
-                          selected={props.nbcFocusOriginalYesNo === true}
+                          value={"High"}
+                          selected={props.plisConcern === "High"}
                         >
-                          Yes
+                          High
                         </option>
 
                         <option 
-                          value={0}
-                          selected={props.nbcFocusOriginalYesNo === false}
+                          value={"Medium"}
+                          selected={props.plisConcern === "Medium"}
                         >
-                          No
+                          Medium
+                        </option>
+
+                        <option 
+                          value={"Low"}
+                          selected={props.plisConcern === "Low"}
+                        >
+                          Low
                         </option>
                       </Fm.Select>
+                    </Col>
+
+                    <Col sm={2} className="mt-1 mb-1">
+                      {/* <Fm.Label>Original</Fm.Label> */}
+                      <Fm.Control
+                        id={props.id}
+                        className="todo-text"
+                        type="number"
+                        defaultValue={props.plisWeighting}
+                        // value={plisWeighting}
+                        onChange={(e) => setplisWeighting(e.target.value)}
+                        ref={editFieldRef}
+                        size="sm"
+                        style={{fontSize: "12px"}}
+                      />
                     </Col>
 
                     <Col sm={3} className="mt-1 mb-1">
@@ -116,24 +142,24 @@ const NBCFocus = ((props) => {
                         id={props.id}
                         className="todo-text"
                         type="date"
-                        defaultValue={props.nbcFocusOriginalDate ? new Date(props.nbcFocusOriginalDate).toISOString().split("T")[0] : ""}
+                        defaultValue={props.plisExpected ? new Date(props.plisExpected).toISOString().split("T")[0] : ""}
                         // value={nbcFocusOriginalDate}
-                        onChange={(e) => setnbcFocusOriginalDate(e.target.value)}
+                        onChange={(e) => setplisExpected(e.target.value)}
                         ref={editFieldRef}
                         size="sm"
                         style={{fontSize: "12px"}}
                       />
                     </Col>
 
-                    <Col sm={3} className="mt-1 mb-1">
+                    <Col sm={2} className="mt-1 mb-1">
                       {/* <Fm.Label>Methodology</Fm.Label> */}
                       <Fm.Control
                         id={props.id}
                         className="todo-text"
                         type="text"
-                        defaultValue={props.nbcFocusOriginalMethod}
-                        // value={nbcFocusOriginalMethod}
-                        onChange={(e) => setnbcFocusOriginalMethod(e.target.value)}
+                        defaultValue={props.plisStatus}
+                        // value={plisStatus}
+                        onChange={(e) => setplisStatus(e.target.value)}
                         ref={editFieldRef}
                         size="sm"
                         style={{fontSize: "12px"}}
@@ -161,29 +187,33 @@ const NBCFocus = ((props) => {
           // view when not updating forecast
 
           <div className="d-flex justify-content-between" >
-          
-
             <LabelStyle>
               <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-                {props.nbcFocusOriginal}
+                {props.plisParticulars}
               </label>
             </LabelStyle>           
 
             <LabelStyle>
               <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-                {props.nbcFocusOriginalYesNo === true ? "Yes" : "No" }
+                {props.plisConcern}
               </label>
             </LabelStyle>
 
             <LabelStyle>
               <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-                {props.nbcFocusOriginalDate ? new Date(props.nbcFocusOriginalDate).toISOString().split("T")[0] : ""}
+                {props.plisWeighting}
               </label>
             </LabelStyle>
 
             <LabelStyle>
               <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-                {props.nbcFocusOriginalMethod}
+                {props.plisExpected ? new Date(props.plisExpected).toISOString().split("T")[0] : ""}
+              </label>
+            </LabelStyle>
+
+            <LabelStyle>
+              <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
+                {props.plisStatus}
               </label>
             </LabelStyle>
 
@@ -202,4 +232,4 @@ const NBCFocus = ((props) => {
   )
 })
 
-export default NBCFocus;
+export default Plis;
