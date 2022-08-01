@@ -54,6 +54,12 @@ const NBCFocus = ((props) => {
     setEditing(false);
   }
 
+  function handleDelete(e){
+    e.preventDefault();
+
+    props.deleteNbcFocus(props.id, props.transid)
+  }
+
   return (
     <>
     {/* This file is the template for how each NBCFocus should look while in view mode and edit mode */}
@@ -188,6 +194,7 @@ const NBCFocus = ((props) => {
             </LabelStyle>
 
             <FiTrash2 
+              onClick={handleDelete}
               style={{ marginTop: "3px", cursor: "pointer"}}
             />
             

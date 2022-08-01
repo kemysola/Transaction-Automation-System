@@ -60,6 +60,12 @@ const Ocps = ((props) => {
     setEditing(false);
   }
 
+  function handleDelete(e){
+    e.preventDefault();
+
+    props.deleteOcps(props.id, props.transid)
+  }
+
   return (
     <>
     {/* This file is the template for how each NBCFocus should look while in view mode and edit mode */}
@@ -255,6 +261,7 @@ const Ocps = ((props) => {
             </LabelStyle>
 
             <FiTrash2 
+              onClick={handleDelete}
               style={{ marginTop: "3px", cursor: "pointer"}}
             />
             

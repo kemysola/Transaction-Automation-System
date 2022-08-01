@@ -55,6 +55,12 @@ const Parties = ((props) => {
     setEditing(false);
   }
 
+  function handleDelete(e){
+    e.preventDefault();
+
+    props.deleteParties(props.id, props.transid)
+  }
+
   return (
     <>
     {/* This file is the template for how each NBCFocus should look while in view mode and edit mode */}
@@ -185,6 +191,7 @@ const Parties = ((props) => {
             </LabelStyle>
 
             <FiTrash2 
+              onClick={handleDelete}
               style={{ marginTop: "3px", cursor: "pointer"}}
             />
             
