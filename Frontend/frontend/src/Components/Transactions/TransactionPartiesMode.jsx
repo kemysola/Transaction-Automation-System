@@ -9,9 +9,7 @@ border: 1px solid #d9d9d9;
 padding: 3px;
 background-color: #f2f2f2;
 width: 150px;
-
 `
-
 
 function usePrevious(value) {
   const ref = useRef();
@@ -21,13 +19,13 @@ function usePrevious(value) {
   return ref.current;
 }
 
-const NBCFocus = ((props) => {
+const Parties = ((props) => {
   // const [data, setData] = useState([])
   const [isEditing, setEditing] = useState(false);
-  const [nbcFocusOriginal, setnbcFocusOriginal] = useState(null);
-  const [nbcFocusOriginalYesNo, setnbcFocusOriginalYesNo] = useState(null);
-  const [nbcFocusOriginalDate, setnbcFocusOriginalDate] = useState(null);
-  const [nbcFocusOriginalMethod, setnbcFocusOriginalMethod] = useState(null);
+  const [partiesRole, setpartiesRole] = useState(null);
+  const [partiesParty, setpartiesParty] = useState(null);
+  const [partiesAppointed, setpartiesAppointed] = useState(null);
+  const [partiesStatus, setpartiesStatus] = useState(null);
 
   const editFieldRef = useRef(null);
   const editButtonRef = useRef(null);
@@ -46,11 +44,14 @@ const NBCFocus = ((props) => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    props.editNBCFocus(props.id, props.transid, nbcFocusOriginal, nbcFocusOriginalYesNo, nbcFocusOriginalDate, nbcFocusOriginalMethod);
-    setnbcFocusOriginal(null);
-    setnbcFocusOriginalYesNo(null);
-    setnbcFocusOriginalDate(null);
-    setnbcFocusOriginalMethod(null);
+    console.log(props.id, props.transid, partiesRole, partiesParty, partiesAppointed, partiesStatus);
+
+
+    props.editParties(props.id, props.transid, partiesRole, partiesParty, partiesAppointed, partiesStatus);
+    setpartiesRole(null);
+    setpartiesParty(null);
+    setpartiesAppointed(null);
+    setpartiesStatus(null);
     setEditing(false);
   }
 
@@ -67,14 +68,13 @@ const NBCFocus = ((props) => {
                 <Col sm={12}>
                   <Row>
                     <Col sm={3} className="mt-1 mb-1">
-                      {/* <Fm.Label>Original</Fm.Label> */}
                       <Fm.Control
                         id={props.id}
                         className="todo-text"
                         type="text"
-                        defaultValue={props.nbcFocusOriginal}
-                        // value={nbcFocusOriginal}
-                        onChange={(e) => setnbcFocusOriginal(e.target.value)}
+                        defaultValue={props.partiesRole}
+                        // value={partiesRole}
+                        onChange={(e) => setpartiesRole(e.target.value)}
                         ref={editFieldRef}
                         size="sm"
                         style={{fontSize: "12px"}}
@@ -82,28 +82,27 @@ const NBCFocus = ((props) => {
                     </Col>
 
                     <Col sm={2} className="mt-1 mb-1">
-                      {/* <Fm.Label>Concerns</Fm.Label> */}
                       <Fm.Select
                         id={props.id}
                         className="todo-text"
                         type="text"
-                        // defaultValue={props.nbcFocusOriginalYesNo}
-                        value={nbcFocusOriginalYesNo}
-                        onChange={(e) => setnbcFocusOriginalYesNo(e.target.value)}
+                        // defaultValue={props.partiesAppointed}
+                        value={partiesAppointed}
+                        onChange={(e) => setpartiesAppointed(e.target.value)}
                         size="sm"
                         style={{fontSize: "12px"}}
                       >
-                        <option value=""></option>
+                        <option value={null}></option>
                         <option 
                           value={1}
-                          selected={props.nbcFocusOriginalYesNo === true}
+                          selected={props.partiesAppointed === true}
                         >
                           Yes
                         </option>
 
                         <option 
                           value={0}
-                          selected={props.nbcFocusOriginalYesNo === false}
+                          selected={props.partiesAppointed === false}
                         >
                           No
                         </option>
@@ -111,14 +110,13 @@ const NBCFocus = ((props) => {
                     </Col>
 
                     <Col sm={3} className="mt-1 mb-1">
-                      {/* <Fm.Label>Date</Fm.Label> */}
                       <Fm.Control
                         id={props.id}
                         className="todo-text"
-                        type="date"
-                        defaultValue={props.nbcFocusOriginalDate ? new Date(props.nbcFocusOriginalDate).toISOString().split("T")[0] : ""}
-                        // value={nbcFocusOriginalDate}
-                        onChange={(e) => setnbcFocusOriginalDate(e.target.value)}
+                        type="text"
+                        defaultValue={props.partiesParty}
+                        // value={partiesParty}
+                        onChange={(e) => setpartiesParty(e.target.value)}
                         ref={editFieldRef}
                         size="sm"
                         style={{fontSize: "12px"}}
@@ -126,14 +124,13 @@ const NBCFocus = ((props) => {
                     </Col>
 
                     <Col sm={3} className="mt-1 mb-1">
-                      {/* <Fm.Label>Methodology</Fm.Label> */}
                       <Fm.Control
                         id={props.id}
                         className="todo-text"
                         type="text"
-                        defaultValue={props.nbcFocusOriginalMethod}
-                        // value={nbcFocusOriginalMethod}
-                        onChange={(e) => setnbcFocusOriginalMethod(e.target.value)}
+                        defaultValue={props.partiesStatus}
+                        // value={partiesStatus}
+                        onChange={(e) => setpartiesStatus(e.target.value)}
                         ref={editFieldRef}
                         size="sm"
                         style={{fontSize: "12px"}}
@@ -165,25 +162,25 @@ const NBCFocus = ((props) => {
 
             <LabelStyle>
               <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-                {props.nbcFocusOriginal}
+                {props.partiesRole}
               </label>
             </LabelStyle>           
 
             <LabelStyle>
               <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-                {props.nbcFocusOriginalYesNo === true ? "Yes" : "No" }
+                {props.partiesAppointed === true ? "Yes" : "No" }
               </label>
             </LabelStyle>
 
             <LabelStyle>
               <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-                {props.nbcFocusOriginalDate ? new Date(props.nbcFocusOriginalDate).toISOString().split("T")[0] : ""}
+                {props.partiesParty}
               </label>
             </LabelStyle>
 
             <LabelStyle>
               <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-                {props.nbcFocusOriginalMethod}
+                {props.partiesStatus}
               </label>
             </LabelStyle>
 
@@ -202,4 +199,5 @@ const NBCFocus = ((props) => {
   )
 })
 
-export default NBCFocus;
+export default Parties;
+;

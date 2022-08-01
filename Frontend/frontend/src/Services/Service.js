@@ -28,6 +28,22 @@ const updateNBCFocus = (id, data) => { // update NBC Focus table per deal
     return axios.put(`transaction/update/nbcfocus/${id}`, data);
 }
 
+const updateParties = (id, data) => { // update NBC Focus table per deal
+    return axios.put(`transaction/update/parties/${id}`, data);
+}
+
+const updatePlis = (id, data) => { // update NBC Focus table per deal
+    return axios.put(`transaction/update/plis/${id}`, data);
+}
+
+const updateKpis = (id, data) => { // update NBC Focus table per deal
+    return axios.put(`transaction/update/kpis/${id}`, data);
+}
+
+const updateOcps = (id, data) => { // update NBC Focus table per deal
+    return axios.put(`transaction/update/ocps/${id}`, data);
+}
+
 const getDealById = async (id) => { // get deal by id, for privileged users 
     return await axios.get(`transaction/item/${id}`);
 };
@@ -180,6 +196,10 @@ const Services = {
     updateLevel,
     addForecast,
     updateForecast,
-    updateNBCFocus
+    updateNBCFocus,
+    updateParties,
+    updatePlis,
+    updateKpis,
+    updateOcps
 }
 export default Services
