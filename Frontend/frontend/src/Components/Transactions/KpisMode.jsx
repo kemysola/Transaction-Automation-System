@@ -49,7 +49,6 @@ const Kpis = ((props) => {
 
     console.log(props.id, props.transid, kpiFactors, kpiYesNo, kpiConcern, kpiExpected, kpiRespParty, kpiStatus);
 
-
     props.editKpis(props.id, props.transid, kpiFactors, kpiYesNo, kpiConcern, kpiExpected, kpiRespParty, kpiStatus);
     setkpiFactors(null);
     setkpiYesNo(null);
@@ -58,6 +57,12 @@ const Kpis = ((props) => {
     setkpiRespParty(null);
     setkpiStatus(null);
     setEditing(false);
+  }
+
+  function handleDelete(e){
+    e.preventDefault();
+
+    props.deleteKpis(props.id, props.transid)
   }
 
   return (
@@ -255,6 +260,7 @@ const Kpis = ((props) => {
             </LabelStyle>
 
             <FiTrash2 
+              onClick={handleDelete}
               style={{ marginTop: "3px", cursor: "pointer"}}
             />
             

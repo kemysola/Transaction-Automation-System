@@ -469,7 +469,6 @@ export default function UpdateTransactions() {
     return allData.find((a) => a.plid === id);
   });
   const uId = Array.from(new Set(allData.map((a) => a.kid))).map((id) => {
-    console.log(id);
     return allData.find((a) => a.kid === id);
   });
 
@@ -569,6 +568,24 @@ export default function UpdateTransactions() {
       })
   }
 
+  // ****************************************** Delete Nbc Focus From DB ***********************************
+  
+  const deleteNbcFocus = (id, transid) => {
+    let data = {
+      id: id,
+      tableID: "nbcFocus"
+    };
+
+    Service.deleteFeatures(transid, data)
+      .then((res) => {
+        console.log(res.data.message)
+        setNbcChanged("deleted")
+      })
+      .catch((res) => {
+        console.log("an error occured")
+      })
+  }
+
   // **************************************** NBC Focus List ***************************************************
 
   const nbcFocusList = uniqueId
@@ -582,6 +599,7 @@ export default function UpdateTransactions() {
       nbcFocusOriginalMethod={item.nbc_focus_original_methodology}
       key={item.nbcid}
       editNBCFocus={editNBCFocus}
+      deleteNbcFocus={deleteNbcFocus}
     />
   ));
 
@@ -627,6 +645,24 @@ export default function UpdateTransactions() {
       })
   }
 
+  // ****************************************** Delete Parties From DB ***********************************
+  
+  const deleteParties = (id, transid) => {
+    let data = {
+      id: id,
+      tableID: "parties"
+    };
+
+    Service.deleteFeatures(transid, data)
+      .then((res) => {
+        console.log(res.data.message)
+        setPartiesChanged("deleted")
+      })
+      .catch((res) => {
+        console.log("an error occured")
+      })
+  }
+
   // **************************************** Transaction Parties List ***************************************************
 
   const PartiesList = partyId
@@ -640,6 +676,7 @@ export default function UpdateTransactions() {
       partiesStatus={item.parties_status}
       key={item.pid}
       editParties={editParties}
+      deleteParties={deleteParties}
     />
   ));
 
@@ -686,6 +723,24 @@ export default function UpdateTransactions() {
       })
   }
 
+   // ****************************************** Delete Plis From DB ***********************************
+  
+   const deletePlis = (id, transid) => {
+    let data = {
+      id: id,
+      tableID: "plis"
+    };
+
+    Service.deleteFeatures(transid, data)
+      .then((res) => {
+        console.log(res.data.message)
+        setPlisChanged("deleted")
+      })
+      .catch(() => {
+        console.log("an error occured")
+      })
+  }
+
   // **************************************** Plid List ***************************************************
 
   const PlisList = pliid
@@ -700,6 +755,7 @@ export default function UpdateTransactions() {
       plisStatus={item.plis_status}
       key={item.plid}
       editPlis={editPlis}
+      deletePlis={deletePlis}
     />
   ));
 
@@ -748,6 +804,24 @@ export default function UpdateTransactions() {
       })
   }
 
+   // ****************************************** Delete Ocps From DB ***********************************
+  
+   const deleteOcps = (id, transid) => {
+    let data = {
+      id: id,
+      tableID: "ocps"
+    };
+
+    Service.deleteFeatures(transid, data)
+      .then((res) => {
+        console.log(res.data.message)
+        setOcpsChanged("deleted")
+      })
+      .catch(() => {
+        console.log("an error occured")
+      })
+  }
+
   // **************************************** Ocps List ***************************************************
 
   const OcpsList = ocpId
@@ -763,6 +837,7 @@ export default function UpdateTransactions() {
       ocpsStatus={item.ocps_status}
       key={item.ocid}
       editOcps={editOcps}
+      deleteOcps={deleteOcps}
     />
   ));
 
@@ -814,6 +889,24 @@ export default function UpdateTransactions() {
       })
   }
 
+  // ****************************************** Delete Kpi From DB ***********************************
+  
+  const deleteKpis = (id, transid) => {
+    let data = {
+      id: id,
+      tableID: "kpi"
+    };
+
+    Service.deleteFeatures(transid, data)
+      .then((res) => {
+        console.log(res.data.message)
+        setKpiChanged("deleted")
+      })
+      .catch(() => {
+        console.log("an error occured")
+      })
+  }
+
   // **************************************** Kpi List ***************************************************
 
   const KpiList = uId
@@ -829,6 +922,7 @@ export default function UpdateTransactions() {
       kpiStatus={item.kpi_status}
       key={item.kid}
       editKpis={editKpis}
+      deleteKpis={deleteKpis}
     />
   ));
 
@@ -857,7 +951,6 @@ export default function UpdateTransactions() {
       })
 
     // setKpi[0].kpi_factors("");
-   
   }
 
   // ******************************************  Next and Previous Function  ****************************************

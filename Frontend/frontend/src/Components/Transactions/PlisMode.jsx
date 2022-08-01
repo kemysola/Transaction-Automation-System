@@ -58,6 +58,12 @@ const Plis = ((props) => {
     setEditing(false);
   }
 
+  function handleDelete(e){
+    e.preventDefault();
+
+    props.deletePlis(props.id, props.transid)
+  }
+
   return (
     <>
     {/* This file is the template for how each NBCFocus should look while in view mode and edit mode */}
@@ -218,6 +224,7 @@ const Plis = ((props) => {
             </LabelStyle>
 
             <FiTrash2 
+              onClick={handleDelete}
               style={{ marginTop: "3px", cursor: "pointer"}}
             />
             
