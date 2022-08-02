@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { Col, Container, Row, Stack, Table } from "react-bootstrap";
 import {
   BarChart,
@@ -11,8 +11,16 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import GeneralPie from "./GeneralPie";
+import Editable from "react-editable-title";
+
 
 export default function GuaranteePortGrowthVsTar() {
+  const [currentGt, setCurrentGt] = useState("InfraCredit’s projected guarantee portfolio growth (indicative) is based on the assumption that initial operations were expected to commence at a conservative level, with the Company able to underwrite an initial transaction with NGN10 Billion face value, then progressively ramp up scale to over NGN500 Billion over a 5-year period. Throughout the past 3 years, management built a sizeable pipeline of mandated transactions, providing a base to achieve future growth targets.");
+  const handleInputUpdate = (current) => {
+    setCurrentGt(current);
+    // addTitle(current)
+  };
   const data = [
     {
       name: "Page A",
@@ -70,24 +78,10 @@ export default function GuaranteePortGrowthVsTar() {
         </div>
 
         <div>
-        InfraCredit’s projected guarantee portfolio growth (indicative) is based on the assumption that
-initial operations were expected to commence at a conservative level, with the Company able to
-underwrite an initial transaction with NGN10 Billion face value, then progressively ramp up scale
-to over NGN500 Billion over a 5-year period. Throughout the past 3 years, management built a
-sizeable pipeline of mandated transactions, providing a base to achieve future growth targets.
+        
 
         </div>
         <div>
-          {/* graph projection from 2018-2025:
-                  2018: 10
-                  2019: 31.5
-                  2020: 43.5
-                  2021:77.6
-                  2022:181
-                  2023:301
-                  2024:440
-                  2025: 585
-                   */}
           <br />
           <br />
           <BarChart width={380} height={200} data={data}>
@@ -111,7 +105,6 @@ sizeable pipeline of mandated transactions, providing a base to achieve future g
         <div>
           <Row>
             <Col sm={6} className="my-1">
-              {/* table :s/n infrasture entity infrastructure activity/industry, size , expecte closing */}
               <Table striped bordered hover>
                 <thead style={{ fontSize: "12px" }}>
                   <tr>
@@ -168,6 +161,7 @@ sizeable pipeline of mandated transactions, providing a base to achieve future g
           </Row>
         </div>
       </Container>
+      <GeneralPie/>
     </React.Fragment>
   );
 }
