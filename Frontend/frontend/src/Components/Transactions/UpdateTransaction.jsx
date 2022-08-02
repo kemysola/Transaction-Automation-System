@@ -329,8 +329,6 @@ export default function UpdateTransactions() {
       }
     ]);
 
-    // console.log("i'm hereeeee")
-    // console.log("nbc", nbcFocus)
   };
 
   const handleNbcRemove = (index) => {
@@ -435,26 +433,10 @@ export default function UpdateTransactions() {
     setRedC(data.data.dealInfo[0].redc);
     setisClosed(data.data.dealInfo[0].closed);
 
-    // ********************************* Parties state and Data ********************
-    //       setParties1(data.data.dealInfo[0].parties_role);
-    //      setParties2(data.data.dealInfo[0].parties_appointed);
-    //    setParties3(data.data.dealInfo[0].parties_status);
-    // setParties4(data.data.dealInfo[0].parties_party);
-
-    // *****************************      End Parties Data Collection *****************
-    // ******************************       Plis setStates and Data     *****************
-    // setPlis1(data.data.dealInfo[0].plis_particulars);
-    // setPlis2(data.data.dealInfo[0].plis_concern);
-    //  setPlis3(data.data.dealInfo[0].plis_weighting);
-    // setPlis4(data.data.dealInfo[0].plis_expected);
-    //  setPlis5(data.data.dealInfo[0].plis_status);
-
     //********************************** End Block                   *******************
   };
 
   // ******************************************  Axios :  get staff  ****************************************
-
-  // console.log(allData);
 
   const uniqueId = Array.from(new Set(allData.map((a) => a.nbcid))).map((id) => {
     return allData.find((a) => a.nbcid === id);
@@ -471,8 +453,6 @@ export default function UpdateTransactions() {
   const uId = Array.from(new Set(allData.map((a) => a.kid))).map((id) => {
     return allData.find((a) => a.kid === id);
   });
-
-  // console.log("plis here", uId)
 
   const retrieveStaffList = () => {
     Service.getStaffList()
@@ -556,15 +536,12 @@ export default function UpdateTransactions() {
       nbc_focus_original_methodology: nbcFocusOriginalMethod,
     };
 
-    // console.log("nbc focus data", data)
 
     Service.updateNBCFocus (transid, data)
       .then((res) => {
-        console.log("updated")
         setNbcChanged("success")
       })
       .catch(() => {
-        console.log("an error occured")
       })
   }
 
@@ -578,7 +555,6 @@ export default function UpdateTransactions() {
 
     Service.deleteFeatures(transid, data)
       .then((res) => {
-        console.log(res.data.message)
         setNbcChanged("deleted")
       })
       .catch((res) => {
@@ -616,7 +592,6 @@ export default function UpdateTransactions() {
 
     Service.updateNBCFocus(id, data)
       .then((res) => {
-        console.log("updated")
         setNbcChanged("success")
       })
       .catch(() => {
@@ -637,7 +612,6 @@ export default function UpdateTransactions() {
 
     Service.updateParties (transid, data)
       .then((res) => {
-        console.log("updated")
         setPartiesChanged("success")
       })
       .catch(() => {
@@ -693,7 +667,6 @@ export default function UpdateTransactions() {
 
     Service.updateParties(id, data)
       .then((res) => {
-        console.log("updated")
         setPartiesChanged("success")
       })
       .catch(() => {
@@ -715,7 +688,6 @@ export default function UpdateTransactions() {
 
     Service.updatePlis (transid, data)
       .then((res) => {
-        console.log("updated")
         setPlisChanged("success")
       })
       .catch(() => {
@@ -733,7 +705,6 @@ export default function UpdateTransactions() {
 
     Service.deleteFeatures(transid, data)
       .then((res) => {
-        console.log(res.data.message)
         setPlisChanged("deleted")
       })
       .catch(() => {
@@ -773,7 +744,6 @@ export default function UpdateTransactions() {
 
     Service.updatePlis(id, data)
       .then((res) => {
-        console.log("updated")
         setPartiesChanged("success")
       })
       .catch(() => {
@@ -796,7 +766,6 @@ export default function UpdateTransactions() {
 
     Service.updateOcps (transid, data)
       .then((res) => {
-        console.log("updated")
         setOcpsChanged("success")
       })
       .catch(() => {
@@ -814,7 +783,6 @@ export default function UpdateTransactions() {
 
     Service.deleteFeatures(transid, data)
       .then((res) => {
-        console.log(res.data.message)
         setOcpsChanged("deleted")
       })
       .catch(() => {
@@ -854,11 +822,9 @@ export default function UpdateTransactions() {
       ocps_status: ocps[0].ocps_status,
     };
 
-    console.log("ocps", data)
 
     Service.updateOcps(id, data)
       .then((res) => {
-        console.log("updated")
         setOcpsChanged("success")
       })
       .catch(() => {
@@ -881,7 +847,6 @@ export default function UpdateTransactions() {
 
     Service.updateKpis (transid, data)
       .then((res) => {
-        console.log("updated")
         setKpiChanged("success")
       })
       .catch(() => {
@@ -899,7 +864,6 @@ export default function UpdateTransactions() {
 
     Service.deleteFeatures(transid, data)
       .then((res) => {
-        console.log(res.data.message)
         setKpiChanged("deleted")
       })
       .catch(() => {
@@ -943,14 +907,12 @@ export default function UpdateTransactions() {
 
     Service.updateKpis(id, data)
       .then((res) => {
-        console.log("updated")
         setKpiChanged("success")
       })
       .catch(() => {
         console.log("an error occured")
       })
 
-    // setKpi[0].kpi_factors("");
   }
 
   // ******************************************  Next and Previous Function  ****************************************
@@ -1094,9 +1056,7 @@ export default function UpdateTransactions() {
 
     Service.updateDeal(id, data)
       .then((response) => {
-        console.log(response.data)
         alert(response.data.message)
-        // alert('deal went well')
         history.push({
           pathname: "/transaction",
         });
@@ -1105,7 +1065,6 @@ export default function UpdateTransactions() {
         setMessage("Failed to update deal");
       });
     
-      // console.log("nbc add", nbcFocus)
   }
 
   return (
@@ -1586,11 +1545,27 @@ export default function UpdateTransactions() {
                               />
                             </Form.Group>
                           </Col>
+                          <Col sm={6}>
+                            <Form.Group className="pt-1">
+                              <Form.Label>CCC Submission</Form.Label>
+                              <Form.Control
+                                size="sm"
+                                type="date"
+                                defaultValue={
+                                  deal[0].nbc_submitted_date
+                                    ? new Date(deal[0].nbc_submitted_date)
+                                        .toISOString()
+                                        .split("T")[0]
+                                    : ""
+                                }
+                                
+                              />
+                            </Form.Group>
+                          </Col>
                         </Row>
                       </div>
                       <br />
-                      {/* <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button> */}
-                      {/* <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button> */}
+                      
                     </Container1>
                   </Tab>
                   {/*---------------------------------------------- End Tab ----------------------------------- */}

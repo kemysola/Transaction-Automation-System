@@ -16,7 +16,7 @@ border-radius: 10px;
 `;
 
 const TableWrapper = styled.div`
-  margin-top: 90px;
+  margin-top: 20px;
   padding: 1rem;
   table {
     border-spacing: 0;
@@ -54,12 +54,9 @@ const ButtonWrapper = styled.button`
 `;
 
 const DateWrapper = styled.button`
-  display: flex;
-  align-items: left;
+  
   background: white;
   border: none;
-  justify-content: end;
-  position: absolute;
   right: 120px;
 `;
 
@@ -371,47 +368,48 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
       ) : (
 
         <ContainerWrapper>
-          <DateWrapper>
             <Row>
             
-              <Col>
+              <Col sm={3}>
                 <Form.Group className="mb-0 mt-2 pt-2 pb-1">
                   <Form.Label style={{fontSize: "12px"}}>Start Date <span style={{color: "red"}}>*</span></Form.Label>
                   <Form.Control size="sm" type="date" value={date.start_date} onChange={handleInputChange} name='start_date' />
                 </Form.Group>
               </Col>
 
-              <Col>
+              <Col sm={3}>
                 <Form.Group className="mb-0 mt-2 pt-2 pb-1">
                   <Form.Label style={{fontSize: "12px"}}>End Date <span style={{color: "red"}}>*</span></Form.Label>
                   <Form.Control size="sm" type="date" value={date.end_date} onChange={handleInputChange} name='end_date' />
                 </Form.Group>
               </Col>
 
-              <Col>
+              <Col sm={2}>
                 <Form.Group className="mb-0 mt-2 pt-2 pb-1">
                   <Form.Label style={{fontSize: "12px"}}>Client Name</Form.Label>
                   <Form.Control size="sm" type="text" value={date.client_name} onChange={handleInputChange} name='client_name' />
                 </Form.Group>
               </Col>
 
-              <Col >
+              <Col sm={1}>
                 <ButtonWrapper onClick={saveDate} className="mb-0 ms-2 ps-2 pb-1">
                   Submit
                 </ButtonWrapper>
+                 {/* <ButtonWrapper onClick={downloadExcel} className="mb-0 ms-2 ps-2 pb-1">
+                Download
+                </ButtonWrapper> */}
               </Col>
 
-              <Col >
+              <Col sm={1}>
                 <ButtonWrapper onClick={downloadExcel} className="mb-0 ms-2 ps-2 pb-1">
                 Download
                 </ButtonWrapper>
               </Col>
               
             </Row>
-          </DateWrapper>
           
           <TableWrapper>
-            <div className="table-responsive mt-2 pt-2">
+            <div className="table-responsive pt-2">
               <table
                 className="table py-3 mt-3  table-hover table striped align-middle table-bordered"
                 id='myTable'
