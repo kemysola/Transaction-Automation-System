@@ -3,9 +3,9 @@ import { Container,Row,Col } from 'react-bootstrap'
 import Navbar from '../LandingPage/Navbar'
 import Sidenav from '../LandingPage/SideNav2'
 import CurrentGuarantee from './CurrentGuarantee'
-import GuaranteePortGrowthVsTar from './GuaranteePortGrowthVsTar';
-import Editable from "react-editable-title";
-
+// import GuaranteePortGrowthVsTar from './GuaranteePortGrowthVsTar';
+import Services from '../../Services/Service'
+import GeneralPie from './GeneralPie'
 
 export default function AllPages() {
  
@@ -18,12 +18,7 @@ export default function AllPages() {
           <Sidenav/>
         </Col>
         <Col sm ='8'>
-       
-
-          
-          {/* set state ... user's input */}
           <CurrentGuarantee/>
-          {/* <GuaranteePortGrowthVsTar/> */}
         </Col>
       </Row>
     </React.Fragment>

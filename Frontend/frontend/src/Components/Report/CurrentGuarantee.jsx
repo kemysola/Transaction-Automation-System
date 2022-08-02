@@ -15,6 +15,8 @@ import OriginationActivity from "./OriginationActivity";
 import StructuringExecution from "./StructuringExecution";
 import Editable from "react-editable-title";
 import TitleContext from "../../context/TitleContext";
+import GeneralPie from "./GeneralPie";
+
 
 export default function CurrentGuarantee() {
   const [title, setTitle] = useState("")
@@ -73,10 +75,6 @@ export default function CurrentGuarantee() {
     return (
       <>
         <text x={cx} y={cy} dy={8} textAnchor="left">
-          {/* {`₦${(1000).toLocaleString("en-US", {
-          minimumFractionDigits: 1,
-            maximumFractionDigits: 2,
-          })}bn`} */}
         </text>
         <text
           x={x}
@@ -136,20 +134,8 @@ export default function CurrentGuarantee() {
           cb={handleTextUpdate}
           
         />
-        {/* {cartTitle} */}
         </p>
-        {/* <Stack gap={2}>
-          <div className="pb-3 mb-3" style={{ fontWeight: "bold" , color:'black'}}>
-          </div>
-        </Stack> */}
-        
         <div>
-          Gross guarantee fee income is based on total guarantee guarantees
-          issued since inception of 77.6 Billion through 31 December 2021. In
-          FY2021, a total of N34.1 in guarantee transactions have reached
-          financial close. The pipeline of active mandates comprises 35
-          transactions totalling N311.5 billion, of which N103.4 billion is
-          projected to close in FY2022.
         </div>
       </Container>
       <Container>
@@ -162,7 +148,6 @@ export default function CurrentGuarantee() {
               Analysis of Guarantee Transactions Since Inception of NGN77.6
               Billion as at 31 December 2021.
             </p>
-            {/* pie chart */}
             <PieChart width={340} height={210}>
               <Pie
                 data={data}
@@ -187,10 +172,6 @@ export default function CurrentGuarantee() {
               </Pie>
               <Tooltip content={customTooltip} />
             </PieChart>
-
-            {/* pie chart ---- Red, green and amber : red 89%, NGN278.9B ..... green: 7% - NGN21.0B
-                      Red: 4% -- NGN11.6B
-                       */}
           </Col>
           <Col sm={6}>
             <p
@@ -200,37 +181,14 @@ export default function CurrentGuarantee() {
               Categorisation of NGN311.5 Billion of Mandated Transactions as at
               31 December 202
             </p>
-            <PieChart width={340} height={210}>
-              <Pie
-                data={data1}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                fill="#8884d8"
-                innerRadius={50}
-                outerRadius={70}
-                paddingAngle={1}
-                isAnimationActive={true}
-                labelLine={false}
-                label={renderCustomizedLabel}
-              >
-                {data.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORSS[index % COLORS.length]}
-                  />
-                ))}
-              </Pie>
-              <Tooltip content={customTooltip} />
-            </PieChart>
+            <GeneralPie/>
+            
           </Col>
         </Row>
         <Container className="my-3 py-1">
           <p
-            style={{ fontWeight: "bold", fontSize: "13px", textAlign: "cnter" }}
+            style={{ fontWeight: "bold", fontSize: "16px" }}
           >
-            {" "}
             Key Statistics on O & S Activity - Inception till Date
           </p>
 

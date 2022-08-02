@@ -141,7 +141,7 @@ export default function PieCard ({dealFilter, staffFilter}) {
           setLoading(false)
         })
         .catch((e) => {
-          console.log(e);
+          console.log(e);                              
         });
     };
 

@@ -20,6 +20,9 @@ const createDeal = (data) => { // create new deal/transaction
     return axios.post("transaction/createdeal", data);
 };
 
+const reportDeal = async(data) => {
+    return axios.get("reporting/report_data/all")
+}
 const updateDeal = (id, data) => { // update deal information
     return axios.put(`transaction/update/${id}`, data);
 };
@@ -180,6 +183,7 @@ const Services = {
     updateLevel,
     addForecast,
     updateForecast,
-    updateNBCFocus
+    updateNBCFocus,
+    reportDeal,
 }
 export default Services

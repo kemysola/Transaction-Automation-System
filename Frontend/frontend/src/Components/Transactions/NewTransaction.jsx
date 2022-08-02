@@ -1081,7 +1081,7 @@ const NewTransaction = () => {
                           </Col>
                           <Col sm={6}>
                             <Form.Group className="pt-1">
-                              <Form.Label>NBC Submitted Date:</Form.Label>
+                              <Form.Label>NBC Submission Date:</Form.Label>
                               <Form.Control
                                 type="date"
                                 {...register("NBC_submitted_date")}
