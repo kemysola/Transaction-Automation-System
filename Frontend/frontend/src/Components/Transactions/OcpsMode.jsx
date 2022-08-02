@@ -8,10 +8,8 @@ const LabelStyle = styled.label`
 border: 1px solid #d9d9d9;
 padding: 3px;
 background-color: #f2f2f2;
-width: 150px;
-
+width: 100px;
 `
-
 
 function usePrevious(value) {
   const ref = useRef();
@@ -21,13 +19,16 @@ function usePrevious(value) {
   return ref.current;
 }
 
-const NBCFocus = ((props) => {
+const Ocps = ((props) => {
   // const [data, setData] = useState([])
   const [isEditing, setEditing] = useState(false);
-  const [nbcFocusOriginal, setnbcFocusOriginal] = useState(null);
-  const [nbcFocusOriginalYesNo, setnbcFocusOriginalYesNo] = useState(null);
-  const [nbcFocusOriginalDate, setnbcFocusOriginalDate] = useState(null);
-  const [nbcFocusOriginalMethod, setnbcFocusOriginalMethod] = useState(null);
+  const [ocpsFactors, setocpsFactors] = useState(null);
+  const [ocpsYesNo, setocpsYesNo] = useState(null);
+  const [ocpsConcern, setocpsConcern] = useState(null);
+  const [ocpsExpected, setocpsExpected] = useState(null);
+  const [ocpsRespParty, setocpsRespParty] = useState(null);
+  const [ocpsStatus, setocpsStatus] = useState(null);
+
 
   const editFieldRef = useRef(null);
   const editButtonRef = useRef(null);
@@ -46,18 +47,23 @@ const NBCFocus = ((props) => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    props.editNBCFocus(props.id, props.transid, nbcFocusOriginal, nbcFocusOriginalYesNo, nbcFocusOriginalDate, nbcFocusOriginalMethod);
-    setnbcFocusOriginal(null);
-    setnbcFocusOriginalYesNo(null);
-    setnbcFocusOriginalDate(null);
-    setnbcFocusOriginalMethod(null);
+    console.log(props.id, props.transid, ocpsFactors, ocpsYesNo, ocpsConcern, ocpsExpected, ocpsRespParty, ocpsStatus);
+
+
+    props.editOcps(props.id, props.transid, ocpsFactors, ocpsYesNo, ocpsConcern, ocpsExpected, ocpsRespParty, ocpsStatus);
+    setocpsFactors(null);
+    setocpsYesNo(null);
+    setocpsConcern(null);
+    setocpsExpected(null);
+    setocpsRespParty(null);
+    setocpsStatus(null);
     setEditing(false);
   }
 
   function handleDelete(e){
     e.preventDefault();
 
-    props.deleteNbcFocus(props.id, props.transid)
+    props.deleteOcps(props.id, props.transid)
   }
 
   return (
@@ -69,84 +75,135 @@ const NBCFocus = ((props) => {
           // view when updating NBCFocus
           <Fm>
             <div className="form-group">
-              <Row className="py-1">
+              <Row className="py-1 d-flex justify-content-space-evenly">
                 <Col sm={12}>
                   <Row>
-                    <Col sm={3} className="mt-1 mb-1">
+                    <Col className="mt-1 mb-1">
                       {/* <Fm.Label>Original</Fm.Label> */}
                       <Fm.Control
                         id={props.id}
                         className="todo-text"
                         type="text"
-                        defaultValue={props.nbcFocusOriginal}
-                        // value={nbcFocusOriginal}
-                        onChange={(e) => setnbcFocusOriginal(e.target.value)}
+                        defaultValue={props.ocpsFactors}
+                        // value={ocpsFactors}
+                        onChange={(e) => setocpsFactors(e.target.value)}
                         ref={editFieldRef}
                         size="sm"
                         style={{fontSize: "12px"}}
                       />
                     </Col>
 
-                    <Col sm={2} className="mt-1 mb-1">
+                    <Col className="mt-1 mb-1">
                       {/* <Fm.Label>Concerns</Fm.Label> */}
                       <Fm.Select
                         id={props.id}
                         className="todo-text"
                         type="text"
-                        // defaultValue={props.nbcFocusOriginalYesNo}
-                        value={nbcFocusOriginalYesNo}
-                        onChange={(e) => setnbcFocusOriginalYesNo(e.target.value)}
+                        // defaultValue={props.ocpsYesNo}
+                        value={ocpsYesNo}
+                        onChange={(e) => setocpsYesNo(e.target.value)}
                         size="sm"
                         style={{fontSize: "12px"}}
                       >
                         <option value=""></option>
                         <option 
                           value={1}
-                          selected={props.nbcFocusOriginalYesNo === true}
+                          selected={props.ocpsYesNo === true}
                         >
                           Yes
                         </option>
 
                         <option 
                           value={0}
-                          selected={props.nbcFocusOriginalYesNo === false}
+                          selected={props.ocpsYesNo === false}
                         >
                           No
                         </option>
                       </Fm.Select>
                     </Col>
 
-                    <Col sm={3} className="mt-1 mb-1">
+                    <Col  className="mt-1 mb-1">
+                      {/* <Fm.Label>Concerns</Fm.Label> */}
+                      <Fm.Select
+                        id={props.id}
+                        className="todo-text"
+                        type="text"
+                        // defaultValue={props.ocpsConcern}
+                        value={ocpsConcern}
+                        onChange={(e) => setocpsConcern(e.target.value)}
+                        size="sm"
+                        style={{fontSize: "12px"}}
+                      >
+                        <option value=""></option>
+                        <option 
+                          value={"High"}
+                          selected={props.ocpsConcern === "High"}
+                        >
+                          High
+                        </option>
+
+                        <option 
+                          value={"Medium"}
+                          selected={props.ocpsConcern === "Medium"}
+                        >
+                          Medium
+                        </option>
+
+                        <option 
+                          value={"Low"}
+                          selected={props.ocpsConcern === "Low"}
+                        >
+                          Low
+                        </option>
+                      </Fm.Select>
+                    </Col>
+
+                    <Col className="mt-1 mb-1">
                       {/* <Fm.Label>Date</Fm.Label> */}
                       <Fm.Control
                         id={props.id}
                         className="todo-text"
                         type="date"
-                        defaultValue={props.nbcFocusOriginalDate ? new Date(props.nbcFocusOriginalDate).toISOString().split("T")[0] : ""}
-                        // value={nbcFocusOriginalDate}
-                        onChange={(e) => setnbcFocusOriginalDate(e.target.value)}
+                        defaultValue={props.ocpsExpected ? new Date(props.ocpsExpected).toISOString().split("T")[0] : ""}
+                        // value={ocpsExpected}
+                        onChange={(e) => setocpsExpected(e.target.value)}
                         ref={editFieldRef}
                         size="sm"
                         style={{fontSize: "12px"}}
                       />
                     </Col>
 
-                    <Col sm={3} className="mt-1 mb-1">
+                    <Col  className="mt-1 mb-1">
+                      {/* <Fm.Label>Original</Fm.Label> */}
+                      <Fm.Control
+                        id={props.id}
+                        className="todo-text"
+                        type="text"
+                        defaultValue={props.ocpsRespParty}
+                        // value={ocpsRespParty}
+                        onChange={(e) => setocpsRespParty(e.target.value)}
+                        ref={editFieldRef}
+                        size="sm"
+                        style={{fontSize: "12px"}}
+                      />
+                    </Col>
+
+                    <Col  className="mt-1 mb-1">
                       {/* <Fm.Label>Methodology</Fm.Label> */}
                       <Fm.Control
                         id={props.id}
                         className="todo-text"
                         type="text"
-                        defaultValue={props.nbcFocusOriginalMethod}
-                        // value={nbcFocusOriginalMethod}
-                        onChange={(e) => setnbcFocusOriginalMethod(e.target.value)}
+                        defaultValue={props.ocpsStatus}
+                        // value={ocpsStatus}
+                        onChange={(e) => setocpsStatus(e.target.value)}
                         ref={editFieldRef}
                         size="sm"
                         style={{fontSize: "12px"}}
                       />
                     </Col>
 
-                    <Col sm={1} style={{marginTop: "5px"}} >
+                    <Col style={{marginTop: "5px"}} >
                       <MdOutlineCancel 
                         onClick={() => setEditing(false)}
                         style={{ height: "1rem", width: "1rem", cursor: "pointer"}}
@@ -167,29 +224,39 @@ const NBCFocus = ((props) => {
           // view when not updating forecast
 
           <div className="d-flex justify-content-between" >
-          
-
             <LabelStyle>
               <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-                {props.nbcFocusOriginal}
+                {props.ocpsFactors}
               </label>
             </LabelStyle>           
 
             <LabelStyle>
               <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-                {props.nbcFocusOriginalYesNo === true ? "Yes" : "No" }
+                {props.ocpsYesNo === true ? "Yes" : "No" }
               </label>
             </LabelStyle>
 
             <LabelStyle>
               <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-                {props.nbcFocusOriginalDate ? new Date(props.nbcFocusOriginalDate).toISOString().split("T")[0] : ""}
+                {props.ocpsConcern}
               </label>
             </LabelStyle>
 
             <LabelStyle>
               <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-                {props.nbcFocusOriginalMethod}
+                {props.ocpsExpected ? new Date(props.ocpsExpected).toISOString().split("T")[0] : ""}
+              </label>
+            </LabelStyle>
+
+            <LabelStyle>
+              <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
+                {props.ocpsRespParty}
+              </label>
+            </LabelStyle>
+
+            <LabelStyle>
+              <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
+                {props.ocpsStatus}
               </label>
             </LabelStyle>
 
@@ -209,4 +276,4 @@ const NBCFocus = ((props) => {
   )
 })
 
-export default NBCFocus;
+export default Ocps;

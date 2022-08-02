@@ -8,10 +8,8 @@ const LabelStyle = styled.label`
 border: 1px solid #d9d9d9;
 padding: 3px;
 background-color: #f2f2f2;
-width: 150px;
-
+width: 100px;
 `
-
 
 function usePrevious(value) {
   const ref = useRef();
@@ -21,13 +19,16 @@ function usePrevious(value) {
   return ref.current;
 }
 
-const NBCFocus = ((props) => {
+const Kpis = ((props) => {
   // const [data, setData] = useState([])
   const [isEditing, setEditing] = useState(false);
-  const [nbcFocusOriginal, setnbcFocusOriginal] = useState(null);
-  const [nbcFocusOriginalYesNo, setnbcFocusOriginalYesNo] = useState(null);
-  const [nbcFocusOriginalDate, setnbcFocusOriginalDate] = useState(null);
-  const [nbcFocusOriginalMethod, setnbcFocusOriginalMethod] = useState(null);
+  const [kpiFactors, setkpiFactors] = useState(null);
+  const [kpiYesNo, setkpiYesNo] = useState(null);
+  const [kpiConcern, setkpiConcern] = useState(null);
+  const [kpiExpected, setkpiExpected] = useState(null);
+  const [kpiRespParty, setkpiRespParty] = useState(null);
+  const [kpiStatus, setkpiStatus] = useState(null);
+
 
   const editFieldRef = useRef(null);
   const editButtonRef = useRef(null);
@@ -46,18 +47,22 @@ const NBCFocus = ((props) => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    props.editNBCFocus(props.id, props.transid, nbcFocusOriginal, nbcFocusOriginalYesNo, nbcFocusOriginalDate, nbcFocusOriginalMethod);
-    setnbcFocusOriginal(null);
-    setnbcFocusOriginalYesNo(null);
-    setnbcFocusOriginalDate(null);
-    setnbcFocusOriginalMethod(null);
+    console.log(props.id, props.transid, kpiFactors, kpiYesNo, kpiConcern, kpiExpected, kpiRespParty, kpiStatus);
+
+    props.editKpis(props.id, props.transid, kpiFactors, kpiYesNo, kpiConcern, kpiExpected, kpiRespParty, kpiStatus);
+    setkpiFactors(null);
+    setkpiYesNo(null);
+    setkpiConcern(null);
+    setkpiExpected(null);
+    setkpiRespParty(null);
+    setkpiStatus(null);
     setEditing(false);
   }
 
   function handleDelete(e){
     e.preventDefault();
 
-    props.deleteNbcFocus(props.id, props.transid)
+    props.deleteKpis(props.id, props.transid)
   }
 
   return (
@@ -69,84 +74,135 @@ const NBCFocus = ((props) => {
           // view when updating NBCFocus
           <Fm>
             <div className="form-group">
-              <Row className="py-1">
+              <Row className="py-1 d-flex justify-content-space-evenly">
                 <Col sm={12}>
                   <Row>
-                    <Col sm={3} className="mt-1 mb-1">
+                    <Col className="mt-1 mb-1">
                       {/* <Fm.Label>Original</Fm.Label> */}
                       <Fm.Control
                         id={props.id}
                         className="todo-text"
                         type="text"
-                        defaultValue={props.nbcFocusOriginal}
-                        // value={nbcFocusOriginal}
-                        onChange={(e) => setnbcFocusOriginal(e.target.value)}
+                        defaultValue={props.kpiFactors}
+                        // value={kpiFactors}
+                        onChange={(e) => setkpiFactors(e.target.value)}
                         ref={editFieldRef}
                         size="sm"
                         style={{fontSize: "12px"}}
                       />
                     </Col>
 
-                    <Col sm={2} className="mt-1 mb-1">
+                    <Col className="mt-1 mb-1">
                       {/* <Fm.Label>Concerns</Fm.Label> */}
                       <Fm.Select
                         id={props.id}
                         className="todo-text"
                         type="text"
-                        // defaultValue={props.nbcFocusOriginalYesNo}
-                        value={nbcFocusOriginalYesNo}
-                        onChange={(e) => setnbcFocusOriginalYesNo(e.target.value)}
+                        // defaultValue={props.kpiYesNo}
+                        value={kpiYesNo}
+                        onChange={(e) => setkpiYesNo(e.target.value)}
                         size="sm"
                         style={{fontSize: "12px"}}
                       >
                         <option value=""></option>
                         <option 
                           value={1}
-                          selected={props.nbcFocusOriginalYesNo === true}
+                          selected={props.kpiYesNo === true}
                         >
                           Yes
                         </option>
 
                         <option 
                           value={0}
-                          selected={props.nbcFocusOriginalYesNo === false}
+                          selected={props.kpiYesNo === false}
                         >
                           No
                         </option>
                       </Fm.Select>
                     </Col>
 
-                    <Col sm={3} className="mt-1 mb-1">
+                    <Col  className="mt-1 mb-1">
+                      {/* <Fm.Label>Concerns</Fm.Label> */}
+                      <Fm.Select
+                        id={props.id}
+                        className="todo-text"
+                        type="text"
+                        // defaultValue={props.kpiConcern}
+                        value={kpiConcern}
+                        onChange={(e) => setkpiConcern(e.target.value)}
+                        size="sm"
+                        style={{fontSize: "12px"}}
+                      >
+                        <option value=""></option>
+                        <option 
+                          value={"High"}
+                          selected={props.kpiConcern === "High"}
+                        >
+                          High
+                        </option>
+
+                        <option 
+                          value={"Medium"}
+                          selected={props.kpiConcern === "Medium"}
+                        >
+                          Medium
+                        </option>
+
+                        <option 
+                          value={"Low"}
+                          selected={props.kpiConcern === "Low"}
+                        >
+                          Low
+                        </option>
+                      </Fm.Select>
+                    </Col>
+
+                    <Col className="mt-1 mb-1">
                       {/* <Fm.Label>Date</Fm.Label> */}
                       <Fm.Control
                         id={props.id}
                         className="todo-text"
                         type="date"
-                        defaultValue={props.nbcFocusOriginalDate ? new Date(props.nbcFocusOriginalDate).toISOString().split("T")[0] : ""}
-                        // value={nbcFocusOriginalDate}
-                        onChange={(e) => setnbcFocusOriginalDate(e.target.value)}
+                        defaultValue={props.kpiExpected ? new Date(props.kpiExpected).toISOString().split("T")[0] : ""}
+                        // value={kpiExpected}
+                        onChange={(e) => setkpiExpected(e.target.value)}
                         ref={editFieldRef}
                         size="sm"
                         style={{fontSize: "12px"}}
                       />
                     </Col>
 
-                    <Col sm={3} className="mt-1 mb-1">
+                    <Col  className="mt-1 mb-1">
+                      {/* <Fm.Label>Original</Fm.Label> */}
+                      <Fm.Control
+                        id={props.id}
+                        className="todo-text"
+                        type="text"
+                        defaultValue={props.kpiRespParty}
+                        // value={kpiRespParty}
+                        onChange={(e) => setkpiRespParty(e.target.value)}
+                        ref={editFieldRef}
+                        size="sm"
+                        style={{fontSize: "12px"}}
+                      />
+                    </Col>
+
+                    <Col  className="mt-1 mb-1">
                       {/* <Fm.Label>Methodology</Fm.Label> */}
                       <Fm.Control
                         id={props.id}
                         className="todo-text"
                         type="text"
-                        defaultValue={props.nbcFocusOriginalMethod}
-                        // value={nbcFocusOriginalMethod}
-                        onChange={(e) => setnbcFocusOriginalMethod(e.target.value)}
+                        defaultValue={props.kpiStatus}
+                        // value={kpiStatus}
+                        onChange={(e) => setkpiStatus(e.target.value)}
                         ref={editFieldRef}
                         size="sm"
                         style={{fontSize: "12px"}}
                       />
                     </Col>
 
-                    <Col sm={1} style={{marginTop: "5px"}} >
+                    <Col style={{marginTop: "5px"}} >
                       <MdOutlineCancel 
                         onClick={() => setEditing(false)}
                         style={{ height: "1rem", width: "1rem", cursor: "pointer"}}
@@ -167,29 +223,39 @@ const NBCFocus = ((props) => {
           // view when not updating forecast
 
           <div className="d-flex justify-content-between" >
-          
-
             <LabelStyle>
               <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-                {props.nbcFocusOriginal}
+                {props.kpiFactors}
               </label>
             </LabelStyle>           
 
             <LabelStyle>
               <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-                {props.nbcFocusOriginalYesNo === true ? "Yes" : "No" }
+                {props.kpiYesNo === true ? "Yes" : "No" }
               </label>
             </LabelStyle>
 
             <LabelStyle>
               <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-                {props.nbcFocusOriginalDate ? new Date(props.nbcFocusOriginalDate).toISOString().split("T")[0] : ""}
+                {props.kpiConcern}
               </label>
             </LabelStyle>
 
             <LabelStyle>
               <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-                {props.nbcFocusOriginalMethod}
+                {props.kpiExpected ? new Date(props.kpiExpected).toISOString().split("T")[0] : ""}
+              </label>
+            </LabelStyle>
+
+            <LabelStyle>
+              <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
+                {props.kpiRespParty}
+              </label>
+            </LabelStyle>
+
+            <LabelStyle>
+              <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
+                {props.kpiStatus}
               </label>
             </LabelStyle>
 
@@ -209,4 +275,4 @@ const NBCFocus = ((props) => {
   )
 })
 
-export default NBCFocus;
+export default Kpis;

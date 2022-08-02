@@ -107,7 +107,7 @@ const NewTransaction = () => {
       //   monitoringFee: 0,
       //   reimbursible: 0,
       notes: "",
-      closed: false,
+      closed: "false",
       nbcFocus: [
         {
           //  label: "", concern: "", date: "", methodology: "",
@@ -589,6 +589,7 @@ const NewTransaction = () => {
       guaranteeFee: +reqdata.guaranteeFee,
       monitoringFee: +reqdata.monitoringFee,
       reimbursible: +reqdata.reimbursible,
+      closed: false,
       notes: note,
       nbcFocus: reqdata.nbcFocus,
       parties,
