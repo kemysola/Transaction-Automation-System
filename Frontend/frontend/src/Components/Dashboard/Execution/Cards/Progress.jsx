@@ -1177,6 +1177,7 @@ export default function Progress() {
             ))}
           </Bar>
         </BarChart>
+        <Container>
         <small
           style={{
             fontSize: "12px",
@@ -1185,6 +1186,8 @@ export default function Progress() {
         >
           CUMULATIVE PERFORMANCE INCENTIVE's EARNED
         </small>
+        </Container>
+        
 
       {/* ---------- Exxecution Dashboard Table ----------- */}
         <Table  dealFilter={dealFilter} staffFilter={staffFilter} />

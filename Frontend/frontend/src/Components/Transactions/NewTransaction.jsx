@@ -1094,6 +1094,20 @@ const NewTransaction = () => {
                               />
                             </Form.Group>
                           </Col>
+                          <Col sm={6}>
+                            <Form.Group className="pt-1">
+                              <Form.Label>CCC Submission Date:</Form.Label>
+                              <Form.Control
+                                type="date"
+                                {...register("CCC_submitted_date")}
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 1px",
+                                  focus: "none",
+                                }}
+                              />
+                            </Form.Group>
+                          </Col>
                         </Row>
                       </div>
                     </Container1>

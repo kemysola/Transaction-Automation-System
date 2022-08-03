@@ -234,7 +234,7 @@ export default function GeneralPie(props){
               y={y}
               fill="black"
               textAnchor={x > cx? 'start' : 'end'} dominantBaseline="start">
-            {`${(percent * 100).toFixed(0)}% `}
+            {`${(percent * 100).toFixed(1)}% `}
               {index === 0 ? 
               `   
                NGN${redTotal}B `
