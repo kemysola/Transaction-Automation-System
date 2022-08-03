@@ -734,3 +734,10 @@ WHERE f2.projectionYear = f.projectionYear;
 
 INSERT INTO TB_INFRCR_FORECAST(projectionYear, cumulativeGrowth, newDeals, guaranteePipeline, greenAndAmberDeals, greenDeals, status)
 VALUES(2026, 740.0, 155.6, 233.4, 233.4, 163.38, 'Active');
+
+-- 3rd August, 2022. ALtered Transaction and transaction Audit tables to include CCC Submission Date
+ALTER TABLE tb_infrcr_transaction
+ADD COLUMN cccSubmissionDate DATE;
+
+ALTER TABLE tb_infrcr_transaction_audit
+ADD COLUMN cccSubmissionDate DATE;
