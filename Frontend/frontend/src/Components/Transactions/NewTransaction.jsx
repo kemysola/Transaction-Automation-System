@@ -74,10 +74,6 @@ const NewTransaction = () => {
       industry: "",
       product: "",
       region: "",
-      //   dealSize: 0,
-      //   coupon: 0,
-      //   tenor: 0,
-      //   moratorium: 0,
       repaymentFrequency: "Semi-Annually",
       amortizationStyle: "Annuity",
       mandateLetter: null,
@@ -101,11 +97,6 @@ const NewTransaction = () => {
       redA: "false",
       redB: "false",
       redC: "false",
-      //   structuringFeeAmount: 0,
-      //   structuringFeeAdvance: 0,
-      //   guaranteeFee: 0,
-      //   monitoringFee: 0,
-      //   reimbursible: 0,
       notes: "",
       closed: "false",
       nbcFocus: [
@@ -555,6 +546,9 @@ const NewTransaction = () => {
       }`,
       creditApproval: `${
         reqdata.creditApproval ? reqdata.creditApproval : 20221203
+      }`,
+      cccSubmissionDate: `${
+        reqdata.cccSubmissionDate ? reqdata.cccSubmissionDate : 20221203
       }`,
       expectedClose: `${
         reqdata.expectedClose ? reqdata.expectedClose : 20221203
@@ -1099,7 +1093,7 @@ const NewTransaction = () => {
                               <Form.Label>CCC Submission Date:</Form.Label>
                               <Form.Control
                                 type="date"
-                                {...register("CCC_submitted_date")}
+                                {...register("cccSubmissionDate")}
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
