@@ -161,7 +161,6 @@ export default function GuaranteePortGrowthVsTar() {
           </Row>
         </div>
       </Container>
-      <GeneralPie/>
     </React.Fragment>
   );
 }

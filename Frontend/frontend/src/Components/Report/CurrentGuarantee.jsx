@@ -52,10 +52,6 @@ export default function CurrentGuarantee() {
     // ******************************************  Color selection for the pie chart ****************************************
 
   const COLORSS = ["red", "#FFBB28", "#00C49F"];
-
-  
-
-
   const COLORS = ["#FF4500", "#FFBB28", "#00C49F", "GREEN", "BLUE", "PURPLE"];
 
   const RADIAN = Math.PI / 180;

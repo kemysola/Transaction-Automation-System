@@ -14,6 +14,7 @@ import {
 
   import Services from "../../Services/Service";
 import { Divider } from "@material-ui/core";
+import ReportRegion from "./ReportRegion";
   // .................................. Styled Components .........................
 
 const PieDiv = styled.div`
@@ -88,9 +89,6 @@ export default function GeneralPie(props){
     const [staffData, setStaffData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [count, setCount] = useState([]);
-    const [region, setRegion] = useState([])
-
-
     useEffect(() => {
         retrieveDeals()
 
@@ -105,55 +103,7 @@ export default function GeneralPie(props){
           });
       };
   
-      // ............................ Region Data ................................................
-
-    var south = data.reduce(function (filtered, arr) {
-        if (arr.region === "SE") {
-          var someNewValue = arr.dealsize;
-          filtered.push(someNewValue);
-        }
-        return filtered;
-      }, []);
-  
-      var southwest = data.reduce(function (filtered, arr) {
-        if (arr.region === "SW") {
-          var someNewValue = arr.dealsize;
-          filtered.push(someNewValue);
-        }
-        return filtered;
-      }, []);
-  
-      var southsouth = data.reduce(function (filtered, arr) {
-        if (arr.region === "SS") {
-          var someNewValue = arr.dealsize;
-          filtered.push(someNewValue);
-        }
-        return filtered;
-      }, []);
-  
-      var northwest = data.reduce(function (filtered, arr) {
-        if (arr.region === "NW") {
-          var someNewValue = arr.dealsize;
-          filtered.push(someNewValue);
-        }
-        return filtered;
-      }, []);
-  
-      var northeast = data.reduce(function (filtered, arr) {
-        if (arr.region === "NE") {
-          var someNewValue = arr.dealsize;
-          filtered.push(someNewValue);
-        }
-        return filtered;
-      }, []);
-  
-      var northcentral = data.reduce(function (filtered, arr) {
-        if (arr.region === "NC") {
-          var someNewValue = arr.dealsize;
-          filtered.push(someNewValue);
-        }
-        return filtered;
-      }, []);
+     
     // .......................... Get transactions according to deal category ...................
   
     var red = data.reduce(function (filtered, arr) {
@@ -291,33 +241,7 @@ export default function GeneralPie(props){
         );
       });
 
-  //.................................... Chart :Region Chart ...............................................//
-      const chartRegion = [
-        {
-          name:"South",
-          value:south,
-        },
-        {
-          name:"SW",
-          value:southwest,
-        },
-        {
-          name:"NC",
-          value:northcentral,
-        },
-        {
-          name:"NE",
-          value:northeast,
-        },
-        {
-          name:"NW",
-          value:northwest,
-        },
-        {
-          name:"SS",
-          value:southsouth,
-        }
-      ]
+ 
 
     return(
         <>
@@ -356,6 +280,7 @@ export default function GeneralPie(props){
                 </div>
               </div>
             </Row>
+            {/* <ReportRegion/> */}
             {props.children}
         </>
     )
