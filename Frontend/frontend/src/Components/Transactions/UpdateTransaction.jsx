@@ -6,17 +6,14 @@ import styled from "styled-components";
 import Service from "../../Services/Service";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import Input from "react-validation/build/input";
-import Select from "react-validation/build/select";
 import { GrAddCircle } from "react-icons/gr";
 import { FiDelete, FiSave } from "react-icons/fi";
-
+import { useForm, Controller, useFieldArray } from "react-hook-form";
 import NbcFocusMode from "./NbcFocusMode";
 import TransactionPartiesMode from "./TransactionPartiesMode";
 import PlisMode from "./PlisMode";
 import OcpsMode from "./OcpsMode";
 import KpisMode from "./KpisMode";
-import { MdNoMealsOuline } from "react-icons/md";
 
 const ButtonWrapper = styled.button`
   color: white;
@@ -52,6 +49,7 @@ const PWrapper = styled.p`
 `;
 
 export default function UpdateTransactions() {
+  
   // form ref values
   const clientName = useRef("");
   const originator = useRef("");
@@ -79,9 +77,8 @@ export default function UpdateTransactions() {
   const reimbursible = useRef("");
   const nbcApprovalDate = useRef("");
   const nbcSubmittedDate = useRef("");
-
+  const cccSubmissionDate = useRef("");
   let id = window.location.search.split("?")[1];
-
   const history = useHistory();
   const [deal, setDeal] = useState([]);
   const [message, setMessage] = useState();
@@ -1023,6 +1020,7 @@ export default function UpdateTransactions() {
       actualClose: new Date(actualClose.current.value),
       NBC_approval_date: new Date(nbcApprovalDate.current.value),
       NBC_submitted_date: new Date(nbcSubmittedDate.current.value),
+      cccSubmissionDate: new Date(cccSubmissionDate.current.value),
       structuringFeeAmount: +amount.current.value,
       structuringFeeAdvance: +advance.current.value,
       structuringFeeFinal: +final.current.value,
@@ -1552,12 +1550,14 @@ export default function UpdateTransactions() {
                                 size="sm"
                                 type="date"
                                 defaultValue={
-                                  deal[0].nbc_submitted_date
-                                    ? new Date(deal[0].nbc_submitted_date)
+                                  deal[0].cccSubmissionDate
+                                    ? new Date(deal[0].cccSubmissionDate)
                                         .toISOString()
                                         .split("T")[0]
                                     : ""
                                 }
+                                id="cccSubmissionDate"
+                                ref={cccSubmissionDate}
                                 
                               />
                             </Form.Group>
