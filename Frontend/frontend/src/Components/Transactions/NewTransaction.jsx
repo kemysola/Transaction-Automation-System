@@ -547,8 +547,8 @@ const NewTransaction = () => {
       creditApproval: `${
         reqdata.creditApproval ? reqdata.creditApproval : 20221203
       }`,
-      cccSubmissionDate: `${
-        reqdata.cccSubmissionDate ? reqdata.cccSubmissionDate : 20221203
+      ccSubmissionDate: `${
+        reqdata.ccSubmissionDate ? reqdata.ccSubmissionDate : 20221203
       }`,
       expectedClose: `${
         reqdata.expectedClose ? reqdata.expectedClose : 20221203
@@ -1090,10 +1090,10 @@ const NewTransaction = () => {
                           </Col>
                           <Col sm={6}>
                             <Form.Group className="pt-1">
-                              <Form.Label>CCC Submission Date:</Form.Label>
+                              <Form.Label>CC Submission Date:</Form.Label>
                               <Form.Control
                                 type="date"
-                                {...register("cccSubmissionDate")}
+                                {...register("ccSubmissionDate")}
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
@@ -1604,197 +1604,176 @@ const NewTransaction = () => {
                   >
                     <Container1>
                       <Row className="py-1">
-
-                        <Col
-                          sm={2}
-                        >
+                        <Col sm={2}>
                           <div>
-                          ORIGINAL
-
-                          {fields.map((item, index) => {
-                          return (
-                      
-                              <Controller
-                                      render={({ field }) => (
-                                        <Box
-                                          component="div"
-                                          sx={{
-                                            "& > :not(style)": {
-                                              m: 1,
-                                              width: "11ch",
-                                            },
-                                          }}
-                                          noValidate
-                                          autoComplete="off"
-                                        >
-                                          <Form.Control
-                                            style={{ height: "30px" }}
-                                            {...field}
-                                          />
-                                        </Box>
-                                      )}
-                                      name={`nbcFocus.${index}.nbc_focus_original`}
-                                      control={control}
-                                    />
-                          )
-                          })}
+                            ORIGINAL
+                            {fields.map((item, index) => {
+                              return (
+                                <Controller
+                                  render={({ field }) => (
+                                    <Box
+                                      component="div"
+                                      sx={{
+                                        "& > :not(style)": {
+                                          m: 1,
+                                          width: "11ch",
+                                        },
+                                      }}
+                                      noValidate
+                                      autoComplete="off"
+                                    >
+                                      <Form.Control
+                                        style={{ height: "30px" }}
+                                        {...field}
+                                      />
+                                    </Box>
+                                  )}
+                                  name={`nbcFocus.${index}.nbc_focus_original`}
+                                  control={control}
+                                />
+                              );
+                            })}
                           </div>
-                          
                         </Col>
                         <Col sm={2}>
                           <div>
-
-                          CONCERNS
-
-                          {fields.map((item,index) => {
-                            return(
-
+                            CONCERNS
+                            {fields.map((item, index) => {
+                              return (
                                 <Controller
-                                      render={({ field }) => (
-                                        <Box
-                                          component="div"
-                                          sx={{
-                                            "& > :not(style)": {
-                                              width: "10ch",
-                                            },
+                                  render={({ field }) => (
+                                    <Box
+                                      component="div"
+                                      sx={{
+                                        "& > :not(style)": {
+                                          width: "10ch",
+                                        },
+                                      }}
+                                      noValidate
+                                      autoComplete="off"
+                                    >
+                                      <div className="mt-2">
+                                        <Form.Select
+                                          style={{
+                                            height: "30px",
+                                            fontSize: "12px",
                                           }}
-                                          noValidate
-                                          autoComplete="off"
+                                          {...field}
+                                          variant="standard"
                                         >
-                                          <div className="mt-2">
-                                          <Form.Select
-                                            style={{
-                                              height: "30px",
-                                              fontSize: "12px",
-                                            }}
-                                            {...field}
-                                            variant="standard"
+                                          <option value="">
+                                            <em>select</em>
+                                          </option>
+                                          <option
+                                            value={1}
+                                            selected={
+                                              item.status === "1"
+                                                ? "selected"
+                                                : true
+                                            }
                                           >
-                                            <option value="">
-                                              <em>select</em>
-                                            </option>
-                                            <option
-                                              value={1}
-                                              selected={
-                                                item.status === "1"
-                                                  ? "selected"
-                                                  : true
-                                              }
-                                            >
-                                              Yes
-                                            </option>
-                                            <option
-                                              value={0}
-                                              selected={
-                                                item.status === "0"
-                                                  ? "selected"
-                                                  : false
-                                              }
-                                            >
-                                              No
-                                            </option>
-                                          </Form.Select>
-
-                                          </div>
-                                         
-                                        </Box>
-                                      )}
-                                      name={`nbcFocus.${index}.nbc_focus_original_yes_no`}
-                                      control={control}
-                                    />
-                            )
-                          })}
-
+                                            Yes
+                                          </option>
+                                          <option
+                                            value={0}
+                                            selected={
+                                              item.status === "0"
+                                                ? "selected"
+                                                : false
+                                            }
+                                          >
+                                            No
+                                          </option>
+                                        </Form.Select>
+                                      </div>
+                                    </Box>
+                                  )}
+                                  name={`nbcFocus.${index}.nbc_focus_original_yes_no`}
+                                  control={control}
+                                />
+                              );
+                            })}
                           </div>
                         </Col>
-                        <Col
-                          sm={2}
-                        >
-                          <div className='text-start'>
-                         <>DATE</> 
-                          {fields.map((item, index) => {
-                            return(
-                              <div className='mt-2'>
+                        <Col sm={2}>
+                          <div className="text-start">
+                            <>DATE</>
+                            {fields.map((item, index) => {
+                              return (
+                                <div className="mt-2">
                                   <Controller
-                                      render={({ field }) => (
-                                        <Box
-                                          
-                                          sx={{
-                                            "& > :not(style)": {
-                                              width: "12ch",
-                                            },
-                                          }}
-                                          noValidate
-                                          autoComplete="off"
-                                        >
-                                          <Form.Control
-                                            style={{ height: "30px" }}
-                                            type="date"
-                                            {...field}
-                                          />
-                                        </Box>
-                                      )}
-                                      name={`nbcFocus.${index}.nbc_focus_original_date`}
-                                      control={control}
-                                    />
-                              </div>
-                            
-                            )
-                          })}
-
-
+                                    render={({ field }) => (
+                                      <Box
+                                        sx={{
+                                          "& > :not(style)": {
+                                            width: "12ch",
+                                          },
+                                        }}
+                                        noValidate
+                                        autoComplete="off"
+                                      >
+                                        <Form.Control
+                                          style={{ height: "30px" }}
+                                          type="date"
+                                          {...field}
+                                        />
+                                      </Box>
+                                    )}
+                                    name={`nbcFocus.${index}.nbc_focus_original_date`}
+                                    control={control}
+                                  />
+                                </div>
+                              );
+                            })}
                           </div>
                         </Col>
-                        <Col
-                          sm={4}>
+                        <Col sm={4}>
                           <div>
-                          METHODOLOGY
-                          {fields.map((item,index) => {
-                            return(
-                              <div>
-                                 <Controller
-                                      render={({ field }) => (
-                                        <div className='mt-2' >
-                                          
-                                            <Form.Control
-                                              style={{
-                                                height: "30px",
-                                                width:'50%',
-                                                display: "inline",
-                                              }}
-                                              type="text"
-                                              {...field}
-                                              variant="standard"
-                                              // style={{ marginLeft: "10px" }}
-                                            />
-                                          <button
-                                            type="button"
-                                            onClick={() => remove(index)}
-                                            // className="mt-3 pt-2"
-                                            className="mt-1"
-                                            style={{
-                                              height: "25px",
-                                              border: "none",
-                                            }}
-                                          >
-                                            <i className="">
-                                              <FiDelete />
-                                            </i>
-                                          </button>
-                                        </div>
-                                      )}
-                                      name={`nbcFocus.${index}.nbc_focus_original_methodology`}
-                                      control={control}
-                                    />
-                                
-                              </div>
-
-                            )
-                          })}
+                            METHODOLOGY
+                            {fields.map((item, index) => {
+                              return (
+                                <div>
+                                  <Controller
+                                    render={({ field }) => (
+                                      <div className="mt-2">
+                                        <Form.Control
+                                          style={{
+                                            height: "30px",
+                                            width: "50%",
+                                            display: "inline",
+                                          }}
+                                          type="text"
+                                          {...field}
+                                          variant="standard"
+                                          // style={{ marginLeft: "10px" }}
+                                        />
+                                        <button
+                                          type="button"
+                                          onClick={() => remove(index)}
+                                          // className="mt-3 pt-2"
+                                          className="mt-1"
+                                          style={{
+                                            height: "25px",
+                                            border: "none",
+                                          }}
+                                        >
+                                          <i className="">
+                                            <FiDelete />
+                                          </i>
+                                        </button>
+                                      </div>
+                                    )}
+                                    name={`nbcFocus.${index}.nbc_focus_original_methodology`}
+                                    control={control}
+                                  />
+                                </div>
+                              );
+                            })}
                           </div>
                         </Col>
                         <div className="d-flex justify-content-end">
-                        <GrAdd onClick={() => {
+                          <GrAdd
+                            onClick={() => {
                               append({
                                 nbc_focus_original: "",
                                 nbc_focus_original_yes_no: 0,
@@ -1803,7 +1782,6 @@ const NewTransaction = () => {
                               });
                             }}
                           />
-                           
                         </div>
                       </Row>
 
