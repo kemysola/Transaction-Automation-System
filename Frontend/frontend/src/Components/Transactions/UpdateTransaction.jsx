@@ -76,10 +76,11 @@ export default function UpdateTransactions() {
   const nbcApprovalDate = useRef("");
   const nbcSubmittedDate = useRef("");
   const ccSubmissionDate = useRef("");
+
   let id = window.location.search.split("?")[1];
   const history = useHistory();
   const [deal, setDeal] = useState([]);
-  const [message, setMessage] = useState();
+  const [message, setMessage] = useState("");
   const [status, setStatus] = useState(false);
   const [noteList, setNoteList] = useState([{ note: "" }]);
   const [activeTab, setActiveTab] = useState("first");
@@ -358,11 +359,13 @@ export default function UpdateTransactions() {
     },
   ];
 
-  useEffect(() => {
-    retrieveDeal();
-  }, [nbcChanged, partiesChanged, plisChanged, ocpsChanged, kpiChanged]);
+  // useEffect(() => {
+  //   retrieveDeal();
+  // }, [nbcChanged, partiesChanged, plisChanged, ocpsChanged, kpiChanged]);
 
   useEffect(() => {
+    retrieveDeal();
+
     retrieveStaffList();
 
     retrieveIndustry();
@@ -375,6 +378,82 @@ export default function UpdateTransactions() {
 
     retrieveAmortizationStyle();
   }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // After 3 seconds set the message value to empty
+      setMessage("")
+    }, 5000)
+
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [message]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // After 3 seconds set the message value to empty
+      setNbcChanged("")
+    }, 500)
+
+    return () => {
+      clearTimeout(timer)
+      retrieveDeal();
+    }
+
+  }, [nbcChanged]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // After 3 seconds set the message value to empty
+      setPartiesChanged("")
+    }, 500)
+
+    return () => {
+      clearTimeout(timer)
+      retrieveDeal();
+    }
+
+  }, [partiesChanged]);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // After 3 seconds set the message value to empty
+      setPlisChanged("")
+    }, 500)
+
+    return () => {
+      clearTimeout(timer)
+      retrieveDeal();
+    }
+
+  }, [plisChanged]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // After 3 seconds set the message value to empty
+      setOcpsChanged("")
+    }, 500)
+
+    return () => {
+      clearTimeout(timer)
+      retrieveDeal();
+    }
+
+  }, [ocpsChanged]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // After 3 seconds set the message value to empty
+      setKpiChanged("")
+    }, 500)
+
+    return () => {
+      clearTimeout(timer)
+      retrieveDeal();
+    }
+
+  }, [kpiChanged]);
 
   const [allData, setAllData] = useState([]);
 
@@ -419,8 +498,6 @@ export default function UpdateTransactions() {
 
     //********************************** End Block                   *******************
   };
-console.log(deal)
-  // ******************************************  Axios :  get staff  ****************************************
 
   const uniqueId = Array.from(new Set(allData.map((a) => a.nbcid))).map(
     (id) => {
@@ -440,6 +517,9 @@ console.log(deal)
     return allData.find((a) => a.kid === id);
   });
 
+  // console.log("uinque", uniqueId)
+
+  // ******************************************  Axios :  get staff  ****************************************
   const retrieveStaffList = () => {
     Service.getStaffList()
       .then((response) => {
@@ -451,7 +531,6 @@ console.log(deal)
   };
 
   // ******************************************  Axios :  get industry ****************************************
-
   const retrieveIndustry = () => {
     Service.getIndustry()
       .then((response) => {
@@ -463,7 +542,6 @@ console.log(deal)
   };
 
   // ******************************************  Axios :  get product ****************************************
-
   const retrieveProduct = () => {
     Service.getProduct()
       .then((response) => {
@@ -475,7 +553,6 @@ console.log(deal)
   };
 
   // ******************************************  Axios :  get region  ****************************************
-
   const retrieveRegion = () => {
     Service.getRegion()
       .then((response) => {
@@ -554,6 +631,7 @@ console.log(deal)
 
   // **************************************** NBC Focus List ***************************************************
 
+  // console.log("nbcid mode", uniqueId[0].nbcid )
   const nbcFocusList = uniqueId.map((item) => (
     <NbcFocusMode
       transid={item.transid}
@@ -576,8 +654,7 @@ console.log(deal)
       nbc_focus_original: nbcFocus[0].nbc_focus_original,
       nbc_focus_original_date: nbcFocus[0].nbc_focus_original_date,
       nbc_focus_original_yes_no: nbcFocus[0].nbc_focus_original_yes_no,
-      nbc_focus_original_methodology:
-        nbcFocus[0].nbc_focus_original_methodology,
+      nbc_focus_original_methodology: nbcFocus[0].nbc_focus_original_methodology,
     };
 
     Service.updateNBCFocus(id, data)
@@ -1074,10 +1151,11 @@ console.log(deal)
 
     Service.updateDeal(id, data)
       .then((response) => {
-        alert(response.data.message);
-        history.push({
-          pathname: "/transaction",
-        });
+        // alert(response.data.message);
+        setMessage(response.data.message);
+        // history.push({
+        //   pathname: "/transaction",
+        // });
       })
       .catch((error) => {
         setMessage("Failed to update deal");
@@ -2269,8 +2347,7 @@ console.log(deal)
                         <Col sm={3} className="mt-1 mb-1">
                           <p>METHODOLOGY</p>
                         </Col>
-
-                        {nbcFocusList}
+                          {nbcFocusList}
                       </Row>
 
                       <Row className="py-1">
@@ -3381,6 +3458,18 @@ console.log(deal)
                 </Tabs>
               </div>
 
+              <div 
+                className="d-flex justify-content-end"
+                style={{ fontSize: '13px', marginRight: '30px'}}
+              >
+                {message === 'Failed to update deal' ? (
+                  <p class="text-danger">{message}</p>
+                ) : (
+                  <p class="text-success">{message}</p>
+                )}
+
+              </div>
+
               <div className="d-flex justify-content-end">
                 <ButtonWrapper
                   style={{ backgroundColor: "grey", color: "white" }}
@@ -3388,8 +3477,6 @@ console.log(deal)
                 >
                   Back
                 </ButtonWrapper>
-
-                <p class="text-danger">{message}</p>
 
                 <ButtonWrapper
                   type="submit"

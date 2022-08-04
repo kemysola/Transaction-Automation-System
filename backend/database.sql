@@ -743,6 +743,7 @@ drop COLUMN cccSubmissionDate;
 
 ALTER TABLE tb_infrcr_transaction_audit
 drop COLUMN cccSubmissionDate;
+
 ALTER TABLE tb_infrcr_transaction
 ADD COLUMN ccSubmissionDate DATE;
 
