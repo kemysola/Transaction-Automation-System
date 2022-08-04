@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Stack } from "react-bootstrap";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
+import ReportRegion from "./ReportRegion";
 
 export default function FinancialYearGPipeline() {
   const data = [
@@ -38,7 +39,7 @@ export default function FinancialYearGPipeline() {
   };
   return (
     <React.Fragment>
-      <Container className="my-3 pt-2">
+      <Container fluid className="my-3 pt-2">
         <Stack gap={1}>
           <p style={{ fontWeight: "bold" }}>FY2021-2022 Guarantee Pipeline*</p>
         </Stack>
@@ -122,9 +123,7 @@ export default function FinancialYearGPipeline() {
               Pipeline Distribution By Region
             </Stack>
             
-            <br />
-            {/*pie */}
-            {/*  */}
+            <ReportRegion/>
           </Col>
           <Col sm="6" className="my-1 pt-2">
             <Stack
