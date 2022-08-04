@@ -120,7 +120,7 @@ export default function CurrentGuarantee() {
         </div>
       </Container>
       <Container fluid>
-        <Row className="py-1 my-1">
+        <Row className="mt-1">
           <Col sm={6}>
             <p
               className="text-success text-center"
@@ -129,18 +129,18 @@ export default function CurrentGuarantee() {
               Analysis of Guarantee Transactions Since Inception of NGN77.6
               Billion as at 31 December 2021.
             </p>
-            <ResponsiveContainer width="120%" height={265}>
-              <PieChart margin={{ top: 10, right: 0, bottom: 0 }}>
+            <ResponsiveContainer width="140%" height={270}>
+            <PieChart margin={{ top: 3,right: 0, bottom: 0 }}>
                 <Pie
                   data={data}
                   dataKey="value"
                   nameKey="name"
                   cx="40%"
-                  cy="50%"
+                  cy="40%"
                   fill="#8884d8"
-                  innerRadius={67}
-                  outerRadius={220 / 2}
-                  paddingAngle={1}
+                  innerRadius={75}
+                  outerRadius={220/2}
+                  paddingAngle={2}
                   isAnimationActive={true}
                   labelLine={false}
                   label={renderCustomizedLabel}
@@ -162,7 +162,7 @@ export default function CurrentGuarantee() {
               style={{ fontWeight: "", fontSize: "12px" }}
             >
               Categorisation of NGN311.5 Billion of Mandated Transactions as at
-              31 December 202
+              31 December 2022.
             </p>
             <GeneralPie />
           </Col>

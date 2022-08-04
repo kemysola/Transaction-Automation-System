@@ -20,10 +20,10 @@ export default function AllPages() {
     <React.Fragment>
       <Navbar/>
       <Row>
-        <Col sm='3'>
+        <Col sm='2'>
           <Sidenav/>
         </Col>
-        <Col sm ='8'>
+        <Col sm ='9'>
           <CurrentGuarantee/>
 
         </Col>
