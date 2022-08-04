@@ -392,7 +392,6 @@ export default function UpdateTransactions() {
         }
       )
       .catch((e) => {
-        console.log(e);
       });
 
     // set the deal and status stateA
@@ -417,9 +416,8 @@ export default function UpdateTransactions() {
     setRedC(data.data.dealInfo[0].redc);
     setisClosed(data.data.dealInfo[0].closed);
 
-    //********************************** End Block                   *******************
+  //********************************** End Block                   *******************
   };
-console.log(deal)
   // ******************************************  Axios :  get staff  ****************************************
 
   const uniqueId = Array.from(new Set(allData.map((a) => a.nbcid))).map(
