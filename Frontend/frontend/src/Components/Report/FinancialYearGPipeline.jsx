@@ -111,10 +111,10 @@ export default function FinancialYearGPipeline() {
           and commercial activities in the nation.
         </div>
         <Row>
-          <Col sm="6" className="my-1 pt-2">
+          <Col sm="6" className="mt-3 pt-3">
             <Stack
               gap={1}
-              className="text-primary"
+              className="text-dark"
               style={{
                 fontWeight: "bold",
                 textAlign: "center",
@@ -126,10 +126,10 @@ export default function FinancialYearGPipeline() {
             
             <ReportRegion/>
           </Col>
-          <Col sm="6" className="my-1 pt-2">
+          <Col sm="6" className="mt-3 pt-3">
             <Stack
               gap={1}
-              className="text-success"
+              className="text-dark"
               style={{
                 fontWeight: "bold",
                 textAlign: "center",
@@ -142,7 +142,7 @@ export default function FinancialYearGPipeline() {
             
           </Col>
         </Row>
-        <div className='mt-2'>
+        <div className='mt-3 pt-3'>
           <small>
             * NB: All pipeline figures and charts exclude our existing guarantee
             portfolio of Viathan, North South Power, GEL Utility, TSL, LFZC and

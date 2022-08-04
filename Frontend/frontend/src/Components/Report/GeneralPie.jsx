@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import { Row } from "react-bootstrap";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import {
@@ -11,9 +10,6 @@ import Services from "../../Services/Service";
 //  ........................................React functional component.......................
 export default function GeneralPie(props) {
   const [data, setData] = useState([]);
-  const [staffData, setStaffData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [count, setCount] = useState([]);
   useEffect(() => {
     retrieveDeals();
   }, []);
@@ -90,7 +86,7 @@ export default function GeneralPie(props) {
     percent,
     index,
   }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 1;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.2;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
@@ -100,17 +96,16 @@ export default function GeneralPie(props) {
           x={x}
           y={y}
           fill="black"
-          textAnchor={x > cx ? "start" : "end"}
+          textAnchor={x > cx ? "central" : "end"}
           dominantBaseline="start"
         >
-          {`${(percent * 100).toFixed(1)}% `}
           {index === 0
             ? `   
-               NGN${redTotal}B `
+            RED : ${(percent * 100).toFixed(1)}%  `
             : "" || index === 2
-            ? `NGN${greenTotal}B `
+            ? ` ${(percent * 100).toFixed(1)}% :GREEN  `
             : "" || index === 1
-            ? "Amber"
+            ? `${(percent * 100).toFixed(1)}% :AMBER `
             : ""}
         </text>
       </>
@@ -147,7 +142,7 @@ export default function GeneralPie(props) {
     if (`${item.name}` === "Amber") {
       return (
         <div key={i} style={{ color: "#FFBF00", margin: " 0 10px" }}>
-          <span style={{ fontWeight: "bold", fontSize: "30px" }}>.</span>
+          <span style={{ fontWeight: "bold", fontSize: "20px" }}>❒</span>
           {item.name}: ₦
           {item.value.toLocaleString("en-US", {
             maximumFractionDigits: 2,
@@ -158,7 +153,7 @@ export default function GeneralPie(props) {
     }
     return (
       <div key={i} style={{ color: `${item.name}`, margin: " 0 10px" }}>
-        <span style={{ fontWeight: "bold", fontSize: "30px" }}>.</span>
+        <span style={{ fontWeight: "bold", fontSize: "20px" }}>❒</span>
         {item.name}: ₦
         {item.value.toLocaleString("en-US", {
           maximumFractionDigits: 2,
@@ -171,20 +166,20 @@ export default function GeneralPie(props) {
   return (
     <>
       <Row>
-        <div className="mt-3">
-          <ResponsiveContainer width="120%" height={210}>
-            <PieChart margin={{ top: 10, left: 100, right: 0, bottom: 0 }}>
+        <div className="mt-1">
+        
+          <ResponsiveContainer width="140%" height={270}>
+            <PieChart margin={{ top: 3,right: 0, bottom: 0 }}>
               <Pie
                 data={chartData}
                 dataKey="value"
                 nameKey="name"
-                cx="25%"
+                cx="40%"
                 cy="40%"
                 fill="#8884d8"
-                innerRadius={55}
-                outerRadius={75}
+                innerRadius={75}
+                outerRadius={220/2}
                 paddingAngle={2}
-                isAnimationActive={false}
                 labelLine={false}
                 label={renderCustomizedLabel}
               >
@@ -198,13 +193,15 @@ export default function GeneralPie(props) {
               <Tooltip content={customTooltip} />
             </PieChart>
           </ResponsiveContainer>
-
-          <div
+          <small
             style={{ display: "inlineBlock" }}
             className="d-flex justify-content-center mr-1"
           >
             {chartLegend}
-          </div>
+          </small>
+          
+
+          
         </div>
       </Row>
       {props.children}
