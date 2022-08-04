@@ -10,6 +10,7 @@ function GreenAndAnberCard() {
   const [industry, setIndustry] = useState([]);
 
   const [currentForecast, setCurrentForecast] = useState([])
+  const year = new Date().getFullYear();
 
 
   useEffect(() => {
@@ -185,7 +186,7 @@ function GreenAndAnberCard() {
                 <br/>
                 TARGET
               </small>
-              <small  style={{ fontSize: "10px", color: "black"}}>1.5x target of 2022 </small>
+              <small  style={{ fontSize: "10px", color: "black"}}>1.5x target of {year} </small>
 
             </Stack>
           </Col>

@@ -10,6 +10,7 @@ function NewDeals() {
   const [currentForecast, setCurrentForecast] = useState([])
   const [nextForecast, setNextForecast] = useState("")
   const [closedDeal, setClosedDeal] = useState([]);
+  const year = new Date().getFullYear();
 
 
   // ****************************************** ComponentDidMouunt using useEffect hook *******************************
@@ -133,7 +134,7 @@ function NewDeals() {
               >
                 TARGET
               </small>
-              <small  style={{ fontSize: "10px", color: "black"}}>1.5x target of 2022 </small>
+              {/* <small  style={{ fontSize: "10px", color: "black"}}>1.5x target of {year} </small> */}
             </Stack>
           </Col>
           <Col sm={4}>
