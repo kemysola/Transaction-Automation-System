@@ -186,7 +186,7 @@ export default function ChartProducts() {
             )}
           </tspan>
           <tspan>
-            {index === 2 ? <tspan> {`  Contigent Refi. Gte ${(percent * 100).toFixed(1)}%  `}</tspan> : ""}
+            {index === 2 ? <tspan> {`  Contigent Refi.G ${(percent * 100).toFixed(1)}%  `}</tspan> : ""}
           </tspan>
         </text>
         <text
@@ -282,7 +282,7 @@ export default function ChartProducts() {
                 cy="50%"
                 fill="white"
                 innerRadius={60}
-                outerRadius={Math.min(220) / 2}   
+                outerRadius={Math.min(250) / 2}   
                 paddingAngle={1}
                 isAnimationActive={false}
                 labelLine={false}
