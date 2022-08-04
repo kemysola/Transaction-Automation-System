@@ -71,7 +71,7 @@ export default function GuaranteePortGrowthVsTar() {
       <Container fluid>
         <div>
           <Stack>
-            <p style={{ fontWeight: "bold" }}>
+            <p style={{ fontWeight: "bold" }} className=' mt-1 pt-2'>
               Guarantee Portfolio Growth Vs. Target
             </p>
           </Stack>

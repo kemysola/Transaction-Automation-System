@@ -139,7 +139,7 @@ export default function ReportRegion() {
     index,
     payload,
   }) => {
-    const radius = innerRadius * 11.5;
+    const radius = innerRadius * 12.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
@@ -203,7 +203,7 @@ export default function ReportRegion() {
     <>
       <Row>
         <div className="mt-3">
-          <ResponsiveContainer width="120%" height={280}>
+          <ResponsiveContainer width="100%" height={280}>
             <PieChart margin={{ top: 10, right: 0, bottom: 0 }}>
               <Pie
                 data={chartRegion}
@@ -212,10 +212,10 @@ export default function ReportRegion() {
                 cx="50%"
                 cy="50%"
                 fill="white"
+                
                 innerRadius={10}
-                outerRadius={Math.min(250) / 2}
+                outerRadius={Math.min(220) / 2}
                 paddingAngle={1}
-                isAnimationActive={false}
                 labelLine={false}
                 label={renderCustomizedLabel}
               >
