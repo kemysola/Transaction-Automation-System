@@ -144,7 +144,7 @@ export default function CurrentGuarantee() {
               Analysis of Guarantee Transactions Since Inception of NGN77.6
               Billion as at 31 December 2021.
             </p>
-            <PieChart width={340} height={210}>
+            {/* <PieChart width={340} height={210}>
               <Pie
                 data={data}
                 dataKey="value"
@@ -167,7 +167,7 @@ export default function CurrentGuarantee() {
                 ))}
               </Pie>
               <Tooltip content={customTooltip} />
-            </PieChart>
+            </PieChart> */}
           </Col>
           <Col sm={6}>
             <p
@@ -177,7 +177,7 @@ export default function CurrentGuarantee() {
               Categorisation of NGN311.5 Billion of Mandated Transactions as at
               31 December 202
             </p>
-            <GeneralPie/>
+            {/* <GeneralPie/> */}
             
           </Col>
         </Row>

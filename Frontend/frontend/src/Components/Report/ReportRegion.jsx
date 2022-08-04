@@ -203,7 +203,7 @@ export default function ReportRegion() {
     <>
       <Row>
         <div className="mt-3">
-          <ResponsiveContainer width="120%" height={280}>
+          <ResponsiveContainer width="100%" height={280}>
             <PieChart margin={{ top: 10, right: 0, bottom: 0 }}>
               <Pie
                 data={chartRegion}
@@ -213,7 +213,7 @@ export default function ReportRegion() {
                 cy="50%"
                 fill="white"
                 innerRadius={10}
-                outerRadius={Math.min(250) / 2}
+                outerRadius={Math.min(220) / 2}
                 paddingAngle={1}
                 isAnimationActive={false}
                 labelLine={false}

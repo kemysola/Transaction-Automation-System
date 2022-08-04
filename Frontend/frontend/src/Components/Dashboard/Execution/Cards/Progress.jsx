@@ -28,7 +28,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-
 const ProgressBarDiv = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -67,14 +66,10 @@ export default function Progress() {
   const [cca, setCca] = useState([]);
   const [feeLetter, setFeeLetter] = useState([]);
 
-  
-  
-
   useEffect(() => {
     if (dealFilter === "All" && staffFilter === "All") {
       retrieveDeals();
       retrieveGuranteePipeline();
-
     }
     if (dealFilter !== "All" && staffFilter === "All") {
       retrieveGuranteePipeline();
@@ -118,22 +113,28 @@ export default function Progress() {
     return filteredData;
   };
 
-  // Filter Individual Staff Data by Deal Category 
-  let filterTimeout
-  const filterStaffData = (dealFilter) => {  
-    clearTimeout(filterTimeout)
-    setLoading(true)
+  // Filter Individual Staff Data by Deal Category
+  let filterTimeout;
+  const filterStaffData = (dealFilter) => {
+    clearTimeout(filterTimeout);
+    setLoading(true);
 
     filterTimeout = setTimeout(() => {
-      const filteredData = staffData.filter(item => {return item.deal_category === dealFilter})
-        setData(staffData.filter(item => {return item.deal_category === dealFilter}))
-        setLoading(false)
-      return filteredData
-    }, 500)
-  }
- 
+      const filteredData = staffData.filter((item) => {
+        return item.deal_category === dealFilter;
+      });
+      setData(
+        staffData.filter((item) => {
+          return item.deal_category === dealFilter;
+        })
+      );
+      setLoading(false);
+      return filteredData;
+    }, 500);
+  };
+
   // Retrieve All Deals using a get request
-  const retrieveDeals = async() => {
+  const retrieveDeals = async () => {
     //setLoading(true);
     await Service.getAllDeals()
       .then((response) => {
@@ -146,7 +147,7 @@ export default function Progress() {
       });
   };
 
-  const retrieveStaffList = async() => {
+  const retrieveStaffList = async () => {
     await Service.getStaffList()
       .then((response) => {
         setStaffList(response.data.staffList);
@@ -158,18 +159,18 @@ export default function Progress() {
 
   // Get deals by staff email
   const retrieveStaffDeals = () => {
-    setLoading(true)
+    setLoading(true);
     Service.getMyDealsByEmail(staffFilter)
-      .then((res) =>{
-        setData(res.data.deals)
-        setStaffData(res.data.deals)
-        setLoading(false)
+      .then((res) => {
+        setData(res.data.deals);
+        setStaffData(res.data.deals);
+        setLoading(false);
       })
       .catch((e) => {
         console.log(e);
       });
   };
-  
+
   const retrieveGuranteePipeline = () => {
     Service.getAllStaff()
       .then((response) => {
@@ -178,7 +179,6 @@ export default function Progress() {
         // setFinancialClose(response.data.staff.financialclose);
         // setCca(response.data.staff.creditcommiteeapproval);
         // setFeeLetter(response.data.staff.feeletter);
-
       })
       .catch((e) => {
         console.log(e);
@@ -186,7 +186,6 @@ export default function Progress() {
   };
 
   const retrieveStaffTarget = () => {
-   
     Service.getOneStaff(staffFilter)
       .then((response) => {
         setTarget(response.data.staffInfo);
@@ -200,7 +199,7 @@ export default function Progress() {
       });
   };
 
-  //data for cumulative performance 
+  //data for cumulative performance
   const approvalData = [
     {
       name: "Mandate:2%",
@@ -409,34 +408,40 @@ export default function Progress() {
 
   function varianceDisplay(variance) {
     if (variance < 1) {
-      let varianceAns = (variance * -1)
-      return <span style={{color: 'green'}}>↑ ₦ {(varianceAns).toFixed(1)}bn</span>;
-    } else if(!isFinite(variance) || isFinite(variance)){
-      return <span style={{color: 'red'}}>↓ ₦ {-1 * (sumTotal - targetValue)}bn </span>;
+      let varianceAns = variance * -1;
+      return (
+        <span style={{ color: "green" }}>↑ ₦ {varianceAns.toFixed(1)}bn</span>
+      );
+    } else if (!isFinite(variance) || isFinite(variance)) {
+      return (
+        <span style={{ color: "red" }}>
+          ↓ ₦ {-1 * (sumTotal - targetValue)}bn{" "}
+        </span>
+      );
     }
-    return <span style={{color: 'red'}}>↓ ₦ {(variance).toFixed(1)}bn</span>;
+    return <span style={{ color: "red" }}>↓ ₦ {variance.toFixed(1)}bn</span>;
   }
 
   if (targetValue == 0) {
     let targetValue = 1;
-    
-    var varianceP = (( varianceAmount / targetValue) * 100).toFixed(1);
-  } else  {
-    var varianceP = (( varianceAmount / targetValue) * 100).toFixed(1);
+
+    var varianceP = ((varianceAmount / targetValue) * 100).toFixed(1);
+  } else {
+    var varianceP = ((varianceAmount / targetValue) * 100).toFixed(1);
   }
 
-  let variancePercent = varianceP
+  let variancePercent = varianceP;
 
   function variancePerDisplay(variancePer) {
     if (variancePer < 1) {
-      let varianceAns = (variancePer * -1)
-      return <span style={{color: 'green'}}>↑ {varianceAns}%</span>;
-    // } else if(!isFinite(variancePer) || isFinite(variancePer)){
-    //   return !isFinite(((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)) ?<span style={{color: 'red'}}> 0%</span>: <span style={{color: 'red'}}>↓ {((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)}%</span>;
+      let varianceAns = variancePer * -1;
+      return <span style={{ color: "green" }}>↑ {varianceAns}%</span>;
+      // } else if(!isFinite(variancePer) || isFinite(variancePer)){
+      //   return !isFinite(((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)) ?<span style={{color: 'red'}}> 0%</span>: <span style={{color: 'red'}}>↓ {((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)}%</span>;
     } else {
-    return <span style={{color: 'red'}}>↓ {variancePer}% </span>;
+      return <span style={{ color: "red" }}>↓ {variancePer}% </span>;
+    }
   }
-}
 
   const chartData = [
     {
@@ -444,7 +449,9 @@ export default function Progress() {
       countName: `On-grid Power: ${option1.length}`,
       value: option1Total,
       count: option1.length,
-      percent: !isFinite(option1Total/sumTotal) ? `0%`: `${((option1Total/sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option1Total / sumTotal)
+        ? `0%`
+        : `${((option1Total / sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option1.length / data.length) * 100).toFixed(1)}%`,
     },
     {
@@ -452,7 +459,9 @@ export default function Progress() {
       countName: `Off-grid Power: ${option2.length}`,
       value: option2Total,
       count: option2.length,
-      percent: !isFinite(option2Total/sumTotal) ? `0%`: `${((option2Total/sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option2Total / sumTotal)
+        ? `0%`
+        : `${((option2Total / sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option2.length / data.length) * 100).toFixed(1)}%`,
     },
     {
@@ -460,7 +469,9 @@ export default function Progress() {
       countName: `Agric infra: ${option3.length}`,
       value: option3Total,
       count: option3.length,
-      percent: !isFinite(option3Total/sumTotal) ? `0%`: `${((option3Total/sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option3Total / sumTotal)
+        ? `0%`
+        : `${((option3Total / sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option3.length / data.length) * 100).toFixed(1)}%`,
     },
     {
@@ -468,7 +479,9 @@ export default function Progress() {
       countName: `Gas: ${option4.length}`,
       value: option4Total,
       count: option4.length,
-      percent: !isFinite(option4Total/sumTotal) ? `0%`: `${((option4Total/sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option4Total / sumTotal)
+        ? `0%`
+        : `${((option4Total / sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option4.length / data.length) * 100).toFixed(1)}%`,
     },
     {
@@ -476,7 +489,9 @@ export default function Progress() {
       countName: `Transport: ${option5.length}`,
       value: option5Total,
       count: option5.length,
-      percent: !isFinite(option5Total/sumTotal) ? `0%`: `${((option5Total/sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option5Total / sumTotal)
+        ? `0%`
+        : `${((option5Total / sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option5.length / data.length) * 100).toFixed(1)}%`,
     },
     {
@@ -484,7 +499,9 @@ export default function Progress() {
       countName: `Inputs to Infra: ${option6.length}`,
       value: option6Total,
       count: option6.length,
-      percent: !isFinite(option6Total/sumTotal) ? `0%`: `${((option6Total/sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option6Total / sumTotal)
+        ? `0%`
+        : `${((option6Total / sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option6.length / data.length) * 100).toFixed(1)}%`,
     },
     {
@@ -492,7 +509,9 @@ export default function Progress() {
       countName: `Affordable Housing: ${option7.length}`,
       value: option7Total,
       count: option7.length,
-      percent: !isFinite(option7Total/sumTotal) ? `0%`: `${((option7Total/sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option7Total / sumTotal)
+        ? `0%`
+        : `${((option7Total / sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option7.length / data.length) * 100).toFixed(1)}%`,
     },
     {
@@ -500,7 +519,9 @@ export default function Progress() {
       countName: `Education Infra: ${option8.length}`,
       value: option8Total,
       count: option8.length,
-      percent: !isFinite(option8Total/sumTotal) ? `0%`: `${((option8Total/sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option8Total / sumTotal)
+        ? `0%`
+        : `${((option8Total / sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option8.length / data.length) * 100).toFixed(1)}%`,
     },
     {
@@ -508,7 +529,9 @@ export default function Progress() {
       countName: `Healthcare: ${option9.length}`,
       value: option9Total,
       count: option9.length,
-      percent: !isFinite(option9Total/sumTotal) ? `0%`: `${((option9Total/sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option9Total / sumTotal)
+        ? `0%`
+        : `${((option9Total / sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option9.length / data.length) * 100).toFixed(1)}%`,
     },
     {
@@ -516,7 +539,9 @@ export default function Progress() {
       countName: `Water/Waste: ${option10.length}`,
       value: option10Total,
       count: option10.length,
-      percent: !isFinite(option10Total/sumTotal) ? `0%`: `${((option10Total/sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option10Total / sumTotal)
+        ? `0%`
+        : `${((option10Total / sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option10.length / data.length) * 100).toFixed(1)}%`,
     },
     {
@@ -524,7 +549,9 @@ export default function Progress() {
       countName: `ICT/Telecoms: ${option11.length}`,
       value: option11Total,
       count: option11.length,
-      percent: !isFinite(option11Total/sumTotal) ? `0%`: `${((option11Total/sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(option11Total / sumTotal)
+        ? `0%`
+        : `${((option11Total / sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((option11.length / data.length) * 100).toFixed(1)}%`,
     },
   ];
@@ -552,7 +579,7 @@ export default function Progress() {
   }, []);
 
   let productOption3 = data.reduce(function (filtered, arr) {
-    if (arr.product === "Contingent Refi. Gte.") {
+    if (arr.product === "Contigent Refi. Gte") {
       let someNewValue = arr.dealsize;
 
       filtered.push(someNewValue);
@@ -621,7 +648,9 @@ export default function Progress() {
       countName: `Public Bond: ${productOption1.length}`,
       value: productOption1Total,
       count: productOption1.length,
-      percent: !isFinite(productOption1Total/sumTotal) ? `0%`: `${((productOption1Total/sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(productOption1Total / sumTotal)
+        ? `0%`
+        : `${((productOption1Total / sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((productOption1.length / data.length) * 100).toFixed(
         1
       )}%`,
@@ -631,7 +660,9 @@ export default function Progress() {
       countName: `Blended Finance: ${productOption2.length}`,
       value: productOption2Total,
       count: productOption2.length,
-      percent: !isFinite(productOption2Total/sumTotal) ? `0%`: `${((productOption2Total/sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(productOption2Total / sumTotal)
+        ? `0%`
+        : `${((productOption2Total / sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((productOption2.length / data.length) * 100).toFixed(
         1
       )}%`,
@@ -641,7 +672,9 @@ export default function Progress() {
       countName: `Contigent Refi. Gte.: ${productOption3.length}`,
       value: productOption3Total,
       count: productOption3.length,
-      percent:!isFinite(productOption3Total/sumTotal) ? `0%`: `${((productOption3Total/sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(productOption3Total / sumTotal)
+        ? `0%`
+        : `${((productOption3Total / sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((productOption3.length / data.length) * 100).toFixed(
         1
       )}%`,
@@ -651,7 +684,9 @@ export default function Progress() {
       countName: `Private Bond (Clean Energy): ${productOption4.length}`,
       value: productOption4Total,
       count: productOption4.length,
-      percent: !isFinite(productOption4Total/sumTotal) ? `0%`: `${((productOption4Total/sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(productOption4Total / sumTotal)
+        ? `0%`
+        : `${((productOption4Total / sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((productOption4.length / data.length) * 100).toFixed(
         1
       )}%`,
@@ -661,7 +696,9 @@ export default function Progress() {
       countName: `Private Bond (Other): ${productOption5.length}`,
       value: productOption5Total,
       count: productOption5.length,
-      percent: !isFinite(productOption5Total/sumTotal) ? `0%`: `${((productOption5Total/sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(productOption5Total / sumTotal)
+        ? `0%`
+        : `${((productOption5Total / sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((productOption5.length / data.length) * 100).toFixed(
         1
       )}%`,
@@ -671,7 +708,9 @@ export default function Progress() {
       countName: `Annuity PPP: ${productOption6.length}`,
       value: productOption6Total,
       count: productOption6.length,
-      percent: !isFinite(productOption6Total/sumTotal) ? `0%`: `${((productOption6Total/sumTotal) * 100).toFixed(1)}%`,
+      percent: !isFinite(productOption6Total / sumTotal)
+        ? `0%`
+        : `${((productOption6Total / sumTotal) * 100).toFixed(1)}%`,
       countPercent: `${((productOption6.length / data.length) * 100).toFixed(
         1
       )}%`,
@@ -680,27 +719,32 @@ export default function Progress() {
 
   return (
     <React.Fragment>
-      <Container Fluid style={{marginLeft: "0.22rem ", borderRadius: "5px"}} className='bg-light'>
+      <Container
+        Fluid
+        style={{ marginLeft: "0.22rem ", borderRadius: "5px" }}
+        className="bg-light"
+      >
         <Row className="d-flex justify-content-between">
           <Col sm={6} lg={8}>
             <p class="animate__animated animate__pulse pt-2">
               <b>Execution Summary</b>
             </p>
           </Col>
-
-         
         </Row>
 
         {/* -------------------- Filter Bar -------------------------- */}
-        <Container Fluid> 
-          <Card className="m-1 bg-light" style={{ width: "30rem", borderRadius: "10px" }}>
+        <Container Fluid>
+          <Card
+            className="m-1 bg-light"
+            style={{ width: "30rem", borderRadius: "10px" }}
+          >
             <Card.Body>
-              <Card.Title style={{fontSize: "13px"}}>Filter</Card.Title>
+              <Card.Title style={{ fontSize: "13px" }}>Filter</Card.Title>
 
               <Card.Text>
                 {/* --------- Filter By Staff ------------ */}
-                <Row style={{fontSize: "12px"}}>
-                  <Col sm={3} lg={3} style={{paddingTop: "5px"}}>
+                <Row style={{ fontSize: "12px" }}>
+                  <Col sm={3} lg={3} style={{ paddingTop: "5px" }}>
                     <Form.Label>Staff Name:</Form.Label>
                   </Col>
 
@@ -722,10 +766,10 @@ export default function Progress() {
                       ))}
                     </Form.Select>
                   </Col>
-                </Row> 
+                </Row>
 
-              {/* ---------------- Filter Industry Chart ----------------- */}
-                <Row style={{fontSize: "12px", marginTop: "10px"}}>
+                {/* ---------------- Filter Industry Chart ----------------- */}
+                <Row style={{ fontSize: "12px", marginTop: "10px" }}>
                   <Col sm={3} lg={3}>
                     <Form.Label>Industry by:</Form.Label>
                   </Col>
@@ -751,7 +795,7 @@ export default function Progress() {
                 </Row>
 
                 {/* --------- Filter Product Barchart --------- */}
-                <Row style={{fontSize: "12px"}}>
+                <Row style={{ fontSize: "12px" }}>
                   <Col sm={3} lg={3}>
                     <Form.Label>Product by:</Form.Label>
                   </Col>
@@ -778,7 +822,7 @@ export default function Progress() {
                 </Row>
 
                 {/* ----------- Filter By Deal Category ---------- */}
-                <Row style={{fontSize: "12px"}}>
+                <Row style={{ fontSize: "12px" }}>
                   <Col sm={3} lg={3}>
                     <Form.Label>Deal Category:</Form.Label>
                   </Col>
@@ -828,7 +872,6 @@ export default function Progress() {
                     />
                   </Col>
                 </Row>
-
               </Card.Text>
             </Card.Body>
           </Card>
@@ -841,7 +884,7 @@ export default function Progress() {
         ) : (
           <Container Fluid>
             {/* ---------------------- Actual, Target, Variance Cards ------------------------- */}
-            <Row style={{marginTop: "10px"}}>
+            <Row style={{ marginTop: "10px" }}>
               <Col
                 sm={3}
                 lg={4}
@@ -849,7 +892,7 @@ export default function Progress() {
                 className="my-1"
                 style={{ display: "flex", flexDirection: "row" }}
               >
-                <Card style={{ width: "18rem", flex: 1 , background:'white'}}>
+                <Card style={{ width: "18rem", flex: 1, background: "white" }}>
                   <Card.Body>
                     <Card.Title>{`₦${sumTotal.toFixed(1)}bn`}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
@@ -865,7 +908,7 @@ export default function Progress() {
                 className="my-1"
                 style={{ display: "flex", flexDirection: "row" }}
               >
-                <Card  style={{ width: "18rem", flex: 1, background:'white' }}>
+                <Card style={{ width: "18rem", flex: 1, background: "white" }}>
                   <Card.Body>
                     <Card.Title>{`₦${targetValue.toFixed(1)}bn`}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted"></Card.Subtitle>
@@ -881,7 +924,7 @@ export default function Progress() {
                 className="my-1"
                 style={{ display: "flex", flexDirection: "row" }}
               >
-                <Card  style={{ width: "18rem", flex: 1,background:'white' }}>
+                <Card style={{ width: "18rem", flex: 1, background: "white" }}>
                   <Card.Body>
                     <Card.Title>
                       {variancePerDisplay(variancePercent)}
@@ -899,12 +942,16 @@ export default function Progress() {
             <Row style={{ marginTop: "15px" }}>
               {/* Deal Category PieChart */}
               <Col sm={12} lg={4} md={12} className="my-1">
-                <PieCard dealFilter={dealFilter} staffFilter={staffFilter}/>
+                <PieCard dealFilter={dealFilter} staffFilter={staffFilter} />
               </Col>
 
               {/* Industry Bar Chart */}
               <Col sm={12} lg={4} md={12} className="my-1">
-                <Container Fluid className="py-3" style={{borderRadius: "10px"}}>
+                <Container
+                  Fluid
+                  className="py-3"
+                  style={{ borderRadius: "10px" }}
+                >
                   <p
                     style={{
                       fontSize: "13px",
@@ -947,7 +994,7 @@ export default function Progress() {
                         tickLine={false}
                         style={{ fontSize: "0.5rem", fontFamily: "Arial" }}
                       />
-                      <Tooltip/>
+                      <Tooltip />
                       <Bar
                         dataKey="value"
                         fill="#82ca9d"
@@ -1000,7 +1047,11 @@ export default function Progress() {
 
               {/* Product BarChart */}
               <Col sm={12} lg={4} className="my-1">
-                <Container Fluid className="py-1" style={{borderRadius: "5px"}}>
+                <Container
+                  Fluid
+                  className="py-1"
+                  style={{ borderRadius: "5px" }}
+                >
                   <p
                     style={{
                       fontSize: "13px",
@@ -1054,7 +1105,7 @@ export default function Progress() {
                           padding: "15px",
                         }}
                       />
-                      <Tooltip/>
+                      <Tooltip />
                       <Bar
                         dataKey="value"
                         fill="#82ca9d"
@@ -1116,7 +1167,6 @@ export default function Progress() {
                   <div>
                     {/* cumulative performance */}
                     {/* {mandate} */}
-                    
                   </div>
                 </Container>
               </Col>
@@ -1125,7 +1175,7 @@ export default function Progress() {
           </Container>
         )}
 
-<BarChart
+        <BarChart
           width={280}
           height={250}
           margin={{
@@ -1151,11 +1201,16 @@ export default function Progress() {
             tickLine={false}
             axisLine={false}
             textAnchor="middle"
-            scaleToFit='true'
-            verticalAnchor = 'start'
+            scaleToFit="true"
+            verticalAnchor="start"
             interval={0}
             angle="1"
-            style={{ fontSize: "0.5rem", paddingLeft:'1px', textAlign:'center', paddingRight:'2.9rem'}}
+            style={{
+              fontSize: "0.5rem",
+              paddingLeft: "1px",
+              textAlign: "center",
+              paddingRight: "2.9rem",
+            }}
           />
 
           <XAxis
@@ -1164,7 +1219,7 @@ export default function Progress() {
             tickLine={false}
             axisLine={false}
             orientation="top"
-            style={{ fontSize: "0.5rem", padding:'1rem' }}
+            style={{ fontSize: "0.5rem", padding: "1rem" }}
           />
           <Tooltip />
 
@@ -1178,23 +1233,22 @@ export default function Progress() {
           </Bar>
         </BarChart>
         <Container>
-        <small
-          style={{
-            fontSize: "12px",
-            fontWeight: "bold",
-          }}
-        >
-          CUMULATIVE PERFORMANCE INCENTIVE's EARNED
-        </small>
+          <small
+            style={{
+              fontSize: "12px",
+              fontWeight: "bold",
+            }}
+          >
+            CUMULATIVE PERFORMANCE INCENTIVE's EARNED
+          </small>
         </Container>
-        
 
-      {/* ---------- Exxecution Dashboard Table ----------- */}
-        <Table  dealFilter={dealFilter} staffFilter={staffFilter} />
+        {/* ---------- Exxecution Dashboard Table ----------- */}
+        <Table dealFilter={dealFilter} staffFilter={staffFilter} />
 
+        <br />
+      </Container>
       <br />
-    </Container>
-    <br />
     </React.Fragment>
   );
 }
