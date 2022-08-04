@@ -2,17 +2,8 @@ import React,{useState} from "react";
 import { Col, Container, Row, Stack, Table } from "react-bootstrap";
 import {
   BarChart,
-  Bar,
-  Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
+  Bar
 } from "recharts";
-import GeneralPie from "./GeneralPie";
-import Editable from "react-editable-title";
 
 
 export default function GuaranteePortGrowthVsTar() {
@@ -76,10 +67,7 @@ export default function GuaranteePortGrowthVsTar() {
             </p>
           </Stack>
         </div>
-
         <div>
-        
-
         </div>
         <div>
           <br />
