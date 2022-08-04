@@ -134,7 +134,7 @@ export default function CurrentGuarantee() {
         <div>
         </div>
       </Container>
-      <Container>
+      <Container fluid>
         <Row className="py-2 my-2">
           <Col sm={6}>
             <p

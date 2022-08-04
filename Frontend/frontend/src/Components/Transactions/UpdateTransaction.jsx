@@ -378,7 +378,6 @@ export default function UpdateTransactions() {
 
   const [allData, setAllData] = useState([]);
 
-  const [testData, setTestData] = useState([]);
   const retrieveDeal = async () => {
     // function to get deal by id from the database
     const data = await axios
@@ -399,9 +398,6 @@ export default function UpdateTransactions() {
     // set the deal and status stateA
 
     setAllData(data.data.dealInfo);
-    //test state
-    setTestData(data.data.dealInfo);
-
     setNoteList(data.data.dealInfo[0].notes);
     setDeal(data.data.dealInfo);
     setStatus(true);
@@ -423,7 +419,7 @@ export default function UpdateTransactions() {
 
     //********************************** End Block                   *******************
   };
-
+console.log(deal)
   // ******************************************  Axios :  get staff  ****************************************
 
   const uniqueId = Array.from(new Set(allData.map((a) => a.nbcid))).map(
@@ -1573,9 +1569,9 @@ export default function UpdateTransactions() {
                                 size="sm"
                                 type="date"
                                 defaultValue={
-                                  deal[0].ccSubmissionDate
-                                    ? new Date(deal[0].ccSubmissionDate)
-                                        .toISOString()
+                                  deal[0].ccsubmissiondate
+                                    ? new Date(deal[0].ccsubmissiondate)
+                                    .toJSON()
                                         .split("T")[0]
                                     : ""
                                 }
