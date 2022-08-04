@@ -139,7 +139,7 @@ export default function ReportRegion() {
     index,
     payload,
   }) => {
-    const radius = innerRadius * 11.5;
+    const radius = innerRadius * 12.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
@@ -212,10 +212,10 @@ export default function ReportRegion() {
                 cx="50%"
                 cy="50%"
                 fill="white"
+                
                 innerRadius={10}
                 outerRadius={Math.min(220) / 2}
                 paddingAngle={1}
-                isAnimationActive={false}
                 labelLine={false}
                 label={renderCustomizedLabel}
               >
