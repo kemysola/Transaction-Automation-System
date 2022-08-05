@@ -1,6 +1,9 @@
 import React from "react";
 import { Container, Row, Col, Stack } from "react-bootstrap";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
+import ChartProducts from "./ChartProducts";
+import ReportRegion from "./ReportRegion";
+import SectorChart from "./SectorChart";
 
 export default function FinancialYearGPipeline() {
   const data = [
@@ -38,7 +41,7 @@ export default function FinancialYearGPipeline() {
   };
   return (
     <React.Fragment>
-      <Container className="my-3 pt-2">
+      <Container fluid className="my-1 pt-2">
         <Stack gap={1}>
           <p style={{ fontWeight: "bold" }}>FY2021-2022 Guarantee Pipeline*</p>
         </Stack>
@@ -54,47 +57,32 @@ export default function FinancialYearGPipeline() {
           follow-on debt instruments for LFZC.
         </div>
         <Row>
-          <Col sm="6" className="my-3">
+          <Col sm="6" className="my-1 pt-3">
+            <p className='mt-3 pt-3'>
             The N311.5 Billion pipeline, consisting of 35 potential transactions
             for the next two (2) years, can be split into eleven (11) industry
             sectors, with no individual sector comprising more than 36.3%, as
-            shown in the adjacent pie chart. Of these transactions, eleven (11)
+            shown in the adjacent pie chart. 
+            <p className='mt-2 pt-3'>
+            Of these transactions, eleven (11)
             totaling N103.4 Billion are projected to reach financial close in
             FY2022, including N14.1 Billion in Q1 2022. The remaining pipeline
             transactions (including contingent refinancings) are expected to
             roll over into 2023
+            </p>
+            </p>
+           
           </Col>
-          <Col sm="6" className="my-3">
-            <Stack gap={1}>
+          <Col sm="6" className="">
               <p
-                className="text-success"
-                style={{ fontWeight: "bold", textAlign: "center" }}
+                className="text-dark pt-3 mt-3"
+                style={{ fontWeight: "", textAlign: "center" }}
               >
                 Pipeline By Sector
               </p>
-            </Stack>
+              <SectorChart/>
 
-            <ResponsiveContainer width="100%" height="75%">
-              <PieChart width={400} height={200}>
-                <Pie
-                  data={data}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={renderCustomizedLabel}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {data.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={COLORS[index % COLORS.length]}
-                    />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ResponsiveContainer>
+
           </Col>
         </Row>
         <div>
@@ -109,10 +97,10 @@ export default function FinancialYearGPipeline() {
           and commercial activities in the nation.
         </div>
         <Row>
-          <Col sm="6" className="my-1 pt-2">
+          <Col sm="6" className="mt-3 pt-3">
             <Stack
               gap={1}
-              className="text-primary"
+              className="text-dark"
               style={{
                 fontWeight: "bold",
                 textAlign: "center",
@@ -121,34 +109,13 @@ export default function FinancialYearGPipeline() {
             >
               Pipeline Distribution By Region
             </Stack>
-            <br />
-            {/*pie */}
-            <ResponsiveContainer width="100%" height="75%">
-              <PieChart width={400} height={200}>
-                <Pie
-                  data={data}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={renderCustomizedLabel}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {data.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={COLORS[index % COLORS.length]}
-                    />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ResponsiveContainer>
+            
+            <ReportRegion/>
           </Col>
-          <Col sm="6" className="my-1 pt-2">
+          <Col sm="6" className="mt-3 pt-3">
             <Stack
               gap={1}
-              className="text-success"
+              className="text-dark"
               style={{
                 fontWeight: "bold",
                 textAlign: "center",
@@ -157,32 +124,11 @@ export default function FinancialYearGPipeline() {
             >
               Pipeline Distribution By Product
             </Stack>
-            <br />
-            {/*pie */}
-            <ResponsiveContainer width="100%" height="80%">
-              <PieChart width={400} height={200}>
-                <Pie
-                  data={data}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={renderCustomizedLabel}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {data.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={COLORS[index % COLORS.length]}
-                    />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ResponsiveContainer>
+            <ChartProducts/>
+            
           </Col>
         </Row>
-        <div className='mt-2'>
+        <div className='mt-3 pt-3'>
           <small>
             * NB: All pipeline figures and charts exclude our existing guarantee
             portfolio of Viathan, North South Power, GEL Utility, TSL, LFZC and

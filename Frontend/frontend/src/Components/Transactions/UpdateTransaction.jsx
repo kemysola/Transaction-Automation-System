@@ -1,22 +1,18 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Form, Container, Row, Col, Alert, Dropdown } from "react-bootstrap";
+import { Form, Container, Row, Col} from "react-bootstrap";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import styled from "styled-components";
 import Service from "../../Services/Service";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import Input from "react-validation/build/input";
-import Select from "react-validation/build/select";
 import { GrAddCircle } from "react-icons/gr";
 import { FiDelete, FiSave } from "react-icons/fi";
-
 import NbcFocusMode from "./NbcFocusMode";
 import TransactionPartiesMode from "./TransactionPartiesMode";
 import PlisMode from "./PlisMode";
 import OcpsMode from "./OcpsMode";
 import KpisMode from "./KpisMode";
-import { MdNoMealsOuline } from "react-icons/md";
 
 const ButtonWrapper = styled.button`
   color: white;
@@ -79,12 +75,12 @@ export default function UpdateTransactions() {
   const reimbursible = useRef("");
   const nbcApprovalDate = useRef("");
   const nbcSubmittedDate = useRef("");
+  const ccSubmissionDate = useRef("");
 
   let id = window.location.search.split("?")[1];
-
   const history = useHistory();
   const [deal, setDeal] = useState([]);
-  const [message, setMessage] = useState();
+  const [message, setMessage] = useState("");
   const [status, setStatus] = useState(false);
   const [noteList, setNoteList] = useState([{ note: "" }]);
   const [activeTab, setActiveTab] = useState("first");
@@ -102,7 +98,6 @@ export default function UpdateTransactions() {
   const [ocpsChanged, setOcpsChanged] = useState("");
   const [kpiChanged, setKpiChanged] = useState("");
 
-
   const [ocps, setOcps] = useState([
     {
       ocps_factors: "",
@@ -116,7 +111,7 @@ export default function UpdateTransactions() {
 
   const [nbcFocus, setNbcFocus] = useState([
     {
-      id:0,
+      id: 0,
       nbc_focus_original: "",
       nbc_focus_original_yes_no: 0,
       nbc_focus_original_date: null,
@@ -152,7 +147,6 @@ export default function UpdateTransactions() {
       parties_status: "Pending",
     },
   ]);
-  
 
   const [kpi, setKpi] = useState([
     {
@@ -181,7 +175,6 @@ export default function UpdateTransactions() {
   const [redB, setRedB] = useState("");
   const [redC, setRedC] = useState("");
 
- 
   //**********************************************************   Key Performance Indicators **************** */
   const handleKpiChange = (e, index) => {
     const { name, value } = e.target;
@@ -305,7 +298,6 @@ export default function UpdateTransactions() {
     // function to save user data to deal state
     const { name, value } = event.target;
     setNbcFocus({ ...nbcFocus, [name]: value });
-
   };
 
   const handleNbcAdd = () => {
@@ -325,10 +317,9 @@ export default function UpdateTransactions() {
         nbc_focus_apprv_4_b: "",
         nbc_focus_apprv_4_c: null,
         nbc_focus_apprv_5_b: "",
-        nbc_focus_apprv_5_c: null
-      }
+        nbc_focus_apprv_5_c: null,
+      },
     ]);
-
   };
 
   const handleNbcRemove = (index) => {
@@ -368,11 +359,13 @@ export default function UpdateTransactions() {
     },
   ];
 
-  useEffect(() => {
-    retrieveDeal();
-  }, [nbcChanged, partiesChanged, plisChanged, ocpsChanged, kpiChanged])
+  // useEffect(() => {
+  //   retrieveDeal();
+  // }, [nbcChanged, partiesChanged, plisChanged, ocpsChanged, kpiChanged]);
 
   useEffect(() => {
+    retrieveDeal();
+
     retrieveStaffList();
 
     retrieveIndustry();
@@ -386,9 +379,84 @@ export default function UpdateTransactions() {
     retrieveAmortizationStyle();
   }, []);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // After 3 seconds set the message value to empty
+      setMessage("")
+    }, 5000)
+
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [message]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // After 3 seconds set the message value to empty
+      setNbcChanged("")
+    }, 500)
+
+    return () => {
+      clearTimeout(timer)
+      retrieveDeal();
+    }
+
+  }, [nbcChanged]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // After 3 seconds set the message value to empty
+      setPartiesChanged("")
+    }, 500)
+
+    return () => {
+      clearTimeout(timer)
+      retrieveDeal();
+    }
+
+  }, [partiesChanged]);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // After 3 seconds set the message value to empty
+      setPlisChanged("")
+    }, 500)
+
+    return () => {
+      clearTimeout(timer)
+      retrieveDeal();
+    }
+
+  }, [plisChanged]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // After 3 seconds set the message value to empty
+      setOcpsChanged("")
+    }, 500)
+
+    return () => {
+      clearTimeout(timer)
+      retrieveDeal();
+    }
+
+  }, [ocpsChanged]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // After 3 seconds set the message value to empty
+      setKpiChanged("")
+    }, 500)
+
+    return () => {
+      clearTimeout(timer)
+      retrieveDeal();
+    }
+
+  }, [kpiChanged]);
+
   const [allData, setAllData] = useState([]);
 
-  const [testData, setTestData] = useState([]);
   const retrieveDeal = async () => {
     // function to get deal by id from the database
     const data = await axios
@@ -403,17 +471,11 @@ export default function UpdateTransactions() {
         }
       )
       .catch((e) => {
-        console.log(e);
       });
 
     // set the deal and status stateA
 
     setAllData(data.data.dealInfo);
-    //test state
-    setTestData(data.data.dealInfo);
-
-   
-
     setNoteList(data.data.dealInfo[0].notes);
     setDeal(data.data.dealInfo);
     setStatus(true);
@@ -433,14 +495,14 @@ export default function UpdateTransactions() {
     setRedC(data.data.dealInfo[0].redc);
     setisClosed(data.data.dealInfo[0].closed);
 
-    //********************************** End Block                   *******************
+  //********************************** End Block                   *******************
   };
 
-  // ******************************************  Axios :  get staff  ****************************************
-
-  const uniqueId = Array.from(new Set(allData.map((a) => a.nbcid))).map((id) => {
-    return allData.find((a) => a.nbcid === id);
-  });
+  const uniqueId = Array.from(new Set(allData.map((a) => a.nbcid))).map(
+    (id) => {
+      return allData.find((a) => a.nbcid === id);
+    }
+  );
   const partyId = Array.from(new Set(allData.map((a) => a.pid))).map((id) => {
     return allData.find((a) => a.pid === id);
   });
@@ -454,6 +516,9 @@ export default function UpdateTransactions() {
     return allData.find((a) => a.kid === id);
   });
 
+  // console.log("uinque", uniqueId)
+
+  // ******************************************  Axios :  get staff  ****************************************
   const retrieveStaffList = () => {
     Service.getStaffList()
       .then((response) => {
@@ -465,7 +530,6 @@ export default function UpdateTransactions() {
   };
 
   // ******************************************  Axios :  get industry ****************************************
-
   const retrieveIndustry = () => {
     Service.getIndustry()
       .then((response) => {
@@ -477,7 +541,6 @@ export default function UpdateTransactions() {
   };
 
   // ******************************************  Axios :  get product ****************************************
-
   const retrieveProduct = () => {
     Service.getProduct()
       .then((response) => {
@@ -489,7 +552,6 @@ export default function UpdateTransactions() {
   };
 
   // ******************************************  Axios :  get region  ****************************************
-
   const retrieveRegion = () => {
     Service.getRegion()
       .then((response) => {
@@ -524,10 +586,16 @@ export default function UpdateTransactions() {
       });
   };
 
-
   // *************************************** Edit NBC Focus Function ***************************** *************
 
-  function editNBCFocus(id, transid, nbcFocusOriginal, nbcFocusOriginalYesNo, nbcFocusOriginalDate, nbcFocusOriginalMethod) {
+  function editNBCFocus(
+    id,
+    transid,
+    nbcFocusOriginal,
+    nbcFocusOriginalYesNo,
+    nbcFocusOriginalDate,
+    nbcFocusOriginalMethod
+  ) {
     let data = {
       id: id,
       nbc_focus_original: nbcFocusOriginal,
@@ -536,37 +604,35 @@ export default function UpdateTransactions() {
       nbc_focus_original_methodology: nbcFocusOriginalMethod,
     };
 
-
-    Service.updateNBCFocus (transid, data)
+    Service.updateNBCFocus(transid, data)
       .then((res) => {
-        setNbcChanged("success")
+        setNbcChanged("success");
       })
-      .catch(() => {
-      })
+      .catch(() => {});
   }
 
   // ****************************************** Delete Nbc Focus From DB ***********************************
-  
+
   const deleteNbcFocus = (id, transid) => {
     let data = {
       id: id,
-      tableID: "nbcFocus"
+      tableID: "nbcFocus",
     };
 
     Service.deleteFeatures(transid, data)
       .then((res) => {
-        setNbcChanged("deleted")
+        setNbcChanged("deleted");
       })
       .catch((res) => {
-        console.log("an error occured")
-      })
-  }
+        console.log("an error occured");
+      });
+  };
 
   // **************************************** NBC Focus List ***************************************************
 
-  const nbcFocusList = uniqueId
-  .map(item => (
-    <NbcFocusMode 
+  // console.log("nbcid mode", uniqueId[0].nbcid )
+  const nbcFocusList = uniqueId.map((item) => (
+    <NbcFocusMode
       transid={item.transid}
       id={item.nbcid}
       nbcFocusOriginal={item.nbc_focus_original}
@@ -592,7 +658,7 @@ export default function UpdateTransactions() {
 
     Service.updateNBCFocus(id, data)
       .then((res) => {
-        setNbcChanged("success")
+        setNbcChanged("success");
       })
       .catch(() => {
         console.log("an error occured")
@@ -626,7 +692,14 @@ export default function UpdateTransactions() {
 
   // *************************************** Edit Transaction Parties Function ***************************** *************
 
-  function editParties(id, transid, partiesRole, partiesParty, partiesAppointed, partiesStatus) {
+  function editParties(
+    id,
+    transid,
+    partiesRole,
+    partiesParty,
+    partiesAppointed,
+    partiesStatus
+  ) {
     let data = {
       id: id,
       parties_role: partiesRole,
@@ -635,38 +708,37 @@ export default function UpdateTransactions() {
       parties_status: partiesStatus,
     };
 
-    Service.updateParties (transid, data)
+    Service.updateParties(transid, data)
       .then((res) => {
-        setPartiesChanged("success")
+        setPartiesChanged("success");
       })
       .catch(() => {
-        console.log("an error occured")
-      })
+        console.log("an error occured");
+      });
   }
 
   // ****************************************** Delete Parties From DB ***********************************
-  
+
   const deleteParties = (id, transid) => {
     let data = {
       id: id,
-      tableID: "parties"
+      tableID: "parties",
     };
 
     Service.deleteFeatures(transid, data)
       .then((res) => {
-        console.log(res.data.message)
-        setPartiesChanged("deleted")
+        console.log(res.data.message);
+        setPartiesChanged("deleted");
       })
       .catch((res) => {
-        console.log("an error occured")
-      })
-  }
+        console.log("an error occured");
+      });
+  };
 
   // **************************************** Transaction Parties List ***************************************************
 
-  const PartiesList = partyId
-  .map(item => (
-    <TransactionPartiesMode 
+  const PartiesList = partyId.map((item) => (
+    <TransactionPartiesMode
       transid={item.transid}
       id={item.pid}
       partiesRole={item.parties_role}
@@ -692,16 +764,24 @@ export default function UpdateTransactions() {
 
     Service.updateParties(id, data)
       .then((res) => {
-        setPartiesChanged("success")
+        setPartiesChanged("success");
       })
       .catch(() => {
-        console.log("an error occured")
-      })
-  }
+        console.log("an error occured");
+      });
+  };
 
   // *************************************** Edit Plis Function ***************************** *************
 
-  function editPlis(id, transid, plisParticulars, plisConcern, plisWeighting, plisExpected, plisStatus) {
+  function editPlis(
+    id,
+    transid,
+    plisParticulars,
+    plisConcern,
+    plisWeighting,
+    plisExpected,
+    plisStatus
+  ) {
     let data = {
       id: id,
       plis_particulars: plisParticulars,
@@ -711,37 +791,36 @@ export default function UpdateTransactions() {
       plis_status: plisStatus,
     };
 
-    Service.updatePlis (transid, data)
+    Service.updatePlis(transid, data)
       .then((res) => {
-        setPlisChanged("success")
+        setPlisChanged("success");
       })
       .catch(() => {
-        console.log("an error occured")
-      })
+        console.log("an error occured");
+      });
   }
 
-   // ****************************************** Delete Plis From DB ***********************************
-  
-   const deletePlis = (id, transid) => {
+  // ****************************************** Delete Plis From DB ***********************************
+
+  const deletePlis = (id, transid) => {
     let data = {
       id: id,
-      tableID: "plis"
+      tableID: "plis",
     };
 
     Service.deleteFeatures(transid, data)
       .then((res) => {
-        setPlisChanged("deleted")
+        setPlisChanged("deleted");
       })
       .catch(() => {
-        console.log("an error occured")
-      })
-  }
+        console.log("an error occured");
+      });
+  };
 
   // **************************************** Plid List ***************************************************
 
-  const PlisList = pliid
-  .map(item => (
-    <PlisMode 
+  const PlisList = pliid.map((item) => (
+    <PlisMode
       transid={item.transid}
       id={item.plid}
       plisParticulars={item.plis_particulars}
@@ -769,16 +848,25 @@ export default function UpdateTransactions() {
 
     Service.updatePlis(id, data)
       .then((res) => {
-        setPartiesChanged("success")
+        setPartiesChanged("success");
       })
       .catch(() => {
-        console.log("an error occured")
-      })
-  }
+        console.log("an error occured");
+      });
+  };
 
   // *************************************** Edit Ocps Function ***************************** *************
 
-  function editOcps(id, transid, ocpsFactors, ocpsYesNo, ocpsConcern, ocpsExpected, ocpsRespParty, ocpsStatus) {
+  function editOcps(
+    id,
+    transid,
+    ocpsFactors,
+    ocpsYesNo,
+    ocpsConcern,
+    ocpsExpected,
+    ocpsRespParty,
+    ocpsStatus
+  ) {
     let data = {
       id: id,
       ocps_factors: ocpsFactors,
@@ -789,37 +877,36 @@ export default function UpdateTransactions() {
       ocps_status: ocpsStatus,
     };
 
-    Service.updateOcps (transid, data)
+    Service.updateOcps(transid, data)
       .then((res) => {
-        setOcpsChanged("success")
+        setOcpsChanged("success");
       })
       .catch(() => {
-        console.log("an error occured")
-      })
+        console.log("an error occured");
+      });
   }
 
-   // ****************************************** Delete Ocps From DB ***********************************
-  
-   const deleteOcps = (id, transid) => {
+  // ****************************************** Delete Ocps From DB ***********************************
+
+  const deleteOcps = (id, transid) => {
     let data = {
       id: id,
-      tableID: "ocps"
+      tableID: "ocps",
     };
 
     Service.deleteFeatures(transid, data)
       .then((res) => {
-        setOcpsChanged("deleted")
+        setOcpsChanged("deleted");
       })
       .catch(() => {
-        console.log("an error occured")
-      })
-  }
+        console.log("an error occured");
+      });
+  };
 
   // **************************************** Ocps List ***************************************************
 
-  const OcpsList = ocpId
-  .map(item => (
-    <OcpsMode 
+  const OcpsList = ocpId.map((item) => (
+    <OcpsMode
       transid={item.transid}
       id={item.ocid}
       ocpsFactors={item.ocps_factors}
@@ -847,19 +934,27 @@ export default function UpdateTransactions() {
       ocps_status: ocps[0].ocps_status,
     };
 
-
     Service.updateOcps(id, data)
       .then((res) => {
-        setOcpsChanged("success")
+        setOcpsChanged("success");
       })
       .catch(() => {
-        console.log("an error occured")
-      })
-  }
+        console.log("an error occured");
+      });
+  };
 
-   // *************************************** Edit Kpi Function ***************************** *************
+  // *************************************** Edit Kpi Function ***************************** *************
 
-   function editKpis(id, transid, kpiFactors, kpiYesNo, kpiConcern, kpiExpected, kpiRespParty, kpiStatus) {
+  function editKpis(
+    id,
+    transid,
+    kpiFactors,
+    kpiYesNo,
+    kpiConcern,
+    kpiExpected,
+    kpiRespParty,
+    kpiStatus
+  ) {
     let data = {
       id: id,
       kpi_factors: kpiFactors,
@@ -870,37 +965,36 @@ export default function UpdateTransactions() {
       kpi_status: kpiStatus,
     };
 
-    Service.updateKpis (transid, data)
+    Service.updateKpis(transid, data)
       .then((res) => {
-        setKpiChanged("success")
+        setKpiChanged("success");
       })
       .catch(() => {
-        console.log("an error occured")
-      })
+        console.log("an error occured");
+      });
   }
 
   // ****************************************** Delete Kpi From DB ***********************************
-  
+
   const deleteKpis = (id, transid) => {
     let data = {
       id: id,
-      tableID: "kpi"
+      tableID: "kpi",
     };
 
     Service.deleteFeatures(transid, data)
       .then((res) => {
-        setKpiChanged("deleted")
+        setKpiChanged("deleted");
       })
       .catch(() => {
-        console.log("an error occured")
-      })
-  }
+        console.log("an error occured");
+      });
+  };
 
   // **************************************** Kpi List ***************************************************
 
-  const KpiList = uId
-  .map(item => (
-    <KpisMode 
+  const KpiList = uId.map((item) => (
+    <KpisMode
       transid={item.transid}
       id={item.kid}
       kpiFactors={item.kpi_factors}
@@ -928,17 +1022,16 @@ export default function UpdateTransactions() {
       kpi_status: kpi[0].kpi_status,
     };
 
-    console.log("kpi", data)
+    console.log("kpi", data);
 
     Service.updateKpis(id, data)
       .then((res) => {
-        setKpiChanged("success")
+        setKpiChanged("success");
       })
       .catch(() => {
-        console.log("an error occured")
-      })
-
-  }
+        console.log("an error occured");
+      });
+  };
 
   // ******************************************  Next and Previous Function  ****************************************
 
@@ -1048,6 +1141,7 @@ export default function UpdateTransactions() {
       actualClose: new Date(actualClose.current.value),
       NBC_approval_date: new Date(nbcApprovalDate.current.value),
       NBC_submitted_date: new Date(nbcSubmittedDate.current.value),
+      ccSubmissionDate: new Date(ccSubmissionDate.current.value),
       structuringFeeAmount: +amount.current.value,
       structuringFeeAdvance: +advance.current.value,
       structuringFeeFinal: +final.current.value,
@@ -1072,24 +1166,24 @@ export default function UpdateTransactions() {
       notes: note,
       // nbcFocus: nbcFocus,
       parties: parties,
-      plis:plis,
+      plis: plis,
       ocps: ocps,
       kpi: kpi,
-      };
+    };
 
     // ******************************************  Axios :  put request  ****************************************
 
     Service.updateDeal(id, data)
       .then((response) => {
-        alert(response.data.message)
-        history.push({
-          pathname: "/transaction",
-        });
+        // alert(response.data.message);
+        setMessage(response.data.message);
+        // history.push({
+        //   pathname: "/transaction",
+        // });
       })
       .catch((error) => {
         setMessage("Failed to update deal");
       });
-    
   }
 
   return (
@@ -1572,25 +1666,25 @@ export default function UpdateTransactions() {
                           </Col>
                           <Col sm={6}>
                             <Form.Group className="pt-1">
-                              <Form.Label>CCC Submission</Form.Label>
+                              <Form.Label>CC Submission</Form.Label>
                               <Form.Control
                                 size="sm"
                                 type="date"
                                 defaultValue={
-                                  deal[0].nbc_submitted_date
-                                    ? new Date(deal[0].nbc_submitted_date)
-                                        .toISOString()
+                                  deal[0].ccsubmissiondate
+                                    ? new Date(deal[0].ccsubmissiondate)
+                                    .toJSON()
                                         .split("T")[0]
                                     : ""
                                 }
-                                
+                                id="ccSubmissionDate"
+                                ref={ccSubmissionDate}
                               />
                             </Form.Group>
                           </Col>
                         </Row>
                       </div>
                       <br />
-                      
                     </Container1>
                   </Tab>
                   {/*---------------------------------------------- End Tab ----------------------------------- */}
@@ -2277,8 +2371,7 @@ export default function UpdateTransactions() {
                         <Col sm={3} className="mt-1 mb-1">
                           <p>METHODOLOGY</p>
                         </Col>
-
-                        {nbcFocusList}
+                          {nbcFocusList}
                       </Row>
 
                       <Row className="py-1">
@@ -2286,24 +2379,21 @@ export default function UpdateTransactions() {
                           <Row>
                             <Col sm={3} className="mt-1 mb-1">
                               {/* <p>ORIGINAL</p> */}
-                                {nbcFocus.map((singleNote, index) => (
-                                  <div class="input-group  mt-2">
-                                    <Form.Control
-                                      type="text"
-                                      style={{
-                                        width: "100%",
-                                        height: "10px",
-                                      }}
-                                      size="sm"
-                                      value={singleNote.nbcFocus}
-                                      name="nbc_focus_original"
-                                      onChange={(e) =>
-                                        handleNbcChange(e, index)
-                                      }
-                                    />
-                                  </div>
-                                ))}
-                            
+                              {nbcFocus.map((singleNote, index) => (
+                                <div class="input-group  mt-2">
+                                  <Form.Control
+                                    type="text"
+                                    style={{
+                                      width: "100%",
+                                      height: "10px",
+                                    }}
+                                    size="sm"
+                                    value={singleNote.nbcFocus}
+                                    name="nbc_focus_original"
+                                    onChange={(e) => handleNbcChange(e, index)}
+                                  />
+                                </div>
+                              ))}
                             </Col>
 
                             <Col sm={2} className="mt-1 mb-1">
@@ -2315,9 +2405,7 @@ export default function UpdateTransactions() {
                                     size="sm"
                                     value={singleNote.nbcFocus}
                                     name="nbc_focus_original_yes_no"
-                                    onChange={(e) =>
-                                      handleNbcChange(e, index)
-                                    }
+                                    onChange={(e) => handleNbcChange(e, index)}
                                   >
                                     <option value={null}></option>
                                     <option
@@ -2346,9 +2434,7 @@ export default function UpdateTransactions() {
                                     size="sm"
                                     value={singleNote.nbcFocus}
                                     name="nbc_focus_original_date"
-                                    onChange={(e) =>
-                                      handleNbcChange(e, index)
-                                    }
+                                    onChange={(e) => handleNbcChange(e, index)}
                                   />
                                 </div>
                               ))}
@@ -2363,28 +2449,35 @@ export default function UpdateTransactions() {
                                     style={{
                                       width: "50%",
                                       height: "10px",
-                                      marginRight: "3px"
+                                      marginRight: "3px",
                                     }}
                                     size="sm"
                                     value={singleNote.nbcFocus}
                                     name="nbc_focus_original_methodology"
-                                    onChange={(e) =>
-                                      handleNbcChange(e, index)
-                                    }
+                                    onChange={(e) => handleNbcChange(e, index)}
                                   />
-                                  <button 
-                                    onClick={handleNbcRemove} 
+                                  <button
+                                    onClick={handleNbcRemove}
                                     className="mt-1"
-                                    style={{ height: "25px", width: "20%", border: "none", marginRight: "3px" }}
+                                    style={{
+                                      height: "25px",
+                                      width: "20%",
+                                      border: "none",
+                                      marginRight: "3px",
+                                    }}
                                   >
                                     <i className="">
                                       <FiDelete />
                                     </i>
                                   </button>
-                                  <button 
-                                    onClick={addNewNBCFocus} 
+                                  <button
+                                    onClick={addNewNBCFocus}
                                     className="mt-1"
-                                    style={{ height: "25px", width: "20%", border: "none" }}
+                                    style={{
+                                      height: "25px",
+                                      width: "20%",
+                                      border: "none",
+                                    }}
                                   >
                                     <i className="">
                                       <FiSave />
@@ -2395,8 +2488,14 @@ export default function UpdateTransactions() {
                             </Col>
                           </Row>
                         </Col>
-                        <div className="d-flex justify-content-end ml-2" style={{ cursor: "pointer", height: "1rem"}}>
-                          <GrAddCircle onClick={handleNbcAdd} style={{ width:"1rem", height:"1rem" }} />
+                        <div
+                          className="d-flex justify-content-end ml-2"
+                          style={{ cursor: "pointer", height: "1rem" }}
+                        >
+                          <GrAddCircle
+                            onClick={handleNbcAdd}
+                            style={{ width: "1rem", height: "1rem" }}
+                          />
                         </div>
 
                         {/* -------- NBC Approval and File Upload Section --------- */}
@@ -2408,7 +2507,7 @@ export default function UpdateTransactions() {
                                 <Col sm={3}>
                                   <Form.Label style={{ paddingRight: "1rem" }}>
                                     {/* Strength of Contracts: */}
-                                   </Form.Label>
+                                  </Form.Label>
                                 </Col>
                                 <Col sm={3}></Col>
                               </Row>
@@ -2658,10 +2757,10 @@ export default function UpdateTransactions() {
                                 </Row>
                               </Form.Group>
                             </Col>
-                            </Col>
-                           {/* </Col> */}
+                          </Col>
+                          {/* </Col> */}
                         </Col>
-                      </Row> 
+                      </Row>
                     </Container1>
                   </Tab>
                   <Tab
@@ -2690,7 +2789,6 @@ export default function UpdateTransactions() {
 
                         {PartiesList}
                       </Row>
-
 
                       <Row className="py-1">
                         <Col sm={12}>
@@ -2736,16 +2834,10 @@ export default function UpdateTransactions() {
                                     name="parties_appointed"
                                   >
                                     <option value={null}></option>
-                                    <option
-                                      value={1}
-                                      name="parties_appointed"
-                                    >
+                                    <option value={1} name="parties_appointed">
                                       Yes
                                     </option>
-                                    <option
-                                      value={0}
-                                      name="parties_appointed"
-                                    >
+                                    <option value={0} name="parties_appointed">
                                       No
                                     </option>
                                   </Form.Select>
@@ -2782,7 +2874,7 @@ export default function UpdateTransactions() {
                                     style={{
                                       width: "50%",
                                       // height: "10px",
-                                      marginRight: "3px"
+                                      marginRight: "3px",
                                     }}
                                     size="sm"
                                     // defaultValue={mst.parties_status}
@@ -2792,19 +2884,28 @@ export default function UpdateTransactions() {
                                       handlePartyChange(e, index)
                                     }
                                   />
-                                  <button 
-                                    onClick={handlePartyRemove} 
+                                  <button
+                                    onClick={handlePartyRemove}
                                     className="mt-1"
-                                    style={{ height: "25px", width: "20%", border: "none", marginRight: "3px" }}
+                                    style={{
+                                      height: "25px",
+                                      width: "20%",
+                                      border: "none",
+                                      marginRight: "3px",
+                                    }}
                                   >
                                     <i className="">
                                       <FiDelete />
                                     </i>
                                   </button>
-                                  <button 
-                                    onClick={addNewParties} 
+                                  <button
+                                    onClick={addNewParties}
                                     className="mt-1"
-                                    style={{ height: "25px", width: "20%", border: "none" }}
+                                    style={{
+                                      height: "25px",
+                                      width: "20%",
+                                      border: "none",
+                                    }}
                                   >
                                     <i className="">
                                       <FiSave />
@@ -2817,7 +2918,10 @@ export default function UpdateTransactions() {
                         </Col>
                         <div className="d-flex justify-content-end ml-2">
                           <p className="">
-                            <GrAddCircle onClick={handlePartyAdd} style={{ width:"1rem", height:"1rem" }} />
+                            <GrAddCircle
+                              onClick={handlePartyAdd}
+                              style={{ width: "1rem", height: "1rem" }}
+                            />
                           </p>
                         </div>
                       </Row>
@@ -2831,23 +2935,23 @@ export default function UpdateTransactions() {
                     <Container1>
                       <br />
                       <Row className="py-1 d-flex justify-content-space-evenly">
-                        <Col  className="mt-1 mb-1">
+                        <Col className="mt-1 mb-1">
                           <p>Particulars</p>
                         </Col>
 
-                        <Col  className="mt-1 mb-1">
+                        <Col className="mt-1 mb-1">
                           <p>Concern</p>
                         </Col>
 
-                        <Col  className="mt-1 mb-1">
+                        <Col className="mt-1 mb-1">
                           <p>Weight (%)</p>
                         </Col>
 
-                        <Col  className="mt-1 mb-1">
+                        <Col className="mt-1 mb-1">
                           <p>Expected</p>
                         </Col>
 
-                        <Col  className="mt-1 mb-1">
+                        <Col className="mt-1 mb-1">
                           <p>Status</p>
                         </Col>
 
@@ -2865,9 +2969,7 @@ export default function UpdateTransactions() {
                                     size="sm"
                                     value={singleNote.plis}
                                     name="plis_particulars"
-                                    onChange={(e) =>
-                                      handlePlisChange(e, index)
-                                    }
+                                    onChange={(e) => handlePlisChange(e, index)}
                                   />
                                   <br />
                                 </div>
@@ -2880,28 +2982,17 @@ export default function UpdateTransactions() {
                                     type="text"
                                     size="sm"
                                     value={singleNote.plis}
-                                    onChange={(e) =>
-                                      handlePlisChange(e, index)
-                                    }
+                                    onChange={(e) => handlePlisChange(e, index)}
                                     name="plis_concern"
                                   >
                                     <option value=""></option>
-                                    <option
-                                      value="High"
-                                      name="plis_concern"
-                                    >
+                                    <option value="High" name="plis_concern">
                                       High
                                     </option>
-                                    <option
-                                      value="Medium"
-                                      name="plis_concern"
-                                    >
+                                    <option value="Medium" name="plis_concern">
                                       Medium
                                     </option>
-                                    <option
-                                      value="Low"
-                                      name="plis_concern"
-                                    >
+                                    <option value="Low" name="plis_concern">
                                       Low
                                     </option>
                                   </Form.Select>
@@ -2916,9 +3007,7 @@ export default function UpdateTransactions() {
                                     size="sm"
                                     value={singleNote.plis}
                                     name="plis_weighting"
-                                    onChange={(e) =>
-                                      handlePlisChange(e, index)
-                                    }
+                                    onChange={(e) => handlePlisChange(e, index)}
                                   />
                                 </div>
                               ))}
@@ -2931,9 +3020,7 @@ export default function UpdateTransactions() {
                                     size="sm"
                                     value={singleNote.plis}
                                     name="plis_expected"
-                                    onChange={(e) =>
-                                      handlePlisChange(e, index)
-                                    }
+                                    onChange={(e) => handlePlisChange(e, index)}
                                   />
                                 </div>
                               ))}
@@ -2946,28 +3033,35 @@ export default function UpdateTransactions() {
                                     style={{
                                       width: "50%",
                                       height: "10px",
-                                      marginRight: "3px"
+                                      marginRight: "3px",
                                     }}
                                     size="sm"
                                     value={singleNote.plis}
                                     name="plis_status"
-                                    onChange={(e) =>
-                                      handlePlisChange(e, index)
-                                    }
+                                    onChange={(e) => handlePlisChange(e, index)}
                                   />
                                   <button
                                     onClick={handlePlisRemove}
                                     className="mt-1"
-                                    style={{ height: "25px", width: "20%", border: "none", marginRight: "2px" }}
+                                    style={{
+                                      height: "25px",
+                                      width: "20%",
+                                      border: "none",
+                                      marginRight: "2px",
+                                    }}
                                   >
                                     <i className="">
                                       <FiDelete />
                                     </i>
                                   </button>
-                                  <button 
-                                    onClick={addNewPlis} 
+                                  <button
+                                    onClick={addNewPlis}
                                     className="mt-1"
-                                    style={{ height: "25px", width: "20%", border: "none" }}
+                                    style={{
+                                      height: "25px",
+                                      width: "20%",
+                                      border: "none",
+                                    }}
                                   >
                                     <i className="">
                                       <FiSave />
@@ -2995,27 +3089,27 @@ export default function UpdateTransactions() {
                     <Container1>
                       <br />
                       <Row className="py-1 d-flex justify-content-space-evenly">
-                        <Col  className="mt-1 mb-1">
+                        <Col className="mt-1 mb-1">
                           <p>Factors</p>
                         </Col>
 
-                        <Col  className="mt-1 mb-1">
+                        <Col className="mt-1 mb-1">
                           <p>Yes/No</p>
                         </Col>
 
-                        <Col  className="mt-1 mb-1">
+                        <Col className="mt-1 mb-1">
                           <p>Concern</p>
                         </Col>
 
-                        <Col  className="mt-1 mb-1">
+                        <Col className="mt-1 mb-1">
                           <p>Expected Date</p>
                         </Col>
 
-                        <Col  className="mt-1 mb-1">
+                        <Col className="mt-1 mb-1">
                           <p>Resp. Party</p>
                         </Col>
 
-                        <Col  className="mt-1 mb-1">
+                        <Col className="mt-1 mb-1">
                           <p>Status</p>
                         </Col>
 
@@ -3033,9 +3127,7 @@ export default function UpdateTransactions() {
                                     size="sm"
                                     value={singleNote.ocps}
                                     name="ocps_factors"
-                                    onChange={(e) =>
-                                      handleOcpsChange(e, index)
-                                    }
+                                    onChange={(e) => handleOcpsChange(e, index)}
                                   />
                                   <br />
                                 </div>
@@ -3049,22 +3141,14 @@ export default function UpdateTransactions() {
                                     type="text"
                                     size="sm"
                                     value={singleNote.ocps}
-                                    onChange={(e) =>
-                                      handleOcpsChange(e, index)
-                                    }
+                                    onChange={(e) => handleOcpsChange(e, index)}
                                     name="ocps_yes_no"
                                   >
                                     <option value={null}></option>
-                                    <option
-                                      value={1}
-                                      name="ocps_yes_no"
-                                    >
+                                    <option value={1} name="ocps_yes_no">
                                       Yes
                                     </option>
-                                    <option
-                                      value={0}
-                                      name="ocps_yes_no"
-                                    >
+                                    <option value={0} name="ocps_yes_no">
                                       No
                                     </option>
                                   </Form.Select>
@@ -3079,28 +3163,17 @@ export default function UpdateTransactions() {
                                     type="text"
                                     size="sm"
                                     value={singleNote.ocps}
-                                    onChange={(e) =>
-                                      handleOcpsChange(e, index)
-                                    }
+                                    onChange={(e) => handleOcpsChange(e, index)}
                                     name="ocps_concern"
                                   >
                                     <option value={null}></option>
-                                    <option
-                                      value="High"
-                                      name="ocps_concern"
-                                    >
+                                    <option value="High" name="ocps_concern">
                                       High
                                     </option>
-                                    <option
-                                      value="Medium"
-                                      name="ocps_concern"
-                                    >
+                                    <option value="Medium" name="ocps_concern">
                                       Medium
                                     </option>
-                                    <option
-                                      value="Low"
-                                      name="ocps_concern"
-                                    >
+                                    <option value="Low" name="ocps_concern">
                                       Low
                                     </option>
                                   </Form.Select>
@@ -3118,9 +3191,7 @@ export default function UpdateTransactions() {
                                     size="sm"
                                     value={singleNote.ocps}
                                     name="ocps_expected"
-                                    onChange={(e) =>
-                                      handleOcpsChange(e, index)
-                                    }
+                                    onChange={(e) => handleOcpsChange(e, index)}
                                   />
                                 </div>
                               ))}
@@ -3133,9 +3204,7 @@ export default function UpdateTransactions() {
                                     size="sm"
                                     value={singleNote.ocps}
                                     name="ocps_resp_party"
-                                    onChange={(e) =>
-                                      handleOcpsChange(e, index)
-                                    }
+                                    onChange={(e) => handleOcpsChange(e, index)}
                                   />
                                 </div>
                               ))}
@@ -3148,28 +3217,35 @@ export default function UpdateTransactions() {
                                     style={{
                                       width: "50%",
                                       height: "10px",
-                                      marginRight: "3px"
+                                      marginRight: "3px",
                                     }}
                                     size="sm"
                                     value={singleNote.ocps}
                                     name="ocps_status"
-                                    onChange={(e) =>
-                                      handleOcpsChange(e, index)
-                                    }
+                                    onChange={(e) => handleOcpsChange(e, index)}
                                   />
                                   <button
                                     onClick={handleOcpsRemove}
                                     className="mt-1"
-                                    style={{ height: "25px", width: "20%", border: "none", marginRight: "2px" }}
+                                    style={{
+                                      height: "25px",
+                                      width: "20%",
+                                      border: "none",
+                                      marginRight: "2px",
+                                    }}
                                   >
                                     <i className="">
                                       <FiDelete />
                                     </i>
                                   </button>
-                                  <button 
-                                    onClick={addNewOcps} 
+                                  <button
+                                    onClick={addNewOcps}
                                     className="mt-1"
-                                    style={{ height: "25px", width: "20%", border: "none" }}
+                                    style={{
+                                      height: "25px",
+                                      width: "20%",
+                                      border: "none",
+                                    }}
                                   >
                                     <i className="">
                                       <FiSave />
@@ -3196,27 +3272,27 @@ export default function UpdateTransactions() {
                     <Container1>
                       <br />
                       <Row className="py-1 d-flex justify-content-space-evenly">
-                        <Col  className="mt-1 mb-1">
+                        <Col className="mt-1 mb-1">
                           <p>Factors</p>
                         </Col>
 
-                        <Col  className="mt-1 mb-1">
+                        <Col className="mt-1 mb-1">
                           <p>Yes/No</p>
                         </Col>
 
-                        <Col  className="mt-1 mb-1">
+                        <Col className="mt-1 mb-1">
                           <p>Concern</p>
                         </Col>
 
-                        <Col  className="mt-1 mb-1">
+                        <Col className="mt-1 mb-1">
                           <p>Expected Date</p>
                         </Col>
 
-                        <Col  className="mt-1 mb-1">
+                        <Col className="mt-1 mb-1">
                           <p>Resp. Party</p>
                         </Col>
 
-                        <Col  className="mt-1 mb-1">
+                        <Col className="mt-1 mb-1">
                           <p>Status</p>
                         </Col>
 
@@ -3225,7 +3301,7 @@ export default function UpdateTransactions() {
 
                       <Row className="py-1">
                         <Col sm={12}>
-                          <Row className="d-flex justify-content-space-evenly" >
+                          <Row className="d-flex justify-content-space-evenly">
                             <Col className="mt-1 mb-1">
                               {kpi.map((singleNote, index) => (
                                 <div class="input-group mt-2">
@@ -3234,9 +3310,7 @@ export default function UpdateTransactions() {
                                     size="sm"
                                     value={singleNote.kpi}
                                     name="kpi_factors"
-                                    onChange={(e) =>
-                                      handleKpiChange(e, index)
-                                    }
+                                    onChange={(e) => handleKpiChange(e, index)}
                                   />
                                 </div>
                               ))}
@@ -3249,22 +3323,14 @@ export default function UpdateTransactions() {
                                     type="text"
                                     size="sm"
                                     value={singleNote.kpi}
-                                    onChange={(e) =>
-                                      handleKpiChange(e, index)
-                                    }
+                                    onChange={(e) => handleKpiChange(e, index)}
                                     name="kpi_yes_no"
                                   >
                                     <option value={null}></option>
-                                    <option
-                                      value={1}
-                                      name="kpi_yes_no"
-                                    >
+                                    <option value={1} name="kpi_yes_no">
                                       Yes
                                     </option>
-                                    <option
-                                      value={0}
-                                      name="kpi_yes_no"
-                                    >
+                                    <option value={0} name="kpi_yes_no">
                                       No
                                     </option>
                                   </Form.Select>
@@ -3280,28 +3346,17 @@ export default function UpdateTransactions() {
                                     type="text"
                                     size="sm"
                                     value={singleNote.kpi}
-                                    onChange={(e) =>
-                                      handleKpiChange(e, index)
-                                    }
+                                    onChange={(e) => handleKpiChange(e, index)}
                                     name="kpi_concern"
                                   >
                                     <option value={null}></option>
-                                    <option
-                                      value="High"
-                                      name="kpi_concern"
-                                    >
+                                    <option value="High" name="kpi_concern">
                                       High
                                     </option>
-                                    <option
-                                      value="Medium"
-                                      name="kpi_concern"
-                                    >
+                                    <option value="Medium" name="kpi_concern">
                                       Medium
                                     </option>
-                                    <option
-                                      value="Low"
-                                      name="kpi_concern"
-                                    >
+                                    <option value="Low" name="kpi_concern">
                                       Low
                                     </option>
                                   </Form.Select>
@@ -3320,9 +3375,7 @@ export default function UpdateTransactions() {
                                     size="sm"
                                     value={singleNote.kpi}
                                     name="kpi_expected"
-                                    onChange={(e) =>
-                                      handleKpiChange(e, index)
-                                    }
+                                    onChange={(e) => handleKpiChange(e, index)}
                                   />
                                 </div>
                               ))}
@@ -3335,9 +3388,7 @@ export default function UpdateTransactions() {
                                     size="sm"
                                     value={singleNote.kpi}
                                     name="kpi_resp_party"
-                                    onChange={(e) =>
-                                      handleKpiChange(e, index)
-                                    }
+                                    onChange={(e) => handleKpiChange(e, index)}
                                   />
                                 </div>
                               ))}
@@ -3347,28 +3398,39 @@ export default function UpdateTransactions() {
                                 <div class="input-group  mt-2">
                                   <Form.Control
                                     type="text"
-                                    style={{ width: "50%", height: "10px", marginRight: "3px" }}
+                                    style={{
+                                      width: "50%",
+                                      height: "10px",
+                                      marginRight: "3px",
+                                    }}
                                     size="sm"
                                     value={singleNote.kpi}
                                     name="kpi_status"
-                                    onChange={(e) =>
-                                      handleKpiChange(e, index)
-                                    }
+                                    onChange={(e) => handleKpiChange(e, index)}
                                   />
 
                                   <button
                                     onClick={handleKpiRemove}
                                     className="mt-1"
-                                    style={{ height: "25px", width: "20%", border: "none", marginRight: "2px" }}
+                                    style={{
+                                      height: "25px",
+                                      width: "20%",
+                                      border: "none",
+                                      marginRight: "2px",
+                                    }}
                                   >
                                     <i className="">
                                       <FiDelete />
                                     </i>
                                   </button>
-                                  <button 
-                                    onClick={addNewKpis} 
+                                  <button
+                                    onClick={addNewKpis}
                                     className="mt-1"
-                                    style={{ height: "25px", width: "20%", border: "none" }}
+                                    style={{
+                                      height: "25px",
+                                      width: "20%",
+                                      border: "none",
+                                    }}
                                   >
                                     <i className="">
                                       <FiSave />
@@ -3381,8 +3443,8 @@ export default function UpdateTransactions() {
                         </Col>
                         <div className="d-flex justify-content-end ml-2">
                           <p className="">
-                              <GrAddCircle onClick={handleKpiAdd} />
-                            </p>
+                            <GrAddCircle onClick={handleKpiAdd} />
+                          </p>
                         </div>
                       </Row>
                     </Container1>
@@ -3420,6 +3482,18 @@ export default function UpdateTransactions() {
                 </Tabs>
               </div>
 
+              <div 
+                className="d-flex justify-content-end"
+                style={{ fontSize: '13px', marginRight: '30px'}}
+              >
+                {message === 'Failed to update deal' ? (
+                  <p class="text-danger">{message}</p>
+                ) : (
+                  <p class="text-success">{message}</p>
+                )}
+
+              </div>
+
               <div className="d-flex justify-content-end">
                 <ButtonWrapper
                   style={{ backgroundColor: "grey", color: "white" }}
@@ -3427,8 +3501,6 @@ export default function UpdateTransactions() {
                 >
                   Back
                 </ButtonWrapper>
-
-                <p class="text-danger">{message}</p>
 
                 <ButtonWrapper
                   type="submit"
@@ -3438,35 +3510,45 @@ export default function UpdateTransactions() {
                   Update
                 </ButtonWrapper>
               </div>
-                    <Row>
-                            {/* <Col sm={2}  className='mt-3 pt-2'> */}
-                            <Form.Label className="pt-1"> </Form.Label>
-                            {/* </Col> */}
-                        
-                            <Col sm={12} style={{fontSize: "4em", alignContent: "centre"}}>
-                             
-                              <Form.Check
-                                style={deal[0].closed === true ? {visibility:"visible"} : {visibility:"hidden"}}
-                                inline
-                                label="Activate Deal"
-                                type="radio"
-                                value={false}
-                                defaultChecked={deal[0].closed === false}
-                                name="closed"
-                                onChange={(e) => setisClosed(e.target.value)}
-                              />
-                              <Form.Check
-                                inline
-                                style={deal[0].closed === false ? {visibility:"visible"} : {visibility:"hidden"}}
-                                label="Close Deal"
-                                type="radio"
-                                value={true}
-                                defaultChecked={deal[0].closed === true}
-                                name="closed"
-                                onChange={(e) => setisClosed(e.target.value)}
-                              />
-                            </Col>
-                    </Row>
+              <Row>
+                {/* <Col sm={2}  className='mt-3 pt-2'> */}
+                <Form.Label className="pt-1"> </Form.Label>
+                {/* </Col> */}
+
+                <Col
+                  sm={12}
+                  style={{ fontSize: "4em", alignContent: "centre" }}
+                >
+                  <Form.Check
+                    style={
+                      deal[0].closed === true
+                        ? { visibility: "visible" }
+                        : { visibility: "hidden" }
+                    }
+                    inline
+                    label="Activate Deal"
+                    type="radio"
+                    value={false}
+                    defaultChecked={deal[0].closed === false}
+                    name="closed"
+                    onChange={(e) => setisClosed(e.target.value)}
+                  />
+                  <Form.Check
+                    inline
+                    style={
+                      deal[0].closed === false
+                        ? { visibility: "visible" }
+                        : { visibility: "hidden" }
+                    }
+                    label="Close Deal"
+                    type="radio"
+                    value={true}
+                    defaultChecked={deal[0].closed === true}
+                    name="closed"
+                    onChange={(e) => setisClosed(e.target.value)}
+                  />
+                </Col>
+              </Row>
             </Form>
           ) : (
             <div>

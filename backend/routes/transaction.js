@@ -39,7 +39,7 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
             amberD, amberE, redA, redB, redC, redD, redE, structuringFeeAmount, structuringFeeAdvance, structuringFeeFinal, guaranteeFee, notes, closed, monitoringFee, reimbursible,
             nbcFocus,  parties, plis,
             ocps,
-            kpi
+            kpi, ccSubmissionDate
             
         } = req.body;
 
@@ -60,7 +60,8 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
             new_transaction.greenE, new_transaction.greenF, new_transaction.amberA,
             new_transaction.amberB, new_transaction.amberC, new_transaction.amberD,
             new_transaction.amberE, new_transaction.product), req.user.Email, new_transaction.transactionLegalLead,
-        new_transaction.notes, new_transaction.closed, new_transaction.monitoringFee, new_transaction.reimbursible
+        new_transaction.notes, new_transaction.closed, new_transaction.monitoringFee, new_transaction.reimbursible,
+        new_transaction.ccSubmissionDate
         ]
 
         // 
@@ -73,8 +74,8 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
                     mandateLetter, creditApproval, feeLetter, expectedClose, actualClose,  NBC_approval_date, NBC_submitted_date,
                     greenA, greenB, greenC, greenD, greenE, greenF, amberA,  amberB, amberC, 
                     amberD, amberE, redA, redB, redC, redD, redE, structuringFeeAmount,structuringFeeAdvance,
-                    structuringFeeFinal, guaranteeFee, deal_category, record_entry, transactionLegalLead, notes, closed, monitoringFee, reimbursible
-                  ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38, $39, $40, $41, $42, $43, $44, $45, $46)   
+                    structuringFeeFinal, guaranteeFee, deal_category, record_entry, transactionLegalLead, notes, closed, monitoringFee, reimbursible, ccSubmissionDate
+                  ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38, $39, $40, $41, $42, $43, $44, $45, $46, $47)   
         ON CONFLICT(clientName,originator,transactor,transactionLegalLead,industry, product,region,dealSize,tenor,moratorium,repaymentFrequency,amortizationStyle,mandateLetter,creditApproval,feeLetter,expectedClose,actualClose) DO NOTHING
         RETURNING *`
 
@@ -479,7 +480,7 @@ router.put('/update/:dealID', verifyTokenAndAuthorization, async (req, res) => {
     try {
         const updated_rec = { clientName, originator, transactor, industry, product,region, dealSize, coupon, tenor, moratorium, repaymentFrequency, amortizationStyle,
             mandateLetter, creditApproval, feeLetter, expectedClose, actualClose, NBC_approval_date, NBC_submitted_date, greenA, greenB, greenC, greenD, greenE, greenF, amberA,  amberB, amberC, 
-            amberD, amberE, redA, redB, redC, redD, redE, structuringFeeAmount,structuringFeeAdvance,  structuringFeeFinal, guaranteeFee, transactionLegalLead, notes, closed, monitoringFee, reimbursible,
+            amberD, amberE, redA, redB, redC, redD, redE, structuringFeeAmount,structuringFeeAdvance,  structuringFeeFinal, guaranteeFee, transactionLegalLead, notes, closed, monitoringFee, reimbursible, ccSubmissionDate,
 
             nbcFocus,parties, plis, ocps, kpi
 
@@ -491,7 +492,7 @@ router.put('/update/:dealID', verifyTokenAndAuthorization, async (req, res) => {
                             updated_rec.amberB, updated_rec.amberC, updated_rec.amberD, updated_rec.amberE, updated_rec.redA, updated_rec.redB, updated_rec.redC, updated_rec.redD, updated_rec.redE, 
                             updated_rec.structuringFeeAmount, updated_rec.structuringFeeAdvance, updated_rec.structuringFeeFinal, req.params.dealID, req.user.Email,  funcDealCategory(updated_rec.greenA, updated_rec.greenB, updated_rec.greenC, updated_rec.greenD,
                             updated_rec.greenE, updated_rec.greenF, updated_rec.amberA, updated_rec.amberB, updated_rec.amberC, updated_rec.amberD, updated_rec.amberE, updated_rec.product), updated_rec.transactionLegalLead, 
-                            updated_rec.notes, updated_rec.closed, updated_rec.guaranteeFee, updated_rec.NBC_approval_date, updated_rec.NBC_submitted_date, updated_rec.monitoringFee, updated_rec.reimbursible
+                            updated_rec.notes, updated_rec.closed, updated_rec.guaranteeFee, updated_rec.NBC_approval_date, updated_rec.NBC_submitted_date, updated_rec.monitoringFee, updated_rec.reimbursible, updated_rec.ccSubmissionDate
                         ]
         await client.query('BEGIN')
 
@@ -503,7 +504,7 @@ router.put('/update/:dealID', verifyTokenAndAuthorization, async (req, res) => {
             greenA = $18, greenB = $19, greenC = $20, greenD = $21, greenE = $22, greenF = $23, amberA = $24,  amberB = $25, amberC = $26, 
             amberD = $27, amberE = $28, redA = $29, redB = $30, redC = $31, redD = $32 , redE = $33, structuringFeeAmount = $34,
             structuringFeeAdvance = $35,  structuringFeeFinal = $36, record_entry = $38, deal_category = $39, transactionLegalLead = $40, notes = $41, 
-            closed = $42, guaranteeFee = $43, nbc_approval_date = $44, nbc_submitted_date = $45, monitoringFee = $46, reimbursible = $47
+            closed = $42, guaranteeFee = $43, nbc_approval_date = $44, nbc_submitted_date = $45, monitoringFee = $46, reimbursible = $47, ccSubmissionDate = $48
             WHERE transID = $37
         RETURNING *`
         const res_ = await client.query(update_db, updated) 

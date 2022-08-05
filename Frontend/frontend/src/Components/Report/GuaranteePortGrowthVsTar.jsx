@@ -2,17 +2,8 @@ import React,{useState} from "react";
 import { Col, Container, Row, Stack, Table } from "react-bootstrap";
 import {
   BarChart,
-  Bar,
-  Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
+  Bar
 } from "recharts";
-import GeneralPie from "./GeneralPie";
-import Editable from "react-editable-title";
 
 
 export default function GuaranteePortGrowthVsTar() {
@@ -71,15 +62,12 @@ export default function GuaranteePortGrowthVsTar() {
       <Container fluid>
         <div>
           <Stack>
-            <p style={{ fontWeight: "bold" }}>
+            <p style={{ fontWeight: "bold" }} className=' mt-1 pt-2'>
               Guarantee Portfolio Growth Vs. Target
             </p>
           </Stack>
         </div>
-
         <div>
-        
-
         </div>
         <div>
           <br />
@@ -161,7 +149,6 @@ export default function GuaranteePortGrowthVsTar() {
           </Row>
         </div>
       </Container>
-      <GeneralPie/>
     </React.Fragment>
   );
 }
