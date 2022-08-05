@@ -44,9 +44,6 @@ const Parties = ((props) => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    console.log(props.id, props.transid, partiesRole, partiesParty, partiesAppointed, partiesStatus);
-
-
     props.editParties(props.id, props.transid, partiesRole, partiesParty, partiesAppointed, partiesStatus);
     setpartiesRole(null);
     setpartiesParty(null);

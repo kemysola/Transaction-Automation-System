@@ -659,11 +659,13 @@ export default function UpdateTransactions() {
     Service.updateNBCFocus(id, data)
       .then((res) => {
         setNbcChanged("success");
+        setNbcFocus([]);
       })
       .catch(() => {
-        console.log("an error occured");
-      });
-  };
+        console.log("an error occured")
+      })
+
+  }
 
   // *************************************** Edit Transaction Parties Function ***************************** *************
 
@@ -740,6 +742,7 @@ export default function UpdateTransactions() {
     Service.updateParties(id, data)
       .then((res) => {
         setPartiesChanged("success");
+        setParties([]);
       })
       .catch(() => {
         console.log("an error occured");
@@ -823,7 +826,8 @@ export default function UpdateTransactions() {
 
     Service.updatePlis(id, data)
       .then((res) => {
-        setPartiesChanged("success");
+        setPlisChanged("success");
+        setPlis([]);
       })
       .catch(() => {
         console.log("an error occured");
@@ -912,6 +916,7 @@ export default function UpdateTransactions() {
     Service.updateOcps(id, data)
       .then((res) => {
         setOcpsChanged("success");
+        setOcps([]);
       })
       .catch(() => {
         console.log("an error occured");
@@ -997,11 +1002,10 @@ export default function UpdateTransactions() {
       kpi_status: kpi[0].kpi_status,
     };
 
-    console.log("kpi", data);
-
     Service.updateKpis(id, data)
       .then((res) => {
         setKpiChanged("success");
+        setKpi([]);
       })
       .catch(() => {
         console.log("an error occured");
