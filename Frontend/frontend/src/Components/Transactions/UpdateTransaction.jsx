@@ -461,8 +461,8 @@ export default function UpdateTransactions() {
     // function to get deal by id from the database
     const data = await axios
       .get(
-        //  `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}`,
-        `http://localhost:5001/api/v1/transaction/item/${id}`,
+         `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}`,
+        // `http://localhost:5001/api/v1/transaction/item/${id}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
@@ -659,35 +659,12 @@ export default function UpdateTransactions() {
     Service.updateNBCFocus(id, data)
       .then((res) => {
         setNbcChanged("success");
+        setNbcFocus([]);
       })
       .catch(() => {
         console.log("an error occured")
       })
 
-    setNbcFocus([]);
-    console.log("nbc here:", nbcFocus)
-
-    // setNbcFocus([
-    //   ...nbcFocus,
-    //   {
-    //     nbc_focus_original: "",
-    //     nbc_focus_original_yes_no: 0,
-    //     nbc_focus_original_date: null,
-    //     nbc_focus_original_methodology: "",
-    //     nbc_focus_apprv_1_b: "",
-    //     nbc_focus_apprv_1_c: null,
-    //     nbc_focus_apprv_2_b: "",
-    //     nbc_focus_apprv_2_c: null,
-    //     nbc_focus_apprv_3_b: "",
-    //     nbc_focus_apprv_3_c: null,
-    //     nbc_focus_apprv_4_b: "",
-    //     nbc_focus_apprv_4_c: null,
-    //     nbc_focus_apprv_5_b: "",
-    //     nbc_focus_apprv_5_c: null
-    //   }
-    // ]);
-
-    console.log("all things should be clear");
   }
 
   // *************************************** Edit Transaction Parties Function ***************************** *************
@@ -765,6 +742,7 @@ export default function UpdateTransactions() {
     Service.updateParties(id, data)
       .then((res) => {
         setPartiesChanged("success");
+        setParties([]);
       })
       .catch(() => {
         console.log("an error occured");
@@ -848,7 +826,8 @@ export default function UpdateTransactions() {
 
     Service.updatePlis(id, data)
       .then((res) => {
-        setPartiesChanged("success");
+        setPlisChanged("success");
+        setPlis([]);
       })
       .catch(() => {
         console.log("an error occured");
@@ -937,6 +916,7 @@ export default function UpdateTransactions() {
     Service.updateOcps(id, data)
       .then((res) => {
         setOcpsChanged("success");
+        setOcps([]);
       })
       .catch(() => {
         console.log("an error occured");
@@ -1022,11 +1002,10 @@ export default function UpdateTransactions() {
       kpi_status: kpi[0].kpi_status,
     };
 
-    console.log("kpi", data);
-
     Service.updateKpis(id, data)
       .then((res) => {
         setKpiChanged("success");
+        setKpi([]);
       })
       .catch(() => {
         console.log("an error occured");
