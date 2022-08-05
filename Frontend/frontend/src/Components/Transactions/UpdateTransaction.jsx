@@ -393,8 +393,8 @@ export default function UpdateTransactions() {
     // function to get deal by id from the database
     const data = await axios
       .get(
-         `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}`,
-        // `http://localhost:5001/api/v1/transaction/item/${id}`,
+        //  `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}`,
+        `http://localhost:5001/api/v1/transaction/item/${id}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
@@ -597,6 +597,31 @@ export default function UpdateTransactions() {
       .catch(() => {
         console.log("an error occured")
       })
+
+    setNbcFocus([]);
+    console.log("nbc here:", nbcFocus)
+
+    // setNbcFocus([
+    //   ...nbcFocus,
+    //   {
+    //     nbc_focus_original: "",
+    //     nbc_focus_original_yes_no: 0,
+    //     nbc_focus_original_date: null,
+    //     nbc_focus_original_methodology: "",
+    //     nbc_focus_apprv_1_b: "",
+    //     nbc_focus_apprv_1_c: null,
+    //     nbc_focus_apprv_2_b: "",
+    //     nbc_focus_apprv_2_c: null,
+    //     nbc_focus_apprv_3_b: "",
+    //     nbc_focus_apprv_3_c: null,
+    //     nbc_focus_apprv_4_b: "",
+    //     nbc_focus_apprv_4_c: null,
+    //     nbc_focus_apprv_5_b: "",
+    //     nbc_focus_apprv_5_c: null
+    //   }
+    // ]);
+
+    console.log("all things should be clear");
   }
 
   // *************************************** Edit Transaction Parties Function ***************************** *************
