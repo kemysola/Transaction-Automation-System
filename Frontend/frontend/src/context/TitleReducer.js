@@ -1,4 +1,4 @@
-import { ADD_TITLE } from "./Types";
+import { ADD_TITLE,ADD_Guarantees } from "./Types";
 
 const TitleReducer = (state, action) => {
   switch (action.type) {
@@ -8,6 +8,12 @@ const TitleReducer = (state, action) => {
         ...state,
         cartTitle: [action.payload],
       };
+    }
+    case ADD_Guarantees:{
+      return{
+        ...state,
+        guaranteeStore:[action.payload],
+      }
     }
     
 
