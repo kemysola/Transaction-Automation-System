@@ -1,5 +1,6 @@
 import React from "react";
 import { Stack, Container ,Table} from "react-bootstrap";
+import TransactionChart from "./TransactionChart";
 
 export default function StructuringExecution() {
   return (
@@ -107,54 +108,7 @@ Letters:
      </Container>
 
      <Container>
-     <Table striped bordered hover className="my-3 py-1">
-  <thead style={{fontSize:'12px'}}>
-    <tr>
-    <th>S/n</th>
-         <th  > Infrastructure Entity </th>
-         <th>Infrastructure Activity/Industry </th>
-         <th>Transaction Description  </th>
-         <th> Deal Size</th>
-         <th> State/ Region</th>
-         <th> Status</th>
-         <th> Expected Closing Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-    <td>1</td>
-         <td>N31.5 billion</td>
-         <td> N123.9 billion</td>
-         <td>N62.5 billion</td>
-         <td>N43.9 billion</td>
-         <td>N93.0 billion</td>
-         <td>N62.5 billion</td>
-         <td>N43.9 billion</td>
-    </tr>
-    <tr>
-    <td>2</td>
-         <td>N43.5 billion</td>
-         <td>N203.5 billion</td>
-         <td>N70.6 billion</td>
-         <td>N93.0 billion</td>
-         <td>N93.0 billion</td>
-         <td>N62.5 billion</td>
-         <td>N43.9 billion</td>
-    </tr>
-    <tr>
-    <td>3</td>
-         <td>N77.6 billion</td>
-         <td>N 311.5 billion</td>
-         <td>N 311.5 billion</td>
-         <td>N191.4 billion</td>
-         <td>N93.0 billion</td>
-         <td>N62.5 billion</td>
-         <td>N43.9 billion</td>
-        
-    </tr>
-   
-  </tbody>
-</Table>
+   <TransactionChart/>
      </Container>
     </React.Fragment>
   );

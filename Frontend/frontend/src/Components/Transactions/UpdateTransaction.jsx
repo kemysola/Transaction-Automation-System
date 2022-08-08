@@ -13,6 +13,8 @@ import TransactionPartiesMode from "./TransactionPartiesMode";
 import PlisMode from "./PlisMode";
 import OcpsMode from "./OcpsMode";
 import KpisMode from "./KpisMode";
+import { useForm, Controller, useFieldArray } from "react-hook-form";
+
 
 const ButtonWrapper = styled.button`
   color: white;
@@ -48,6 +50,28 @@ const PWrapper = styled.p`
 `;
 
 export default function UpdateTransactions() {
+  const {
+    register,
+    formState: {
+      errors,
+      isDirty,
+      dirtyFields,
+      isSubmitting,
+      touchedFields,
+      submitCount,
+    },
+    control,
+    handleSubmit,
+    setFocus,
+    reset,
+    watch,
+    getValues,
+  } = useForm({
+    defaultValues: {
+      test: [{note:""}]
+    }
+    })
+
   // form ref values
   const clientName = useRef("");
   const originator = useRef("");
@@ -1292,6 +1316,9 @@ export default function UpdateTransactions() {
                               </button>
                               {noteList.map((singleNote, index) => (
                                 <div class="input-group">
+                                  {/* <input defaultValue={singleNote}  value={singleNote.note} name='note'/> */}
+
+
                                   <Form.Control
                                     style={{ margin: "0.8em", width: "60%" }}
                                     size="sm"
@@ -1322,8 +1349,6 @@ export default function UpdateTransactions() {
                           </Col>
                         </Row>
                         <br />
-                        {/* <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next </button> */}
-                        {/* <button onClick={e => goToLastPage(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>{'>>'}</button> */}
                       </Container>
                     </Container1>
                   </Tab>
