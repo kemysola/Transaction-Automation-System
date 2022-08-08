@@ -13,6 +13,9 @@ function GuaranteePipeline() {
   const [currentForecast, setCurrentForecast] = useState([])
   const [nextForecast, setNextForecast] = useState("")
 
+  const year = new Date().getFullYear();
+  const nextYear = new Date().getFullYear() + 1;
+
   // ******************************************  use Effect Hook : Component Did mount and update ***********************
 
   useEffect(() => {
@@ -245,7 +248,7 @@ function GuaranteePipeline() {
               >
                 TARGET
               </small>
-              <small  style={{ fontSize: "10px", color: "black"}}>1.5x target of 2022 -2023 </small>
+              <small  style={{ fontSize: "10px", color: "black"}}>1.5x target of {year} - {nextYear} </small>
 
             </Stack>
           </Col>

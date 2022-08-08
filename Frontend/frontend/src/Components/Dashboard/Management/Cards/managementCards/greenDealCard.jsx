@@ -10,6 +10,7 @@ function GreenDealCard() {
   const [industry, setIndustry] = useState([]);
 
   const [currentForecast, setCurrentForecast] = useState([])
+  const year = new Date().getFullYear();
 
   useEffect(() => {
     retrieveForecast();
@@ -223,7 +224,7 @@ function GreenDealCard() {
                 <br/>
                 TARGET
               </small>
-              <small  style={{ fontSize: "10px", color: "black"}}>1.5x target of 2022 </small>
+              <small  style={{ fontSize: "10px", color: "black"}}>70% of Green and Amber Deals {year}  </small>
             </Stack>
           </Col>
           <Col sm={4}>

@@ -9,7 +9,7 @@ export default function LandingReport() {
               <br/>
               Report
           </div>
-          <Div>31 December 2021</Div>
+          {/* <Div>31 December 2021</Div> */}
 
       </React.Fragment>
   )
