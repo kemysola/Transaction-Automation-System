@@ -345,7 +345,7 @@ router.get('/get_staff_deals/:email', verifyTokenAndAuthorization, async (req, r
 });
 
 /*Fetch all Deals(Priviledged Users only) */
-router.get('/all_deals', verifyTokenAndAdmin, async (req, res) => {
+router.get('/all_deals', verifyTokenAndAuthorization, async (req, res) => {
     const client = await pool.connect();
 
     try {
@@ -408,7 +408,7 @@ router.get('/all_deals/portfolio', verifyTokenAndAdmin, async (req, res) => {
 //**************************************** Download endpoint for origination dashboard */
 
 // create an endpoint to download deals by indidvidual staff on the origination dashboard
-router.get('/download_all_deals', verifyTokenAndAdmin, async (req, res) => {
+router.get('/download_all_deals', verifyTokenAndAuthorization, async (req, res) => {
     const client = await pool.connect();
 
     try {

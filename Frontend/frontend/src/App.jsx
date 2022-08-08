@@ -84,19 +84,19 @@ export default function App() {
           <TransactionView />
         </Route>
 
-        {/* <Route exact path="/all_deals">
-          <AllDeals />
-        </Route> */}
-
         <Route path="/create_transaction">
           <NewTransactionPage/>
         </Route>
         
-
         <Route path="/update_transactions">
           <UpdateTransaction />
         </Route>
-        
+
+        <Route path="/dashboard"> <MgtView /> </Route>
+        <Route path="/org_dashboard"> <Origination /> </Route>
+        <Route path="/staff_transaction_report"> <SingleView /> </Route>
+        <Route path="/execution"> <Execution /> </Route>
+
         <Route exact path="/landing" component={Landing} />
         <ProtectedRoute exact path="/create_user" component={StaffView}/>
         <ProtectedRoute exact path="/all_users" component={AllStaff} />
@@ -105,18 +105,15 @@ export default function App() {
         <ProtectedRoute exact path="/all_transactions_portfolio" component={PortfolioAllDeals} />
         <ProtectedRoute exact path="/all_transactions" component={AllDeals} />
         {/* <ProtectedRoute exact path="staffview" component={AllStaff }/> */}
-        <ProtectedRoute exact path="/dashboard" component={MgtView}/>
-        <ProtectedRoute exact path="/org_dashboard" component={Origination} />
-        <ProtectedRoute exact path="/execution" component={Execution} />
-        <ProtectedRoute exact path="/staff_transaction_report" component={SingleView} />
+        {/* <ProtectedRoute exact path="/dashboard" component={MgtView}/> */}
+        {/* <ProtectedRoute exact path="/org_dashboard" component={Origination} /> */}
+        {/* <ProtectedRoute exact path="/execution" component={Execution} /> */}
+        {/* <ProtectedRoute exact path="/staff_transaction_report" component={SingleView} /> */}
         <ProtectedRoute exact path="/update_users" component={Updates} />
         <ProtectedRoute exact path="/annual_and_quarterly_report_page" component={Report} />
 
         <ProtectedRoute exact path="/settings" component={Settings} />
         
-        {/* <Route path="/verify">
-          <Verify />
-        </Route> */}
         <Route path="/resetyourpassword">
           <Reset />
         </Route>

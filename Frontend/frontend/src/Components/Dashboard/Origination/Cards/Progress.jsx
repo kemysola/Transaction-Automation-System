@@ -68,7 +68,7 @@ export default function Progress() {
   };
 
   var targetValue = target.reduce(function (tot, arr) {
-    return tot + parseFloat(arr.guaranteepipeline);
+    return tot + parseFloat(arr.originationamount);
   }, 0);
 
   let option1 = data.reduce(function (filtered, arr) {

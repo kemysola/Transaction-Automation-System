@@ -309,7 +309,7 @@ router.post('/forgotPassword', async (req, res) => {
 });
 
 /*Fetch all Staffs(Priviledged Users only) */
-router.get('/all_staff', verifyTokenAndAdmin, async (req, res) => {
+router.get('/all_staff', verifyTokenAndAuthorization, async (req, res) => {
   const client = await pool.connect();
 
   try {
@@ -335,7 +335,7 @@ router.get('/all_staff', verifyTokenAndAdmin, async (req, res) => {
 
 
 /*Fetch Staff by mail - priviledged users*/
-router.get('/:user_email',verifyTokenAndAdmin, async (req, res) => {
+router.get('/:user_email',verifyTokenAndAuthorization, async (req, res) => {
   const client = await pool.connect();
 
   try {
