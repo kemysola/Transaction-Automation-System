@@ -94,7 +94,6 @@ export default function TransactionChart(props) { // ***************************
     const retrieveDeals = async() => {
       await Services.getAllDeals()
         .then((response) => {
-          console.log(response.data.deals)
           setDeals(response.data.deals);
         })
         .catch((e) => {
@@ -129,10 +128,7 @@ export default function TransactionChart(props) { // ***************************
         Header: "Infrastructure Activity /Industry",
         accessor: "industry",
       },
-      // {
-      //   Header: "Notes",
-      //   accessor: "notes",
-      // },
+      
       {
         Header: "Deal Size",
         accessor: "dealsize",
@@ -194,14 +190,6 @@ export default function TransactionChart(props) { // ***************************
     headerGroups,
     prepareRow,
     page,
-    canPreviousPage,
-    canNextPage,
-    pageOptions, pageCount, gotoPage,
-    nextPage, previousPage, setPageSize,
-    state: { pageIndex, pageSize },
-    state,
-    setGlobalFilter,
-    preGlobalFilteredRows,
   } = useTable(
     {
       columns,
