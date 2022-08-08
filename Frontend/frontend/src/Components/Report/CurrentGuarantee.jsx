@@ -15,9 +15,12 @@ export default function CurrentGuarantee() {
   const handleTextUpdate = (current) => {
     addTitle(current);
   };
-  const { addTitle, cartTitle } = useContext(TitleContext);
+  const handleTextUpdates = (current) => {
+    addGuarantees(current);
+  };
+  const { addTitle, cartTitle,guaranteeStore,addGuarantees } = useContext(TitleContext);
 
-  console.log(cartTitle);
+  console.log(guaranteeStore)
 
   // ******************************************  static data shared  ****************************************
 
@@ -113,12 +116,28 @@ export default function CurrentGuarantee() {
             cb={handleTextUpdate}
           />
         </p>
+        
         <div className='pt-1'>
-        Gross guarantee fee income is based on total guarantee guarantees issued since inception of 77 6
-        Billion through 31 December 2021 In FY 2021 a total of N 34 1 in guarantee transactions have reached 
-        financial close The pipeline of active mandates comprises
+        <p
+          style={{
+            fontWeight: "",
+            marginLeft: "",
+          }}
+        >
+          <Editable
+            text={guaranteeStore}
+            editButtonStyle={{ lineHeight: "unset" }}
+            editButton
+            editControlButtons
+            editControls
+            placeholder="Type here"
+
+            cb={handleTextUpdates}
+          />
+        </p>
         </div>
       </Container>
+      
       <Container fluid>
         <Row className="mt-1">
           <Col sm={6}>
