@@ -405,6 +405,39 @@ router.get('/all_deals/portfolio', verifyTokenAndAdmin, async (req, res) => {
       }
 });
 
+/*Fetch Pipeline */
+router.get('/pipeline', verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+        // const deal_record_id = req.params.deal;
+        const current_user = req.user
+
+        const my_pipeline = await client.query(
+            `SELECT a.*
+        
+            FROM TB_INFRCR_TRANSACTION a
+            WHERE a.originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
+            OR a.transactor = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
+            AND a.closed = false
+            `
+            ,
+            [current_user.Email]);
+        if (my_pipeline) { 
+            res.status(200).send({
+                status: (res.statusCode = 200),
+                deals: my_pipeline.rows
+            })
+        }
+
+    } catch (e) {
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+
+});
+
 //**************************************** Download endpoint for origination dashboard */
 
 // create an endpoint to download deals by indidvidual staff on the origination dashboard
