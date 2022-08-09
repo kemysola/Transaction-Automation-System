@@ -1,7 +1,29 @@
 import React from "react";
-import { Stack, Container, Row, Col, Table } from "react-bootstrap";
+import { Stack, Container,Table } from "react-bootstrap";
+import { useForm, useFieldArray, Controller, useWatch } from "react-hook-form";
+import {CgAdd} from 'react-icons/cg'
+import {GrPowerReset} from'react-icons/gr'
+import {MdDeleteSweep} from 'react-icons/md'
+import {IoIosSave} from 'react-icons/io'
 
 export default function OriginationActivity() {
+  const { register, control, handleSubmit, reset, watch } = useForm({
+    defaultValues: {
+      test: [{ nbclist: "Received six (6) NBC approvals for prospects: Accugas, Solad, GVE Projects, ACOB Lighting,Greenville and LFZC." }]
+    }
+  });
+  const {
+    fields,
+    append,
+   
+    remove,
+   
+  } = useFieldArray({
+    control,
+    name: "test"
+  });
+  const onSubmit = (data) => console.log("data", data);
+
   return (
     <React.Fragment>
       <Container>
@@ -14,15 +36,54 @@ export default function OriginationActivity() {
           <p style={{ fontWeight: "bold" }}>
             NBC Submissions and Mandate Status – Q4 2021 Update
           </p>
-          <li>Executed seven (7) new mandates: Urban Shelter, Accugas, ACOB Lighting, GVE, LFZC, Greenville and Falcon.</li>
+
+          {/* <li>Executed seven (7) new mandates: Urban Shelter, Accugas, ACOB Lighting, GVE, LFZC, Greenville and Falcon.</li>
           <li>Received six (6) NBC
           approvals for prospects: Accugas, Solad, GVE Projects, ACOB Lighting,
           Greenville and LFZC.
             </li>  
             <li>The following table summarises all Q4 2021
-          submissions to NBC:</li> 
+          submissions to NBC:</li>  */}
+           <form onSubmit={handleSubmit(onSubmit)}>
+      <ul>
+        {fields.map((item, index) => {
+          return (
+            <li key={item.id}>
+              <input {...register(`test.${index}.nbclist`)} style={{border:'none',color:'inherit', width:'80%'}} />
+
+              {/* <Controller
+                render={({ field }) => <input {...field} />}
+                name={`test.${index}.lastName`}
+                control={control}
+              /> */}
+              <button type="button" onClick={() => remove(index)} style={{border:'1px solid white',height:'33px',background:'black',color:'white'}}>
+                <MdDeleteSweep/>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+      <section>
+        <button
+          type="button"
+          onClick={() => {
+            append({ nbclist: ""});
+          }}
+          style={{border:'1px solid white',height:'33px',background:'black',color:'white'}}
+        >
+          <CgAdd/>
+        </button>
+        
+        <button type="submit">
+        <IoIosSave/>
+        </button>
+       
+      </section>
+
+    </form>
           {/* table * sn    */}
           <Table striped bordered hover className="my-3 py-1">
+            
   <thead style={{fontSize:'12px'}}>
     <tr>
     <th>S/n</th>
@@ -34,8 +95,10 @@ export default function OriginationActivity() {
     </tr>
   </thead>
   <tbody>
+    
     <tr>
     <td>1</td>
+    
          <td>N31.5 billion</td>
          <td> N123.9 billion</td>
          <td>N62.5 billion</td>
@@ -62,7 +125,9 @@ export default function OriginationActivity() {
   </tbody>
 </Table>
 
+
 <li>Recent leads under review which may proceed to NBC in the near future include:</li>
+
 <Table striped bordered hover className="my-3 py-1">
   <thead style={{fontSize:'12px'}}>
     <tr>
