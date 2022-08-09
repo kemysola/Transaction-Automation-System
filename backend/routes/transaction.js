@@ -417,9 +417,9 @@ router.get('/pipeline', verifyTokenAndAuthorization, async (req, res) => {
             `SELECT a.*
         
             FROM TB_INFRCR_TRANSACTION a
-            WHERE a.originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
-            OR a.transactor = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
-            AND a.closed = false
+            WHERE a.closed = false
+            AND (a.originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
+            OR a.transactor = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1))
             `
             ,
             [current_user.Email]);
@@ -435,9 +435,39 @@ router.get('/pipeline', verifyTokenAndAuthorization, async (req, res) => {
     }finally{
         client.release()
       }
-
 });
 
+/*Fetch Portfolio deals per user */
+router.get('/portfolio', verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+        // const deal_record_id = req.params.deal;
+        const current_user = req.user
+
+        const my_portfolio = await client.query(
+            `SELECT a.*
+        
+            FROM TB_INFRCR_TRANSACTION a
+            WHERE a.closed = true
+            AND (a.originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
+            OR a.transactor = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1))
+            `
+            ,
+            [current_user.Email]);
+        if (my_portfolio) { 
+            res.status(200).send({
+                status: (res.statusCode = 200),
+                deals: my_portfolio.rows
+            })
+        }
+
+    } catch (e) {
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+});
 //**************************************** Download endpoint for origination dashboard */
 
 // create an endpoint to download deals by indidvidual staff on the origination dashboard

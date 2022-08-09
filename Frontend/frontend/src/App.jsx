@@ -87,6 +87,8 @@ export default function App() {
         <Route path="/create_transaction">
           <NewTransactionPage/>
         </Route>
+
+        <Route path="/all_transactions_portfolio"> <PortfolioAllDeals /></Route>
         
         <Route path="/update_transactions">
           <UpdateTransaction />
@@ -102,7 +104,7 @@ export default function App() {
         <ProtectedRoute exact path="/all_users" component={AllStaff} />
         <ProtectedRoute exact path="/deal_team" component={DealTeamView} />
         {/* get all transaction for porfolio */}
-        <ProtectedRoute exact path="/all_transactions_portfolio" component={PortfolioAllDeals} />
+        {/* <ProtectedRoute exact path="/all_transactions_portfolio" component={PortfolioAllDeals} /> */}
         <ProtectedRoute exact path="/all_transactions" component={AllDeals} />
         {/* <ProtectedRoute exact path="staffview" component={AllStaff }/> */}
         {/* <ProtectedRoute exact path="/dashboard" component={MgtView}/> */}
