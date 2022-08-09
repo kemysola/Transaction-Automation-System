@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { parse } = require("dotenv");
 const pool = require("../database");
-const {verifyTokenAndAdmin} = require("../middleware"); 
+const {verifyTokenAndAdmin, verifyTokenAndAuthorization} = require("../middleware"); 
 
 
 
@@ -309,5 +309,110 @@ router.put('/forecast/update/:forecastid', verifyTokenAndAdmin, async (req, res)
         client.release()
       }
 });
+
+// 2022:08:08 Financial Year Endpoint
+// fetch all financial year
+router.get('/fy/:target_fy', verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+        var fy_query = '';
+        if (req.params.target_fy === 'current'){
+            const financial_year = await client.query(
+                `SELECT * FROM TB_INFRCR_FINANCIAL_YEAR
+                WHERE fy_status = 'Active'
+                ORDER BY fy ASC
+                `);
+            fy_query = financial_year
+        }else{
+            const financial_year = await client.query(
+                `SELECT * FROM TB_INFRCR_FINANCIAL_YEAR
+                ORDER BY fy ASC
+                `);
+                fy_query = financial_year
+        }
+        
+           
+        if (fy_query) { 
+            res.status(200).send({
+                status: (res.statusCode = 200),
+                financial_years: fy_query.rows
+            })
+        }
+        
+    } catch (e) {
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+});
+
+// create a new financial year
+router.post('/fy', verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+        const new_fy = { fy, fy_start_date, fy_end_date, fy_status } = req.body;
+        const new_fy_data = [new_fy.fy, new_fy.fy_start_date, new_fy.fy_end_date, new_fy.fy_status]
+
+        await client.query('BEGIN')
+
+        const write_to_db = `INSERT INTO TB_INFRCR_FINANCIAL_YEAR(fy, fy_start_date, fy_end_date, fy_status)  VALUES ($1,$2,$3,$4)`
+
+        const fy_create_resp = await client.query(write_to_db, new_fy_data)
+
+        await client.query('COMMIT')
+        
+        if (fy_create_resp) { 
+            res.status(200).send({
+                status: (res.statusCode = 200),
+                message: "Created Successfully"
+            })
+        }
+        
+    } catch (e) {
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+});
+
+// update Financial Year by authorized userd
+router.put('/fy/update/:fyId', verifyTokenAndAdmin, async (req, res) => {
+    
+    const client = await pool.connect();
+
+    try {
+        const fy_rec = { fy, fy_start_date, fy_end_date, fy_status } = req.body
+
+        const fy_data = [
+            fy_rec.fy,fy_start_date, fy_end_date, fy_status, req.params.fyId
+        ]
+
+        await client.query('BEGIN')
+        
+        const write_to_db = 
+        `UPDATE TB_INFRCR_FINANCIAL_YEAR 
+        SET fy = coalesce($1,fy) , fy_start_date = coalesce($2,fy_start_date), fy_end_date = coalesce($3,fy_end_date), fy_status = coalesce($4,fy_status)
+        WHERE ID = $5 RETURNING *`
+    
+        
+        const res_ = await client.query(write_to_db, fy_data)
+
+        await client.query('COMMIT')
+
+        res.json({
+            status: (res.statusCode = 200),
+            message: "FY Record Updated Successfully",
+            fy: res_.rows[0],      
+          });
+
+    } catch (e) {
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+});
+
 
 module.exports = router;
