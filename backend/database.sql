@@ -749,3 +749,47 @@ ADD COLUMN ccSubmissionDate DATE;
 
 ALTER TABLE tb_infrcr_transaction_audit
 ADD COLUMN ccSubmissionDate DATE;
+
+-- 2022-08-08: Financial Year Table to manage the global view of all data
+DROP TABLE TB_INFRCR_FINANCIAL_YEAR
+CREATE TABLE TB_INFRCR_FINANCIAL_YEAR(
+	ID  INT GENERATED ALWAYS AS IDENTITY,
+    fy VARCHAR(10),
+	fy_start_date	DATE,
+	fy_end_date	DATE,
+    fy_status VARCHAR(10)
+);
+
+DROP TABLE TB_INFRCR_FINANCIAL_YEAR_AUDIT
+CREATE TABLE TB_INFRCR_FINANCIAL_YEAR_AUDIT(
+    operation         char(1)   NOT NULL,
+    stamp             timestamp NOT NULL,
+    performed_by            text      NOT NULL,
+	ID INT,
+    fy VARCHAR(10),
+	fy_start_date	DATE,
+	fy_end_date	DATE,
+    fy_status VARCHAR(10)
+);
+
+
+CREATE OR REPLACE FUNCTION FUNC_INFRCR_FINANCIAL_YEAR_AUDIT() RETURNS TRIGGER AS $TB_INFRCR_FINANCIAL_YEAR_AUDIT$
+    BEGIN
+        --
+        -- Create a row in TB_INFRCR_FINANCIAL_YEAR_AUDIT to reflect the operation performed on TB_INFRCR_TRANSACTION_KPI,
+        -- making use of the special variable TG_OP to work out the operation.
+        --
+        IF (TG_OP = 'DELETE') THEN
+            INSERT INTO TB_INFRCR_FINANCIAL_YEAR_AUDIT SELECT 'D', now(), user, OLD.*;
+        ELSIF (TG_OP = 'UPDATE') THEN
+            INSERT INTO TB_INFRCR_FINANCIAL_YEAR_AUDIT SELECT 'U', now(), user, NEW.*;
+        ELSIF (TG_OP = 'INSERT') THEN
+            INSERT INTO TB_INFRCR_FINANCIAL_YEAR_AUDIT SELECT 'I', now(), user, NEW.*;
+        END IF;
+        RETURN NULL; -- result is ignored since this is an AFTER trigger
+    END;
+$TB_INFRCR_FINANCIAL_YEAR_AUDIT$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TR_INFRCR_FINANCIAL_YEAR_AUDIT
+AFTER INSERT OR UPDATE OR DELETE ON TB_INFRCR_FINANCIAL_YEAR
+    FOR EACH ROW EXECUTE FUNCTION FUNC_INFRCR_FINANCIAL_YEAR_AUDIT();
