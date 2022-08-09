@@ -122,33 +122,33 @@ function GreenAndAnberCard() {
   function varianceDisplay(variance) {
     if (variance < 1) {
       let varianceAns = (variance * -1)
-      return <span style={{color: 'green'}}>↑ ₦ {(varianceAns).toFixed(1)}bn</span>;
+      return <span style={{color: 'green'}}>↑ ₦ {(varianceAns).toFixed(2)}bn</span>;
     }
     else if (!isFinite(variance) || isFinite(variance)){
-      return <span style={{color: 'red'}}>↓ ₦ {-1 * (gandAactual - greenandAmberForecastValue).toFixed(1)}bn </span>;
+      return <span style={{color: 'red'}}>↓ ₦ {-1 * (gandAactual - greenandAmberForecastValue).toFixed(2)}bn </span>;
     }
     
-    return <span style={{color: 'red'}}>↓ ₦ {(variance).toFixed(1)}bn </span>;
+    return <span style={{color: 'red'}}>↓ ₦ {(variance).toFixed(2)}bn </span>;
   }
 
   if (greenandAmberForecastValue == 0) {
     let greenandAmberForecastValue = 1;
     
-    var varianceP = (( varianceAmount / greenandAmberForecastValue) * 100).toFixed(1);
+    var varianceP = (( varianceAmount / greenandAmberForecastValue) * 100).toFixed(2);
   } else  {
-    var varianceP = (( varianceAmount / greenandAmberForecastValue) * 100).toFixed(1);
+    var varianceP = (( varianceAmount / greenandAmberForecastValue) * 100).toFixed(2);
   }
 
   let variancePercent = varianceP
 
-  // let variancePercent = ((varianceAmount / greenandAmberForecastValue) * 100).toFixed(1);
+  // let variancePercent = ((varianceAmount / greenandAmberForecastValue) * 100).toFixed(2);
 
   function variancePerDisplay(variancePer) {
     if (variancePer < 1) {
       let varianceAns = (variancePer * -1)
       return <span style={{color: 'green'}}>↑ {varianceAns}%</span>;
     // } else if(!isFinite(variancePer) || isFinite(variancePer)){
-    //   return !isFinite(((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)) ?<span style={{color: 'red'}}> 0%</span>: <span style={{color: 'red'}}>↓ {((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(1)}%</span>;
+    //   return !isFinite(((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(2)) ?<span style={{color: 'red'}}> 0%</span>: <span style={{color: 'red'}}>↓ {((-1 * (sumTotal - targetValue)/ sumTotal) * 100).toFixed(2)}%</span>;
     } else {
     return <span style={{color: 'red'}}>↓ {variancePer}% </span>;
   }
@@ -177,7 +177,7 @@ function GreenAndAnberCard() {
           </Col>
           <Col sm={4}>
             <Stack gap={0} className="d-flex justify-content-center">
-            ₦ {greenandAmberForecastValue.toFixed(0)}bn
+            ₦ {greenandAmberForecastValue.toFixed(2)}bn
               <br />
               <small
                 style={{ fontSize: "11px", color: "black", fontWeight: "bold" }}

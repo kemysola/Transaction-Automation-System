@@ -79,7 +79,7 @@ export default function ProgressOrigination() {
 
   // let Target value i.e gurantee fee
   var targetValue = target.reduce(function (tot, arr) {
-    return tot + parseFloat(arr.guaranteepipeline);
+    return tot + parseFloat(arr.originationamount);
   }, 0);
 
   let option1 = data.reduce(function (filtered, arr) {

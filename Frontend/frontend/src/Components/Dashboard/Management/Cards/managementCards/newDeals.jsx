@@ -73,21 +73,21 @@ function NewDeals() {
     if (variance < 1) {
       let varianceAns = variance * -1;
       return (
-        <span style={{ color: "green" }}>↑ ₦ {varianceAns.toFixed(1)}bn</span>
+        <span style={{ color: "green" }}>↑ ₦ {varianceAns.toFixed(2)}bn</span>
       );
     } else if (!isFinite(variance) || isFinite(variance)) {
-      return <span style={{color: 'red'}}>↓ ₦ {-1 * (actualForecast - targetValue).toFixed(1)}bn </span>;
+      return <span style={{color: 'red'}}>↓ ₦ {-1 * (actualForecast - targetValue).toFixed(2)}bn </span>;
     }
 
-    return <span style={{ color: "red" }}>↓ ₦ {variance.toFixed(1)}bn </span>;
+    return <span style={{ color: "red" }}>↓ ₦ {variance.toFixed(2)}bn </span>;
   }
 
   if (targetValue  == 0) {
     let targetValue  = 1;
     
-    var varianceP = (( varianceAmount / targetValue ) * 100).toFixed(1);
+    var varianceP = (( varianceAmount / targetValue ) * 100).toFixed(2);
   } else  {
-    var varianceP = (( varianceAmount / targetValue ) * 100).toFixed(1);
+    var varianceP = (( varianceAmount / targetValue ) * 100).toFixed(2);
   }
 
   let variancePercent = varianceP
@@ -111,7 +111,7 @@ function NewDeals() {
         <br/>
           <Col sm={4}>
           <Stack gap={0} className="d-flex justify-content-center">
-          ₦ {actualForecast}bn
+          ₦ {actualForecast.toFixed(2)}bn
           <br/>
           <br/>
             <small
@@ -125,7 +125,7 @@ function NewDeals() {
           </Col>
           <Col sm={4}>
           <Stack gap={0} className="d-flex justify-content-center">
-          ₦ {targetValue.toFixed(0)}bn
+          ₦ {targetValue.toFixed(2)}bn
               <br/>
               <br/>
               <small
