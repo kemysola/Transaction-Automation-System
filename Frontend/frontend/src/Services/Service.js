@@ -59,6 +59,14 @@ const getMyDeals = async() => { // get current users deals
     return await axios.get("transaction/my_deals");
 };
 
+const getMyPipelineDeals = async() => {
+    return await axios.get("transaction/pipeline")
+};
+
+const getMyPortfolioDeals = async() => {
+    return await axios.get("transaction/portfolio")
+}
+
 const getMyDealsByEmail = async(user_email) => { // get current users deals
     return  await axios.get(`transaction/get_staff_deals/${user_email}`);
     
@@ -209,6 +217,8 @@ const Services = {
     updatePlis,
     updateKpis,
     updateOcps,
-    deleteFeatures
+    deleteFeatures,
+    getMyPortfolioDeals,
+    getMyPipelineDeals
 }
 export default Services
