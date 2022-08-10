@@ -164,7 +164,6 @@ const NewTransaction = () => {
     name: "nbcFocus",
   });
 
-  renderCount++;
 
   //********************************************************* Deal Tracking features - state and functions ************************ */
 
