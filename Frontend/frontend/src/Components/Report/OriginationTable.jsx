@@ -1,137 +1,106 @@
-import React from "react";
-import { Stack, Container,Table } from "react-bootstrap";
-import { useForm, useFieldArray, Controller, useWatch } from "react-hook-form";
-import {CgAdd} from 'react-icons/cg'
-import {GrPowerReset} from'react-icons/gr'
-import {MdDeleteSweep} from 'react-icons/md'
-import {IoIosSave} from 'react-icons/io'
+import React from 'react';
 
-export default function OriginationActivity() {
-  const { register, control, handleSubmit, reset, watch } = useForm({
-    defaultValues: {
-      test: [{ nbclist: "Received six (6) NBC approvals for prospects: Accugas, Solad, GVE Projects, ACOB Lighting,Greenville and LFZC." }]
+export default class DynamicTable extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      message: "",
+      items: []
     }
-  });
-  const {
-    fields,
-    append,
-   
-    remove,
-   
-  } = useFieldArray({
-    control,
-    name: "test"
-  });
-  const onSubmit = (data) => console.log("data", data);
+  }
 
-  return (
-    <React.Fragment>
-      <Container>
-        <Stack gap={2}>
-          <p className="" style={{ fontWeight: "bold" }}>
-            Origination Activity – Q4 2021
-          </p>
-        </Stack>
-        <div>
-          <p style={{ fontWeight: "bold" }}>
-            NBC Submissions and Mandate Status – Q4 2021 Update
-          </p>
+  updateMessage(event) {
+    this.setState({
+      message: event.target.value
+    });
+  }
 
-         
-          
-        </div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-      <ul>
-        {fields.map((item, index) => {
-          return (
-            <li key={item.id}>
-              <input {...register(`test.${index}.nbclist`)} style={{border:'none',color:'inherit', width:'80%'}} />
+  handleClick() {
+    var items = this.state.items;
 
-              {/* <Controller
-                render={({ field }) => <input {...field} />}
-                name={`test.${index}.lastName`}
-                control={control}
-              /> */}
-              <button type="button" onClick={() => remove(index)} style={{border:'1px solid white',height:'33px',background:'black',color:'white'}}>
-                <MdDeleteSweep/>
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-      <section>
+    items.push(this.state.message);
+
+    this.setState({
+      items: items,
+      message: ""
+    });
+  }
+
+  handleItemChanged(i, event) {
+    var items = this.state.items;
+    items[i]  = event.target.value;
+
+    this.setState({
+      items: items
+    });
+  }
+
+  handleItemDeleted(i) {
+    var items = this.state.items;
+
+    items.splice(i, 1);
+
+    this.setState({
+      items: items
+    });
+  }
+
+  renderRows() {
+    var context = this;
+
+    return  this.state.items.map(function(o, i) {
+              return (
+                <tr key={"item-" + i}>
+                  <td>
+                    <input
+                      type="text"
+                      value={o}
+                      onChange={context.handleItemChanged.bind(context, i)}
+                    />
+                  </td>
+                  <td>
+                    <button
+                      onClick={context.handleItemDeleted.bind(context, i)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            });
+  }
+
+  render() {
+    return (
+      <div>
+        <table className="">
+          <thead>
+            <tr>
+              <th>
+                Item
+              </th>
+              <th>
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.renderRows()}
+          </tbody>
+        </table>
+        <hr/>
+        <input
+          type="text"
+          value={this.state.message}
+          onChange={this.updateMessage.bind(this)}
+        />
         <button
-          type="button"
-          onClick={() => {
-            append({ nbclist: ""});
-          }}
-          style={{border:'1px solid white',height:'33px',background:'black',color:'white'}}
+          onClick={this.handleClick.bind(this)}
         >
-          <CgAdd/>
+          Add Item
         </button>
-        
-        <button type="submit">
-        <IoIosSave/>
-        </button>
-       
-      </section>
-
-    </form>
-          {/* table * sn    */}
-             <form onSubmit={handleSubmit(onSubmit)}>
-      <ul>
-        {fields.map((item, index) => {
-          return (
-            <li key={item.id}>
-              <input {...register(`test.${index}.nbctab`)} style={{border:'none',color:'inherit', width:''}} style={{borderRight:'1px solid black',borderLeft:'none',borderTop:'none',borderBottom:'none'}} />
-
-              <Controller
-                render={({ field }) => <input {...field} style={{borderRight:'1px solid black',borderLeft:'none',borderTop:'none',borderBottom:'none'}}/>}
-                name={`test.${index}.nbc2`}
-                control={control}
-              />
-                <Controller
-                render={({ field }) => <input {...field} style={{borderRight:'1px solid black',borderLeft:'none',borderTop:'none',borderBottom:'none'}}/>}
-                name={`test.${index}.nbc3`}
-                control={control}
-              />
-                <Controller
-                render={({ field }) => <input {...field}  style={{borderRight:'1px solid black',borderLeft:'none',borderTop:'none',borderBottom:'none'}}/>}
-                name={`test.${index}.nbc4`}
-                control={control}
-              />
-                <Controller
-                render={({ field }) => <input {...field}  style={{border:'none'}}/>}
-                name={`test.${index}.nbc5`}
-                control={control}
-              />
-              <button type="button" onClick={() => remove(index)} style={{border:'1px solid white',height:'33px',background:'black',color:'white'}}>
-                <MdDeleteSweep/>
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-      <section>
-        <button
-          type="button"
-          onClick={() => {
-            append({ nbclist: ""});
-          }}
-          style={{border:'1px solid white',height:'33px',background:'black',color:'white'}}
-        >
-          <CgAdd/>
-        </button>
-        
-        <button type="submit">
-        <IoIosSave/>
-        </button>
-       
-      </section>
-
-    </form>
-    
-      </Container>
-    </React.Fragment>
-  );
+      </div>
+    );
+  }
 }

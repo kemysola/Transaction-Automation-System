@@ -1,111 +1,175 @@
-import React from 'react';
-import { Container, Row, Col,Table } from "react-bootstrap";
-
+import React, {useState } from "react";
+import { Container, Table, Form} from "react-bootstrap";
+import { GrAddCircle } from "react-icons/gr";
+import { FiDelete } from "react-icons/fi";
+import { Divider } from "@mui/material";
 
 export default function KeyStats() {
+  const [nbcInfo, setNbcInfo] = useState([
+    {
+      summaryOfActivity: "",
+      2017: 0,
+      2020: 0,
+      2021: 0,
+      2022: 0,
+    },
+  ]);
+
+  const handleNbcChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...nbcInfo];
+    list[index][name] = value;
+    setNbcInfo(list);
+  };
+
+  const handleNbcAdd = () => {
+    setNbcInfo([
+      ...nbcInfo,
+      {
+        summaryOfActivity: "",
+        2017: 0,
+        2020: 0,
+        2021: 0,
+        2022: 0,
+      },
+    ]);
+  };
+  const handleNbcRemove = (index) => {
+    const list = [...nbcInfo];
+    list.splice(index, 1);
+    setNbcInfo(list);
+  };
+
+  const addNewnbcInfo = () => {
+    console.log("hello");
+  };
   return (
     <>
-    <Container className="my-3 py-1">
-          <p style={{ fontWeight: "bold", fontSize: "16px" }} className='text-center mt-2'>
-            Key Statistics on O & S Activity - Inception till Date
-          </p>
+      <Container className="my-3 py-1">
+        <p
+          style={{ fontWeight: "bold", fontSize: "16px" }}
+          className="text-center mt-2"
+        >
+          Key Statistics on O & S Activity - Inception till Date
+        </p>
+        <Divider />
 
-          <Table striped bordered hover>
-            <thead style={{ fontSize: "12px" }}>
-              <tr>
-                <th>SUMMARY OF KEY ACTIVITY</th>
-                <th>2017-19 </th>
-                <th>2020</th>
-                <th>2021</th>
-              </tr>
-            </thead>
+        <div
+          className="d-flex justify-content-end ml-2"
+          style={{ cursor: "pointer", height: "1rem" }}
+        >
+          <GrAddCircle
+            onClick={handleNbcAdd}
+            style={{ width: "1rem", height: "1rem" }}
+          />
+        </div>
 
-            <tbody>
-              <tr>
-                <td>New Guarantees Executed </td>
-                <td>3 </td>
-                <td>1 </td>
-                <td>4</td>
-              </tr>
-              <tr>
-                <td>Size of New Guarantees Executed </td>
-                <td>N 31.5 billion</td>
-                <td>N 12.0 billion </td>
-                <td>N 34.1 billion</td>
-              </tr>
-              <tr>
-                <td>New Mandates Signed (excl. Follow-On Mandates) </td>
-                <td>14 </td>
-                <td>10 </td>
-                <td>22</td>
-              </tr>
-              <tr>
-                <td>Size of New Mandates Signed</td>
-                <td>N160.3 billion</td>
-                <td> N132.9 billion </td>
-                <td> N284.5 billion</td>
-              </tr>
-              <tr>
-                <td>Size of Follow-On Mandates</td>
-                <td>N3.6 billion</td>
-                <td> N/A</td>
-                <td> N/A</td>
-              </tr>
-              <tr>
-                <td>New Business Committee (NBC) Approvals</td>
-                <td>25</td>
-                <td>14</td>
-                <td> 25</td>
-              </tr>
-              <tr>
-                <td>% NBC Approvals Converted to Mandates</td>
-                <td>60.0%</td>
-                <td>78.6%</td>
-                <td> 80.0%</td>
-              </tr>
-            </tbody>
+        <Table striped bordered hover>
+          <thead style={{ fontSize: "12px" }}>
+            <tr>
+              <th>SUMMARY OF KEY ACTIVITY</th>
+              <th className="text-center">2017-19 </th>
+              <th className="text-center">2020</th>
+              <th className="text-center">2021</th>
+              <th className="text-center">2022</th>
+            </tr>
+          </thead>
 
-            <tbody>
-              <p
-                className="py-1"
-                style={{ fontWeight: "bold", fontSize: "11px" }}
-              >
-                PERIOD ENDING STATISTICS
-              </p>
-              <tr>
-                <td>Size of Guaranteed Transactions Since Inception </td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Size of Mandated Deal Pipeline (period-end) </td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>{`Advanced Mandates (to close in < 6  months)`} </td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>{`Longer Mandates (to close in > 6 months)`} </td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>{`Contingent Refis (long-lead Greenfield)`}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
-          </Table>
-        </Container>
-    
+          <tbody>
+            <tr>
+              <td>
+                {nbcInfo.map((singleNote, index) => (
+                  <div class="input-group mt-2">
+                    <Form.Control
+                      type="text"
+                      size="sm"
+                      placeholder="Summary of Key Activities"
+                      value={singleNote.nbcInfo}
+                      name="nbc_focus_original_date"
+                      onChange={(e) => handleNbcChange(e, index)}
+                    />
+                  </div>
+                ))}{" "}
+              </td>
+              <td>
+                {nbcInfo.map((singleNote, index) => (
+                  <div class="input-group mt-2">
+                    <Form.Control
+                      type="text"
+                      size="sm"
+                      placeholder="2017-2017"
+                      value={singleNote.nbcInfo}
+                      name="nbc_focus_original_date"
+                      onChange={(e) => handleNbcChange(e, index)}
+                    />
+                  </div>
+                ))}
+              </td>
+              <td>
+                {nbcInfo.map((singleNote, index) => (
+                  <div class="input-group mt-2">
+                    <Form.Control
+                      type="text"
+                      size="sm"
+                      placeholder="2020"
+                      value={singleNote.nbcInfo}
+                      name="nbc_focus_original_date"
+                      onChange={(e) => handleNbcChange(e, index)}
+                    />
+                  </div>
+                ))}
+              </td>
+              <td>
+                {nbcInfo.map((singleNote, index) => (
+                  <div class="input-group mt-2">
+                    <Form.Control
+                      type="text"
+                      size="sm"
+                      placeholder="2021"
+                      value={singleNote.nbcInfo}
+                      name="nbc_focus_original_date"
+                      onChange={(e) => handleNbcChange(e, index)}
+                    />
+                  </div>
+                ))}
+              </td>
+              <td>
+                {nbcInfo.map((singleNote, index) => (
+                  <div class="input-group mt-2">
+                    <Form.Control
+                      type="text"
+                      size="sm"
+                      placeholder="2022"
+                      value={singleNote.nbcInfo}
+                      name="nbc_focus_original_date"
+                      onChange={(e) => handleNbcChange(e, index)}
+                    />
+                  </div>
+                ))}
+              </td>
+              <td style={{ background: "none" }}>
+                {nbcInfo.map((singleNote, index) => (
+                  <div>
+                    <button
+                      onClick={handleNbcRemove}
+                      className="mt-2 mb-2"
+                      style={{
+                        height: "23px",
+                        border: "none",
+                        marginRight: "3px",
+                      }}
+                    >
+                      <i className="">
+                        <FiDelete />
+                      </i>
+                    </button>
+                  </div>
+                ))}
+              </td>
+            </tr>
+          </tbody>
+        </Table>
+      </Container>
     </>
-  )
+  );
 }

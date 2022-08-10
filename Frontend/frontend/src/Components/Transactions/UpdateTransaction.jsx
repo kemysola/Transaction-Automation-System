@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Form, Container, Row, Col} from "react-bootstrap";
+import { Form, Container, Row, Col } from "react-bootstrap";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import styled from "styled-components";
@@ -13,8 +13,7 @@ import TransactionPartiesMode from "./TransactionPartiesMode";
 import PlisMode from "./PlisMode";
 import OcpsMode from "./OcpsMode";
 import KpisMode from "./KpisMode";
-import { useForm, Controller, useFieldArray } from "react-hook-form";
-
+import { useForm } from "react-hook-form";
 
 const ButtonWrapper = styled.button`
   color: white;
@@ -68,9 +67,9 @@ export default function UpdateTransactions() {
     getValues,
   } = useForm({
     defaultValues: {
-      test: [{note:""}]
-    }
-    })
+      test: [{ note: "" }],
+    },
+  });
 
   // form ref values
   const clientName = useRef("");
@@ -406,77 +405,72 @@ export default function UpdateTransactions() {
   useEffect(() => {
     const timer = setTimeout(() => {
       // After 3 seconds set the message value to empty
-      setMessage("")
-    }, 5000)
+      setMessage("");
+    }, 5000);
 
     return () => {
-      clearTimeout(timer)
-    }
+      clearTimeout(timer);
+    };
   }, [message]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       // After 3 seconds set the message value to empty
-      setNbcChanged("")
-    }, 500)
+      setNbcChanged("");
+    }, 500);
 
     return () => {
-      clearTimeout(timer)
+      clearTimeout(timer);
       retrieveDeal();
-    }
-
+    };
   }, [nbcChanged]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       // After 3 seconds set the message value to empty
-      setPartiesChanged("")
-    }, 500)
+      setPartiesChanged("");
+    }, 500);
 
     return () => {
-      clearTimeout(timer)
+      clearTimeout(timer);
       retrieveDeal();
-    }
-
+    };
   }, [partiesChanged]);
-  
+
   useEffect(() => {
     const timer = setTimeout(() => {
       // After 3 seconds set the message value to empty
-      setPlisChanged("")
-    }, 500)
+      setPlisChanged("");
+    }, 500);
 
     return () => {
-      clearTimeout(timer)
+      clearTimeout(timer);
       retrieveDeal();
-    }
-
+    };
   }, [plisChanged]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       // After 3 seconds set the message value to empty
-      setOcpsChanged("")
-    }, 500)
+      setOcpsChanged("");
+    }, 500);
 
     return () => {
-      clearTimeout(timer)
+      clearTimeout(timer);
       retrieveDeal();
-    }
-
+    };
   }, [ocpsChanged]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       // After 3 seconds set the message value to empty
-      setKpiChanged("")
-    }, 500)
+      setKpiChanged("");
+    }, 500);
 
     return () => {
-      clearTimeout(timer)
+      clearTimeout(timer);
       retrieveDeal();
-    }
-
+    };
   }, [kpiChanged]);
 
   const [allData, setAllData] = useState([]);
@@ -494,8 +488,7 @@ export default function UpdateTransactions() {
           },
         }
       )
-      .catch((e) => {
-      });
+      .catch((e) => {});
 
     // set the deal and status stateA
 
@@ -519,7 +512,7 @@ export default function UpdateTransactions() {
     setRedC(data.data.dealInfo[0].redc);
     setisClosed(data.data.dealInfo[0].closed);
 
-  //********************************** End Block                   *******************
+    //********************************** End Block                   *******************
   };
 
   const uniqueId = Array.from(new Set(allData.map((a) => a.nbcid))).map(
@@ -677,7 +670,8 @@ export default function UpdateTransactions() {
       nbc_focus_original: nbcFocus[0].nbc_focus_original,
       nbc_focus_original_date: nbcFocus[0].nbc_focus_original_date,
       nbc_focus_original_yes_no: nbcFocus[0].nbc_focus_original_yes_no,
-      nbc_focus_original_methodology: nbcFocus[0].nbc_focus_original_methodology,
+      nbc_focus_original_methodology:
+        nbcFocus[0].nbc_focus_original_methodology,
     };
 
     Service.updateNBCFocus(id, data)
@@ -686,10 +680,9 @@ export default function UpdateTransactions() {
         setNbcFocus([]);
       })
       .catch(() => {
-        console.log("an error occured")
-      })
-
-  }
+        console.log("an error occured");
+      });
+  };
 
   // *************************************** Edit Transaction Parties Function ***************************** *************
 
@@ -1318,7 +1311,6 @@ export default function UpdateTransactions() {
                                 <div class="input-group">
                                   {/* <input defaultValue={singleNote}  value={singleNote.note} name='note'/> */}
 
-
                                   <Form.Control
                                     style={{ margin: "0.8em", width: "60%" }}
                                     size="sm"
@@ -1677,7 +1669,7 @@ export default function UpdateTransactions() {
                                 defaultValue={
                                   deal[0].ccsubmissiondate
                                     ? new Date(deal[0].ccsubmissiondate)
-                                    .toJSON()
+                                        .toJSON()
                                         .split("T")[0]
                                     : ""
                                 }
@@ -2375,7 +2367,7 @@ export default function UpdateTransactions() {
                         <Col sm={3} className="mt-1 mb-1">
                           <p>METHODOLOGY</p>
                         </Col>
-                          {nbcFocusList}
+                        {nbcFocusList}
                       </Row>
 
                       <Row className="py-1">
@@ -3486,16 +3478,15 @@ export default function UpdateTransactions() {
                 </Tabs>
               </div>
 
-              <div 
+              <div
                 className="d-flex justify-content-end"
-                style={{ fontSize: '13px', marginRight: '30px'}}
+                style={{ fontSize: "13px", marginRight: "30px" }}
               >
-                {message === 'Failed to update deal' ? (
+                {message === "Failed to update deal" ? (
                   <p class="text-danger">{message}</p>
                 ) : (
                   <p class="text-success">{message}</p>
                 )}
-
               </div>
 
               <div className="d-flex justify-content-end">
