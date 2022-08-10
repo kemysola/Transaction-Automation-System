@@ -200,6 +200,32 @@ router.get('/report_data/all',verifyTokenAndAuthorization, async (req, res) => {
 }
   })
 
+// Monthly Credit Committee(CC) Submission Report
+router.get('/ccsubmission/monthly/:start_date/:end_date',verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+     try {
+    // query transaction table
+        const start_date = req.params.start_date;
+        const end_date = req.params.end_date;
+        const ccsubmission_data = await client.query(`
+        SELECT ccsubmissiondate, clientname, originator, transactor, industry, product, region, dealsize,tenor, mandateletter,creditapproval expectedclose, actualclose, structuringfeeamount,structuringfeeadvance,
+            structuringfeefinal, guaranteefee, monitoringfee, reimbursible, deal_category, nbc_approval_date, nbc_submitted_date, closed 
+        FROM TB_INFRCR_TRANSACTION 
+        WHERE DATE_PART('month', ccsubmissiondate) BETWEEN COALESCE(DATE_PART('month', TO_DATE($1,'DD-MM-YYY')),DATE_PART('month', CURRENT_DATE)) and COALESCE(DATE_PART('month', TO_DATE($2,'DD-MM-YYY')),DATE_PART('month', CURRENT_DATE))
+        AND DATE_PART('year', ccsubmissiondate) BETWEEN COALESCE(DATE_PART('year', TO_DATE($1,'DD-MM-YYY')),DATE_PART('year', CURRENT_DATE)) and COALESCE(DATE_PART('year', TO_DATE($2,'DD-MM-YYY')),DATE_PART('year', CURRENT_DATE))
+        AND ccsubmissiondate IS NOT NULL
+        `,[start_date, end_date]);
+  
+        res.status(200).send({
+            status: (res.statusCode = 200),
+            ccsubmissionReport: ccsubmission_data.rows,
+        })
+} catch (e) {
+    res.status(403).json({ Error: e.stack });
+}finally{
+    client.release()
+}
+  })
 
 
 module.exports = router;
