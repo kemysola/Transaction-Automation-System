@@ -1071,4 +1071,33 @@ router.delete('/delete/:dealID', async (req, res) => {
 
 });
 
+// Top N Reimbursible Stats
+router.get('/reimbursible/:topn/:start_date/:end_date',verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+     try {
+    // query transaction table
+        const start_date = req.params.start_date;
+        const end_date = req.params.end_date;
+        const top_n = req.params.topn;
+
+        const ccsubmission_data = await client.query(`
+        SELECT clientname, originator, transactor, dealsize, reimbursible
+        FROM TB_INFRCR_TRANSACTION 
+        WHERE DATE_PART('year', createdate) BETWEEN COALESCE(DATE_PART('year', TO_DATE($1,'DD-MM-YYY')),DATE_PART('year', CURRENT_DATE)) and COALESCE(DATE_PART('year', TO_DATE($2,'DD-MM-YYY')),DATE_PART('year', CURRENT_DATE))
+        --(SELECT COALESCE(DATE_PART('year', fy_start_date), DATE_PART('year', CURRENT_DATE)) FROM TB_INFRCR_FINANCIAL_YEAR WHERE fy_status = 'Active')
+        ORDER BY reimbursible DESC
+        LIMIT $3
+        `,[start_date, end_date, top_n]);
+  
+        res.status(200).send({
+            status: (res.statusCode = 200),
+            ccsubmissionReport: ccsubmission_data.rows,
+        })
+} catch (e) {
+    res.status(403).json({ Error: e.stack });
+}finally{
+    client.release()
+}
+  })
+
 module.exports = router;
