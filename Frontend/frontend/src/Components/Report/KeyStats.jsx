@@ -2,6 +2,8 @@ import React, {useState } from "react";
 import { Container, Table, Form} from "react-bootstrap";
 import { GrAddCircle } from "react-icons/gr";
 import { FiDelete } from "react-icons/fi";
+import { FiSave } from "react-icons/fi";
+
 import { Divider } from "@mui/material";
 
 export default function KeyStats() {
@@ -161,6 +163,26 @@ export default function KeyStats() {
                     >
                       <i className="">
                         <FiDelete />
+                      </i>
+                    </button>
+                  </div>
+                ))}
+              </td>
+              <td style={{ background: "none" }}>
+                {nbcInfo.map((singleNote, index) => (
+                  <div>
+                    <button
+                      
+                      className="mt-2 mb-2"
+                      style={{
+                        height: "23px",
+                        border: "none",
+                        marginRight: "3px",
+                      }}
+                    >
+                      <i className="">
+                        <FiSave />
+                        
                       </i>
                     </button>
                   </div>

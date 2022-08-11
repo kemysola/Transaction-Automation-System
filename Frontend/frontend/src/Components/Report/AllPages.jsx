@@ -20,11 +20,14 @@ export default function AllPages() {
     <React.Fragment>
       <Navbar/>
       <Row>
-        <Col sm='2'>
+        <Col sm={3} lg={2} className=''>
           <Sidenav/>
         </Col>
-        <Col sm ='9'>
+        <Col sm ={8} lg={9} className='my-3'>
+          <Container fluid>
           <CurrentGuarantee/>
+
+          </Container>
 
         </Col>
         <Divider></Divider>

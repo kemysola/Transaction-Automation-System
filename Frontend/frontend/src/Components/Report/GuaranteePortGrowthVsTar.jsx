@@ -1,5 +1,8 @@
-import React,{useState} from "react";
-import { Col, Container, Row, Stack, Table } from "react-bootstrap";
+import React, {useState } from "react";
+import { Container, Table, Form} from "react-bootstrap";
+import { GrAddCircle } from "react-icons/gr";
+import { FiDelete,FiSave } from "react-icons/fi";
+import { Divider } from "@mui/material";import { Col,Row, Stack} from "react-bootstrap";
 import {
   BarChart,
   Bar
@@ -8,6 +11,45 @@ import {
 
 
 export default function GuaranteePortGrowthVsTar() {
+  const [nbcInfo, setNbcInfo] = useState([
+    {
+      summaryOfActivity: "",
+      2017: 0,
+      2020: 0,
+      2021: 0,
+      2022: 0,
+    },
+  ]);
+
+  const handleNbcChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...nbcInfo];
+    list[index][name] = value;
+    setNbcInfo(list);
+  };
+
+  const handleNbcAdd = () => {
+    setNbcInfo([
+      ...nbcInfo,
+      {
+        summaryOfActivity: "",
+        2017: 0,
+        2020: 0,
+        2021: 0,
+        2022: 0,
+      },
+    ]);
+  };
+  const handleNbcRemove = (index) => {
+    const list = [...nbcInfo];
+    list.splice(index, 1);
+    setNbcInfo(list);
+  };
+
+  const addNewnbcInfo = () => {
+    console.log("hello");
+  };
+
   
 
   const [currentGt, setCurrentGt] = useState("InfraCredit’s projected guarantee portfolio growth (indicative) is based on the assumption that initial operations were expected to commence at a conservative level, with the Company able to underwrite an initial transaction with NGN10 Billion face value, then progressively ramp up scale to over NGN500 Billion over a 5-year period. Throughout the past 3 years, management built a sizeable pipeline of mandated transactions, providing a base to achieve future growth targets.");
@@ -96,40 +138,127 @@ export default function GuaranteePortGrowthVsTar() {
         <div>
           <Row>
             <Col sm={6} className="my-1">
-              <Table striped bordered hover>
-                <thead style={{ fontSize: "12px" }}>
-                  <tr>
-                    <th>S/n</th>
-                    <th>Infrasture entity </th>
-                    <th>Infrastructure activity/industry </th>
-                    <th>Size</th>
-                    <th>Expected closing </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>N31.5 billion</td>
-                    <td> N123.9 billion</td>
-                    <td>N62.5 billion</td>
-                    <td>N43.9 billion</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>N43.5 billion</td>
-                    <td>N203.5 billion</td>
-                    <td>N70.6 billion</td>
-                    <td>N93.0 billion</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>N77.6 billion</td>
-                    <td>N 311.5 billion</td>
-                    <td>N 311.5 billion</td>
-                    <td>N191.4 billion</td>
-                  </tr>
-                </tbody>
-              </Table>
+              
+        <div
+          className="d-flex justify-content-end ml-2"
+          style={{ cursor: "pointer", height: "1rem" }}
+        >
+          <GrAddCircle
+            onClick={handleNbcAdd}
+            style={{ width: "1rem", height: "1rem" }}
+          />
+        </div>
+
+        <Table striped bordered hover>
+          <thead style={{ fontSize: "12px" }}>
+            <tr>
+              <th>Infrastructure Entity</th>
+              <th className="text-center">Infrastructure Activity/Industry </th>
+              <th className="text-center">Size</th>
+              <th className="text-center">Expected Closing</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>
+                {nbcInfo.map((singleNote, index) => (
+                  <div class="input-group mt-2">
+                    <Form.Control
+                      type="text"
+                      size="sm"
+                      placeholder="entity"
+                      value={singleNote.nbcInfo}
+                      name="nbc_focus_original_date"
+                      onChange={(e) => handleNbcChange(e, index)}
+                    />
+                  </div>
+                ))}{" "}
+              </td>
+              
+              <td>
+                {nbcInfo.map((singleNote, index) => (
+                  <div class="input-group mt-2">
+                    <Form.Control
+                      type="text"
+                      size="sm"
+                      placeholder="industry"
+                      value={singleNote.nbcInfo}
+                      name="nbc_focus_original_date"
+                      onChange={(e) => handleNbcChange(e, index)}
+                    />
+                  </div>
+                ))}
+              </td>
+              <td>
+                {nbcInfo.map((singleNote, index) => (
+                  <div class="input-group mt-2">
+                    <Form.Control
+                      type="text"
+                      size="sm"
+                      placeholder="size"
+                      value={singleNote.nbcInfo}
+                      name="nbc_focus_original_date"
+                      onChange={(e) => handleNbcChange(e, index)}
+                    />
+                  </div>
+                ))}
+              </td>
+              <td>
+                {nbcInfo.map((singleNote, index) => (
+                  <div class="input-group mt-2">
+                    <Form.Control
+                      type="text"
+                      size="sm"
+                      placeholder="closing"
+                      value={singleNote.nbcInfo}
+                      name="nbc_focus_original_date"
+                      onChange={(e) => handleNbcChange(e, index)}
+                    />
+                  </div>
+                ))}
+              </td>
+              <td style={{ background: "none" }}>
+                {nbcInfo.map((singleNote, index) => (
+                  <div>
+                    <button
+                      onClick={handleNbcRemove}
+                      className="mt-2 mb-2"
+                      style={{
+                        height: "23px",
+                        border: "none",
+                        marginRight: "3px",
+                      }}
+                    >
+                      <i className="">
+                        <FiDelete />
+                      </i>
+                    </button>
+                  </div>
+                ))}
+              </td>
+              <td style={{ background: "none" }}>
+                {nbcInfo.map((singleNote, index) => (
+                  <div>
+                    <button
+                      onClick={handleNbcRemove}
+                      className="mt-2 mb-2"
+                      style={{
+                        height: "23px",
+                        border: "none",
+                        marginRight: "3px",
+                      }}
+                    >
+                      <i className="">
+                        <FiSave />
+                      </i>
+                    </button>
+                  </div>
+                ))}
+              </td>
+            </tr>
+          </tbody>
+        </Table>
             </Col>
             <Col sm={6} className="">
             <div className="d-flex justify-content-center">
