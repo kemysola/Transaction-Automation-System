@@ -4,10 +4,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { CgAdd } from "react-icons/cg";
 import { MdDeleteSweep } from "react-icons/md";
 import { IoIosSave } from "react-icons/io";
-// import OriginationTable from "./OriginationTable";
 import { GrAddCircle } from "react-icons/gr";
-// import Nbcinfo from "./NbcInfo";
-// import Services from "../../Services/Service";
 import { FiDelete, FiSave } from "react-icons/fi";
 import { Divider } from "@mui/material";
 
@@ -369,6 +366,24 @@ export default function OriginationActivity() {
                     >
                       <i className="">
                         <FiDelete />
+                      </i>
+                    </button>
+                  </div>
+                ))}
+              </td>
+              <td style={{ background: "none" }}>
+                {nbcInfo.map((singleNote, index) => (
+                  <div>
+                    <button
+                      className="mt-2 mb-2"
+                      style={{
+                        height: "23px",
+                        border: "none",
+                        marginRight: "3px",
+                      }}
+                    >
+                      <i className="">
+                        <FiSave />
                       </i>
                     </button>
                   </div>

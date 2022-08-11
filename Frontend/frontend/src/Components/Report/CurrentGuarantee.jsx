@@ -138,7 +138,7 @@ export default function CurrentGuarantee() {
         </div>
       </Container>
       
-      <Container fluid>
+      <Container className='my-3'>
         <Row className="mt-1">
           <Col sm={6}>
             <p
