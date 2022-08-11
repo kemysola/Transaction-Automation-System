@@ -1,32 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Form, ProgressBar, Card, Button } from "react-bootstrap";
-import styled from "styled-components";
-import GuarPipe from "./GuarPipe";
+import { Container, Row, Col, Form, Card, } from "react-bootstrap";
 import Stats from "./Stats";
 import Service from "../../../../Services/Service";
 import Matrics from "./Matrics";
-import Scope from "./managementCards/Scope"
 import {
   BarChart,
   Bar,
   XAxis,
   YAxis,
-  ZAxis,
   LabelList,
-  CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer,
 } from "recharts";
 
-const ProgressBarDiv = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  justify-content: center;
-  font-size: 10px;
-  padding: 4px 15px;
-  border-radius: 20px;
-`;
+
 export default function Progress() {
 
       // ******************************************  useState Hook to store state data  ****************************************

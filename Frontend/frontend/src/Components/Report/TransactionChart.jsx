@@ -86,7 +86,6 @@ export default function TransactionChart(props) { // ***************************
       retrieveDeals();
     }, []); 
   
-  console.log(deals)
     
       // ******************************************  Axios :Get Request  ***********************************************
   
@@ -94,11 +93,9 @@ export default function TransactionChart(props) { // ***************************
     const retrieveDeals = async() => {
       await Services.getAllDeals()
         .then((response) => {
-          console.log(response.data.deals)
           setDeals(response.data.deals);
         })
         .catch((e) => {
-          console.log(e);
         });
     };
   
