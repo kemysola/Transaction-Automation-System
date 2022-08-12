@@ -1,4 +1,4 @@
-import { ADD_TITLE,ADD_Guarantees } from "./Types";
+import { ADD_TITLE,ADD_Guarantees,ADD_PIPELINE_REPORT } from "./Types";
 
 const TitleReducer = (state, action) => {
   switch (action.type) {
@@ -14,6 +14,12 @@ const TitleReducer = (state, action) => {
         ...state,
         guaranteeStore:[action.payload],
       }
+    }
+    case ADD_PIPELINE_REPORT:{
+      return{
+        ...state,
+        reportStore:[action.payload],
+      };
     }
     
 

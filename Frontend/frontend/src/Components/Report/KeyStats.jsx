@@ -16,6 +16,42 @@ export default function KeyStats() {
       2022: 0,
     },
   ]);
+  const [periodStats, setPeriodStats] = useState([
+    {
+      periodEndStats: "",
+      2017: 0,
+      2020: 0,
+      2021: 0,
+      2022: 0,
+    },
+  ]);
+  const handleStatsChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...periodStats];
+    list[index][name] = value;
+    setPeriodStats(list);
+  };
+
+  const handleStatsAdd = () => {
+    setPeriodStats([
+      ...periodStats,
+      {
+        summaryOfActivity: "",
+        2017: 0,
+        2020: 0,
+        2021: 0,
+        2022: 0,
+      },
+    ]);
+  };
+  const handleStatsRemove = (index) => {
+    const list = [...periodStats];
+    list.splice(index, 1);
+    setPeriodStats(list);
+  };
+
+  const addNewStats = () => {
+  };
 
   const handleNbcChange = (e, index) => {
     const { name, value } = e.target;
@@ -43,7 +79,6 @@ export default function KeyStats() {
   };
 
   const addNewnbcInfo = () => {
-    console.log("hello");
   };
   return (
     <>
@@ -170,6 +205,140 @@ export default function KeyStats() {
               </td>
               <td style={{ background: "none" }}>
                 {nbcInfo.map((singleNote, index) => (
+                  <div>
+                    <button
+                      
+                      className="mt-2 mb-2"
+                      style={{
+                        height: "23px",
+                        border: "none",
+                        marginRight: "3px",
+                      }}
+                    >
+                      <i className="">
+                        <FiSave />
+                        
+                      </i>
+                    </button>
+                  </div>
+                ))}
+              </td>
+            </tr>
+          </tbody>
+        </Table>
+        <div
+          className="d-flex justify-content-end ml-2"
+          style={{ cursor: "pointer", height: "1rem" }}
+        >
+          <GrAddCircle
+            onClick={handleStatsAdd}
+            style={{ width: "1rem", height: "1rem" }}
+          />
+        </div>
+        <Table striped bordered hover>
+          <thead style={{ fontSize: "12px" }}>
+            <tr>
+              <th>PERIOD ENDING STATISTICS</th>
+              <th className="text-center">2017-19 </th>
+              <th className="text-center">2020</th>
+              <th className="text-center">2021</th>
+              <th className="text-center">2022</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>
+                {periodStats.map((singleNote, index) => (
+                  <div class="input-group mt-2">
+                    <Form.Control
+                      type="text"
+                      size="sm"
+                      placeholder="Summary of Key Activities"
+                      value={singleNote.periodStats}
+                      name="nbc_focus_original_date"
+                      onChange={(e) => handleStatsChange(e, index)}
+                    />
+                  </div>
+                ))}{" "}
+              </td>
+              <td>
+                {periodStats.map((singleNote, index) => (
+                  <div class="input-group mt-2">
+                    <Form.Control
+                      type="text"
+                      size="sm"
+                      placeholder="2017-2017"
+                      value={singleNote.periodStats}
+                      name="nbc_focus_original_date"
+                      onChange={(e) => handleStatsChange(e, index)}
+                    />
+                  </div>
+                ))}
+              </td>
+              <td>
+                {periodStats.map((singleNote, index) => (
+                  <div class="input-group mt-2">
+                    <Form.Control
+                      type="text"
+                      size="sm"
+                      placeholder="2020"
+                      value={singleNote.periodStats}
+                      name="nbc_focus_original_date"
+                      onChange={(e) => handleStatsChange(e, index)}
+                    />
+                  </div>
+                ))}
+              </td>
+              <td>
+                {periodStats.map((singleNote, index) => (
+                  <div class="input-group mt-2">
+                    <Form.Control
+                      type="text"
+                      size="sm"
+                      placeholder="2021"
+                      value={singleNote.periodStats}
+                      name="nbc_focus_original_date"
+                      onChange={(e) => handleStatsChange(e, index)}
+                    />
+                  </div>
+                ))}
+              </td>
+              <td>
+                {periodStats.map((singleNote, index) => (
+                  <div class="input-group mt-2">
+                    <Form.Control
+                      type="text"
+                      size="sm"
+                      placeholder="2022"
+                      value={singleNote.periodStats}
+                      name="nbc_focus_original_date"
+                      onChange={(e) => handleStatsChange(e, index)}
+                    />
+                  </div>
+                ))}
+              </td>
+              <td style={{ background: "none" }}>
+                {periodStats.map((singleNote, index) => (
+                  <div>
+                    <button
+                      onClick={handleStatsRemove}
+                      className="mt-2 mb-2"
+                      style={{
+                        height: "23px",
+                        border: "none",
+                        marginRight: "3px",
+                      }}
+                    >
+                      <i className="">
+                        <FiDelete />
+                      </i>
+                    </button>
+                  </div>
+                ))}
+              </td>
+              <td style={{ background: "none" }}>
+                {periodStats.map((singleNote, index) => (
                   <div>
                     <button
                       

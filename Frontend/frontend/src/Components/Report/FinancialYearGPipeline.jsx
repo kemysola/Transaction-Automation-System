@@ -1,11 +1,23 @@
-import React from "react";
+import React,{useContext, useEffect, useState} from "react";
 import { Container, Row, Col, Stack } from "react-bootstrap";
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
+// import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
 import ChartProducts from "./ChartProducts";
 import ReportRegion from "./ReportRegion";
 import SectorChart from "./SectorChart";
+import TitleContext from "../../context/TitleContext";
+import Editable from "react-editable-title";
+
+
 
 export default function FinancialYearGPipeline() {
+  const handleTextUpdates = (current) => {
+    addPipelines(current);
+  };
+  const { addPipelines, reportStore } = useContext(TitleContext);
+  console.log(reportStore)
+
+ 
+
   const data = [
     { name: "Group A", value: 400 },
     { name: "Group B", value: 300 },
@@ -46,15 +58,16 @@ export default function FinancialYearGPipeline() {
           <p style={{ fontWeight: "bold" }}>FY2021-2022 Guarantee Pipeline*</p>
         </Stack>
         <div>
-          The Origination & Structuring team is actively engaged in assessing
-          new credit enhancement opportunities and diversifying the guarantee
-          portfolio, which are at various stages of evaluation. As at 31
-          December 2021, InfraCredit’s pipeline of potential guarantee
-          transactions totaled N311.5 Billion from 35 transactions, composed of
-          N255.0 Billion of standard guarantees and N56.5 Billion of contingent
-          refinancing guarantees. Of the 35 transactions, 34 are first-time
-          clients with executed Mandate Letters and one (1) transaction involves
-          follow-on debt instruments for LFZC.
+
+        <Editable
+            text={reportStore}
+            editButtonStyle={{ lineHeight: "unset" }}
+            editButton
+            editControlButtons
+            placeholder="Type here"
+            cb={handleTextUpdates}
+          />
+       
         </div>
         <Row>
           <Col sm="6" className="my-1 pt-3">

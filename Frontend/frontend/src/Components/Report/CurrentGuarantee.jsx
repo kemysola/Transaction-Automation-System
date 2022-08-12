@@ -11,6 +11,7 @@ import Editable from "react-editable-title";
 import TitleContext from "../../context/TitleContext";
 import GeneralPie from "./GeneralPie";
 
+
 export default function CurrentGuarantee() {
   const handleTextUpdate = (current) => {
     addTitle(current);
@@ -20,7 +21,6 @@ export default function CurrentGuarantee() {
   };
   const { addTitle, cartTitle,guaranteeStore,addGuarantees } = useContext(TitleContext);
 
-  console.log(guaranteeStore)
 
   // ******************************************  static data shared  ****************************************
 

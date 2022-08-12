@@ -7,6 +7,7 @@ import {
   BarChart,
   Bar
 } from "recharts";
+import GuaranteeForecast from "./GuaranteeForecast";
 
 
 
@@ -104,7 +105,7 @@ export default function GuaranteePortGrowthVsTar() {
 
   return (
     <React.Fragment>
-      <Container fluid>
+      <Container>
         <div>
           <Stack>
             <p style={{ fontWeight: "bold" }} className=' mt-1 pt-2'>
@@ -112,14 +113,9 @@ export default function GuaranteePortGrowthVsTar() {
             </p>
           </Stack>
         </div>
-        <div>
-        </div>
-        <div>
-          <br />
-          <br />
-          <BarChart width={380} height={200} data={data}>
-            <Bar dataKey="uv" fill="#8884d8" />
-          </BarChart>
+        <div className='d-flex justify-content-start'
+>
+        <GuaranteeForecast/>
         </div>
 
         <div className="my-2 pt-3">
