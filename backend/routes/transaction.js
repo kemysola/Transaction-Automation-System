@@ -1100,4 +1100,28 @@ router.get('/reimbursible/:topn/:start_date/:end_date',verifyTokenAndAuthorizati
 }
   })
 
+// Actual Guarantee: for only closed deals within the current FY
+router.get('/guarantee/actual',verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+     try {
+        
+        const actual_guarantee = await client.query(`
+        SELECT 	SUM(guaranteefee) GuaranteeActualValue
+        FROM TB_INFRCR_TRANSACTION_AUDIT
+        WHERE date_part('year', stamp) = (SELECT date_part('year', fy_start_date) FROM TB_INFRCR_FINANCIAL_YEAR WHERE fy_status = 'Active')
+        AND operation = 'U'
+        AND closed = true
+        `);
+  
+        res.status(200).send({
+            status: (res.statusCode = 200),
+            actualGuarantee: actual_guarantee.rows,
+        })
+} catch (e) {
+    res.status(403).json({ Error: e.stack });
+}finally{
+    client.release()
+}
+  })
+
 module.exports = router;
