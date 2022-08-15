@@ -12,11 +12,16 @@ function usePrevious(value) {
   return ref.current;
 }
 
-const Forecast = ((props) => {
+const FY = ((props) => {
   // const [data, setData] = useState([])
   const [isEditing, setEditing] = useState(false);
-  const [cumuGrowth, setCumuGrowth] = useState();
-  const [newDeals, setNewDeals] = useState();
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+
+  const start = new Date(props.fy_start_date)
+  const end = new Date(props.fy_end_date)
+
+  // console.log("start:", start, "end:", end)
 
   const editFieldRef = useRef(null);
   const editButtonRef = useRef(null);
@@ -35,34 +40,35 @@ const Forecast = ((props) => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    props.editForecast(props.id, props.projectionyear, cumuGrowth, newDeals);
-    setCumuGrowth();
-    setNewDeals();
+    props.editFY(props.id, props.fy, startDate, endDate);
+    setStartDate();
+    setEndDate();
     setEditing(false);
   }
 
   return (
     <>
-    {/* This file is the template for how each forecast should look while in view mode and edit mode */}
+    {/* This file is the template for how each FY should look while in view mode and edit mode */}
       <ListGroup.Item>
         {isEditing ? 
 
-          // view when updating forecast
+          // view when updating FY
           <Fm>
             <div className="form-group">
               <label htmlFor={props.id}>
-                Update <strong> {props.projectionyear} </strong> Values
+                Update <strong> {props.fy} </strong> Values
               </label>
 
               <Row>
                 <Col lg={5}>
-                  <Fm.Label>Cu. Growth</Fm.Label>
+                  <Fm.Label>Start Date</Fm.Label>
                   <Fm.Control
                     id={props.id}
                     className="todo-text"
-                    type="text"
-                    value={cumuGrowth}
-                    onChange={(e) => setCumuGrowth(e.target.value)}
+                    type="date"
+                    value={startDate}
+                    max={endDate}
+                    onChange={(e) => setStartDate(e.target.value)}
                     ref={editFieldRef}
                     size="sm"
                     style={{fontSize: "12px", width: "60%"}}
@@ -70,13 +76,14 @@ const Forecast = ((props) => {
                 </Col>
 
                 <Col lg={5}>
-                  <Fm.Label>New Deals</Fm.Label>
+                  <Fm.Label>E</Fm.Label>
                   <Fm.Control
                     id={props.id}
                     className="todo-text"
-                    type="text"
-                    value={newDeals}
-                    onChange={(e) => setNewDeals(e.target.value)}
+                    type="date"
+                    value={endDate}
+                    min={startDate}
+                    onChange={(e) => setEndDate(e.target.value)}
                     size="sm"
                     style={{fontSize: "12px", width: "60%"}}
                   />
@@ -99,19 +106,19 @@ const Forecast = ((props) => {
             </div>
           </Fm>
           :
-          // view when not updating forecast
+          // view when not updating FY
           <div className="d-flex justify-content-between" style={{ cursor: "pointer"}}>
             
             <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-              {props.projectionyear}
+              {props.fy}
             </label>
 
             <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-              {props.cumulativegrowth}
+              {`${start.toISOString().slice(0, 10)}`}
             </label>
 
             <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-              {props.newdeals}
+              {`${end.toISOString().slice(0, 10)}`}
             </label>
             
             <FiEdit 
@@ -124,4 +131,4 @@ const Forecast = ((props) => {
   )
 })
 
-export default Forecast;
+export default FY;
