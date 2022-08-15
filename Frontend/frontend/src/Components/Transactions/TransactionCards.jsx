@@ -11,7 +11,7 @@ export default function TransactionCards() {
 
   const [data, setData] = useState([]);
 
-    // ******************************************  useEffect hook : componentDidMount  ***********************
+    // ******************************************  useEffect hook : componentDidMount  ***********************.
 
 
   useEffect(() => {

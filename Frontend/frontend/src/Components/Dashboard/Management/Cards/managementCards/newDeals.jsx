@@ -161,6 +161,7 @@ function NewDeals() {
             <small className="mb-3">{varianceDisplay(varianceAmount)}</small>
             <small style={{ fontSize: "11px", color: "black", fontWeight:'bold' }}>VARIANCE</small>
 
+<br/>
             </Stack>
           </Col>
 </Row>

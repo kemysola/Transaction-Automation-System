@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react';
 // import styled from 'styled-components';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Card ,Spinner} from 'react-bootstrap';
 import { FaCoins } from 'react-icons/fa';
 import Service from "../../Services/Service"
 
@@ -21,6 +21,7 @@ export default function TransactionCards({ props, closedStatus, staffFilter }) {
   useEffect(() => {
     if (closedStatus === "" && staffFilter === "All") {
       retrieveDeals();
+      
     }
     if (closedStatus && staffFilter === "All") {
       retrieveDeals();
@@ -55,11 +56,12 @@ export default function TransactionCards({ props, closedStatus, staffFilter }) {
       .then((res) => {
         setData(res.data.deals);
         setStaffData(res.data.deals);
-        setLoading(false);
       })
       .catch((e) => {
         console.log(e);
       });
+      setLoading(false);
+
   };
 
   // Filter Data by Closed Status either True or False
@@ -113,6 +115,7 @@ export default function TransactionCards({ props, closedStatus, staffFilter }) {
     }, 500);
   };
 
+  var sum = data.length;
 
   // .................................... Axios Endpoint ..............................
  
@@ -123,7 +126,6 @@ export default function TransactionCards({ props, closedStatus, staffFilter }) {
 
   return (
     <React.Fragment>
-      <Container>
         <h2 style={{color: "steelblue",fontSize:'15px'}}>Global Deals</h2>
           
         <Row>
@@ -157,7 +159,8 @@ export default function TransactionCards({ props, closedStatus, staffFilter }) {
                 </Card.Title>
 
                 <Card.Text className='text-info'>
-                  <h4>{`${data.length}`}</h4>
+                  {loading === true ?  (<Spinner animation="border" variant="primary" />):<h4>{sum}</h4>}
+                
                 </Card.Text>
               </Card.Body>
             </Card>
@@ -165,6 +168,5 @@ export default function TransactionCards({ props, closedStatus, staffFilter }) {
 
         </Row>
 
-      </Container>
     </React.Fragment>
 )}

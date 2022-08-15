@@ -9,14 +9,17 @@ export default function TransactionCards() {
     // ******************************************  use state hook to store state ****************************************
 
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
      Service.getMyPipelineDeals()
         .then((response) => {
           setData(response.data.deals);
+          setLoading(false)
         })
         .catch((e) => {
           console.log(e);
+          setLoading(true)
         });
  
   }, []);
