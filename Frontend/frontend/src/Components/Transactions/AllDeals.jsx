@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import {Row, Col, Container} from 'react-bootstrap';
 import SideNav2 from '../LandingPage/SideNav2';
 import TransactionTable from './AllDealsTable';
-import TransactionCards from './AllDealsCard';
+// import TransactionCards from './AllDealsCard';
 import Navbar from '../LandingPage/Navbar';
 
 
@@ -24,7 +24,7 @@ export default function AllDeals(){
                 </Col>
 
                 <Col sm={9}>
-                    <TransactionCards/>
+                    {/* <TransactionCards/> */}
                     <Container>
                         <TransactionTable />
                     </Container>

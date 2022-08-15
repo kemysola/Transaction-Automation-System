@@ -8,6 +8,7 @@ import { GrStatusDisabled } from "react-icons/gr"
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Service from "../../Services/Service";
+import TransactionCards from './AllDealsCard';
 import * as XLSX from 'xlsx';
 
 
@@ -623,6 +624,7 @@ const AllDealsTable = (props) => {
 
   return (
     <React.Fragment>
+      <TransactionCards closedStatus={closedStatus} staffFilter={staffFilter} /> 
       <ContainerWrapper>
         
         <Row className='d-flex justify-content-space-evenly'>

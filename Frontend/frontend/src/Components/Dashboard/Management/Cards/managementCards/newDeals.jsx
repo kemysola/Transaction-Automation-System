@@ -10,6 +10,7 @@ function NewDeals() {
   const [currentForecast, setCurrentForecast] = useState([])
   const [nextForecast, setNextForecast] = useState("")
   const [closedDeal, setClosedDeal] = useState([]);
+  const [actualGuarantee, setActualGuarantee] = useState("");
   const year = new Date().getFullYear();
 
 
@@ -17,6 +18,8 @@ function NewDeals() {
 
   useEffect(() => {
     retrieveForecast();
+
+    retrieveGuarantee();
   }, []);
 
 
@@ -29,6 +32,16 @@ function NewDeals() {
         setCurrentForecast(response.data.forecast[0]);
       })
       .catch((e) => {
+      });
+  }
+
+  const retrieveGuarantee = async () => {
+    await Service.getActualGuarantee()
+      .then((response) => {
+        setActualGuarantee(response.data.actualGuarantee[0].guaranteeactualvalue);
+      })
+      .catch((e) => {
+        console.log(e)
       });
   }
 
@@ -49,6 +62,9 @@ function NewDeals() {
   let targetValue = 0
   targetValue = +currentForecast.newdeals
 
+  let actualValue = 0
+  actualValue = +actualGuarantee
+
   var actual = closedDeal.reduce(function (filtered, arr) {
     if (arr.closed === true) {
       var someNewValue = arr.dealsize;
@@ -67,7 +83,7 @@ function NewDeals() {
   // ******************************************  Calculate the variance   **************************************************
 
 
-  let varianceAmount = targetValue  - actualForecast;
+  let varianceAmount = targetValue  - actualValue;
   
   function varianceDisplay(variance) {
     if (variance < 1) {
@@ -76,7 +92,7 @@ function NewDeals() {
         <span style={{ color: "green" }}>↑ ₦ {varianceAns.toFixed(2)}bn</span>
       );
     } else if (!isFinite(variance) || isFinite(variance)) {
-      return <span style={{color: 'red'}}>↓ ₦ {-1 * (actualForecast - targetValue).toFixed(2)}bn </span>;
+      return <span style={{color: 'red'}}>↓ ₦ {-1 * (actualValue - targetValue).toFixed(2)}bn </span>;
     }
 
     return <span style={{ color: "red" }}>↓ ₦ {variance.toFixed(2)}bn </span>;
@@ -111,7 +127,7 @@ function NewDeals() {
         <br/>
           <Col sm={4}>
           <Stack gap={0} className="d-flex justify-content-center">
-          ₦ {actualForecast.toFixed(2)}bn
+          ₦ {actualValue.toFixed(2)}bn
           <br/>
           <br/>
             <small
