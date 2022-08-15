@@ -26,7 +26,6 @@ export default function AllPages() {
         <Col sm ={8} lg={9} className='my-3'>
           <Container fluid>
           <CurrentGuarantee/>
-
           </Container>
 
         </Col>
