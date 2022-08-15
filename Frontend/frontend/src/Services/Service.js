@@ -180,6 +180,19 @@ const updateForecast = (id, data) => { // update new forecast values, for privil
     return axios.put(`admin/forecast/update/${id}`, data)
 }
 
+const getFY = (target_fy) => { // get all fy values
+    return axios.get(`admin/fy/${target_fy}`)
+}
+
+const addFY = (data) => { // create a new financial year, for privileged users only
+    return axios.post("admin/fy", data)
+}
+
+const updateFY = (id, data) => { // update new financial year, for privileged users only
+    return axios.put(`admin/fy/update/${id}`, data)
+}
+
+
 const Services = {
     LoginStaff,
     registerStaff,
@@ -224,6 +237,9 @@ const Services = {
     deleteFeatures,
     getMyPortfolioDeals,
     getMyPipelineDeals,
-    getActualGuarantee
+    getActualGuarantee,
+    getFY,
+    addFY,
+    updateFY
 }
 export default Services
