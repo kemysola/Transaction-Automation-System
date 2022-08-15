@@ -421,9 +421,10 @@ export default function UpdateStaffs() {
                             placeholder="0"
                             size="sm"
                             id="originationAmount"
-                            defaultValue={staff[0].origanationamount}
+                            defaultValue={staff[0].originationamount}
                             ref={originationAmount}
                             name="originationAmount"
+                            disabled={targs === "false" || staff[0].hasoriginationtarget === false}
                           />{" "}
                         </Form.Group>
 

@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import {  Row, Col} from 'react-bootstrap';
+import {  Row, Col, Form, Spinner} from 'react-bootstrap';
 import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters, useSortBy } from "react-table";
 import { FiEdit } from "react-icons/fi";
 import { FaLock, FaLockOpen } from "react-icons/fa"
+import { MdOutlineRefresh } from "react-icons/md"
 import { GrStatusDisabled } from "react-icons/gr"
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Service from "../../Services/Service";
+import TransactionCards from './AllDealsCard';
 import * as XLSX from 'xlsx';
 
 
@@ -93,56 +95,140 @@ export const GlobalFilter =({
   )
 }
 
-const IndeterminateCheckbox = React.forwardRef(
-  ({ indeterminate, ...rest }, ref) => {
-    const defaultRef = React.useRef()
-    const resolvedRef = ref || defaultRef
-
-    React.useEffect(() => {
-      resolvedRef.current.indeterminate = indeterminate
-    }, [resolvedRef, indeterminate])
-
-    return (
-      <>
-        <input type="checkbox" ref={resolvedRef} {...rest} />
-      </>
-    )
-  }
-)
 
 const AllDealsTable = (props) => {
-  
-    // ****************************  use state hook to store state, useRef and useHistory for routing ***************
-
+  // ****************************  use state hook to store state, useRef and useHistory for routing ***************
   const history = useHistory();
   const [deals, setDeals] = useState([]);
+  const [closedStatus, setClosedStatus] = useState("");
+  const [staffList, setStaffList] = useState([]);
+  const [staffFilter, setStaffFilter] = useState("All");
+  const [loading, setLoading] = useState(false);
+  const [rawData, setRawData] = useState([]);
+  const [staffData, setStaffData] = useState([]);
   const dealsRef = useRef();
   dealsRef.current = deals;
 
   // ******************************************  useEffect hook *******************************************************
-
-
   useEffect(() => {
     retrieveDeals();
-  }, []); 
 
+    retrieveStaffList();
+  }, []);
 
+  // useEffect(() => {
+  //   var filteredData = filterData(closedStatus);
+  //   filteredData = filterStaffData(closedStatus);
+  //   setDeals(filteredData);
+  // }, [closedStatus, staffFilter])
+
+  useEffect(() => {
+    if (closedStatus === "" && staffFilter === "All") {
+      retrieveDeals();
+    }
+    if (closedStatus && staffFilter === "All") {
+      retrieveDeals();
+      filterData(closedStatus)
+    }
+    if (closedStatus === "" && staffFilter !== "All") {
+      retrieveStaffDeals();
+      // setLoading(true);
+      // specificDeals();
+    }
+    if (closedStatus && staffFilter !== "All") {
+      retrieveStaffDeals();
+      setLoading(true);
+      filterStaffData(closedStatus);
+    }
+  }, [closedStatus, staffFilter]); 
+
+  // Filter Data by Closed Status either True or False
+  let filterTimeout;
+  const filterData = (closedStatus) => {
+    clearTimeout(filterTimeout);
+    setLoading(true);
+
+    filterTimeout = setTimeout(() => {
+      if (closedStatus === "true") {
+        setDeals(
+          rawData.filter((item) => {
+            return item.closed === true;
+          })
+        );
+      } else if (closedStatus === "false") {
+        setDeals(
+          rawData.filter((item) => {
+            return item.closed === false;
+          })
+        );
+      }
+
+    setLoading(false);
+    return
+    }, 500);
+  };
   
-    // ******************************************  Axios :Get Request  ***********************************************
+  // Filter Individual Staff Data by Closed Status
+  const filterStaffData = (closedStatus) => {
+    clearTimeout(filterTimeout);
+    setLoading(true);
 
+    filterTimeout = setTimeout(() => {
+      if (closedStatus === "true") {
+        setDeals(
+          staffData.filter((item) => {
+            return item.closed === true;
+          })
+        );
+      } else if (closedStatus === "false") {
+        setDeals(
+          staffData.filter((item) => {
+            return item.closed === false;
+          })
+        );
+      }
 
+      setLoading(false);
+      return 
+    }, 500);
+  };
+  
+  // ******************************************  Axios :Get Request  ***********************************************
   const retrieveDeals = async() => {
+    setLoading(true);
     await Service.getPortfolioAllDeals()
       .then((response) => {
         setDeals(response.data.deals);
+        setRawData(response.data.deals);
+        setLoading(false);
       })
       .catch((e) => {
         console.log(e);
       });
   };
 
-  const refreshList = () => {
-    retrieveDeals();
+  // Get deals by staff email
+  const retrieveStaffDeals = () => {
+    setLoading(true);
+    Service.getMyDealsByEmail(staffFilter)
+      .then((res) => {
+        setDeals(res.data.deals);
+        setStaffData(res.data.deals);
+        setLoading(false);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+ 
+  const retrieveStaffList = async () => {
+    await Service.getStaffList()
+      .then((response) => {
+        setStaffList(response.data.staffList);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   const openDeal = (rowIndex) => {
@@ -151,6 +237,12 @@ const AllDealsTable = (props) => {
       search: "?" + rowIndex,
     });
   };
+
+  // clear filter values
+  const resetFilterValues = () => {
+    setClosedStatus("");
+    setStaffFilter("All");
+  }
 
   // ******************************************  Download Function  ****** ****************************************
 
@@ -468,25 +560,9 @@ const AllDealsTable = (props) => {
         Header: "Notes",
         accessor: "notes",
       },
-      // {
-      //   Header: "Closed",
-      //   accessor: "closed",
-      //   Cell: (props) => {
-      //     const status = (props.row.original['closed'])
-      //     return (
-      //       <div>
-      //         {status ? "True" : "False"}
-      //       </div>
-      //     )
-      //   }
-      // },
     ],
     []
   );
-
-  useEffect(() => {
-    getTrProps();
-  }, []);
 
   const getTrProps = (row, i, page) => {
     if (row){
@@ -538,131 +614,140 @@ const AllDealsTable = (props) => {
     useResizeColumns,
     useFlexLayout,
     useSortBy,
-    usePagination,
-    // useRowSelect,
-    // hooks => {
-    //   hooks.allColumns.push(columns => [
-    //     // Let's make a column for selection
-    //     {
-    //       id: 'selection',
-    //       disableResizing: true,
-    //       minWidth: 20,
-    //       width: 35,
-    //       maxWidth: 35,
-    //       // The header can use the table's getToggleAllRowsSelectedProps method
-    //       // to render a checkbox
-    //       Header: ({ getToggleAllRowsSelectedProps }) => (
-    //         <div>
-    //           <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-    //         </div>
-    //       ),
-    //       // The cell can use the individual row's getToggleRowSelectedProps method
-    //       // to the render a checkbox
-    //       Cell: ({ row }) => (
-    //         <div>
-    //           <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-    //         </div>
-    //       ),
-    //     },
-    //     ...columns,
-    //   ])
-    //   hooks.useInstanceBeforeDimensions.push(({ headerGroups }) => {
-    //     // fix the parent group of the selection button to not be resizable
-    //     const selectionGroupHeader = headerGroups[0].headers[0]
-    //     selectionGroupHeader.canResize = false
-    //   })
-    // },
-    
-    );
+    usePagination,    
+  );
 
+    // useEffect(() => {
+    //   getTrProps();
+    // }, [nextPage])
   
 
   return (
     <React.Fragment>
+      <TransactionCards closedStatus={closedStatus} staffFilter={staffFilter} /> 
       <ContainerWrapper>
         
-        <Row>
-              <Col sm={2} className='d-sm-none d-lg-block d-md-block'>
-                <small style={{fontSize:'12px',paddingTop:'10px'}}>
-                  All ({deals.length})
-                </small>
-              </Col>
+        <Row className='d-flex justify-content-space-evenly'>
+          <Col sm={2} className='d-sm-none d-lg-block d-md-block'>
+            <small style={{fontSize:'12px',paddingTop:'10px'}}>
+              All ({deals.length})
+            </small>
+          </Col>
 
-              <Col sm={2} className='d-sm-none d-lg-block d-md-block'>
-                <small style={{fontSize:'12px',paddingTop:'10px'}}>
-                  Trash (0) 
-                </small>
-              </Col>
-              
-              <Col sm={2} className='d-sm-none d-lg-block '>
-                <small style={{fontSize:'12px',paddingTop:'10px'}}>
-                  Bulk Actions
-                </small>
-              </Col>
-              <Col sm ={2} className='d-sm-none d-lg-block d-md-block'>
-              <small style={{fontSize:'12px',paddingTop:'10px'}}>
+          {/* <Col sm={2} className='d-sm-none d-lg-block d-md-block'>
+            <small style={{fontSize:'12px',paddingTop:'10px'}}>
+              Trash (0) 
+            </small>
+          </Col> */}
+          
+          {/* <Col sm={2} className='d-sm-none d-lg-block '>
+            <small style={{fontSize:'12px',paddingTop:'10px'}}>
+              Bulk Actions
+            </small>
+          </Col> */}
+
+          <Col>
+            <Form.Check label="Portfolio" type="radio" name="closedStatus" value={true} checked={closedStatus === "true"} onClick={(e) => setClosedStatus(e.target.value)} /> 
+            <Form.Check label="Pipeline" type="radio" name="closedStatus" value={false} checked={closedStatus === "false"} onClick={(e) => setClosedStatus(e.target.value)} />
+          </Col>
+
+          <Col>
+            <Form.Select
+              size="sm"
+              name="staff"
+              onChange={(e) => setStaffFilter(e.target.value)}
+              value={staffFilter}
+            >
+              <option value="All">All</option>
+              {staffList.map((opt, i) => (
+                <option
+                  key={staffList[i].email}
+                  name={staffList[i].stafflist}
+                  value={staffList[i].email}
+                >
+                  {staffList[i].stafflist}
+                </option>
+              ))}
+            </Form.Select>
+          </Col>
+
+          <Col >
+            <MdOutlineRefresh 
+              onClick={resetFilterValues} 
+              style={{ height: "1rem", width: "1rem", marginTop: "5px", cursor: "pointer"}}
+            />
+          </Col>
+
+          <Col sm ={2} className='d-sm-none d-lg-block d-md-block'>
+            <small style={{fontSize:'12px',paddingTop:'10px'}}>
               <button className='bg-success text-light py-1' onClick={downloadExcel}>Download</button>
-              </small>
-              </Col>
+            </small>
+          </Col>
 
-                <Col sm={3}>
+          <Col sm={3}>
             <GlobalFilter
-                preGlobalFilteredRows={preGlobalFilteredRows}
-                globalFilter={state.globalFilter}
-                setGlobalFilter={setGlobalFilter}
-              />
-            </Col>                
+              preGlobalFilteredRows={preGlobalFilteredRows}
+              globalFilter={state.globalFilter}
+              setGlobalFilter={setGlobalFilter}
+            />
+          </Col>                
         </Row>
 
-        {/* ------------- Transaction Table ---------- */}
-        <TableStyle>
-          <div className="table-responsive mt-2 pt-2">
-            <table
-              className="table py-3 mt-3  table-hover table striped align-middle table-bordered"
-              id='myTable'
-              {...getTableProps()}
-            >
-              <thead>
-                {headerGroups.map((headerGroup) => (
-                  <tr {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map((column) => (
-                      <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                        {column.render("Header")}
-                        <span>
-                          {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
-                        </span>
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody {...getTableBodyProps()} className='table-bordered' 
+        {loading ? (
+          <Spinner animation="border" role="status" variant="secondary">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        ) : (
+        //  {/* ------------- Transaction Table ---------- */}
+          <TableStyle>
+            <div className="table-responsive mt-2 pt-2">
+              <table
+                className="table py-3 mt-3  table-hover table striped align-middle table-bordered"
+                id='myTable'
+                {...getTableProps()}
               >
-                {page.map((row, i) => {
-                  prepareRow(row);
-                  return (
-                    <tr 
-                      {...row.getRowProps(getTrProps(row, i, page))}
-                    >
-                      {row.cells.map((cell) => {
-                        return (
-                          <td 
-                            {...cell.getCellProps()}
-                          >
-                            {cell.render("Cell")}
-                          </td>
-                        );
-                      })}
+                <thead>
+                  {headerGroups.map((headerGroup) => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                      {headerGroup.headers.map((column) => (
+                        <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                          {column.render("Header")}
+                          <span>
+                            {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                          </span>
+                        </th>
+                      ))}
                     </tr>
-                  )
-                }
-                )}
-              </tbody>
-            </table>
-          </div>
-        </TableStyle>
+                  ))}
+                </thead>
+                <tbody {...getTableBodyProps()} className='table-bordered' 
+                >
+                  {page.map((row, i) => {
+                    prepareRow(row);
+                    return (
+                      <tr 
+                        {...row.getRowProps(getTrProps(row, i, page))}
+                      >
+                        {row.cells.map((cell) => {
+                          return (
+                            <td 
+                              {...cell.getCellProps()}
+                            >
+                              {cell.render("Cell")}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    )
+                  }
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </TableStyle>
+        )}
 
-        {/* Set pagination for the  table */}
+          {/* Set pagination for the  table */}
         <Pagination>
           <div className='pagination mt-1 pt-1'>
             <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
@@ -709,6 +794,8 @@ const AllDealsTable = (props) => {
             </select>
           </div>
         </Pagination>
+
+    {/* )} */}
         
       </ContainerWrapper>
     </React.Fragment>

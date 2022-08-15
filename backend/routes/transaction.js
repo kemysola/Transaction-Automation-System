@@ -302,7 +302,7 @@ router.get('/get_staff_deals/:email', verifyTokenAndAuthorization, async (req, r
         const staff_email = req.params.email
 
         const my_deals = await client.query(
-            `SELECT 
+            `SELECT DISTINCT ON (a.transID)
                 a.* ,
 
                 b.ocps_factors, b.ocps_yes_no, b.ocps_concern, b.ocps_expected, b.ocps_resp_party, b.ocps_status,
@@ -353,7 +353,6 @@ router.get('/all_deals', verifyTokenAndAuthorization, async (req, res) => {
             `SELECT 
                 a.* 
             FROM TB_INFRCR_TRANSACTION a
-            WHERE closed = false
             `
             );
 
