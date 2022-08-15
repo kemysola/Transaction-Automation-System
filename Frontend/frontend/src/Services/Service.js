@@ -59,6 +59,14 @@ const getMyDeals = async() => { // get current users deals
     return await axios.get("transaction/my_deals");
 };
 
+const getMyPipelineDeals = async() => {
+    return await axios.get("transaction/pipeline")
+};
+
+const getMyPortfolioDeals = async() => {
+    return await axios.get("transaction/portfolio")
+}
+
 const getMyDealsByEmail = async(user_email) => { // get current users deals
     return  await axios.get(`transaction/get_staff_deals/${user_email}`);
     
@@ -72,12 +80,16 @@ const getAllDeals = async() => { // get all deals, for privileged users only
 };
 
 const getPortfolioAllDeals = async() => { // get all deals, for privileged users only
-    return await  axios.get("/transaction/all_deals/portfolio");
+    return await  axios.get("transaction/all_deals/portfolio");
 };
 
 const downloadAllDeals = async() => { // get all deals, for privileged users only
     return await  axios.get("transaction/download_all_deals");
 };
+
+const getActualGuarantee = () => { // Actual Guarantee: for only closed deals within the current FY
+    return axios.get("transaction/guarantee/actual")
+}
 
 const getAllStaff = async() => { // get all staff, for privileged users only
     return await axios.get("staff/all_staff");
@@ -209,6 +221,9 @@ const Services = {
     updatePlis,
     updateKpis,
     updateOcps,
-    deleteFeatures
+    deleteFeatures,
+    getMyPortfolioDeals,
+    getMyPipelineDeals,
+    getActualGuarantee
 }
 export default Services

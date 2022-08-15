@@ -5,29 +5,118 @@ import { FaCoins } from 'react-icons/fa';
 import Service from "../../Services/Service"
 
 
-export default function TransactionCards() {
+export default function TransactionCards({ props, closedStatus, staffFilter }) {
     // ******************************************  use state hook to store state ****************************************
 
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [rawData, setRawData] = useState([]);
+  const [staffData, setStaffData] = useState([]);
 
   useEffect(() => {
-     Service.getAllDeals()
-        .then((response) => {
-          setData(response.data.deals);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+     retrieveDeals();
  
   }, []);
 
-  
+  useEffect(() => {
+    if (closedStatus === "" && staffFilter === "All") {
+      retrieveDeals();
+    }
+    if (closedStatus && staffFilter === "All") {
+      retrieveDeals();
+      filterData(closedStatus)
+    }
+    if (closedStatus === "" && staffFilter !== "All") {
+      retrieveStaffDeals();
+      // setLoading(true);
+      // specificDeals();
+    }
+    if (closedStatus && staffFilter !== "All") {
+      retrieveStaffDeals();
+      setLoading(true);
+      filterStaffData(closedStatus);
+    }
+  }, [closedStatus, staffFilter]); 
+
+  const retrieveDeals = () => {
+    Service.getPortfolioAllDeals()
+      .then((response) => {
+        setData(response.data.deals);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+   // Get deals by staff email
+   const retrieveStaffDeals = () => {
+    setLoading(true);
+    Service.getMyDealsByEmail(staffFilter)
+      .then((res) => {
+        setData(res.data.deals);
+        setStaffData(res.data.deals);
+        setLoading(false);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  // Filter Data by Closed Status either True or False
+  let filterTimeout;
+  const filterData = (closedStatus) => {
+    clearTimeout(filterTimeout);
+    setLoading(true);
+
+    filterTimeout = setTimeout(() => {
+      if (closedStatus === "true") {
+        setData(
+          rawData.filter((item) => {
+            return item.closed === true;
+          })
+        );
+      } else if (closedStatus === "false") {
+        setData(
+          rawData.filter((item) => {
+            return item.closed === false;
+          })
+        );
+      }
+
+    setLoading(false);
+    return
+    }, 500);
+  };
+
+  // Filter Individual Staff Data by Closed Status
+  const filterStaffData = (closedStatus) => {
+    clearTimeout(filterTimeout);
+    setLoading(true);
+
+    filterTimeout = setTimeout(() => {
+      if (closedStatus === "true") {
+        setData(
+          staffData.filter((item) => {
+            return item.closed === true;
+          })
+        );
+      } else if (closedStatus === "false") {
+        setData(
+          staffData.filter((item) => {
+            return item.closed === false;
+          })
+        );
+      }
+
+      setLoading(false);
+      return 
+    }, 500);
+  };
+
 
   // .................................... Axios Endpoint ..............................
  
 
-  
-  
   var sumTotal = data.reduce(function (tot, arr) {
     return tot + parseFloat(arr.dealsize);
   }, 0);
@@ -35,7 +124,7 @@ export default function TransactionCards() {
   return (
     <React.Fragment>
       <Container>
-        <h2 style={{color: "steelblue",fontSize:'15px'}}>All Transactions</h2>
+        <h2 style={{color: "steelblue",fontSize:'15px'}}>Global Deals</h2>
           
         <Row>
           <Col sm={6} md={6} className='d-md-block'>

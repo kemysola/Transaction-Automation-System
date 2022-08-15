@@ -132,7 +132,7 @@ const PortfolioAllDealsTable = (props) => {
 
 
   const retrieveDeals = async() => {
-    await Service.getPortfolioAllDeals()
+    await Service.getMyPipelineDeals()
       .then((response) => {
         setDeals(response.data.deals);
       })

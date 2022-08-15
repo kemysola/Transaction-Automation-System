@@ -302,7 +302,7 @@ router.get('/get_staff_deals/:email', verifyTokenAndAuthorization, async (req, r
         const staff_email = req.params.email
 
         const my_deals = await client.query(
-            `SELECT 
+            `SELECT DISTINCT ON (a.transID)
                 a.* ,
 
                 b.ocps_factors, b.ocps_yes_no, b.ocps_concern, b.ocps_expected, b.ocps_resp_party, b.ocps_status,
@@ -353,7 +353,6 @@ router.get('/all_deals', verifyTokenAndAuthorization, async (req, res) => {
             `SELECT 
                 a.* 
             FROM TB_INFRCR_TRANSACTION a
-            WHERE closed = false
             `
             );
 
@@ -405,6 +404,69 @@ router.get('/all_deals/portfolio', verifyTokenAndAdmin, async (req, res) => {
       }
 });
 
+/*Fetch Pipeline */
+router.get('/pipeline', verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+        // const deal_record_id = req.params.deal;
+        const current_user = req.user
+
+        const my_pipeline = await client.query(
+            `SELECT a.*
+        
+            FROM TB_INFRCR_TRANSACTION a
+            WHERE a.closed = false
+            AND (a.originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
+            OR a.transactor = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1))
+            `
+            ,
+            [current_user.Email]);
+        if (my_pipeline) { 
+            res.status(200).send({
+                status: (res.statusCode = 200),
+                deals: my_pipeline.rows
+            })
+        }
+
+    } catch (e) {
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+});
+
+/*Fetch Portfolio deals per user */
+router.get('/portfolio', verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+        // const deal_record_id = req.params.deal;
+        const current_user = req.user
+
+        const my_portfolio = await client.query(
+            `SELECT a.*
+        
+            FROM TB_INFRCR_TRANSACTION a
+            WHERE a.closed = true
+            AND (a.originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
+            OR a.transactor = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1))
+            `
+            ,
+            [current_user.Email]);
+        if (my_portfolio) { 
+            res.status(200).send({
+                status: (res.statusCode = 200),
+                deals: my_portfolio.rows
+            })
+        }
+
+    } catch (e) {
+        res.status(403).json({ Error: e.stack });
+    }finally{
+        client.release()
+      }
+});
 //**************************************** Download endpoint for origination dashboard */
 
 // create an endpoint to download deals by indidvidual staff on the origination dashboard
@@ -1007,5 +1069,58 @@ router.delete('/delete/:dealID', async (req, res) => {
       }
 
 });
+
+// Top N Reimbursible Stats
+router.get('/reimbursible/:topn/:start_date/:end_date',verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+     try {
+    // query transaction table
+        const start_date = req.params.start_date;
+        const end_date = req.params.end_date;
+        const top_n = req.params.topn;
+
+        const ccsubmission_data = await client.query(`
+        SELECT clientname, originator, transactor, dealsize, reimbursible
+        FROM TB_INFRCR_TRANSACTION 
+        WHERE DATE_PART('year', createdate) BETWEEN COALESCE(DATE_PART('year', TO_DATE($1,'DD-MM-YYY')),DATE_PART('year', CURRENT_DATE)) and COALESCE(DATE_PART('year', TO_DATE($2,'DD-MM-YYY')),DATE_PART('year', CURRENT_DATE))
+        --(SELECT COALESCE(DATE_PART('year', fy_start_date), DATE_PART('year', CURRENT_DATE)) FROM TB_INFRCR_FINANCIAL_YEAR WHERE fy_status = 'Active')
+        ORDER BY reimbursible DESC
+        LIMIT $3
+        `,[start_date, end_date, top_n]);
+  
+        res.status(200).send({
+            status: (res.statusCode = 200),
+            ccsubmissionReport: ccsubmission_data.rows,
+        })
+} catch (e) {
+    res.status(403).json({ Error: e.stack });
+}finally{
+    client.release()
+}
+  })
+
+// Actual Guarantee: for only closed deals within the current FY
+router.get('/guarantee/actual',verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+     try {
+        
+        const actual_guarantee = await client.query(`
+        SELECT 	SUM(guaranteefee) GuaranteeActualValue
+        FROM TB_INFRCR_TRANSACTION_AUDIT
+        WHERE date_part('year', stamp) = (SELECT date_part('year', fy_start_date) FROM TB_INFRCR_FINANCIAL_YEAR WHERE fy_status = 'Active')
+        AND operation = 'U'
+        AND closed = true
+        `);
+  
+        res.status(200).send({
+            status: (res.statusCode = 200),
+            actualGuarantee: actual_guarantee.rows,
+        })
+} catch (e) {
+    res.status(403).json({ Error: e.stack });
+}finally{
+    client.release()
+}
+  })
 
 module.exports = router;

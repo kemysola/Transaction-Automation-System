@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { Table, Button, Row, Col } from 'react-bootstrap';
+import { Table, Button, Row, Col, Card } from 'react-bootstrap';
 import styled from 'styled-components';
 import {
   useTable,
@@ -180,6 +180,14 @@ const StaffTable = () => {
   const columns = useMemo(
     () => [
       {
+        Header: 'S/N',
+        disableResizing: true,
+        width: 42,
+        Cell: (row) => {
+          return <div>{Number(row.row.id) + 1}</div>;
+        }
+      },
+      {
         Header: "Edit",
         accessor: "edit",
         disableResizing: true,
@@ -282,38 +290,38 @@ const StaffTable = () => {
   useFlexLayout,
   usePagination,
   useRowSelect,
-    hooks => {
-      hooks.allColumns.push(columns => [
-        // Let's make a column for selection
-        {
-          id: 'selection',
-          disableResizing: true,
-          minWidth: 20,
-          width: 35,
-          maxWidth: 35,
-          // The header can use the table's getToggleAllRowsSelectedProps method
-          // to render a checkbox
-          Header: ({ getToggleAllRowsSelectedProps }) => (
-            <div>
-              <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-            </div>
-          ),
-          // The cell can use the individual row's getToggleRowSelectedProps method
-          // to the render a checkbox
-          Cell: ({ row }) => (
-            <div>
-              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-            </div>
-          ),
-        },
-        ...columns,
-      ])
-      hooks.useInstanceBeforeDimensions.push(({ headerGroups }) => {
-        // fix the parent group of the selection button to not be resizable
-        const selectionGroupHeader = headerGroups[0].headers[0]
-        selectionGroupHeader.canResize = false
-      })
-    },
+    // hooks => {
+    //   hooks.allColumns.push(columns => [
+    //     // Let's make a column for selection
+    //     {
+    //       id: 'selection',
+    //       disableResizing: true,
+    //       minWidth: 20,
+    //       width: 35,
+    //       maxWidth: 35,
+    //       // The header can use the table's getToggleAllRowsSelectedProps method
+    //       // to render a checkbox
+    //       Header: ({ getToggleAllRowsSelectedProps }) => (
+    //         <div>
+    //           <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+    //         </div>
+    //       ),
+    //       // The cell can use the individual row's getToggleRowSelectedProps method
+    //       // to the render a checkbox
+    //       Cell: ({ row }) => (
+    //         <div>
+    //           <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+    //         </div>
+    //       ),
+    //     },
+    //     ...columns,
+    //   ])
+    //   hooks.useInstanceBeforeDimensions.push(({ headerGroups }) => {
+    //     // fix the parent group of the selection button to not be resizable
+    //     const selectionGroupHeader = headerGroups[0].headers[0]
+    //     selectionGroupHeader.canResize = false
+    //   })
+    // },
   );
 
 
@@ -322,25 +330,22 @@ const StaffTable = () => {
     <React.Fragment>
       <ContainerWrapper  className='bg-light'>
         <Row>
-          <Col sm={3} className='d-sm-none d-lg-block d-md-block'>
-            <small style={{fontSize:'12px',paddingTop:'10px'}} >
-              All ({staff.length})
-            </small>
+          <Col
+            sm={3}
+            lg={4}
+            md={12}
+            className='d-flex justify-content-end'
+            style={{ display: "flex", flexDirection: "row" }}
+          >
+            <Card style={{ width: "10rem", flex: 1, background: "white" }}>
+              <Card.Body>
+                <Card.Title>Total No of Team: {staff.length}</Card.Title>
+                {/* <Card.Text>No of Deal Team</Card.Text> */}
+              </Card.Body>
+            </Card>
           </Col>
 
-          <Col sm={3} className='d-sm-none d-lg-block d-md-block'>
-            <small style={{fontSize:'12px',paddingTop:'10px'}}>
-              Trash (0) 
-            </small>
-          </Col>
-
-          <Col sm={3} className='d-sm-none d-lg-block'>
-            <small style={{fontSize:'12px',paddingTop:'10px'}}>
-              Bulk Actions
-            </small>
-          </Col>
-
-          <Col sm={3}>
+          <Col className='d-flex justify-content-end' style={{marginTop: "10px"}}>
             <GlobalFilter
                 preGlobalFilteredRows={preGlobalFilteredRows}
                 globalFilter={state.globalFilter}

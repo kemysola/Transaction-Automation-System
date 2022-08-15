@@ -544,4 +544,10 @@ Response => {
 ]
 }_
 
+-- 9 August, 2022. Financial year Endpoints
+financial year is in "admin" route ... /admin/fy
 
+get = currentFY => /admin/fy/current 
+get = allFY => /admin/fy/'' 
+put = /admin/fy/update/1(Id of the fy in the table)
+post = /admin/fy 
