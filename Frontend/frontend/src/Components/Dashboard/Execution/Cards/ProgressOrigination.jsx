@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, ProgressBar, Card } from "react-bootstrap";
-import styled from "styled-components";
-import { BsArrowDown } from "react-icons/bs";
-import Table from "../Table";
+import { Container, Row, Col,Card } from "react-bootstrap";
 import Dropdownmenu from "../../Origination/stafflist/Dropdown";
 import Service from "../../../../Services/Service";
 import {
@@ -11,26 +8,14 @@ import {
   XAxis,
   YAxis,
   Cell,
-  CartesianGrid,
   Tooltip,
-  Line,
-  Legend,
-  ReferenceLine,
-  ResponsiveContainer,
 } from "recharts";
 
 import PieCardOrigination from "./PieCardOrigination";
 import SingleStaff from "../../Origination/deals/SingleStaff";
 import { blueGrey } from "@mui/material/colors";
 
-const ProgressBarDiv = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  justify-content: center;
-  font-size: 10px;
-  padding: 4px 15px;
-  border-radius: 20px;
-`;
+
 export default function ProgressOrigination() {
   const [data, setData] = useState([]);
   const [target, setTarget] = useState([]);
