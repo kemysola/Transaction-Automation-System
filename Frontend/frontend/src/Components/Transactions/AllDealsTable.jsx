@@ -106,6 +106,7 @@ const AllDealsTable = (props) => {
   const [loading, setLoading] = useState(false);
   const [rawData, setRawData] = useState([]);
   const [staffData, setStaffData] = useState([]);
+  const [status, setStatus] = useState("");
   const dealsRef = useRef();
   dealsRef.current = deals;
 
@@ -115,12 +116,6 @@ const AllDealsTable = (props) => {
 
     retrieveStaffList();
   }, []);
-
-  // useEffect(() => {
-  //   var filteredData = filterData(closedStatus);
-  //   filteredData = filterStaffData(closedStatus);
-  //   setDeals(filteredData);
-  // }, [closedStatus, staffFilter])
 
   useEffect(() => {
     if (closedStatus === "" && staffFilter === "All") {
@@ -132,15 +127,24 @@ const AllDealsTable = (props) => {
     }
     if (closedStatus === "" && staffFilter !== "All") {
       retrieveStaffDeals();
-      // setLoading(true);
-      // specificDeals();
     }
-    if (closedStatus && staffFilter !== "All") {
+    if ((closedStatus === "true" || closedStatus === "false") && staffFilter !== "All") {
       retrieveStaffDeals();
-      setLoading(true);
       filterStaffData(closedStatus);
     }
+
   }, [closedStatus, staffFilter]); 
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // After 5 seconds set status value to empty
+      setStatus("");
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [status]);
 
   // Filter Data by Closed Status either True or False
   let filterTimeout;
@@ -172,35 +176,39 @@ const AllDealsTable = (props) => {
   const filterStaffData = (closedStatus) => {
     clearTimeout(filterTimeout);
     setLoading(true);
-
-    filterTimeout = setTimeout(() => {
-      if (closedStatus === "true") {
-        setDeals(
-          staffData.filter((item) => {
-            return item.closed === true;
-          })
-        );
-      } else if (closedStatus === "false") {
-        setDeals(
-          staffData.filter((item) => {
-            return item.closed === false;
-          })
-        );
-      }
-
+    
+    if (status === "changed") {
+      setClosedStatus("")
+      retrieveStaffDeals()
+    } 
+    
+    else if (closedStatus === "true" || closedStatus === "false") {
+      filterTimeout = setTimeout(() => {
+        if (closedStatus === "true") {
+          setDeals(
+            staffData.filter((item) => {
+              return item.closed === true;
+            })
+          );
+        } else if (closedStatus === "false") {
+          setDeals(
+            staffData.filter((item) => {
+              return item.closed === false;
+            })
+          );
+        }
+    
       setLoading(false);
       return 
-    }, 500);
-  };
+    }, 500)
+  }};
   
   // ******************************************  Axios :Get Request  ***********************************************
   const retrieveDeals = async() => {
-    setLoading(true);
     await Service.getPortfolioAllDeals()
       .then((response) => {
         setDeals(response.data.deals);
         setRawData(response.data.deals);
-        setLoading(false);
       })
       .catch((e) => {
         console.log(e);
@@ -214,11 +222,11 @@ const AllDealsTable = (props) => {
       .then((res) => {
         setDeals(res.data.deals);
         setStaffData(res.data.deals);
-        setLoading(false);
       })
       .catch((e) => {
         console.log(e);
       });
+    setLoading(false);
   };
  
   const retrieveStaffList = async () => {
@@ -242,6 +250,12 @@ const AllDealsTable = (props) => {
   const resetFilterValues = () => {
     setClosedStatus("");
     setStaffFilter("All");
+  }
+
+  // handler for select input; sets the filter for staff data
+  const handleInputChange = (e) => {
+    setStaffFilter(e.target.value)
+    setStatus("changed")
   }
 
   // ******************************************  Download Function  ****** ****************************************
@@ -624,7 +638,7 @@ const AllDealsTable = (props) => {
 
   return (
     <React.Fragment>
-      <TransactionCards closedStatus={closedStatus} staffFilter={staffFilter} /> 
+      <TransactionCards closedStatus={closedStatus} staffFilter={staffFilter} status={status} /> 
       <ContainerWrapper>
         
         <Row className='d-flex justify-content-space-evenly'>
@@ -646,16 +660,19 @@ const AllDealsTable = (props) => {
             </small>
           </Col> */}
 
-          <Col>
-            <Form.Check label="Portfolio" type="radio" name="closedStatus" value={true} checked={closedStatus === "true"} onClick={(e) => setClosedStatus(e.target.value)} /> 
-            <Form.Check label="Pipeline" type="radio" name="closedStatus" value={false} checked={closedStatus === "false"} onClick={(e) => setClosedStatus(e.target.value)} />
-          </Col>
+          {/* {!loading &&  */}
+            <Col>
+              <Form.Check label="Portfolio" type="radio" name="closedStatus" value={true} checked={closedStatus === "true"} onClick={(e) => setClosedStatus(e.target.value)} /> 
+              <Form.Check label="Pipeline" type="radio" name="closedStatus" value={false} checked={closedStatus === "false"} onClick={(e) => setClosedStatus(e.target.value)} />
+            </Col>
+          {/*  } */}
+          
 
           <Col>
             <Form.Select
               size="sm"
               name="staff"
-              onChange={(e) => setStaffFilter(e.target.value)}
+              onChange={handleInputChange}
               value={staffFilter}
             >
               <option value="All">All</option>

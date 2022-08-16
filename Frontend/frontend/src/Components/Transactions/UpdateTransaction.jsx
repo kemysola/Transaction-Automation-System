@@ -404,7 +404,7 @@ export default function UpdateTransactions() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      // After 3 seconds set the message value to empty
+      // After 5 seconds set the message value to empty
       setMessage("");
     }, 5000);
 
