@@ -175,10 +175,6 @@ export default function Progress() {
     Service.getAllStaff()
       .then((response) => {
         setTarget(response.data.staff);
-        // setMandate(response.data.staff.mandateletter);
-        // setFinancialClose(response.data.staff.financialclose);
-        // setCca(response.data.staff.creditcommiteeapproval);
-        // setFeeLetter(response.data.staff.feeletter);
       })
       .catch((e) => {
         console.log(e);

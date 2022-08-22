@@ -36,6 +36,7 @@ import { useLocation } from 'react-router-dom';
 import ForgotPassword from "./Components/Auth/forgot/ForgotPassword";
 import PortfolioAllDeals from "./Components/Transactions/PortfolioAllDeals";
 import NewTransactionPage from "./Pages/Transactions/NewTransactionPage";
+import CCReportView from "./Components/Report/CCSubmissionReport/CCReportView";
 
 
 
@@ -115,6 +116,7 @@ export default function App() {
         <ProtectedRoute exact path="/annual_and_quarterly_report_page" component={Report} />
 
         <ProtectedRoute exact path="/settings" component={Settings} />
+        <ProtectedRoute exact path="/cc_report" component={CCReportView} />
         
         <Route path="/resetyourpassword">
           <Reset />
