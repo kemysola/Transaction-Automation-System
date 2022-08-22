@@ -115,6 +115,10 @@ const getDealByDate = (start_date, end_date, client_name) => { // get report by 
     return axios.get(`report/${start_date}/${end_date}/${client_name}`);
 };
 
+const getCCReport = (startDate, endDate) => { // get Monthly Credit Committee(CC) Submission Report
+    return axios.get(`report/ccsubmission/monthly/${startDate}/${endDate}`);
+};
+
 const getLevel = () => { // get all levels
     return axios.get("configuration/level");
 }
@@ -240,6 +244,7 @@ const Services = {
     getActualGuarantee,
     getFY,
     addFY,
-    updateFY
+    updateFY,
+    getCCReport
 }
 export default Services

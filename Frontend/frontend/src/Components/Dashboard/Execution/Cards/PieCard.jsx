@@ -336,8 +336,6 @@ export default function PieCard ({dealFilter, staffFilter}) {
       return null;
     };
 
-    console.log(chartData)
-
     const chartLegend = chartData.map((item, i) => {
       if (`${item.name}` === "Amber") {
         return (
