@@ -3,8 +3,6 @@ const { parse } = require("dotenv");
 const pool = require("../database");
 const {verifyTokenAndAdmin, verifyTokenAndAuthorization} = require("../middleware"); 
 
-
-
 // create industry by authorized users
 router.post('/industry', verifyTokenAndAdmin, async (req, res) => {
     
