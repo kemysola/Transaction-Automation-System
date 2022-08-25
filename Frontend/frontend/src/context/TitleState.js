@@ -9,7 +9,9 @@ const TitleState = ({ children }) => {
       cartTitle: JSON.parse(localStorage.getItem('title')) || "Current Guarantee Portfolio",
       guaranteeStore: JSON.parse(localStorage.getItem('titles')) || " Gross guarantee fee income is based on total guarantee guarantees issued since inception of 77 6 Billion through 31 December 2021 In FY 2021 a total of N 34 1 in guarantee transactions have reached  financial close The pipeline of active mandates comprises",
       reportStore:JSON.parse(localStorage.getItem('pipelineReport')) || "   The Origination & Structuring team is actively engaged in assessing new credit enhancement opportunities and diversifying the guarantee portfolio, which are at various stages of evaluation. As at 31 December 2021, InfraCredit’s pipeline of potential guarantee transactions totaled N311.5 Billion from 35 transactions, composed of N255.0 Billion of standard guarantees and N56.5 Billion of contingent refinancing guarantees. Of the 35 transactions, 34 are first-time clients with executed Mandate Letters and one (1) transaction involves follow-on debt instruments for LFZC.",
-      progressHeaderStore:JSON.parse(localStorage.getItem()) || 'Progress on Guarantee Target through 31 December 2021 and Near-Term Forecast:'
+      progressHeaderStore:JSON.parse(localStorage.getItem("headerTitle")) || 'Progress on Guarantee Target through 31 December 2021 and Near-Term Forecast:',
+      tableStore:JSON.parse(localStorage.getItem("header")) || 'Progress on Guarantee Target through 31 December 2021 and Near-Term Forecast:'
+
     };
   
     const [state, dispatch] = useReducer(TitleReducer, initalState);
