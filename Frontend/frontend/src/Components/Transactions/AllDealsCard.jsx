@@ -5,23 +5,22 @@ import { FaCoins } from 'react-icons/fa';
 import Service from "../../Services/Service"
 
 
-export default function TransactionCards({ props, closedStatus, staffFilter }) {
+export default function TransactionCards({ props, closedStatus, staffFilter, status }) {
     // ******************************************  use state hook to store state ****************************************
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [rawData, setRawData] = useState([]);
   const [staffData, setStaffData] = useState([]);
+  // const [status, setStatus] = useState("");
 
   useEffect(() => {
      retrieveDeals();
- 
   }, []);
 
   useEffect(() => {
     if (closedStatus === "" && staffFilter === "All") {
       retrieveDeals();
-      
     }
     if (closedStatus && staffFilter === "All") {
       retrieveDeals();
@@ -29,20 +28,29 @@ export default function TransactionCards({ props, closedStatus, staffFilter }) {
     }
     if (closedStatus === "" && staffFilter !== "All") {
       retrieveStaffDeals();
-      // setLoading(true);
-      // specificDeals();
     }
-    if (closedStatus && staffFilter !== "All") {
+    if ((closedStatus === "true" || closedStatus === "false") && staffFilter !== "All") {
       retrieveStaffDeals();
-      setLoading(true);
       filterStaffData(closedStatus);
     }
   }, [closedStatus, staffFilter]); 
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     // After 5 seconds set status value to empty
+  //     setStatus("");
+  //   }, 500);
+
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, [status]);
 
   const retrieveDeals = () => {
     Service.getPortfolioAllDeals()
       .then((response) => {
         setData(response.data.deals);
+        setRawData(response.data.deals);
       })
       .catch((e) => {
         console.log(e);
@@ -95,25 +103,31 @@ export default function TransactionCards({ props, closedStatus, staffFilter }) {
     clearTimeout(filterTimeout);
     setLoading(true);
 
-    filterTimeout = setTimeout(() => {
-      if (closedStatus === "true") {
-        setData(
-          staffData.filter((item) => {
-            return item.closed === true;
-          })
-        );
-      } else if (closedStatus === "false") {
-        setData(
-          staffData.filter((item) => {
-            return item.closed === false;
-          })
-        );
-      }
+    if (status === "changed") {
+      // setClosedStatus("")
+      retrieveStaffDeals()
+    } 
+
+    else if (closedStatus === "true" || closedStatus === "false") {
+      filterTimeout = setTimeout(() => {
+        if (closedStatus === "true") {
+          setData(
+            staffData.filter((item) => {
+              return item.closed === true;
+            })
+          );
+        } else if (closedStatus === "false") {
+          setData(
+            staffData.filter((item) => {
+              return item.closed === false;
+            })
+          );
+        }
 
       setLoading(false);
       return 
     }, 500);
-  };
+  }};
 
   var sum = data.length;
 
@@ -138,13 +152,17 @@ export default function TransactionCards({ props, closedStatus, staffFilter }) {
                 </Card.Title>
 
                 <Card.Text className='text-info'>
-                    <h4>
-                      {`₦${(sumTotal)
-                      .toLocaleString("en-US", {
-                        minimumFractionDigits: 1,
-                        maximumFractionDigits: 2
-                      })}bn`}
-                  </h4>
+                  {loading === true ? (
+                    <Spinner animation="border" variant="primary" />
+                    ) : (
+                      <h4>
+                        {`₦${(sumTotal)
+                          .toLocaleString("en-US", {
+                            minimumFractionDigits: 1,
+                            maximumFractionDigits: 2
+                          })}bn`}
+                      </h4>
+                    )}
                 </Card.Text>
               </Card.Body>
             </Card>

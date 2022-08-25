@@ -115,6 +115,10 @@ const getDealByDate = (start_date, end_date, client_name) => { // get report by 
     return axios.get(`report/${start_date}/${end_date}/${client_name}`);
 };
 
+const getCCReport = (startDate, endDate) => { // get Monthly Credit Committee(CC) Submission Report
+    return axios.get(`report/ccsubmission/monthly/${startDate}/${endDate}`);
+};
+
 const getLevel = () => { // get all levels
     return axios.get("configuration/level");
 }
@@ -180,6 +184,19 @@ const updateForecast = (id, data) => { // update new forecast values, for privil
     return axios.put(`admin/forecast/update/${id}`, data)
 }
 
+const getFY = (target_fy) => { // get all fy values
+    return axios.get(`admin/fy/${target_fy}`)
+}
+
+const addFY = (data) => { // create a new financial year, for privileged users only
+    return axios.post("admin/fy", data)
+}
+
+const updateFY = (id, data) => { // update new financial year, for privileged users only
+    return axios.put(`admin/fy/update/${id}`, data)
+}
+
+
 const Services = {
     LoginStaff,
     registerStaff,
@@ -224,6 +241,10 @@ const Services = {
     deleteFeatures,
     getMyPortfolioDeals,
     getMyPipelineDeals,
-    getActualGuarantee
+    getActualGuarantee,
+    getFY,
+    addFY,
+    updateFY,
+    getCCReport
 }
 export default Services

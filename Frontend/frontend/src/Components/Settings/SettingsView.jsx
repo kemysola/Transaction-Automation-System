@@ -7,11 +7,13 @@ import AddForecast from './AddForecast';
 import AddIndustry from './AddIndustry';
 import AddProduct from './AddProduct';
 import AddLevel from './AddLevel';
+import AddFY from './AddFY';
 import AddPerformancePay from './AddPerformancePay';
 import UpdateIndustry from './UpdateIndustry';
 import UpdateProduct from './UpdateProduct';
 import UpdateLevel from './UpdateLevel';
 import UpdateForecast from './UpdateForecast';
+import UpdateFY from './UpdateFY';
 import StaffTable from '../Staffs/StaffTable';
 
 const ViewWrapper = styled.div`
@@ -52,6 +54,7 @@ export default function Settings () {
                         <Col sm={5} style={{marginLeft: "10%"}}>
                           <AddIndustry />
                           <AddLevel />
+                          <AddFY />
                         </Col>
                       </Row>
                     </Styling>
@@ -74,6 +77,7 @@ export default function Settings () {
                       <Col sm={5} style={{marginLeft: "10%"}} >
                         <UpdateLevel />
                         <UpdateProduct />
+                        <UpdateFY />
                       </Col>
                       </Row>
                     </Styling>

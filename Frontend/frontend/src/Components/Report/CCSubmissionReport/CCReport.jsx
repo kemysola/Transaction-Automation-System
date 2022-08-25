@@ -92,21 +92,11 @@ const Pagination = styled.div`
     font-size: 12px;
   }
 `;
-const required = (value) => {
-  if (!value) {
-    return (
-      <div className="invalid-feedback d-block text-danger">
-        This field is required!
-      </div>
-    );
-  }
-};
 
-const DealsTable = ({ props, dealFilter, staffFilter }) => {
+export default function CCReport () {
   const initialDateState = {
     start_date: "",
     end_date: "",
-    client_name: "",
   };
 
   const [date, setDate] = useState(initialDateState);
@@ -120,104 +110,73 @@ const DealsTable = ({ props, dealFilter, staffFilter }) => {
   dealsRef.current = deals;
 
   useEffect(() => {
-    if (dealFilter === "All" && staffFilter === "All") {
-      retrieveDeals();
-    }
-    if (dealFilter !== "All" && staffFilter === "All") {
-      setLoading(true);
-      filterData(dealFilter);
-    }
-    if (dealFilter === "All" && staffFilter !== "All") {
-      retrieveStaffDeals();
-    }
-    if (dealFilter !== "All" && staffFilter !== "All") {
-      retrieveStaffDeals();
-      setLoading(true);
-      filterStaffData(dealFilter);
-    }
-  }, [dealFilter, staffFilter]);
+    retrieveDeals();
+  }, [])
 
-  // Filter Data by Deal Category
-  const filterData = (dealFilter) => {
-    setLoading(true);
-    const filteredData = rawData.filter((item) => {
-      return item.deal_category === dealFilter;
-    });
-    setDeals(filteredData);
-    setLoading(false);
-    return filteredData;
-  };
-
-  // Filter Individual Staff Data by Deal Category
-  let filterTimeout;
-  const filterStaffData = (dealFilter) => {
-    clearTimeout(filterTimeout);
-    setLoading(true);
-
-    filterTimeout = setTimeout(() => {
-      const filteredData = staffData.filter((item) => {
-        return item.deal_category === dealFilter;
-      });
-      setDeals(
-        staffData.filter((item) => {
-          return item.deal_category === dealFilter;
-        })
-      );
-      setLoading(false);
-
-      return filteredData;
-    }, 500);
-  };
+  // get current date for default cc submission data
+  var today = Date.now();
+  today = new Intl.DateTimeFormat('en-GB', {year: 'numeric', month: '2-digit',day: '2-digit'}).format(today);
+  today = today.split("/").join("-");
 
   // Get All Deals
   const retrieveDeals = () => {
     setLoading(true);
-    Service.getAllDeals()
-      .then((response) => {
-        setDeals(response.data.deals);
-        setRawData(response.data.deals);
-        setLoading(false);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
 
-  // Get deals by staff email
-  const retrieveStaffDeals = () => {
-    setLoading(true);
-    Service.getMyDealsByEmail(staffFilter)
-      .then((res) => {
-        setDeals(res.data.deals);
-        setStaffData(res.data.deals);
-        setLoading(false);
+    let start = today
+    let end = today
+
+    Service.getCCReport(start, end)
+      .then((response) => {
+        setDeals(response.data.ccsubmissionReport);
+        setRawData(response.data.ccsubmissionReport);
       })
       .catch((e) => {
         console.log(e);
       });
+
+      setLoading(false)
   };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setDate({ ...date, [name]: value });
-    console.log(event.target.value);
   };
 
-  const saveDate = (e) => {
+  const getReport = (e) => {
     e.preventDefault();
     form.current.validateAll();
+    setLoading(true);
 
     let start_date = date.start_date;
     let end_date = date.end_date;
-    let client_name = date.client_name ? date.client_name : "''"; // i'd love to come back to this, as the output for when client name is not specified is inaccurate
 
-    Service.getDealByDate(start_date, end_date, client_name)
+    let start = start_date.split("-").reverse().join("-");
+    let end = end_date.split("-").reverse().join("-")
+
+    Service.getCCReport(start, end)
       .then((response) => {
-        setDeals(response.data.records);
+        setDeals(response.data.ccsubmissionReport);
       })
       .catch((e) => {
         setResponse("Please Fill All Required Fields");
       });
+
+      setLoading(false);
+      setDate(initialDateState);
+  };
+
+  const downloadExcel = () => {
+    const newData = deals.map((row) => {
+      delete row.tableData;
+      return row;
+    });
+    const workSheet = XLSX.utils.json_to_sheet(newData);
+    const workBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workBook, workSheet, "Credit Committee Submission");
+    //Buffer
+    let buf = XLSX.write(workBook, { bookType: "xlsx", type: "buffer" });
+    XLSX.write(workBook, { bookType: "xlsx", type: "binary" });
+    XLSX.writeFile(workBook, "CC_Submission_Report.xlsx");
   };
 
   const columns = useMemo(
@@ -241,11 +200,27 @@ const DealsTable = ({ props, dealFilter, staffFilter }) => {
         accessor: "transactor",
       },
       {
+        Header: "Originator",
+        accessor: "originator",
+      },
+      {
         Header: "Deal Size(₦'BN)",
         accessor: "dealsize",
         Cell: (props) => {
           const amount = parseInt(props.row.original["dealsize"]);
           return <div>{`${amount.toFixed(1)}`}</div>;
+        },
+      },
+      {
+        Header: "CC Submission Date",
+        accessor: "ccsubmissiondate",
+        Cell: (props) => {
+          const date = props.row.original["ccsubmissiondate"];
+          if (date !== null) {
+            const expectedDate = new Date(date);
+            return <div>{`${expectedDate.toISOString().slice(0, 10)}`}</div>;
+          }
+          return <div>-</div>;
         },
       },
       {
@@ -265,10 +240,6 @@ const DealsTable = ({ props, dealFilter, staffFilter }) => {
         accessor: "tenor",
       },
       {
-        Header: "Coupon(%)",
-        accessor: "coupon",
-      },
-      {
         Header: "Expected Financial Close Date",
         accessor: "expectedclose",
         Cell: (props) => {
@@ -281,8 +252,40 @@ const DealsTable = ({ props, dealFilter, staffFilter }) => {
         },
       },
       {
+        Header: "Mandate Letter Date",
+        accessor: "mandateletter",
+        Cell: (props) => {
+          const date = props.row.original["mandateletter"];
+          if (date !== null) {
+            const expectedDate = new Date(date);
+            return <div>{`${expectedDate.toISOString().slice(0, 10)}`}</div>;
+          }
+          return <div>-</div>;
+        },
+      },
+      {
+        Header: "Actual Close Date",
+        accessor: "actualclose",
+        Cell: (props) => {
+          const date = props.row.original["actualclose"];
+          if (date !== null) {
+            const expectedDate = new Date(date);
+            return <div>{`${expectedDate.toISOString().slice(0, 10)}`}</div>;
+          }
+          return <div>-</div>;
+        },
+      },
+      {
         Header: "Structuring Fee Amount(₦'MN)",
         accessor: "structuringfeeamount",
+      },
+      {
+        Header: "Structuring Fee Advance(₦'MN)",
+        accessor: "structuringfeeadvance",
+      },
+      {
+        Header: "Structuring Fee Final(₦'MN)",
+        accessor: "structuringfeefinal",
       },
       {
         Header: "Guarantee Fee(%)",
@@ -292,6 +295,34 @@ const DealsTable = ({ props, dealFilter, staffFilter }) => {
       {
         Header: "Monitoring Fee(₦'MN)",
         accessor: "monitoringfee",
+      },
+      {
+        Header: "Reimbursible (₦'MN)",
+        accessor: "reimbursible",
+      },
+      {
+        Header: "NBC Approval Date",
+        accessor: "nbc_approval_date",
+        Cell: (props) => {
+          const date = props.row.original["nbc_approval_date"];
+          if (date !== null) {
+            const expectedDate = new Date(date);
+            return <div>{`${expectedDate.toISOString().slice(0, 10)}`}</div>;
+          }
+          return <div>-</div>;
+        },
+      },
+      {
+        Header: "NBC Submitted Date",
+        accessor: "nbc_submitted_date",
+        Cell: (props) => {
+          const date = props.row.original["nbc_submitted_date"];
+          if (date !== null) {
+            const expectedDate = new Date(date);
+            return <div>{`${expectedDate.toISOString().slice(0, 10)}`}</div>;
+          }
+          return <div>-</div>;
+        },
       },
     ],
     []
@@ -350,32 +381,20 @@ const DealsTable = ({ props, dealFilter, staffFilter }) => {
     useRowSelect
   );
 
-  const downloadExcel = () => {
-    const newData = deals.map((row) => {
-      delete row.tableData;
-      return row;
-    });
-    const workSheet = XLSX.utils.json_to_sheet(newData);
-    const workBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workBook, workSheet, "Execution_Summary");
-    //Buffer
-    let buf = XLSX.write(workBook, { bookType: "xlsx", type: "buffer" });
-    XLSX.write(workBook, { bookType: "xlsx", type: "binary" });
-    XLSX.writeFile(workBook, "Execution_Report.xlsx");
-  };
-
   return (
-    <React.Fragment>
+    <React.Fragment> 
       {loading ? (
         <Spinner animation="border" role="status" variant="secondary">
           <span className="visually-hidden">Loading...</span>
         </Spinner>
       ) : (
         <ContainerWrapper className="bg-light">
-          <Divider></Divider>
           <Container className="my-3">
+            <p class="animate__animated animate__pulse pt-2" style={{ fontSize: "13px" }}>
+              <b>Credit Committee Submission Report</b>
+            </p>
             <Form ref={form}>
-              <Row>
+              <Row className="d-flex justify-content-end">
                 <Col sm={3}>
                   <Fm.Group className="mb-0 mt-2 pt-2 pb-1">
                     <Fm.Label style={{ fontSize: "12px" }}>
@@ -388,7 +407,6 @@ const DealsTable = ({ props, dealFilter, staffFilter }) => {
                       max={date.end_date}
                       onChange={handleInputChange}
                       name="start_date"
-                      validations={[required]}
                       style={{ width: "80%", height: "5vh" }}
                     />
                   </Fm.Group>
@@ -406,23 +424,6 @@ const DealsTable = ({ props, dealFilter, staffFilter }) => {
                       min={date.start_date}
                       onChange={handleInputChange}
                       name="end_date"
-                      validations={[required]}
-                      style={{ width: "80%", height: "5vh" }}
-                    />
-                  </Fm.Group>
-                </Col>
-
-                <Col sm={3}>
-                  <Fm.Group className="mb-0 mt-2 pt-2 pb-1">
-                    <Fm.Label style={{ fontSize: "12px" }}>
-                      Client Name
-                    </Fm.Label>
-                    <Input
-                      size="sm"
-                      type="text"
-                      value={date.client_name}
-                      onChange={handleInputChange}
-                      name="client_name"
                       style={{ width: "80%", height: "5vh" }}
                     />
                   </Fm.Group>
@@ -431,7 +432,7 @@ const DealsTable = ({ props, dealFilter, staffFilter }) => {
                 <Col lg={1} sm={4} className="mt-3">
                   <br />
                   <button
-                    onClick={saveDate}
+                    onClick={getReport}
                     ref={form}
                     style={{
                       background: "green",
@@ -579,7 +580,5 @@ const DealsTable = ({ props, dealFilter, staffFilter }) => {
         </ContainerWrapper>
       )}
     </React.Fragment>
-  );
-};
-
-export default DealsTable;
+  )
+}
