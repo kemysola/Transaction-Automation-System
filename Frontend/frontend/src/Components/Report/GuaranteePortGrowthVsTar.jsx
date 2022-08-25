@@ -121,6 +121,7 @@ export default function GuaranteePortGrowthVsTar() {
         <div className="my-2 pt-3">
           <Stack gap={1}>
             <p style={{ fontWeight: "bold" }}>
+              {/* MAKE EDITABLE  */}
               Progress on Guarantee Target through 31 December 2021 and
               Near-Term Forecast:
             </p>

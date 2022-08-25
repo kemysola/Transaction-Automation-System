@@ -1,4 +1,4 @@
-import { ADD_TITLE,ADD_Guarantees,ADD_PIPELINE_REPORT } from "./Types";
+import { ADD_TITLE,ADD_Guarantees,ADD_PIPELINE_REPORT ,ADD_PROGRESS_HEADER,ADD_TABLE_HEADER} from "./Types";
 
 const TitleReducer = (state, action) => {
   switch (action.type) {
@@ -21,7 +21,18 @@ const TitleReducer = (state, action) => {
         reportStore:[action.payload],
       };
     }
-    
+    case ADD_PROGRESS_HEADER:{
+      return{
+        ...state,
+        progressHeaderStore:[action.payload]
+      }
+    }
+    case ADD_TABLE_HEADER:{
+      return{
+        ...state,
+        tableStore:[action.payload]
+      }
+    }
 
     default:
       return state;
