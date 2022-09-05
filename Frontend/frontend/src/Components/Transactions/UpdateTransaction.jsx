@@ -591,6 +591,12 @@ export default function UpdateTransactions() {
       });
   };
 
+  // get admin
+
+  // let admin_access = localStorage.getItem("admin")
+
+  // cosole.log("#####", localStorage.getItem("admin"))
+
   // ******************************************  Axios :  get Amortization Style ****************************
 
   const retrieveAmortizationStyle = () => {
@@ -3514,10 +3520,10 @@ export default function UpdateTransactions() {
                   sm={12}
                   style={{ fontSize: "4em", alignContent: "centre" }}
                 >
-                  <Form.Check
+                  {/* <Form.Check
                     style={
                       deal[0].closed === true
-                        ? { visibility: "visible" }
+                        ? { visibility: "hidden" }
                         : { visibility: "hidden" }
                     }
                     inline
@@ -3527,11 +3533,13 @@ export default function UpdateTransactions() {
                     defaultChecked={deal[0].closed === false}
                     name="closed"
                     onChange={(e) => setisClosed(e.target.value)}
-                  />
+                  /> */}
+
+                  {/* display close deal button only when deal is active and user is an admin */}
                   <Form.Check
                     inline
                     style={
-                      deal[0].closed === false
+                      deal[0].closed === false && localStorage.getItem("admin") == 'true'
                         ? { visibility: "visible" }
                         : { visibility: "hidden" }
                     }
