@@ -214,7 +214,7 @@ router.put('/oneTimePasswordReset/', async (req, res) => {
 
 
 
-// // // User Registration Endpoint[This registration should be done by a user with admin right, new user will reset password on first login]
+// // // // User Registration Endpoint[This registration should be done by a user with admin right, new user will reset password on first login]
 // router.post("/first_onboard", async (req, res) => {
 //   const client = await pool.connect()
 //   try {
@@ -236,7 +236,7 @@ router.put('/oneTimePasswordReset/', async (req, res) => {
 //                   level, hasOriginationTarget, originationAmount, guaranteePipeline,
 //                   greenTransaction, amberTransaction, mandateLetter, creditCommiteeApproval,
 //                   feeLetter, financialClose, record_entry, status, isadmin, userID
-//                   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, nextval('trms.user_id_seq')) RETURNING *`
+//                   ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, nextval('user_id_seq')) RETURNING *`
 
 //     const res_ = await client.query(write_to_db, user_data)              
     

@@ -23,6 +23,16 @@ app.use(express.json()); //To get access to client's request.body as json object
 //to use the build during the production.
 app.use(express.static(path.join(__dirname, './frontend/frontend/build')));
 
+// Handling the Cache issue experience
+app.use(express.static('public', {
+    etag:true, //Just being explicit about the default
+    lastModified: true, //Just being explicit about the default
+    setHeaders: (res, path) => {
+        if(path.endsWith('.html')){
+            res.setHeader('Cache-Control', 'no-cache');
+        }
+    }
+}))
 
 app.set('port', app_port  || 5001)
 // Implemeting all endpoints
