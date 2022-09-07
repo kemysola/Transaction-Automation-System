@@ -829,6 +829,7 @@ router.put("/update/:dealID", verifyTokenAndAuthorization, async (req, res) => {
         RETURNING *`;
     const res_ = await client.query(update_db, updated);
 
+
     await client.query("COMMIT");
 
     // convert notes field to list

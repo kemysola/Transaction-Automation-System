@@ -274,6 +274,8 @@ const AllDealsTable = (props) => {
     XLSX.writeFile(workBook,"Transaction_report.xlsx")
   }
 
+  console.log('data', deals)
+
  // transaction table
   const columns = useMemo(
     () => [
@@ -378,10 +380,11 @@ const AllDealsTable = (props) => {
         Cell: (props) => {
           const date = props.row.original['mandateletter']
           if (date !== null) {
-            const expectedDate = new Date(date)
+            const expectedDate = new Date(date )
             return (
               <div>
                 {`${expectedDate.toISOString().slice(0, 10)}`}
+                
               </div>
             )
           }
@@ -486,7 +489,9 @@ const AllDealsTable = (props) => {
         Cell: (props) => {
           const date = props.row.original['nbc_submitted_date']
           if (date !== null) {
+
             const expectedDate = new Date(date)
+            console.log(expectedDate.toISOString(),'i am testing')
             return (
               <div>
                 {`${expectedDate.toISOString().slice(0, 10)}`}

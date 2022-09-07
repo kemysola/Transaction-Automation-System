@@ -12,6 +12,11 @@ import OriginationActivity from './OriginationActivity'
 import StructuringExecution from './StructuringExecution'
 import { Divider } from '@mui/material'
 import KeyStats from './KeyStats'
+import {ApiProvider} from '@reduxjs/toolkit/query/react';
+import { apiServices } from '../../Services/apiServices'
+
+
+
 
 export default function AllPages() {
  
@@ -19,6 +24,7 @@ export default function AllPages() {
   return (
     <React.Fragment>
       <Navbar/>
+      {/* <ApiProvider api={apiServices}> */}
       <Row>
         <Col sm={3} lg={2} className=''>
           <Sidenav/>
@@ -41,6 +47,7 @@ export default function AllPages() {
       <OriginationActivity/>
       <StructuringExecution/>
       </Container>
+      {/* </ApiProvider> */}
       
     </React.Fragment>
   )

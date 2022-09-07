@@ -6,19 +6,39 @@ import ReportRegion from "./ReportRegion";
 import SectorChart from "./SectorChart";
 import TitleContext from "../../context/TitleContext";
 import Editable from "react-editable-title";
+import { useGetReportQuery } from "../../Services/apiServices";
+
 
 
 
 export default function FinancialYearGPipeline() {
+//   const {
+//     data: report,
+//     isLoading,
+//     isSuccess,
+//     isError,
+//     error
+// } = useGetReportQuery()
+
   const handleTextUpdates = (current) => {
     addPipelines(current);
   };
   const { addPipelines, reportStore } = useContext(TitleContext);
-  console.log(reportStore)
+  // let content;
+  // if (isLoading) {
+  //     content = <p>Loading...</p>
+  // } else if (isSuccess) {
+  //     content = report
+  //     console.log('yerre')
+     
+  // } else if (isError) {
+  //     content = <p>{error}</p>
+  // }
+
 
  
 
-  const data = [
+  const datas = [
     { name: "Group A", value: 400 },
     { name: "Group B", value: 300 },
     // { name: "Group C", value: 300 },
