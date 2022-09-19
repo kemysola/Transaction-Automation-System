@@ -11,6 +11,7 @@ const verifyToken = (req, res, next) => {
     jwt.verify(token, process.env.JWT_SEC_KEY, (err, user) => {
       if (err) res.status(403).json({ Error: "Token is not valid!" });
       req.user = user; //assigns a user object to request - this can be accessed the same way req.body and req.params can be accessed
+      // console.log('req.user @verifyToken => ', req.user)
       next(); //This commands the process to jump out of this function and return to the calling-route to continue other actions
     });
   } else {
@@ -21,6 +22,7 @@ const verifyToken = (req, res, next) => {
 //ensures the user(using user id) is authorized to access the target resource
 const verifyTokenAndAuthorization = (req, res, next) => {
   verifyToken(req, res, () => {
+    
     if (req.user.Status === "Active" || req.user.Admin) {
       next();
     } else {
