@@ -122,7 +122,7 @@ router.get('/:start_date/:end_date/:client_name', verifyTokenAndAuthorization, a
         }
         
     } catch (e) {
-        res.status(403).json({ Error: e.stack });
+        res.status(403).json({ Error: e.message });
     }finally{
         client.release()
       }
@@ -149,7 +149,7 @@ router.get('report_by_name/:name',verifyTokenAndAuthorization, async (req, res) 
         }
         
     } catch (e) {
-        res.status(403).json({ Error: e.stack });
+        res.status(403).json({ Error: e.message });
     }finally{
         client.release()
       }
@@ -173,7 +173,7 @@ router.get('/:create_date',verifyTokenAndAuthorization, async (req, res) => {
         // }
         
     } catch (e) {
-        res.status(403).json({ Error: e.stack });
+        res.status(403).json({ Error: e.message });
     }finally{
         client.release()
       }
@@ -194,7 +194,7 @@ router.get('/report_data/all',verifyTokenAndAuthorization, async (req, res) => {
             staffInfo: staff_data.rows
         })
 } catch (e) {
-    res.status(403).json({ Error: e.stack });
+    res.status(403).json({ Error: e.message });
 }finally{
     client.release()
 }
@@ -221,11 +221,102 @@ router.get('/ccsubmission/monthly/:start_date/:end_date',verifyTokenAndAuthoriza
             ccsubmissionReport: ccsubmission_data.rows,
         })
 } catch (e) {
-    res.status(403).json({ Error: e.stack });
+    res.status(403).json({ Error: e.message });
 }finally{
     client.release()
 }
   })
 
+// O & S Quarterly Report
+router.post('/quarterly/oands/', verifyTokenAndAuthorization, async (req, res) => {
+    
+    const client = await pool.connect();
+
+    try {
+        const report = { ReportFYQuarter, ReportFY, ReportSectionContent } = req.body
+
+        const report_data = [
+            report.ReportFYQuarter,
+            report.ReportFY,
+            report.ReportSectionContent
+        ]
+
+        await client.query('BEGIN')
+        
+        const write_to_db = 
+        `INSERT INTO TB_INFRCR_OANDS_QUARTERLY(ReportFYQuarter, ReportFY, ReportSectionContent) VALUES ($1, $2, $3) RETURNING *`
+    
+        const res_ = await client.query(write_to_db, report_data)
+
+        await client.query('COMMIT')
+
+        res.json({
+            status: (res.statusCode = 200),
+            message: "Quarterly Report Created Successfully",
+            quarterly_report: res_.rows[0],      
+          });
+
+    } catch (e) {
+        res.status(403).json({ Error: e.message });
+    }finally{
+        client.release()
+      }
+});
+
+router.get('/quarterly/oands/:fy_quarter/:fin_year',verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+     try {
+   
+        const quarter = req.params.fy_quarter;
+        const fin_year = req.params.fin_year;
+        const quarterly_report = await client.query(`
+        SELECT ReportFYQuarter, ReportFY, ReportSectionContent
+        FROM TB_INFRCR_OANDS_QUARTERLY 
+        WHERE ReportFYQuarter = $1
+        AND COALESCE(ReportFY,(SELECT FY FROM tb_infrcr_financial_year WHERE FY_STATUS = 'Active')) = $2
+        `,[quarter, fin_year]);
+  
+        res.status(200).send({
+            status: (res.statusCode = 200),
+            quarterly_report: quarterly_report.rows,
+        })
+} catch (e) {
+    res.status(403).json({ Error: e.message });
+}finally{
+    client.release()
+}
+  })
+
+router.put('/quarterly/oands/:fy_quarter/:fin_year',verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+     try {   
+        const report_content_body = {ReportSectionContent} = req.body;
+        const quarter = req.params.fy_quarter;
+        const fin_year = req.params.fin_year;
+        const report_update = [report_content_body.ReportSectionContent, quarter, fin_year]
+
+        await client.query('BEGIN')
+
+        const quarterly_report_update = `
+        UPDATE TB_INFRCR_OANDS_QUARTERLY
+        SET ReportSectionContent = $1
+        WHERE ReportFYQuarter = $2
+        AND ReportFY = $3
+        RETURNING *
+        `
+        const res_ = await client.query(quarterly_report_update, report_update)                   
+        await client.query('COMMIT')
+  
+        res.status(200).send({
+            status: (res.statusCode = 200),
+            message: "Report UPDATED Successfully",
+            quarterly_report: res_.rows,
+        })
+} catch (e) {
+    res.status(403).json({ Error: e.message });
+}finally{
+    client.release()
+}
+  })
 
 module.exports = router;
