@@ -6,6 +6,6 @@ export const store = configureStore({
   },
   middleware: getDefaultMiddleware =>
       getDefaultMiddleware().concat(apiServices.middleware),
-  devTools: true
+      devTools: true
 })
 
