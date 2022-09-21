@@ -12,14 +12,12 @@ import OriginationActivity from './OriginationActivity'
 import StructuringExecution from './StructuringExecution'
 import { Divider } from '@mui/material'
 import KeyStats from './KeyStats'
-import {ApiProvider} from '@reduxjs/toolkit/query/react';
-import { apiServices } from '../../Services/apiServices'
-
+import {useSelector , useDispatch} from 'react-redux'
 
 
 
 export default function AllPages() {
- 
+
 
   return (
     <React.Fragment>
