@@ -3,7 +3,6 @@ import Services from "../../Services/Service";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import { Row } from "react-bootstrap";
 import { ResponsiveContainer } from "recharts";
-import { useGetReportQuery } from "../../Services/apiServices";
 
 export default function ChartProducts() {
   const [data, setData] = useState([]);

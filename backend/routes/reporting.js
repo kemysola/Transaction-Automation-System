@@ -240,7 +240,6 @@ router.post('/quarterly/oands/', verifyTokenAndAuthorization, async (req, res) =
             report.ReportFY,
             report.ReportSectionContent
         ]
-
         await client.query('BEGIN')
         
         const write_to_db = 

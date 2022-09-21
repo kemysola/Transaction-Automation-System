@@ -37,19 +37,9 @@ import ForgotPassword from "./Components/Auth/forgot/ForgotPassword";
 import PortfolioAllDeals from "./Components/Transactions/PortfolioAllDeals";
 import NewTransactionPage from "./Pages/Transactions/NewTransactionPage";
 import CCReportView from "./Components/Report/CCSubmissionReport/CCReportView";
-import  {} from "./Services/apiServices";
 import { useGetReportQuery } from "./Services/apiSlice";
-
-
 export default function App() {
-  const {data} = useGetReportQuery()
-  console.log(data)
-  
-
   let location = useLocation()
-
-
-
   const parseJwt = (token) => {
     try {
       return jwt_decode(token);
@@ -57,7 +47,6 @@ export default function App() {
       return null;
     }
   };
-
   useEffect(() => {
     const user = localStorage.getItem("token");
     if (user) {
@@ -68,15 +57,8 @@ export default function App() {
       }
     }
   }, [location])
-
-  console.log('hwy')
- 
   return (
     <React.Fragment>
-      <div>
-       
-      </div>
-
       <Switch>
         <Route exact path="/">
           <Home />
@@ -114,14 +96,8 @@ export default function App() {
         <ProtectedRoute exact path="/create_user" component={StaffView}/>
         <ProtectedRoute exact path="/all_users" component={AllStaff} />
         <ProtectedRoute exact path="/deal_team" component={DealTeamView} />
-        {/* get all transaction for porfolio */}
-        {/* <ProtectedRoute exact path="/all_transactions_portfolio" component={PortfolioAllDeals} /> */}
+  
         <ProtectedRoute exact path="/all_transactions" component={AllDeals} />
-        {/* <ProtectedRoute exact path="staffview" component={AllStaff }/> */}
-        {/* <ProtectedRoute exact path="/dashboard" component={MgtView}/> */}
-        {/* <ProtectedRoute exact path="/org_dashboard" component={Origination} /> */}
-        {/* <ProtectedRoute exact path="/execution" component={Execution} /> */}
-        {/* <ProtectedRoute exact path="/staff_transaction_report" component={SingleView} /> */}
         <ProtectedRoute exact path="/update_users" component={Updates} />
         <ProtectedRoute exact path="/annual_and_quarterly_report_page" component={Report} />
 
@@ -135,6 +111,9 @@ export default function App() {
           <PasswordReset />
         </Route>
         <Route path="/*">
+          <NotFound />
+        </Route>
+        <Route path="*">
           <NotFound />
         </Route>
       </Switch>
