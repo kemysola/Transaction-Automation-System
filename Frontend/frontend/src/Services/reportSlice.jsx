@@ -14,7 +14,7 @@ const initialState = {
 // export const productsFetch = createAsyncThunk(
 //     "product/productsFetch",
 //      () => {
-//             const response = axios.get('https://fakestoreapi.com/products')
+//             const response = axios.get('')
 //             return response;     
 //     }
 // )
