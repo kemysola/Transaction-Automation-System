@@ -37,10 +37,14 @@ import ForgotPassword from "./Components/Auth/forgot/ForgotPassword";
 import PortfolioAllDeals from "./Components/Transactions/PortfolioAllDeals";
 import NewTransactionPage from "./Pages/Transactions/NewTransactionPage";
 import CCReportView from "./Components/Report/CCSubmissionReport/CCReportView";
-
+import  {} from "./Services/apiServices";
+import { useGetReportQuery } from "./Services/apiSlice";
 
 
 export default function App() {
+  const {data} = useGetReportQuery()
+  console.log(data)
+  
 
   let location = useLocation()
 
@@ -64,9 +68,15 @@ export default function App() {
       }
     }
   }, [location])
+
+  console.log('hwy')
  
   return (
     <React.Fragment>
+      <div>
+       
+      </div>
+
       <Switch>
         <Route exact path="/">
           <Home />

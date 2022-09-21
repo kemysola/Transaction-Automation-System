@@ -7,15 +7,19 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router} from 'react-router-dom'
 // import CartState from './context/cart/CartState';
 import TitleState from './context/TitleState'
-
+import {Provider} from 'react-redux'
+import {store} from './store/store'
 
 ReactDOM.render( 
-    <Router>
-        <TitleState>
+    <Provider store={store}>
+        <Router>
+        {/* <TitleState> */}
         <App />
 
-        </TitleState>
+        {/* </TitleState> */}
     </Router>
+    </Provider>
+    
     ,
 
     document.getElementById('root')
