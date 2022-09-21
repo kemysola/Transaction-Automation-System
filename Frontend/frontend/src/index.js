@@ -10,13 +10,17 @@ import TitleState from './context/TitleState'
 import {Provider} from 'react-redux'
 import {store} from './store/store'
 
+/**
+ * Import Provider hook from react-redux
+ * import store from store folder 
+ */
+
 ReactDOM.render( 
     <Provider store={store}>
         <Router>
-        {/* <TitleState> */}
+        <TitleState>
         <App />
-
-        {/* </TitleState> */}
+        </TitleState>
     </Router>
     </Provider>
     

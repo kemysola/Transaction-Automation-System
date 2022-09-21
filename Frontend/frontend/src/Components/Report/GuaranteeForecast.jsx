@@ -11,7 +11,6 @@ import {
   Legend,
 } from "recharts";
 import { Divider } from "@mui/material";
-import { useGetReportQuery } from "../../Services/apiServices";
 
 
 function GuaranteeForecast() {

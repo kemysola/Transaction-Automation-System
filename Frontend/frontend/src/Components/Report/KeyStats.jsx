@@ -1,12 +1,22 @@
-import React, {useState } from "react";
+import React, {useState,useEffect } from "react";
 import { Container, Table, Form} from "react-bootstrap";
 import { GrAddCircle } from "react-icons/gr";
 import { FiDelete } from "react-icons/fi";
 import { FiSave } from "react-icons/fi";
 
 import { Divider } from "@mui/material";
+import {useGetReportQuery, useAddReportMutation, useUpdateReportMutation} from '../../Services/apiSlice'
 
 export default function KeyStats() {
+ const {data, isLoading, error, isSuccess, isFetching}  = useGetReportQuery()
+ const [addReport] = useAddReportMutation()
+//  if(isLoading) console.log('..loading')
+//  else{console.log(data)}
+useEffect(() => {
+
+},[data])
+
+ 
   const [nbcInfo, setNbcInfo] = useState([
     {
       summaryOfActivity: "",
@@ -82,6 +92,8 @@ export default function KeyStats() {
   };
   return (
     <>
+    {isFetching && <h1>... Fetching</h1>}
+    {error && <h1>Something went wrong</h1>}
       <Container className="my-3 py-1">
         <p
           style={{ fontWeight: "bold", fontSize: "16px" }}
@@ -90,7 +102,6 @@ export default function KeyStats() {
           Key Statistics on O & S Activity - Inception till Date
         </p>
         <Divider />
-
         <div
           className="d-flex justify-content-end ml-2"
           style={{ cursor: "pointer", height: "1rem" }}
@@ -100,6 +111,12 @@ export default function KeyStats() {
             style={{ width: "1rem", height: "1rem" }}
           />
         </div>
+        {
+      isLoading ? <div>...Loading</div> : <div>
+      
+
+      </div>
+    }
 
         <Table striped bordered hover>
           <thead style={{ fontSize: "12px" }}>

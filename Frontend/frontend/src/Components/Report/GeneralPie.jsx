@@ -6,7 +6,6 @@ import {
 } from "recharts";
 
 import Services from "../../Services/Service";
-import { useGetReportQuery } from "../../Services/apiServices";
 
 
 //  ........................................React functional component.......................
