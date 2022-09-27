@@ -20,6 +20,8 @@ export const apiSlice = createApi({
      * include in the .gitignore file
      */
     baseUrl: "http://localhost:5001/api/v1",
+      // baseURL: "https://trms01-server.azurewebsites.net/api/v1/",
+
     prepareHeaders: (headers, { getState }) => {
       /**
        * Check if there is a token , if there is set header with the authorizations from the local storage
@@ -49,8 +51,11 @@ export const apiSlice = createApi({
         url: "report/quarterly/oands",
         method: "POST",
         body: report,
+        validateStatus: (response, result) =>
+          response.status === 200 && !result.isError
       }),
       invalidatesTags: ["Report"],
+      
     }),
 
     updateReport: builder.mutation({

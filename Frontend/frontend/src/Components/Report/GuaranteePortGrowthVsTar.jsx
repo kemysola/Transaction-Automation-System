@@ -1,17 +1,26 @@
-import React, {useState } from "react";
-import { Container, Table, Form} from "react-bootstrap";
+import React, { useState, useContext } from "react";
+import { Container, Table, Form } from "react-bootstrap";
 import { GrAddCircle } from "react-icons/gr";
-import { FiDelete,FiSave } from "react-icons/fi";
-import { Divider } from "@mui/material";import { Col,Row, Stack} from "react-bootstrap";
-import {
-  BarChart,
-  Bar
-} from "recharts";
+import { FiDelete, FiSave } from "react-icons/fi";
+import { Col, Row, Stack } from "react-bootstrap";
+import { BarChart, Bar } from "recharts";
 import GuaranteeForecast from "./GuaranteeForecast";
-
-
+import Editable from "react-editable-title";
+import TitleContext from "../../context/TitleContext";
 
 export default function GuaranteePortGrowthVsTar() {
+  const handleTextUpdate = (current) => {
+    addguaranteeTargets(current);
+  };
+  const handleTextsUpdate = (current) => {
+    addHeader(current);
+  };
+  const handleBodyUpdate = (current) => {
+    addProgressBody(current);
+  };
+  const { addguaranteeTargets, guaranteeTargetStore,tableStore,addHeader,progressBodyStore,addProgressBody } =
+    useContext(TitleContext);
+
   const [nbcInfo, setNbcInfo] = useState([
     {
       summaryOfActivity: "",
@@ -51,9 +60,9 @@ export default function GuaranteePortGrowthVsTar() {
     console.log("hello");
   };
 
-  
-
-  const [currentGt, setCurrentGt] = useState("InfraCredit’s projected guarantee portfolio growth (indicative) is based on the assumption that initial operations were expected to commence at a conservative level, with the Company able to underwrite an initial transaction with NGN10 Billion face value, then progressively ramp up scale to over NGN500 Billion over a 5-year period. Throughout the past 3 years, management built a sizeable pipeline of mandated transactions, providing a base to achieve future growth targets.");
+  const [currentGt, setCurrentGt] = useState(
+    "InfraCredit’s projected guarantee portfolio growth (indicative) is based on the assumption that initial operations were expected to commence at a conservative level, with the Company able to underwrite an initial transaction with NGN10 Billion face value, then progressively ramp up scale to over NGN500 Billion over a 5-year period. Throughout the past 3 years, management built a sizeable pipeline of mandated transactions, providing a base to achieve future growth targets."
+  );
   const handleInputUpdate = (current) => {
     setCurrentGt(current);
     // addTitle(current)
@@ -108,165 +117,182 @@ export default function GuaranteePortGrowthVsTar() {
       <Container>
         <div>
           <Stack>
-            <p style={{ fontWeight: "bold" }} className=' mt-1 pt-2'>
-              Guarantee Portfolio Growth Vs. Target
+            <p style={{ fontWeight: "bold" }} className=" mt-1 pt-2">
+              <Editable
+                text={guaranteeTargetStore}
+                editButtonStyle={{ lineHeight: "unset" }}
+                editButton
+                editControlButtons
+                placeholder="Type here"
+                cb={handleTextUpdate}
+              />
             </p>
           </Stack>
         </div>
-        <div className='d-flex justify-content-start'
->
-        <GuaranteeForecast/>
+        <div className="d-flex justify-content-start">
+          <GuaranteeForecast />
         </div>
 
         <div className="my-2 pt-3">
           <Stack gap={1}>
             <p style={{ fontWeight: "bold" }}>
-              {/* MAKE EDITABLE  */}
-              Progress on Guarantee Target through 31 December 2021 and
-              Near-Term Forecast:
+              <Editable
+                text={tableStore}
+                editButtonStyle={{ lineHeight: "unset" }}
+                editButton
+                editControlButtons
+                placeholder="Type here"
+                cb={handleTextsUpdate}
+              />
             </p>
           </Stack>
           <p>
-            Of seven (7) advanced transactions, up to five (5) totaling of N38.1
-            Billion may reach financial close in Q1 2022 , including a minimum
-            of N14.1 Billion:
+             <Editable
+                text={progressBodyStore}
+                editButtonStyle={{ lineHeight: "unset" }}
+                editButton
+                editControlButtons
+                placeholder="Type here"
+                cb={handleBodyUpdate}
+              />
           </p>
         </div>
         <div>
           <Row>
             <Col sm={6} className="my-1">
-              
-        <div
-          className="d-flex justify-content-end ml-2"
-          style={{ cursor: "pointer", height: "1rem" }}
-        >
-          <GrAddCircle
-            onClick={handleNbcAdd}
-            style={{ width: "1rem", height: "1rem" }}
-          />
-        </div>
+              <div
+                className="d-flex justify-content-end ml-2"
+                style={{ cursor: "pointer", height: "1rem" }}
+              >
+                <GrAddCircle
+                  onClick={handleNbcAdd}
+                  style={{ width: "1rem", height: "1rem" }}
+                />
+              </div>
 
-        <Table striped bordered hover>
-          <thead style={{ fontSize: "12px" }}>
-            <tr>
-              <th>Infrastructure Entity</th>
-              <th className="text-center">Infrastructure Activity/Industry </th>
-              <th className="text-center">Size</th>
-              <th className="text-center">Expected Closing</th>
-            </tr>
-          </thead>
+              <Table striped bordered hover>
+                <thead style={{ fontSize: "12px" }}>
+                  <tr>
+                    <th>Infrastructure Entity</th>
+                    <th className="text-center">
+                      Infrastructure Activity/Industry{" "}
+                    </th>
+                    <th className="text-center">Size</th>
+                    <th className="text-center">Expected Closing</th>
+                  </tr>
+                </thead>
 
-          <tbody>
-            <tr>
-              <td>
-                {nbcInfo.map((singleNote, index) => (
-                  <div class="input-group mt-2">
-                    <Form.Control
-                      type="text"
-                      size="sm"
-                      placeholder="entity"
-                      value={singleNote.nbcInfo}
-                      name="nbc_focus_original_date"
-                      onChange={(e) => handleNbcChange(e, index)}
-                    />
-                  </div>
-                ))}{" "}
-              </td>
-              
-              <td>
-                {nbcInfo.map((singleNote, index) => (
-                  <div class="input-group mt-2">
-                    <Form.Control
-                      type="text"
-                      size="sm"
-                      placeholder="industry"
-                      value={singleNote.nbcInfo}
-                      name="nbc_focus_original_date"
-                      onChange={(e) => handleNbcChange(e, index)}
-                    />
-                  </div>
-                ))}
-              </td>
-              <td>
-                {nbcInfo.map((singleNote, index) => (
-                  <div class="input-group mt-2">
-                    <Form.Control
-                      type="text"
-                      size="sm"
-                      placeholder="size"
-                      value={singleNote.nbcInfo}
-                      name="nbc_focus_original_date"
-                      onChange={(e) => handleNbcChange(e, index)}
-                    />
-                  </div>
-                ))}
-              </td>
-              <td>
-                {nbcInfo.map((singleNote, index) => (
-                  <div class="input-group mt-2">
-                    <Form.Control
-                      type="text"
-                      size="sm"
-                      placeholder="closing"
-                      value={singleNote.nbcInfo}
-                      name="nbc_focus_original_date"
-                      onChange={(e) => handleNbcChange(e, index)}
-                    />
-                  </div>
-                ))}
-              </td>
-              <td style={{ background: "none" }}>
-                {nbcInfo.map((singleNote, index) => (
-                  <div>
-                    <button
-                      onClick={handleNbcRemove}
-                      className="mt-2 mb-2"
-                      style={{
-                        height: "23px",
-                        border: "none",
-                        marginRight: "3px",
-                      }}
-                    >
-                      <i className="">
-                        <FiDelete />
-                      </i>
-                    </button>
-                  </div>
-                ))}
-              </td>
-              <td style={{ background: "none" }}>
-                {nbcInfo.map((singleNote, index) => (
-                  <div>
-                    <button
-                      onClick={handleNbcRemove}
-                      className="mt-2 mb-2"
-                      style={{
-                        height: "23px",
-                        border: "none",
-                        marginRight: "3px",
-                      }}
-                    >
-                      <i className="">
-                        <FiSave />
-                      </i>
-                    </button>
-                  </div>
-                ))}
-              </td>
-            </tr>
-          </tbody>
-        </Table>
+                <tbody>
+                  <tr>
+                    <td>
+                      {nbcInfo.map((singleNote, index) => (
+                        <div class="input-group mt-2">
+                          <Form.Control
+                            type="text"
+                            size="sm"
+                            placeholder="entity"
+                            value={singleNote.nbcInfo}
+                            name="nbc_focus_original_date"
+                            onChange={(e) => handleNbcChange(e, index)}
+                          />
+                        </div>
+                      ))}{" "}
+                    </td>
+
+                    <td>
+                      {nbcInfo.map((singleNote, index) => (
+                        <div class="input-group mt-2">
+                          <Form.Control
+                            type="text"
+                            size="sm"
+                            placeholder="industry"
+                            value={singleNote.nbcInfo}
+                            name="nbc_focus_original_date"
+                            onChange={(e) => handleNbcChange(e, index)}
+                          />
+                        </div>
+                      ))}
+                    </td>
+                    <td>
+                      {nbcInfo.map((singleNote, index) => (
+                        <div class="input-group mt-2">
+                          <Form.Control
+                            type="text"
+                            size="sm"
+                            placeholder="size"
+                            value={singleNote.nbcInfo}
+                            name="nbc_focus_original_date"
+                            onChange={(e) => handleNbcChange(e, index)}
+                          />
+                        </div>
+                      ))}
+                    </td>
+                    <td>
+                      {nbcInfo.map((singleNote, index) => (
+                        <div class="input-group mt-2">
+                          <Form.Control
+                            type="text"
+                            size="sm"
+                            placeholder="closing"
+                            value={singleNote.nbcInfo}
+                            name="nbc_focus_original_date"
+                            onChange={(e) => handleNbcChange(e, index)}
+                          />
+                        </div>
+                      ))}
+                    </td>
+                    <td style={{ background: "none" }}>
+                      {nbcInfo.map((singleNote, index) => (
+                        <div>
+                          <button
+                            onClick={handleNbcRemove}
+                            className="mt-2 mb-2"
+                            style={{
+                              height: "23px",
+                              border: "none",
+                              marginRight: "3px",
+                            }}
+                          >
+                            <i className="">
+                              <FiDelete />
+                            </i>
+                          </button>
+                        </div>
+                      ))}
+                    </td>
+                    <td style={{ background: "none" }}>
+                      {nbcInfo.map((singleNote, index) => (
+                        <div>
+                          <button
+                            onClick={handleNbcRemove}
+                            className="mt-2 mb-2"
+                            style={{
+                              height: "23px",
+                              border: "none",
+                              marginRight: "3px",
+                            }}
+                          >
+                            <i className="">
+                              <FiSave />
+                            </i>
+                          </button>
+                        </div>
+                      ))}
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
             </Col>
             <Col sm={6} className="">
-            <div className="d-flex justify-content-center">
-            <p
-                classNmae="text-center"
-                style={{ fontWeight: "bold", fontSize: "12px" }}
-              >
-                Expected Financial Close by Quarter (Cumm)
-              </p>
-            </div>
-              
+              <div className="d-flex justify-content-center">
+                <p
+                  classNmae="text-center"
+                  style={{ fontWeight: "bold", fontSize: "12px" }}
+                >
+                  Expected Financial Close by Quarter (Cumm)
+                </p>
+              </div>
+
               {/* graph : q1 2022, q2 2022 q3 2022 q4 2022 */}
               <br />
               <div className="d-flex justify-content-center">
@@ -277,7 +303,6 @@ export default function GuaranteePortGrowthVsTar() {
             </Col>
           </Row>
         </div>
-       
       </Container>
     </React.Fragment>
   );

@@ -1,22 +1,32 @@
-import React, {useState,useEffect } from "react";
-import { Container, Table, Form} from "react-bootstrap";
+import React, { useState, useEffect,useContext } from "react";
+import { Container, Table, Form } from "react-bootstrap";
 import { GrAddCircle } from "react-icons/gr";
 import { FiDelete } from "react-icons/fi";
 import { FiSave } from "react-icons/fi";
+import Editable from "react-editable-title";
+import TitleContext from "../../context/TitleContext";
 
 import { Divider } from "@mui/material";
-import {useGetReportQuery, useAddReportMutation, useUpdateReportMutation} from '../../Services/apiSlice'
+import {
+  useGetReportQuery,
+  useAddReportMutation,
+  // useUpdateReportMutation,
+} from "../../Services/apiSlice";
 
 export default function KeyStats() {
- const {data, isLoading, error, isSuccess, isFetching}  = useGetReportQuery()
- const [addReport] = useAddReportMutation()
-//  if(isLoading) console.log('..loading')
-//  else{console.log(data)}
-useEffect(() => {
 
-},[data])
+  const { data, isLoading, error, isError, isSuccess } = useGetReportQuery();
+  const [addReport] = useAddReportMutation();
 
- 
+  const handleKeyStatsTitle = (current) => {
+    addkeyStats(current);
+  };
+
+  const {addkeyStats,keyTitleStore } = useContext(TitleContext);
+
+  useEffect(() => {}, [data]);
+
+
   const [nbcInfo, setNbcInfo] = useState([
     {
       summaryOfActivity: "",
@@ -35,12 +45,17 @@ useEffect(() => {
       2022: 0,
     },
   ]);
+
+
   const handleStatsChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...periodStats];
     list[index][name] = value;
     setPeriodStats(list);
   };
+
+
+
 
   const handleStatsAdd = () => {
     setPeriodStats([
@@ -60,8 +75,11 @@ useEffect(() => {
     setPeriodStats(list);
   };
 
-  const addNewStats = () => {
-  };
+
+
+  const addNewStats = () => {};
+
+
 
   const handleNbcChange = (e, index) => {
     const { name, value } = e.target;
@@ -69,6 +87,8 @@ useEffect(() => {
     list[index][name] = value;
     setNbcInfo(list);
   };
+
+
 
   const handleNbcAdd = () => {
     setNbcInfo([
@@ -82,24 +102,40 @@ useEffect(() => {
       },
     ]);
   };
+
   const handleNbcRemove = (index) => {
     const list = [...nbcInfo];
     list.splice(index, 1);
     setNbcInfo(list);
   };
 
-  const addNewnbcInfo = () => {
+  const addNewnbcInfo = () => {};
+
+  // const dataNbcInfo = localStorage.getItem('nbcInfo')
+  
+  const onsubmit = () => {
+    // addReport(postData);
+    localStorage.setItem('keyStats',JSON.stringify(nbcInfo))
+    alert('Saved Entries') 
   };
+
   return (
     <>
-    {isFetching && <h1>... Fetching</h1>}
-    {error && <h1>Something went wrong</h1>}
       <Container className="my-3 py-1">
+      
         <p
           style={{ fontWeight: "bold", fontSize: "16px" }}
           className="text-center mt-2"
         >
-          Key Statistics on O & S Activity - Inception till Date
+          <Editable
+            text={keyTitleStore}
+            editButtonStyle={{ lineHeight: "unset" }}
+            editButton
+            editControlButtons
+            placeholder="Type here"
+            cb={handleKeyStatsTitle}
+          />
+          
         </p>
         <Divider />
         <div
@@ -111,13 +147,13 @@ useEffect(() => {
             style={{ width: "1rem", height: "1rem" }}
           />
         </div>
-        {
-      isLoading ? <div>...Loading</div> : <div>
-      
-
-      </div>
-    }
-
+        {isLoading ? (
+          <div>...Loading</div>
+        ) : isError ? (
+          `Failed to post`
+        )  : (
+          <div></div>
+        )}
         <Table striped bordered hover>
           <thead style={{ fontSize: "12px" }}>
             <tr>
@@ -224,7 +260,7 @@ useEffect(() => {
                 {nbcInfo.map((singleNote, index) => (
                   <div>
                     <button
-                      
+                      onClick={onsubmit}
                       className="mt-2 mb-2"
                       style={{
                         height: "23px",
@@ -234,7 +270,6 @@ useEffect(() => {
                     >
                       <i className="">
                         <FiSave />
-                        
                       </i>
                     </button>
                   </div>
@@ -358,7 +393,6 @@ useEffect(() => {
                 {periodStats.map((singleNote, index) => (
                   <div>
                     <button
-                      
                       className="mt-2 mb-2"
                       style={{
                         height: "23px",
@@ -368,7 +402,6 @@ useEffect(() => {
                     >
                       <i className="">
                         <FiSave />
-                        
                       </i>
                     </button>
                   </div>
