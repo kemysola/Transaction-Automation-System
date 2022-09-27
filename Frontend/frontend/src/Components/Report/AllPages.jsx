@@ -3,16 +3,13 @@ import { Container,Row,Col } from 'react-bootstrap'
 import Navbar from '../LandingPage/Navbar'
 import Sidenav from '../LandingPage/SideNav2'
 import CurrentGuarantee from './CurrentGuarantee'
-import FinancialYearGPipeline from './FinancialYearGPipeline'
-import GuaranteePortGrowthVsTar from './GuaranteePortGrowthVsTar'
-import OriginationActivity from './OriginationActivity'
-import StructuringExecution from './StructuringExecution'
-import { Divider } from '@mui/material'
-import KeyStats from './KeyStats'
-import {useSelector , useDispatch} from 'react-redux'
+import FinancialYearGPipeline from './FinancialYearGPipeline';
+import GuaranteePortGrowthVsTar from './GuaranteePortGrowthVsTar';
+import OriginationActivity from './OriginationActivity';
+import StructuringExecution from './StructuringExecution';
+import { Divider } from '@mui/material';
+import KeyStats from './KeyStats';
 export default function AllPages() {
-
-
   return (
     <React.Fragment>
       <Navbar/>

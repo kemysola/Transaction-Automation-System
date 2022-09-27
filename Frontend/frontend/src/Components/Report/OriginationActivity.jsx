@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState,useContext } from "react";
 import { Stack, Container, Table, Form, Col, Row } from "react-bootstrap";
 import { useForm, useFieldArray } from "react-hook-form";
 import { CgAdd } from "react-icons/cg";
@@ -6,9 +6,20 @@ import { MdDeleteSweep } from "react-icons/md";
 import { IoIosSave } from "react-icons/io";
 import { GrAddCircle } from "react-icons/gr";
 import { FiDelete, FiSave } from "react-icons/fi";
-import { Divider } from "@mui/material";
+import Editable from "react-editable-title";
+import TitleContext from "../../context/TitleContext";
 
 export default function OriginationActivity() {
+
+  const handleYearUpdates = (current) => {
+    addReportYear(current);
+  };
+
+  const handleNbcYear = (current) => {
+    addNbcYear(current);
+  };
+
+  const { reportYearStore, nbcSubmissionStore,structuringDev,addStructuring,addNbcYear,addReportYear } =useContext(TitleContext);
   const [nbcInfo, setNbcInfo] = useState([
     {
       summaryOfActivity: "",
@@ -72,21 +83,29 @@ export default function OriginationActivity() {
       <Container>
         <Stack gap={2}>
           <p className="" style={{ fontWeight: "bold" }}>
-            Origination Activity – Q4 2021
+            {/* Origination Activity – Q4 2021 */}
+            <Editable
+            text={reportYearStore}
+            editButtonStyle={{ lineHeight: "unset" }}
+            editButton
+            editControlButtons
+            placeholder="Type here"
+            cb={handleYearUpdates}
+          />
           </p>
         </Stack>
         <div>
           <p style={{ fontWeight: "bold" }}>
-            NBC Submissions and Mandate Status – Q4 2021 Update
+          <Editable
+            text={nbcSubmissionStore}
+            editButtonStyle={{ lineHeight: "unset" }}
+            editButton
+            editControlButtons
+            placeholder="Type here"
+            cb={handleNbcYear}
+          />
+            {/* NBC Submissions and Mandate Status – Q4 2021 Update */}
           </p>
-
-          {/* <li>Executed seven (7) new mandates: Urban Shelter, Accugas, ACOB Lighting, GVE, LFZC, Greenville and Falcon.</li>
-          <li>Received six (6) NBC
-          approvals for prospects: Accugas, Solad, GVE Projects, ACOB Lighting,
-          Greenville and LFZC.
-            </li>  
-            <li>The following table summarises all Q4 2021
-          submissions to NBC:</li>  */}
           <form onSubmit={handleSubmit(onSubmit)}>
             <ul>
               {fields.map((item, index) => {

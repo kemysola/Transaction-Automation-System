@@ -1,23 +1,23 @@
-import React,{useContext, useEffect, useState} from "react";
+import React,{useContext} from "react";
 import { Container, Row, Col, Stack } from "react-bootstrap";
-// import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
 import ChartProducts from "./ChartProducts";
 import ReportRegion from "./ReportRegion";
 import SectorChart from "./SectorChart";
 import TitleContext from "../../context/TitleContext";
 import Editable from "react-editable-title";
 export default function FinancialYearGPipeline() {
-
   const handleTextUpdates = (current) => {
     addPipelines(current);
   };
-  const { addPipelines, reportStore } = useContext(TitleContext);
-  const datas = [
-    { name: "Group A", value: 400 },
-    { name: "Group B", value: 300 },
-  ];
-  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
-
+  const handleYearUpdates = (current) => {
+    addGPYear(current);
+  };
+  const { addPipelines, reportStore,guarPipelineYear,addGPYear } = useContext(TitleContext);
+  // const datas = [
+  //   { name: "Group A", value: 400 },
+  //   { name: "Group B", value: 300 },
+  // ];
+  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"]
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
     cx,
@@ -47,36 +47,41 @@ export default function FinancialYearGPipeline() {
     <React.Fragment>
       <Container fluid className="my-1 pt-2">
         <Stack gap={1}>
-          <p style={{ fontWeight: "bold" }}>FY2021-2022 Guarantee Pipeline*</p>
+          <p style={{ fontWeight: "bold" }}>
+            {/* FY2021-2022 Guarantee Pipeline* */}
+            <Editable
+            text={guarPipelineYear}
+            editButtonStyle={{ lineHeight: "unset" }}
+            editButton
+            editControlButtons
+            placeholder="Type here"
+            cb={handleYearUpdates}
+          />
+            </p>
         </Stack>
         <div>
 
-        <Editable
+       
+       
+        </div>
+        {/* <Editable
             text={reportStore}
             editButtonStyle={{ lineHeight: "unset" }}
             editButton
             editControlButtons
             placeholder="Type here"
             cb={handleTextUpdates}
-          />
-       
-        </div>
+          /> */}
         <Row>
           <Col sm="6" className="my-1 pt-3">
-            <p className='mt-3 pt-3'>
-            The N311.5 Billion pipeline, consisting of 35 potential transactions
-            for the next two (2) years, can be split into eleven (11) industry
-            sectors, with no individual sector comprising more than 36.3%, as
-            shown in the adjacent pie chart. 
-            <p className='mt-2 pt-3'>
-            Of these transactions, eleven (11)
-            totaling N103.4 Billion are projected to reach financial close in
-            FY2022, including N14.1 Billion in Q1 2022. The remaining pipeline
-            transactions (including contingent refinancings) are expected to
-            roll over into 2023
-            </p>
-            </p>
-           
+            <p><Editable
+            text={reportStore}
+            editButtonStyle={{ lineHeight: "unset" }}
+            editButton
+            editControlButtons
+            placeholder="Type here"
+            cb={handleTextUpdates}
+          /></p>
           </Col>
           <Col sm="6" className="">
               <p
@@ -86,11 +91,9 @@ export default function FinancialYearGPipeline() {
                 Pipeline By Sector
               </p>
               <SectorChart/>
-
-
           </Col>
         </Row>
-        <div>
+        {/* <div>
           In addition, the pipeline can be broken down by products and
           geographical distribution. We have categorised the pipeline into six
           (6) credit enhancement products, with the guaranteed public bond
@@ -100,7 +103,7 @@ export default function FinancialYearGPipeline() {
           commercial, financial and maritime nerve-centre of Nigeria is situated
           in the region (Lagos State), which accounts for over 60% of industrial
           and commercial activities in the nation.
-        </div>
+        </div> */}
         <Row>
           <Col sm="6" className="mt-3 pt-3">
             <Stack
