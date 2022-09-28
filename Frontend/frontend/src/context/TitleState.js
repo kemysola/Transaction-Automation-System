@@ -13,6 +13,8 @@ import {ADD_TITLE,
   ADD_REPORT_ACT_YEAR,
   ADD_NBC_Submissions,
   ADD_Structuring_Developments,
+  ADD_CURRENT_FINANACIAL_YEAR,
+  ADD_CURRENT_FINANACIAL_QUARTER,
 }from './Types'
 
 const TitleState = ({ children }) => {
@@ -25,17 +27,29 @@ const TitleState = ({ children }) => {
       tableStore:JSON.parse(localStorage.getItem("header")) || 'Progress on Guarantee Target through 31 December 2021 and Near-Term Forecast:',
       keyTitleStore :JSON.parse(localStorage.getItem("keyStatsTitle")) ||'Key Statistics on O & S Activity - Inception till Date:',
       guaranteeTargetStore :JSON.parse(localStorage.getItem("growthTargetTitle")) ||'Guarantee Portfolio Growth Vs. Target',
-      progressBodyStore:JSON.parse(localStorage.getItem("progressBody")) ||'Of seven (7) advanced transactions, up to five (5) totaling of N38.1Billion may reach financial close in Q1 2022 , including a minimum of N14.1 Billion',      progressBodyStore:JSON.parse(localStorage.getItem("progressBody")) ||'Of seven (7) advanced transactions, up to five (5) totaling of N38.1Billion may reach financial close in Q1 2022 , including a minimum of N14.1 Billion',
+      progressBodyStore:JSON.parse(localStorage.getItem("progressBody")) ||'Of seven (7) advanced transactions, up to five (5) totaling of N38.1Billion may reach financial close in Q1 2022 , including a minimum of N14.1 Billion',      
       guarPipelineYear:JSON.parse(localStorage.getItem("guarPYearTitle")) ||'FY2021-2022 Guarantee Pipeline',
       reportYearStore:JSON.parse(localStorage.getItem("reportYears")) ||'Origination Activity – Q4 2021',
       nbcSubmissionStore:JSON.parse(localStorage.getItem("nbcYear")) ||'NBC Submissions and Mandate Status – Q4 2021 Update',
       structuringDev:JSON.parse(localStorage.getItem("structuringYear")) ||'Structuring & Execution – Q4 2021 Developments',
+      currentFyStore:JSON.parse(localStorage.getItem("currentFy")) ||'2021',
+      currentQuarterStore:JSON.parse(localStorage.getItem("currentQuarter")) ||'Q4',
     };
   
     const [state, dispatch] = useReducer(TitleReducer, initalState);
-  
+
+/**
+ * CREATE INDIVIDUAL DISPATCHES BASED ON TYPES  AND THE PAYLOAD BODY
+ * 
+ */
     const addTitle = (title) => {
       dispatch({ type: ADD_TITLE, payload: title });
+    };
+    const addCurrentQuarter = (title) => {
+      dispatch({ type: ADD_CURRENT_FINANACIAL_QUARTER, payload: title });
+    };
+    const addCurrentFy = (year) => {
+      dispatch({ type:ADD_CURRENT_FINANACIAL_YEAR, payload: year });
     };
     const addStructuring = (year) => {
       dispatch({ type: ADD_Structuring_Developments, payload: year });
@@ -72,9 +86,20 @@ const TitleState = ({ children }) => {
       dispatch({ type: ADD_PROGRESS_BODY, payload:body});
     };
  
+    /**
+     * 
+     * SAVE STATE IN INDIVIDUAL USEEFFECT HOOKS IN THE LOCAL STORAGE..
+     * 
+     */
     useEffect(() => {
       localStorage.setItem("title", JSON.stringify(state.cartTitle));
     }, [state.cartTitle]);
+    useEffect(() => {
+      localStorage.setItem("currentQuarter", JSON.stringify(state.currentQuarterStore));
+    }, [state.currentQuarterStore]);
+    useEffect(() => {
+      localStorage.setItem("currentFy", JSON.stringify(state.currentFyStore));
+    }, [state.currentFyStore]);
     useEffect(() => {
       localStorage.setItem("structYear", JSON.stringify(state.structuringDev));
     }, [state.structuringDev]);
@@ -134,6 +159,8 @@ const TitleState = ({ children }) => {
           guaranteeStore:state.guaranteeStore,
           reportStore:state.reportStore,
           keyTitleStore:state.keyTitleStore,
+          currentFyStore:state.currentFyStore,
+          currentQuarterStore:state.currentQuarterStore,
           addPipelines,
           addGuarantees,
           addTitle,
@@ -146,6 +173,8 @@ const TitleState = ({ children }) => {
           addStructuring,
           addNbcYear,
           addReportYear,
+          addCurrentFy,
+          addCurrentQuarter,
         }}
       >
         {children}

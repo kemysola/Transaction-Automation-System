@@ -15,6 +15,8 @@ export const ADD_GUA_PIPELINE_YEAR = 'ADD_GUA_PIPELINE_YEAR'
 export const ADD_REPORT_ACT_YEAR = 'ADD_REPORT_ACT_YEAR'
 export const ADD_NBC_Submissions = 'ADD_NBC Submissions'
 export const ADD_Structuring_Developments = 'ADD_Structuring_Developments'
+export const ADD_CURRENT_FINANACIAL_YEAR = 'ADD_CURRENT_FINANACIAL_YEAR'
+export const ADD_CURRENT_FINANACIAL_QUARTER = 'ADD_CURRENT_FINANACIAL_QUARTER'
 
 
 

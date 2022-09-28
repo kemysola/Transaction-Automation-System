@@ -2,7 +2,10 @@ import { ADD_TITLE,ADD_Guarantees,ADD_PIPELINE_REPORT ,
   ADD_PROGRESS_HEADER,ADD_TABLE_HEADER,ADD_KEY_STATS,ADD_GUARANTEE_TARGET,
   ADD_PROGRESS_BODY,ADD_GUA_PIPELINE_YEAR,ADD_REPORT_ACT_YEAR,
   ADD_NBC_Submissions,
-  ADD_Structuring_Developments} from "./Types";
+  ADD_Structuring_Developments,
+  ADD_CURRENT_FINANACIAL_YEAR,
+  ADD_CURRENT_FINANACIAL_QUARTER
+} from "./Types";
 
 const TitleReducer = (state, action) => {
   switch (action.type) {
@@ -17,6 +20,18 @@ const TitleReducer = (state, action) => {
       return{
         ...state,
         structuringDev:[action.payload],
+      }
+    }
+    case ADD_CURRENT_FINANACIAL_QUARTER:{
+      return{
+        ...state,
+        currentQuarterStore:[action.payload],
+      }
+    }
+    case ADD_CURRENT_FINANACIAL_YEAR:{
+      return{
+        ...state,
+        currentFyStore:[action.payload],
       }
     }
     case ADD_NBC_Submissions:{
