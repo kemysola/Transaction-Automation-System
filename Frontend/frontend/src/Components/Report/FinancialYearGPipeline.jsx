@@ -13,10 +13,6 @@ export default function FinancialYearGPipeline() {
     addGPYear(current);
   };
   const { addPipelines, reportStore,guarPipelineYear,addGPYear } = useContext(TitleContext);
-  // const datas = [
-  //   { name: "Group A", value: 400 },
-  //   { name: "Group B", value: 300 },
-  // ];
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"]
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
@@ -48,7 +44,6 @@ export default function FinancialYearGPipeline() {
       <Container fluid className="my-1 pt-2">
         <Stack gap={1}>
           <p style={{ fontWeight: "bold" }}>
-            {/* FY2021-2022 Guarantee Pipeline* */}
             <Editable
             text={guarPipelineYear}
             editButtonStyle={{ lineHeight: "unset" }}
@@ -59,19 +54,8 @@ export default function FinancialYearGPipeline() {
           />
             </p>
         </Stack>
-        <div>
-
-       
-       
+        <div> 
         </div>
-        {/* <Editable
-            text={reportStore}
-            editButtonStyle={{ lineHeight: "unset" }}
-            editButton
-            editControlButtons
-            placeholder="Type here"
-            cb={handleTextUpdates}
-          /> */}
         <Row>
           <Col sm="6" className="my-1 pt-3">
             <p><Editable
@@ -93,17 +77,6 @@ export default function FinancialYearGPipeline() {
               <SectorChart/>
           </Col>
         </Row>
-        {/* <div>
-          In addition, the pipeline can be broken down by products and
-          geographical distribution. We have categorised the pipeline into six
-          (6) credit enhancement products, with the guaranteed public bond
-          accounting for the largest share (63.0%) of potential guarantee
-          transactions, as shown in the chart below. The guarantee pipeline
-          appears to be weighted to the South West region, given that the
-          commercial, financial and maritime nerve-centre of Nigeria is situated
-          in the region (Lagos State), which accounts for over 60% of industrial
-          and commercial activities in the nation.
-        </div> */}
         <Row>
           <Col sm="6" className="mt-3 pt-3">
             <Stack

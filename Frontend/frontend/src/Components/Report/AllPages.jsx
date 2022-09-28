@@ -30,7 +30,7 @@ export default function AllPages() {
   return (
     <React.Fragment>
       <Navbar />
-      <div style={{ textAlign: "center", fontWeight: "bold" }}>
+      <div style={{ textAlign: "right", fontWeight: "bold" }}>
         Quarterly Report for :
         <Editable
           text={currentFyStore}
