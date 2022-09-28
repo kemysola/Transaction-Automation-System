@@ -1,5 +1,5 @@
 import React, { useState,useContext } from "react";
-import { Stack, Container, Table, Form, Col, Row } from "react-bootstrap";
+import { Stack, Container, Table, Form} from "react-bootstrap";
 import { useForm, useFieldArray } from "react-hook-form";
 import { CgAdd } from "react-icons/cg";
 import { MdDeleteSweep } from "react-icons/md";
@@ -19,7 +19,7 @@ export default function OriginationActivity() {
     addNbcYear(current);
   };
 
-  const { reportYearStore, nbcSubmissionStore,structuringDev,addStructuring,addNbcYear,addReportYear } =useContext(TitleContext);
+  const { reportYearStore, nbcSubmissionStore,addNbcYear,addReportYear } =useContext(TitleContext);
   const [nbcInfo, setNbcInfo] = useState([
     {
       summaryOfActivity: "",

@@ -1,5 +1,5 @@
 import React,{useContext} from "react";
-import { Stack, Container ,Table} from "react-bootstrap";
+import { Stack, Container} from "react-bootstrap";
 import StructuringItem from "./StructuringItem";
 import TransactionChart from "./TransactionChart";
 import Editable from "react-editable-title";
