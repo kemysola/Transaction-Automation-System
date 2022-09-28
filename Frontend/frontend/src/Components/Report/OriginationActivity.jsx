@@ -76,35 +76,26 @@ export default function OriginationActivity() {
     control,
     name: "test",
   });
-  const onSubmit = (data) => data
+const reportFy =localStorage.getItem("currentFy") ;
+const currentFy = JSON.parse(reportFy)
+const reportQt =localStorage.getItem("currentQuarter") ;
+ const currentFQt = JSON.parse(reportQt)
 
+
+  const onSubmit = (data) => {
+    localStorage.setItem('originationInput', JSON.stringify(data))
+  }
   return (
     <React.Fragment>
       <Container>
         <Stack gap={2}>
           <p className="" style={{ fontWeight: "bold" }}>
-            {/* Origination Activity – Q4 2021 */}
-            <Editable
-            text={reportYearStore}
-            editButtonStyle={{ lineHeight: "unset" }}
-            editButton
-            editControlButtons
-            placeholder="Type here"
-            cb={handleYearUpdates}
-          />
+          Origination Activity – {currentFQt[0]} {currentFy[0]}
           </p>
         </Stack>
         <div>
           <p style={{ fontWeight: "bold" }}>
-          <Editable
-            text={nbcSubmissionStore}
-            editButtonStyle={{ lineHeight: "unset" }}
-            editButton
-            editControlButtons
-            placeholder="Type here"
-            cb={handleNbcYear}
-          />
-            {/* NBC Submissions and Mandate Status – Q4 2021 Update */}
+            NBC Submissions and Mandate Status – {currentFQt[0]} {currentFy[0]} Update
           </p>
           <form onSubmit={handleSubmit(onSubmit)}>
             <ul>
@@ -275,7 +266,7 @@ export default function OriginationActivity() {
                         }}
                       >
                         <i className="">
-                          <FiSave />
+                          <FiSave onClick={() => {localStorage.setItem('nbcActivities',JSON.stringify(nbcInfo))}} />
                         </i>
                       </button>
                     </div>

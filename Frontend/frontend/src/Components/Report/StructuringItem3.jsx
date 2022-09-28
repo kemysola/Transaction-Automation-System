@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 
 
 
-export default function StructuringItem() {
+export default function StructuringItem3() {
   const { register, control, handleSubmit, reset, watch } = useForm({
     defaultValues: {
       test: [{ firstName: ""}]
@@ -20,7 +20,7 @@ export default function StructuringItem() {
   });
 
   const onSubmit = (data) => {
-    localStorage.setItem('structInput',JSON.stringify(data))
+    localStorage.setItem('structExecution',JSON.stringify(data))
   }
 
   
