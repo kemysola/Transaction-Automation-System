@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { Container, Row, Col, Stack } from "react-bootstrap";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import Scope from './managementCards/Scope';
+import TitleContext from '../../../../context/TitleContext';
 
 
 import {
@@ -95,18 +96,20 @@ const AmberDiv = styled.div`
 //  ........................................React functional component.......................
 
 export default function Stats() {
+  const { filteredStore, addFtYear} = useContext(TitleContext)
   const [data, setData] = useState([]);
   const [region, setRegion] = useState([])
 
   // ................................... Use Effect Hook .................................
+  const newStore = JSON.parse(filteredStore)
 
   useEffect(() => {
     retrieveDeals();
-  }, []);
+  }, [newStore]);
 
   // .................................... Axios Endpoint ..............................
   const retrieveDeals = async() => {
-    await Service.getAllDeals()
+    await Service.getAllDeals(newStore)
       .then((response) => {
         setData(response.data.deals);
       })

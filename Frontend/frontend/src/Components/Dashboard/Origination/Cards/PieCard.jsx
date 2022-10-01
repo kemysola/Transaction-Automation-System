@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import Service from "../../../../Services/Service";
 import { Chart } from "react-google-charts";
+import TitleContext from '../../../../context/TitleContext';
+
 import "./../style.css";
 import {
   BarChart,
@@ -90,6 +92,8 @@ const AmberDiv = styled.div`
 //  ........................................React functional component.......................
 
 export default function PieCard ({dealFilter, staffFilter}) {
+  const { filteredStore, addFtYear} = useContext(TitleContext)
+
     const [data, setData] = useState([]);
     const [rawData, setRawData] = useState([]);
     const [staffData, setStaffData] = useState([]);
@@ -98,6 +102,7 @@ export default function PieCard ({dealFilter, staffFilter}) {
     const [region, setRegion] = useState([])
   
     // ................................... Use Effect Hook .................................
+    const newStore = JSON.parse(filteredStore)
 
     useEffect(() => {
       if (dealFilter === "All" && staffFilter === "All") {
@@ -115,13 +120,13 @@ export default function PieCard ({dealFilter, staffFilter}) {
         setLoading(true)
         filterStaffData(dealFilter)
       }
-    }, [dealFilter, staffFilter]);
+    }, [dealFilter, staffFilter, newStore]);
   
     // .................................... Axios Endpoint ..............................
     // Get All Deals
     const retrieveDeals = () => {
       setLoading(true)
-      Service.getAllDeals()
+      Service.getAllDeals(newStore)
         .then((response) => {
           setData(response.data.deals);
           setRawData(response.data.deals);
@@ -135,7 +140,7 @@ export default function PieCard ({dealFilter, staffFilter}) {
     // Get deals by staff email
     const retrieveStaffDeals = () => {
       setLoading(true)
-      Service.getMyDealsByEmail(staffFilter)
+      Service.getMyDealsByEmail(staffFilter, newStore)
         .then((res) =>{
           setData(res.data.deals)
           setStaffData(res.data.deals)

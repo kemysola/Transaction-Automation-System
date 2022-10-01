@@ -1,18 +1,22 @@
-import React,{useEffect, useState} from 'react';
+import React,{useEffect, useState, useContext} from 'react';
 // import styled from 'styled-components';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { FaCoins } from 'react-icons/fa';
 import Service from "../../Services/Service"
+import TitleContext from '../../context/TitleContext';
 
 
 export default function TransactionCards() {
     // ******************************************  use state hook to store state ****************************************
+    const { filteredStore, addFtYear} = useContext(TitleContext)
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true)
 
+  const newStore = JSON.parse(filteredStore)
+
   useEffect(() => {
-     Service.getMyPipelineDeals()
+     Service.getMyPipelineDeals(newStore)
         .then((response) => {
           setData(response.data.deals);
           setLoading(false)
@@ -22,7 +26,7 @@ export default function TransactionCards() {
           setLoading(true)
         });
  
-  }, []);
+  }, [newStore]);
 
   
 

@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import TitleContext from '../../../../context/TitleContext';
+
 import {
   Container,
   Row,
@@ -49,6 +51,7 @@ const ModalDiv = styled.div`
 `;
 
 export default function Progress() {
+  const { filteredStore, addFtYear} = useContext(TitleContext)
   const [data, setData] = useState([]);
   const [rawData, setRawData] = useState([]);
   const [staffData, setStaffData] = useState([]);
@@ -65,6 +68,9 @@ export default function Progress() {
   const [financialClose, setFinancialClose] = useState([]);
   const [cca, setCca] = useState([]);
   const [feeLetter, setFeeLetter] = useState([]);
+
+  const newStore = JSON.parse(filteredStore)
+
 
   useEffect(() => {
     if (dealFilter === "All" && staffFilter === "All") {
@@ -86,7 +92,7 @@ export default function Progress() {
       setLoading(true);
       filterStaffData(dealFilter);
     }
-  }, [dealFilter, staffFilter]);
+  }, [dealFilter, staffFilter, newStore]);
 
   useEffect(() => {
     if (show) {
@@ -136,7 +142,7 @@ export default function Progress() {
   // Retrieve All Deals using a get request
   const retrieveDeals = async () => {
     //setLoading(true);
-    await Service.getAllDeals()
+    await Service.getAllDeals(newStore)
       .then((response) => {
         setData(response.data.deals);
         setRawData(response.data.deals);

@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react';
+import React,{useEffect, useState,useMemo,useContext} from 'react';
 import { Container, Row, Card, Col } from 'react-bootstrap';
 import { BiReceipt } from 'react-icons/bi';
 import { GrGroup } from 'react-icons/gr';
@@ -9,20 +9,34 @@ import {GiMoneyStack} from 'react-icons/gi'
 import Service from '../../Services/Service';
 import Stats from '../Dashboard/Management/Cards/Stats';
 import { fontFamily } from '@mui/system';
+import TitleContext from '../../context/TitleContext';
+
+// import TitleContext from '../../context/TitleContext'
 
 
 
-export default function SubCards() {
+export default function SubCards(props) {
+  
+  const { filteredStore, addFtYear} = useContext(TitleContext)
     const [totalTransaction, setTotalTransaction] = useState([]);
     const [data, setData] = useState([])
     const [length, setLength] = useState([])
     const [staff, setStaff] = useState([])
+    // const [fyValue, setFYValue] = useState(localStorage.getItem("fy"))
+    // const [reload, setReload] = useState(props.fy);
+    // const filteredFy = localStorage.getItem('fy') ;
+    // const [fyValue, setFYValue] = useState(localStorage.getItem("fy"))
 
+    // const newStore = JSON.parse(filteredStore)
+    // const [fyValue, setFYValue] = useState(JSON.parse(filteredStore))
+    const newStore = JSON.parse(filteredStore)
+// console.log(filteredFy,'fy')
     useEffect(() => {
-        retrieveDeals()
-        
 
-    },[])
+        retrieveDeals()
+
+      
+    },[newStore])
 
     useEffect(() => {
       retrieveStaff()
@@ -30,12 +44,15 @@ export default function SubCards() {
 
   },[])
 
+
+  // console.log("I am filtered store", newStore)
+  // console.log("I am initail state(filteredStore", filteredStore)
+  // console.log("I am addFtYear", addFtYear)
+
     const retrieveDeals = async() => {
-        await Service.getAllDeals()
+        await Service.getAllDeals(newStore)
           .then((response) => {
-            setData(response.data.deals);
-            
-            
+            setData(response.data.deals); 
           })
           .catch((e) => {
             console.log(e);

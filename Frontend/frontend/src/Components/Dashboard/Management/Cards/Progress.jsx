@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Container, Row, Col, Form, Card, } from "react-bootstrap";
 import Stats from "./Stats";
 import Service from "../../../../Services/Service";
+import TitleContext from '../../../../context/TitleContext';
 import Matrics from "./Matrics";
 import {
   BarChart,
@@ -18,18 +19,20 @@ export default function Progress() {
 
       // ******************************************  useState Hook to store state data  ****************************************
 
+  const { filteredStore, addFtYear} = useContext(TitleContext)
   const [data, setData] = useState([]);
   const [forecast, setForecast] = useState([]);
   const [indFilter, setIndFilter] = useState("Value");
   const [prdFilter, setPrdFilter] = useState("Value");
  
 
+  const newStore = JSON.parse(filteredStore)
 
       // ******************************************  useEffect hook - ComponentDidMount   ****************************************
 
   useEffect(() => {
     retrieveDeals();
-  }, []);
+  }, [newStore]);
 
   useEffect(() => {
     retrieveForecast();
@@ -40,7 +43,7 @@ export default function Progress() {
 
 
   const retrieveDeals = async() => {
-    await Service.getAllDeals()
+    await Service.getAllDeals(newStore)
       .then((response) => {
         setData(response.data.deals);
       })

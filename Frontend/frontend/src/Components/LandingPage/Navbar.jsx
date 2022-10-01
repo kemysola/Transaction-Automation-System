@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Container, Nav, Form } from 'react-bootstrap';
 import { FaBars } from 'react-icons/fa';
@@ -6,6 +6,7 @@ import InfraCredit from '../../Images/InfraCredit.svg';
 import { Link } from 'react-router-dom';
 import MenuOption from './MenuOption';
 import { GlobalFilter } from '../Transactions/TransactionTable';
+import SearchFY from './SearchFY';
 
 
 const NavbarNav = styled.div`
@@ -17,6 +18,8 @@ align-items: center;
 `
 
 const Navbar = ({ handleToggleSidebar, props }) => {
+
+
     return (
         <React.Fragment>
             <NavbarNav>
@@ -28,7 +31,8 @@ const Navbar = ({ handleToggleSidebar, props }) => {
 
                     </Link>
                 </div>
-
+              
+                    <SearchFY />
                 
                 {/*----------------------- Icon Div ------------------------------------------- */}
                 <div style={{ marginLeft: '20px', paddingTop: '20px' }}>

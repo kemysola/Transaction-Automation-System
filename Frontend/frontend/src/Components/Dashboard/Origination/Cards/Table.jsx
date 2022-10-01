@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useContext } from 'react';
 import { Row, Col, Form, Spinner} from 'react-bootstrap';
 import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useSortBy } from "react-table";
 import styled from 'styled-components';
 import Service from "../../../../Services/Service";
+import TitleContext from '../../../../context/TitleContext';
+
 import * as XLSX from 'xlsx';
 import Filters from './Filters';
 
@@ -89,6 +91,7 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
     client_name: ""
   };
 
+  const { filteredStore, addFtYear} = useContext(TitleContext)
   const [date, setDate] = useState(initialDateState);
   const [downloadstaff, setDownloadStaff] = useState([])
   const [deals, setDeals] = useState([]);
@@ -97,6 +100,8 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
   const [loading, setLoading] = useState(true);
   const dealsRef = useRef();
   dealsRef.current = deals;
+
+  const newStore = JSON.parse(filteredStore)
 
   useEffect(() => {
     if (dealFilter === "All" && staffFilter === "All") {
@@ -114,7 +119,7 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
       setLoading(true)
       filterStaffData(dealFilter)
     }
-  }, [dealFilter, staffFilter]);
+  }, [dealFilter, staffFilter, newStore]);
 
   // Filter Data by Deal Category
   const filterData = (dealFilter) => {    
@@ -143,7 +148,7 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
   // Get All Deals
   const retrieveDeals = () => {
     setLoading(true) 
-    Service.getAllDeals()
+    Service.getAllDeals(newStore)
       .then((response) => {
         setDeals(response.data.deals);
         setRawData(response.data.deals);
@@ -157,7 +162,7 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
   // Get deals by staff email
   const retrieveStaffDeals = () => {
     setLoading(true)
-    Service.getMyDealsByEmail(staffFilter)
+    Service.getMyDealsByEmail(staffFilter, newStore)
       .then((res) =>{
         setDeals(res.data.deals)
         setStaffData(res.data.deals)

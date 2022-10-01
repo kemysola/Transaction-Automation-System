@@ -1,4 +1,4 @@
-import { ADD_TITLE,ADD_Guarantees,ADD_PIPELINE_REPORT ,ADD_PROGRESS_HEADER,ADD_TABLE_HEADER} from "./Types";
+import { ADD_TITLE,ADD_FILTERED_YEAR,ADD_Guarantees,ADD_PIPELINE_REPORT ,ADD_PROGRESS_HEADER,ADD_TABLE_HEADER} from "./Types";
 
 const TitleReducer = (state, action) => {
   switch (action.type) {
@@ -7,6 +7,12 @@ const TitleReducer = (state, action) => {
       return {
         ...state,
         cartTitle: [action.payload],
+      };
+    }
+    case ADD_FILTERED_YEAR: {
+      return {
+        ...state,
+        filteredStore: [action.payload],
       };
     }
     case ADD_Guarantees:{

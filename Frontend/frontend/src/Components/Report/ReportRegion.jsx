@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Services from "../../Services/Service";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
+import TitleContext from '../../context/TitleContext';
+
 import {  Row} from "react-bootstrap";
 import {
   
@@ -8,12 +10,15 @@ import {
 } from "recharts";
 
 export default function ReportRegion() {
+  const { filteredStore, addFtYear} = useContext(TitleContext)
   const [data, setData] = useState([]);
+  const newStore = JSON.parse(filteredStore)
+
   useEffect(() => {
     retrieveDeals();
-  }, []);
+  }, [newStore]);
   const retrieveDeals = () => {
-    Services.getAllDeals()
+    Services.getAllDeals(newStore)
       .then((response) => {
         setData(response.data.deals);
       })

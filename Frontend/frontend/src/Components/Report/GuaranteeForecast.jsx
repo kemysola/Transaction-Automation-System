@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Container, Row, Col, Form, Card } from "react-bootstrap";
 import Service from "../../Services/Service";
 import {
@@ -14,19 +14,21 @@ import { Divider } from "@mui/material";
 
 
 function GuaranteeForecast() {
+  const { filteredStore, addFtYear} = useContext(TitleContext)
   const [forecast, setForecast] = useState([]);
   const [data, setData] = useState([]);
 
+  const newStore = JSON.parse(filteredStore)
   useEffect(() => {
     retrieveDeals();
-  }, []);
+  }, [newStore]);
 
   useEffect(() => {
     retrieveForecast();
   }, []);
 
   const retrieveDeals = async () => {
-    await Service.getAllDeals()
+    await Service.getAllDeals(newStore)
       .then((response) => {
         setData(response.data.deals);
       })
