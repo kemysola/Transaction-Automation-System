@@ -33,6 +33,7 @@ import ForgotPassword from "./Components/Auth/forgot/ForgotPassword";
 import PortfolioAllDeals from "./Components/Transactions/PortfolioAllDeals";
 import NewTransactionPage from "./Pages/Transactions/NewTransactionPage";
 import CCReportView from "./Components/Report/CCSubmissionReport/CCReportView";
+import ComponentView from "./Components/Report/Reimbursible/ComponentView";
 export default function App() {
   let location = useLocation()
   const parseJwt = (token) => {
@@ -95,7 +96,9 @@ export default function App() {
         <ProtectedRoute exact path="/all_transactions" component={AllDeals} />
         <ProtectedRoute exact path="/update_users" component={Updates} />
         <ProtectedRoute exact path="/annual_and_quarterly_report_page" component={Report} />
-
+        <ProtectedRoute path="/reimbursible/top/n/reimbursible/report" component={ComponentView}/>
+          
+       
         <ProtectedRoute exact path="/settings" component={Settings} />
         <ProtectedRoute exact path="/cc_report" component={CCReportView} />
         
@@ -111,6 +114,7 @@ export default function App() {
         <Route path="*">
           <NotFound />
         </Route>
+       
       </Switch>
     </React.Fragment>
   );
