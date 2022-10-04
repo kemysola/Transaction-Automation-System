@@ -166,7 +166,7 @@ export default function Progress() {
   // Get deals by staff email
   const retrieveStaffDeals = () => {
     setLoading(true);
-    Service.getMyDealsByEmail(staffFilter)
+    Service.getMyDealsByEmail(staffFilter, newStore)
       .then((res) => {
         setData(res.data.deals);
         setStaffData(res.data.deals);

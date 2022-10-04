@@ -5,7 +5,7 @@ import {Row, Col, Container} from 'react-bootstrap';
 import SideNav2 from '../LandingPage/SideNav2';
 import TransactionTable from './TransactionTable';
 import TransactionCards from './TransactionCards';
-import Navbar from '../HomePage/Navbar';
+import Navbar from '../LandingPage/Navbar';
 
 const ViewWrapper = styled.div`
   margin:0;

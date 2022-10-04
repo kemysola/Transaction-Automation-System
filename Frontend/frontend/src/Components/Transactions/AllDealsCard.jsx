@@ -37,7 +37,7 @@ export default function TransactionCards({ props, closedStatus, staffFilter, sta
       retrieveStaffDeals();
       filterStaffData(closedStatus);
     }
-  }, [closedStatus, staffFilter]); 
+  }, [closedStatus, staffFilter, newStore]); 
 
   // useEffect(() => {
   //   const timer = setTimeout(() => {

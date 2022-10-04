@@ -9,22 +9,25 @@ import {GiMoneyStack} from 'react-icons/gi'
 import Service from '../../Services/Service';
 import Stats from '../Dashboard/Management/Cards/Stats';
 import { fontFamily } from '@mui/system';
+import TitleContext from '../../context/TitleContext';
+
 
 
 
 export default function SubCards() {
+    const { filteredStore, addFtYear} = useContext(TitleContext)
     const [totalTransaction, setTotalTransaction] = useState([]);
     const [data, setData] = useState([])
     const [length, setLength] = useState([])
 
+    const newStore = JSON.parse(filteredStore)
+
     useEffect(() => {
         retrieveDeals()
-        
-
-    },[])
+    },[newStore])
 
     const retrieveDeals = async() => {
-        await Service.getMyDeals()
+        await Service.getMyDeals(newStore)
           .then((response) => {
             setData(response.data.deals);
             

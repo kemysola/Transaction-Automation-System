@@ -190,7 +190,7 @@ const DealsTable = ({ props, dealFilter, staffFilter }) => {
   // Get deals by staff email
   const retrieveStaffDeals = () => {
     setLoading(true);
-    Service.getMyDealsByEmail(staffFilter)
+    Service.getMyDealsByEmail(staffFilter, newStore)
       .then((res) => {
         setDeals(res.data.deals);
         setStaffData(res.data.deals);

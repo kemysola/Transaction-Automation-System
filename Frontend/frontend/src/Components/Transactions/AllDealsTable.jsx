@@ -137,7 +137,7 @@ const AllDealsTable = (props) => {
       filterStaffData(closedStatus);
     }
 
-  }, [closedStatus, staffFilter]); 
+  }, [closedStatus, staffFilter, newStore]); 
 
   useEffect(() => {
     const timer = setTimeout(() => {
