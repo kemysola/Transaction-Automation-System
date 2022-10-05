@@ -1576,7 +1576,7 @@ router.get(
         `
         SELECT clientname, originator, transactor, dealsize, reimbursible
         FROM TB_INFRCR_TRANSACTION 
-        WHERE DATE_PART('year', createdate) BETWEEN COALESCE(DATE_PART('year', TO_DATE($1,'DD-MM-YYY')),DATE_PART('year', CURRENT_DATE)) and COALESCE(DATE_PART('year', TO_DATE($2,'DD-MM-YYY')),DATE_PART('year', CURRENT_DATE))
+        WHERE DATE_PART('year', createdate) BETWEEN COALESCE(DATE_PART('year', TO_DATE($1,'YYY-MM-DD')),DATE_PART('year', CURRENT_DATE)) and COALESCE(DATE_PART('year', TO_DATE($2,'YYY-MM-DD')),DATE_PART('year', CURRENT_DATE))
         --(SELECT COALESCE(DATE_PART('year', fy_start_date), DATE_PART('year', CURRENT_DATE)) FROM TB_INFRCR_FINANCIAL_YEAR WHERE fy_status = 'Active')
         ORDER BY reimbursible DESC
         LIMIT $3

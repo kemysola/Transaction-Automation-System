@@ -16,12 +16,12 @@ export const apiSlice = createApi({
   reducerPath: "reportApi",
   baseQuery: fetchBaseQuery({
     /**
-     * Create a .env file to handle endpoints for production and development.
-     * check utils file / folder 
+     * Create an .env file to handle endpoints for production and development.
+     * check utils file / folder
      * include in the .gitignore file
      */
     // baseUrl: "http://localhost:5001/api/v1",
-      baseURL: "https://trms01-server.azurewebsites.net/api/v1/",
+    baseURL: "https://trms01-server.azurewebsites.net/api/v1/",
 
     prepareHeaders: (headers, { getState }) => {
       /**
@@ -39,17 +39,22 @@ export const apiSlice = createApi({
   tagTypes: ["Report"],
   endpoints: (builder) => ({
     getReport: builder.query({
-      query: (fy_quarter,fin_year) => `report/quarterly/oands/${fy_quarter}/${fin_year}`,
+      query: (fy_quarter, fin_year) =>
+        `report/quarterly/oands/${fy_quarter}/${fin_year}`,
       providesTags: ["Report"],
     }),
     getTopNReimbursible: builder.query({
-      query: (topn,start,end) => `transaction/reimbursible/${topn}`,
+      query: (topn, start, end) => `transaction/reimbursible/${topn}`,
+      providesTags: ["Report"],
+    }),
+    getPipelineReport: builder.query({
+      query: (topn, start, end) => ``,
       providesTags: ["Report"],
     }),
 
     /**
      * For any endpoint other than a get http request - use a builder.mutation
-     * 
+     *
      */
     addReport: builder.mutation({
       query: (report) => ({
@@ -57,10 +62,9 @@ export const apiSlice = createApi({
         method: "POST",
         body: report,
         validateStatus: (response, result) =>
-          response.status === 200 && !result.isError
+          response.status === 200 && !result.isError,
       }),
       invalidatesTags: ["Report"],
-      
     }),
 
     updateReport: builder.mutation({
@@ -84,7 +88,7 @@ export const apiSlice = createApi({
 });
 
 /**
- * RTK Query comes with hooks , 
+ * RTK Query comes with hooks ,
  * get requests ends with a query, post, put etc ends with a mutation.
  */
 export const {
@@ -93,4 +97,5 @@ export const {
   useAddReportMutation,
   useUpdateReportMutation,
   useDeleteReportMutation,
+  getPipelineReport,
 } = apiSlice;

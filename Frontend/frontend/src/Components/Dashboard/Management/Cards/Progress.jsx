@@ -24,8 +24,8 @@ export default function Progress() {
   const [forecast, setForecast] = useState([]);
   const [indFilter, setIndFilter] = useState("Value");
   const [prdFilter, setPrdFilter] = useState("Value");
-  const [start_date, set_start_date] = useState("02-01-2022");
-  const [end_date, set_end_date] = useState(`02-02-2022`);
+  const [start_date, set_start_date] = useState("2022/02/01");
+  const [end_date, set_end_date] = useState(`2022/04/01`);
   const [topn, set_topn] = useState(5);
 
   const {
@@ -1159,7 +1159,7 @@ export default function Progress() {
             <div className="text-danger">
               {/* {(error?.data.Error.split(" ").splice(0,8).join(" ").toUpperCase())} */}
               {error === "undefined"
-                ? "un"
+                ? null
                 : error?.data.Error}
             </div>
           ) : isSuccess ? (

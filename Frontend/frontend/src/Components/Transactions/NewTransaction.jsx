@@ -2298,7 +2298,7 @@ const NewTransaction = () => {
                   </Tab>
                   <Tab
                     eventKey="tenth"
-                    title="KEY PERFORMANCE INDICATOR"
+                    title="KEY DEAL FACTORS"
                     style={{ fontSize: "12px" }}
                   >
                     <br />
