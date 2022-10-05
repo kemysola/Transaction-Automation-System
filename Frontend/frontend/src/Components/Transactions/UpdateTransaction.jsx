@@ -3268,7 +3268,8 @@ export default function UpdateTransactions() {
                   </Tab>
                   <Tab
                     eventKey="tenth"
-                    title="KEY PERFORMANCE INDICATOR"
+                    title="KEY DEAL FACTORS"
+                    
                     style={{ fontSize: "12px" }}
                   >
                     <Container1>
