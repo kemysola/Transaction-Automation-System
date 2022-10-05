@@ -1,8 +1,9 @@
 import { useReducer, useEffect } from "react";
 import TitleContext from "./TitleContext";
 import TitleReducer from "./TitleReducer";
-import {ADD_TITLE,ADD_FILTERED_YEAR, ADD_Guarantees, ADD_PIPELINE_REPORT,ADD_PROGRESS_HEADER,ADD_TABLE_HEADER}from './Types'
+// import {ADD_TITLE,ADD_FILTERED_YEAR, ADD_Guarantees, ADD_PIPELINE_REPORT,ADD_PROGRESS_HEADER,ADD_TABLE_HEADER}from './Types'
 import {ADD_TITLE,
+  ADD_FILTERED_YEAR,
   ADD_Guarantees, 
   ADD_PIPELINE_REPORT,
   ADD_PROGRESS_HEADER,
