@@ -2,6 +2,11 @@ const router = require("express").Router();
 const pool = require("../database");
 const {verifyTokenAndAuthorization} = require("../middleware");
 
+ //Use this to validate incoming financial year
+ const fy_validator = (fy)=>{
+    const reg = new RegExp('^[0-9]+$'); 
+    return reg.test(fy)
+  }
 
 // This resource expects three parameters[start_date: the begining period of the report, end_date:the last period of the report, deal_id if there is a specific deal of interest]
 // INSTRUCTION: all parameters must be specified or null for dates and empty string for client_name if client_name is not available(in the case of spooling all deals using dates) - if "Null" date is specified
@@ -227,6 +232,78 @@ router.get('/ccsubmission/monthly/:start_date/:end_date',verifyTokenAndAuthoriza
 }
   })
 
+// Closed Deal Current FY Report
+router.get('/closed_deals/:financial_year',verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+
+    const financial_year = req.params.financial_year;
+    const fin_year = fy_validator(financial_year.slice(-4))
+    let final_year_slice = ''
+
+    if(fin_year){
+        final_year_slice = financial_year.slice(-4)
+        
+      }else{ 
+        res.status(404).send({
+          status: (res.statusCode = 404),
+          message: 'Invalid Financial Year',
+        });
+        return;
+      }
+     try {
+
+        const current_fy_closed_deal = await client.query(`
+        SELECT 
+            stamp as closed_date, createdate as deal_create_date, transid	as deal_id, clientname	
+            ,originator, transactor, transactionlegallead, industry, product, region, dealsize,coupon,tenor	,moratorium	,repaymentfrequency	
+            ,amortizationstyle	,mandateletter	,creditapproval	,feeletter	,expectedclose	,actualclose	,structuringfeeamount	
+            ,structuringfeeadvance	,structuringfeefinal	,guaranteefee	,monitoringfee	,reimbursible	,deal_category
+            ,Case when closed = true then 'Yes' else 'No' End closed,nbc_approval_date	,nbc_submitted_date	,ccsubmissiondate
+        FROM TB_INFRCR_TRANSACTION_AUDIT
+        WHERE DATE_PART('year', stamp) = COALESCE($1,DATE_PART('year', CURRENT_DATE))
+        AND operation = 'U'
+        AND closed = true
+        `,[final_year_slice]);
+  
+        res.status(200).send({
+            status: (res.statusCode = 200),
+            current_fy_closed_deal: current_fy_closed_deal.rows,
+        })
+} catch (e) {
+    res.status(403).json({ Error: e.message });
+}finally{
+    client.release()
+}
+  })
+
+// Closed Deal from Inception Report
+router.get('/closed_deals/all',verifyTokenAndAuthorization, async (req, res) => {
+    const client = await pool.connect();
+
+     try {
+
+        const current_fy_closed_deal = await client.query(`
+        SELECT 
+            stamp as closed_date, createdate as deal_create_date, transid	as deal_id, clientname	
+            ,originator, transactor, transactionlegallead, industry, product, region, dealsize,coupon,tenor	,moratorium	,repaymentfrequency	
+            ,amortizationstyle	,mandateletter	,creditapproval	,feeletter	,expectedclose	,actualclose	,structuringfeeamount	
+            ,structuringfeeadvance	,structuringfeefinal	,guaranteefee	,monitoringfee	,reimbursible	,deal_category
+            ,Case when closed = true then 'Yes' else 'No' End closed,nbc_approval_date	,nbc_submitted_date	,ccsubmissiondate
+        FROM TB_INFRCR_TRANSACTION_AUDIT
+        WHERE closed = true
+        AND operation = 'U'
+        `);
+  
+        res.status(200).send({
+            status: (res.statusCode = 200),
+            current_fy_closed_deal: current_fy_closed_deal.rows,
+        })
+} catch (e) {
+    res.status(403).json({ Error: e.message });
+}finally{
+    client.release()
+}
+  })
 // O & S Quarterly Report
 router.post('/quarterly/oands/', verifyTokenAndAuthorization, async (req, res) => {
     
@@ -317,5 +394,7 @@ router.put('/quarterly/oands/:fy_quarter/:fin_year',verifyTokenAndAuthorization,
     client.release()
 }
   })
+
+  
 
 module.exports = router;

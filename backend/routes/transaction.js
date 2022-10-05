@@ -16,6 +16,13 @@ const structuringFeeFinalCompute = (
   return parseFloat(finalPercent);
 };
 
+ //Use this to validate incoming financial year
+const fy_validator = (fy)=>{
+  const reg = new RegExp('^[0-9]+$'); 
+  return reg.test(fy)
+}
+
+
 // 20222-02-03: A function to compute the category of the deal at creation and subsequent updates
 const funcDealCategory = (
   greenA,
@@ -369,11 +376,27 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
 });
 
 /*Fetch Deal by ID - priviledged users*/
-router.get("/item/:deal", verifyTokenAndAuthorization, async (req, res) => {
+router.get("/item/:deal/:financial_year", verifyTokenAndAuthorization, async (req, res) => {
   const client = await pool.connect();
 
   try {
     const deal_record_id = req.params.deal;
+    const financial_year = req.params.financial_year;
+    const fin_year = fy_validator(financial_year.slice(-4))
+
+    let final_year_slice = ''
+
+    if(fin_year){
+      final_year_slice = financial_year.slice(-4)
+      
+    }else{ 
+      res.status(404).send({
+        status: (res.statusCode = 404),
+        message: 'Invalid Financial Year',
+      });
+      return;
+    }
+
     const deal = await client.query(
       `SELECT a.* ,
             
@@ -395,8 +418,10 @@ router.get("/item/:deal", verifyTokenAndAuthorization, async (req, res) => {
             LEFT JOIN TB_INFRCR_TRANSACTION_PARTIES d ON d.transID = a.transID
             LEFT JOIN TB_INFRCR_TRANSACTION_PLIS e ON e.transID = a.transID
             LEFT JOIN TB_INFRCR_TRANSACTION_KPI f ON f.transID = a.transID WHERE a.transID = $1
+            AND DATE_PART('year', a.createdate)::varchar(10) = COALESCE($2, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
             ORDER BY b.id, c.id, d.id, e.id, f.id;`,
-      [deal_record_id]
+      [deal_record_id, final_year_slice]
+      
     );
     if (deal) {
       res.deal_info = deal;
@@ -418,21 +443,37 @@ router.get("/item/:deal", verifyTokenAndAuthorization, async (req, res) => {
 });
 
 /*Fetch Deal for curent user */
-router.get("/my_deals", verifyTokenAndAuthorization, async (req, res) => {
+router.get("/my_deals/:financial_year", verifyTokenAndAuthorization, async (req, res) => {
   const client = await pool.connect();
 
   try {
     // const deal_record_id = req.params.deal;
     const current_user = req.user;
+    const financial_year = req.params.financial_year;
+    const fin_year = fy_validator(financial_year.slice(-4))
+
+    let final_year_slice = ''
+
+    if(fin_year){
+      final_year_slice = financial_year.slice(-4)
+      
+    }else{ 
+      res.status(404).send({
+        status: (res.statusCode = 404),
+        message: 'Invalid Financial Year',
+      });
+      return;
+    }
 
     const my_deals = await client.query(
       `SELECT a.*
         
             FROM TB_INFRCR_TRANSACTION a
-            WHERE a.originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
+            WHERE (a.originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
             OR a.transactor = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
+            )AND DATE_PART('year', a.createdate)::varchar(10) = COALESCE($2, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
             `,
-      [current_user.Email]
+      [current_user.Email, final_year_slice]
     );
     if (my_deals) {
       // convert notes field to list
@@ -452,10 +493,26 @@ router.get("/my_deals", verifyTokenAndAuthorization, async (req, res) => {
 });
 
 router.get(
-  "/get_staff_deals/:email",
+  "/get_staff_deals/:email/:financial_year",
   verifyTokenAndAuthorization,
   async (req, res) => {
     const client = await pool.connect();
+
+    const financial_year = req.params.financial_year;
+    const fin_year = fy_validator(financial_year.slice(-4))
+
+    let final_year_slice = ''
+
+    if(fin_year){
+      final_year_slice = financial_year.slice(-4)
+      
+    }else{ 
+      res.status(404).send({
+        status: (res.statusCode = 404),
+        message: 'Invalid Financial Year',
+      });
+      return;
+    }
 
     try {
       // const deal_record_id = req.params.deal;
@@ -483,8 +540,9 @@ router.get(
             LEFT JOIN TB_INFRCR_TRANSACTION_PLIS e ON e.transID = a.transID
             LEFT JOIN TB_INFRCR_TRANSACTION_KPI f ON f.transID = a.transID
             WHERE a.transactor = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
+            AND DATE_PART('year', a.createdate)::varchar(10) = COALESCE($2, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
             `,
-        [staff_email]
+        [staff_email, final_year_slice]
       );
       if (my_deals) {
         // convert notes field to list
@@ -505,15 +563,31 @@ router.get(
 );
 
 /*Fetch all Deals(Priviledged Users only) */
-router.get("/all_deals", verifyTokenAndAuthorization, async (req, res) => {
+router.get("/all_deals/:financial_year", verifyTokenAndAuthorization, async (req, res) => {
   const client = await pool.connect();
+  const financial_year = req.params.financial_year;
+  const fin_year = fy_validator(financial_year.slice(-4))
+
+    let final_year_slice = ''
+
+    if(fin_year){
+      final_year_slice = financial_year.slice(-4)
+      
+    }else{ 
+      res.status(404).send({
+        status: (res.statusCode = 404),
+        message: 'Invalid Financial Year',
+      });
+      return;
+    }
 
   try {
     const all_deals = await client.query(
       `SELECT 
                 a.* 
             FROM TB_INFRCR_TRANSACTION a
-            `
+            WHERE DATE_PART('year', a.createdate)::varchar(10) = COALESCE($1, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
+            `,[final_year_slice]
     );
 
     if (all_deals) {
@@ -533,15 +607,31 @@ router.get("/all_deals", verifyTokenAndAuthorization, async (req, res) => {
 });
 
 /*Fetch all Deals(Priviledged Users only) */
-router.get("/all_deals/portfolio", verifyTokenAndAdmin, async (req, res) => {
+router.get("/all_deals/portfolio/:financial_year", verifyTokenAndAdmin, async (req, res) => {
   const client = await pool.connect();
+  const financial_year = req.params.financial_year;
+  const fin_year = fy_validator(financial_year.slice(-4))
+
+    let final_year_slice = ''
+
+    if(fin_year){
+      final_year_slice = financial_year.slice(-4)
+      
+    }else{ 
+      res.status(404).send({
+        status: (res.statusCode = 404),
+        message: 'Invalid Financial Year',
+      });
+      return;
+    }
 
   try {
     const all_deals = await client.query(
       `SELECT 
                 a.* 
             FROM TB_INFRCR_TRANSACTION a
-            `
+            WHERE DATE_PART('year', a.createdate)::varchar(10) = COALESCE($1, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
+            `,[final_year_slice]
     );
 
     if (all_deals) {
@@ -561,8 +651,23 @@ router.get("/all_deals/portfolio", verifyTokenAndAdmin, async (req, res) => {
 });
 
 /*Fetch Pipeline */
-router.get("/pipeline", verifyTokenAndAuthorization, async (req, res) => {
+router.get("/pipeline/:financial_year", verifyTokenAndAuthorization, async (req, res) => {
   const client = await pool.connect();
+  const financial_year = req.params.financial_year;
+  const fin_year = fy_validator(financial_year.slice(-4))
+
+    let final_year_slice = ''
+
+    if(fin_year){
+      final_year_slice = financial_year.slice(-4)
+      
+    }else{ 
+      res.status(404).send({
+        status: (res.statusCode = 404),
+        message: 'Invalid Financial Year',
+      });
+      return;
+    }
 
   try {
     // const deal_record_id = req.params.deal;
@@ -575,8 +680,9 @@ router.get("/pipeline", verifyTokenAndAuthorization, async (req, res) => {
             WHERE a.closed = false
             AND (a.originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
             OR a.transactor = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1))
+            AND DATE_PART('year', a.createdate)::varchar(10) = COALESCE($2, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
             `,
-      [current_user.Email]
+      [current_user.Email,final_year_slice ]
     );
     if (my_pipeline) {
       res.status(200).send({
@@ -592,8 +698,23 @@ router.get("/pipeline", verifyTokenAndAuthorization, async (req, res) => {
 });
 
 /*Fetch Portfolio deals per user */
-router.get("/portfolio", verifyTokenAndAuthorization, async (req, res) => {
+router.get("/portfolio/:financial_year", verifyTokenAndAuthorization, async (req, res) => {
   const client = await pool.connect();
+  const financial_year = req.params.financial_year;
+  const fin_year = fy_validator(financial_year.slice(-4))
+
+    let final_year_slice = ''
+
+    if(fin_year){
+      final_year_slice = financial_year.slice(-4)
+      
+    }else{ 
+      res.status(404).send({
+        status: (res.statusCode = 404),
+        message: 'Invalid Financial Year',
+      });
+      return;
+    }
 
   try {
     // const deal_record_id = req.params.deal;
@@ -606,8 +727,9 @@ router.get("/portfolio", verifyTokenAndAuthorization, async (req, res) => {
             WHERE a.closed = true
             AND (a.originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
             OR a.transactor = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1))
+            AND DATE_PART('year', a.createdate)::varchar(10) = COALESCE($2, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
             `,
-      [current_user.Email]
+      [current_user.Email, final_year_slice]
     );
     if (my_portfolio) {
       res.status(200).send({
@@ -625,15 +747,32 @@ router.get("/portfolio", verifyTokenAndAuthorization, async (req, res) => {
 
 // create an endpoint to download deals by indidvidual staff on the origination dashboard
 router.get(
-  "/download_all_deals",
+  "/download_all_deals/:financial_year",
   verifyTokenAndAuthorization,
   async (req, res) => {
     const client = await pool.connect();
+    const financial_year = req.params.financial_year;
+    const fin_year = fy_validator(financial_year.slice(-4))
+
+    let final_year_slice = ''
+
+    if(fin_year){
+      final_year_slice = financial_year.slice(-4)
+      
+    }else{ 
+      res.status(404).send({
+        status: (res.statusCode = 404),
+        message: 'Invalid Financial Year',
+      });
+      return;
+    }
 
     try {
       const all_deals = await client.query(
-        `SELECT createdate,transid,clientname,originator, transactor,transactionlegallead,industry,product, region,dealsize,tenor,repaymentfrequency,mandateletter, creditapproval,expectedclose, actualclose,guaranteefee,closed,deal_category,notes,nbc_approval_date, nbc_submitted_date FROM TB_INFRCR_TRANSACTION
-            `
+        `SELECT createdate,transid,clientname,originator, transactor,transactionlegallead,industry,product, region,dealsize,tenor,repaymentfrequency,mandateletter, creditapproval,expectedclose, actualclose,guaranteefee,closed,deal_category,notes,nbc_approval_date, nbc_submitted_date 
+        FROM TB_INFRCR_TRANSACTION
+        WHERE DATE_PART('year', a.createdate)::varchar(10) = COALESCE($1, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
+            `,[final_year_slice]
       );
 
       if (all_deals) {
@@ -655,10 +794,25 @@ router.get(
 
 //******************************************** Download Staff deals by selected columns */
 router.get(
-  "/download_staff_deals/:email",
+  "/download_staff_deals/:email/:financial_year",
   verifyTokenAndAuthorization,
   async (req, res) => {
     const client = await pool.connect();
+    const financial_year = req.params.financial_year;
+    const fin_year = fy_validator(financial_year.slice(-4))
+
+    let final_year_slice = ''
+
+    if(fin_year){
+      final_year_slice = financial_year.slice(-4)
+      
+    }else{ 
+      res.status(404).send({
+        status: (res.statusCode = 404),
+        message: 'Invalid Financial Year',
+      });
+      return;
+    }
 
     try {
       // const deal_record_id = req.params.deal;
@@ -668,8 +822,9 @@ router.get(
         `SELECT createdate,transid,clientname,originator, transactor,transactionlegallead,industry,product, region,dealsize,tenor,repaymentfrequency,mandateletter, creditapproval,expectedclose, actualclose,guaranteefee,closed,deal_category,notes,nbc_approval_date, nbc_submitted_date
             FROM TB_INFRCR_TRANSACTION
             WHERE originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
+            AND DATE_PART('year', a.createdate)::varchar(10) = COALESCE($2, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
             `,
-        [staff_email]
+        [staff_email,final_year_slice]
       );
       if (my_deals) {
         // convert notes field to list
@@ -1443,25 +1598,59 @@ router.get(
 
 // Actual Guarantee: for only closed deals within the current FY
 router.get(
-  "/guarantee/actual",
+  "/guarantee/actual/:financial_year",
   verifyTokenAndAuthorization,
   async (req, res) => {
     const client = await pool.connect();
+    const financial_year = req.params.financial_year;
+    const fin_year = fy_validator(financial_year.slice(-4))
+
+    let final_year_slice = ''
+
+    if(fin_year){
+      final_year_slice = financial_year.slice(-4)
+      
+    }else{ 
+      res.status(404).send({
+        status: (res.statusCode = 404),
+        message: 'Invalid Financial Year',
+      });
+      return;
+    }
+
     try {
-      const actual_guarantee = await client.query(`
+      if(final_year_slice !== ''){
+        const actual_guarantee = await client.query(`
         SELECT 	SUM(guaranteefee) GuaranteeActualValue
         FROM TB_INFRCR_TRANSACTION_AUDIT
-        WHERE date_part('year', stamp) = (SELECT date_part('year', fy_start_date) FROM TB_INFRCR_FINANCIAL_YEAR WHERE fy_status = 'Active')
+        WHERE date_part('year', stamp) = $1
         AND operation = 'U'
         AND closed = true
-        `);
+        `,[final_year_slice]);
 
-      res.status(200).send({
-        status: (res.statusCode = 200),
-        actualGuarantee: actual_guarantee.rows,
-      });
+        res.status(200).send({
+          status: (res.statusCode = 200),
+          actualGuarantee: actual_guarantee.rows,
+        });
+
+      }else{
+
+        const actual_guarantee = await client.query(`
+          SELECT 	SUM(guaranteefee) GuaranteeActualValue
+          FROM TB_INFRCR_TRANSACTION_AUDIT
+          WHERE date_part('year', stamp) = (SELECT date_part('year', fy_start_date) FROM TB_INFRCR_FINANCIAL_YEAR WHERE fy_status = 'Active')
+          AND operation = 'U'
+          AND closed = true
+          `);
+
+          res.status(200).send({
+            status: (res.statusCode = 200),
+            actualGuarantee: actual_guarantee.rows,
+          });
+      }
+
     } catch (e) {
-      res.status(403).json({ Error: e.stack });
+      res.status(403).json({ Error: e.message });
     } finally {
       client.release();
     }
