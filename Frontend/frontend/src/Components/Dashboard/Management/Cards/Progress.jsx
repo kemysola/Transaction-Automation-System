@@ -1,11 +1,8 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { Container, Row, Col, Form, Card, Button } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col, Form, Card} from "react-bootstrap";
 import Stats from "./Stats";
 import Service from "../../../../Services/Service";
 import Matrics from "./Matrics";
-import Table from "react-bootstrap/Table";
-import { useSelector, useDispatch } from "react-redux";
-
 import * as XLSX from "xlsx";
 import { useGetTopNReimbursibleQuery } from "../../../../Services/apiSlice";
 import {
@@ -37,7 +34,6 @@ export default function Progress() {
   } = useGetTopNReimbursibleQuery(`${topn}/${start_date}/${end_date}`);
   console.log(error, reimbursibleDData?.ccsubmissionReport);
 
-  // const errMessage = error?.data
   // ******************************************  useEffect hook - ComponentDidMount   ****************************************
 
   useEffect(() => {
@@ -547,55 +543,17 @@ export default function Progress() {
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
-            padding: "0.22rem 0rem",
+            justifyContent: "end",
+            padding: "0.02rem 0rem",
             marginRight: "0.22rem",
           }}
         >
           {/* ---------- Filter Bar ------------ */}
           <br />
           <br />
+          
           <Row>
-            <Card>
-              <Card.Body>
-                <Card.Subtitle>
-                  <h6>Top And Reimbursible</h6>
-                </Card.Subtitle>
-                <Card.Text>
-                  <Row>
-                    <Form>
-                      <Form.Control
-                        inline
-                        label="Count"
-                        type="date"
-                        name="start_date"
-                        value={start_date}
-                        onChange={(e) => set_start_date(e.target.value)}
-                      />
-                      <Form.Control
-                        inline
-                        label="Count"
-                        type="date"
-                        name="end_date"
-                        value={end_date}
-                        onChange={(e) => set_end_date(e.target.value)}
-                      />
-                      <Form.Control
-                        inline
-                        label="Count"
-                        type="number"
-                        name="topn"
-                        value={topn}
-                        onChange={(e) => set_topn(e.target.value)}
-                      />
-                      {/* <Button onClick={GetTops}>Download</Button> */}
-                    </Form>
-                  </Row>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Row>
-          <Row>
+          
             <Card
               className="my-1"
               style={{
@@ -664,6 +622,7 @@ export default function Progress() {
                 </Card.Text>
               </Card.Body>
             </Card>
+            
           </Row>
         </div>
 
@@ -1155,41 +1114,7 @@ export default function Progress() {
               </Container>
             </div>
           </Col>
-          {isError ? (
-            <div className="text-danger">
-              {/* {(error?.data.Error.split(" ").splice(0,8).join(" ").toUpperCase())} */}
-              {error === "undefined"
-                ? null
-                : error?.data.Error}
-            </div>
-          ) : isSuccess ? (
-            <div>
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Client Name</th>
-                    <th>Originator</th>
-                    <th>Transactor</th>
-                    <th>Deal Size</th>
-                    <th>Reimbursible</th>
-                  </tr>
-                </thead>
-                {reimbursibleDData?.ccsubmissionReport.map((data) => (
-                  <tbody>
-                    <tr>
-                      <td>{data.clientname}</td>
-                      <td>{data.originator}</td>
-                      <td>{data.transactor}</td>
-                      <td>{data.dealsize}</td>
-                      <td>{data.reimbursible}</td>
-                    </tr>
-                  </tbody>
-                ))}
-              </Table>
-            </div>
-          ) : isLoading ? (
-            <p>.....</p>
-          ) : null}
+          
         </Row>
       </Container>
       <br />

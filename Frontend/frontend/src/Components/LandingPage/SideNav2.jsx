@@ -144,7 +144,7 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                   </Link>
                 </MenuItem>
                 <MenuItem className="subMenu">
-                  <Link to='/landing' style={{ color: '#237cbf' }}>
+                  <Link to='/closed_deals/inception_financial_year' style={{ color: '#237cbf' }}>
                   Closed Deals Report
                   </Link>
                 </MenuItem>

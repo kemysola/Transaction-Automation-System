@@ -132,11 +132,10 @@ router.get("/app/login", (req, res) => {
         token: response.accessToken,
       };
       let searchParams = new URLSearchParams(paramsString);
-
-       res.redirect('http://localhost:3000/login?'+searchParams);
-      // res.redirect(
-      //   "https://trms01-server.azurewebsites.net/login?" + searchParams
-      // );
+      //  res.redirect('http://localhost:3000/login?'+searchParams);
+      res.redirect(
+        "https://trms01-server.azurewebsites.net/login?" + searchParams
+      );
     })
     .catch((error) => {
       console.log(error);
