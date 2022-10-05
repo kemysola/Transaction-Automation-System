@@ -1,31 +1,47 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 /**
+ * 
  * FetchbaseQuery replaces the conventional axios or fetch http request.
  * Retrieve token from the local storage.
+ *
+ * 
  */
 //  const start = localStorage.getItem('startDate');
 
 const token = localStorage.getItem("token");
 /**
+ * 
  * In React Toolkit Query , we call the hook 'createApi
  * createApi will take in arguments such as reducerPath: anyname to identity with,
  *  baseQuery:which is where you set base endpoint and reducers
+ * 
+ * 
+ * 
  */
 export const apiSlice = createApi({
   reducerPath: "reportApi",
   baseQuery: fetchBaseQuery({
     /**
+     * 
+     * 
      * Create an .env file to handle endpoints for production and development.
      * check utils file / folder
      * include in the .gitignore file
+     * 
+     * 
+     * 
      */
     // baseUrl: "http://localhost:5001/api/v1",
     baseURL: "https://trms01-server.azurewebsites.net/api/v1/",
+    //
+    //
 
     prepareHeaders: (headers, { getState }) => {
       /**
-       * Check if there is a token , if there is set header with the authorizations from the local storage
+       * 
+       * Check if there is a token , if there is set header with the authorizations from the local storage.
+       * 
        */
       if (token) {
         headers.set("token", `Bearer ${localStorage.getItem("token")}`);
@@ -35,6 +51,7 @@ export const apiSlice = createApi({
   }),
   /**
    * Use a tag type to invalidate actions and data - payload once an action has been completed.
+   * 
    */
   tagTypes: ["Report"],
   endpoints: (builder) => ({
@@ -43,18 +60,19 @@ export const apiSlice = createApi({
         `report/quarterly/oands/${fy_quarter}/${fin_year}`,
       providesTags: ["Report"],
     }),
+    getPipeline: builder.query({
+      query: (financial_year) => `report/closed_deals/${financial_year}`,
+      providesTags: ["Report"],
+    }),
     getTopNReimbursible: builder.query({
       query: (topn, start, end) => `transaction/reimbursible/${topn}`,
       providesTags: ["Report"],
     }),
-    getPipelineReport: builder.query({
-      query: (topn, start, end) => ``,
-      providesTags: ["Report"],
-    }),
-
+    
     /**
+     * 
      * For any endpoint other than a get http request - use a builder.mutation
-     *
+     * 
      */
     addReport: builder.mutation({
       query: (report) => ({
@@ -93,9 +111,11 @@ export const apiSlice = createApi({
  */
 export const {
   useGetReportQuery,
+  useGetPipelineQuery,
   useGetTopNReimbursibleQuery,
   useAddReportMutation,
   useUpdateReportMutation,
   useDeleteReportMutation,
-  getPipelineReport,
+  
+  
 } = apiSlice;
