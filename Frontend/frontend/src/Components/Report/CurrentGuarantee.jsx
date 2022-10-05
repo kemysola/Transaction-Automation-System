@@ -1,16 +1,9 @@
 import React, { useContext } from "react";
-import { Container, Row, Col} from "react-bootstrap";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
-  Tooltip,
-} from "recharts";
+import { Container, Row, Col } from "react-bootstrap";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import Editable from "react-editable-title";
 import TitleContext from "../../context/TitleContext";
 import GeneralPie from "./GeneralPie";
-
 
 export default function CurrentGuarantee() {
   const handleTextUpdate = (current) => {
@@ -19,8 +12,9 @@ export default function CurrentGuarantee() {
   const handleTextUpdates = (current) => {
     addGuarantees(current);
   };
-  const { addTitle, cartTitle,guaranteeStore,addGuarantees } = useContext(TitleContext);
 
+  const { addTitle, cartTitle, guaranteeStore, addGuarantees } =
+    useContext(TitleContext);
 
   // ******************************************  static data shared  ****************************************
 
@@ -39,7 +33,6 @@ export default function CurrentGuarantee() {
   ];
 
   // ******************************************  Color selection for the pie chart ****************************************
-
   const COLORS = ["#FF4500", "#FFBB28", "#00C49F", "GREEN", "BLUE", "PURPLE"];
 
   const RADIAN = Math.PI / 180;
@@ -98,6 +91,14 @@ export default function CurrentGuarantee() {
     return null;
   };
 
+  /**
+   * Save Year to Local Storage ....
+   */
+  const saveFy = () => {
+    localStorage.setItem("FinancialYear", JSON.stringify(2022));
+    alert("okay");
+  };
+
   return (
     <React.Fragment>
       <Container fluid>
@@ -107,6 +108,15 @@ export default function CurrentGuarantee() {
             marginLeft: "",
           }}
         >
+          {/* <div className="year">
+           
+            <input type='text'/>
+            <span onClick={saveFy}>
+              <HiSaveAs/>
+            </span>
+         
+          </div>
+           */}
           <Editable
             text={cartTitle}
             editButtonStyle={{ lineHeight: "unset" }}
@@ -116,29 +126,28 @@ export default function CurrentGuarantee() {
             cb={handleTextUpdate}
           />
         </p>
-        
-        <div className='pt-1'>
-        <p
-          style={{
-            fontWeight: "",
-            marginLeft: "",
-          }}
-        >
-          <Editable
-            text={guaranteeStore}
-            editButtonStyle={{ lineHeight: "unset" }}
-            editButton
-            editControlButtons
-            editControls
-            placeholder="Type here"
 
-            cb={handleTextUpdates}
-          />
-        </p>
+        <div className="pt-1">
+          <p
+            style={{
+              fontWeight: "",
+              marginLeft: "",
+            }}
+          >
+            <Editable
+              text={guaranteeStore}
+              editButtonStyle={{ lineHeight: "unset" }}
+              editButton
+              editControlButtons
+              editControls
+              placeholder="Type here"
+              cb={handleTextUpdates}
+            />
+          </p>
         </div>
       </Container>
-      
-      <Container className='my-3'>
+
+      <Container className="my-3">
         <Row className="mt-1">
           <Col sm={6}>
             <p
@@ -149,7 +158,7 @@ export default function CurrentGuarantee() {
               Billion as at 31 December 2021.
             </p>
             <ResponsiveContainer width="140%" height={270}>
-            <PieChart margin={{ top: 3,right: 0, bottom: 0 }}>
+              <PieChart margin={{ top: 3, right: 0, bottom: 0 }}>
                 <Pie
                   data={data}
                   dataKey="value"
@@ -158,7 +167,7 @@ export default function CurrentGuarantee() {
                   cy="40%"
                   fill="#8884d8"
                   innerRadius={75}
-                  outerRadius={220/2}
+                  outerRadius={220 / 2}
                   paddingAngle={2}
                   isAnimationActive={true}
                   labelLine={false}
@@ -186,7 +195,6 @@ export default function CurrentGuarantee() {
             <GeneralPie />
           </Col>
         </Row>
-        
       </Container>
     </React.Fragment>
   );

@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css"
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route} from "react-router-dom";
 import Main from "./Components/Auth/MainPage/Main";
 import Landing from "./Components/LandingPage/Landing";
 import TransactionView from "./Components/Transactions/TransactionView";
 import AllDeals from "./Components/Transactions/AllDeals";
-// import UpdateStaffs from "./Components/Staffs/UpdateStaffs";
 import StaffView from "./Components/Staffs/StaffView";
 import UpdateTransaction from "./Pages/Transactions/UpdateTransaction";
 import MgtView from "./Components/Dashboard/Management/ManagementView";
@@ -15,9 +14,7 @@ import AllStaff from "./Pages/Staffs/AllStaff";
 import DealTeamView from "./Pages/Staffs/DealTeamView";
 import Home from "./Components/Home";
 import Execution from "./Components/Dashboard/Execution/Execution";
-import StaffTable from "./Components/Staffs/StaffTable";
 import Report from './Components/Report/AllPages'
-// import Verify from "./Components/Auth/Verify";
 import PasswordReset from "./Components/Auth/Reset/PasswordReset";
 import Reset from "./Components/Auth/StaffReset/Reset";
 import Updates from "./Pages/Staffs/Updates";
@@ -30,14 +27,13 @@ import SingleStaff from "./Components/Dashboard/Origination/deals/SingleStaff";
 import SingleView from "./Components/Dashboard/Origination/deals/SingleView";
 import Settings from "./Components/Settings/SettingsView";
 import jwt_decode from "jwt-decode";
-import LogOut from "./Components/Auth/Log out/LogOut";
 import authService from "./Services/auth.Service"
 import { useLocation } from 'react-router-dom';
 import ForgotPassword from "./Components/Auth/forgot/ForgotPassword";
 import PortfolioAllDeals from "./Components/Transactions/PortfolioAllDeals";
 import NewTransactionPage from "./Pages/Transactions/NewTransactionPage";
 import CCReportView from "./Components/Report/CCSubmissionReport/CCReportView";
-import { useGetReportQuery } from "./Services/apiSlice";
+import ComponentView from "./Components/Report/Reimbursible/ComponentView";
 export default function App() {
   let location = useLocation()
   const parseJwt = (token) => {
@@ -103,7 +99,9 @@ export default function App() {
         <ProtectedRoute exact path="/all_transactions" component={AllDeals} />
         <ProtectedRoute exact path="/update_users" component={Updates} />
         <ProtectedRoute exact path="/annual_and_quarterly_report_page" component={Report} />
-
+        <ProtectedRoute path="/reimbursible/top/n/reimbursible/report" component={ComponentView}/>
+          
+       
         <ProtectedRoute exact path="/settings" component={Settings} />
         <ProtectedRoute exact path="/cc_report" component={CCReportView} />
         
@@ -119,6 +117,7 @@ export default function App() {
         <Route path="*">
           <NotFound />
         </Route>
+       
       </Switch>
     </React.Fragment>
   );

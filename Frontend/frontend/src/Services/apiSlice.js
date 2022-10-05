@@ -4,6 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
  * FetchbaseQuery replaces the conventional axios or fetch http request.
  * Retrieve token from the local storage.
  */
+//  const start = localStorage.getItem('startDate');
 
 const token = localStorage.getItem("token");
 /**
@@ -19,7 +20,9 @@ export const apiSlice = createApi({
      * check utils file / folder 
      * include in the .gitignore file
      */
-    baseUrl: "http://localhost:5001/api/v1",
+    // baseUrl: "http://localhost:5001/api/v1",
+      baseURL: "https://trms01-server.azurewebsites.net/api/v1/",
+
     prepareHeaders: (headers, { getState }) => {
       /**
        * Check if there is a token , if there is set header with the authorizations from the local storage
@@ -39,6 +42,10 @@ export const apiSlice = createApi({
       query: (fy_quarter,fin_year) => `report/quarterly/oands/${fy_quarter}/${fin_year}`,
       providesTags: ["Report"],
     }),
+    getTopNReimbursible: builder.query({
+      query: (topn,start,end) => `transaction/reimbursible/${topn}`,
+      providesTags: ["Report"],
+    }),
 
     /**
      * For any endpoint other than a get http request - use a builder.mutation
@@ -49,8 +56,11 @@ export const apiSlice = createApi({
         url: "report/quarterly/oands",
         method: "POST",
         body: report,
+        validateStatus: (response, result) =>
+          response.status === 200 && !result.isError
       }),
       invalidatesTags: ["Report"],
+      
     }),
 
     updateReport: builder.mutation({
@@ -79,6 +89,7 @@ export const apiSlice = createApi({
  */
 export const {
   useGetReportQuery,
+  useGetTopNReimbursibleQuery,
   useAddReportMutation,
   useUpdateReportMutation,
   useDeleteReportMutation,

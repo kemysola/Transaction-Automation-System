@@ -1,9 +1,14 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Container, Row, Col, Form, Card, } from "react-bootstrap";
+import React, { useEffect, useState, useContext, useMemo} from "react";
+import { Container, Row, Col, Form, Card, Button} from "react-bootstrap";
 import Stats from "./Stats";
 import Service from "../../../../Services/Service";
 import TitleContext from '../../../../context/TitleContext';
 import Matrics from "./Matrics";
+import Table from "react-bootstrap/Table";
+import { useSelector, useDispatch } from "react-redux";
+
+import * as XLSX from "xlsx";
+import { useGetTopNReimbursibleQuery } from "../../../../Services/apiSlice";
 import {
   BarChart,
   Bar,
@@ -14,21 +19,32 @@ import {
   Legend,
 } from "recharts";
 
-
 export default function Progress() {
 
       // ******************************************  useState Hook to store state data  ****************************************
 
   const { filteredStore, addFtYear} = useContext(TitleContext)
+  // ******************************************  useState Hook to store state data  ****************************************
   const [data, setData] = useState([]);
   const [forecast, setForecast] = useState([]);
   const [indFilter, setIndFilter] = useState("Value");
   const [prdFilter, setPrdFilter] = useState("Value");
- 
+  const [start_date, set_start_date] = useState("02-01-2022");
+  const [end_date, set_end_date] = useState(`02-02-2022`);
+  const [topn, set_topn] = useState(5);
 
   const newStore = JSON.parse(filteredStore)
+  const {
+    data: reimbursibleDData,
+    isLoading,
+    error,
+    isError,
+    isSuccess,
+  } = useGetTopNReimbursibleQuery(`${topn}/${start_date}/${end_date}`);
+  console.log(error, reimbursibleDData?.ccsubmissionReport);
 
-      // ******************************************  useEffect hook - ComponentDidMount   ****************************************
+  // const errMessage = error?.data
+  // ******************************************  useEffect hook - ComponentDidMount   ****************************************
 
   useEffect(() => {
     retrieveDeals();
@@ -37,7 +53,21 @@ export default function Progress() {
   useEffect(() => {
     retrieveForecast();
   }, []);
+  function GetTops() {
+    const newData = reimbursibleDData?.ccsubmissionReport.map((row) => {
+      delete row.tableData;
+      return row;
+    });
+    const workSheet = XLSX.utils.json_to_sheet(newData);
+    const workBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workBook, workSheet, "Execution_Summary");
+    //Buffer
+    let buf = XLSX.write(workBook, { bookType: "xlsx", type: "buffer" });
+    XLSX.write(workBook, { bookType: "xlsx", type: "binary" });
+    XLSX.writeFile(workBook, "Execution_Report.xlsx");
+  }
 
+  // ******************************************  Axios :  get transactions  ****************************************
 
       // ******************************************  Axios :  get transactions  ****************************************
 
@@ -52,10 +82,9 @@ export default function Progress() {
       });
   };
 
-    // ******************************************  Axios :  get forecast  ****************************************
+  // ******************************************  Axios :  get forecast  ****************************************
 
-
-  const retrieveForecast = async() => {
+  const retrieveForecast = async () => {
     await Service.getForecast()
       .then((response) => {
         setForecast(response.data.forecast);
@@ -67,7 +96,6 @@ export default function Progress() {
 
   // ************************************** calculations for on-grid power industry  **********************
 
-
   let option1 = data.reduce(function (filtered, arr) {
     if (arr.industry === "On-grid Power") {
       let someNewValue = arr.dealsize;
@@ -78,8 +106,7 @@ export default function Progress() {
     return filtered;
   }, []);
 
-    // ************************************** calculations for off-grid power industry  **********************
-
+  // ************************************** calculations for off-grid power industry  **********************
 
   let option2 = data.reduce(function (filtered, arr) {
     if (arr.industry === "Off-grid Power") {
@@ -91,7 +118,7 @@ export default function Progress() {
     return filtered;
   }, []);
 
-    // ************************************** calculations for agric infra industry  **********************
+  // ************************************** calculations for agric infra industry  **********************
 
   let option3 = data.reduce(function (filtered, arr) {
     if (arr.deal_category === "Agric Infra.") {
@@ -103,8 +130,7 @@ export default function Progress() {
     return filtered;
   }, []);
 
-    // ************************************** calculations for gas industry  **********************
-
+  // ************************************** calculations for gas industry  **********************
 
   let option4 = data.reduce(function (filtered, arr) {
     if (arr.industry === "Gas") {
@@ -116,8 +142,7 @@ export default function Progress() {
     return filtered;
   }, []);
 
-    // ************************************** calculations for transportation industry  **********************
-
+  // ************************************** calculations for transportation industry  **********************
 
   let option5 = data.reduce(function (filtered, arr) {
     if (arr.industry === "Transportation") {
@@ -129,7 +154,7 @@ export default function Progress() {
     return filtered;
   }, []);
 
-    // ************************************** calculations for inputs to Infra industry  **********************
+  // ************************************** calculations for inputs to Infra industry  **********************
 
   let option6 = data.reduce(function (filtered, arr) {
     if (arr.industry === "Inputs to Infra.") {
@@ -141,8 +166,7 @@ export default function Progress() {
     return filtered;
   }, []);
 
-    // ******************************** calculations for Affordable Housing industry  **********************
-
+  // ******************************** calculations for Affordable Housing industry  **********************
 
   let option7 = data.reduce(function (filtered, arr) {
     if (arr.industry === "Affordable Housing") {
@@ -156,7 +180,6 @@ export default function Progress() {
 
   // ******************************** calculations for Education Infra industry  **********************
 
-
   let option8 = data.reduce(function (filtered, arr) {
     if (arr.industry === "Education Infra.") {
       let someNewValue = arr.dealsize;
@@ -167,8 +190,7 @@ export default function Progress() {
     return filtered;
   }, []);
 
-    // ******************************** calculations for Healthcare industry  **********************
-
+  // ******************************** calculations for Healthcare industry  **********************
 
   let option9 = data.reduce(function (filtered, arr) {
     if (arr.industry === "Healthcare") {
@@ -180,9 +202,7 @@ export default function Progress() {
     return filtered;
   }, []);
 
-
-      // ******************************** calculations for water/waste industry  **********************
-
+  // ******************************** calculations for water/waste industry  **********************
 
   let option10 = data.reduce(function (filtered, arr) {
     if (arr.industry === "Water/Waste") {
@@ -194,7 +214,7 @@ export default function Progress() {
     return filtered;
   }, []);
 
-      // ******************************** calculations for ICT/Telecoms industry  **********************
+  // ******************************** calculations for ICT/Telecoms industry  **********************
 
   let option11 = data.reduce(function (filtered, arr) {
     if (arr.industry === "ICT/Telecoms") {
@@ -206,9 +226,7 @@ export default function Progress() {
     return filtered;
   }, []);
 
-
-      // ******************************** sumtotal    **********************
-
+  // ******************************** sumtotal    **********************
 
   let option1Total = option1.reduce(function (tot, arr) {
     return tot + parseFloat(arr);
@@ -258,8 +276,7 @@ export default function Progress() {
     return tot + parseFloat(arr.dealsize);
   }, 0);
 
-      // ******************************** calculations Chart Data **********************
-
+  // ******************************** calculations Chart Data **********************
 
   const chartData = [
     {
@@ -438,9 +455,7 @@ export default function Progress() {
     return tot + parseFloat(arr);
   }, 0);
 
-
-      // ******************************** Product Data  **********************
-
+  // ******************************** Product Data  **********************
 
   const productChartData = [
     {
@@ -506,51 +521,108 @@ export default function Progress() {
   ];
 
   // --------------------------- Guarantee Projection Forecast ---------------------- //
-  const newGuaranteeData = forecast.map(item => (
-    {
-      "name": item.projectionyear,
-      "Cumulative Growth": item.cumulativegrowth,
-      "New Guarantees": item.newdeals
-    }
-  ));
+  const newGuaranteeData = forecast.map((item) => ({
+    name: item.projectionyear,
+    "Cumulative Growth": item.cumulativegrowth,
+    "New Guarantees": item.newdeals,
+  }));
 
-  const guaranteePipelineData = forecast.map(item => (
-    {
-      "name": item.projectionyear,
-      "Pipeline": item.guaranteepipeline
-    }
-  ));
+  const guaranteePipelineData = forecast.map((item) => ({
+    name: item.projectionyear,
+    Pipeline: item.guaranteepipeline,
+  }));
 
-  const dealCategoryData = forecast.map(item => (
-    {
-      "name": item.projectionyear,
-      "Green & Amber Deals": item.greenandamberdeals,
-      "Green Deals": item.greendeals
-    }
-  ));
+  const dealCategoryData = forecast.map((item) => ({
+    name: item.projectionyear,
+    "Green & Amber Deals": item.greenandamberdeals,
+    "Green Deals": item.greendeals,
+  }));
 
-  
   return (
     <React.Fragment>
-      <Container Fluid style={{ marginLeft: "0.22rem ", background:'white', borderRadius: "5px" }}>
+      <Container
+        Fluid
+        style={{
+          marginLeft: "0.22rem ",
+          background: "white",
+          borderRadius: "5px",
+        }}
+      >
+        <p class="animate__animated animate__pulse py-1" style={{}}>
+          <b>Management Dashboard</b>
+        </p>
         {/* --------- Title and Filter Bar */}
-        <div style={{display: "flex", justifyContent: "space-between", padding: "0.22rem 0rem", marginRight: "0.22rem"}}>
-          <p class='animate__animated animate__pulse py-1' style={{}}><b>Management Dashboard</b></p>
-        {/* ---------- Filter Bar ------------ */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            padding: "0.22rem 0rem",
+            marginRight: "0.22rem",
+          }}
+        >
+          {/* ---------- Filter Bar ------------ */}
+          <br />
+          <br />
           <Row>
-            <Card className="my-1" style={{ borderRadius: "5px",boxShadow:'10px 5px 5px whitesmoke' }}>
+            <Card>
+              <Card.Body>
+                <Card.Subtitle>
+                  <h6>Top And Reimbursible</h6>
+                </Card.Subtitle>
+                <Card.Text>
+                  <Row>
+                    <Form>
+                      <Form.Control
+                        inline
+                        label="Count"
+                        type="date"
+                        name="start_date"
+                        value={start_date}
+                        onChange={(e) => set_start_date(e.target.value)}
+                      />
+                      <Form.Control
+                        inline
+                        label="Count"
+                        type="date"
+                        name="end_date"
+                        value={end_date}
+                        onChange={(e) => set_end_date(e.target.value)}
+                      />
+                      <Form.Control
+                        inline
+                        label="Count"
+                        type="number"
+                        name="topn"
+                        value={topn}
+                        onChange={(e) => set_topn(e.target.value)}
+                      />
+                      {/* <Button onClick={GetTops}>Download</Button> */}
+                    </Form>
+                  </Row>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Row>
+          <Row>
+            <Card
+              className="my-1"
+              style={{
+                borderRadius: "5px",
+                boxShadow: "10px 5px 5px whitesmoke",
+              }}
+            >
               <Card.Body>
                 <Card.Subtitle className="mb-2">
-                  <h6 style={{width: "250px", fontSize: "13px"}}>Filter</h6>
+                  <h6 style={{ width: "250px", fontSize: "13px" }}>Filter</h6>
                 </Card.Subtitle>
 
                 <Card.Text>
                   {/* --------- Filter Industry Barchart ----------- */}
                   <Row>
-                    <Col sm={4} lg={4} style={{fontSize: "12px"}}>
+                    <Col sm={4} lg={4} style={{ fontSize: "12px" }}>
                       <Form.Label>Industry by:</Form.Label>
                     </Col>
-                    <Col sm={8} lg={8} style={{fontSize: "12px"}}>
+                    <Col sm={8} lg={8} style={{ fontSize: "12px" }}>
                       <Form.Check
                         inline
                         label="Value"
@@ -573,11 +645,11 @@ export default function Progress() {
 
                   {/* --------- Filter Product Barchart --------- */}
                   <Row>
-                    <Col sm={4} lg={4} style={{fontSize: "12px"}}>
+                    <Col sm={4} lg={4} style={{ fontSize: "12px" }}>
                       <Form.Label>Product by:</Form.Label>
                     </Col>
 
-                    <Col sm={8} lg={8} style={{fontSize: "12px"}}>
+                    <Col sm={8} lg={8} style={{ fontSize: "12px" }}>
                       <Form.Check
                         inline
                         label="Value"
@@ -602,23 +674,21 @@ export default function Progress() {
             </Card>
           </Row>
         </div>
-        
+
         {/* --------- Deal Category PieChart and Region Bar Chart ------------------- */}
-        <Row style={{marginBottom: "-38px"}}>
+        <Row style={{ marginBottom: "-38px" }}>
           <Stats />
         </Row>
-        <br/>
+        <br />
 
-                        {/* Cumulative Performance Earned  */}
-        <Row style={{marginBottom: "-38px"}}>
-          <Matrics/>
+        {/* Cumulative Performance Earned  */}
+        <Row style={{ marginBottom: "-38px" }}>
+          <Matrics />
         </Row>
-        <br/>
-        <br/>
+        <br />
+        <br />
 
-
-
-       {/* ----- Forecast Bar Charts ----------- */}
+        {/* ----- Forecast Bar Charts ----------- */}
         <Row style={{ marginTop: "5px " }}>
           {/*------------------------ New Guarantee Forecast barchart ------------------------------- */}
           <Col sm={12} lg={4} className="mt-3 mb-1">
@@ -630,64 +700,74 @@ export default function Progress() {
                 height: "65.4vh",
               }}
             >
-                <Container Fluid className='bg-light py-3' style={{borderRadius: "5px"}}>
+              <Container
+                Fluid
+                className="bg-light py-3"
+                style={{ borderRadius: "5px" }}
+              >
                 <p
-                style={{
-                  fontSize: "13px",
-                  fontWeight: "bold",
-                }}
-              >
-                New Guarantee Forecast (₦'Billions)
-              </p>
-              <BarChart
-                width={250}
-                height={250}
-                data={newGuaranteeData}
-                barSize={15}
-                margin={{
-                  top: 5,
-                  right: 2,
-                  left: 2,
-                  bottom: 1,
-                }}
-
-                layout="horizontal"
-              >
-                <XAxis xAxisId={0}
-                  dataKey="name"
-                  tickLine={false}
-                  axisLine={true}
                   style={{
-                    fontSize: "0.52rem",
-                    fontFamily: "Arial",
-                    paddingLeft: "2px",
+                    fontSize: "13px",
+                    fontWeight: "bold",
                   }}
-                />
-                <YAxis hide/>
-                <Tooltip />
-                <Legend height={30} iconSize={10} />
-                <Bar
-                  dataKey="Cumulative Growth"
-                  fill="#82ca9d"
-                  minPointSize={1}
-                  isAnimationActive={false}
-                  style={{lineHeight: "10px"}}
                 >
-                  <LabelList dataKey="Cumulative Growth" position="top" style={{fontSize: "0.7rem"}} />
-                </Bar>
-                <Bar
-                  dataKey="New Guarantees"
-                  fill="#89ec8a"
-                  minPointSize={1}
-                  isAnimationActive={false}
-                  style={{lineHeight: "10px"}}
+                  New Guarantee Forecast (₦'Billions)
+                </p>
+                <BarChart
+                  width={250}
+                  height={250}
+                  data={newGuaranteeData}
+                  barSize={15}
+                  margin={{
+                    top: 5,
+                    right: 2,
+                    left: 2,
+                    bottom: 1,
+                  }}
+                  layout="horizontal"
                 >
-                  <LabelList dataKey="New Guarantees" position="insideBottom" style={{fontSize: "0.6rem"}} />
-                </Bar>
-              </BarChart>
-
-                </Container>
-              
+                  <XAxis
+                    xAxisId={0}
+                    dataKey="name"
+                    tickLine={false}
+                    axisLine={true}
+                    style={{
+                      fontSize: "0.52rem",
+                      fontFamily: "Arial",
+                      paddingLeft: "2px",
+                    }}
+                  />
+                  <YAxis hide />
+                  <Tooltip />
+                  <Legend height={30} iconSize={10} />
+                  <Bar
+                    dataKey="Cumulative Growth"
+                    fill="#82ca9d"
+                    minPointSize={1}
+                    isAnimationActive={false}
+                    style={{ lineHeight: "10px" }}
+                  >
+                    <LabelList
+                      dataKey="Cumulative Growth"
+                      position="top"
+                      style={{ fontSize: "0.7rem" }}
+                    />
+                  </Bar>
+                  <Bar
+                    dataKey="New Guarantees"
+                    fill="#89ec8a"
+                    minPointSize={1}
+                    isAnimationActive={false}
+                    style={{ lineHeight: "10px" }}
+                  >
+                    <LabelList
+                      dataKey="New Guarantees"
+                      position="insideBottom"
+                      style={{ fontSize: "0.6rem" }}
+                    />
+                  </Bar>
+                </BarChart>
+              </Container>
             </div>
           </Col>
 
@@ -701,53 +781,60 @@ export default function Progress() {
                 height: "65.4vh",
               }}
             >
-                <Container Fluid className='bg-light py-3' style={{borderRadius: "5px"}}>
+              <Container
+                Fluid
+                className="bg-light py-3"
+                style={{ borderRadius: "5px" }}
+              >
                 <p
-                style={{
-                  fontSize: "13px",
-                  fontWeight: "bold",
-                }}
-              >
-                Guarantee Pipeline Forecast (₦'Billions)
-              </p>
-              <BarChart
-                width={250}
-                height={250}
-                data={guaranteePipelineData}
-                barSize={20}
-                margin={{
-                  top: 5,
-                  right: 5,
-                  left: 5,
-                  bottom: 2,
-                }}
-                layout="horizontal"
-              >
-                <XAxis xAxisId={0}
-                  dataKey="name"
-                  tickLine={false}
-                  axisLine={true}
                   style={{
-                    fontSize: "0.52rem",
-                    fontFamily: "Arial",
-                    paddingLeft: "2px",
+                    fontSize: "13px",
+                    fontWeight: "bold",
                   }}
-                />
-                <YAxis hide/>
-                <Tooltip />
-                {/* <Legend /> */}           
-                <Bar
-                  dataKey="Pipeline"
-                  fill="#34B2D2"
-                  minPointSize={1}
-                  isAnimationActive={false}
                 >
-                  <LabelList dataKey="Pipeline" position="top" style={{fontSize: "0.8rem"}} />
-                </Bar>
-              </BarChart>
-
-                </Container>
-              
+                  Guarantee Pipeline Forecast (₦'Billions)
+                </p>
+                <BarChart
+                  width={250}
+                  height={250}
+                  data={guaranteePipelineData}
+                  barSize={20}
+                  margin={{
+                    top: 5,
+                    right: 5,
+                    left: 5,
+                    bottom: 2,
+                  }}
+                  layout="horizontal"
+                >
+                  <XAxis
+                    xAxisId={0}
+                    dataKey="name"
+                    tickLine={false}
+                    axisLine={true}
+                    style={{
+                      fontSize: "0.52rem",
+                      fontFamily: "Arial",
+                      paddingLeft: "2px",
+                    }}
+                  />
+                  <YAxis hide />
+                  <Tooltip />
+                  {/* <Legend /> */}
+                  <Bar
+                    dataKey="Pipeline"
+                    fill="#34B2D2"
+                    minPointSize={1}
+                    isAnimationActive={false}
+                  >
+                    <LabelList
+                      dataKey="Pipeline"
+                      position="top"
+                      style={{ fontSize: "0.8rem" }}
+                    />
+                  </Bar>
+                </BarChart>
+              </Container>
             </div>
           </Col>
 
@@ -761,68 +848,80 @@ export default function Progress() {
                 height: "65.4vh",
               }}
             >
-                <Container Fluid className='bg-light py-3' style={{borderRadius: "5px"}}>
+              <Container
+                Fluid
+                className="bg-light py-3"
+                style={{ borderRadius: "5px" }}
+              >
                 <p
-                style={{
-                  fontSize: "13px",
-                  fontWeight: "bold",
-                }}
-              >
-                Deal Category Forecast (₦'Billions)
-              </p>
-              <BarChart
-                width={250}
-                height={250}
-                data={dealCategoryData}
-                barSize={15}
-                margin={{
-                  top: 10,
-                  right: 5,
-                  left: 5,
-                  bottom: 1,
-                }}
-                layout="horizontal"
-              >
-                <XAxis xAxisId={0}
-                  dataKey="name"
-                  tickLine={false}
-                  axisLine={true}
                   style={{
-                    fontSize: "0.52rem",
-                    fontFamily: "Arial",
-                    paddingLeft: "2px",
+                    fontSize: "13px",
+                    fontWeight: "bold",
                   }}
-                />
-                <YAxis hide/>
-                <Tooltip />
-                <Legend height={30} iconSize={10} />
-                <Bar
-                  dataKey="Green & Amber Deals"
-                  fill="#D6E865"
-                  minPointSize={1}
-                  isAnimationActive={false}
-                  style={{lineHeight: "10px"}}
                 >
-                  <LabelList dataKey="Green & Amber Deals" position="top" style={{fontSize: "0.7rem"}} />
-                </Bar>
-                <Bar
-                  dataKey="Green Deals"
-                  fill="#89ec8a"
-                  minPointSize={1}
-                  isAnimationActive={false}
-                  style={{lineHeight: "10px"}}
+                  Deal Category Forecast (₦'Billions)
+                </p>
+                <BarChart
+                  width={250}
+                  height={250}
+                  data={dealCategoryData}
+                  barSize={15}
+                  margin={{
+                    top: 10,
+                    right: 5,
+                    left: 5,
+                    bottom: 1,
+                  }}
+                  layout="horizontal"
                 >
-                  <LabelList dataKey="Green Deals" position="insideBottom" style={{fontSize: "0.6rem"}} />
-                </Bar>
-              </BarChart>
+                  <XAxis
+                    xAxisId={0}
+                    dataKey="name"
+                    tickLine={false}
+                    axisLine={true}
+                    style={{
+                      fontSize: "0.52rem",
+                      fontFamily: "Arial",
+                      paddingLeft: "2px",
+                    }}
+                  />
+                  <YAxis hide />
+                  <Tooltip />
+                  <Legend height={30} iconSize={10} />
+                  <Bar
+                    dataKey="Green & Amber Deals"
+                    fill="#D6E865"
+                    minPointSize={1}
+                    isAnimationActive={false}
+                    style={{ lineHeight: "10px" }}
+                  >
+                    <LabelList
+                      dataKey="Green & Amber Deals"
+                      position="top"
+                      style={{ fontSize: "0.7rem" }}
+                    />
+                  </Bar>
+                  <Bar
+                    dataKey="Green Deals"
+                    fill="#89ec8a"
+                    minPointSize={1}
+                    isAnimationActive={false}
+                    style={{ lineHeight: "10px" }}
+                  >
+                    <LabelList
+                      dataKey="Green Deals"
+                      position="insideBottom"
+                      style={{ fontSize: "0.6rem" }}
+                    />
+                  </Bar>
+                </BarChart>
               </Container>
-              
             </div>
           </Col>
         </Row>
 
         {/* ------- Industry and Product Bar Charts ---------- */}
-        <Row style={{marginTop: "-40px"}}>
+        <Row style={{ marginTop: "-40px" }}>
           {/* -------------------------- Industry barchart -------------------------------- */}
           <Col sm={12} lg={6} className="mt-1 mb-3">
             <div
@@ -832,105 +931,107 @@ export default function Progress() {
                 borderRadius: "15px",
               }}
             >
-              <Container  Fluid className='bg-light py-2' style={{borderRadius: "5px"}}>
-              <p
-              style={{
-                fontSize: "13px",
-                fontWeight: "bold",
-              }}
-            >
-              INDUSTRY
-            </p>
-
-            {indFilter === "Value" ? (
-              <BarChart
-                width={400}
-                height={340}
-                data={chartData}
-                barSize={15}
-                margin={{
-                  top: 5,
-                  right: 5,
-                  left: 5,
-                  bottom: 2,
-                }}
-                layout="vertical"
+              <Container
+                Fluid
+                className="bg-light py-2"
+                style={{ borderRadius: "5px" }}
               >
-                <XAxis type="number" hide />
-                <YAxis
-                  type="category"
-                  dataKey="name"
-                  yAxisId={0}
-                  tickLine={false} 
-                  axisLine={false}
-                  style={{ fontSize: "9px",  }}
-                />
-                <YAxis
-                  orientation="right"
-                  yAxisId={1}
-                  dataKey="percent"
-                  type="category"
-                  axisLine={false}
-                  tickLine={false}
-                  style={{ fontSize: "9px" }}
-                />
-                <Tooltip/>
-                <Bar
-                  dataKey="value"
-                  fill="#82ca9d"
-                  minPointSize={1}
-                  background={{ fill: "#eee" }}
-                  // label={<CustomizedLabel />}
-                >    
-                  {/* <LabelList dataKey="percent" content={renderCustomizedLabel} />  */}
-                </Bar>
+                <p
+                  style={{
+                    fontSize: "13px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  INDUSTRY
+                </p>
 
-              </BarChart>
-            ) : (
-              <BarChart
-                width={400}
-                height={340}
-                data={chartData}
-                barSize={15}
-                margin={{
-                  top: 5,
-                  right: 5,
-                  left: 5,
-                  bottom: 2,
-                }}
-                layout="vertical"
-              >
-                <XAxis type="number" hide />
-                <YAxis
-                  type="category"
-                  dataKey="countName"
-                  yAxisId={0}
-                  tickLine={false} 
-                  axisLine={false}
-                  style={{ fontSize: "9px" }}
-                />
-                <YAxis
-                  orientation="right"
-                  yAxisId={1}
-                  dataKey="countPercent"
-                  type="category"
-                  axisLine={false}
-                  tickLine={false}
-                  style={{ fontSize: "9px" }}
-                />
-                <Bar
-                  dataKey="count"
-                  fill="#82ca9d"
-                  minPointSize={1}
-                  background={{ fill: "#eee" }}
-                  // label={<CustomizedLabel />}
-                >    
-                  {/* <LabelList dataKey="percent" content={renderCustomizedLabel} />  */}
-                </Bar>
-
-              </BarChart>
-            )}
-              </Container>              
+                {indFilter === "Value" ? (
+                  <BarChart
+                    width={400}
+                    height={340}
+                    data={chartData}
+                    barSize={15}
+                    margin={{
+                      top: 5,
+                      right: 5,
+                      left: 5,
+                      bottom: 2,
+                    }}
+                    layout="vertical"
+                  >
+                    <XAxis type="number" hide />
+                    <YAxis
+                      type="category"
+                      dataKey="name"
+                      yAxisId={0}
+                      tickLine={false}
+                      axisLine={false}
+                      style={{ fontSize: "9px" }}
+                    />
+                    <YAxis
+                      orientation="right"
+                      yAxisId={1}
+                      dataKey="percent"
+                      type="category"
+                      axisLine={false}
+                      tickLine={false}
+                      style={{ fontSize: "9px" }}
+                    />
+                    <Tooltip />
+                    <Bar
+                      dataKey="value"
+                      fill="#82ca9d"
+                      minPointSize={1}
+                      background={{ fill: "#eee" }}
+                      // label={<CustomizedLabel />}
+                    >
+                      {/* <LabelList dataKey="percent" content={renderCustomizedLabel} />  */}
+                    </Bar>
+                  </BarChart>
+                ) : (
+                  <BarChart
+                    width={400}
+                    height={340}
+                    data={chartData}
+                    barSize={15}
+                    margin={{
+                      top: 5,
+                      right: 5,
+                      left: 5,
+                      bottom: 2,
+                    }}
+                    layout="vertical"
+                  >
+                    <XAxis type="number" hide />
+                    <YAxis
+                      type="category"
+                      dataKey="countName"
+                      yAxisId={0}
+                      tickLine={false}
+                      axisLine={false}
+                      style={{ fontSize: "9px" }}
+                    />
+                    <YAxis
+                      orientation="right"
+                      yAxisId={1}
+                      dataKey="countPercent"
+                      type="category"
+                      axisLine={false}
+                      tickLine={false}
+                      style={{ fontSize: "9px" }}
+                    />
+                    <Bar
+                      dataKey="count"
+                      fill="#82ca9d"
+                      minPointSize={1}
+                      background={{ fill: "#eee" }}
+                      // label={<CustomizedLabel />}
+                    >
+                      {/* <LabelList dataKey="percent" content={renderCustomizedLabel} />  */}
+                    </Bar>
+                  </BarChart>
+                )}
+              </Container>
             </div>
           </Col>
 
@@ -944,122 +1045,159 @@ export default function Progress() {
                 height: "65.4vh",
               }}
             >
-              <Container Fluid className='bg-light py-2' style={{borderRadius: "5px"}}>
-              <p
-              style={{
-                fontSize: "13px",
-                fontWeight: "bold",
-              }}
-            >
-              PRODUCT
-            </p>
-
-            {prdFilter === "Value" ? (
-              <BarChart
-                width={400}
-                height={250}
-                data={productChartData}
-                barSize={15}
-                margin={{
-                  top: 25,
-                  right: 5,
-                  left: 5,
-                  bottom: 22,
-                }}
-                style={{
-                  paddingTop: 2,
-                }}
-                layout="vertical"
+              <Container
+                Fluid
+                className="bg-light py-2"
+                style={{ borderRadius: "5px" }}
               >
-                <XAxis type="number" hide />
-                <YAxis
-                  yAxisId={0}
-                  type="category"
-                  dataKey="name"
-                  tickLine={false}
-                  axisLine={false}
+                <p
                   style={{
-                    fontSize: "9px",
-                    paddingLeft: "2px",
+                    fontSize: "13px",
+                    fontWeight: "bold",
                   }}
-                />
-                <YAxis
-                  orientation="right"
-                  yAxisId={1}
-                  dataKey="percent"
-                  type="category"
-                  axisLine={false}
-                  tickLine={false}
-                  style={{
-                    fontSize: "9px",
-                    padding: "15px",
-                  }}
-                />
-                <Tooltip/>
-                <Bar
-                  dataKey="value"
-                  fill="#82ca9d"
-                  minPointSize={1}
-                  style={{lineHeight: "10px"}}
-                  background={{ fill: "#eee" }}
-                />
-              </BarChart>
-            ) : (
-              <BarChart
-                width={400}
-                height={250}
-                data={productChartData}
-                barSize={15}
-                margin={{
-                  top: 25,
-                  right: 5,
-                  left: 5,
-                  bottom: 22,
-                }}
-                style={{
-                  paddingTop: 2,
-                }}
-                layout="vertical"
-              >
-                <XAxis type="number" hide />
-                <YAxis
-                  yAxisId={0}
-                  type="category"
-                  dataKey="countName"
-                  tickLine={false}
-                  axisLine={false}
-                  style={{
-                    fontSize: "9px",
-                    paddingLeft: "2px",
-                  }}
-                />
-                <YAxis
-                  orientation="right"
-                  yAxisId={1}
-                  dataKey="countPercent"
-                  type="category"
-                  axisLine={false}
-                  tickLine={false}
-                  style={{
-                    fontSize: "9px",
-                    padding: "15px",
-                  }}
-                />
-                <Tooltip/>
-                <Bar
-                  dataKey="count"
-                  fill="#82ca9d"
-                  minPointSize={1}
-                  style={{lineHeight: "10px"}}
-                  background={{ fill: "#eee" }}
-                />
-              </BarChart>
-            )}
+                >
+                  PRODUCT
+                </p>
 
+                {prdFilter === "Value" ? (
+                  <BarChart
+                    width={400}
+                    height={250}
+                    data={productChartData}
+                    barSize={15}
+                    margin={{
+                      top: 25,
+                      right: 5,
+                      left: 5,
+                      bottom: 22,
+                    }}
+                    style={{
+                      paddingTop: 2,
+                    }}
+                    layout="vertical"
+                  >
+                    <XAxis type="number" hide />
+                    <YAxis
+                      yAxisId={0}
+                      type="category"
+                      dataKey="name"
+                      tickLine={false}
+                      axisLine={false}
+                      style={{
+                        fontSize: "9px",
+                        paddingLeft: "2px",
+                      }}
+                    />
+                    <YAxis
+                      orientation="right"
+                      yAxisId={1}
+                      dataKey="percent"
+                      type="category"
+                      axisLine={false}
+                      tickLine={false}
+                      style={{
+                        fontSize: "9px",
+                        padding: "15px",
+                      }}
+                    />
+                    <Tooltip />
+                    <Bar
+                      dataKey="value"
+                      fill="#82ca9d"
+                      minPointSize={1}
+                      style={{ lineHeight: "10px" }}
+                      background={{ fill: "#eee" }}
+                    />
+                  </BarChart>
+                ) : (
+                  <BarChart
+                    width={400}
+                    height={250}
+                    data={productChartData}
+                    barSize={15}
+                    margin={{
+                      top: 25,
+                      right: 5,
+                      left: 5,
+                      bottom: 22,
+                    }}
+                    style={{
+                      paddingTop: 2,
+                    }}
+                    layout="vertical"
+                  >
+                    <XAxis type="number" hide />
+                    <YAxis
+                      yAxisId={0}
+                      type="category"
+                      dataKey="countName"
+                      tickLine={false}
+                      axisLine={false}
+                      style={{
+                        fontSize: "9px",
+                        paddingLeft: "2px",
+                      }}
+                    />
+                    <YAxis
+                      orientation="right"
+                      yAxisId={1}
+                      dataKey="countPercent"
+                      type="category"
+                      axisLine={false}
+                      tickLine={false}
+                      style={{
+                        fontSize: "9px",
+                        padding: "15px",
+                      }}
+                    />
+                    <Tooltip />
+                    <Bar
+                      dataKey="count"
+                      fill="#82ca9d"
+                      minPointSize={1}
+                      style={{ lineHeight: "10px" }}
+                      background={{ fill: "#eee" }}
+                    />
+                  </BarChart>
+                )}
               </Container>
             </div>
           </Col>
-
+          {isError ? (
+            <div className="text-danger">
+              {/* {(error?.data.Error.split(" ").splice(0,8).join(" ").toUpperCase())} */}
+              {error === "undefined"
+                ? "un"
+                : error?.data.Error}
+            </div>
+          ) : isSuccess ? (
+            <div>
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Client Name</th>
+                    <th>Originator</th>
+                    <th>Transactor</th>
+                    <th>Deal Size</th>
+                    <th>Reimbursible</th>
+                  </tr>
+                </thead>
+                {reimbursibleDData?.ccsubmissionReport.map((data) => (
+                  <tbody>
+                    <tr>
+                      <td>{data.clientname}</td>
+                      <td>{data.originator}</td>
+                      <td>{data.transactor}</td>
+                      <td>{data.dealsize}</td>
+                      <td>{data.reimbursible}</td>
+                    </tr>
+                  </tbody>
+                ))}
+              </Table>
+            </div>
+          ) : isLoading ? (
+            <p>.....</p>
+          ) : null}
         </Row>
       </Container>
       <br />

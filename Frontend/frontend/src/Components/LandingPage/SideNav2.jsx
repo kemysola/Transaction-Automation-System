@@ -144,6 +144,16 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                     CC Submission Report
                   </Link>
                 </MenuItem>
+                <MenuItem className="subMenu">
+                  <Link to='' style={{ color: '#237cbf' }}>
+                   Pipeline Report
+                  </Link>
+                </MenuItem>
+                <MenuItem className="subMenu">
+                  <Link to='/reimbursible/top/n/reimbursible/report' style={{ color: '#237cbf' }}>
+                   Top And Reimbursible
+                  </Link>
+                </MenuItem>
                
               </SubMenu>
              

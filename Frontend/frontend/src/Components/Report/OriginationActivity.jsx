@@ -1,14 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { Stack, Container, Table, Form, Col, Row } from "react-bootstrap";
+import React, { useState,useContext } from "react";
+import { Stack, Container, Table, Form} from "react-bootstrap";
 import { useForm, useFieldArray } from "react-hook-form";
 import { CgAdd } from "react-icons/cg";
 import { MdDeleteSweep } from "react-icons/md";
 import { IoIosSave } from "react-icons/io";
 import { GrAddCircle } from "react-icons/gr";
 import { FiDelete, FiSave } from "react-icons/fi";
-import { Divider } from "@mui/material";
+import Editable from "react-editable-title";
+import TitleContext from "../../context/TitleContext";
 
 export default function OriginationActivity() {
+
+  const handleYearUpdates = (current) => {
+    addReportYear(current);
+  };
+
+  const handleNbcYear = (current) => {
+    addNbcYear(current);
+  };
+
+  const { reportYearStore, nbcSubmissionStore,addNbcYear,addReportYear } =useContext(TitleContext);
   const [nbcInfo, setNbcInfo] = useState([
     {
       summaryOfActivity: "",
@@ -65,28 +76,27 @@ export default function OriginationActivity() {
     control,
     name: "test",
   });
-  const onSubmit = (data) => data
+const reportFy =localStorage.getItem("currentFy") ;
+const currentFy = JSON.parse(reportFy)
+const reportQt =localStorage.getItem("currentQuarter") ;
+ const currentFQt = JSON.parse(reportQt)
 
+
+  const onSubmit = (data) => {
+    localStorage.setItem('originationInput', JSON.stringify(data))
+  }
   return (
     <React.Fragment>
       <Container>
         <Stack gap={2}>
           <p className="" style={{ fontWeight: "bold" }}>
-            Origination Activity – Q4 2021
+          Origination Activity – {currentFQt[0]} {currentFy[0]}
           </p>
         </Stack>
         <div>
           <p style={{ fontWeight: "bold" }}>
-            NBC Submissions and Mandate Status – Q4 2021 Update
+            NBC Submissions and Mandate Status – {currentFQt[0]} {currentFy[0]} Update
           </p>
-
-          {/* <li>Executed seven (7) new mandates: Urban Shelter, Accugas, ACOB Lighting, GVE, LFZC, Greenville and Falcon.</li>
-          <li>Received six (6) NBC
-          approvals for prospects: Accugas, Solad, GVE Projects, ACOB Lighting,
-          Greenville and LFZC.
-            </li>  
-            <li>The following table summarises all Q4 2021
-          submissions to NBC:</li>  */}
           <form onSubmit={handleSubmit(onSubmit)}>
             <ul>
               {fields.map((item, index) => {
@@ -256,7 +266,7 @@ export default function OriginationActivity() {
                         }}
                       >
                         <i className="">
-                          <FiSave />
+                          <FiSave onClick={() => {localStorage.setItem('nbcActivities',JSON.stringify(nbcInfo))}} />
                         </i>
                       </button>
                     </div>
