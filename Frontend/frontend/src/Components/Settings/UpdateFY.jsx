@@ -24,7 +24,7 @@ export default function UpdateForecast (props) {
     retrieveFY();
   }, [startDate, endDate]);
 
-  function editFY(id, fy, startDate, endDate) {
+  function editFY(id, fy, startDate, endDate, swt2) {
     setStartDate(startDate)
     setEndDate(endDate)
 
@@ -42,7 +42,7 @@ export default function UpdateForecast (props) {
       fy: fy,
       fy_start_date: startDate,
       fy_end_date: endDate,
-      fy_status: "Inactive"
+      fy_status: swt2
     };
 
     Services.updateFY (id, data)
@@ -73,6 +73,7 @@ export default function UpdateForecast (props) {
       fy_end_date={item.fy_end_date}
       key={item.id}
       editFY={editFY}
+      status={item.fy_status}
     />
   ));
 

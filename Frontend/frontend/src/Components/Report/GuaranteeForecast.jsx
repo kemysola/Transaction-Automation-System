@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import TitleContext from '../../context/TitleContext';
 import { Divider } from "@mui/material";
 
 

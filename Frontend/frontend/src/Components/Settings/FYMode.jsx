@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Container, Form as Fm, Row, Col, ListGroup} from "react-bootstrap";
+import { Container, Form as Fm, Row, Col, ListGroup, FormCheck} from "react-bootstrap";
 import { FiEdit, FiSave } from 'react-icons/fi'
 import { MdOutlineCancel } from 'react-icons/md'
 
@@ -17,7 +17,8 @@ const FY = ((props) => {
   const [isEditing, setEditing] = useState(false);
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
-
+  const [swt2, setSwt2] = useState(props.status);
+  const [isChecked, setIsChecked] = useState(true)
   const start = new Date(props.fy_start_date)
   const end = new Date(props.fy_end_date)
 
@@ -40,11 +41,19 @@ const FY = ((props) => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    props.editFY(props.id, props.fy, startDate, endDate);
+    props.editFY(props.id, props.fy, startDate, endDate, swt2);
     setStartDate();
     setEndDate();
     setEditing(false);
   }
+
+  const onChangeSwt = () => {
+    if (swt2 == 'Active'){
+      setSwt2('Inactive')
+    }else{
+      setSwt2('Active')
+    }
+  };
 
   return (
     <>
@@ -60,7 +69,7 @@ const FY = ((props) => {
               </label>
 
               <Row>
-                <Col lg={5}>
+                <Col lg={4}>
                   <Fm.Label>Start Date</Fm.Label>
                   <Fm.Control
                     id={props.id}
@@ -75,8 +84,8 @@ const FY = ((props) => {
                   />
                 </Col>
 
-                <Col lg={5}>
-                  <Fm.Label>E</Fm.Label>
+                <Col lg={4}>
+                  <Fm.Label>End Date</Fm.Label>
                   <Fm.Control
                     id={props.id}
                     className="todo-text"
@@ -87,6 +96,30 @@ const FY = ((props) => {
                     size="sm"
                     style={{fontSize: "12px", width: "60%"}}
                   />
+                </Col>
+
+                <Col lg={2}>
+                {/* <Fm.Label>Activate</Fm.Label> */}
+                <Fm.Label>Status</Fm.Label>
+                  <Fm.Check 
+                    type="switch"
+                    id={props.id}
+                    checked={swt2 == 'Active' ? true : false}
+                    onChange={onChangeSwt}
+                    label={swt2}
+                  />
+                  {/* <Fm.Check custom type="switch" id="switchEnabled">
+                    <Fm.Check.Input isInvalid checked={swt2} />
+                    <Fm.Check.Label onClick={() => setSwt2(!swt2)}>
+                      {`Value is ${swt2}`}
+                    </Fm.Check.Label>
+                  </Fm.Check> */}
+                      {/* <FormCheck custom type="switch">
+        <FormCheck.Input isInvalid checked={swt2} />
+        <FormCheck.Label onClick={() => setSwt2(!swt2)}>
+          {`Value is ${swt2}`}
+        </FormCheck.Label>
+      </FormCheck> */}
                 </Col>
 
                 <Col sm={1} md={1} lg={1}>

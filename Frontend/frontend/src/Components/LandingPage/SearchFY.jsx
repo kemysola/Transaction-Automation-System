@@ -49,7 +49,7 @@ const SearchFY = () => {
 
   return (
     <div>
-        <label style ={{marginRight: '1em'}}>FY: </label>
+        <label style ={{marginRight: '1em'}}> Current Financial Year: </label>
         <select value={value} onChange={handleChange}>
             {fy.map((fy) => (
             <option key={fy.fy} value={fy.fy}>
