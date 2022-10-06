@@ -14,7 +14,7 @@ function GreenDealCard() {
   const [currentForecast, setCurrentForecast] = useState([])
   const year = new Date().getFullYear();
 
-  const newStore = JSON.parse(filteredStore)
+  const newStore = filteredStore
 
   useEffect(() => {
     retrieveForecast();

@@ -30,7 +30,7 @@ export default function Progress() {
   const [end_date, set_end_date] = useState(`2022/04/01`);
   const [topn, set_topn] = useState(5);
 
-  const newStore = JSON.parse(filteredStore)
+  const newStore = filteredStore
   const {
     data: reimbursibleDData,
     isLoading,

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect ,useMemo} from 'react';
+import React, { useRef, useState, useEffect, useContext, useMemo} from 'react';
 import { Form, Container, Row, Col, Alert } from 'react-bootstrap';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
@@ -57,7 +57,7 @@ function SingleStaff() {
     const history = useHistory();
     const [downloadstaff, setDownloadStaff] = useState([])
 
-    const newStore = JSON.parse(filteredStore)
+    const newStore = filteredStore
 
     useEffect(() => {
         retrieveStaff();

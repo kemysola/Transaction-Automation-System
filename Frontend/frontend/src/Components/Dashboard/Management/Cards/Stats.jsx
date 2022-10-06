@@ -101,7 +101,7 @@ export default function Stats() {
   const [region, setRegion] = useState([])
 
   // ................................... Use Effect Hook .................................
-  const newStore = JSON.parse(filteredStore)
+  const newStore = filteredStore
 
   useEffect(() => {
     retrieveDeals();

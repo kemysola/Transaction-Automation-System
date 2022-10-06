@@ -101,7 +101,7 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
   const dealsRef = useRef();
   dealsRef.current = deals;
 
-  const newStore = JSON.parse(filteredStore)
+  const newStore = filteredStore
 
   useEffect(() => {
     if (dealFilter === "All" && staffFilter === "All") {

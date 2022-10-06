@@ -37,7 +37,7 @@ export default function Progress() {
   const [target, setTarget] = useState([]);
   const [staff, setStaff] = useState([]);
 
-  const newStore = JSON.parse(filteredStore)
+  const newStore = filteredStore
 
   useEffect(() => {
     retrieveDeals();

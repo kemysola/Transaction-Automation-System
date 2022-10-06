@@ -121,7 +121,7 @@ const PortfolioAllDealsTable = (props) => {
   dealsRef.current = deals;
   const { filteredStore, addFtYear} = useContext(TitleContext)
 
-  const newStore = JSON.parse(filteredStore)
+  const newStore = filteredStore
   // ******************************************  useEffect hook *******************************************************
 
 

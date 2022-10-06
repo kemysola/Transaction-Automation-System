@@ -83,7 +83,7 @@ export default function TransactionChart(props) { // ***************************
     dealsRef.current = deals;
   
     // ******************************************  useEffect hook *******************************************************
-    const newStore = JSON.parse(filteredStore)
+    const newStore = filteredStore
 
   
     useEffect(() => {

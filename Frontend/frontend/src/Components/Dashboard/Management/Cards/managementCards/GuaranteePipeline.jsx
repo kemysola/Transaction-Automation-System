@@ -19,7 +19,7 @@ function GuaranteePipeline() {
 
   const year = new Date().getFullYear();
   const nextYear = new Date().getFullYear() + 1;
-  const newStore = JSON.parse(filteredStore)
+  const newStore = filteredStore
 
   // ******************************************  use Effect Hook : Component Did mount and update ***********************
 

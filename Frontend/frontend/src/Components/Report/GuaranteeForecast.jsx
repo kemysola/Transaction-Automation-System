@@ -19,7 +19,7 @@ function GuaranteeForecast() {
   const [forecast, setForecast] = useState([]);
   const [data, setData] = useState([]);
 
-  const newStore = JSON.parse(filteredStore)
+  const newStore = filteredStore
   useEffect(() => {
     retrieveDeals();
   }, [newStore]);

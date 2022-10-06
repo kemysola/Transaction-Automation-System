@@ -119,7 +119,7 @@ const DealsTable = (props) => {
   const dealsRef = useRef();
   dealsRef.current = deals;
 
-  const newStore = JSON.parse(filteredStore)
+  const newStore = filteredStore
 
   useEffect(() => {
     retrieveDeals();

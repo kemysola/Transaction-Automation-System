@@ -13,7 +13,7 @@ import Services from "../../Services/Service";
 export default function GeneralPie(props) {
   const { filteredStore, addFtYear} = useContext(TitleContext)
 
-  const newStore = JSON.parse(filteredStore)
+  const newStore = filteredStore
 
   const [data, setData] = useState([]);
   useEffect(() => {

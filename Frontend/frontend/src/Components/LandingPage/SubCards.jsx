@@ -22,15 +22,9 @@ export default function SubCards(props) {
     const [data, setData] = useState([])
     const [length, setLength] = useState([])
     const [staff, setStaff] = useState([])
-    // const [fyValue, setFYValue] = useState(localStorage.getItem("fy"))
-    // const [reload, setReload] = useState(props.fy);
-    // const filteredFy = localStorage.getItem('fy') ;
-    // const [fyValue, setFYValue] = useState(localStorage.getItem("fy"))
+    
+    const newStore = filteredStore
 
-    // const newStore = JSON.parse(filteredStore)
-    // const [fyValue, setFYValue] = useState(JSON.parse(filteredStore))
-    const newStore = JSON.parse(filteredStore)
-// console.log(filteredFy,'fy')
     useEffect(() => {
 
         retrieveDeals()
@@ -43,11 +37,6 @@ export default function SubCards(props) {
       
 
   },[])
-
-
-  // console.log("I am filtered store", newStore)
-  // console.log("I am initail state(filteredStore", filteredStore)
-  // console.log("I am addFtYear", addFtYear)
 
     const retrieveDeals = async() => {
         await Service.getAllDeals(newStore)

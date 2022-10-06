@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { Container, Row, Col, Stack } from "react-bootstrap";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
@@ -99,7 +99,7 @@ export default function PieCardOrigination() {
     // ................................... Use Effect Hook .................................
   
     
-    const newStore = JSON.parse(filteredStore)
+    const newStore = filteredStore
     let user_email = window.location.search.split("?")[1]
   
     const retrieveDeals = async() => {

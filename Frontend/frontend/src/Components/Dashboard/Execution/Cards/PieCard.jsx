@@ -100,7 +100,7 @@ export default function PieCard ({dealFilter, staffFilter}) {
     const [region, setRegion] = useState([])
   
     // ................................... Use Effect Hook .................................
-    const newStore = JSON.parse(filteredStore)
+    const newStore = filteredStore
 
     useEffect(() => {
       if (dealFilter === "All" && staffFilter === "All") {

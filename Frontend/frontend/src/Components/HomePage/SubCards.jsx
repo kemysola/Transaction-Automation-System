@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react';
+import React,{useEffect, useState, useContext} from 'react';
 import { Container, Row, Card, Col } from 'react-bootstrap';
 import { BiReceipt } from 'react-icons/bi';
 import { GrGroup } from 'react-icons/gr';
@@ -20,7 +20,7 @@ export default function SubCards() {
     const [data, setData] = useState([])
     const [length, setLength] = useState([])
 
-    const newStore = JSON.parse(filteredStore)
+    const newStore = filteredStore
 
     useEffect(() => {
         retrieveDeals()

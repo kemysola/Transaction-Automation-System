@@ -122,7 +122,7 @@ const DealsTable = ({ props, dealFilter, staffFilter }) => {
   const form = useRef();
   dealsRef.current = deals;
 
-  const newStore = JSON.parse(filteredStore)
+  const newStore = filteredStore
   useEffect(() => {
     if (dealFilter === "All" && staffFilter === "All") {
       retrieveDeals();
