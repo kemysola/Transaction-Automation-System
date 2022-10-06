@@ -32,11 +32,18 @@ const Navbar = ({ handleToggleSidebar, props }) => {
                     </Link>
                 </div>
               
+                {/* <div style={{justifySelf: 'flex-end'}}>
                     <SearchFY />
-                
+                </div> */}
+
                 {/*----------------------- Icon Div ------------------------------------------- */}
-                <div style={{ marginLeft: '20px', paddingTop: '20px' }}>
-                    <MenuOption/>
+                <div style={{display: 'flex', marginLeft: '20px', paddingTop: '20px' }}>
+                    <div style={{marginRight: '75px', paddingTop: '8px' }}>
+                        <SearchFY/>
+                    </div>
+                    <div>
+                        <MenuOption/>
+                    </div>
                 </div>
 
             </NavbarNav>
