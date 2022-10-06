@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Container, Form as Fm, Row, Col, ListGroup, FormCheck} from "react-bootstrap";
 import { FiEdit, FiSave } from 'react-icons/fi'
 import { MdOutlineCancel } from 'react-icons/md'
+import Services from "../../Services/Service";
 
 
 function usePrevious(value) {
@@ -30,6 +31,7 @@ const FY = ((props) => {
   const wasEditing = usePrevious(isEditing);
 
   useEffect(() => {
+    // retrieveFY()
     if (!wasEditing && isEditing) {
       editFieldRef.current.focus();
     }
@@ -37,6 +39,20 @@ const FY = ((props) => {
       editButtonRef.current.focus();
     }
   }, [wasEditing, isEditing]);
+
+  // useEffect(() => {
+  //   retrieveFY()
+  // }, [swt2])
+
+  // const retrieveFY = () => {
+  //   Services.getFY("''")
+  //   .then((response) => {
+  //       setFY(response.data.financial_years);
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // };
 
   function handleSubmit(e) {
     e.preventDefault();
