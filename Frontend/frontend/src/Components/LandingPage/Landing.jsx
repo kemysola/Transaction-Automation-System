@@ -24,7 +24,7 @@ const Landing = () => {
     .then((response) => {
         response.data.financial_years.map(fy => {
           if(fy.fy_status == 'Active') {
-            localStorage.setItem("fy", fy.fy)
+            localStorage.setItem("fy", JSON.stringify(fy.fy))
           }
         })
       })

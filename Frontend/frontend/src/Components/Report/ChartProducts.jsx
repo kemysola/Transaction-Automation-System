@@ -9,7 +9,7 @@ import TitleContext from '../../context/TitleContext';
 export default function ChartProducts() {
   const { filteredStore, addFtYear} = useContext(TitleContext)
   const [data, setData] = useState([]);
-  const newStore = JSON.parse(filteredStore)
+  const newStore = filteredStore
 
   useEffect(() => {
     retrieveDeals();

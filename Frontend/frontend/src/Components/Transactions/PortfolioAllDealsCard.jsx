@@ -13,7 +13,7 @@ export default function TransactionCards() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true)
 
-  const newStore = JSON.parse(filteredStore)
+  const newStore = filteredStore
 
   useEffect(() => {
      Service.getMyPipelineDeals(newStore)

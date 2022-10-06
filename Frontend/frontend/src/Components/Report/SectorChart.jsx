@@ -11,7 +11,7 @@ export default function SectorChart() {
 
   const [data, setData] = useState([]);
 
-  const newStore = JSON.parse(filteredStore)
+  const newStore = filteredStore
 
   useEffect(() => {
     retrieveDeals();

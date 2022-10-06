@@ -20,7 +20,7 @@ export default function SubCards() {
     const [data, setData] = useState([])
     const [length, setLength] = useState([])
 
-    const newStore = JSON.parse(filteredStore)
+    const newStore = filteredStore
 
     useEffect(() => {
         retrieveDeals()

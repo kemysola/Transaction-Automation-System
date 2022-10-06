@@ -13,7 +13,7 @@ export default function TransactionCards() {
   const [data, setData] = useState([]);
 
     // ******************************************  useEffect hook : componentDidMount  ***********************.
-  const newStore = JSON.parse(filteredStore)
+  const newStore = filteredStore
 
 
   useEffect(() => {

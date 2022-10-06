@@ -69,7 +69,7 @@ export default function Progress() {
   const [cca, setCca] = useState([]);
   const [feeLetter, setFeeLetter] = useState([]);
 
-  const newStore = JSON.parse(filteredStore)
+  const newStore = filteredStore
 
 
   useEffect(() => {

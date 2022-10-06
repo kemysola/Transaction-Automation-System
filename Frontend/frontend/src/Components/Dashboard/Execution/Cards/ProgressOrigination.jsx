@@ -22,7 +22,7 @@ export default function ProgressOrigination() {
   const [target, setTarget] = useState([]);
 
   let user_email = window.location.search.split("?")[1];
-  const newStore = JSON.parse(filteredStore)
+  const newStore = filteredStore
   //edit user_email
 
   //let name = user_email.toUpperCase()

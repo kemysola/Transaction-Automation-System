@@ -23,7 +23,7 @@ export default function SubCards(props) {
     const [length, setLength] = useState([])
     const [staff, setStaff] = useState([])
     
-    const newStore = JSON.parse(filteredStore)
+    const newStore = filteredStore
 
     useEffect(() => {
 

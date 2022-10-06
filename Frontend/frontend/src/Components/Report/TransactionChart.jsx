@@ -84,7 +84,7 @@ export default function TransactionChart(props) { // ***************************
   
     // ******************************************  useEffect hook *******************************************************
   
-    const newStore = JSON.parse(filteredStore)
+    const newStore = filteredStore
 
     useEffect(() => {
       retrieveDeals();

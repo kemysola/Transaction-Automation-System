@@ -14,7 +14,7 @@ function NewDeals() {
   const [actualGuarantee, setActualGuarantee] = useState("");
   const year = new Date().getFullYear();
 
-  const newStore = JSON.parse(filteredStore)
+  const newStore = filteredStore
 
   // ****************************************** ComponentDidMouunt using useEffect hook *******************************
 

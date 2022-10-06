@@ -99,7 +99,7 @@ export default function PieCardOrigination() {
     // ................................... Use Effect Hook .................................
   
     
-    const newStore = JSON.parse(filteredStore)
+    const newStore = filteredStore
     let user_email = window.location.search.split("?")[1]
   
     const retrieveDeals = async() => {

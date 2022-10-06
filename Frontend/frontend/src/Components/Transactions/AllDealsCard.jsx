@@ -16,7 +16,7 @@ export default function TransactionCards({ props, closedStatus, staffFilter, sta
   const [rawData, setRawData] = useState([]);
   const [staffData, setStaffData] = useState([]);
   // const [status, setStatus] = useState("");
-  const newStore = JSON.parse(filteredStore)
+  const newStore = filteredStore
 
   useEffect(() => {
      retrieveDeals();

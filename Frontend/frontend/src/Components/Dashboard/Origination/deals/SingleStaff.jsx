@@ -57,7 +57,7 @@ function SingleStaff() {
     const history = useHistory();
     const [downloadstaff, setDownloadStaff] = useState([])
 
-    const newStore = JSON.parse(filteredStore)
+    const newStore = filteredStore
 
     useEffect(() => {
         retrieveStaff();

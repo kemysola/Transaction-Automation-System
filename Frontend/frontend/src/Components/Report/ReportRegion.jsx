@@ -12,7 +12,7 @@ import {
 export default function ReportRegion() {
   const { filteredStore, addFtYear} = useContext(TitleContext)
   const [data, setData] = useState([]);
-  const newStore = JSON.parse(filteredStore)
+  const newStore = filteredStore
 
   useEffect(() => {
     retrieveDeals();
