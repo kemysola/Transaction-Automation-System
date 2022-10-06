@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {Link} from 'react-router-dom';
 import authService from '../../Services/auth.Service';
-import InfraCredit from '../../Images/i.png';
 //react pro sidebar components
 
-import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, SidebarContent } from "react-pro-sidebar";
+import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarContent } from "react-pro-sidebar";
 import { ImUser, ImUsers } from "react-icons/im";
 import { GoDashboard } from "react-icons/go";
 import { HiOutlineCalculator } from "react-icons/hi";
@@ -145,8 +144,8 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                   </Link>
                 </MenuItem>
                 <MenuItem className="subMenu">
-                  <Link to='' style={{ color: '#237cbf' }}>
-                   Pipeline Report
+                  <Link to='/closed_deals/inception_financial_year' style={{ color: '#237cbf' }}>
+                  Closed Deals Report
                   </Link>
                 </MenuItem>
                 <MenuItem className="subMenu">

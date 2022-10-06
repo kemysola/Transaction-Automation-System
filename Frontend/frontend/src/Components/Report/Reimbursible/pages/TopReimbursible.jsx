@@ -1,14 +1,12 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React,{useState} from "react";
 import Table from "react-bootstrap/Table";
 import { Container, Row, Col, Form, Card, Button } from "react-bootstrap";
 import * as XLSX from "xlsx";
 import { useGetTopNReimbursibleQuery } from "../../../../Services/apiSlice";
-
 export default function TopReimbursible() {
-  const [start_date, set_start_date] = useState("02-01-2022");
-  const [end_date, set_end_date] = useState(`02-02-2022`);
+  const [start_date, set_start_date] = useState("2022-01-01");
+  const [end_date, set_end_date] = useState(`2022-10-01`);
   const [topn, set_topn] = useState(5);
-
   const {
     data: reimbursibleDData,
     isLoading,
@@ -23,12 +21,13 @@ export default function TopReimbursible() {
     });
     const workSheet = XLSX.utils.json_to_sheet(newData);
     const workBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workBook, workSheet, "Execution_Summary");
+    XLSX.utils.book_append_sheet(workBook, workSheet, "Top_Reimbursable_Report");
     //Buffer
     let buf = XLSX.write(workBook, { bookType: "xlsx", type: "buffer" });
     XLSX.write(workBook, { bookType: "xlsx", type: "binary" });
     XLSX.writeFile(workBook, "Execution_Report.xlsx");
   }
+
   return (
     <>
       <Container>
@@ -38,7 +37,6 @@ export default function TopReimbursible() {
             <Card>
               <Card.Body>
                 <Card.Subtitle>
-                  {/* <h6>Filter</h6> */}
                 </Card.Subtitle>
                 <Card.Text>
                   <Row>
@@ -60,10 +58,12 @@ export default function TopReimbursible() {
                         type="date"
                         name="end_date"
                         value={end_date}
+                        
                         onChange={(e) => set_end_date(e.target.value)}
                       />
                       <Form.Label>Top Number</Form.Label>
                       <Form.Control
+                     
                         inline
                         label="Count"
                         type="number"
@@ -82,12 +82,13 @@ export default function TopReimbursible() {
         <br/>
         {isError ? (
           <div className="text-danger">
-            {/* {(error?.data.Error.split(" ").splice(0,8).join(" ").toUpperCase())} */}
-            {error === "undefined"
-              ? "un"
+            {
+            error === "undefined"
+              ? null
               : error?.data.Error}
           </div>
-        ) : isSuccess ? (
+        ) : 
+        isSuccess ? (
           <div>
             <Table striped="columns" bordered hover variant="dark">
               <thead>

@@ -34,6 +34,7 @@ import PortfolioAllDeals from "./Components/Transactions/PortfolioAllDeals";
 import NewTransactionPage from "./Pages/Transactions/NewTransactionPage";
 import CCReportView from "./Components/Report/CCSubmissionReport/CCReportView";
 import ComponentView from "./Components/Report/Reimbursible/ComponentView";
+import ClosedDeals from "./Components/Report/closedDeals/pages/ClosedDeals";
 export default function App() {
   let location = useLocation()
   const parseJwt = (token) => {
@@ -95,13 +96,12 @@ export default function App() {
         <ProtectedRoute exact path="/create_user" component={StaffView}/>
         <ProtectedRoute exact path="/all_users" component={AllStaff} />
         <ProtectedRoute exact path="/deal_team" component={DealTeamView} />
-  
+        <ProtectedRoute exact path="/deal_team" component={DealTeamView} />
         <ProtectedRoute exact path="/all_transactions" component={AllDeals} />
         <ProtectedRoute exact path="/update_users" component={Updates} />
         <ProtectedRoute exact path="/annual_and_quarterly_report_page" component={Report} />
         <ProtectedRoute path="/reimbursible/top/n/reimbursible/report" component={ComponentView}/>
-          
-       
+        <ProtectedRoute path="/closed_deals/inception_financial_year" component={ClosedDeals}/>
         <ProtectedRoute exact path="/settings" component={Settings} />
         <ProtectedRoute exact path="/cc_report" component={CCReportView} />
         
