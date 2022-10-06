@@ -1,26 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 // import styled from 'styled-components';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { FaCoins } from 'react-icons/fa';
 import Service from "../../Services/Service"
+import TitleContext from '../../context/TitleContext';
 
 
 export default function TransactionCards() {
     // ******************************************  useState hook to store state data ***************************
 
-
+  const { filteredStore, addFtYear} = useContext(TitleContext)
   const [data, setData] = useState([]);
 
     // ******************************************  useEffect hook : componentDidMount  ***********************.
+  const newStore = JSON.parse(filteredStore)
 
 
   useEffect(() => {
     retrieveDeals();
-  }, []);
+  }, [newStore]);
 
   // .................................... Axios Endpoint  to get Deals     ..............................
   const retrieveDeals = async() => {
-    await Service.getMyPortfolioDeals()
+    await Service.getMyPortfolioDeals(newStore)
       .then((response) => {
         setData(response.data.deals);
       })

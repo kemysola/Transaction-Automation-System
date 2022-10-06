@@ -44,8 +44,10 @@ export default function App() {
       return null;
     }
   };
+  
   useEffect(() => {
     const user = localStorage.getItem("token");
+    
     if (user) {
       const decodedJwt = parseJwt(user);
       if (decodedJwt.exp * 1000 < Date.now()) {
@@ -54,6 +56,7 @@ export default function App() {
       }
     }
   }, [location])
+
   return (
     <React.Fragment>
       <Switch>

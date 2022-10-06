@@ -78,6 +78,6 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "Frontend/frontend/build/index.html"));
 });
 
-app.listen(app_port ||3000, () => {
+app.listen(app_port || 3000, () => {
   console.log(`InfraCreditTRS Server Listening on Port: ${app.get("port")}`);
 });

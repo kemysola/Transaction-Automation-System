@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Form, Card} from "react-bootstrap";
+import React, { useEffect, useState, useContext, useMemo} from "react";
+import { Container, Row, Col, Form, Card, Button} from "react-bootstrap";
 import Stats from "./Stats";
 import Service from "../../../../Services/Service";
+import TitleContext from '../../../../context/TitleContext';
 import Matrics from "./Matrics";
 import * as XLSX from "xlsx";
 import { useGetTopNReimbursibleQuery } from "../../../../Services/apiSlice";
@@ -16,6 +17,10 @@ import {
 } from "recharts";
 
 export default function Progress() {
+
+      // ******************************************  useState Hook to store state data  ****************************************
+
+  const { filteredStore, addFtYear} = useContext(TitleContext)
   // ******************************************  useState Hook to store state data  ****************************************
   const [data, setData] = useState([]);
   const [forecast, setForecast] = useState([]);
@@ -25,6 +30,7 @@ export default function Progress() {
   const [end_date, set_end_date] = useState(`2022/04/01`);
   const [topn, set_topn] = useState(5);
 
+  const newStore = JSON.parse(filteredStore)
   const {
     data: reimbursibleDData,
     isLoading,
@@ -38,8 +44,7 @@ export default function Progress() {
 
   useEffect(() => {
     retrieveDeals();
-    // getTops()
-  }, []);
+  }, [newStore]);
 
   useEffect(() => {
     retrieveForecast();
@@ -60,8 +65,11 @@ export default function Progress() {
 
   // ******************************************  Axios :  get transactions  ****************************************
 
-  const retrieveDeals = async () => {
-    await Service.getAllDeals()
+      // ******************************************  Axios :  get transactions  ****************************************
+
+
+  const retrieveDeals = async() => {
+    await Service.getAllDeals(newStore)
       .then((response) => {
         setData(response.data.deals);
       })

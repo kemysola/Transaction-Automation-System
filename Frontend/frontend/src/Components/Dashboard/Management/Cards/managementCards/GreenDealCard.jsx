@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Service from "../../../../../Services/Service";
+import TitleContext from '../../../../../context/TitleContext';
 import { Row, Col, Card, Stack, Container } from "react-bootstrap";
 function GreenDealCard() {
+  const { filteredStore, addFtYear} = useContext(TitleContext)
   const [guarPipeline, setGuarPipeline] = useState([]);
   const [actual, setActual] = useState([]);
   const [region, setRegion] = useState([]);
@@ -11,6 +13,8 @@ function GreenDealCard() {
 
   const [currentForecast, setCurrentForecast] = useState([])
   const year = new Date().getFullYear();
+
+  const newStore = JSON.parse(filteredStore)
 
   useEffect(() => {
     retrieveForecast();
@@ -39,7 +43,7 @@ function GreenDealCard() {
   }, []);
 
   useEffect(() => {
-    Service.getAllDeals()
+    Service.getAllDeals(newStore)
       .then((res) => {
         
         setActual(res.data.deals);
@@ -47,7 +51,7 @@ function GreenDealCard() {
       .catch((err) => {
        
       });
-  }, []);
+  }, [newStore]);
 
   useEffect(() => {
     Service.getIndustry()

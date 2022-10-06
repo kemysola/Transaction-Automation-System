@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Service from "../../../../../Services/Service";
 import { Row, Col, Card, Stack, Container } from "react-bootstrap";
+import TitleContext from '../../../../../context/TitleContext';
+
+
 function GuaranteePipeline() {
-  
+  const { filteredStore, addFtYear} = useContext(TitleContext)
+
   // ******************************************  use state hook to store state ****************************************
   const [guarPipeline, setGuarPipeline] = useState([]);
   const [actual, setActual] = useState([]);
@@ -15,6 +19,7 @@ function GuaranteePipeline() {
 
   const year = new Date().getFullYear();
   const nextYear = new Date().getFullYear() + 1;
+  const newStore = JSON.parse(filteredStore)
 
   // ******************************************  use Effect Hook : Component Did mount and update ***********************
 
@@ -30,10 +35,11 @@ function GuaranteePipeline() {
     await Service.getForecast()
       .then((response) => {
         setCurrentForecast(response.data.forecast[0]);
-        setNextForecast(response.data.forecast[1])
+        // setNextForecast(response.data.forecast[1])
+        setNextForecast(response.data.forecast[0])
       })
       .catch((e) => {
-        console.log(e);
+        // console.log(e);
       });
   }
 
@@ -55,14 +61,14 @@ function GuaranteePipeline() {
   }, []);
 
   useEffect(() => {
-    Service.getAllDeals()
+    Service.getAllDeals(newStore)
       .then((res) => {
         setActual(res.data.deals);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [newStore]);
 
   useEffect(() => {
     Service.getIndustry()

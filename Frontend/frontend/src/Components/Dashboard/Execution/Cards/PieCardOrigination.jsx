@@ -14,6 +14,8 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import TitleContext from '../../../../context/TitleContext';
+
 
 
 // .................................. Styled Components .........................
@@ -88,6 +90,7 @@ const AmberDiv = styled.div`
 //  ........................................React functional component.......................
 
 export default function PieCardOrigination() {
+    const { filteredStore, addFtYear} = useContext(TitleContext)
     const [data, setData] = useState([]);
     const [region, setRegion] = useState([])
     const [creditApproval, setCreditApproval] = useState([])
@@ -96,12 +99,12 @@ export default function PieCardOrigination() {
     // ................................... Use Effect Hook .................................
   
     
-  
+    const newStore = JSON.parse(filteredStore)
     let user_email = window.location.search.split("?")[1]
   
     const retrieveDeals = async() => {
 
-     await Service.getMyDealsByEmail(user_email)
+     await Service.getMyDealsByEmail(user_email, newStore)
         .then((response) => {
           setData(response.data.deals);
         })
@@ -112,7 +115,7 @@ export default function PieCardOrigination() {
     
     useEffect(() => {
       retrieveDeals();
-    }, []);
+    }, [newStore]);
     // .................................... Axios Endpoint ..............................
     
    

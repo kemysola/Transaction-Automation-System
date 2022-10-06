@@ -1,4 +1,4 @@
-import { ADD_TITLE,ADD_Guarantees,ADD_PIPELINE_REPORT ,
+import { ADD_TITLE,ADD_FILTERED_YEAR, ADD_Guarantees,ADD_PIPELINE_REPORT ,
   ADD_PROGRESS_HEADER,ADD_TABLE_HEADER,ADD_KEY_STATS,ADD_GUARANTEE_TARGET,
   ADD_PROGRESS_BODY,ADD_GUA_PIPELINE_YEAR,ADD_REPORT_ACT_YEAR,
   ADD_NBC_Submissions,
@@ -14,6 +14,12 @@ const TitleReducer = (state, action) => {
       return {
         ...state,
         cartTitle: [action.payload],
+      };
+    }
+    case ADD_FILTERED_YEAR: {
+      return {
+        ...state,
+        filteredStore: [action.payload],
       };
     }
     case ADD_Structuring_Developments:{

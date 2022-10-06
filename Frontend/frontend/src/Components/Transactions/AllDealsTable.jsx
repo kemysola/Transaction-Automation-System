@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useContext } from 'react';
 import {  Row, Col, Form, Spinner} from 'react-bootstrap';
 import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters, useSortBy } from "react-table";
 import { FiEdit } from "react-icons/fi";
@@ -9,6 +9,7 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Service from "../../Services/Service";
 import TransactionCards from './AllDealsCard';
+import TitleContext from '../../context/TitleContext';
 import * as XLSX from 'xlsx';
 
 
@@ -98,7 +99,9 @@ export const GlobalFilter =({
 
 const AllDealsTable = (props) => {
   // ****************************  use state hook to store state, useRef and useHistory for routing ***************
+  
   const history = useHistory();
+  const { filteredStore, addFtYear} = useContext(TitleContext)
   const [deals, setDeals] = useState([]);
   const [closedStatus, setClosedStatus] = useState("");
   const [staffList, setStaffList] = useState([]);
@@ -110,12 +113,13 @@ const AllDealsTable = (props) => {
   const dealsRef = useRef();
   dealsRef.current = deals;
 
+  const newStore = JSON.parse(filteredStore)
   // ******************************************  useEffect hook *******************************************************
   useEffect(() => {
     retrieveDeals();
 
     retrieveStaffList();
-  }, []);
+  }, [newStore]);
 
   useEffect(() => {
     if (closedStatus === "" && staffFilter === "All") {
@@ -133,7 +137,7 @@ const AllDealsTable = (props) => {
       filterStaffData(closedStatus);
     }
 
-  }, [closedStatus, staffFilter]); 
+  }, [closedStatus, staffFilter, newStore]); 
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -205,7 +209,7 @@ const AllDealsTable = (props) => {
   
   // ******************************************  Axios :Get Request  ***********************************************
   const retrieveDeals = async() => {
-    await Service.getPortfolioAllDeals()
+    await Service.getPortfolioAllDeals(newStore)
       .then((response) => {
         setDeals(response.data.deals);
         setRawData(response.data.deals);
@@ -218,7 +222,7 @@ const AllDealsTable = (props) => {
   // Get deals by staff email
   const retrieveStaffDeals = () => {
     setLoading(true);
-    Service.getMyDealsByEmail(staffFilter)
+    Service.getMyDealsByEmail(staffFilter, newStore)
       .then((res) => {
         setDeals(res.data.deals);
         setStaffData(res.data.deals);

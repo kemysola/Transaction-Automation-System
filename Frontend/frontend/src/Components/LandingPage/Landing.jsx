@@ -4,6 +4,7 @@ import MainCards from "./MainCards";
 import SideNav2 from "./SideNav2";
 import styled from "styled-components";
 import Navbar from "./Navbar";
+import Services from "../../Services/Service";
 
 const LandingWrapper = styled.div`
   margin: 0;
@@ -13,6 +14,24 @@ const LandingWrapper = styled.div`
 `;
 
 const Landing = () => {
+
+  useEffect(() => {
+    retrieveFY();
+  }, []);
+  
+  const retrieveFY = () => {
+    Services.getFY("''")
+    .then((response) => {
+        response.data.financial_years.map(fy => {
+          if(fy.fy_status == 'Active') {
+            localStorage.setItem("fy", fy.fy)
+          }
+        })
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
   
   return (
     <React.Fragment>

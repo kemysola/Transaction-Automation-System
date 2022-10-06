@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Container, Row, Col, ProgressBar, Card } from "react-bootstrap";
 import styled from "styled-components";
 import Service from "../../../../Services/Service";
 import Table from "./Table"
+import TitleContext from '../../../../context/TitleContext';
 
 import {
   BarChart,
@@ -30,19 +31,23 @@ const ProgressBarDiv = styled.div`
 `;
 
 export default function Progress() {
+  const { filteredStore, addFtYear} = useContext(TitleContext)
+
   const [data, setData] = useState([]);
   const [target, setTarget] = useState([]);
   const [staff, setStaff] = useState([]);
 
+  const newStore = JSON.parse(filteredStore)
+
   useEffect(() => {
     retrieveDeals();
-  }, []);
+  }, [newStore]);
 
 
       // ******************************** Axios : get Transaction *******************************************
 
   const retrieveDeals = () => {
-    Service.getAllDeals()
+    Service.getAllDeals(newStore)
       .then((response) => {
         setData(response.data.deals);
       })

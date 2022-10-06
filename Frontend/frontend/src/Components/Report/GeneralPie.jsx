@@ -1,22 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Row } from "react-bootstrap";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import {
   ResponsiveContainer,
 } from "recharts";
+import TitleContext from '../../context/TitleContext';
 
 import Services from "../../Services/Service";
 
 
 //  ........................................React functional component.......................
 export default function GeneralPie(props) {
+  const { filteredStore, addFtYear} = useContext(TitleContext)
+
+  const newStore = JSON.parse(filteredStore)
+
   const [data, setData] = useState([]);
   useEffect(() => {
     retrieveDeals();
-  }, []);
+  }, [newStore]);
 
   const retrieveDeals = () => {
-    Services.getAllDeals()
+    Services.getAllDeals(newStore)
       .then((response) => {
         setData(response.data.deals);
       })

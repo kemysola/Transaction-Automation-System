@@ -7,6 +7,7 @@ import TransactionTable from './PortfolioAllDealsTable';
 import TransactionCards from './PortfolioAllDealsCard';
 import Navbar from '../LandingPage/Navbar';
 
+
 const ViewWrapper = styled.div`
   margin:0;
   padding: 0 10px;
@@ -15,7 +16,7 @@ const ViewWrapper = styled.div`
 export default function PortfolioAllDeals(){
     return(
         <React.Fragment>
-            <Navbar/>
+            <Navbar />
             <ViewWrapper>
             <Row>
                 <Col sm={3} style={{padding:'10px 10px 10px 0px'}}>
