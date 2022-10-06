@@ -67,6 +67,8 @@ export default function UpdateForecast (props) {
       });
   };
 
+  // console.log("I am from UpdateFY", swt2)
+
   const fyList = fy.map(item => (
     <FY 
       id={item.id}

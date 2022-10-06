@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Container, Form as Fm, Row, Col, ListGroup, FormCheck} from "react-bootstrap";
 import { FiEdit, FiSave } from 'react-icons/fi'
 import { MdOutlineCancel } from 'react-icons/md'
-import Services from "../../Services/Service";
+// import Services from "../../Services/Service";
 
 
 function usePrevious(value) {
@@ -22,7 +22,7 @@ const FY = ((props) => {
   const [isChecked, setIsChecked] = useState(true)
   const start = new Date(props.fy_start_date)
   const end = new Date(props.fy_end_date)
-
+  const fyStatus = props.status
   // console.log("start:", start, "end:", end)
 
   const editFieldRef = useRef(null);
@@ -41,7 +41,7 @@ const FY = ((props) => {
   }, [wasEditing, isEditing]);
 
   // useEffect(() => {
-  //   retrieveFY()
+  //   // retrieveFY()
   // }, [swt2])
 
   // const retrieveFY = () => {
@@ -60,6 +60,7 @@ const FY = ((props) => {
     props.editFY(props.id, props.fy, startDate, endDate, swt2);
     setStartDate();
     setEndDate();
+    // setSwt2();
     setEditing(false);
   }
 
@@ -70,6 +71,9 @@ const FY = ((props) => {
       setSwt2('Active')
     }
   };
+
+  console.log("I am from FYMode", swt2)
+
 
   return (
     <>
@@ -168,6 +172,10 @@ const FY = ((props) => {
 
             <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
               {`${end.toISOString().slice(0, 10)}`}
+            </label>
+
+            <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
+              {swt2}
             </label>
             
             <FiEdit 
