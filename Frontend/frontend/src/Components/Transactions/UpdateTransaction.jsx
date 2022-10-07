@@ -479,8 +479,8 @@ export default function UpdateTransactions() {
     // function to get deal by id from the database
     const data = await axios
       .get(
-        //  `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}`,
-        `http://localhost:5001/api/v1/transaction/item/${id}`,
+         `https://trms01-server.azurewebsites.net/api/v1/tran/saction/item/${id}`,
+        // `http://localhost:5001/api/v1/transaction/item/${id}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
@@ -1246,13 +1246,7 @@ export default function UpdateTransactions() {
                                     {staffList[i].stafflist}
                                   </option>
                                 ))} */}
-
-{originatorList.map((opt,i) =>(
-                                <option key={opt.email}
-                                value={opt.stafflist}>
-                                  {opt.stafflist}
-                                  </option>
-                              ))}
+                                
                               </Form.Select>
                             </Form.Group>
                           </Col>
