@@ -69,6 +69,9 @@ export default function UpdateStaffs() {
   const [submitted, setSubmitted] = useState(false);
   const [response, setResponse] = useState(false);
   const [isadmin, setisAdmin] = useState("");
+  const [isoriginator, setIsOriginator] = useState("");
+  const [istransactor, setIsTransactor] = useState("");
+  const [istransactionlegallead, setIsTransactionLegalLead] = useState("");
   const [targs, setTargs] = useState("");
   // const [mands, setMands] = useState(0);
 
@@ -95,18 +98,18 @@ export default function UpdateStaffs() {
   const statusOption = [
     {
       id: 1,
-      option: "Active"
+      option: "Active",
     },
     {
       id: 2,
-      option: "Inactive"
-    }
-  ]
+      option: "Inactive",
+    },
+  ];
 
   const retrieveStaff = async () => {
     const staff_data = await axios
       .get(
-           `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
+        `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
         // `http://localhost:5001/api/v1/staff/${user_email}`,
 
         {
@@ -121,10 +124,14 @@ export default function UpdateStaffs() {
       });
     setStaff(staff_data.data.staffInfo);
     setisAdmin(staff_data.data.staffInfo[0].isadmin);
+    setIsOriginator(staff_data.data.staffInfo[0].isoriginator);
+    setIsTransactor(staff_data.data.staffInfo[0].istransactor);
+    setIsTransactionLegalLead(
+      staff_data.data.staffInfo[0].istransactionlegallead
+    );
     setTargs(staff_data.data.staffInfo[0].hasoriginationtarget);
     setSaved(true);
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -150,8 +157,10 @@ export default function UpdateStaffs() {
       creditCommiteeApproval: +creditCommitteApproval.current.value,
       feeLetter: +feeLetter.current.value,
       status: status.current.value,
+      isOriginator: JSON.parse(isoriginator),
+      isTransactor: JSON.parse(istransactor),
+      isTransactionLegalLead: JSON.parse(istransactionlegallead),
     };
-
     Service.updateStaff(user_email, reqData)
       .then((response) => {
         alert(response.data.message);
@@ -352,6 +361,116 @@ export default function UpdateStaffs() {
                         </Form.Group>
                       </Col>
 
+                      <Col sm={6} className="mt-1 pt-1">
+                        <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                          <Row>
+                            {/* <Col sm={2}  className='mt-3 pt-2'> */}
+                            <Form.Label className="pt-1">
+                              isTransactor
+                            </Form.Label>
+                            {/* </Col> */}
+                            <Col sm={6}>
+                              <Form.Check
+                                inline
+                                label="Yes"
+                                type="radio"
+                                value={true}
+                                defaultChecked={staff[0].istransactor === true}
+                                name="istransactor"
+                                onChange={(e) =>
+                                  setIsTransactor(e.target.value)
+                                }
+                              />
+                              <Form.Check
+                                inline
+                                label="No"
+                                type="radio"
+                                value={false}
+                                defaultChecked={staff[0].istransactor === false}
+                                name="istransactor"
+                                onChange={(e) =>
+                                  setIsTransactor(e.target.value)
+                                }
+                              />
+                            </Col>
+                          </Row>
+                        </Form.Group>
+                      </Col>
+                      <Col sm={6} className="mt-1 pt-1">
+                        <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                          <Row>
+                            {/* <Col sm={2}  className='mt-3 pt-2'> */}
+                            <Form.Label className="pt-1">
+                              isOriginator:
+                            </Form.Label>
+                            {/* </Col> */}
+                            <Col sm={6}>
+                              <Form.Check
+                                inline
+                                label="Yes"
+                                type="radio"
+                                value={true}
+                                defaultChecked={staff[0].isoriginator === true}
+                                name="isOriginator"
+                                onChange={(e) =>
+                                  setIsOriginator(e.target.value)
+                                }
+                              />
+                              <Form.Check
+                                inline
+                                label="No"
+                                type="radio"
+                                value={false}
+                                defaultChecked={staff[0].isoriginator === false}
+                                name="isOriginator"
+                                onChange={(e) =>
+                                  setIsOriginator(e.target.value)
+                                }
+                              />
+                            </Col>
+                          </Row>
+                        </Form.Group>
+                      </Col>
+                      <Col sm={6} className="mt-1 pt-1">
+                        <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                          <Row>
+                            {/* <Col sm={2}  className='mt-3 pt-2'> */}
+                            <Form.Label className="pt-1">
+                              isTransactionLegalLead:
+                            </Form.Label>
+                            {/* </Col> */}
+                            <Col sm={6}>
+                              <Form.Check
+                                inline
+                                label="Yes"
+                                type="radio"
+                                value={true}
+                                defaultChecked={
+                                  staff[0].istransactionlegallead === true
+                                }
+                                name="isTransactionLegalLead"
+                                onChange={(e) =>
+                                  setIsTransactionLegalLead(e.target.value)
+                                }
+                              />
+                              <Form.Check
+                                inline
+                                label="No"
+                                type="radio"
+                                value={false}
+                                defaultChecked={
+                                  staff[0].istransactionlegallead === false
+                                }
+                                name="isTransactionLegalLead"
+                                onChange={(e) =>
+                                  setIsTransactionLegalLead(e.target.value)
+                                }
+                              />
+                            </Col>
+                          </Row>
+                        </Form.Group>
+                      </Col>
+
                       {/*------------------------------- Form -------------------------------------------- */}
                     </Row>
                     <br />
@@ -424,7 +543,10 @@ export default function UpdateStaffs() {
                             defaultValue={staff[0].originationamount}
                             ref={originationAmount}
                             name="originationAmount"
-                            disabled={targs === "false" || staff[0].hasoriginationtarget === false}
+                            disabled={
+                              targs === "false" ||
+                              staff[0].hasoriginationtarget === false
+                            }
                           />{" "}
                         </Form.Group>
 

@@ -164,7 +164,6 @@ const NewTransaction = () => {
     name: "nbcFocus",
   });
 
-
   //********************************************************* Deal Tracking features - state and functions ************************ */
 
   const [ocps, setOcps] = useState([
@@ -220,6 +219,7 @@ const NewTransaction = () => {
   const [frequency, setFrequency] = useState([]);
   const [style, setStyle] = useState([]);
   const [staffList, setStaffList] = useState([]);
+  const [staffLists, setStaffLists] = useState([]);
 
   // ************************************ use Effect : ComponentDidMount - ComponentWillReceive ***********************************/
 
@@ -237,6 +237,7 @@ const NewTransaction = () => {
     retrieveAmortizationStyle();
 
     retrieveStaffList();
+    retrieveStaffLists();
   }, [setFocus]);
 
   // ******************************************  Axios :  get industry *********************************************/
@@ -304,6 +305,16 @@ const NewTransaction = () => {
     Services.getStaffList()
       .then((response) => {
         setStaffList(response.data.staffList);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const retrieveStaffLists = () => {
+    Services.getAllStaff()
+      .then((response) => {
+        setStaffLists(response.data.staff);
       })
       .catch((e) => {
         console.log(e);
@@ -427,6 +438,12 @@ const NewTransaction = () => {
     ]);
   };
 
+  let transactorList = staffList.filter((opt) => opt.istransactor === true);
+  let originatorList = staffList.filter((opt) => opt.isoriginator === true);
+  let ttrlegalLead = staffList.filter(
+    (opt) => opt.istransactionlegallead === true
+  );
+
   const handlePlisRemove = (index) => {
     const list = [...plis];
     list.splice(index, 1);
@@ -524,7 +541,6 @@ const NewTransaction = () => {
   //********************************************************************* Handle Submit Function ********************************** */
   const onSubmit = (reqdata, e) => {
     e.preventDefault();
-    console.log(reqdata, e);
     let allNotes = noteList.map(({ note }) => note);
     let note = allNotes.join("|");
 
@@ -669,12 +685,9 @@ const NewTransaction = () => {
                               }}
                             >
                               <option></option>
-                              {staffList.map((opt, i) => (
-                                <option
-                                  key={staffList[i].email}
-                                  value={staffList[i].stafflist}
-                                >
-                                  {staffList[i].stafflist}
+                              {originatorList.map((opt, i) => (
+                                <option key={opt.email} value={opt.stafflist}>
+                                  {opt.stafflist}
                                 </option>
                               ))}
                             </Form.Select>
@@ -696,12 +709,9 @@ const NewTransaction = () => {
                               }}
                             >
                               <option></option>
-                              {staffList.map((opt, i) => (
-                                <option
-                                  key={staffList[i].email}
-                                  value={staffList[i].stafflist}
-                                >
-                                  {staffList[i].stafflist}
+                              {transactorList.map((opt, i) => (
+                                <option key={opt.email} value={opt.stafflist}>
+                                  {opt.stafflist}
                                 </option>
                               ))}
                             </Form.Select>
@@ -725,13 +735,11 @@ const NewTransaction = () => {
                                 focus: "none",
                               }}
                             >
+                              {" "}
                               <option></option>
-                              {staffList.map((opt, i) => (
-                                <option
-                                  key={staffList[i].email}
-                                  value={staffList[i].stafflist}
-                                >
-                                  {staffList[i].stafflist}
+                              {ttrlegalLead.map((opt, i) => (
+                                <option key={opt.email} value={opt.stafflist}>
+                                  {opt.stafflist}
                                 </option>
                               ))}
                             </Form.Select>

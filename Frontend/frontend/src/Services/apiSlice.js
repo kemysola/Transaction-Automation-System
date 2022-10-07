@@ -64,6 +64,10 @@ export const apiSlice = createApi({
       query: (financial_year) => `report/closed_deals/${financial_year}`,
       providesTags: ["Report"],
     }),
+    getAllClosedDeals: builder.query({
+      query: (financial_year) => `report/closed_deals/all`,
+      providesTags: ["Report"],
+    }),
     getTopNReimbursible: builder.query({
       query: (topn, start, end) => `transaction/reimbursible/${topn}`,
       providesTags: ["Report"],
@@ -112,6 +116,7 @@ export const apiSlice = createApi({
 export const {
   useGetReportQuery,
   useGetPipelineQuery,
+  useGetAllClosedDealsQuery,
   useGetTopNReimbursibleQuery,
   useAddReportMutation,
   useUpdateReportMutation,

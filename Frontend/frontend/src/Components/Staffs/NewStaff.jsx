@@ -62,6 +62,9 @@ export default function NewStaff() {
     feeLetter: 10.0,
     financialClose: 80.0,
     isadmin: "false",
+    isOriginator:'false',
+    isTransactor:'false',
+    isTransactionLegalLead:'false'
   };
 
     // ******************************************  use state hook to store state ****************************************
@@ -126,8 +129,10 @@ export default function NewStaff() {
       feeLetter: +staff.feeLetter,
       status: "Inactive",
       isadmin: JSON.parse(staff.isadmin),
+      isOriginator:JSON.parse(staff.isOriginator),
+      isTransactor:JSON.parse(staff.isTransactor),
+      isTransactionLegalLead:JSON.parse(staff.isTransactionLegalLead),
     };
-
     /// ******************************************  Axios post request  ****************************************
 
 
@@ -255,6 +260,42 @@ export default function NewStaff() {
                                                 <Col sm={4}  className='mt-3 pt-2'>
                                                             <Form.Check inline type="radio" label="Yes"  value={true} name='isadmin' onChange={handleInputChange} />
                                                             <Form.Check inline type="radio" label="No"  value={false} name='isadmin' onChange={handleInputChange} defaultChecked/>
+                
+                                                        </Col>
+                                                </Row> 
+                                            </Form.Group>
+                                            <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                                                <Row>       
+                                                <Col sm={4}  className='mt-3 pt-2'>
+                                                        <Form.Label>Originator </Form.Label>
+                                                </Col>
+                                                <Col sm={4}  className='mt-3 pt-2'>
+                                                            <Form.Check inline type="radio" label="Yes"  value={true} name='isOriginator' onChange={handleInputChange} />
+                                                            <Form.Check inline type="radio" label="No"  value={false} name='isOriginator' onChange={handleInputChange} defaultChecked/>
+                
+                                                        </Col>
+                                                </Row> 
+                                            </Form.Group>
+                                            <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                                                <Row>       
+                                                <Col sm={4}  className='mt-3 pt-2'>
+                                                        <Form.Label>Transactor </Form.Label>
+                                                </Col>
+                                                <Col sm={4}  className='mt-3 pt-2'>
+                                                            <Form.Check inline type="radio" label="Yes"  value={true} name='isTransactor' onChange={handleInputChange} />
+                                                            <Form.Check inline type="radio" label="No"  value={false} name='isTransactor' onChange={handleInputChange} defaultChecked/>
+                
+                                                        </Col>
+                                                </Row> 
+                                            </Form.Group>
+                                            <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                                                <Row>       
+                                                <Col sm={4}  className='mt-3 pt-2'>
+                                                        <Form.Label>Transactor Legal Lead </Form.Label>
+                                                </Col>
+                                                <Col sm={4}  className='mt-3 pt-2'>
+                                                            <Form.Check inline type="radio" label="Yes"  value={true} name='isTransactionLegalLead' onChange={handleInputChange} />
+                                                            <Form.Check inline type="radio" label="No"  value={false} name='isTransactionLegalLead' onChange={handleInputChange} defaultChecked/>
                 
                                                         </Col>
                                                 </Row> 
