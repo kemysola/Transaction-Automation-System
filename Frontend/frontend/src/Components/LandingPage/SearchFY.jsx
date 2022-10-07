@@ -8,37 +8,38 @@ import Services from '../../Services/Service';
 import Alert from 'react-bootstrap/Alert';
 
 // using custom hook: this gets the active FY before the component renders
-// function useLocalStorage(key) {
-//   const [state, setState] = useState(localStorage.getItem(key));
+function useLocalStorage(key) {
+  const [state, setState] = useState(localStorage.getItem(key));
 
-//   // useEffect(() => {
-//   //   retrieveFY();
-//   // }, []);
+  useEffect(() => {
+    retrieveFY();
+  }, []);
 
-//   // const retrieveFY = (item) => {
-//   //   Services.getFY("''")
-//   //   .then((response) => {
-//   //       response.data.financial_years.map(fy => {
-//   //         if(fy.fy_status == 'Active') {
-//   //           item = fy.fy
-//   //           localStorage.setItem(key, JSON.stringify(item))
-//   //           setState(item)
-//   //         }
-//   //       })
-//   //     })
-//   //     .catch((e) => {
-//   //       console.log(e);
-//   //     });
-//   // };
-//   return [state];
-// }
+  const retrieveFY = (item) => {
+    Services.getFY("''")
+    .then((response) => {
+        response.data.financial_years.map(fy => {
+          if(fy.fy_status == 'Active') {
+            item = fy.fy
+            localStorage.setItem(key, JSON.stringify(item))
+            setState(item)
+          }
+        })
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  return [state, retrieveFY];
+}
 
 
 const SearchFY = (props) => {
     const { filteredStore, addFtYear} = useContext(TitleContext) 
       // set dropdown value and have initial of none
-      // const [value, setValue] = useLocalStorage("fy");
-      const [value, setValue] = (localStorage.getItem("fy"))
+      const [item, setItem] = useLocalStorage("fy")
+      const [value, setValue] = useState(localStorage.getItem("fy"));
+      // const [value, setValue] = (localStorage.getItem("fy"))
       const [fy, setFY] = useState([]);
       const [show, setShow] = useState(true);
   
@@ -46,9 +47,10 @@ const SearchFY = (props) => {
           addFtYear(value)
       }, [value]);
       
-      useEffect(() => {  
+      useEffect(() => {
+        setValue(item)
         retrieveFY();
-      }, []);
+      }, [item]);
 
  
 
@@ -63,18 +65,12 @@ const SearchFY = (props) => {
       };
       const handleChange = async(e) => {
         setValue(e.currentTarget.value)
-        // setItem(e.currentTarget.value)
         setShow(true)
       }
 
-      // if (value == "") {
-      //   setReload(true)
-      //   // setValue(localStorage.getItem('fy'))
-      // }
-
-      // if(value != 2022 && show){
-      //     return  <Alert variant="danger" onClose={() => setShow(false)} dismissible>You are accessing FY {value} </Alert>
-      // }
+      if(value != item && show){
+          return  <Alert variant="danger" onClose={() => setShow(false)} dismissible>You are accessing FY {value} </Alert>
+      }
 
     
 
