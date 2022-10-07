@@ -35,7 +35,7 @@ function ClosedDeals() {
           <div>
             <Container>
               <div>
-                <h4 className='d-flex justify-content-start mb-3' style={{fontWeight:'bold',fontSize:'14px'}}>Closed Deals Since Inception</h4>
+                <h4 className='d-flex justify-content-start mb-3' style={{fontWeight:'bold',fontSize:'14px'}}>Closed Deals</h4>
                 <Row>
                   <Col sm={4}>
                     <Card>

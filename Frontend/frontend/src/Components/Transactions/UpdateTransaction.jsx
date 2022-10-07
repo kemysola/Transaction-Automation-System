@@ -480,7 +480,9 @@ export default function UpdateTransactions() {
     const data = await axios
       .get(
          `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(localStorage.getItem("fy"))}`,
-        // `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(localStorage.getItem("fy"))}`,
+        // `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+        //   localStorage.getItem("fy")
+        // )}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
@@ -532,8 +534,6 @@ export default function UpdateTransactions() {
   const uId = Array.from(new Set(allData.map((a) => a.kid))).map((id) => {
     return allData.find((a) => a.kid === id);
   });
-
-  // console.log("uinque", uniqueId)
 
   // ******************************************  Axios :  get staff  ****************************************
   const retrieveStaffList = () => {
@@ -653,7 +653,6 @@ export default function UpdateTransactions() {
 
   // **************************************** NBC Focus List ***************************************************
 
-  // console.log("nbcid mode", uniqueId[0].nbcid )
   const nbcFocusList = uniqueId.map((item) => (
     <NbcFocusMode
       transid={item.transid}
@@ -727,7 +726,6 @@ export default function UpdateTransactions() {
 
     Service.deleteFeatures(transid, data)
       .then((res) => {
-        console.log(res.data.message);
         setPartiesChanged("deleted");
       })
       .catch((res) => {
@@ -1187,9 +1185,11 @@ export default function UpdateTransactions() {
         setMessage("Failed to update deal");
       });
   }
-  let transactorList = staffList.filter(opt => opt.istransactor === true)
-  let originatorList = staffList.filter(opt => opt.isoriginator === true)
-    let ttrlegalLead = staffList.filter(opt => opt.istransactionlegallead === true)
+  let transactorList = staffList.filter((opt) => opt.istransactor === true);
+  let originatorList = staffList.filter((opt) => opt.isoriginator === true);
+  let ttrlegalLead = staffList.filter(
+    (opt) => opt.istransactionlegallead === true
+  );
   return (
     <React.Fragment>
       {/* ---------------------- Update Transaction Forms ----------- */}
@@ -1197,7 +1197,29 @@ export default function UpdateTransactions() {
         <Container fluid style={{ marginTop: "0" }}>
           {status ? (
             <Form>
-              <h5 className="text-secondary pb-3 mb-2">Update Transaction</h5>
+                <Row>
+                  <Col sm={6}>
+                  <h5 className="text-secondary pb-3 mb-2">Update Transaction</h5>
+                  </Col>
+                  <Col sm={6} style={{fontSize:'16px'}} className='d-flex justify-content-end text-success'>
+                  <Form.Check
+                    inline
+                    style={
+                      deal[0].closed === false &&
+                      localStorage.getItem("admin") == "true"
+                        ? { visibility: "visible" }
+                        : { visibility: "hidden" }
+                    }
+                    label="Close Deal"
+                    type="radio"
+                    value={true}
+                    defaultChecked={deal[0].closed === true}
+                    name="closed"
+                    onChange={(e) => setisClosed(e.target.value)}
+                  />
+
+                  </Col>
+                </Row>
               <br />
               <div>
                 <Tabs
@@ -1246,7 +1268,17 @@ export default function UpdateTransactions() {
                                     {staffList[i].stafflist}
                                   </option>
                                 ))} */}
-                                
+                                {originatorList.map((opt, i) => (
+                                  <option
+                                    key={opt.email}
+                                    value={opt.stafflist}
+                                    selected={
+                                      opt.stafflist === deal[0].originator
+                                    }
+                                  >
+                                    {opt.stafflist}
+                                  </option>
+                                ))}
                               </Form.Select>
                             </Form.Group>
                           </Col>
@@ -1259,16 +1291,15 @@ export default function UpdateTransactions() {
                                 id="transactor"
                                 ref={transactor}
                               >
-                                {staffList.map((opt, i) => (
+                                {transactorList.map((opt, i) => (
                                   <option
-                                    key={staffList[i].email}
-                                    value={staffList[i].stafflist}
+                                    key={opt.email}
+                                    value={opt.stafflist}
                                     selected={
-                                      staffList[i].stafflist ===
-                                      deal[0].transactor
+                                      opt.stafflist === deal[0].originator
                                     }
                                   >
-                                    {staffList[i].stafflist}
+                                    {opt.stafflist}
                                   </option>
                                 ))}
                               </Form.Select>
@@ -1283,16 +1314,15 @@ export default function UpdateTransactions() {
                                 id="transactionLegalLead"
                                 ref={transactionLegalLead}
                               >
-                                {staffList.map((opt, i) => (
+                                {ttrlegalLead.map((opt, i) => (
                                   <option
-                                    key={staffList[i].email}
-                                    value={staffList[i].stafflist}
+                                    key={opt.email}
+                                    value={opt.stafflist}
                                     selected={
-                                      staffList[i].stafflist ===
-                                      deal[0].transactionlegallead
+                                      opt.stafflist === deal[0].originator
                                     }
                                   >
-                                    {staffList[i].stafflist}
+                                    {opt.stafflist}
                                   </option>
                                 ))}
                               </Form.Select>
@@ -3272,7 +3302,6 @@ export default function UpdateTransactions() {
                   <Tab
                     eventKey="tenth"
                     title="KEY DEAL FACTORS"
-                    
                     style={{ fontSize: "12px" }}
                   >
                     <Container1>
@@ -3520,41 +3549,7 @@ export default function UpdateTransactions() {
                 <Form.Label className="pt-1"> </Form.Label>
                 {/* </Col> */}
 
-                <Col
-                  sm={12}
-                  style={{ fontSize: "4em", alignContent: "centre" }}
-                >
-                  {/* <Form.Check
-                    style={
-                      deal[0].closed === true
-                        ? { visibility: "hidden" }
-                        : { visibility: "hidden" }
-                    }
-                    inline
-                    label="Activate Deal"
-                    type="radio"
-                    value={false}
-                    defaultChecked={deal[0].closed === false}
-                    name="closed"
-                    onChange={(e) => setisClosed(e.target.value)}
-                  /> */}
-
-                  {/* display close deal button only when deal is active and user is an admin */}
-                  <Form.Check
-                    inline
-                    style={
-                      deal[0].closed === false && localStorage.getItem("admin") == 'true'
-                        ? { visibility: "visible" }
-                        : { visibility: "hidden" }
-                    }
-                    label="Close Deal"
-                    type="radio"
-                    value={true}
-                    defaultChecked={deal[0].closed === true}
-                    name="closed"
-                    onChange={(e) => setisClosed(e.target.value)}
-                  />
-                </Col>
+                
               </Row>
             </Form>
           ) : (

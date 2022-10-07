@@ -164,7 +164,6 @@ const NewTransaction = () => {
     name: "nbcFocus",
   });
 
-
   //********************************************************* Deal Tracking features - state and functions ************************ */
 
   const [ocps, setOcps] = useState([
@@ -306,7 +305,6 @@ const NewTransaction = () => {
     Services.getStaffList()
       .then((response) => {
         setStaffList(response.data.staffList);
-
       })
       .catch((e) => {
         console.log(e);
@@ -317,14 +315,12 @@ const NewTransaction = () => {
     Services.getAllStaff()
       .then((response) => {
         setStaffLists(response.data.staff);
-
       })
       .catch((e) => {
         console.log(e);
       });
   };
-  
-  
+
   // ******************************************  Next and Previous function  ****************************************
   //***********************************************PARTIES ********************************************** */
   const handlePartyChange = (e, index) => {
@@ -442,10 +438,11 @@ const NewTransaction = () => {
     ]);
   };
 
-  let transactorList = staffList.filter(opt => opt.istransactor === true)
-    let originatorList = staffList.filter(opt => opt.isoriginator === true)
-      let ttrlegalLead = staffList.filter(opt => opt.istransactionlegallead === true)
-
+  let transactorList = staffList.filter((opt) => opt.istransactor === true);
+  let originatorList = staffList.filter((opt) => opt.isoriginator === true);
+  let ttrlegalLead = staffList.filter(
+    (opt) => opt.istransactionlegallead === true
+  );
 
   const handlePlisRemove = (index) => {
     const list = [...plis];
@@ -687,12 +684,11 @@ const NewTransaction = () => {
                                 focus: "none",
                               }}
                             >
-                               <option></option>
-                              {originatorList.map((opt,i) =>(
-                                <option key={opt.email}
-                                value={opt.stafflist}>
+                              <option></option>
+                              {originatorList.map((opt, i) => (
+                                <option key={opt.email} value={opt.stafflist}>
                                   {opt.stafflist}
-                                  </option>
+                                </option>
                               ))}
                             </Form.Select>
                             <div className="text-danger">
@@ -713,13 +709,11 @@ const NewTransaction = () => {
                               }}
                             >
                               <option></option>
-                              {transactorList.map((opt,i) =>(
-                                <option key={opt.email}
-                                value={opt.stafflist}>
+                              {transactorList.map((opt, i) => (
+                                <option key={opt.email} value={opt.stafflist}>
                                   {opt.stafflist}
-                                  </option>
+                                </option>
                               ))}
-                          
                             </Form.Select>
                             <div className="text-danger">
                               {errors.transactor?.type === "required" &&
@@ -740,14 +734,14 @@ const NewTransaction = () => {
                                 padding: "4px 2px",
                                 focus: "none",
                               }}
-                            > <option></option>
-                            {ttrlegalLead.map((opt,i) =>(
-                              <option key={opt.email}
-                              value={opt.stafflist}>
-                                {opt.stafflist}
+                            >
+                              {" "}
+                              <option></option>
+                              {ttrlegalLead.map((opt, i) => (
+                                <option key={opt.email} value={opt.stafflist}>
+                                  {opt.stafflist}
                                 </option>
-                            ))}
-                              
+                              ))}
                             </Form.Select>
                             <div className="text-danger">
                               {errors.transactionLegalLead?.type ===
