@@ -7,22 +7,50 @@ import TitleContext from '../../context/TitleContext';
 import Services from '../../Services/Service';
 import Alert from 'react-bootstrap/Alert';
 
+// using custom hook: this gets the active FY before the component renders
+// function useLocalStorage(key) {
+//   const [state, setState] = useState(localStorage.getItem(key));
 
-const SearchFY = () => {
+//   // useEffect(() => {
+//   //   retrieveFY();
+//   // }, []);
+
+//   // const retrieveFY = (item) => {
+//   //   Services.getFY("''")
+//   //   .then((response) => {
+//   //       response.data.financial_years.map(fy => {
+//   //         if(fy.fy_status == 'Active') {
+//   //           item = fy.fy
+//   //           localStorage.setItem(key, JSON.stringify(item))
+//   //           setState(item)
+//   //         }
+//   //       })
+//   //     })
+//   //     .catch((e) => {
+//   //       console.log(e);
+//   //     });
+//   // };
+//   return [state];
+// }
+
+
+const SearchFY = (props) => {
     const { filteredStore, addFtYear} = useContext(TitleContext) 
       // set dropdown value and have initial of none
-      const [value, setValue] = useState("2022");
+      // const [value, setValue] = useLocalStorage("fy");
+      const [value, setValue] = (localStorage.getItem("fy"))
       const [fy, setFY] = useState([]);
       const [show, setShow] = useState(true);
-
+  
       useEffect(() => {
           addFtYear(value)
       }, [value]);
       
-      useEffect(() => {
+      useEffect(() => {  
         retrieveFY();
       }, []);
 
+ 
 
       const retrieveFY = () => {
         Services.getFY("''")
@@ -35,17 +63,20 @@ const SearchFY = () => {
       };
       const handleChange = async(e) => {
         setValue(e.currentTarget.value)
+        // setItem(e.currentTarget.value)
         setShow(true)
       }
 
-      if(value != 2022 && show){
-          return  <Alert variant="danger" onClose={() => setShow(false)} dismissible>You are accessing FY {value} </Alert>
-      }
+      // if (value == "") {
+      //   setReload(true)
+      //   // setValue(localStorage.getItem('fy'))
+      // }
 
-  //     {isValid 
-  //       ? <Alert variant="success">Hurray! You're a genius.</Alert>
-  //       : <Alert variant="danger">Oops! Try again</Alert>
-  // }
+      // if(value != 2022 && show){
+      //     return  <Alert variant="danger" onClose={() => setShow(false)} dismissible>You are accessing FY {value} </Alert>
+      // }
+
+    
 
   return (
     <div>

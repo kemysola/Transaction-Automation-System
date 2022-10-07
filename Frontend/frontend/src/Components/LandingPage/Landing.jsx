@@ -14,6 +14,7 @@ const LandingWrapper = styled.div`
 `;
 
 const Landing = () => {
+  // const [aFY, SetAFY] = useState()
 
   useEffect(() => {
     retrieveFY();
@@ -25,6 +26,7 @@ const Landing = () => {
         response.data.financial_years.map(fy => {
           if(fy.fy_status == 'Active') {
             localStorage.setItem("fy", JSON.stringify(fy.fy))
+            // SetAFY(fy.fy)
           }
         })
       })
