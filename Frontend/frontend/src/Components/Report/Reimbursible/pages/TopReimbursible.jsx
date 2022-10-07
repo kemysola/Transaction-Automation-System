@@ -31,7 +31,7 @@ export default function TopReimbursible() {
   return (
     <>
       <Container>
-        <h6 className='mb-2'>TOP AND REIMBURSIBLE REPORT</h6>
+        <h6 className='mb-2'>TOP  AND REIMBURSABLE REPORT</h6>
         <Row>
           <Col sm={6}>
             <Card>

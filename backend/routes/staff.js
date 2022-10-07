@@ -41,7 +41,8 @@ router.post("/onboard", verifyTokenAndAdmin, async (req, res) => {
     
     // Destrucuring the request body to grab required fields
     const new_user = { email, firstName, lastName, level, hasOriginationTarget, originationAmount, guaranteePipeline, greenTransaction,
-      amberTransaction, mandateLetter, creditCommiteeApproval, feeLetter, status, isadmin} = req.body;
+      amberTransaction, mandateLetter, creditCommiteeApproval, feeLetter, status, isadmin,
+      isOriginator, isTransactor, isTransactionLegalLead} = req.body;
 
     // create confirmation token for account activation: 2022-Feb-15th
     const activationToken = jwt.sign(
@@ -56,19 +57,36 @@ router.post("/onboard", verifyTokenAndAdmin, async (req, res) => {
     const one_time_password = generateP()
 
     const user_data = [ 
-      new_user.email, CryptoJS.AES.encrypt(one_time_password, process.env.PASSWORD_SECRET_PASSPHRASE ).toString(),
-      new_user.firstName, new_user.lastName, new_user.level, new_user.hasOriginationTarget, new_user.originationAmount,
-      new_user.guaranteePipeline, new_user.greenTransaction, new_user.amberTransaction, new_user.mandateLetter,
-      new_user.creditCommiteeApproval, new_user.feeLetter, 
+      new_user.email, 
+      CryptoJS.AES.encrypt(one_time_password, process.env.PASSWORD_SECRET_PASSPHRASE ).toString(),
+      new_user.firstName, 
+      new_user.lastName, 
+      new_user.level, 
+      new_user.hasOriginationTarget, 
+      new_user.originationAmount,
+      new_user.guaranteePipeline, 
+      new_user.greenTransaction, 
+      new_user.amberTransaction, 
+      new_user.mandateLetter,
+      new_user.creditCommiteeApproval, 
+      new_user.feeLetter, 
       funcFinancialClose(new_user.mandateLetter,  new_user.creditCommiteeApproval, new_user.feeLetter), 
-      req.user.Email, new_user.status, new_user.isadmin, activationToken
+      req.user.Email, 
+      new_user.status, 
+      new_user.isadmin, 
+      activationToken,
+      new_user.isOriginator, 
+      new_user.isTransactor, 
+      new_user.isTransactionLegalLead
     ]
 
     await client.query('BEGIN')
     const write_to_db = 
-      `INSERT INTO TB_TRS_USERS(email, password, firstName, lastName, level, hasOriginationTarget, originationAmount, guaranteePipeline,
-        greenTransaction, amberTransaction, mandateLetter, creditCommiteeApproval, feeLetter, financialClose, record_entry, status, isadmin, activationCode, userID
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, nextval('trms.user_id_seq')) RETURNING *`
+      `INSERT INTO TB_TRS_USERS(
+        email, password, firstName, lastName, level, hasOriginationTarget, originationAmount, guaranteePipeline,
+        greenTransaction, amberTransaction, mandateLetter, creditCommiteeApproval, feeLetter, financialClose, record_entry, status, isadmin, 
+        activationCode, isOriginator, isTransactor, isTransactionLegalLead, userID
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, nextval('trms.user_id_seq') ) RETURNING *`
 
     const res_ = await client.query(write_to_db, user_data)              
     
@@ -95,7 +113,7 @@ router.post("/onboard", verifyTokenAndAdmin, async (req, res) => {
 
   } catch (e) {
     await client.query('ROLLBACK')
-    res.status(403).json({ Error: e.stack });
+    res.status(403).json({ Error: e.message });
 
   }finally{
     client.release()
@@ -112,21 +130,22 @@ router.put('/update/:user_email', verifyTokenAndAuthorization,async (req, res) =
   const client = await pool.connect();
   try {
       const user_rec = { firstName, lastName, level, hasOriginationTarget, originationAmount, guaranteePipeline, greenTransaction,
-    amberTransaction, mandateLetter, creditCommiteeApproval, feeLetter, isadmin, status} = req.body;
+    amberTransaction, mandateLetter, creditCommiteeApproval, feeLetter, isadmin, status, isOriginator, isTransactor, isTransactionLegalLead} = req.body;
 
   const user_data = [
                 user_rec.firstName, user_rec.lastName, user_rec.level, user_rec.hasOriginationTarget, user_rec.originationAmount,
                 user_rec.guaranteePipeline, user_rec.greenTransaction, user_rec.amberTransaction , user_rec.mandateLetter,
                 user_rec.creditCommiteeApproval, user_rec.feeLetter, 
-        funcFinancialClose(user_rec.mandateLetter, user_rec.creditCommiteeApproval, user_rec.feeLetter), user_rec.isadmin, req.params.user_email, user_rec.status,
+        funcFinancialClose(user_rec.mandateLetter, user_rec.creditCommiteeApproval, user_rec.feeLetter), user_rec.isadmin, req.params.user_email, user_rec.status,user_rec.isOriginator, user_rec.isTransactor, user_rec.isTransactionLegalLead
               ]
       
       await client.query('BEGIN')
       const update_db = 
       `UPDATE TB_TRS_USERS
-       SET  	firstName = $1, lastName = $2, level = $3, hasOriginationTarget = $4, originationAmount = $5, 
-      guaranteePipeline = $6, greenTransaction =$7, amberTransaction = $8,
-      mandateLetter = $9, creditCommiteeApproval = $10, feeLetter = $11, financialClose = $12, isadmin = $13, status = $15
+       SET  	firstName = coalesce($1,firstName), lastName = coalesce($2,lastName), level = coalesce($3,level), hasOriginationTarget = coalesce($4,hasOriginationTarget), originationAmount = coalesce($5, originationAmount),
+              guaranteePipeline = coalesce($6,guaranteePipeline), greenTransaction = coalesce($7,greenTransaction), amberTransaction = coalesce($8,amberTransaction),
+              mandateLetter = coalesce($9,mandateLetter), creditCommiteeApproval = coalesce($10,creditCommiteeApproval), feeLetter = coalesce($11,feeLetter), financialClose = coalesce($12,financialClose), isadmin = coalesce($13,isadmin), status = coalesce($15,status),
+              isOriginator = coalesce($16,isOriginator), isTransactor = coalesce($17,isTransactor), isTransactionLegalLead = coalesce($18,isTransactionLegalLead)
           WHERE email = $14
       RETURNING *`
       const res_ = await client.query(update_db, user_data)                   
@@ -147,7 +166,8 @@ router.put('/update/:user_email', verifyTokenAndAuthorization,async (req, res) =
           const update_db = 
           `UPDATE TB_TRS_USERS
           SET  
-          mandateLetter = $9, creditCommiteeApproval = $10, feeLetter = $11, financialClose = $12
+              mandateLetter = coalesce($9,mandateLetter), creditCommiteeApproval = coalesce($10,creditCommiteeApproval), 
+              feeLetter = coalesce($11,feeLetter), financialClose = coalesce($12,financialClose)
           RETURNING *`
           const res_ = await client.query(update_db, user_data)                   
           await client.query('COMMIT')
@@ -375,9 +395,6 @@ router.get('/origination_structuring_users/all', verifyTokenAndAdmin, async (req
                               UNION 
                               SELECT transactor 
                               FROM TB_INFRCR_TRANSACTION
-                              UNION 
-                              SELECT transactor 
-                              FROM TB_INFRCR_TRANSACTION 
                               )
           `);
             

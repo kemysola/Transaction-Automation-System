@@ -32,8 +32,8 @@ export const apiSlice = createApi({
      * 
      * 
      */
-    // baseUrl: "http://localhost:5001/api/v1",
-    baseURL: "https://trms01-server.azurewebsites.net/api/v1/",
+    baseUrl: "http://localhost:5001/api/v1",
+    // baseURL: "https://trms01-server.azurewebsites.net/api/v1/",
     //
     //
 
