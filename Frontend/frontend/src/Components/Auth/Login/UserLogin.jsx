@@ -81,7 +81,6 @@ const UserLogin = () => {
           if (localStorage.getItem("admin") === "true") {
             localStorage.setItem("isAuthenticated", "true");
             history.replace("/landing");
-            
           }
           if(localStorage.getItem("admin") !== "true"){
             history.push("/user");
