@@ -387,22 +387,47 @@ router.put('/fy/update/:fyId', verifyTokenAndAdmin, async (req, res) => {
             fy_rec.fy,fy_start_date, fy_end_date, fy_status, req.params.fyId
         ]
 
-        await client.query('BEGIN')
-        
-        const write_to_db = 
-        `UPDATE TB_INFRCR_FINANCIAL_YEAR 
-        SET fy = coalesce($1,fy) , fy_start_date = coalesce($2,fy_start_date), fy_end_date = coalesce($3,fy_end_date), fy_status = coalesce($4,fy_status)
-        WHERE ID = $5 RETURNING *`
-    
-        
-        const res_ = await client.query(write_to_db, fy_data)
+        if (fy_status === 'Active')
+        {
+            await client.query('BEGIN')
 
-        await client.query('COMMIT')
+                active_dataload = [fy_status, req.params.fyId]
+
+                const write_to_db = 
+                `UPDATE TB_INFRCR_FINANCIAL_YEAR 
+                SET fy_status = coalesce($1,fy_status)
+                WHERE ID = $2 
+                RETURNING *`
+
+                const res_ = await client.query(write_to_db, active_dataload)
+    
+                const write_to_db_ = 
+                `UPDATE TB_INFRCR_FINANCIAL_YEAR 
+                SET fy_status = 'Inactive'
+                WHERE ID != $1 RETURNING *`
+
+            const res__ = await client.query(write_to_db_, [req.params.fyId])
+    
+            await client.query('COMMIT')
+        }else{
+
+            await client.query('BEGIN')
+            
+            const write_to_db = 
+            `UPDATE TB_INFRCR_FINANCIAL_YEAR 
+            SET fy = coalesce($1,fy) , fy_start_date = coalesce($2,fy_start_date), fy_end_date = coalesce($3,fy_end_date), fy_status = coalesce($4,fy_status)
+            WHERE ID = $5 RETURNING *`
+        
+            
+            const res_ = await client.query(write_to_db, fy_data)
+    
+            await client.query('COMMIT')
+        }
 
         res.json({
             status: (res.statusCode = 200),
             message: "FY Record Updated Successfully",
-            fy: res_.rows[0],      
+            //fy: res_.rows[0],      
           });
 
     } catch (e) {

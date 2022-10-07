@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Service from "../../../../../Services/Service";
 import { Row, Col, Card, Stack, Container } from "react-bootstrap";
+import TitleContext from '../../../../../context/TitleContext';
+
+
 function GreenAndAnberCard() {
+  const { filteredStore, addFtYear} = useContext(TitleContext)
+
   const [guarPipeline, setGuarPipeline] = useState([]);
   const [actual, setActual] = useState([]);
   const [region, setRegion] = useState([]);
@@ -11,6 +16,7 @@ function GreenAndAnberCard() {
 
   const [currentForecast, setCurrentForecast] = useState([])
   const year = new Date().getFullYear();
+  const newStore = filteredStore
 
 
   useEffect(() => {
@@ -39,13 +45,13 @@ function GreenAndAnberCard() {
   }, []);
 
   useEffect(() => {
-    Service.getAllDeals()
+    Service.getAllDeals(newStore)
       .then((res) => {
         setActual(res.data.deals);
       })
       .catch((err) => {
       });
-  }, []);
+  }, [newStore]);
 
   // magement metrics for green and amber
   let greenAndAmbercurrentForecast = +currentForecast.newdeals

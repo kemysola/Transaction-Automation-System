@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Service from "../../../../../Services/Service";
 import { Row, Col, Card, Stack, Container } from "react-bootstrap";
+import TitleContext from '../../../../../context/TitleContext';
 
 
 function NewDeals() {
 
   // **************************************************** Store data in a useState hook *******************************
-
+  const { filteredStore, addFtYear} = useContext(TitleContext)
   const [currentForecast, setCurrentForecast] = useState([])
   const [nextForecast, setNextForecast] = useState("")
   const [closedDeal, setClosedDeal] = useState([]);
   const [actualGuarantee, setActualGuarantee] = useState("");
   const year = new Date().getFullYear();
 
+  const newStore = filteredStore
 
   // ****************************************** ComponentDidMouunt using useEffect hook *******************************
 
@@ -20,7 +22,7 @@ function NewDeals() {
     retrieveForecast();
 
     retrieveGuarantee();
-  }, []);
+  }, [newStore]);
 
 
 // ******************************************  Axios , get forecast, transactions  ****************************************
@@ -36,7 +38,7 @@ function NewDeals() {
   }
 
   const retrieveGuarantee = async () => {
-    await Service.getActualGuarantee()
+    await Service.getActualGuarantee(newStore)
       .then((response) => {
         setActualGuarantee(response.data.actualGuarantee[0].guaranteeactualvalue);
       })
@@ -47,14 +49,14 @@ function NewDeals() {
 
   
   useEffect(() => {
-    Service.getAllDeals()
+    Service.getAllDeals(newStore)
       .then((res) => {
         setClosedDeal(res.data.deals);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [newStore]);
 
 
   // ******************************************  Variance calculation ****************************************

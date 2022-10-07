@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useContext } from 'react';
 import Services from '../../Services/Service'
 import { useTable, useResizeColumns, useFlexLayout,  usePagination, useGlobalFilter, useAsyncDebounce, useFilters, useSortBy } from "react-table";
 import styled from 'styled-components';
+import TitleContext from '../../context/TitleContext';
+
 //Define a default UI for filtering
 
 
@@ -74,6 +76,7 @@ export const GlobalFilter =({
     }
   )
 export default function TransactionChart(props) { // ****************************  use state hook to store state, useRef and useHistory for routing ***************
+    const { filteredStore, addFtYear} = useContext(TitleContext)
 
     const [deals, setDeals] = useState([]);
     const dealsRef = useRef();
@@ -81,17 +84,18 @@ export default function TransactionChart(props) { // ***************************
   
     // ******************************************  useEffect hook *******************************************************
   
-  
+    const newStore = filteredStore
+
     useEffect(() => {
       retrieveDeals();
-    }, []); 
+    }, [newStore]); 
   
     
       // ******************************************  Axios :Get Request  ***********************************************
   
   
     const retrieveDeals = async() => {
-      await Services.getAllDeals()
+      await Services.getAllDeals(newStore)
         .then((response) => {
           setDeals(response.data.deals);
         })

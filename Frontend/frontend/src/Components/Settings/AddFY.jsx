@@ -98,6 +98,7 @@ export default function FYSettings () {
                     name="fy"
                     size='sm'
                     placeholder={`Example: FY${year}`}
+                    pattern="[FY]{2}\d{4}"
                     style={{ 
                       width: "100%", 
                       padding: "4px 2px", 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useContext } from 'react';
 import { Button, Row, Col} from 'react-bootstrap';
 import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters, useSortBy } from "react-table";
 import { FiEdit } from "react-icons/fi";
@@ -7,6 +7,7 @@ import { GrStatusDisabled } from "react-icons/gr"
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Service from "../../Services/Service";
+import TitleContext from '../../context/TitleContext';
 import * as XLSX from 'xlsx';
 
 
@@ -118,13 +119,15 @@ const PortfolioAllDealsTable = (props) => {
   const [deals, setDeals] = useState([]);
   const dealsRef = useRef();
   dealsRef.current = deals;
+  const { filteredStore, addFtYear} = useContext(TitleContext)
 
+  const newStore = filteredStore
   // ******************************************  useEffect hook *******************************************************
 
 
   useEffect(() => {
     retrieveDeals();
-  }, []); 
+  }, [newStore]); 
 
 
   
@@ -132,7 +135,7 @@ const PortfolioAllDealsTable = (props) => {
 
 
   const retrieveDeals = async() => {
-    await Service.getMyPipelineDeals()
+    await Service.getMyPipelineDeals(newStore)
       .then((response) => {
         setDeals(response.data.deals);
       })

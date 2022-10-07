@@ -1,22 +1,26 @@
-import React,{useEffect, useState} from 'react';
+import React,{useEffect, useState, useContext} from 'react';
 // import styled from 'styled-components';
 import { Container, Row, Col, Card ,Spinner} from 'react-bootstrap';
 import { FaCoins } from 'react-icons/fa';
 import Service from "../../Services/Service"
+import TitleContext from '../../context/TitleContext';
+
 
 
 export default function TransactionCards({ props, closedStatus, staffFilter, status }) {
     // ******************************************  use state hook to store state ****************************************
+    const { filteredStore, addFtYear} = useContext(TitleContext)
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [rawData, setRawData] = useState([]);
   const [staffData, setStaffData] = useState([]);
   // const [status, setStatus] = useState("");
+  const newStore = filteredStore
 
   useEffect(() => {
      retrieveDeals();
-  }, []);
+  }, [newStore]);
 
   useEffect(() => {
     if (closedStatus === "" && staffFilter === "All") {
@@ -33,7 +37,7 @@ export default function TransactionCards({ props, closedStatus, staffFilter, sta
       retrieveStaffDeals();
       filterStaffData(closedStatus);
     }
-  }, [closedStatus, staffFilter]); 
+  }, [closedStatus, staffFilter, newStore]); 
 
   // useEffect(() => {
   //   const timer = setTimeout(() => {
@@ -47,7 +51,7 @@ export default function TransactionCards({ props, closedStatus, staffFilter, sta
   // }, [status]);
 
   const retrieveDeals = () => {
-    Service.getPortfolioAllDeals()
+    Service.getPortfolioAllDeals(newStore)
       .then((response) => {
         setData(response.data.deals);
         setRawData(response.data.deals);
@@ -60,7 +64,7 @@ export default function TransactionCards({ props, closedStatus, staffFilter, sta
    // Get deals by staff email
    const retrieveStaffDeals = () => {
     setLoading(true);
-    Service.getMyDealsByEmail(staffFilter)
+    Service.getMyDealsByEmail(staffFilter, newStore)
       .then((res) => {
         setData(res.data.deals);
         setStaffData(res.data.deals);

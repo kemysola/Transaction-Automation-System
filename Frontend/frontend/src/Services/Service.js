@@ -1,4 +1,18 @@
 import axios from '../http-common';
+// import { ans_fy } from '../Components/LandingPage/SearchFY';
+
+// const FY = 2022
+// console.log("global", FY)
+// const FiY = (value) => {
+//     FY = value
+//     return FY 
+// }
+
+// var FY
+
+// useEffect(() => {
+//     var FY = 2022
+//   }, [FY]);
 
 const LoginStaff = data => {
     return axios.post("app/login", data)
@@ -51,44 +65,45 @@ const deleteFeatures = (id, data) => { // delete daniel's features from the db
     return axios.delete(`transaction/delete/${id}`, {data: data});
 }
 
-const getDealById = async (id) => { // get deal by id, for privileged users 
-    return await axios.get(`transaction/item/${id}`);
+const getDealById = async (id, year) => { // get deal by id, for privileged users 
+    return await axios.get(`transaction/item/${id}/${year}`);
 };
 
-const getMyDeals = async() => { // get current users deals
-    return await axios.get("transaction/my_deals");
+const getMyDeals = async(year) => { // get current users deals
+    return await axios.get(`transaction/my_deals/${year}`);
 };
 
-const getMyPipelineDeals = async() => {
-    return await axios.get("transaction/pipeline")
+const getMyPipelineDeals = async(year) => {
+    return await axios.get(`transaction/pipeline/${year}`)
 };
 
-const getMyPortfolioDeals = async() => {
-    return await axios.get("transaction/portfolio")
+const getMyPortfolioDeals = async(year) => {
+    return await axios.get(`transaction/portfolio/${year}`)
 }
 
-const getMyDealsByEmail = async(user_email) => { // get current users deals
-    return  await axios.get(`transaction/get_staff_deals/${user_email}`);
+const getMyDealsByEmail = async(user_email,year) => { // get current users deals
+    return  await axios.get(`transaction/get_staff_deals/${user_email}/${year}`);
     
 };
-const downloadMyDealsByEmail = async(user_email) => { // get current users deals
-    return  await axios.get(`transaction/download_staff_deals/${user_email}`);
+const downloadMyDealsByEmail = async(user_email, year) => { // get current users deals
+    return  await axios.get(`transaction/download_staff_deals/${user_email}/${year}`);
     
 };
-const getAllDeals = async() => { // get all deals, for privileged users only
-    return await  axios.get("transaction/all_deals");
+const getAllDeals = async(year) => { // get all deals, for privileged users only
+    return await  axios.get(`transaction/all_deals/${year}`);
 };
 
-const getPortfolioAllDeals = async() => { // get all deals, for privileged users only
-    return await  axios.get("transaction/all_deals/portfolio");
+const getPortfolioAllDeals = async(year) => { // get all deals, for privileged users only
+    
+    return await  axios.get(`transaction/all_deals/portfolio/${year}`);
 };
 
 const downloadAllDeals = async() => { // get all deals, for privileged users only
     return await  axios.get("transaction/download_all_deals");
 };
 
-const getActualGuarantee = () => { // Actual Guarantee: for only closed deals within the current FY
-    return axios.get("transaction/guarantee/actual")
+const getActualGuarantee = (year) => { // Actual Guarantee: for only closed deals within the current FY
+    return axios.get(`transaction/guarantee/actual/${year}`)
 }
 
 const getAllStaff = async() => { // get all staff, for privileged users only
@@ -198,6 +213,7 @@ const updateFY = (id, data) => { // update new financial year, for privileged us
 
 
 const Services = {
+    // FiY,
     LoginStaff,
     registerStaff,
     updateStaff,
@@ -247,4 +263,17 @@ const Services = {
     updateFY,
     getCCReport
 }
+
+// export const useAppContext = () => useContext(AppContext);
+
 export default Services
+
+
+
+// const Fin_year = () => {
+//   return (
+//     <div>Service</div>
+//   )
+// }
+
+// export default Fin_year

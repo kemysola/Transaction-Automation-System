@@ -19,15 +19,17 @@ export default function UpdateForecast (props) {
   const [saved, setSaved] = useState(false);
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
+  const [swt2, setSwt2] = useState("");
+
   
   useEffect(() => {
     retrieveFY();
-  }, [startDate, endDate]);
+  }, [startDate, endDate, swt2]);
 
-  function editFY(id, fy, startDate, endDate) {
+  function editFY(id, fy, startDate, endDate, swt2) {
     setStartDate(startDate)
     setEndDate(endDate)
-
+    setSwt2(swt2)
     // const editedFYList = fy.map(item => {
     // // if this set of values have the same finiacial year as the currently edited FY values
     //   if (fy === fy.fy) {
@@ -42,7 +44,7 @@ export default function UpdateForecast (props) {
       fy: fy,
       fy_start_date: startDate,
       fy_end_date: endDate,
-      fy_status: "Inactive"
+      fy_status: swt2
     };
 
     Services.updateFY (id, data)
@@ -65,6 +67,8 @@ export default function UpdateForecast (props) {
       });
   };
 
+  // console.log("I am from UpdateFY", swt2)
+
   const fyList = fy.map(item => (
     <FY 
       id={item.id}
@@ -73,6 +77,7 @@ export default function UpdateForecast (props) {
       fy_end_date={item.fy_end_date}
       key={item.id}
       editFY={editFY}
+      status={item.fy_status}
     />
   ));
 

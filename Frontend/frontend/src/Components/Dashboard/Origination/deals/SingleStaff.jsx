@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect ,useMemo} from 'react';
+import React, { useRef, useState, useEffect, useContext, useMemo} from 'react';
 import { Form, Container, Row, Col, Alert } from 'react-bootstrap';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
@@ -7,6 +7,8 @@ import Service from "../../../../Services/Service"
 import { useLocation, Redirect } from "react-router-dom";
 import { useTable, useResizeColumns, useFlexLayout, useRowSelect, usePagination, useGlobalFilter, useAsyncDebounce, useFilters, useSortBy } from 'react-table'
 import { FiEdit } from 'react-icons/fi';
+import TitleContext from '../../../../context/TitleContext';
+
 import * as XLSX from 'xlsx';
 
 
@@ -49,14 +51,17 @@ const ContainerWrapper = styled.div`
 
 
 function SingleStaff() {
+    const { filteredStore, addFtYear} = useContext(TitleContext)
     const [staff, setStaff] = useState([]);
     const [status, setStatus] = useState(false);
     const history = useHistory();
     const [downloadstaff, setDownloadStaff] = useState([])
 
+    const newStore = filteredStore
+
     useEffect(() => {
         retrieveStaff();
-      }, []);
+      }, [newStore]);
 
       let user_email = window.location.search.split("?")[1]
       const report_email = window.location.search.split("?")[1];
@@ -65,7 +70,7 @@ function SingleStaff() {
 
       const retrieveStaff = async () => {
           Service.getMyDealsByEmail(
-              user_email
+              user_email, newStore
 
           ).then((res) =>{
 
@@ -80,7 +85,7 @@ function SingleStaff() {
       }, [])
       
       const downloadSingleStaff = async() => {
-        Service.downloadMyDealsByEmail(user_email).
+        Service.downloadMyDealsByEmail(user_email, newStore).
         then((res) => {
    
           setDownloadStaff(res.data.deals)
