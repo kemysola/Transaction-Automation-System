@@ -1,8 +1,5 @@
 import React, { useState, useContext, useMemo} from 'react'
 import { useEffect } from 'react';
-import Service from '../../Services/Service';
-import SearchDate from './SearchDate';
-import SubCards from './SubCards';
 import TitleContext from '../../context/TitleContext';
 import Services from '../../Services/Service';
 import Alert from 'react-bootstrap/Alert';
