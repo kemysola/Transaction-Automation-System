@@ -46,7 +46,6 @@ const Plis = ((props) => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    // console.log(props.id, props.transid, plisParticulars, plisConcern, plisWeighting, plisExpected, plisStatus);
 
 
     props.editPlis(props.id, props.transid, plisParticulars, plisConcern, plisWeighting, plisExpected, plisStatus);

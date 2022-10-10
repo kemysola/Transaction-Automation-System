@@ -47,9 +47,6 @@ const Ocps = ((props) => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    console.log(props.id, props.transid, ocpsFactors, ocpsYesNo, ocpsConcern, ocpsExpected, ocpsRespParty, ocpsStatus);
-
-
     props.editOcps(props.id, props.transid, ocpsFactors, ocpsYesNo, ocpsConcern, ocpsExpected, ocpsRespParty, ocpsStatus);
     setocpsFactors(null);
     setocpsYesNo(null);
