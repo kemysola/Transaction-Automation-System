@@ -40,19 +40,6 @@ const FY = ((props) => {
     }
   }, [wasEditing, isEditing]);
 
-  // useEffect(() => {
-  //   // retrieveFY()
-  // }, [swt2])
-
-  // const retrieveFY = () => {
-  //   Services.getFY("''")
-  //   .then((response) => {
-  //       setFY(response.data.financial_years);
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-  // };
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -71,8 +58,6 @@ const FY = ((props) => {
       setSwt2('Active')
     }
   };
-
-  console.log("I am from FYMode", swt2)
 
 
   return (
