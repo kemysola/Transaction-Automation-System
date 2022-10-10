@@ -46,7 +46,6 @@ export function decryptData(data) {
     const iv = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     const key = aesjs.utils.utf8.toBytes('6B58703273357638792F423F4528472B');
 
-    // console.log({ data: atob(data), replaced: base64ToHex(data) });
     const encryptedBytes = aesjs.utils.hex.toBytes(base64ToHex(data));
 
     const aesCbc = new aesjs.ModeOfOperation.cbc(key, iv);

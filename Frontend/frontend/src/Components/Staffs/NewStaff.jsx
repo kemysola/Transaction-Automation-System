@@ -317,7 +317,7 @@ export default function NewStaff() {
                                                 
                                                     <Col sm={4}  className='mt-3 pt-2'>
                                                         <Form.Check inline label="Yes" type="radio" name='target' value={true} onChange={handleRadioChange} />
-                                                        <Form.Check inline label="No" type="radio" name='target' value={false} onChange={handleRadioChange}/>
+                                                        <Form.Check inline label="No" type="radio" name='target' value={false} onChange={handleRadioChange} />
                                                     </Col>
                                                 </Row>
                                             </Form.Group>

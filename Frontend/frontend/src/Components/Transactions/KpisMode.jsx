@@ -46,9 +46,6 @@ const Kpis = ((props) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    console.log(props.id, props.transid, kpiFactors, kpiYesNo, kpiConcern, kpiExpected, kpiRespParty, kpiStatus);
-
     props.editKpis(props.id, props.transid, kpiFactors, kpiYesNo, kpiConcern, kpiExpected, kpiRespParty, kpiStatus);
     setkpiFactors(null);
     setkpiYesNo(null);
