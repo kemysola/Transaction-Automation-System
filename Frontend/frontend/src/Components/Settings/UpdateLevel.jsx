@@ -42,7 +42,6 @@ export default function UpdateLevel (props) {
 
     Services.updateLevel(id, data)
       .then((res) => {
-        console.log("level updated")
         setSaved(true)
       })
       .catch(() => {

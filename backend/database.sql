@@ -844,3 +844,34 @@ $TB_INFRCR_OANDS_QUARTERLY_AUDIT$ LANGUAGE plpgsql;
 CREATE TRIGGER TR_INFRCR_QUARTERLY_OANDS_AUDIT
 AFTER INSERT OR UPDATE OR DELETE ON TB_INFRCR_OANDS_QUARTERLY
     FOR EACH ROW EXECUTE FUNCTION FUNC_INFRCR_OANDS_QUARTERLY_AUDIT();
+
+    --for Production
+    ALTER TABLE TB_TRS_USERS
+ADD COLUMN isOriginator BOOLEAN DEFAULT FALSE,
+ADD COLUMN isTransactor BOOLEAN DEFAULT FALSE,
+ADD COLUMN isTransactionLegalLead BOOLEAN DEFAULT FALSE;
+
+ALTER TABLE TB_TRS_USERS_AUDIT
+ADD COLUMN isOriginator BOOLEAN,
+ADD COLUMN isTransactor BOOLEAN,
+ADD COLUMN isTransactionLegalLead BOOLEAN;
+
+--remove from originator === Bolaji, Oluwatoyin, it services
+UPDATE TB_TRS_USERS
+SET isOriginator = TRUE
+WHERE email not in (
+'bfasehun','onathaniel@infracredit.ng','itservices@infracredit.ng'
+);
+--remove from transactor === Lola, Chidi, Bolaji, Oluwatoyin ,IT services
+UPDATE TB_TRS_USERS
+SET isTransactor = TRUE
+WHERE email not in (
+'bfasehun','onathaniel@infracredit.ng','itservices@infracredit.ng','loyebola@infracredit.ng','cmike-eneh@infracredit.ng'
+)
+--
+UPDATE TB_TRS_USERS
+SET isTransactionLegalLead = TRUE
+WHERE email in (
+'siguh@infracredit.ng'
+);
+--add Damilola to originator, and TLD (Can't find Damilola in DB)

@@ -56,9 +56,7 @@ export default function GuaranteePortGrowthVsTar() {
     setNbcInfo(list);
   };
 
-  const addNewnbcInfo = () => {
-    console.log("hello");
-  };
+  
 
   const [currentGt, setCurrentGt] = useState(
     "InfraCredit’s projected guarantee portfolio growth (indicative) is based on the assumption that initial operations were expected to commence at a conservative level, with the Company able to underwrite an initial transaction with NGN10 Billion face value, then progressively ramp up scale to over NGN500 Billion over a 5-year period. Throughout the past 3 years, management built a sizeable pipeline of mandated transactions, providing a base to achieve future growth targets."

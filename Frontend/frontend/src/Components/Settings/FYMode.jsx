@@ -23,7 +23,6 @@ const FY = ((props) => {
   const start = new Date(props.fy_start_date)
   const end = new Date(props.fy_end_date)
   const fyStatus = props.status
-  // console.log("start:", start, "end:", end)
 
   const editFieldRef = useRef(null);
   const editButtonRef = useRef(null);
@@ -47,7 +46,6 @@ const FY = ((props) => {
     props.editFY(props.id, props.fy, startDate, endDate, swt2);
     setStartDate();
     setEndDate();
-    // setSwt2();
     setEditing(false);
   }
 
@@ -58,7 +56,6 @@ const FY = ((props) => {
       setSwt2('Active')
     }
   };
-
 
   return (
     <>
@@ -113,18 +110,6 @@ const FY = ((props) => {
                     onChange={onChangeSwt}
                     label={swt2}
                   />
-                  {/* <Fm.Check custom type="switch" id="switchEnabled">
-                    <Fm.Check.Input isInvalid checked={swt2} />
-                    <Fm.Check.Label onClick={() => setSwt2(!swt2)}>
-                      {`Value is ${swt2}`}
-                    </Fm.Check.Label>
-                  </Fm.Check> */}
-                      {/* <FormCheck custom type="switch">
-        <FormCheck.Input isInvalid checked={swt2} />
-        <FormCheck.Label onClick={() => setSwt2(!swt2)}>
-          {`Value is ${swt2}`}
-        </FormCheck.Label>
-      </FormCheck> */}
                 </Col>
 
                 <Col sm={1} md={1} lg={1}>

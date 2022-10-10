@@ -41,7 +41,6 @@ export default function UpdateProduct (props) {
 
     Services.updateProduct(id, data)
       .then((res) => {
-        console.log("product updated")
         setSaved(true)
       })
       .catch(() => {

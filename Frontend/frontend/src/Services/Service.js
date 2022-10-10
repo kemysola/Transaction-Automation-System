@@ -1,18 +1,4 @@
 import axios from '../http-common';
-// import { ans_fy } from '../Components/LandingPage/SearchFY';
-
-// const FY = 2022
-// console.log("global", FY)
-// const FiY = (value) => {
-//     FY = value
-//     return FY 
-// }
-
-// var FY
-
-// useEffect(() => {
-//     var FY = 2022
-//   }, [FY]);
 
 const LoginStaff = data => {
     return axios.post("app/login", data)
@@ -264,16 +250,8 @@ const Services = {
     getCCReport
 }
 
-// export const useAppContext = () => useContext(AppContext);
 
 export default Services
 
 
 
-// const Fin_year = () => {
-//   return (
-//     <div>Service</div>
-//   )
-// }
-
-// export default Fin_year
