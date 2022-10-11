@@ -35,6 +35,7 @@ import NewTransactionPage from "./Pages/Transactions/NewTransactionPage";
 import CCReportView from "./Components/Report/CCSubmissionReport/CCReportView";
 import ComponentView from "./Components/Report/Reimbursible/ComponentView";
 import ClosedDeals from "./Components/Report/closedDeals/pages/ClosedDeals";
+import ClosedDealByFilter from "./Components/Report/closedDeals/pages/ClosedDealByFilter";
 export default function App() {
   let location = useLocation()
   const parseJwt = (token) => {
@@ -104,6 +105,8 @@ export default function App() {
         <ProtectedRoute path="/closed_deals/inception_financial_year" component={ClosedDeals}/>
         <ProtectedRoute exact path="/settings" component={Settings} />
         <ProtectedRoute exact path="/cc_report" component={CCReportView} />
+        <ProtectedRoute exact path="/closed_deals/filter" component={ClosedDealByFilter}/>
+
         
         <Route path="/resetyourpassword">
           <Reset />

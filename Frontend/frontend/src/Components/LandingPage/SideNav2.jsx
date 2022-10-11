@@ -62,7 +62,7 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
 
           <SidebarContent>
             <Menu iconShape="round">
-              <SubMenu title="Transactions" icon={<BsWallet2 />}>
+              <SubMenu title="Projects" icon={<BsWallet2 />}>
                 <MenuItem className="subMenu">
                   <Link to="/transaction" style={{ color: "#237cbf" }}>
                     Portfolio
@@ -154,7 +154,16 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                     to="/closed_deals/inception_financial_year"
                     style={{ color: "#237cbf" }}
                   >
-                    Closed Deals Report
+                    Closed Deals From Inception Report
+                  </Link>
+                </MenuItem>
+                <MenuItem className="subMenu">
+                  <Link
+          
+                    to="/closed_deals/filter"
+                    style={{ color: "#237cbf" }}
+                  >
+                    Closed Deals Filter Report
                   </Link>
                 </MenuItem>
                 <MenuItem className="subMenu">

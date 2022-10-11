@@ -277,7 +277,7 @@ router.get('/closed_deals/:financial_year',verifyTokenAndAuthorization, async (r
   })
 
 // Closed Deal from Inception Report
-router.get('/closed_deals/all',verifyTokenAndAuthorization, async (req, res) => {
+router.get('/all/closed_deals',verifyTokenAndAuthorization, async (req, res) => {
     const client = await pool.connect();
 
      try {
