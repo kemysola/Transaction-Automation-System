@@ -14,7 +14,7 @@ import * as XLSX from "xlsx";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import { Divider } from "@mui/material";
-import TitleContext from '../../../context/TitleContext';
+import TitleContext from "../../../context/TitleContext";
 
 const ContainerWrapper = styled.div`
   font-size: 11px;
@@ -111,7 +111,7 @@ const DealsTable = ({ props, dealFilter, staffFilter }) => {
   };
 
   // const { filteredStore, addFtYear} = useContext(TitleContext)
-  const { filteredStore, addFtYear} = useContext(TitleContext)
+  const { filteredStore, addFtYear } = useContext(TitleContext);
   const [date, setDate] = useState(initialDateState);
   const [deals, setDeals] = useState([]);
   const [rawData, setRawData] = useState([]);
@@ -122,7 +122,7 @@ const DealsTable = ({ props, dealFilter, staffFilter }) => {
   const form = useRef();
   dealsRef.current = deals;
 
-  const newStore = filteredStore
+  const newStore = filteredStore;
   useEffect(() => {
     if (dealFilter === "All" && staffFilter === "All") {
       retrieveDeals();
@@ -204,7 +204,6 @@ const DealsTable = ({ props, dealFilter, staffFilter }) => {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setDate({ ...date, [name]: value });
-    console.log(event.target.value);
   };
 
   const saveDate = (e) => {
@@ -474,7 +473,6 @@ const DealsTable = ({ props, dealFilter, staffFilter }) => {
             </Form>
           </Container>
           <Divider></Divider>
-
 
           <TableWrapper>
             <div className="table-responsive mt-2 pt-2">

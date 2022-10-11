@@ -1,5 +1,6 @@
-import React, { useState, useContext, useMemo} from 'react'
+import React, { useState, useContext} from 'react'
 import { useEffect } from 'react';
+import Service from '../../Services/Service';
 import TitleContext from '../../context/TitleContext';
 import Services from '../../Services/Service';
 import Alert from 'react-bootstrap/Alert';
@@ -7,21 +8,30 @@ import Alert from 'react-bootstrap/Alert';
 // using custom hook: this gets the active FY before the component renders
 function useLocalStorage(key) {
   const [state, setState] = useState(localStorage.getItem(key));
-
   useEffect(() => {
     retrieveFY();
-  }, []);
-
-  const retrieveFY = (item) => {
-    Services.getFY("''")
+  }, [state]);
+  
+ 
+  const retrieveFY = async (item) => {
+    await Services.getFY("''")
     .then((response) => {
-        response.data.financial_years.map(fy => {
-          if(fy.fy_status == 'Active') {
+        // response?.data?.financial_years.map(fy => {
+        //   if(fy.fy_status === 'Active') {
+        //     item = fy.fy
+        //     localStorage.setItem(key, JSON.stringify(item))
+        //     setState(item)
+        //   }
+        // fy?.fy_status === 'Active' ? item = fy.fy : null
+        // })
+        response?.data?.financial_years.filter((fy) => {
+          if(fy.fy_status === 'Active'){
             item = fy.fy
-            localStorage.setItem(key, JSON.stringify(item))
             setState(item)
+            localStorage.setItem(key, JSON.stringify(item))
           }
         })
+
       })
       .catch((e) => {
         console.log(e);
@@ -29,7 +39,6 @@ function useLocalStorage(key) {
   };
   return [state, retrieveFY];
 }
-
 
 const SearchFY = (props) => {
     const { filteredStore, addFtYear} = useContext(TitleContext) 
@@ -51,10 +60,10 @@ const SearchFY = (props) => {
 
  
 
-      const retrieveFY = () => {
-        Services.getFY("''")
+      const retrieveFY = async() => {
+        await Services.getFY("''")
         .then((response) => {
-            setFY(response.data.financial_years);
+            setFY(response?.data?.financial_years);
           })
           .catch((e) => {
             console.log(e);
@@ -65,22 +74,20 @@ const SearchFY = (props) => {
         setShow(true)
       }
 
-      if(value != item && show){
+      if(value !== item && show){
           return  <Alert variant="danger" onClose={() => setShow(false)} dismissible>You are accessing FY {value} </Alert>
       }
-
-    
-
   return (
     <div>
         <label style ={{ marginRight: "1em", fontWeight: "bold", color: '#198754' }}> Current Financial Year </label>
         <select style ={{ fontWeight: "bold", color: '#1184C2' }} value={value} onChange={handleChange}>
             {fy.map((fy) => (
-            <option key={fy.fy} value={fy.fy}>
+            <option key={fy.id} value={fy.fy}>
                 {fy.fy}
             </option>
             ))}
         </select>
+
     </div>
   )
 }

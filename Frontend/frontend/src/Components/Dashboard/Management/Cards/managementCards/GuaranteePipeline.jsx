@@ -35,7 +35,6 @@ function GuaranteePipeline() {
     await Service.getForecast()
       .then((response) => {
         setCurrentForecast(response.data.forecast[0]);
-        // setNextForecast(response.data.forecast[1])
         setNextForecast(response.data.forecast[0])
       })
       .catch((e) => {

@@ -64,8 +64,12 @@ export const apiSlice = createApi({
       query: (financial_year) => `report/closed_deals/${financial_year}`,
       providesTags: ["Report"],
     }),
+    // getCurrentFy: builder.query({
+    //   query: (fin_year) => `report/closed_deals/${fin_year}`,
+    //   providesTags: ["Report"],
+    // }),
     getAllClosedDeals: builder.query({
-      query: (financial_year) => `report/closed_deals/all`,
+      query: () => `report/all/closed_deals`,
       providesTags: ["Report"],
     }),
     getTopNReimbursible: builder.query({
