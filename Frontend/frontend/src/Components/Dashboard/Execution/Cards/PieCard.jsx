@@ -100,7 +100,6 @@ export default function PieCard ({dealFilter, staffFilter}) {
     const [region, setRegion] = useState([])
   
     // ................................... Use Effect Hook .................................
-    const newStore = filteredStore
 
     useEffect(() => {
       if (dealFilter === "All" && staffFilter === "All") {
@@ -118,13 +117,13 @@ export default function PieCard ({dealFilter, staffFilter}) {
         setLoading(true)
         filterStaffData(dealFilter)
       }
-    }, [dealFilter, staffFilter, newStore]);
+    }, [dealFilter, staffFilter, filteredStore]);
   
     // .................................... Axios Endpoint ..............................
     // Get All Deals
-    const retrieveDeals = () => {
+    const retrieveDeals = async() => {
       setLoading(true)
-      Service.getAllDeals(newStore)
+      await Service.getAllDeals(filteredStore)
         .then((response) => {
           setData(response.data.deals);
           setRawData(response.data.deals);
@@ -138,7 +137,7 @@ export default function PieCard ({dealFilter, staffFilter}) {
     // Get deals by staff email
     const retrieveStaffDeals = () => {
       setLoading(true)
-      Service.getMyDealsByEmail(staffFilter, newStore)
+      Service.getMyDealsByEmail(staffFilter, filteredStore)
         .then((res) =>{
           setData(res.data.deals)
           setStaffData(res.data.deals)
@@ -169,7 +168,6 @@ export default function PieCard ({dealFilter, staffFilter}) {
           setLoading(false)
         return filteredData
     }
-  
     // ............................ Region Data ................................................
 
     var south = data.reduce(function (filtered, arr) {

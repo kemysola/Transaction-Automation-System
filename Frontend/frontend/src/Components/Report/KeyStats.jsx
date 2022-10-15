@@ -14,19 +14,13 @@ import {
 } from "../../Services/apiSlice";
 
 export default function KeyStats() {
-
   const { data, isLoading, error, isError, isSuccess } = useGetReportQuery();
   const [addReport] = useAddReportMutation();
-
   const handleKeyStatsTitle = (current) => {
     addkeyStats(current);
   };
-
   const {addkeyStats,keyTitleStore } = useContext(TitleContext);
-
   useEffect(() => {}, [data]);
-
-
   const [nbcInfo, setNbcInfo] = useState([
     {
       summaryOfActivity: "",

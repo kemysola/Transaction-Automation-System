@@ -13,9 +13,6 @@ function GreenDealCard() {
 
   const [currentForecast, setCurrentForecast] = useState([])
   const year = new Date().getFullYear();
-
-  const newStore = filteredStore
-
   useEffect(() => {
     retrieveForecast();
   }, []);
@@ -31,8 +28,8 @@ function GreenDealCard() {
       });
   }
 
-  useEffect(() => {
-    Service.getAllStaff()
+  useEffect(async () => {
+    await Service.getAllStaff()
       .then((res) => {
         
         setData(res.data.staff);
@@ -42,8 +39,8 @@ function GreenDealCard() {
       });
   }, []);
 
-  useEffect(() => {
-    Service.getAllDeals(newStore)
+  useEffect(async () => {
+    await Service.getAllDeals(filteredStore)
       .then((res) => {
         
         setActual(res.data.deals);
@@ -51,10 +48,10 @@ function GreenDealCard() {
       .catch((err) => {
        
       });
-  }, [newStore]);
+  }, [filteredStore]);
 
-  useEffect(() => {
-    Service.getIndustry()
+  useEffect(async () => {
+    await Service.getIndustry()
       .then((res) => {
         setIndustry(res.data.industry.length);
       })
@@ -63,8 +60,8 @@ function GreenDealCard() {
       });
   }, []);
 
-  useEffect(() => {
-    Service.getProduct()
+  useEffect(async () => {
+    await Service.getProduct()
       .then((res) => {
         
         setProduct(res.data.product.length);
@@ -73,10 +70,9 @@ function GreenDealCard() {
        
       });
   }, []);
-  useEffect(() => {
-    Service.getRegion()
+  useEffect(async () => {
+    await Service.getRegion()
       .then((res) => {
-       
         setRegion(res.data.region.length);
       })
       .catch((err) => {

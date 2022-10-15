@@ -13,16 +13,13 @@ function NewDeals() {
   const [closedDeal, setClosedDeal] = useState([]);
   const [actualGuarantee, setActualGuarantee] = useState("");
   const year = new Date().getFullYear();
-
-  const newStore = filteredStore
-
   // ****************************************** ComponentDidMouunt using useEffect hook *******************************
 
   useEffect(() => {
     retrieveForecast();
 
     retrieveGuarantee();
-  }, [newStore]);
+  }, [filteredStore]);
 
 
 // ******************************************  Axios , get forecast, transactions  ****************************************
@@ -38,7 +35,7 @@ function NewDeals() {
   }
 
   const retrieveGuarantee = async () => {
-    await Service.getActualGuarantee(newStore)
+    await Service.getActualGuarantee(filteredStore)
       .then((response) => {
         setActualGuarantee(response.data.actualGuarantee[0].guaranteeactualvalue);
       })
@@ -48,15 +45,15 @@ function NewDeals() {
   }
 
   
-  useEffect(() => {
-    Service.getAllDeals(newStore)
+  useEffect(async () => {
+    await Service.getAllDeals(filteredStore)
       .then((res) => {
         setClosedDeal(res.data.deals);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [newStore]);
+  }, [filteredStore]);
 
 
   // ******************************************  Variance calculation ****************************************

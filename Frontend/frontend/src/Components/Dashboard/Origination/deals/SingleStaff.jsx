@@ -56,12 +56,9 @@ function SingleStaff() {
     const [status, setStatus] = useState(false);
     const history = useHistory();
     const [downloadstaff, setDownloadStaff] = useState([])
-
-    const newStore = filteredStore
-
     useEffect(() => {
         retrieveStaff();
-      }, [newStore]);
+      }, [filteredStore]);
 
       let user_email = window.location.search.split("?")[1]
       const report_email = window.location.search.split("?")[1];
@@ -69,9 +66,8 @@ function SingleStaff() {
       const nameCase = name.toUpperCase()
 
       const retrieveStaff = async () => {
-          Service.getMyDealsByEmail(
-              user_email, newStore
-
+          await Service.getMyDealsByEmail(
+              user_email, filteredStore
           ).then((res) =>{
 
               setStaff(res.data.deals)
@@ -85,7 +81,7 @@ function SingleStaff() {
       }, [])
       
       const downloadSingleStaff = async() => {
-        Service.downloadMyDealsByEmail(user_email, newStore).
+        await Service.downloadMyDealsByEmail(user_email, filteredStore).
         then((res) => {
    
           setDownloadStaff(res.data.deals)

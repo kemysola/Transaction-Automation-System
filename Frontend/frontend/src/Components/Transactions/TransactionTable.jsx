@@ -119,14 +119,12 @@ const DealsTable = (props) => {
   const dealsRef = useRef();
   dealsRef.current = deals;
 
-  const newStore = filteredStore
-
   useEffect(() => {
     retrieveDeals();
-  }, [newStore]); 
+  }, [filteredStore]); 
 
   const retrieveDeals = async () => {
-    await Service.getMyPortfolioDeals(newStore)
+    await Service.getMyPortfolioDeals(filteredStore)
       .then((response) => {
         setDeals(response.data.deals);
       })

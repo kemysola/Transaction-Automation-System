@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Container, Nav, Form } from "react-bootstrap";
 import { FaBars } from "react-icons/fa";
 import InfraCredit from "../../Images/InfraCredit.svg";
+
 import { Link } from "react-router-dom";
 import MenuOption from "./MenuOption";
 import { GlobalFilter } from "../Transactions/TransactionTable";
@@ -18,6 +19,7 @@ const NavbarNav = styled.div`
 `;
 
 const Navbar = ({ handleToggleSidebar, props }) => {
+
   return (
     <React.Fragment>
       <NavbarNav>
@@ -37,6 +39,11 @@ const Navbar = ({ handleToggleSidebar, props }) => {
           </div>
           <div>
             <MenuOption />
+          </div>
+          <div>
+          
+
+
           </div>
         </div>
       </NavbarNav>

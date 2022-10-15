@@ -120,22 +120,14 @@ const PortfolioAllDealsTable = (props) => {
   const dealsRef = useRef();
   dealsRef.current = deals;
   const { filteredStore, addFtYear} = useContext(TitleContext)
-
-  const newStore = filteredStore
   // ******************************************  useEffect hook *******************************************************
-
-
   useEffect(() => {
     retrieveDeals();
-  }, [newStore]); 
+  }, [filteredStore]); 
 
-
-  
     // ******************************************  Axios :Get Request  ***********************************************
-
-
   const retrieveDeals = async() => {
-    await Service.getMyPipelineDeals(newStore)
+    await Service.getMyPipelineDeals(filteredStore)
       .then((response) => {
         setDeals(response.data.deals);
       })

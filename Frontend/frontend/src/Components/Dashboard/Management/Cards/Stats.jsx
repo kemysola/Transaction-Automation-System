@@ -101,15 +101,14 @@ export default function Stats() {
   const [region, setRegion] = useState([])
 
   // ................................... Use Effect Hook .................................
-  const newStore = filteredStore
 
   useEffect(() => {
     retrieveDeals();
-  }, [newStore]);
+  }, [filteredStore]);
 
   // .................................... Axios Endpoint ..............................
   const retrieveDeals = async() => {
-    await Service.getAllDeals(newStore)
+    await Service.getAllDeals(filteredStore)
       .then((response) => {
         setData(response.data.deals);
       })

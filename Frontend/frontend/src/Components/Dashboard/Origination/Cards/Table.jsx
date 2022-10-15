@@ -100,9 +100,6 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
   const [loading, setLoading] = useState(true);
   const dealsRef = useRef();
   dealsRef.current = deals;
-
-  const newStore = filteredStore
-
   useEffect(() => {
     if (dealFilter === "All" && staffFilter === "All") {
       retrieveDeals();
@@ -119,7 +116,7 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
       setLoading(true)
       filterStaffData(dealFilter)
     }
-  }, [dealFilter, staffFilter, newStore]);
+  }, [dealFilter, staffFilter, filteredStore]);
 
   // Filter Data by Deal Category
   const filterData = (dealFilter) => {    
@@ -146,9 +143,9 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
   }
 
   // Get All Deals
-  const retrieveDeals = () => {
+  const retrieveDeals = async() => {
     setLoading(true) 
-    Service.getAllDeals(newStore)
+    await Service.getAllDeals(filteredStore)
       .then((response) => {
         setDeals(response.data.deals);
         setRawData(response.data.deals);
@@ -160,9 +157,9 @@ const DealsTable = ({props, dealFilter, staffFilter}) => {
   }; 
 
   // Get deals by staff email
-  const retrieveStaffDeals = () => {
+  const retrieveStaffDeals = async() => {
     setLoading(true)
-    Service.getMyDealsByEmail(staffFilter, newStore)
+    await Service.getMyDealsByEmail(staffFilter, filteredStore)
       .then((res) =>{
         setDeals(res.data.deals)
         setStaffData(res.data.deals)

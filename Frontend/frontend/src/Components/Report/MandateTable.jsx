@@ -83,19 +83,16 @@ export default function TransactionChart(props) { // ***************************
     dealsRef.current = deals;
   
     // ******************************************  useEffect hook *******************************************************
-    const newStore = filteredStore
-
-  
     useEffect(() => {
       retrieveDeals();
-    }, [newStore]); 
+    }, [filteredStore]); 
   
     
       // ******************************************  Axios :Get Request  ***********************************************
   
   
     const retrieveDeals = async() => {
-      await Services.getAllDeals(newStore)
+      await Services.getAllDeals(filteredStore)
         .then((response) => {
           setDeals(response.data.deals);
         })
@@ -104,9 +101,6 @@ export default function TransactionChart(props) { // ***************************
         });
     };
   
-    
-  
-   
   // transaction table
   const columns = useMemo(
     () => [
