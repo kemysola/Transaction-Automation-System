@@ -68,10 +68,6 @@ export default function Progress() {
   const [financialClose, setFinancialClose] = useState([]);
   const [cca, setCca] = useState([]);
   const [feeLetter, setFeeLetter] = useState([]);
-
-  const newStore = filteredStore
-
-
   useEffect(() => {
     if (dealFilter === "All" && staffFilter === "All") {
       retrieveDeals();
@@ -92,7 +88,7 @@ export default function Progress() {
       setLoading(true);
       filterStaffData(dealFilter);
     }
-  }, [dealFilter, staffFilter, newStore]);
+  }, [dealFilter, staffFilter, filteredStore]);
 
   useEffect(() => {
     if (show) {
@@ -141,8 +137,7 @@ export default function Progress() {
 
   // Retrieve All Deals using a get request
   const retrieveDeals = async () => {
-    //setLoading(true);
-    await Service.getAllDeals(newStore)
+    await Service.getAllDeals(filteredStore)
       .then((response) => {
         setData(response.data.deals);
         setRawData(response.data.deals);
@@ -164,9 +159,9 @@ export default function Progress() {
   };
 
   // Get deals by staff email
-  const retrieveStaffDeals = () => {
+  const retrieveStaffDeals = async() => {
     setLoading(true);
-    Service.getMyDealsByEmail(staffFilter, newStore)
+    await Service.getMyDealsByEmail(staffFilter, filteredStore)
       .then((res) => {
         setData(res.data.deals);
         setStaffData(res.data.deals);
@@ -177,8 +172,8 @@ export default function Progress() {
       });
   };
 
-  const retrieveGuranteePipeline = () => {
-    Service.getAllStaff()
+  const retrieveGuranteePipeline = async() => {
+    await Service.getAllStaff()
       .then((response) => {
         setTarget(response.data.staff);
       })
@@ -187,8 +182,8 @@ export default function Progress() {
       });
   };
 
-  const retrieveStaffTarget = () => {
-    Service.getOneStaff(staffFilter)
+  const retrieveStaffTarget = async() => {
+   await Service.getOneStaff(staffFilter)
       .then((response) => {
         setTarget(response.data.staffInfo);
         setMandate(response.data.staffInfo[0].mandateletter);

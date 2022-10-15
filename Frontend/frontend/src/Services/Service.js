@@ -1,6 +1,7 @@
 import axios from '../http-common';
 
 const LoginStaff = data => {
+
     return axios.post("app/login", data)
 }
 
@@ -52,7 +53,7 @@ const deleteFeatures = (id, data) => { // delete daniel's features from the db
 }
 
 const getDealById = async (id, year) => { // get deal by id, for privileged users 
-    return await axios.get(`transaction/item/${id}/${year}`);
+    return await axios.get(`transaction/item/${id}/year`);
 };
 
 const getMyDeals = async(year) => { // get current users deals

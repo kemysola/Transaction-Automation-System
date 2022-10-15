@@ -30,7 +30,6 @@ export default function Progress() {
   const [end_date, set_end_date] = useState(`2022/04/01`);
   const [topn, set_topn] = useState(5);
 
-  const newStore = filteredStore
   const {
     data: reimbursibleDData,
     isLoading,
@@ -38,13 +37,11 @@ export default function Progress() {
     isError,
     isSuccess,
   } = useGetTopNReimbursibleQuery(`${topn}/${start_date}/${end_date}`);
-  console.log(error, reimbursibleDData?.ccsubmissionReport);
-
   // ******************************************  useEffect hook - ComponentDidMount   ****************************************
 
   useEffect(() => {
     retrieveDeals();
-  }, [newStore]);
+  }, [filteredStore]);
 
   useEffect(() => {
     retrieveForecast();
@@ -64,12 +61,8 @@ export default function Progress() {
   }
 
   // ******************************************  Axios :  get transactions  ****************************************
-
-      // ******************************************  Axios :  get transactions  ****************************************
-
-
   const retrieveDeals = async() => {
-    await Service.getAllDeals(newStore)
+    await Service.getAllDeals(filteredStore)
       .then((response) => {
         setData(response.data.deals);
       })
@@ -107,10 +100,8 @@ export default function Progress() {
   let option2 = data.reduce(function (filtered, arr) {
     if (arr.industry === "Off-grid Power") {
       let someNewValue = arr.dealsize;
-
       filtered.push(someNewValue);
     }
-
     return filtered;
   }, []);
 

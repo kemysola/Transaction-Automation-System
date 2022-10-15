@@ -12,16 +12,13 @@ import Services from "../../Services/Service";
 //  ........................................React functional component.......................
 export default function GeneralPie(props) {
   const { filteredStore, addFtYear} = useContext(TitleContext)
-
-  const newStore = filteredStore
-
   const [data, setData] = useState([]);
   useEffect(() => {
     retrieveDeals();
-  }, [newStore]);
+  }, [filteredStore]);
 
-  const retrieveDeals = () => {
-    Services.getAllDeals(newStore)
+  const retrieveDeals = async() => {
+    await Services.getAllDeals(filteredStore)
       .then((response) => {
         setData(response.data.deals);
       })

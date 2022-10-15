@@ -19,8 +19,6 @@ function GuaranteePipeline() {
 
   const year = new Date().getFullYear();
   const nextYear = new Date().getFullYear() + 1;
-  const newStore = filteredStore
-
   // ******************************************  use Effect Hook : Component Did mount and update ***********************
 
   useEffect(() => {
@@ -29,8 +27,6 @@ function GuaranteePipeline() {
 
 
 // ******************************************  Axios call to get forecast *************************************************
-
-
   const retrieveForecast = async() => {
     await Service.getForecast()
       .then((response) => {
@@ -45,13 +41,9 @@ function GuaranteePipeline() {
   // ************************************** Use Effect hook  and Axios: component did mount, receive and update ********************
 
   // ********************************** Axios - get request to get all staff, all transactions, industry, product, region **********
-
-
-
-  useEffect(() => {
-    Service.getAllStaff()
+  useEffect(async () => {
+    await Service.getAllStaff()
       .then((res) => {
-
         setData(res.data.staff);
       })
       .catch((err) => {
@@ -59,18 +51,18 @@ function GuaranteePipeline() {
       });
   }, []);
 
-  useEffect(() => {
-    Service.getAllDeals(newStore)
+  useEffect(async () => {
+   await  Service.getAllDeals(filteredStore)
       .then((res) => {
         setActual(res.data.deals);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [newStore]);
+  }, [filteredStore]);
 
-  useEffect(() => {
-    Service.getIndustry()
+  useEffect(async () => {
+    await Service.getIndustry()
       .then((res) => {
         setIndustry(res.data.industry.length);
       })
@@ -79,8 +71,8 @@ function GuaranteePipeline() {
       });
   }, []);
 
-  useEffect(() => {
-    Service.getProduct()
+  useEffect(async () => {
+   await Service.getProduct()
       .then((res) => {
         setProduct(res.data.product.length);
       })
@@ -88,8 +80,8 @@ function GuaranteePipeline() {
         
       });
   }, []);
-  useEffect(() => {
-    Service.getRegion()
+  useEffect(async () => {
+    await Service.getRegion()
       .then((res) => {
         setRegion(res.data.region.length);
       })

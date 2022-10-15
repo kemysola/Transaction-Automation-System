@@ -18,18 +18,16 @@ function GuaranteeForecast() {
   const { filteredStore, addFtYear} = useContext(TitleContext)
   const [forecast, setForecast] = useState([]);
   const [data, setData] = useState([]);
-
-  const newStore = filteredStore
   useEffect(() => {
     retrieveDeals();
-  }, [newStore]);
+  }, [filteredStore]);
 
   useEffect(() => {
     retrieveForecast();
   }, []);
 
   const retrieveDeals = async () => {
-    await Service.getAllDeals(newStore)
+    await Service.getAllDeals(filteredStore)
       .then((response) => {
         setData(response.data.deals);
       })

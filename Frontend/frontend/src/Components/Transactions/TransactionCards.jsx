@@ -12,17 +12,14 @@ export default function TransactionCards() {
   const { filteredStore, addFtYear} = useContext(TitleContext)
   const [data, setData] = useState([]);
 
-    // ******************************************  useEffect hook : componentDidMount  ***********************.
-  const newStore = filteredStore
-
-
+  // ******************************************  useEffect hook : componentDidMount  ***********************.
   useEffect(() => {
     retrieveDeals();
-  }, [newStore]);
+  }, [filteredStore]);
 
   // .................................... Axios Endpoint  to get Deals     ..............................
   const retrieveDeals = async() => {
-    await Service.getMyPortfolioDeals(newStore)
+    await Service.getMyPortfolioDeals(filteredStore)
       .then((response) => {
         setData(response.data.deals);
       })
@@ -31,7 +28,7 @@ export default function TransactionCards() {
       });
   };
 
-  
+ 
   var sumTotal = data.reduce(function (tot, arr) {
     return tot + parseFloat(arr.dealsize);
   }, 0);

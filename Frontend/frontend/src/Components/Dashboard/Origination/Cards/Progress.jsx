@@ -36,18 +36,15 @@ export default function Progress() {
   const [data, setData] = useState([]);
   const [target, setTarget] = useState([]);
   const [staff, setStaff] = useState([]);
-
-  const newStore = filteredStore
-
   useEffect(() => {
     retrieveDeals();
-  }, [newStore]);
+  }, [filteredStore]);
 
 
       // ******************************** Axios : get Transaction *******************************************
 
-  const retrieveDeals = () => {
-    Service.getAllDeals(newStore)
+  const retrieveDeals = async() => {
+    await Service.getAllDeals(filteredStore)
       .then((response) => {
         setData(response.data.deals);
       })
@@ -62,8 +59,8 @@ export default function Progress() {
 
   // ******************************** Axios : get staff  *******************************************
 
-  const retrieveGuranteePipeline = () => {
-    Service.getAllStaff()
+  const retrieveGuranteePipeline = async() => {
+    await Service.getAllStaff()
       .then((response) => {
         setTarget(response.data.staff);
       })

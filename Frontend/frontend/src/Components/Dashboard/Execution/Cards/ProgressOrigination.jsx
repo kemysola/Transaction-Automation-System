@@ -22,12 +22,11 @@ export default function ProgressOrigination() {
   const [target, setTarget] = useState([]);
 
   let user_email = window.location.search.split("?")[1];
-  const newStore = filteredStore
   //edit user_email
 
   //let name = user_email.toUpperCase()
-  const retrieveDeals = () => {
-    Service.getMyDealsByEmail(user_email, newStore)
+  const retrieveDeals = async () => {
+    await Service.getMyDealsByEmail(user_email, filteredStore)
       .then((response) => {
         setData(response.data.deals);
       })
@@ -38,7 +37,7 @@ export default function ProgressOrigination() {
 
   useEffect(() => {
     retrieveDeals();
-  }, [newStore]);
+  }, [filteredStore]);
 
   const [mandate, setMandate] = useState([]);
   const [financialClose, setFinancialClose] = useState([]);

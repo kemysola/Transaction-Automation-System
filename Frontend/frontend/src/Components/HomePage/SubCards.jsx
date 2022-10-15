@@ -11,27 +11,19 @@ import Stats from '../Dashboard/Management/Cards/Stats';
 import { fontFamily } from '@mui/system';
 import TitleContext from '../../context/TitleContext';
 
-
-
-
 export default function SubCards() {
     const { filteredStore, addFtYear} = useContext(TitleContext)
     const [totalTransaction, setTotalTransaction] = useState([]);
     const [data, setData] = useState([])
     const [length, setLength] = useState([])
-
-    const newStore = filteredStore
-
     useEffect(() => {
         retrieveDeals()
-    },[newStore])
+    },[filteredStore])
 
     const retrieveDeals = async() => {
-        await Service.getMyDeals(newStore)
+        await Service.getMyDeals(filteredStore)
           .then((response) => {
             setData(response.data.deals);
-            
-            
           })
           .catch((e) => {
             console.log(e);
@@ -41,8 +33,6 @@ export default function SubCards() {
       var sumTotal = data.reduce(function (tot, arr) {
         return tot + parseFloat(arr.dealsize);
       }, 0);
-
-   
 
     return (
         <React.Fragment>

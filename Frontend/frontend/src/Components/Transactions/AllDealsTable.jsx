@@ -126,14 +126,12 @@ const AllDealsTable = (props) => {
   const [status, setStatus] = useState("");
   const dealsRef = useRef();
   dealsRef.current = deals;
-
-  const newStore = filteredStore;
   // ******************************************  useEffect hook *******************************************************
   useEffect(() => {
     retrieveDeals();
 
     retrieveStaffList();
-  }, [newStore]);
+  }, [filteredStore]);
 
   useEffect(() => {
     if (closedStatus === "" && staffFilter === "All") {
@@ -153,7 +151,7 @@ const AllDealsTable = (props) => {
       retrieveStaffDeals();
       filterStaffData(closedStatus);
     }
-  }, [closedStatus, staffFilter, newStore]);
+  }, [closedStatus, staffFilter, filteredStore]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -224,7 +222,7 @@ const AllDealsTable = (props) => {
 
   // ******************************************  Axios :Get Request  ***********************************************
   const retrieveDeals = async () => {
-    await Service.getPortfolioAllDeals(newStore)
+    await Service.getPortfolioAllDeals(`${filteredStore}`)
       .then((response) => {
         setDeals(response.data.deals);
         setRawData(response.data.deals);
@@ -237,7 +235,7 @@ const AllDealsTable = (props) => {
   // Get deals by staff email
   const retrieveStaffDeals = () => {
     setLoading(true);
-    Service.getMyDealsByEmail(staffFilter, newStore)
+    Service.getMyDealsByEmail(staffFilter, filteredStore)
       .then((res) => {
         setDeals(res.data.deals);
         setStaffData(res.data.deals);

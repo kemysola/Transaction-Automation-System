@@ -16,9 +16,6 @@ function GreenAndAnberCard() {
 
   const [currentForecast, setCurrentForecast] = useState([])
   const year = new Date().getFullYear();
-  const newStore = filteredStore
-
-
   useEffect(() => {
     retrieveForecast();
   }, []);
@@ -34,8 +31,8 @@ function GreenAndAnberCard() {
       });
   }
 
-  useEffect(() => {
-    Service.getAllStaff()
+  useEffect(async () => {
+    await Service.getAllStaff()
       .then((res) => {
         setData(res.data.staff);
       })
@@ -44,14 +41,14 @@ function GreenAndAnberCard() {
       });
   }, []);
 
-  useEffect(() => {
-    Service.getAllDeals(newStore)
+  useEffect(async () => {
+    await Service.getAllDeals(filteredStore)
       .then((res) => {
         setActual(res.data.deals);
       })
       .catch((err) => {
       });
-  }, [newStore]);
+  }, [filteredStore]);
 
   // magement metrics for green and amber
   let greenAndAmbercurrentForecast = +currentForecast.newdeals

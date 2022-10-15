@@ -64,10 +64,7 @@ export const apiSlice = createApi({
       query: (financial_year) => `report/closed_deals/${financial_year}`,
       providesTags: ["Report"],
     }),
-    // getCurrentFy: builder.query({
-    //   query: (fin_year) => `report/closed_deals/${fin_year}`,
-    //   providesTags: ["Report"],
-    // }),
+    
     getAllClosedDeals: builder.query({
       query: () => `report/all/closed_deals`,
       providesTags: ["Report"],
@@ -75,6 +72,14 @@ export const apiSlice = createApi({
     getTopNReimbursible: builder.query({
       query: (topn, start, end) => `transaction/reimbursible/${topn}`,
       providesTags: ["Report"],
+    }),
+    getAllTransaction:builder.query({
+      query:(fin_year) => `transaction/portfolio/${fin_year}`,
+      providesTags:["Report"]
+    }) ,
+    getAllAdminFy:builder.query({
+      query:(target_year) => `admin/fy/${target_year}`,
+      providesTags:['Report']
     }),
     
     /**
@@ -125,6 +130,8 @@ export const {
   useAddReportMutation,
   useUpdateReportMutation,
   useDeleteReportMutation,
+  useGetAllTransactionQuery,
+  useGetAllAdminFyQuery,
   
   
 } = apiSlice;

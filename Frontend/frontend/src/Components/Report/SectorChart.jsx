@@ -8,16 +8,12 @@ import TitleContext from '../../context/TitleContext';
 
 export default function SectorChart() {
   const { filteredStore, addFtYear} = useContext(TitleContext)
-
   const [data, setData] = useState([]);
-
-  const newStore = filteredStore
-
   useEffect(() => {
     retrieveDeals();
-  }, [newStore]);
-  const retrieveDeals = () => {
-    Services.getAllDeals(newStore)
+  }, [filteredStore]);
+  const retrieveDeals = async() => {
+    await Services.getAllDeals(filteredStore)
       .then((response) => {
         setData(response.data.deals);
       })

@@ -22,24 +22,16 @@ export default function SubCards(props) {
     const [data, setData] = useState([])
     const [length, setLength] = useState([])
     const [staff, setStaff] = useState([])
-    
-    const newStore = filteredStore
-
     useEffect(() => {
-
         retrieveDeals()
-
-      
-    },[newStore])
+    },[filteredStore])
 
     useEffect(() => {
       retrieveStaff()
-      
-
   },[])
 
     const retrieveDeals = async() => {
-        await Service.getAllDeals(newStore)
+        await Service.getAllDeals(filteredStore)
           .then((response) => {
             setData(response.data.deals); 
           })
@@ -48,8 +40,8 @@ export default function SubCards(props) {
           });
       };
 
-      const retrieveStaff = () => {
-        Service.getAllStaff()
+      const retrieveStaff = async() => {
+        await Service.getAllStaff()
           .then((response) => {
             setStaff(response.data.staff);
           })
@@ -57,9 +49,6 @@ export default function SubCards(props) {
             console.log(e);
           });
       };
-
-      
-
       var sumTotal = data.reduce(function (tot, arr) {
         return tot + parseFloat(arr.dealsize);
       }, 0);

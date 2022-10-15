@@ -4,23 +4,22 @@ import { Container, Row, Col, Card ,Spinner} from 'react-bootstrap';
 import { FaCoins } from 'react-icons/fa';
 import Service from "../../Services/Service"
 import TitleContext from '../../context/TitleContext';
-
-
+import { useGetAllTransactionQuery } from '../../Services/apiSlice';
 
 export default function TransactionCards({ props, closedStatus, staffFilter, status }) {
     // ******************************************  use state hook to store state ****************************************
     const { filteredStore, addFtYear} = useContext(TitleContext)
-
+    const [filtValue, setFiltValue] = useState('FY2020')
+    const {data :transData, isError, error} = useGetAllTransactionQuery(filtValue)
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [rawData, setRawData] = useState([]);
   const [staffData, setStaffData] = useState([]);
   // const [status, setStatus] = useState("");
-  const newStore = filteredStore
 
   useEffect(() => {
      retrieveDeals();
-  }, [newStore]);
+  }, [filteredStore]);
 
   useEffect(() => {
     if (closedStatus === "" && staffFilter === "All") {
@@ -37,21 +36,10 @@ export default function TransactionCards({ props, closedStatus, staffFilter, sta
       retrieveStaffDeals();
       filterStaffData(closedStatus);
     }
-  }, [closedStatus, staffFilter, newStore]); 
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     // After 5 seconds set status value to empty
-  //     setStatus("");
-  //   }, 500);
-
-  //   return () => {
-  //     clearTimeout(timer);
-  //   };
-  // }, [status]);
-
-  const retrieveDeals = () => {
-    Service.getPortfolioAllDeals(newStore)
+  }, [closedStatus, staffFilter, filteredStore]); 
+  const retrieveDeals =async () => {
+    const year = filteredStore
+    await Service.getPortfolioAllDeals(year)
       .then((response) => {
         setData(response.data.deals);
         setRawData(response.data.deals);
@@ -64,7 +52,9 @@ export default function TransactionCards({ props, closedStatus, staffFilter, sta
    // Get deals by staff email
    const retrieveStaffDeals = () => {
     setLoading(true);
-    Service.getMyDealsByEmail(staffFilter, newStore)
+    const year = filteredStore
+
+    Service.getMyDealsByEmail(staffFilter, year)
       .then((res) => {
         setData(res.data.deals);
         setStaffData(res.data.deals);
@@ -148,6 +138,7 @@ export default function TransactionCards({ props, closedStatus, staffFilter, sta
           
         <Row>
           <Col sm={6} md={6} className='d-md-block'>
+
             <Card >
               <Card.Body>
                 <Card.Title className="d-flex justify-content-between">

@@ -4,28 +4,22 @@ import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import TitleContext from '../../context/TitleContext';
 
 import {  Row} from "react-bootstrap";
-import {
-  
-  ResponsiveContainer,
-} from "recharts";
+import {ResponsiveContainer} from "recharts";
 
 export default function ReportRegion() {
   const { filteredStore, addFtYear} = useContext(TitleContext)
   const [data, setData] = useState([]);
-  const newStore = filteredStore
-
   useEffect(() => {
     retrieveDeals();
-  }, [newStore]);
-  const retrieveDeals = () => {
-    Services.getAllDeals(newStore)
+  }, [filteredStore]);
+  const retrieveDeals = async() => {
+    await Services.getAllDeals(filteredStore)
       .then((response) => {
         setData(response.data.deals);
       })
       .catch((e) => {});
   };
   // ............................ Region Data ................................................
-
   var south = data.reduce(function (filtered, arr) {
     if (arr.region === "SE") {
       var someNewValue = arr.dealsize;

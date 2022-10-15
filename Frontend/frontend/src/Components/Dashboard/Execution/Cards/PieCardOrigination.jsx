@@ -98,13 +98,10 @@ export default function PieCardOrigination() {
   
     // ................................... Use Effect Hook .................................
   
-    
-    const newStore = filteredStore
-    let user_email = window.location.search.split("?")[1]
+      let user_email = window.location.search.split("?")[1]
   
     const retrieveDeals = async() => {
-
-     await Service.getMyDealsByEmail(user_email, newStore)
+     await Service.getMyDealsByEmail(user_email, filteredStore)
         .then((response) => {
           setData(response.data.deals);
         })
@@ -115,7 +112,7 @@ export default function PieCardOrigination() {
     
     useEffect(() => {
       retrieveDeals();
-    }, [newStore]);
+    }, [filteredStore]);
     // .................................... Axios Endpoint ..............................
     
    

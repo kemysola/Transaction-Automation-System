@@ -875,3 +875,7 @@ WHERE email in (
 'siguh@infracredit.ng'
 );
 --add Damilola to originator, and TLD (Can't find Damilola in DB)
+
+--Modify length for staff level
+ALTER TABLE TB_TRS_USERS ALTER COLUMN level TYPE varchar(30);
+ALTER TABLE TB_TRS_USERS_AUDIT ALTER COLUMN level TYPE varchar(30);
