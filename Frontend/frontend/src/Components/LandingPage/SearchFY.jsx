@@ -6,7 +6,7 @@ import Services from '../../Services/Service';
 import Alert from 'react-bootstrap/Alert';
 import { useGetAllAdminFyQuery } from '../../Services/apiSlice';
 export default function SearchFY() {
-  const {data, isError, error, success, isSuccess, isLoading} = useGetAllAdminFyQuery("''") ;
+  const {data, isError, error, success, isSuccess, isLoading} = useGetAllAdminFyQuery("'") ;
   let checkActiveFy = ["FY2022","FY2021"];
   const [valueFy,setValueFy] = useState('FY2021')
   useEffect(() => searchFYDeals(), [checkActiveFy])
@@ -16,12 +16,14 @@ export default function SearchFY() {
     }
   }
   const {filteredStore, addFtYear} = useContext(TitleContext) 
-  const [dropdownValue, setDropdownValue] = useState(localStorage.getItem("fy"))
+  const [dropdownValue, setDropdownValue] = useState(localStorage.getItem(""))
   return (
     <div>
     <label style ={{ marginRight: "1em", fontWeight: "bold", color: '#198754' }}> Current Financial Year </label>
+    {error? <div>An error occurred</div>:null}
+    {}
   <select value={filteredStore} onChange={async (e) => await addFtYear(e.target.value)}> 
-    {data?.financial_years?.map((fy) => (
+    {data && data?.financial_years?.map((fy) => (
       <option key={fy.id} value={fy.fy} >
         {fy.fy}
         </option>

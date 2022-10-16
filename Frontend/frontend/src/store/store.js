@@ -11,5 +11,8 @@ export const store = configureStore({
     getDefaultMiddleware().concat(apiSlice.middleware),
 });
 
+// if (process.env.NODE_ENV !== 'production' && module.hot) {
+//   module.hot.accept('./reducers', () => store.replaceReducer(apiSlice.reducerPath))
+// }
 
 setupListeners(store.dispatch)
