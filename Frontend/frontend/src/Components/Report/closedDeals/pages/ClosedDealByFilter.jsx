@@ -1,24 +1,45 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import { useIsFetching } from '@tanstack/react-query'
 import { Table } from "react-bootstrap";
 import { Container, Row, Col, Form, Card, Button } from "react-bootstrap";
 import * as XLSX from "xlsx";
 import Navbar from "../../../LandingPage/Navbar";
 import Sidenav from "../../../LandingPage/SideNav2";
-import { useGetPipelineQuery } from "../../../../Services/apiSlice";
+import {  useQuery,useQueryClient } from '@tanstack/react-query';
+import Service from '../../../../Services/Service'
 
 function ClosedDealByFilter() {
+  const queryClient = useQueryClient();
+  const isFetching = useIsFetching()
   const [financialYear, setFinancialYear] = useState("FY2022");
-  const { data, isLoading, error, isError, isSuccess } =
-    useGetPipelineQuery(financialYear);
+  const { data, isLoading ,error,isError,isSuccess} = 
+  useQuery(['closed-Year'],
+  async () => await Service.getAllClosedDeals(`${financialYear}`), {
+    
+    staleTime:0,
+    refetchInterval:0,
+    refetchOnWindowFocus: true,
+    onSuccess:(payload)=> {
+
+    },
+    onError: (error: any) => {
+      console.log(error);
+    },
+    signal:true,
+  });
+  useEffect(() =>{
+
+  },[data])
+
+  
     function GetTops() {
-        const newData = data?.current_fy_closed_deal?.map((row) => {
+        const newData = data?.data?.current_fy_closed_deal?.map((row) => {
           delete row.tableData;
           return row;
         });
         const workSheet = XLSX.utils.json_to_sheet(newData);
         const workBook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workBook, workSheet, "Closed_Deals_From_Inception");
-        //Buffer
         let buf = XLSX.write(workBook, { bookType: "xlsx", type: "buffer" });
         XLSX.write(workBook, { bookType: "xlsx", type: "binary" });
         XLSX.writeFile(workBook, "Closed_Deals_From_Inception.xlsx");
@@ -76,14 +97,14 @@ function ClosedDealByFilter() {
                   {error === "undefined" ? (
                     <p>Field can not be blank</p>
                   ) : (
-                    error?.data.Error
+                    'An Error Occurred'
                   )}
                 </div>
               ) : isLoading ? (
                 <p>.....</p>
               ) : null}
 
-              {isSuccess ? (
+              {isFetching ? 'fetching':isSuccess ? (
                 <div>
                   <Table
                     striped="columns"
@@ -102,7 +123,7 @@ function ClosedDealByFilter() {
                         <th>Tenor</th>
                       </tr>
                     </thead>
-                    {data?.current_fy_closed_deal?.map((data) => (
+                    {data?.data?.current_fy_closed_deal?.map((data) => (
                       <tbody>
                         <tr key={data.deal_id}>
                           <td>{data.clientname}</td>

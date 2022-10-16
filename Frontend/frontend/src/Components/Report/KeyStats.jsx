@@ -7,20 +7,20 @@ import Editable from "react-editable-title";
 import TitleContext from "../../context/TitleContext";
 
 import { Divider } from "@mui/material";
-import {
-  useGetReportQuery,
-  useAddReportMutation,
-  // useUpdateReportMutation,
-} from "../../Services/apiSlice";
+// import {
+//   useGetReportQuery,
+//   useAddReportMutation,
+//   // useUpdateReportMutation,
+// } from "../../Services/apiSlice";
 
 export default function KeyStats() {
-  const { data, isLoading, error, isError, isSuccess } = useGetReportQuery();
-  const [addReport] = useAddReportMutation();
+  // const { data, isLoading, error, isError, isSuccess } = useGetReportQuery();
+  // const [addReport] = useAddReportMutation();
   const handleKeyStatsTitle = (current) => {
     addkeyStats(current);
   };
   const {addkeyStats,keyTitleStore } = useContext(TitleContext);
-  useEffect(() => {}, [data]);
+  useEffect(() => {}, []);
   const [nbcInfo, setNbcInfo] = useState([
     {
       summaryOfActivity: "",
@@ -141,13 +141,7 @@ export default function KeyStats() {
             style={{ width: "1rem", height: "1rem" }}
           />
         </div>
-        {isLoading ? (
-          <div>...Loading</div>
-        ) : isError ? (
-          `Failed to post`
-        )  : (
-          <div></div>
-        )}
+       
         <Table striped bordered hover>
           <thead style={{ fontSize: "12px" }}>
             <tr>

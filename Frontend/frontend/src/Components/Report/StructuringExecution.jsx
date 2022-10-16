@@ -3,23 +3,12 @@ import { Stack, Container} from "react-bootstrap";
 import StructuringItem from "./StructuringItem";
 import StructuringItem2 from "./StructuringItem2";
 import StructuringItem3 from "./StructuringItem3";
-
-
 import TransactionChart from "./TransactionChart";
 import Editable from "react-editable-title";
 import TitleContext from "../../context/TitleContext";
-import {
-  useGetReportQuery,
-  useAddReportMutation,
-  // useUpdateReportMutation,
-} from "../../Services/apiSlice";     
-import { useSelector, useDispatch } from 'react-redux'
-
 
 export default function StructuringExecution() {
   const currentYear = localStorage.getItem('currentFy')
-  const dispatch = useDispatch();
-  const [addReport] = useAddReportMutation();
   const handleStatsYear = (current) => {
     addStructuring(current);
   };
@@ -139,10 +128,10 @@ const postData = {
 }
 
   const submitData = () =>{
-    dispatch(addReport(
-      postData
+    // dispatch(addReport(
+    //   postData
 
-    ))
+    // ))
   }
 
   return (

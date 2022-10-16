@@ -4,18 +4,15 @@ import { Container, Row, Col, Card ,Spinner} from 'react-bootstrap';
 import { FaCoins } from 'react-icons/fa';
 import Service from "../../Services/Service"
 import TitleContext from '../../context/TitleContext';
-import { useGetAllTransactionQuery } from '../../Services/apiSlice';
 
 export default function TransactionCards({ props, closedStatus, staffFilter, status }) {
     // ******************************************  use state hook to store state ****************************************
     const { filteredStore, addFtYear} = useContext(TitleContext)
     const [filtValue, setFiltValue] = useState('FY2020')
-    const {data :transData, isError, error} = useGetAllTransactionQuery(filtValue)
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [rawData, setRawData] = useState([]);
   const [staffData, setStaffData] = useState([]);
-  // const [status, setStatus] = useState("");
 
   useEffect(() => {
      retrieveDeals();
