@@ -33,6 +33,7 @@ export const apiSlice = createApi({
      * 
      */
     // baseUrl: "http://localhost:5001/api/v1",
+    // diffferent endpoint during build will give a parsing error after deployment.
     baseURL: "https://trms01-server.azurewebsites.net/api/v1/",
     //
     //
@@ -56,29 +57,55 @@ export const apiSlice = createApi({
   tagTypes: ["Report"],
   endpoints: (builder) => ({
     getReport: builder.query({
-      query: (fy_quarter, fin_year) =>
-        `report/quarterly/oands/${fy_quarter}/${fin_year}`,
+      query: (fy_quarter, fin_year) =>({
+        url:`report/quarterly/oands/${fy_quarter}/${fin_year}`,
+        responseHandler:(response) => response.json() || response.text,
+        staleTime: 1000 * 20,
+      }),
       providesTags: ["Report"],
     }),
     getPipeline: builder.query({
-      query: (financial_year) => `report/closed_deals/${financial_year}`,
+      query: (financial_year) =>({
+        url:`report/closed_deals/${financial_year}`,
+        responseHandler:(response) => response.json() || response.text,
+        staleTime: 1000 * 20,
+      }) ,
       providesTags: ["Report"],
     }),
     
     getAllClosedDeals: builder.query({
-      query: () => `report/all/closed_deals`,
+      query: () => ({
+        url:`report/all/closed_deals`,
+        responseHandler:(response) => response.json() || response.text,
+        staleTime: 1000 * 20,
+      }),
       providesTags: ["Report"],
     }),
     getTopNReimbursible: builder.query({
-      query: (topn, start, end) => `transaction/reimbursible/${topn}`,
+      query: (topn, start, end) =>({
+        url: `transaction/reimbursible/${topn}`,
+        responseHandler:(response) => response.json() || response.text,
+        staleTime: 1000 * 20,
+      }),
       providesTags: ["Report"],
     }),
     getAllTransaction:builder.query({
-      query:(fin_year) => `transaction/portfolio/${fin_year}`,
+      query:(fin_year) => ({
+        url:`transaction/portfolio/${fin_year}`,
+        responseHandler:(response) => response.json(),
+        staleTime: 1000 * 20,
+      }),
       providesTags:["Report"]
     }) ,
     getAllAdminFy:builder.query({
-      query:(target_year) => `admin/fy/${target_year}`,
+      query:(target_year) => ({
+        url:`admin/fy/${target_year}`,
+        responseHandler:(response) => response.json() ||response.text,
+        transformResponse: (response, meta, arg) => response.data,
+
+        staleTime: 1000 * 20,
+
+      }),
       providesTags:['Report']
     }),
     

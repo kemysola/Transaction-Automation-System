@@ -36,7 +36,7 @@ app.use(
   })
 );
 
-app.set("port", app_port || 3000);
+app.set("port", app_port ||3000);
 // Implementing all endpoints
 
 app.use(express.static(path.join(__dirname, "./frontend/frontend/build")));
