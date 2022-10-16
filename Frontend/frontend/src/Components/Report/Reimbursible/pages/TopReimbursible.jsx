@@ -2,20 +2,24 @@ import React,{useState} from "react";
 import Table from "react-bootstrap/Table";
 import { Container, Row, Col, Form, Card, Button } from "react-bootstrap";
 import * as XLSX from "xlsx";
-import { useGetTopNReimbursibleQuery } from "../../../../Services/apiSlice";
+import { useQuery } from '@tanstack/react-query';
+import Service from '../../../../Services/Service'
+
 export default function TopReimbursible() {
   const [start_date, set_start_date] = useState("2022-01-01");
   const [end_date, set_end_date] = useState(`2022-10-01`);
   const [topn, set_topn] = useState(5);
-  const {
-    data: reimbursibleDData,
-    isLoading,
-    error,
-    isError,
-    isSuccess,
-  } = useGetTopNReimbursibleQuery(`${topn}/${start_date}/${end_date}`);
+  const { data:reimbursibleDData, isLoading ,error,isError,isSuccess} = useQuery(['reimbursible'], () => Service.getReimbursibles(`${topn}/${start_date}/${end_date}`), {
+    staleTime: 0,
+    onSuccess: (payload) => {
+    },
+    onError: (error: any) => {
+      console.log(error);
+    },
+  });
+
   function GetTops() {
-    const newData = reimbursibleDData?.ccsubmissionReport.map((row) => {
+    const newData = reimbursibleDData?.data?.ccsubmissionReport.map((row) => {
       delete row.tableData;
       return row;
     });
@@ -25,14 +29,13 @@ export default function TopReimbursible() {
     //Buffer
     let buf = XLSX.write(workBook, { bookType: "xlsx", type: "buffer" });
     XLSX.write(workBook, { bookType: "xlsx", type: "binary" });
-    XLSX.writeFile(workBook, "Execution_Report.xlsx");
+    XLSX.writeFile(workBook, "Top_Reimbursable_Report.xlsx");
   }
-
   return (
     <>
       <Container>
         <h6 className='mb-2'>TOP REIMBURSIBLE REPORT</h6>
-        <Row>
+         <Row>
           <Col sm={6}>
             <Card>
               <Card.Body>
@@ -78,14 +81,14 @@ export default function TopReimbursible() {
               </Card.Body>
             </Card>
           </Col>
-        </Row>
+        </Row> 
         <br/>
         {isError ? (
           <div className="text-danger">
             {
             error === "undefined"
               ? null
-              : error?.data.Error}
+              : 'Invalid Number Inputted.Kindly enter a number'}
           </div>
         ) : 
         isSuccess ? (
@@ -100,7 +103,7 @@ export default function TopReimbursible() {
                   <th>Reimbursible</th>
                 </tr>
               </thead>
-              {reimbursibleDData?.ccsubmissionReport.map((data) => (
+              {reimbursibleDData?.data?.ccsubmissionReport.map((data) => (
                 <tbody>
                   <tr>
                     <td>{data.clientname}</td>
@@ -115,7 +118,7 @@ export default function TopReimbursible() {
           </div>
         ) : isLoading ? (
           <p>.....</p>
-        ) : null}
+        ) : null} 
       </Container>
     </>
   );

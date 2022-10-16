@@ -197,7 +197,18 @@ const addFY = (data) => { // create a new financial year, for privileged users o
 const updateFY = (id, data) => { // update new financial year, for privileged users only
     return axios.put(`admin/fy/update/${id}`, data)
 }
-
+const getReimbursibles= (topn, start, end) =>{
+    return  axios.get(`transaction/reimbursible/${topn}`)
+}
+const getClosedDeals= async() =>{
+    return await axios.get(`report/all/closed_deals`)
+}
+const getAllClosedDeals= async(financial_year) =>{
+    return await axios.get(`report/closed_deals/${financial_year}`)
+}
+const getAllReport= async(fy_quarter, fin_year) =>{
+    return await axios.get(`report/quarterly/oands/${fy_quarter}/${fin_year}`)
+}
 
 const Services = {
     // FiY,
@@ -205,8 +216,10 @@ const Services = {
     registerStaff,
     updateStaff,
     createDeal,
+    getAllReport,
     updateDeal,
     getDealById,
+    getReimbursibles,
     getMyDealsByEmail,
     getMyDeals,
     getAllDeals,
@@ -214,12 +227,14 @@ const Services = {
     getAllStaff,
     getDealStaff,
     getOneStaff,
+    getAllClosedDeals,
     getClient,
     getDealByDate,
     getLevel,
     getIndustry,
     getProduct,
     getRegion,
+    getClosedDeals,
     getRepaymentFreq,
     getAmortizationSty,
     getDealCategory,

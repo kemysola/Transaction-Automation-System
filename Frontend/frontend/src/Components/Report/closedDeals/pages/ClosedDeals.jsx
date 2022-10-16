@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import { Table } from "react-bootstrap";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import * as XLSX from "xlsx";
 import Navbar from "../../../LandingPage/Navbar";
 import Sidenav from "../../../LandingPage/SideNav2";
-import { useGetAllClosedDealsQuery } from "../../../../Services/apiSlice";
+import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
+import Service from '../../../../Services/Service';
 
 function ClosedDeals() {
-  const { data, isLoading, error, isError, isSuccess } =
-    useGetAllClosedDealsQuery();
+  const { data, isLoading ,error,isError,isSuccess} = useQuery(['closedDeals'],Service.getClosedDeals, {
+    staleTime: Infinity,
+    onSuccess: (payload) => {
+    },
+    onError: (error: any) => {
+      console.log(error);
+    },
+  });
   function GetTops() {
-    const newData = data?.current_fy_closed_deal?.map((row) => {
+    const newData = data?.data?.current_fy_closed_deal?.map((row) => {
       delete row.tableData;
       return row;
     });
@@ -21,12 +28,10 @@ function ClosedDeals() {
       workSheet,
       "Closed_Deals_From_Inception"
     );
-    //Buffer
     let buf = XLSX.write(workBook, { bookType: "xlsx", type: "buffer" });
     XLSX.write(workBook, { bookType: "xlsx", type: "binary" });
     XLSX.writeFile(workBook, "Closed_Deals_From_Inception.xlsx");
   }
-
   return (
     <>
       <Navbar />
@@ -40,7 +45,6 @@ function ClosedDeals() {
               <div>
                 <Row>
                   <Col sm={6} className='d-flex justify-content-start' style={{fontWeight:'bold'}}>
-                    
                       Closed Deals From Inception
                   </Col>
                   <Col sm={6} className='d-flex justify-content-end'>
@@ -59,7 +63,7 @@ function ClosedDeals() {
                   {error === "undefined" ? (
                     <p>Field can not be blank</p>
                   ) : (
-                    error?.data.Error
+                    'An Error Occurred'
                   )}
                 </div>
               ) : isLoading ? (
@@ -85,7 +89,7 @@ function ClosedDeals() {
                         <th>Tenor</th>
                       </tr>
                     </thead>
-                    {data?.current_fy_closed_deal?.map((data) => (
+                    {data?.data?.current_fy_closed_deal?.map((data) => (
                       <tbody>
                         <tr key={data.deal_id}>
                           <td>{data.clientname}</td>

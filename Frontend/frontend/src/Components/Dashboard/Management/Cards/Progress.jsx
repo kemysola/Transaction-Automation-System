@@ -5,7 +5,6 @@ import Service from "../../../../Services/Service";
 import TitleContext from '../../../../context/TitleContext';
 import Matrics from "./Matrics";
 import * as XLSX from "xlsx";
-import { useGetTopNReimbursibleQuery } from "../../../../Services/apiSlice";
 import {
   BarChart,
   Bar,
@@ -30,13 +29,6 @@ export default function Progress() {
   const [end_date, set_end_date] = useState(`2022/04/01`);
   const [topn, set_topn] = useState(5);
 
-  const {
-    data: reimbursibleDData,
-    isLoading,
-    error,
-    isError,
-    isSuccess,
-  } = useGetTopNReimbursibleQuery(`${topn}/${start_date}/${end_date}`);
   // ******************************************  useEffect hook - ComponentDidMount   ****************************************
 
   useEffect(() => {
@@ -46,19 +38,7 @@ export default function Progress() {
   useEffect(() => {
     retrieveForecast();
   }, []);
-  function GetTops() {
-    const newData = reimbursibleDData?.ccsubmissionReport.map((row) => {
-      delete row.tableData;
-      return row;
-    });
-    const workSheet = XLSX.utils.json_to_sheet(newData);
-    const workBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workBook, workSheet, "Execution_Summary");
-    //Buffer
-    let buf = XLSX.write(workBook, { bookType: "xlsx", type: "buffer" });
-    XLSX.write(workBook, { bookType: "xlsx", type: "binary" });
-    XLSX.writeFile(workBook, "Execution_Report.xlsx");
-  }
+ 
 
   // ******************************************  Axios :  get transactions  ****************************************
   const retrieveDeals = async() => {
