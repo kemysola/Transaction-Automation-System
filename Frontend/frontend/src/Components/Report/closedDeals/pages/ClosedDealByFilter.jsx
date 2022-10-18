@@ -5,24 +5,27 @@ import { Container, Row, Col, Form, Card, Button } from "react-bootstrap";
 import * as XLSX from "xlsx";
 import Navbar from "../../../LandingPage/Navbar";
 import Sidenav from "../../../LandingPage/SideNav2";
-import {  useQuery,useQueryClient } from '@tanstack/react-query';
+import {  useQuery} from '@tanstack/react-query';
 import Service from '../../../../Services/Service'
 
 function ClosedDealByFilter() {
-  const queryClient = useQueryClient();
   const isFetching = useIsFetching()
-  const [financialYear, setFinancialYear] = useState("FY2022");
-  const { data, isLoading ,error,isError,isSuccess} = 
-  useQuery(['closed-Year'],
-  async () => await Service.getAllClosedDeals(`${financialYear}`), {
-    
-    staleTime:0,
-    refetchInterval:0,
+  const [financialYear, 
+    setFinancialYear] =
+     useState("FY2022");
+  const { 
+    data, 
+    isLoading ,
+    error,
+    isError,isSuccess} = 
+  useQuery(['closed-Year',financialYear],
+  async () => 
+  await Service.getAllClosedDeals(`${financialYear}`), {
+    staleTime:1200,
     refetchOnWindowFocus: true,
     onSuccess:(payload)=> {
-
     },
-    onError: (error: any) => {
+    onError: (error) => {
       console.log(error);
     },
     signal:true,
@@ -104,7 +107,7 @@ function ClosedDealByFilter() {
                 <p>.....</p>
               ) : null}
 
-              {isFetching ? 'fetching':isSuccess ? (
+              {isFetching ? 'Loading':isSuccess ? (
                 <div>
                   <Table
                     striped="columns"
