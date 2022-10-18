@@ -154,12 +154,8 @@ router.post('/level', verifyTokenAndAdmin, async (req, res) => {
         
         const write_to_db = 
         `INSERT INTO TB_INFRCR_STAFF_LEVELS(stafflevel) VALUES ($1) RETURNING *`
-    
-        
-        const res_ = await client.query(write_to_db, level_data)
-
+            const res_ = await client.query(write_to_db, level_data)
         await client.query('COMMIT')
-
         res.json({
             status: (res.statusCode = 200),
             message: "Level Created Successfully",

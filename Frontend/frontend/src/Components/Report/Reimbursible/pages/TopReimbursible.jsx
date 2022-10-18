@@ -9,8 +9,12 @@ export default function TopReimbursible() {
   const [start_date, set_start_date] = useState("2022-01-01");
   const [end_date, set_end_date] = useState(`2022-10-01`);
   const [topn, set_topn] = useState(5);
-  const { data:reimbursibleDData, isLoading ,error,isError,isSuccess} = useQuery(['reimbursible'], () => Service.getReimbursibles(`${topn}/${start_date}/${end_date}`), {
-    staleTime: 0,
+  const { data:reimbursibleDData, isLoading ,error,isError,isSuccess} = 
+  useQuery(['reimbursible',start_date,end_date,topn], () => 
+  Service.getReimbursibles(`${topn}/${start_date}/${end_date}`), {
+    staleTime: 1,
+    cacheTime:0,
+    refetchInterval:1,
     onSuccess: (payload) => {
     },
     onError: (error: any) => {
