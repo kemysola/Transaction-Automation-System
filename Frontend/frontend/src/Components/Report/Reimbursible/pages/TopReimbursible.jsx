@@ -1,26 +1,33 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 import { Container, Row, Col, Form, Card, Button } from "react-bootstrap";
 import * as XLSX from "xlsx";
-import { useQuery } from '@tanstack/react-query';
-import Service from '../../../../Services/Service'
+import { useQuery } from "@tanstack/react-query";
+import Service from "../../../../Services/Service";
 
 export default function TopReimbursible() {
   const [start_date, set_start_date] = useState("2022-01-01");
   const [end_date, set_end_date] = useState(`2022-10-01`);
   const [topn, set_topn] = useState(5);
-  const { data:reimbursibleDData, isLoading ,error,isError,isSuccess} = 
-  useQuery(['reimbursible',start_date,end_date,topn], () => 
-  Service.getReimbursibles(`${topn}/${start_date}/${end_date}`), {
-    staleTime: 1,
-    cacheTime:0,
-    refetchInterval:1,
-    onSuccess: (payload) => {
-    },
-    onError: (error: any) => {
-      console.log(error);
-    },
-  });
+  const {
+    data: reimbursibleDData,
+    isLoading,
+    error,
+    isError,
+    isSuccess,
+  } = useQuery(
+    ["reimbursible", start_date, end_date, topn],
+    () => Service.getReimbursibles(`${topn}/${start_date}/${end_date}`),
+    {
+      staleTime: 1,
+      cacheTime: 0,
+      refetchInterval: 1,
+      onSuccess: (payload) => {},
+      onError: (error: any) => {
+        console.log(error);
+      },
+    }
+  );
 
   function GetTops() {
     const newData = reimbursibleDData?.data?.ccsubmissionReport.map((row) => {
@@ -29,7 +36,11 @@ export default function TopReimbursible() {
     });
     const workSheet = XLSX.utils.json_to_sheet(newData);
     const workBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workBook, workSheet, "Top_Reimbursable_Report");
+    XLSX.utils.book_append_sheet(
+      workBook,
+      workSheet,
+      "Top_Reimbursable_Report"
+    );
     //Buffer
     let buf = XLSX.write(workBook, { bookType: "xlsx", type: "buffer" });
     XLSX.write(workBook, { bookType: "xlsx", type: "binary" });
@@ -38,17 +49,16 @@ export default function TopReimbursible() {
   return (
     <>
       <Container>
-        <h6 className='mb-2'>TOP REIMBURSIBLE REPORT</h6>
-         <Row>
+        <h6 className="mb-2">TOP REIMBURSIBLE REPORT</h6>
+        <Row>
           <Col sm={6}>
             <Card>
               <Card.Body>
-                <Card.Subtitle>
-                </Card.Subtitle>
+                <Card.Subtitle></Card.Subtitle>
                 <Card.Text>
                   <Row>
                     <Form>
-                        <Form.Label>Start Date:</Form.Label>
+                      <Form.Label>Start Date:</Form.Label>
                       <Form.Control
                         inline
                         label="Count"
@@ -57,7 +67,7 @@ export default function TopReimbursible() {
                         value={start_date}
                         onChange={(e) => set_start_date(e.target.value)}
                       />
-                        <Form.Label>End Date:</Form.Label>
+                      <Form.Label>End Date:</Form.Label>
 
                       <Form.Control
                         inline
@@ -65,12 +75,10 @@ export default function TopReimbursible() {
                         type="date"
                         name="end_date"
                         value={end_date}
-                        
                         onChange={(e) => set_end_date(e.target.value)}
                       />
                       <Form.Label>Top Number</Form.Label>
                       <Form.Control
-                     
                         inline
                         label="Count"
                         type="number"
@@ -78,24 +86,28 @@ export default function TopReimbursible() {
                         value={topn}
                         onChange={(e) => set_topn(e.target.value)}
                       />
-                      <Button onClick={GetTops} className='bg-dark mt-1' style={{border:'none'}}>Download</Button>
+                      <Button
+                        onClick={GetTops}
+                        className="bg-dark mt-1"
+                        style={{ border: "none" }}
+                      >
+                        Download
+                      </Button>
                     </Form>
                   </Row>
                 </Card.Text>
               </Card.Body>
             </Card>
           </Col>
-        </Row> 
-        <br/>
+        </Row>
+        <br />
         {isError ? (
           <div className="text-danger">
-            {
-            error === "undefined"
+            {error === "undefined"
               ? null
-              : 'Invalid Number Inputted.Kindly enter a number'}
+              : "Invalid Number Inputted.Kindly enter a number"}
           </div>
-        ) : 
-        isSuccess ? (
+        ) : isSuccess ? (
           <div>
             <Table striped="columns" bordered hover variant="dark">
               <thead>
@@ -122,7 +134,7 @@ export default function TopReimbursible() {
           </div>
         ) : isLoading ? (
           <p>.....</p>
-        ) : null} 
+        ) : null}
       </Container>
     </>
   );

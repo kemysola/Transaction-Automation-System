@@ -1,5 +1,5 @@
-import React, { useState,useContext } from "react";
-import { Stack, Container, Table, Form} from "react-bootstrap";
+import React, { useState, useContext } from "react";
+import { Stack, Container, Table, Form } from "react-bootstrap";
 import { useForm, useFieldArray } from "react-hook-form";
 import { CgAdd } from "react-icons/cg";
 import { MdDeleteSweep } from "react-icons/md";
@@ -10,16 +10,16 @@ import Editable from "react-editable-title";
 import TitleContext from "../../context/TitleContext";
 
 export default function OriginationActivity() {
+  // const handleYearUpdates = (current) => {
+  //   addReportYear(current);
+  // };
 
-  const handleYearUpdates = (current) => {
-    addReportYear(current);
-  };
+  // const handleNbcYear = (current) => {
+  //   addNbcYear(current);
+  // };
 
-  const handleNbcYear = (current) => {
-    addNbcYear(current);
-  };
-
-  const { reportYearStore, nbcSubmissionStore,addNbcYear,addReportYear } =useContext(TitleContext);
+  const { reportYearStore, nbcSubmissionStore, addNbcYear, addReportYear } =
+    useContext(TitleContext);
   const [nbcInfo, setNbcInfo] = useState([
     {
       summaryOfActivity: "",
@@ -55,8 +55,7 @@ export default function OriginationActivity() {
     setNbcInfo(list);
   };
 
-  const addNewnbcInfo = () => {
-  };
+  // const addNewnbcInfo = () => {};
   const { register, control, handleSubmit } = useForm({
     defaultValues: {
       test: [
@@ -76,26 +75,26 @@ export default function OriginationActivity() {
     control,
     name: "test",
   });
-const reportFy =localStorage.getItem("currentFy") ;
-const currentFy = JSON.parse(reportFy)
-const reportQt =localStorage.getItem("currentQuarter") ;
- const currentFQt = JSON.parse(reportQt)
-
+  const reportFy = localStorage.getItem("currentFy");
+  const currentFy = JSON.parse(reportFy);
+  const reportQt = localStorage.getItem("currentQuarter");
+  const currentFQt = JSON.parse(reportQt);
 
   const onSubmit = (data) => {
-    localStorage.setItem('originationInput', JSON.stringify(data))
-  }
+    localStorage.setItem("originationInput", JSON.stringify(data));
+  };
   return (
     <React.Fragment>
       <Container>
         <Stack gap={2}>
           <p className="" style={{ fontWeight: "bold" }}>
-          Origination Activity – {currentFQt[0]} {currentFy[0]}
+            Origination Activity – {currentFQt[0]} {currentFy[0]}
           </p>
         </Stack>
         <div>
           <p style={{ fontWeight: "bold" }}>
-            NBC Submissions and Mandate Status – {currentFQt[0]} {currentFy[0]} Update
+            NBC Submissions and Mandate Status – {currentFQt[0]} {currentFy[0]}{" "}
+            Update
           </p>
           <form onSubmit={handleSubmit(onSubmit)}>
             <ul>
@@ -266,7 +265,14 @@ const reportQt =localStorage.getItem("currentQuarter") ;
                         }}
                       >
                         <i className="">
-                          <FiSave onClick={() => {localStorage.setItem('nbcActivities',JSON.stringify(nbcInfo))}} />
+                          <FiSave
+                            onClick={() => {
+                              localStorage.setItem(
+                                "nbcActivities",
+                                JSON.stringify(nbcInfo)
+                              );
+                            }}
+                          />
                         </i>
                       </button>
                     </div>

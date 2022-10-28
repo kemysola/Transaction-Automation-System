@@ -21,7 +21,6 @@ router.get('/:start_date/:end_date/:client_name', verifyTokenAndAuthorization, a
     try {
         // if a client name is specified
         if ( client_name !== "''"){
-                        
             const report_query = await client.query(
                 `
                 WITH REPORTING AS(
@@ -47,7 +46,6 @@ router.get('/:start_date/:end_date/:client_name', verifyTokenAndAuthorization, a
                 );
     
             if (report_query.rows.length > 0) { 
-    
                 res.status(200).send({
                     status: (res.statusCode = 200),
                     records: report_query.rows
@@ -99,7 +97,6 @@ router.get('/:start_date/:end_date/:client_name', verifyTokenAndAuthorization, a
                 );
             
             if (report_query.rows.length > 0) { 
-    
                 res.status(200).send({
                     status: (res.statusCode = 200),
                     records: report_query.rows
@@ -117,7 +114,6 @@ router.get('/:start_date/:end_date/:client_name', verifyTokenAndAuthorization, a
                         `
                 );
                 if (report_query.rows) { 
-    
                     res.status(200).send({
                         status: (res.statusCode = 200),
                         records: report_query.rows
@@ -131,7 +127,6 @@ router.get('/:start_date/:end_date/:client_name', verifyTokenAndAuthorization, a
     }finally{
         client.release()
       }
-
 });
 
 

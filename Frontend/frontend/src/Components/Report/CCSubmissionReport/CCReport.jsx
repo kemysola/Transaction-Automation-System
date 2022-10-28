@@ -93,7 +93,7 @@ const Pagination = styled.div`
   }
 `;
 
-export default function CCReport () {
+export default function CCReport() {
   const initialDateState = {
     start_date: "",
     end_date: "",
@@ -111,19 +111,21 @@ export default function CCReport () {
 
   useEffect(() => {
     retrieveDeals();
-  }, [])
+  }, []);
 
-  // get current date for default cc submission data
   var today = Date.now();
-  today = new Intl.DateTimeFormat('en-GB', {year: 'numeric', month: '2-digit',day: '2-digit'}).format(today);
+  today = new Intl.DateTimeFormat("en-GB", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(today);
   today = today.split("/").join("-");
 
-  // Get All Deals
   const retrieveDeals = () => {
     setLoading(true);
 
-    let start = today
-    let end = today
+    let start = today;
+    let end = today;
 
     Service.getCCReport(start, end)
       .then((response) => {
@@ -134,7 +136,7 @@ export default function CCReport () {
         console.log(e);
       });
 
-      setLoading(false)
+    setLoading(false);
   };
 
   const handleInputChange = (event) => {
@@ -151,7 +153,7 @@ export default function CCReport () {
     let end_date = date.end_date;
 
     let start = start_date.split("-").reverse().join("-");
-    let end = end_date.split("-").reverse().join("-")
+    let end = end_date.split("-").reverse().join("-");
 
     Service.getCCReport(start, end)
       .then((response) => {
@@ -161,8 +163,8 @@ export default function CCReport () {
         setResponse("Please Fill All Required Fields");
       });
 
-      setLoading(false);
-      setDate(initialDateState);
+    setLoading(false);
+    setDate(initialDateState);
   };
 
   const downloadExcel = () => {
@@ -172,7 +174,11 @@ export default function CCReport () {
     });
     const workSheet = XLSX.utils.json_to_sheet(newData);
     const workBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workBook, workSheet, "Credit Committee Submission");
+    XLSX.utils.book_append_sheet(
+      workBook,
+      workSheet,
+      "Credit Committee Submission"
+    );
     //Buffer
     let buf = XLSX.write(workBook, { bookType: "xlsx", type: "buffer" });
     XLSX.write(workBook, { bookType: "xlsx", type: "binary" });
@@ -382,7 +388,7 @@ export default function CCReport () {
   );
 
   return (
-    <React.Fragment> 
+    <React.Fragment>
       {loading ? (
         <Spinner animation="border" role="status" variant="secondary">
           <span className="visually-hidden">Loading...</span>
@@ -390,7 +396,10 @@ export default function CCReport () {
       ) : (
         <ContainerWrapper className="bg-light">
           <Container className="my-3">
-            <p class="animate__animated animate__pulse pt-2" style={{ fontSize: "13px" }}>
+            <p
+              class="animate__animated animate__pulse pt-2"
+              style={{ fontSize: "13px" }}
+            >
               <b>Credit Committee Submission Report</b>
             </p>
             <Form ref={form}>
@@ -471,7 +480,6 @@ export default function CCReport () {
             </Form>
           </Container>
           <Divider></Divider>
-
 
           <TableWrapper>
             <div className="table-responsive mt-2 pt-2">
@@ -580,5 +588,5 @@ export default function CCReport () {
         </ContainerWrapper>
       )}
     </React.Fragment>
-  )
+  );
 }
