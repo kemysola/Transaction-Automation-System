@@ -8,10 +8,8 @@ const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 const msal = require("@azure/msal-node");
 const querystring = require("querystring");
-
 router.post("/app/login", async (req, res) => {
   const client = await pool.connect();
-
   try {
     const user = await client.query(
       "SELECT * FROM TB_TRS_USERS WHERE email = $1",
@@ -75,7 +73,7 @@ const AADParameters = {
   tenant: process.env.tenant,
   authorityHostUrl: "https://login.windows.net",
   clientId: process.env.clientID,
-  // redirectUri: 'http://localhost:5001/api/v1/auth/app/login',
+  // redirectUri: "http://localhost:5001/api/v1/auth/app/login",
   redirectUri: "https://trms01-server.azurewebsites.net/api/v1/auth/app/login",
   clientSecret: process.env.value,
 };
@@ -133,7 +131,7 @@ router.get("/app/login", (req, res) => {
       };
       let searchParams = new URLSearchParams(paramsString);
 
-      //  res.redirect('http://localhost:3000/login?'+searchParams);
+      // res.redirect("http://localhost:3000/login?" + searchParams);
       res.redirect(
         "https://trms01-server.azurewebsites.net/login?" + searchParams
       );

@@ -1,30 +1,20 @@
 import React from "react";
 import { useForm, useFieldArray } from "react-hook-form";
-import ReactDOM from "react-dom";
-
-
 
 export default function StructuringItem() {
-  const { register, control, handleSubmit, reset, watch } = useForm({
+  const { register, control, handleSubmit, reset} = useForm({
     defaultValues: {
-      test: [{ firstName: ""}]
-    }
+      test: [{ firstName: "" }],
+    },
   });
-  const {
-    fields,
-    append,
-    remove,
-  } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
-    name: "test"
+    name: "test",
   });
 
   const onSubmit = (data) => {
-    localStorage.setItem('structInput',JSON.stringify(data))
-  }
-
-  
-
+    localStorage.setItem("structInput", JSON.stringify(data));
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -32,7 +22,10 @@ export default function StructuringItem() {
         {fields.map((item, index) => {
           return (
             <li key={item.id}>
-              <input {...register(`test.${index}.firstName`)}  style={{width:'80%',border:'none'}}/>
+              <input
+                {...register(`test.${index}.firstName`)}
+                style={{ width: "80%", border: "none" }}
+              />
 
               <button type="button" onClick={() => remove(index)}>
                 Delete
@@ -50,14 +43,12 @@ export default function StructuringItem() {
         >
           append
         </button>
-     
 
-       
         <button
           type="button"
           onClick={() =>
             reset({
-              test: [{ firstName: "Bill", lastName: "Luo" }]
+              test: [{ firstName: "Bill", lastName: "Luo" }],
             })
           }
         >
@@ -69,4 +60,3 @@ export default function StructuringItem() {
     </form>
   );
 }
-

@@ -36,7 +36,7 @@ app.use(
   })
 );
 
-app.set("port", app_port || 3000);
+app.set("port", app_port || 5001);
 // Implementing all endpoints
 
 app.use(express.static(path.join(__dirname, "./frontend/frontend/build")));
@@ -78,6 +78,6 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "Frontend/frontend/build/index.html"));
 });
 
-app.listen(app_port || 3000, () => {
+app.listen(app_port || 5001, () => {
   console.log(`InfraCreditTRS Server Listening on Port: ${app.get("port")}`);
 });

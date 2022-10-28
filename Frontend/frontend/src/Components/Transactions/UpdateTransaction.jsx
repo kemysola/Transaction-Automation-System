@@ -1298,7 +1298,7 @@ export default function UpdateTransactions() {
                                     key={opt.email}
                                     value={opt.stafflist}
                                     selected={
-                                      opt.stafflist === deal[0].originator
+                                      opt.stafflist === deal[0].transactor
                                     }
                                   >
                                     {opt.stafflist}
