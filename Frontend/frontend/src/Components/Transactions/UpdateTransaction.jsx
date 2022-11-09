@@ -1313,7 +1313,7 @@ export default function UpdateTransactions() {
                               <Form.Label>Transaction Legal Lead</Form.Label>
                               <Form.Select
                                 size="sm"
-                                id="transactionLegalLead"
+                                id="transactionlegallead"
                                 ref={transactionLegalLead}
                               >
                                 {ttrlegalLead.map((opt, i) => (
@@ -1321,7 +1321,7 @@ export default function UpdateTransactions() {
                                     key={opt.email}
                                     value={opt.stafflist}
                                     selected={
-                                      opt.stafflist === deal[0].originator
+                                      opt.stafflist === deal[0].transactionlegallead
                                     }
                                   >
                                     {opt.stafflist}

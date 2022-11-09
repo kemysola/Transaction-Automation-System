@@ -62,19 +62,13 @@ const ButtonWrapper = styled.button`
 `;
 
 const DateWrapper = styled.button`
-  // display: flex;
-  // align-items: left;
+  
   background: white;
   border: none;
-  // justify-content: start;
-  // position: absolute;
-  // margin-right: 1.8rem;
-  // right: 120px;
-  // padding-bottom: 1rem;
+  
 `;
 const Pagination = styled.div`
   padding: 1em;
-
   button {
     margin: 2px;
     border-radius: 3px;
@@ -403,29 +397,31 @@ export default function CCReport() {
               <b>Credit Committee Submission Report</b>
             </p>
             <Form ref={form}>
-              <Row className="d-flex justify-content-end">
-                <Col sm={3}>
-                  <Fm.Group className="mb-0 mt-2 pt-2 pb-1">
-                    <Fm.Label style={{ fontSize: "12px" }}>
-                      Start Date <span style={{ color: "red" }}>*</span>
-                    </Fm.Label>
-                    <Input
+              <div>
+                <Row>
+                  <Col>
+                  <Fm.Group as={Row} className="mb-0 mt-2 pt-2 pb-1">
+                    <Col sm={4} className='d-flex justify-content-end'>
+                    <small>Start Date <span style={{ color: "red" }}>*</span>
+                    </small>
+                    </Col>
+                    <Col><Input
                       size="sm"
                       type="date"
                       value={date.start_date}
                       max={date.end_date}
                       onChange={handleInputChange}
                       name="start_date"
-                      style={{ width: "80%", height: "5vh" }}
-                    />
+                    /></Col>
                   </Fm.Group>
-                </Col>
-
-                <Col sm={3}>
-                  <Fm.Group className="mb-0 mt-2 pt-2 pb-1">
-                    <Fm.Label style={{ fontSize: "12px" }}>
-                      End Date <span style={{ color: "red" }}>*</span>
-                    </Fm.Label>
+                  </Col>
+                  <Col>
+                  <Fm.Group as={Row} className="mb-0 mt-2 pt-2 pb-1">
+                    <Col sm={4} className='d-flex justify-content-end'>
+                    <small>End Date <span style={{ color: "red" }}>*</span>
+                    </small>
+                    </Col>
+                    <Col>
                     <Input
                       size="sm"
                       type="date"
@@ -433,14 +429,11 @@ export default function CCReport() {
                       min={date.start_date}
                       onChange={handleInputChange}
                       name="end_date"
-                      style={{ width: "80%", height: "5vh" }}
                     />
+                    </Col>
                   </Fm.Group>
-                </Col>
-
-                <Col lg={1} sm={4} className="mt-3">
-                  <br />
-                  <button
+                  </Col>
+                  <Col className='d-flex justify-content-end'><button
                     onClick={getReport}
                     ref={form}
                     style={{
@@ -457,11 +450,6 @@ export default function CCReport() {
                   <div className="invalid-feedback d-block text-danger">
                     {response}
                   </div>
-                </Col>
-
-                <Col lg={1} sm={4} className="mt-3">
-                  <br />
-
                   <button
                     onClick={downloadExcel}
                     style={{
@@ -475,8 +463,10 @@ export default function CCReport() {
                   >
                     Download
                   </button>
-                </Col>
-              </Row>
+                  </Col>
+                </Row>
+              </div>
+             
             </Form>
           </Container>
           <Divider></Divider>

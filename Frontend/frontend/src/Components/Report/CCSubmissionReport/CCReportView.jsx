@@ -20,7 +20,7 @@ export default function CCReportView() {
             <SideNav/>
           </Col>
 
-          <Col sm={9}>
+          <Col sm={8}>
             <Container>
               <CCReport />
             </Container>
