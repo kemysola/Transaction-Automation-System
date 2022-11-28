@@ -99,7 +99,7 @@ const UserLogin = () => {
     }
   };
   return (
-    <Container className="">
+    <Container className='animate__animated animate__backInRight'>
       <BorderDiv>
         <Form onSubmit={handleLogin} ref={form}>
           <Row className="py-2 mt-1">

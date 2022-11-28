@@ -15,7 +15,6 @@ router.post("/app/login", async (req, res) => {
       "SELECT * FROM TB_TRS_USERS WHERE email = $1",
       [req.body.email]
     );
-
     // if (user && user.status !== 'Active') { //Retired 2022-02-March
     if (user && user.rows[0]["status"] === "Active") {
       const hashedPassword = CryptoJS.AES.decrypt(

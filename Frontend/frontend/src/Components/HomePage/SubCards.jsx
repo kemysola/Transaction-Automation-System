@@ -44,7 +44,7 @@ export default function SubCards() {
                                 <h3 className='d-flex justify-content-end ' style={{ marginRight: '1rem', }}  width='500'><GrMoney /></h3>
                                 
                                 <small style={{ color: '#1184C2' ,fontFamily:'PT Serif'}} >
-                                  <b>TRANSACTIONS</b>
+                                  <b >TRANSACTIONS</b>
                                   </small>
                                 <br />
                                 <p style={{fontWeight:'bold', fontSize:'20px'}}>{`₦${(sumTotal).toFixed(1)}bn`}</p>
