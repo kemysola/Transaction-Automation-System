@@ -32,7 +32,7 @@ const MainCards = () => {
         <React.Fragment>
             <Container>
                 <div className='title'>
-                    <p style={{ color: '#1184c2', fontWeight:"13px" }}>Welcome Back <b>{userEmail}</b></p>
+                    <p style={{ color: '#1184c2', fontWeight:"13px" }} >Welcome Back <b>{userEmail}</b></p>
                 </div>
 
                 <Row >

@@ -158,11 +158,7 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                   </Link>
                 </MenuItem>
                 <MenuItem className="subMenu">
-                  <Link
-          
-                    to="/closed_deals/filter"
-                    style={{ color: "#237cbf" }}
-                  >
+                  <Link to="/closed_deals/filter" style={{ color: "#237cbf" }}>
                     Closed Deals Filter Report
                   </Link>
                 </MenuItem>
@@ -177,7 +173,9 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
               </SubMenu>
 
               {/* ------------ Budget Menu --------------- */}
-              <MenuItem icon={<HiOutlineCalculator />}>Budget</MenuItem>
+              <MenuItem icon={<HiOutlineCalculator />}>
+                <Link to="/budget">Budget</Link>
+              </MenuItem>
 
               {/* --------------- Settings Menu ----------------- */}
               <MenuItem icon={<FiSettings />}>

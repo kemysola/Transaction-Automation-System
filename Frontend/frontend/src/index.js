@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router} from 'react-router-dom'
 // import CartState from './context/cart/CartState';
 import TitleState from './context/TitleState'
+import CartState from './context/cart/CartState'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 // import {Provider} from 'react-redux'
@@ -22,7 +23,9 @@ ReactDOM.render(
     <QueryClientProvider client={queryClient}>
         <Router>
         <TitleState>
+            <CartState>
         <App />
+        </CartState>
         </TitleState>
     </Router>
      </QueryClientProvider>

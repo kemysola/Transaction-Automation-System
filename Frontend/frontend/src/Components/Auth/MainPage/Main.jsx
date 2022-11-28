@@ -15,7 +15,7 @@ const Main = () => {
           <Col sm={6} lg={7} className="d-none d-sm-block">
             <Container className="containerMargin  ">
               <div className="justify-content-center py-3 my-3 ">
-                <Stack gap={2}>
+                <Stack gap={2} className='animate__animated animate__fadeInLeft'>
                   <div className="py-2">
                     <h1 className="text-light">Unlocking long-term local </h1>
                     <h1 className="text-light">currency infrastructure </h1>
