@@ -27,7 +27,7 @@ export default function Budget_cash() {
       .get(
          `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(localStorage.getItem("fy"))}`,
         // `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
-        //   localStorage.getItem("fy")
+          // localStorage.getItem("fy")
         // )}`,
         {
           headers: {
@@ -58,12 +58,12 @@ export default function Budget_cash() {
 
             {/* <p style={{fontWeight:'bold'}}>InfraCredit</p> */}
             <Row>
-                <Col sm={6}>
+                <Col sm={12}>
                 <Budget id={id}/>
                 </Col>
-                <Col sm={6}>
+                {/* <Col sm={6}>
                 <CashTable guaranteeFee={guaranteeFee} monitoringFee={monitoringFee} structuringFee={structuringFee} clientName={clientName} id={id}/>
-                </Col>
+                </Col> */}
 
             </Row>
 

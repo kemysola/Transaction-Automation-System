@@ -47,16 +47,7 @@ export default function CashTable(props) {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>{props.structuringFee}</td>
-                <td>{props.monitoringFee}</td>
-                <td>{props.guaranteeFee}</td>
-                <td className='text-success'> <MdAddCircle onClick={() => addToCart({
-                  structuringFee:props.structuringFee,
-                  guaranteeFee:props.guaranteeFee,
-                  monitoringFee:props.monitoringFee
-                })}/></td>
-              </tr>
+             
             </tbody>
           </Table>
         </Col>
