@@ -13,13 +13,22 @@ import {
   useFilters,
   useSortBy,
 } from "react-table";
-import { GrView } from "react-icons/gr";
 import { FaLock, FaLockOpen } from "react-icons/fa";
 import { GrStatusDisabled } from "react-icons/gr";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Service from "../../../Services/Service";
 import TitleContext from "../../../context/TitleContext";
+import BudgetAccruals from './BudgetAccruals';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import ImageIcon from '@mui/icons-material/Image';
+import WorkIcon from '@mui/icons-material/Work';
+import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import Divider from '@mui/material/Divider';
 
 const ContainerWrapper = styled.div`
 `;
@@ -30,7 +39,6 @@ const Pagination = styled.div`
 const TableStyle = styled.div`
  
 `;
-//Define a default UI for filtering
 export const GlobalFilter = ({
   preGlobalFilteredRows,
   globalFilter,
@@ -64,48 +72,32 @@ export const GlobalFilter = ({
     </span>
   );
 };
+const IndeterminateCheckbox = React.forwardRef(
+  ({ indeterminate, ...rest }, ref) => {
+      const defaultRef = React.useRef();
+      const resolvedRef = ref || defaultRef;
+      React.useEffect(() => {
+          resolvedRef.current.indeterminate = indeterminate;
+      }, [resolvedRef, indeterminate]);
+      return (
+          <>
+              <input type="checkbox" ref={resolvedRef} {...rest}  />
+          </>
+      );
+  }
+);
+
+const style = {
+  width: '150%',
+  maxWidth: 360,
+  bgcolor: '',
+  fontWeight:'bold',
+};
 
 export default function TransactionTable(props) {
-  const history = useHistory();
+   const history = useHistory();
   const {cartItems, removeItem } =
     useContext(CartContext);
-
-  let structuringFees = cartItems.reduce(function (filtered, arr) {
-    if (arr.structuringFee) {
-      let someNewValue = arr.structuringFee;
-      filtered.push(someNewValue);
-    }
-
-    return filtered;
-  }, []);
-
-  let structuringTotal = structuringFees.reduce(function (tot, arr) {
-    return tot + parseFloat(arr);
-  }, 0);
-
-  let monitoringFees = cartItems.reduce(function (filtered, arr) {
-    if (arr.monitoringFee) {
-      let someNewValue = arr.monitoringFee;
-      filtered.push(someNewValue);
-    }
-    return filtered;
-  }, []);
-
-  let monitoringTotal = monitoringFees.reduce(function (tot, arr) {
-    return tot + parseFloat(arr);
-  }, 0);
-
-  let guaranteeFees = cartItems.reduce(function (filtered, arr) {
-    if (arr.guaranteeFee) {
-      let someNewValue = arr.guaranteeFee;
-      filtered.push(someNewValue);
-    }
-    return filtered;
-  }, []);
-
-  let guaranteeTotal = guaranteeFees.reduce(function (tot, arr) {
-    return tot + parseFloat(arr);
-  }, 0);
 
   const { filteredStore, addFtYear } = useContext(TitleContext);
   const [deals, setDeals] = useState([]);
@@ -143,7 +135,6 @@ export default function TransactionTable(props) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      // After 5 seconds set status value to empty
       setStatus("");
     }, 500);
 
@@ -188,7 +179,6 @@ export default function TransactionTable(props) {
       });
   };
 
-  // Get deals by staff email
   const retrieveStaffDeals = () => {
     setLoading(true);
     Service.getMyDealsByEmail(staffFilter, filteredStore)
@@ -201,39 +191,8 @@ export default function TransactionTable(props) {
       });
     setLoading(false);
   };
-
-  const openDeal = (rowIndex) => {
-    history.push({
-      pathname: "/budget",
-      search: "?" + rowIndex,
-    });
-  };
-
-  const columns = useMemo(
+const columns = useMemo(
     () => [
-      {
-        Header: "-",
-        accessor: "view",
-        disableResizing: true,
-        minWidth: 32,
-        width: 32,
-        maxWidth: 32,
-        disableSortBy: true,
-        Cell: (props) => {
-          const rowIdx = props.row.original["transid"];
-          return (
-            <div>
-              <span
-                onClick={() => openDeal(rowIdx)}
-                style={{ cursor: "pointer" }}
-              >
-                <GrView />
-              </span>
-            </div>
-          );
-        },
-      },
-
       {
         Header: "Client ",
         accessor: "clientname",
@@ -270,31 +229,32 @@ export default function TransactionTable(props) {
   );
 
   const getTrProps = (row, i, page) => {
-        if (row){
-          if (`${deals[i].deal_category}` === "Yellow") {
-            return {
-              style: {
-                color: "#FFBF00",
-                borderColor: "transparent",
-              }
-            }
-          }
-          return {
-            style: {
-              color: `${deals[i].deal_category}`,
-              borderColor: "transparent",
-            }
-          }
-        }
+        // if (row){
+        //   if (`${deals[i].deal_category}` === "Yellow") {
+        //     return {
+        //       style: {
+        //         color: "#FFBF00",
+        //         borderColor: "transparent",
+        //       }
+        //     }
+        //   }
+        //   return {
+        //     style: {
+        //       color: `${deals[i].deal_category}`,
+        //       borderColor: "transparent",
+        //     }
+        //   }
+        // }
     return {
-      style: {},
+      style: {
+        width:'10x'
+      },
     };
   };
 
   const {
     getTableProps,
     getTableBodyProps,
-    getRowProps,
     headerGroups,
     prepareRow,
     page,
@@ -304,9 +264,10 @@ export default function TransactionTable(props) {
     pageCount,
     gotoPage,
     nextPage,
+    selectedFlatRows,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize },
+    state: { pageIndex, pageSize},
     state,
     setGlobalFilter,
     preGlobalFilteredRows,
@@ -316,65 +277,79 @@ export default function TransactionTable(props) {
       data: deals,
       initialState: { pageIndex: 0 },
       getRowProps: getTrProps(),
+      getSubRows: (row, relativeIndex) => {
+        return row.subRows;
+      },
     },
-    useGlobalFilter,
     useFilters,
+    useGlobalFilter,
     useResizeColumns,
     useFlexLayout,
     useSortBy,
-    usePagination
+    usePagination,
+    useRowSelect,
+            hooks => {
+                hooks.visibleColumns.push(columns => [
+                    {
+                      id: 'selection',
+                      Header: ({ getToggleAllRowsSelectedProps }) => (
+                        <div>
+                          <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+                        </div>
+                      ),
+                      Cell: ({ row }) => (
+                        <div>
+                          <IndeterminateCheckbox {...row.getToggleRowSelectedProps()}
+ />
+                        </div>
+                      ),
+                    },
+                    ...columns,
+                ]);
+            },
+    
   );
   return (
     <>
+    <Row>
+      <Col lg={6} sm={12}>
       <ContainerWrapper>
-        {/* <Col sm={3}>
-            <GlobalFilter
+        <div >
+        <List sx={style} component="nav" aria-label="mailbox folders" style={{fontWeight:"bold"}}>
+  <ListItem button>
+    <br/>
+    <ListItemText >Budget Fees</ListItemText>
+  </ListItem>
+  <ListItem button>
+    <br/>
+    <ListItemText>Fee Forecast</ListItemText>
+  </ListItem>
+  <ListItem button>
+    <br/>
+    <ListItemText>Financial Year</ListItemText>
+  </ListItem>
+  <br/>
+  <ListItem button>
+<br/>
+<GlobalFilter
+              preGlobalFilteredRows={preGlobalFilteredRows}
+              globalFilter={state.globalFilter}
+              setGlobalFilter={setGlobalFilter}
+            />  </ListItem> 
+</List>
+          {/* <div className="text-secondary" style={{fontSize: "15.5px"}}>
+            <pre className='text-success' style={{fontWeight:'bold'}}>Budget Fees</pre>
+            <pre className='text-success' style={{fontWeight:'bold'}}>Fee Forecast</pre>
+            <pre className='text-success' style={{fontWeight:'bold'}}>Financial Year </pre>
+
+
+            <small className="text-success"><GlobalFilter
               preGlobalFilteredRows={preGlobalFilteredRows}
               globalFilter={state.globalFilter}
               setGlobalFilter={setGlobalFilter}
             />
-          </Col> */}
-
-        <div>
-          <div className="text-secondary" style={{fontSize: "14.5px"}}>
-            <p className='text-success' style={{fontWeight:'bold'}}>Budget Fees</p>
-            <p className="text-success">
-              Structuring Fee (₦'BN): {structuringTotal}
-            </p>
-            <p className="text-success">Guarantee Fee (₦'BN): {guaranteeTotal}</p>
-            <p className="text-success">Monitoring Fee (₦'BN): {monitoringTotal}</p>
-            <Row>
-              <Col sm={6}>
-                <p className="text-sucess">
-                  Grand Total(₦'BN) :
-                  {structuringTotal + guaranteeTotal + monitoringTotal}
-                </p>
-              </Col>
-              <Col sm={6}>
-                {" "}
-                {structuringTotal ||
-                guaranteeTotal ||
-                monitoringTotal &&
-                props.id ? (
-                  <>
-                    <button
-                      className="btn-secondary btn-md btn bg-success text-light"
-                      style={{ padding: "1px 0.88rem" }}
-                      onClick={() => removeItem(props.id)}
-                    >
-                      Remove All
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <small className="text-success text-capitalize">
-                      No budget Prepared yet
-                    </small>
-                  </>
-                )}
-              </Col>
-            </Row>
-          </div>
+            </small>
+          </div> */}
         </div>
         {loading ? (
           <Spinner animation="border" role="status" variant="secondary">
@@ -383,8 +358,8 @@ export default function TransactionTable(props) {
         ) : (
           //  {/* ------------- Transaction Table ---------- */}
           <TableStyle>
-            <div className="table-responsive mt-2 pt-2">
-              <table
+            <div className="table-responsive ">
+                <table
                 className="table py-3 mt-3  table-hover table striped align-middle table-bordered"
                 id="myTable"
                 {...getTableProps()}
@@ -428,10 +403,9 @@ export default function TransactionTable(props) {
                   })}
                 </tbody>
               </table>
-            </div>
-          </TableStyle>
+              </div>
+              </TableStyle>
         )}
-
         {/* Set pagination for the  table */}
         <Pagination>
           <div className="pagination mt-1 pt-1">
@@ -485,6 +459,14 @@ export default function TransactionTable(props) {
 
         {/* )} */}
       </ContainerWrapper>
+      </Col>
+      <Col lg={6} sm={12}>
+      <BudgetAccruals data={ selectedFlatRows}/>
+
+      </Col>
+
+    </Row>
+      
     </>
   );
 }
