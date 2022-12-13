@@ -12,6 +12,7 @@ const reportsRoute = require("./backend/routes/reporting");
 const passwdReset = require("./backend/routes/password_reset");
 const configRoute = require("./backend/routes/configuration");
 const adminRoute = require("./backend/routes/admin");
+const budgetRoute = require("./backend/routes/budget");
 
 dotenv.config();
 const app_port = process.env.APP_SERVER_PORT;
@@ -49,6 +50,7 @@ try {
   app.use("/api/v1/password_reset", passwdReset);
   app.use("/api/v1/configuration", configRoute);
   app.use("/api/v1/admin", adminRoute);
+  app.use("/api/v1/budget", budgetRoute);
 } catch (err) {
   console.error(err);
 }
