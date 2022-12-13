@@ -3,3 +3,5 @@ node_modules
 *.pdf
 package-lock.json
 yarn.lock
+*calls.sql
+testdata.json

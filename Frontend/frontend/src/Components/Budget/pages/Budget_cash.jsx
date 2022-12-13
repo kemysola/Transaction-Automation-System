@@ -26,9 +26,7 @@ export default function Budget_cash() {
     let data =  await axios
       .get(
          `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(localStorage.getItem("fy"))}`,
-        // `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
-          // localStorage.getItem("fy")
-        // )}`,
+        // `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(localStorage.getItem("fy") )}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
