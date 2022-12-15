@@ -169,7 +169,7 @@ export default function TransactionTable(props) {
   };
 
   const retrieveDeals = async () => {
-    await Service.getPortfolioAllDeals(`${filteredStore}`)
+    await Service.getBudgetDeals()
       .then((response) => {
         setDeals(response.data.deals);
         setRawData(response.data.deals);
@@ -179,6 +179,7 @@ export default function TransactionTable(props) {
       });
   };
 
+  console.log('budget deals',deals)
   const retrieveStaffDeals = () => {
     setLoading(true);
     Service.getMyDealsByEmail(staffFilter, filteredStore)
@@ -326,7 +327,7 @@ const columns = useMemo(
   </ListItem>
   <ListItem button>
     <br/>
-    <ListItemText>Financial Year</ListItemText>
+    <ListItemText>Prepare Buget  </ListItemText>
   </ListItem>
   <br/>
   <ListItem button>

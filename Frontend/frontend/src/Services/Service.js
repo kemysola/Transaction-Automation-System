@@ -68,6 +68,11 @@ const getMyPortfolioDeals = async(year) => {
     return await axios.get(`transaction/portfolio/${year}`)
 }
 
+const getBudgetDeals = async() => {
+    return await axios.get(`budget/get_all_deals`)
+
+}
+
 const getMyDealsByEmail = async(user_email,year) => { // get current users deals
     return  await axios.get(`transaction/get_staff_deals/${user_email}/${year}`);
     
@@ -235,6 +240,7 @@ const Services = {
     getProduct,
     getRegion,
     getClosedDeals,
+    getBudgetDeals,
     getRepaymentFreq,
     getAmortizationSty,
     getDealCategory,
