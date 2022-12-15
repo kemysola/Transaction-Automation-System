@@ -1,4 +1,4 @@
-import React, { useState,  useMemo,  useContext } from "react";
+import React, { useState, useMemo, useContext } from "react";
 import CartContext from "../../../context/cart/CartContext";
 
 import {
@@ -18,16 +18,17 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Service from "../../../Services/Service";
 import toast, { Toaster } from "react-hot-toast";
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import ImageIcon from '@mui/icons-material/Image';
-import WorkIcon from '@mui/icons-material/Work';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
-import Divider from '@mui/material/Divider';
-
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import ImageIcon from "@mui/icons-material/Image";
+import WorkIcon from "@mui/icons-material/Work";
+import BeachAccessIcon from "@mui/icons-material/BeachAccess";
+import Divider from "@mui/material/Divider";
+import Chip from "@mui/material/Chip";
+import PrepareAnnualBudget from "./PrepareBudget/PrepareAnnualBudget";
 
 export const GlobalFilter = ({
   preGlobalFilteredRows,
@@ -179,16 +180,11 @@ export default function BudgetAccruals(props) {
   const cartRe = cartItems.map((data) => {
     return data.transid;
   });
-  const {
-    getTableProps,
-    getTableBodyProps, 
-    headerGroups, 
-    rows, 
-    prepareRow, 
-  } = useTable({
-    columns,
-    data: props.data,
-  });
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({
+      columns,
+      data: props.data,
+    });
 
   return (
     <div className="table-responsive  pt-1">
@@ -205,51 +201,59 @@ export default function BudgetAccruals(props) {
         />
       </div>
       <div>
-      <List
-      sx={{
-        width: '150%',
-        maxWidth: 360,
-        bgcolor: '',
-        height:'50%'
-      }}
-    >
-      <ListItem>
-        <ListItemAvatar>
-          <Avatar>
-            <ImageIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText className='text-success'>Structuring Fee : ₦{structuringFees}</ListItemText>
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem>
-        <ListItemAvatar>
-          <Avatar>
-            <WorkIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText className='text-success'>Guarante Fee : ₦{guaranteeFees}</ListItemText>
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem>
-        <ListItemAvatar>
-          <Avatar>
-            <BeachAccessIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText className='text-success'>Monitoring Fee : ₦{monitoringFees}</ListItemText>
-      </ListItem>
-      <Divider variant="inset" component="li" />
+        <List
+          sx={{
+            width: "150%",
+            maxWidth: 360,
+            bgcolor: "",
+            height: "50%",
+          }}
+        >
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <ImageIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText className="text-success">
+              Structuring Fee : ₦{structuringFees}
+            </ListItemText>
+          </ListItem>
+          <Divider variant="inset" component="li" />
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <WorkIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText className="text-success">
+              Guarante Fee : ₦{guaranteeFees}
+            </ListItemText>
+          </ListItem>
+          <Divider variant="inset" component="li" />
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <BeachAccessIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText className="text-success">
+              Monitoring Fee : ₦{monitoringFees}
+            </ListItemText>
+          </ListItem>
+          <Divider variant="inset" component="li" />
 
-      <ListItem>
-        <ListItemAvatar>
-          <Avatar>
-            <BeachAccessIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText className='text-success'>Total: ₦{grandTotal}</ListItemText>
-      </ListItem>
-    </List>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <BeachAccessIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText className="text-success">
+              Total: ₦{grandTotal}
+            </ListItemText>
+          </ListItem>
+        </List>
       </div>
       <table
         {...getTableProps()}
@@ -282,14 +286,21 @@ export default function BudgetAccruals(props) {
       </table>
 
       <div>
-        {guaranteeFees.length === 0 || monitoringFees.length === 0  || structuringFee.length === 0 ? (
-                    <small className="text-success">No budget yet</small>
-
+        {guaranteeFees.length === 0 ||
+        monitoringFees.length === 0 ||
+        structuringFee.length === 0 ? (
+          <small className="text-success">No budget yet</small>
         ) : (
-          <button onClick={addBudget} disabled={submitted}>Submit</button>
-
+          <Chip
+            label="Submit"
+            disabled={submitted}
+            onClick={addBudget}
+            className="py-3"
+            color="success"
+          />
         )}
       </div>
+      {/* <PrepareAnnualBudget/> */}
     </div>
   );
 }
