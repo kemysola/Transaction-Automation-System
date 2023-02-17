@@ -879,3 +879,316 @@ WHERE email in (
 --Modify length for staff level
 ALTER TABLE TB_TRS_USERS ALTER COLUMN level TYPE varchar(30);
 ALTER TABLE TB_TRS_USERS_AUDIT ALTER COLUMN level TYPE varchar(30);
+
+
+CREATE TABLE IF NOT EXISTS tb_amortization_schedule_master
+(
+    recordcreatedate timestamp without time zone DEFAULT now(),
+    dealname character varying(150) COLLATE pg_catalog."default",
+    dealid integer,
+    period_date date,
+    "Period" character varying(50) COLLATE pg_catalog."default",
+    principalrepayment numeric(36,2),
+    interestpayment numeric(36,2),
+    totalpayment numeric(36,2),
+    principaloutstanding numeric(36,2)
+);
+
+
+--==> PMT: METHOD FOR COMPUTING THE PAYMENT VALUE OF A GUARANTEE
+CREATE OR REPLACE FUNCTION dbo.PMT(
+	ir decimal(36,9),
+	np int, pv decimal(36,9),
+	fv int,
+	type int
+	)
+	
+	/*
+     * ir   - interest rate per month
+     * np   - number of periods (months)
+     * pv   - present value
+     * fv   - future value
+     * type - when the payments are due:
+     *        0: end of the period, e.g. end of month (default)
+     *        1: beginning of period
+     
+     NOTE: np => if repayment frequency is monthly, then np = Duration * 12, quarterly, then npm = Duration * 4, etc
+     
+     fv is always 0
+     ir === coupon rate in InfraCredit
+     pv === Principal outstanding
+     */
+	
+RETURNS decimal(36,9) AS
+$$
+DECLARE
+  pmt decimal(36,9);
+  pvif decimal(36,9);
+BEGIN
+  IF ir = 0 THEN
+    RETURN -(pv + fv)/np;
+  END IF;
+ 
+  pvif := power(1 + ir, np);
+  pmt := -ir * (pv * pvif + fv) / nullif(pvif - 1, 0);
+ 
+  IF type = 1 THEN
+    pmt := pmt/(1 + ir);
+  END IF;
+ 
+  RETURN pmt;
+END;
+$$
+LANGUAGE plpgsql;
+
+
+--==> AMORTIZATION FUNCTION
+CREATE OR REPLACE FUNCTION public.func_infr_amortization_schedule(
+	nparamsmoratorium integer,
+	nparamscoupon numeric,
+	nparamsduration integer,
+	nparamsprincipal numeric,
+	sparamsrepaymentfrequency character varying,
+	dparamsissuedate date,
+	dparamsfirstcoupondate date,
+	bparamstakingfirstinterestearly integer,
+	nparamsguaranteefeerate numeric,
+	nparamsdiscountfactor numeric,
+	sparamsdealname character varying,
+	nparamsdealid integer DEFAULT 1002)
+    RETURNS TABLE(ddate date, noutstanding_bond_balance numeric, nguaranteefees numeric, ndiscountfactor numeric, npresentvalue numeric, ninterestincome numeric) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
+ -- start of execution
+DECLARE
+  nCouponInPercentage NUMERIC(36, 9);
+  nOriginalCouponInPercentage NUMERIC(36, 9);
+  nRepaymentAmount NUMERIC(36, 9);
+  nRepaymentFrequency INTEGER;
+  nTotalRepaymentCycle INTEGER;
+  nLoanScheduleLenght INTEGER;
+  nCounter INTEGER;
+  nInterestPayment NUMERIC(36, 9);
+  nPrincipalRepayment NUMERIC(36, 9);
+  nMoratoriumEffectPrincipal INTEGER; --This marks when the Principal Repayment will start, based on given moratorium
+  nMonthsBetweenRepaymentFrequency INTEGER;
+  bTakingFirstInterestEarlyTracker INTEGER := 0;
+  nIssueDateDiffFirstCouponDate INTEGER;
+BEGIN
+
+  nRepaymentFrequency :=
+    CASE
+      WHEN sParamsRepaymentFrequency = 'Semi-Annual' THEN 2
+      WHEN sParamsRepaymentFrequency = 'Annual' THEN 1
+      WHEN sParamsRepaymentFrequency = 'Quarterly' THEN 4
+      WHEN sParamsRepaymentFrequency = 'Monthly' THEN 12
+    END;
+
+  nCouponInPercentage := (nParamsCoupon / 100) / nRepaymentFrequency;
+  nTotalRepaymentCycle := (nParamsDuration - nParamsMoratorium) * nRepaymentFrequency;
+  nLoanScheduleLenght := nTotalRepaymentCycle + (nParamsMoratorium * 2);
+--   call PMT function
+  nRepaymentAmount := PMT(nCouponInPercentage,nTotalRepaymentCycle,-nParamsPrincipal,0,0);
+  nCounter := 0;
+  nMoratoriumEffectPrincipal := nParamsMoratorium * nRepaymentFrequency;
+  nMonthsBetweenRepaymentFrequency := 12 / nRepaymentFrequency;
+  nOriginalCouponInPercentage := nParamsCoupon / 100;
+
+  IF bParamsTakingFirstInterestEarly = 1 THEN
+    bTakingFirstInterestEarlyTracker := 1;
+  END IF;
+
+-- information_schema.tables is used to replace OBJECT_ID()
+  IF EXISTS (SELECT * FROM information_schema.tables WHERE table_name = 'tb_amortization_schedule') THEN
+    DROP TABLE tb_amortization_schedule;
+  END IF;
+
+  CREATE TABLE tb_amortization_schedule(
+    rwnum INTEGER,
+    Period_Date DATE,
+	"Period" varchar(50),
+	PrincipalRepayment numeric(36,2),
+	InterestPayment numeric(36,2),
+	TotalPayment numeric(36,2),
+	PrincipalOutstanding numeric(36,2)
+  );
+ 
+--#******# Create the amortization template for a given customer
+  WHILE nCounter <= nLoanScheduleLenght LOOP
+    INSERT INTO tb_amortization_schedule(rwnum, "Period", PrincipalOutstanding, PrincipalRepayment, InterestPayment, TotalPayment)
+    SELECT nCounter,
+      CASE
+        WHEN CAST(nCounter AS VARCHAR) = '0' THEN 'Bond Issuance'
+        ELSE CAST(nCounter AS VARCHAR) || ' Coupon' END,
+      0.00,
+      0.00,
+      0.00,
+      0.00;
+
+    nCounter := nCounter + 1;
+  END LOOP;
+
+  IF dParamsFirstCouponDate IS NULL THEN
+    UPDATE tb_amortization_schedule
+    SET PrincipalOutstanding = ROUND(nParamsPrincipal, 2),
+      Period_Date = dParamsIssueDate
+    WHERE rwnum = 0;
+
+    UPDATE tb_amortization_schedule
+    SET TotalPayment = ROUND(nRepaymentAmount, 2)
+    WHERE rwnum > 0;
+  ELSE
+    UPDATE tb_amortization_schedule
+    SET PrincipalOutstanding = ROUND(nParamsPrincipal, 2),
+      Period_date = dParamsIssueDate
+    WHERE rwnum = 0;
+
+    UPDATE tb_amortization_schedule
+    SET TotalPayment = ROUND(nRepaymentAmount, 2),
+      Period_Date = dParamsFirstCouponDate
+    WHERE rwnum = 1;
+	
+	--Compute the Payment Cycle Dates
+    nCounter := 2;
+    nLoanScheduleLenght := nLoanScheduleLenght + 2;
+
+    WHILE nCounter <= nLoanScheduleLenght LOOP
+
+		UPDATE tb_amortization_schedule
+	SET period_date = (
+	SELECT date_trunc('month', period_date + interval '1 month' * nMonthsBetweenRepaymentFrequency)
+	FROM tb_amortization_schedule
+	WHERE rwnum = nCounter - 1
+	)
+		  WHERE rwnum = nCounter;
+
+		  nCounter := nCounter + 1;
+    END LOOP;
+  END IF;
+ 
+  nCounter := 0;
+  nParamsCoupon := (nParamsCoupon / 100) / nRepaymentFrequency;
+ 
+  WHILE nCounter <= nLoanScheduleLenght LOOP
+    IF nCounter = 0 THEN
+	-- 			DOUBLE CHECK THIS PART OF THE CODE
+
+      SELECT PrincipalOutstanding INTO nParamsPrincipal
+--         nParamsPrincipal =
+      FROM TB_AMORTIZATION_SCHEDULE
+      WHERE rwnum = nCounter;
+    ELSE
+      SELECT lead(PrincipalOutstanding, 1, PrincipalOutstanding) over (ORDER BY rwnum) INTO
+        nParamsPrincipal
+      FROM TB_AMORTIZATION_SCHEDULE
+      WHERE rwnum = nCounter;
+    END IF;
+	
+
+    IF bParamsTakingFirstInterestEarly = 1 AND bTakingFirstInterestEarlyTracker = 1 THEN
+      SELECT INTO nIssueDateDiffFirstCouponDate
+            extract(day from date_trunc('day', dParamsFirstCouponDate) - date_trunc('day', dParamsIssueDate));
+--         nIssueDateDiffFirstCouponDate = dParamsFirstCouponDate::date - dParamsIssueDate::date;
+     
+      nInterestPayment := ROUND(((nParamsPrincipal * nParamsCoupon) * nIssueDateDiffFirstCouponDate) / 184, 2);
+     
+      bTakingFirstInterestEarlyTracker := -1;
+    ELSE
+      nInterestPayment := ROUND(nParamsPrincipal * nParamsCoupon, 2);
+    END IF;
+   
+    nPrincipalRepayment := nRepaymentAmount - nInterestPayment;
+   
+    IF nMoratoriumEffectPrincipal = 0 THEN
+      UPDATE TB_AMORTIZATION_SCHEDULE
+      SET
+        InterestPayment = ROUND(nInterestPayment, 2),
+        PrincipalRepayment = ROUND(nPrincipalRepayment, 2),
+        PrincipalOutstanding = ROUND(nParamsPrincipal, 2) - ROUND(nPrincipalRepayment, 2)
+      WHERE rwnum = nCounter + 1;
+    ELSE
+      UPDATE TB_AMORTIZATION_SCHEDULE
+      SET
+        InterestPayment = ROUND(nInterestPayment, 2),
+        PrincipalOutstanding = ROUND(nParamsPrincipal, 2)
+      WHERE rwnum = nCounter + 1;
+     
+      nMoratoriumEffectPrincipal := nMoratoriumEffectPrincipal - 1;
+    END IF;
+   
+    nCounter := nCounter + 1;
+  END LOOP;
+ 
+ 
+ 
+  UPDATE TB_AMORTIZATION_SCHEDULE
+  SET
+    TotalPayment = InterestPayment + PrincipalRepayment;
+ 
+  UPDATE TB_AMORTIZATION_SCHEDULE
+  SET
+    PrincipalRepayment = ROUND(PrincipalRepayment, 2),
+    InterestPayment = ROUND(InterestPayment, 2),
+    TotalPayment = ROUND(TotalPayment, 2),
+    PrincipalOutstanding = round(PrincipalOutstanding,2);
+
+		INSERT INTO TB_AMORTIZATION_SCHEDULE_MASTER(
+	DealName, DealID,Period_Date,"Period",PrincipalRepayment,InterestPayment,TotalPayment,PrincipalOutstanding
+	)
+		SELECT   sParamsDealName,
+		 nParamsDealID,
+		A.Period_Date,
+		A."Period",
+		A.PrincipalRepayment,
+		A.InterestPayment,
+		A.TotalPayment,
+		A.PrincipalOutstanding
+		FROM TB_AMORTIZATION_SCHEDULE A
+        WHERE NOT EXISTS(SELECT 1 FROM TB_AMORTIZATION_SCHEDULE_MASTER WHERE dealid = nParamsDealID AND period_date::DATE <> A."period_date"::DATE AND principaloutstanding <> A.principaloutstanding);
+	
+	-- Return Query returns the output of WITH
+	RETURN QUERY
+	WITH FinancialGuarantee AS (
+	SELECT
+		-- datediff has been replaced with date_part
+		-- dd has been replacedy with day
+		-- yy has been replacedy with year
+		row_number() over (partition by date_part('year', Period_Date) order by date_part('year', Period_Date)) RowNumber,
+		Period_Date AS Date,
+		DealID,
+		PrincipalOutstanding AS Outstanding_Bond_Balance,
+		lead((nParamsGuaranteeFeeRate/100) * PrincipalOutstanding, 0, 0) over (partition by date_part('year', Period_Date) order by date_part('year', Period_Date)) as GuaranteeFees
+		FROM TB_AMORTIZATION_SCHEDULE_MASTER
+		), FinancialGuarantee_GF AS (
+		SELECT
+		RowNumber,
+		Date,
+		Outstanding_Bond_Balance,
+		CASE WHEN RowNumber = 1 THEN round(GuaranteeFees,2) ELSE 0 END as GuaranteeFees
+		FROM FinancialGuarantee
+		), FinancialGuarantee_GFS AS (
+		SELECT
+		RowNumber,
+		Date,
+		Outstanding_Bond_Balance,
+		GuaranteeFees,
+		CASE WHEN round(GuaranteeFees,0) > 0 THEN
+		round(1 / power(
+		( 1 + nOriginalCouponInPercentage),
+		round(((row_number() over (order by Date) - row_number() over (partition by date_part('year', Date) order by Date)))/2,0)
+		),9)
+		ELSE 0 END as DiscountFactor
+		FROM FinancialGuarantee_GF
+	)
+	--output
+	SELECT 
+    Date, Outstanding_Bond_Balance, GuaranteeFees, DiscountFactor,
+	round(GuaranteeFees * DiscountFactor,0) AS PresentValue,
+	round(GuaranteeFees - (GuaranteeFees * DiscountFactor),0) AS InterestIncome
+	FROM FinancialGuarantee_GFS;
+END
+$BODY$;
