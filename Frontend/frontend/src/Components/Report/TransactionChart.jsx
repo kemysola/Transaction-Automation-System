@@ -11,7 +11,8 @@ const TableStyle = styled.div`
   padding: 1rem;
   table {
     border-spacing: 0;
-    border: 1px solid black;
+    border-style: none;
+    background:#D3D3D3;
     tr {
       :last-child {
         td {
@@ -19,13 +20,18 @@ const TableStyle = styled.div`
         }
       }
     }
-    th,
+    th{
+      color:#808000;
+      padding:1rem ;
+
+    },
     td {
       margin: 0;
       padding: 0.5rem;
       border-spacing: 0;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
+      // border-bottom: 1px solid black;
+      // border-right: 1px solid black;
+      color:#808000;
       :last-child {
         border-right: 0;
       }

@@ -12,7 +12,6 @@ import { FiDelete } from "react-icons/fi";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 
-
 //********************************* Material UI styled Components    **********************************/
 
 const ButtonWrapper = styled.button`
@@ -531,12 +530,11 @@ const NewTransaction = () => {
 
   const handleNoteRemove = (index) => {
     const list = [...noteList];
-    let deletedItem = list
+    let deletedItem = list;
     list.splice(index, 1);
     // setNoteList(list);
-    console.log(list[index])
+    console.log(list[index]);
     setNoteList((prev) => [...prev.filter((i) => i === list[i])]);
-
   };
 
   const handleInputChange = (event) => {
@@ -627,7 +625,7 @@ const NewTransaction = () => {
           position: "bottom-right",
           // Styling
           style: {
-            fontSize:'16px'
+            fontSize: "16px",
           },
           className: "",
           icon: "👏",
@@ -648,7 +646,7 @@ const NewTransaction = () => {
           position: "bottom-right",
           // Styling
           style: {
-            fontSize:'16px'
+            fontSize: "16px",
           },
           className: "",
           icon: "👏",
@@ -669,17 +667,16 @@ const NewTransaction = () => {
   return (
     <React.Fragment>
       <Toaster
-          toastOptions={{
-            className: "",
-            style: {
-              border: "1px solid green",
-              padding: "8px",
-              color: "green",
-            },
-          }}
-        />
+        toastOptions={{
+          className: "",
+          style: {
+            border: "1px solid green",
+            padding: "8px",
+            color: "green",
+          },
+        }}
+      />
       <FormWrapper>
-      
         <Container fluid style={{ marginTop: "0" }}>
           {submitted ? (
             <div>
@@ -2529,15 +2526,10 @@ const NewTransaction = () => {
               <div className="d-flex justify-content-end">
                 <ButtonWrapper type="submit">Submit</ButtonWrapper>
                 <ButtonWrapper type="reset">Reset</ButtonWrapper>
-               
               </div>
-             
             </form>
-
           )}
-          
         </Container>
-       
       </FormWrapper>
     </React.Fragment>
   );

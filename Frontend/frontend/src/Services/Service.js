@@ -214,9 +214,13 @@ const getAllClosedDeals= async(financial_year) =>{
 const getAllReport= async(fy_quarter, fin_year) =>{
     return await axios.get(`report/quarterly/oands/${fy_quarter}/${fin_year}`)
 }
+const postReport = (data) => {
+    return axios.post(`report/quarterly/oands`,data)
+}
 
 const Services = {
     // FiY,
+    postReport,
     LoginStaff,
     registerStaff,
     updateStaff,

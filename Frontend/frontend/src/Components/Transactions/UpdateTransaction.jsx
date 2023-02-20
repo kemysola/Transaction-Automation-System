@@ -14,8 +14,8 @@ import PlisMode from "./PlisMode";
 import OcpsMode from "./OcpsMode";
 import KpisMode from "./KpisMode";
 import { useForm } from "react-hook-form";
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
+// import Dropdown from 'react-bootstrap/Dropdown';
+// import DropdownButton from 'react-bootstrap/DropdownButton';
 
 const ButtonWrapper = styled.button`
   color: white;
@@ -481,7 +481,9 @@ export default function UpdateTransactions() {
     // function to get deal by id from the database
     const data = await axios
       .get(
-         `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(localStorage.getItem("fy"))}`,
+        `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
+          localStorage.getItem("fy")
+        )}`,
         // `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
         //   localStorage.getItem("fy")
         // )}`,
@@ -592,13 +594,6 @@ export default function UpdateTransactions() {
         console.log(e);
       });
   };
-
-  // get admin
-
-  // let admin_access = localStorage.getItem("admin")
-
-  // cosole.log("#####", localStorage.getItem("admin"))
-
   // ******************************************  Axios :  get Amortization Style ****************************
 
   const retrieveAmortizationStyle = () => {
@@ -1199,11 +1194,17 @@ export default function UpdateTransactions() {
         <Container fluid style={{ marginTop: "0" }}>
           {status ? (
             <Form>
-                <Row>
-                  <Col sm={6}>
-                  <h5 className="text-secondary pb-3 mb-2">Update Transaction</h5>
-                  </Col>
-                  <Col sm={6} style={{fontSize:'16px'}} className='d-flex justify-content-end text-success'>
+              <Row>
+                <Col sm={6}>
+                  <h5 className="text-secondary pb-3 mb-2">
+                    Update Transaction
+                  </h5>
+                </Col>
+                <Col
+                  sm={6}
+                  style={{ fontSize: "16px" }}
+                  className="d-flex justify-content-end text-success"
+                >
                   <Form.Check
                     inline
                     style={
@@ -1219,9 +1220,8 @@ export default function UpdateTransactions() {
                     name="closed"
                     onChange={(e) => setisClosed(e.target.value)}
                   />
-
-                  </Col>
-                </Row>
+                </Col>
+              </Row>
               <br />
               <div>
                 <Tabs
@@ -1321,7 +1321,8 @@ export default function UpdateTransactions() {
                                     key={opt.email}
                                     value={opt.stafflist}
                                     selected={
-                                      opt.stafflist === deal[0].transactionlegallead
+                                      opt.stafflist ===
+                                      deal[0].transactionlegallead
                                     }
                                   >
                                     {opt.stafflist}
@@ -3550,8 +3551,6 @@ export default function UpdateTransactions() {
                 {/* <Col sm={2}  className='mt-3 pt-2'> */}
                 <Form.Label className="pt-1"> </Form.Label>
                 {/* </Col> */}
-
-                
               </Row>
             </Form>
           ) : (

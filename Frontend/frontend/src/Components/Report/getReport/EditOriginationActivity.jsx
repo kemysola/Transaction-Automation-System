@@ -7,9 +7,9 @@ import { IoIosSave } from "react-icons/io";
 import { GrAddCircle } from "react-icons/gr";
 import { FiDelete, FiSave } from "react-icons/fi";
 import Editable from "react-editable-title";
-import TitleContext from "../../context/TitleContext";
+import TitleContext from "../../../context/TitleContext";
 
-export default function OriginationActivity() {
+export default function EditOriginationActivity() {
   // const handleYearUpdates = (current) => {
   //   addReportYear(current);
   // };
@@ -60,7 +60,8 @@ export default function OriginationActivity() {
     defaultValues: {
       test: [
         {
-          nbclist: "",
+          nbclist:
+            "Received six (6) NBC approvals for prospects: Accugas, Solad, GVE Projects, ACOB Lighting,Greenville and LFZC.",
         },
       ],
     },
@@ -86,9 +87,9 @@ export default function OriginationActivity() {
     <React.Fragment>
       <Container>
         <Stack gap={2}>
-          <p className="" style={{ fontWeight: "bold" }}>
+          {/* <p className="" style={{ fontWeight: "bold" }}>
             Origination Activity – {currentFQt[0]} {currentFy[0]}
-          </p>
+          </p> */}
         </Stack>
         <div>
           <p style={{ fontWeight: "bold" }}>

@@ -179,7 +179,6 @@ export default function TransactionTable(props) {
       });
   };
 
-  console.log('budget deals',deals)
   const retrieveStaffDeals = () => {
     setLoading(true);
     Service.getMyDealsByEmail(staffFilter, filteredStore)

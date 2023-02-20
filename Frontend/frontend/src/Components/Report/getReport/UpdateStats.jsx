@@ -1,16 +1,26 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { Container, Table, Form } from "react-bootstrap";
 import { GrAddCircle } from "react-icons/gr";
 import { FiDelete } from "react-icons/fi";
 import { FiSave } from "react-icons/fi";
 import Editable from "react-editable-title";
-import TitleContext from "../../context/TitleContext";
+import TitleContext from "../../../context/TitleContext";
+
 import { Divider } from "@mui/material";
-export default function KeyStats() {
+// import {
+//   useGetReportQuery,
+//   useAddReportMutation,
+//   // useUpdateReportMutation,
+// } from "../../Services/apiSlice";
+
+export default function UpdateStats() {
+  // const { data, isLoading, error, isError, isSuccess } = useGetReportQuery();
+  // console.log(data)
+  // const [addReport] = useAddReportMutation();
   const handleKeyStatsTitle = (current) => {
     addkeyStats(current);
   };
-  const { addkeyStats, keyTitleStore } = useContext(TitleContext);
+  const {addkeyStats,keyTitleStore } = useContext(TitleContext);
   useEffect(() => {}, []);
   const [nbcInfo, setNbcInfo] = useState([
     {
@@ -31,12 +41,16 @@ export default function KeyStats() {
     },
   ]);
 
+
   const handleStatsChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...periodStats];
     list[index][name] = value;
     setPeriodStats(list);
   };
+
+
+
 
   const handleStatsAdd = () => {
     setPeriodStats([
@@ -56,12 +70,20 @@ export default function KeyStats() {
     setPeriodStats(list);
   };
 
+
+
+  const addNewStats = () => {};
+
+
+
   const handleNbcChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...nbcInfo];
     list[index][name] = value;
     setNbcInfo(list);
   };
+
+
 
   const handleNbcAdd = () => {
     setNbcInfo([
@@ -81,26 +103,34 @@ export default function KeyStats() {
     list.splice(index, 1);
     setNbcInfo(list);
   };
+
+  const addNewnbcInfo = () => {};
+
+  // const dataNbcInfo = localStorage.getItem('nbcInfo')
+  
   const onsubmit = () => {
-    localStorage.setItem("keyStats", JSON.stringify(nbcInfo));
-    // alert("Saved Entries");
+    // addReport(postData);
+    localStorage.setItem('keyStats',JSON.stringify(nbcInfo))
+    alert('Saved Entries') 
   };
 
   return (
     <>
       <Container className="my-3 py-1">
+      
         <p
           style={{ fontWeight: "bold", fontSize: "16px" }}
           className="text-center mt-2"
         >
-          <Editable
+          {/* <Editable
             text={keyTitleStore}
             editButtonStyle={{ lineHeight: "unset" }}
             editButton
             editControlButtons
             placeholder="Type here"
             cb={handleKeyStatsTitle}
-          />
+          /> */}
+          
         </p>
         <Divider />
         <div
@@ -112,7 +142,7 @@ export default function KeyStats() {
             style={{ width: "1rem", height: "1rem" }}
           />
         </div>
-
+       
         <Table striped bordered hover>
           <thead style={{ fontSize: "12px" }}>
             <tr>
@@ -133,7 +163,7 @@ export default function KeyStats() {
                       type="text"
                       size="sm"
                       placeholder="Summary of Key Activities"
-                      value={singleNote?.nbcInfo}
+                      value={singleNote.nbcInfo}
                       name="nbc_focus_original_date"
                       onChange={(e) => handleNbcChange(e, index)}
                     />
@@ -147,7 +177,7 @@ export default function KeyStats() {
                       type="text"
                       size="sm"
                       placeholder="2017-2017"
-                      value={singleNote?.nbcInfo}
+                      value={singleNote.nbcInfo}
                       name="nbc_focus_original_date"
                       onChange={(e) => handleNbcChange(e, index)}
                     />
@@ -161,7 +191,7 @@ export default function KeyStats() {
                       type="text"
                       size="sm"
                       placeholder="2020"
-                      value={singleNote?.nbcInfo}
+                      value={singleNote.nbcInfo}
                       name="nbc_focus_original_date"
                       onChange={(e) => handleNbcChange(e, index)}
                     />
@@ -175,7 +205,7 @@ export default function KeyStats() {
                       type="text"
                       size="sm"
                       placeholder="2021"
-                      value={singleNote?.nbcInfo}
+                      value={singleNote.nbcInfo}
                       name="nbc_focus_original_date"
                       onChange={(e) => handleNbcChange(e, index)}
                     />
@@ -189,7 +219,7 @@ export default function KeyStats() {
                       type="text"
                       size="sm"
                       placeholder="2022"
-                      value={singleNote?.nbcInfo}
+                      value={singleNote.nbcInfo}
                       name="nbc_focus_original_date"
                       onChange={(e) => handleNbcChange(e, index)}
                     />
@@ -266,7 +296,7 @@ export default function KeyStats() {
                       type="text"
                       size="sm"
                       placeholder="Summary of Key Activities"
-                      value={singleNote?.periodStats}
+                      value={singleNote.periodStats}
                       name="nbc_focus_original_date"
                       onChange={(e) => handleStatsChange(e, index)}
                     />
@@ -280,7 +310,7 @@ export default function KeyStats() {
                       type="text"
                       size="sm"
                       placeholder="2017-2017"
-                      value={singleNote?.periodStats}
+                      value={singleNote.periodStats}
                       name="nbc_focus_original_date"
                       onChange={(e) => handleStatsChange(e, index)}
                     />
@@ -294,7 +324,7 @@ export default function KeyStats() {
                       type="text"
                       size="sm"
                       placeholder="2020"
-                      value={singleNote?.periodStats}
+                      value={singleNote.periodStats}
                       name="nbc_focus_original_date"
                       onChange={(e) => handleStatsChange(e, index)}
                     />
@@ -308,7 +338,7 @@ export default function KeyStats() {
                       type="text"
                       size="sm"
                       placeholder="2021"
-                      value={singleNote?.periodStats}
+                      value={singleNote.periodStats}
                       name="nbc_focus_original_date"
                       onChange={(e) => handleStatsChange(e, index)}
                     />
@@ -322,7 +352,7 @@ export default function KeyStats() {
                       type="text"
                       size="sm"
                       placeholder="2022"
-                      value={singleNote?.periodStats}
+                      value={singleNote.periodStats}
                       name="nbc_focus_original_date"
                       onChange={(e) => handleStatsChange(e, index)}
                     />

@@ -140,7 +140,15 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                     to="/annual_and_quarterly_report_page"
                     style={{ color: "#237cbf" }}
                   >
-                    Quarterly Report
+                     Add Quarterly Report
+                  </Link>
+                </MenuItem>
+                <MenuItem className="subMenu">
+                  <Link
+                    to="/AllReport"
+                    style={{ color: "#237cbf" }}
+                  >
+                      Quarterly Report
                   </Link>
                 </MenuItem>
 

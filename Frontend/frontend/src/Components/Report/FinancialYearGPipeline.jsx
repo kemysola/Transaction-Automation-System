@@ -57,7 +57,7 @@ export default function FinancialYearGPipeline() {
         <div> 
         </div>
         <Row>
-          <Col sm="6" className="my-1 pt-3">
+          <Col sm="12" className="my-1 pt-3">
             <p><Editable
             text={reportStore}
             editButtonStyle={{ lineHeight: "unset" }}
@@ -66,47 +66,6 @@ export default function FinancialYearGPipeline() {
             placeholder="Type here"
             cb={handleTextUpdates}
           /></p>
-          </Col>
-          <Col sm="6" className="">
-              <p
-                className="text-dark pt-3 mt-3"
-                style={{ fontWeight: "", textAlign: "center" }}
-              >
-                Pipeline By Sector
-              </p>
-              <SectorChart/>
-          </Col>
-        </Row>
-        <Row>
-          <Col sm="6" className="mt-3 pt-3">
-            <Stack
-              gap={1}
-              className="text-dark"
-              style={{
-                fontWeight: "bold",
-                textAlign: "center",
-                fontSize: "13px",
-              }}
-            >
-              Pipeline Distribution By Region
-            </Stack>
-            
-            <ReportRegion/>
-          </Col>
-          <Col sm="6" className="mt-3 pt-3">
-            <Stack
-              gap={1}
-              className="text-dark"
-              style={{
-                fontWeight: "bold",
-                textAlign: "center",
-                fontSize: "13px",
-              }}
-            >
-              Pipeline Distribution By Product
-            </Stack>
-            <ChartProducts/>
-            
           </Col>
         </Row>
         <div className='mt-3 pt-3'>
