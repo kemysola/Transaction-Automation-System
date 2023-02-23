@@ -943,7 +943,7 @@ LANGUAGE plpgsql;
 
 
 --==> AMORTIZATION FUNCTION
-CREATE OR REPLACE FUNCTION public.func_infr_amortization_schedule(
+CREATE OR REPLACE FUNCTION func_infr_amortization_schedule(
 	nparamsmoratorium integer,
 	nparamscoupon numeric,
 	nparamsduration integer,
@@ -955,8 +955,11 @@ CREATE OR REPLACE FUNCTION public.func_infr_amortization_schedule(
 	nparamsguaranteefeerate numeric,
 	nparamsdiscountfactor numeric,
 	sparamsdealname character varying,
-	nparamsdealid integer DEFAULT 1002)
-    RETURNS TABLE(ddate date, noutstanding_bond_balance numeric, nguaranteefees numeric, ndiscountfactor numeric, npresentvalue numeric, ninterestincome numeric) 
+	nparamsdealid integer DEFAULT 1002,
+    dparamsStartDate date default null,
+    dparamsEndDate date default null
+)
+    RETURNS TABLE(ndealid integer, ddate date, noutstanding_bond_balance numeric, nguaranteefees numeric, ndiscountfactor numeric, npresentvalue numeric, ninterestincome numeric) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE PARALLEL UNSAFE
@@ -1148,7 +1151,7 @@ BEGIN
 		A.TotalPayment,
 		A.PrincipalOutstanding
 		FROM TB_AMORTIZATION_SCHEDULE A
-        WHERE NOT EXISTS(SELECT 1 FROM TB_AMORTIZATION_SCHEDULE_MASTER WHERE dealid = nParamsDealID AND period_date::DATE <> A."period_date"::DATE AND principaloutstanding <> A.principaloutstanding);
+        WHERE NOT EXISTS(SELECT 1 FROM TB_AMORTIZATION_SCHEDULE_MASTER WHERE DealID = nParamsDealID AND period_date::DATE <> A."period_date"::DATE AND principaloutstanding <> A.principaloutstanding);
 	
 	-- Return Query returns the output of WITH
 	RETURN QUERY
@@ -1163,9 +1166,11 @@ BEGIN
 		PrincipalOutstanding AS Outstanding_Bond_Balance,
 		lead((nParamsGuaranteeFeeRate/100) * PrincipalOutstanding, 0, 0) over (partition by date_part('year', Period_Date) order by date_part('year', Period_Date)) as GuaranteeFees
 		FROM TB_AMORTIZATION_SCHEDULE_MASTER
+        WHERE DealID = nparamsdealid
 		), FinancialGuarantee_GF AS (
 		SELECT
 		RowNumber,
+           DealID,
 		Date,
 		Outstanding_Bond_Balance,
 		CASE WHEN RowNumber = 1 THEN round(GuaranteeFees,2) ELSE 0 END as GuaranteeFees
@@ -1173,6 +1178,7 @@ BEGIN
 		), FinancialGuarantee_GFS AS (
 		SELECT
 		RowNumber,
+            DealID,
 		Date,
 		Outstanding_Bond_Balance,
 		GuaranteeFees,
@@ -1186,9 +1192,17 @@ BEGIN
 	)
 	--output
 	SELECT 
-    Date, Outstanding_Bond_Balance, GuaranteeFees, DiscountFactor,
+    dealid, Date, Outstanding_Bond_Balance, GuaranteeFees, DiscountFactor,
 	round(GuaranteeFees * DiscountFactor,0) AS PresentValue,
 	round(GuaranteeFees - (GuaranteeFees * DiscountFactor),0) AS InterestIncome
-	FROM FinancialGuarantee_GFS;
+	FROM FinancialGuarantee_GFS
+    WHERE Date::text BETWEEN CONCAT(COALESCE(dparamsStartDate::text,'1900'), '-01-01') AND CONCAT(COALESCE(dparamsEndDate::text,'3000'), '-12-31');
 END
 $BODY$;
+
+
+-- Sample Call:
+-- SELECT * FROM func_infr_amortization_schedule( 1,14.7,7,15000000000.00,'Semi-Annual'::text, '20220413'::date,'20221031'::date,0,2.2,14.7,'Asiko'::text,1002,'20220101'::date, '20221231'::date)
+
+--When the start and dates are not specified:
+--SELECT * FROM func_infr_amortization_schedule( 1,14.7,7,15000000000.00,'Semi-Annual'::text, '20220413'::date,'20221031'::date,0,2.2,14.7,'Asiko'::text,1002, NULL::date, NULL::date)
