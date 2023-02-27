@@ -85,12 +85,13 @@ export default function BudgetAccruals(props) {
   const addBudget = () => {
     setSubmitting(true);
     setSubmitted(false);
-    // addToCart({
-    //   guaranteeFee:guaranteeFees,
-    //   structuringFee:structuringFees,
-    //   monitoringFee:monitoringFees,
-    //   transid:id,
-    // });
+    const clientName = props.data.map((data) => {
+      return data.original.transid;
+    });
+    const propsData = props?.data.map((data) => data?.original)
+    // console.log(props?.data,'dataiu')
+    // console.log(propsData,'clientName')
+    Service.postAccruals(propsData).then((res) => console.log(res,'res'))
     toast.success("Budget has been submitted successfully.", {
       duration: 4000,
       position: "bottom-right",
@@ -140,6 +141,27 @@ export default function BudgetAccruals(props) {
           return <div>{`${amount.toFixed(2)}`}</div>;
         },
       },
+      {
+        Header: "Coupon(%)",
+        accessor: "coupon",
+      },
+      {
+        Header: "Tenor(yrs)",
+        accessor: "tenor",
+      },
+      {
+        Header: "Moratorium(yrs)",
+        accessor: "moratorium",
+      },
+      {
+        Header: "Repayment Frequency",
+        accessor: "repaymentfrequency",
+      },
+      {
+        Header: "Amortization Style",
+        accessor: "amortizationstyle",
+      },
+
     ],
     []
   );
