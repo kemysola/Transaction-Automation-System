@@ -32,7 +32,7 @@ router.get("/get_all_deals", verifyTokenAndAuthorization, async (req, res) => {
 });
 
 /*Fetch all Deals(Priviledged Users only) */
-    router.post("/compute_amortization", verifyTokenAndAuthorization, async (req, res) => {
+    router.post("/compute_amortization", async (req, res) => {
     const client = await pool.connect();
 
     // Get the details of candidate transactions for budget & iterate to compute
@@ -79,20 +79,30 @@ router.get("/get_all_deals", verifyTokenAndAuthorization, async (req, res) => {
     }
 });
 
-/*
-budget should be yearly - we must keep a record of all budgets
-=> Guarantee Fee is billed on anniversary date (This is not fixed)
-=> Monitoring Fee is fixed and taken yearly on anniversary date
-=> Structuring Fee(Mandtate Fee) is taken one-off
-=> Deal Lifetime === Tenor column
-PseudoCode
-    - Determine the anniversary dates (compute using the actual-close-date and tenor)
-        -rate change on the system will affect subsequent value of Guarantee Fee i.e. 
-        if the gurantee fee is computed with 10% from years 0 - 2 and the rate changes in year 2, years 3 - end must use the new rate
-        Todo: 
-            a. accurately get rate changes for each deal(pick the most recent rate change per FY)
-*/
 
+/*Fetch Amortizatiokn Schedule for a customer */
+router.get("/amortization_schedule/:dealid", async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+        const dealid = req.params.dealid;
+
+        const amortz_sched = await client.query(
+            `SELECT * FROM TB_AMORTIZATION_SCHEDULE_MASTER WHERE dealid = $1;`,[dealid]
+        );
+
+        if (amortz_sched) {
+            res.status(200).send({
+                status: (res.statusCode = 200),
+                amortization_schedule: amortz_sched.rows,
+            });
+        }
+    } catch (e) {
+        res.status(403).json({ Error: e.stack });
+    } finally {
+        client.release();
+    }
+});
 
 
 module.exports = router;
