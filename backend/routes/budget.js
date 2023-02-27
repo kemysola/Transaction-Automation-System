@@ -15,7 +15,7 @@ router.get("/get_all_deals", verifyTokenAndAuthorization, async (req, res) => {
 
     try {
         const all_deals = await client.query(
-            `SELECT clientname, transactor, dealsize, guaranteefee ,monitoringfee, structuringfeeamount FROM TB_INFRCR_TRANSACTION`
+            `SELECT clientname, transactor, dealsize, guaranteefee ,monitoringfee, repaymentfrequency, amortizationstyle, structuringfeeamount,moratorium,tenor,coupon FROM TB_INFRCR_TRANSACTION`
         );
 
         if (all_deals) {
@@ -38,14 +38,7 @@ router.get("/get_all_deals", verifyTokenAndAuthorization, async (req, res) => {
     // Get the details of candidate transactions for budget & iterate to compute
 
     try {
-        // const payload = req.body();
-
-        const payload = [
-                    {"Moratorium": 1 ,"Coupon": 14.7,"Duration": 7,"Principal": 1500000000.00,"RepaymentFrequency": 'Semi-Annual',"IssueDate": '20220413',"FirstCouponDate":'20221031',"TakingFirstInterestEarly": 0,"GuaranteeFeeRate": 2.2,"DiscountFactor": 14.7,"DealName": 'Asiko',"DealID": 1002},
-                    {"Moratorium": 5 ,"Coupon": 13.25,"Duration": 20,"Principal": 25000000000.00,"RepaymentFrequency": 'Semi-Annual',"IssueDate": '20220510',"FirstCouponDate":'20220916',"TakingFirstInterestEarly": 1,"GuaranteeFeeRate": 2.5,"DiscountFactor": 13.25,"DealName": 'LFCZ',"DealID": 1001}
-                ]
-
-        
+        const payload = req.body;
         const queryBody = `SELECT * FROM FUNC_INFR_AMORTIZATION_SCHEDULE($1::int,$2::numeric,$3::int,$4::numeric,$5::varchar(100),$6::date,$7::date,$8::int,$9::numeric,$10::numeric,$11::varchar(150),$12::int)`;
         
         const result = []
