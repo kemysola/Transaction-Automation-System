@@ -31,8 +31,8 @@ router.get("/get_all_deals", verifyTokenAndAuthorization, async (req, res) => {
     }
 });
 
-/*Fetch all Deals(Priviledged Users only) */
-    router.post("/compute_amortization", async (req, res) => {
+/*Computes the guarantee fees for each facility */
+    router.post("/compute_amortization/:startdate/:enddate", async (req, res) => {
     const client = await pool.connect();
 
     // Get the details of candidate transactions for budget & iterate to compute
@@ -45,7 +45,7 @@ router.get("/get_all_deals", verifyTokenAndAuthorization, async (req, res) => {
         //             {"Moratorium": 5 ,"Coupon": 13.25,"Duration": 20,"Principal": 25000000000.00,"RepaymentFrequency": 'Semi-Annual',"IssueDate": '20220510',"FirstCouponDate":'20220916',"TakingFirstInterestEarly": 1,"GuaranteeFeeRate": 2.5,"DiscountFactor": 13.25,"DealName": 'LFCZ',"DealID": 1001}
         //         ]
      
-        const queryBody = `SELECT * FROM FUNC_INFR_AMORTIZATION_SCHEDULE($1::int,$2::numeric,$3::int,$4::numeric,$5::varchar(100),$6::date,$7::date,$8::int,$9::numeric,$10::numeric,$11::varchar(150),$12::int)`;
+        const queryBody = `SELECT * FROM FUNC_INFR_AMORTIZATION_SCHEDULE($1::int,$2::numeric,$3::int,$4::numeric,$5::varchar(100),$6::date,$7::date,$8::int,$9::numeric,$10::numeric,$11::varchar(150),$12::int,$13::date,$14::date)`;
         
         const result = []
 
@@ -64,7 +64,7 @@ router.get("/get_all_deals", verifyTokenAndAuthorization, async (req, res) => {
             const DealName =  payload[i].DealName;
             const DealID =  payload[i].DealID;
 
-            const dataLoad = [Moratorium, Coupon, Duration, Principal, RepaymentFrequency, IssueDate, FirstCouponDate, TakingFirstInterestEarly, GuaranteeFeeRate, DiscountFactor, DealName, DealID]
+            const dataLoad = [Moratorium, Coupon, Duration, Principal, RepaymentFrequency, IssueDate, FirstCouponDate, TakingFirstInterestEarly, GuaranteeFeeRate, DiscountFactor, DealName, DealID, req.params.startdate, req.params.enddate]
 
             const budget_payload = await client.query(queryBody, dataLoad);
 
