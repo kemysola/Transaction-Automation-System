@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useContext } from "react";
 import CartContext from "../../../context/cart/CartContext";
+import AmortizationSchedule from './AmortizationSchedule';
 
 import {
   useTable,
@@ -29,6 +30,68 @@ import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import Divider from "@mui/material/Divider";
 import Chip from "@mui/material/Chip";
 import PrepareAnnualBudget from "./PrepareBudget/PrepareAnnualBudget";
+
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+
+const columns = [
+  { id: 'name', label: 'Name', minWidth: 170 },
+  { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
+  {
+    id: 'population',
+    label: 'Population',
+    minWidth: 170,
+    align: 'right',
+    format: (value) => value.toLocaleString('en-US'),
+  },
+  {
+    id: 'size',
+    label: 'Size\u00a0(km\u00b2)',
+    minWidth: 170,
+    align: 'right',
+    format: (value) => value.toLocaleString('en-US'),
+  },
+  {
+    id: 'density',
+    label: 'Density',
+    minWidth: 170,
+    align: 'right',
+    format: (value) => value.toFixed(2),
+  },
+];
+function createData(
+  name,
+  code,
+  population,
+  size,
+) {
+  const density = population / size;
+  return { name, code, population, size, density };
+}
+const rows = [
+  createData('India', 'IN', 1324171354, 3287263),
+  createData('China', 'CN', 1403500365, 9596961),
+  createData('Italy', 'IT', 60483973, 301340),
+  createData('United States', 'US', 327167434, 9833520),
+  createData('Canada', 'CA', 37602103, 9984670),
+  createData('Australia', 'AU', 25475400, 7692024),
+  createData('Germany', 'DE', 83019200, 357578),
+  createData('Ireland', 'IE', 4857000, 70273),
+  createData('Mexico', 'MX', 126577691, 1972550),
+  createData('Japan', 'JP', 126317000, 377973),
+  createData('France', 'FR', 67022000, 640679),
+  createData('United Kingdom', 'GB', 67545757, 242495),
+  createData('Russia', 'RU', 146793744, 17098246),
+  createData('Nigeria', 'NG', 200962417, 923768),
+  createData('Brazil', 'BR', 210147125, 8515767),
+];
+
 
 export const GlobalFilter = ({
   preGlobalFilteredRows,
@@ -65,7 +128,8 @@ export const GlobalFilter = ({
 };
 
 export default function BudgetAccruals(props) {
-  const { cartItems, removeItem, addToCart } = useContext(CartContext);
+  const history = useHistory()
+  const { cartItems} = useContext(CartContext);
   const guaranteeFee = props.data.map((data) => data.original.guaranteefee);
   const structuringFee = props.data.map(
     (data) => data.original.structuringfeeamount
@@ -81,6 +145,7 @@ export default function BudgetAccruals(props) {
   });
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [dataResult, setDataResult] =useState([])
   const postData = () => {};
   const addBudget = () => {
     setSubmitting(true);
@@ -91,25 +156,38 @@ export default function BudgetAccruals(props) {
     const propsData = props?.data.map((data) => data?.original)
     // console.log(props?.data,'dataiu')
     // console.log(propsData,'clientName')
-    Service.postAccruals(propsData).then((res) => console.log(res,'res'))
-    toast.success("Budget has been submitted successfully.", {
-      duration: 4000,
-      position: "bottom-right",
-      // Styling
-      style: {},
-      className: "",
-      icon: "👏",
-      iconTheme: {
-        primary: "green",
-        secondary: "#fff",
-      },
-      ariaProps: {
-        role: "status",
-        "aria-live": "polite",
-      },
-    });
+    Service.postAccruals(propsData).then((res) => {
+      const data = res?.data?.deals
+      if(res?.data.status === 200){
+        localStorage.setItem('budget', JSON.stringify(res?.data?.deals))
+        setDataResult(res?.data.deals)
+        toast.success("Budget has been submitted successfully.", {
+          duration: 4000,
+          position: "bottom-right",
+          // Styling
+          style: {},
+          className: "",
+          icon: "👏",
+          iconTheme: {
+            primary: "green",
+            secondary: "#fff",
+          },
+          ariaProps: {
+            role: "status",
+            "aria-live": "polite",
+          },
+        });
+      }
+      else{
+        console.log('no')
+      }
+
+      console.log(res,'res')
+    })
+    
     setSubmitted(true);
     setSubmitting(false);
+
   };
   const columns = useMemo(
     () => [
@@ -231,6 +309,7 @@ export default function BudgetAccruals(props) {
             height: "50%",
           }}
         >
+          
           <ListItem>
             <ListItemAvatar>
               <Avatar>
@@ -262,6 +341,7 @@ export default function BudgetAccruals(props) {
             <ListItemText className="text-success">
               Monitoring Fee : ₦{monitoringFees}
             </ListItemText>
+           
           </ListItem>
           <Divider variant="inset" component="li" />
 
@@ -275,6 +355,7 @@ export default function BudgetAccruals(props) {
               Total: ₦{grandTotal}
             </ListItemText>
           </ListItem>
+          
         </List>
       </div>
       <table
@@ -322,7 +403,9 @@ export default function BudgetAccruals(props) {
           />
         )}
       </div>
-      {/* <PrepareAnnualBudget/> */}
+      <PrepareAnnualBudget data={dataResult}/>
     </div>
   );
 }
+
+

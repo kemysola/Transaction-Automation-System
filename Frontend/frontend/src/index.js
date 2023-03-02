@@ -29,7 +29,6 @@ ReactDOM.render(
         </TitleState>
     </Router>
      </QueryClientProvider>
-
     
     ,
 

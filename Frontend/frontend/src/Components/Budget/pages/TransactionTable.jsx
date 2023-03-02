@@ -326,7 +326,7 @@ const columns = useMemo(
   return (
     <>
     <Row>
-      <Col lg={6} sm={12}>
+      <Col lg={3} sm={12}>
       <ContainerWrapper>
         <div >
         <List sx={style} component="nav" aria-label="mailbox folders" style={{fontWeight:"bold"}}>
@@ -462,7 +462,7 @@ const columns = useMemo(
         {/* )} */}
       </ContainerWrapper>
       </Col>
-      <Col lg={6} sm={12}>
+      <Col lg={9} sm={12}>
         {console.log(selectedFlatRows,'selectedFlatRows')}
       <BudgetAccruals data={ selectedFlatRows}/>
 
