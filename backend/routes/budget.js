@@ -4,105 +4,126 @@ const router = require("express").Router();
 const pool = require("../database");
 var format = require("pg-format");
 const {
-    verifyTokenAndAuthorization,
-    verifyTokenAndAdmin,
+  verifyTokenAndAuthorization,
+  verifyTokenAndAdmin,
 } = require("../middleware");
-
 
 /*Fetch all Deals(Priviledged Users only) */
 router.get("/get_all_deals", verifyTokenAndAuthorization, async (req, res) => {
-    const client = await pool.connect();
+  const client = await pool.connect();
 
-    try {
-        const all_deals = await client.query(
-            `SELECT clientname, transactor, dealsize, guaranteefee ,monitoringfee, repaymentfrequency, amortizationstyle, structuringfeeamount,moratorium,tenor,coupon FROM TB_INFRCR_TRANSACTION`
-        );
+  try {
+    const all_deals = await client.query(
+      `SELECT clientname, transactor, dealsize, guaranteefee ,monitoringfee, repaymentfrequency, amortizationstyle, structuringfeeamount,moratorium,tenor,coupon,discountfactor,
+            takingfirstinterestearly,
+            firstcoupondate,
+            principal,
+            guaranteefeerate,
+            transid,
+            issuedate FROM TB_INFRCR_TRANSACTION`
+    );
 
-        if (all_deals) {
-            res.status(200).send({
-                status: (res.statusCode = 200),
-                deals: all_deals.rows,
-            });
-        }
-    } catch (e) {
-        res.status(403).json({ Error: e.stack });
-    } finally {
-        client.release();
+    if (all_deals) {
+      res.status(200).send({
+        status: (res.statusCode = 200),
+        deals: all_deals.rows,
+      });
     }
+  } catch (e) {
+    res.status(403).json({ Error: e.stack });
+  } finally {
+    client.release();
+  }
 });
 
-/*Fetch all Deals(Priviledged Users only) */
-    router.post("/compute_amortization", async (req, res) => {
-    const client = await pool.connect();
+/*Computes the guarantee fees for each facility */
+router.post("/compute_amortization/:startdate/:enddate", async (req, res) => {
+  const client = await pool.connect();
 
-    // Get the details of candidate transactions for budget & iterate to compute
+  // Get the details of candidate transactions for budget & iterate to compute
 
-    try {
-        const payload = req.body;
-        const queryBody = `SELECT * FROM FUNC_INFR_AMORTIZATION_SCHEDULE($1::int,$2::numeric,$3::int,$4::numeric,$5::varchar(100),$6::date,$7::date,$8::int,$9::numeric,$10::numeric,$11::varchar(150),$12::int)`;
-        
-        const result = []
+  try {
+    const payload = req.body;
+    // const payload = [
+    //             {"Moratorium": 1 ,"Coupon": 14.7,"Duration": 7,"Principal": 1500000000.00,"RepaymentFrequency": 'Semi-Annual',"IssueDate": '20220413',"FirstCouponDate":'20221031',"TakingFirstInterestEarly": 0,"GuaranteeFeeRate": 2.2,"DiscountFactor": 14.7,"DealName": 'Asiko',"DealID": 1002},
+    //             {"Moratorium": 5 ,"Coupon": 13.25,"Duration": 20,"Principal": 25000000000.00,"RepaymentFrequency": 'Semi-Annual',"IssueDate": '20220510',"FirstCouponDate":'20220916',"TakingFirstInterestEarly": 1,"GuaranteeFeeRate": 2.5,"DiscountFactor": 13.25,"DealName": 'LFCZ',"DealID": 1001}
+    //         ]
 
-        for (let i = 0; i < payload.length; i++) {
+    const queryBody = `SELECT * FROM FUNC_INFR_AMORTIZATION_SCHEDULE($1::int,$2::numeric,$3::int,$4::numeric,$5::varchar(100),$6::date,$7::date,$8::int,$9::numeric,$10::numeric,$11::varchar(150),$12::int,$13::date,$14::date)`;
 
-            const Moratorium = payload[i].Moratorium; 
-            const Coupon = payload[i].Coupon ;
-            const Duration = payload[i].Duration;
-            const Principal = payload[i].Principal;
-            const RepaymentFrequency = payload[i].RepaymentFrequency;
-            const IssueDate =  payload[i].IssueDate;
-            const FirstCouponDate = payload[i].FirstCouponDate;
-            const TakingFirstInterestEarly = payload[i].TakingFirstInterestEarly;
-            const GuaranteeFeeRate =  payload[i].GuaranteeFeeRate; 
-            const DiscountFactor =  payload[i].DiscountFactor;
-            const DealName =  payload[i].DealName;
-            const DealID =  payload[i].DealID;
+    const result = [];
 
-            const dataLoad = [Moratorium, Coupon, Duration, Principal, RepaymentFrequency, IssueDate, FirstCouponDate, TakingFirstInterestEarly, GuaranteeFeeRate, DiscountFactor, DealName, DealID]
+    for (let i = 0; i < payload.length; i++) {
+      const Moratorium = payload[i].moratorium;
+      const Coupon = +payload[i].coupon;
+      const Duration = payload[i].tenor;
+      const Principal = payload[i].principal;
+      const RepaymentFrequency = payload[i].repaymentfrequency;
+      const IssueDate = payload[i].issuedate;
+      const FirstCouponDate = payload[i].firstcoupondate;
+      const TakingFirstInterestEarly = payload[i].takingfirstinterestearly;
+      const GuaranteeFeeRate = payload[i].guaranteefeerate;
+      const DiscountFactor = payload[i].discountfactor;
+      const DealName = payload[i].clientname;
+      const DealID = payload[i].transid;
 
-            const budget_payload = await client.query(queryBody, dataLoad);
-
-            result.push(budget_payload.rows)
-        }
-        
-        if (result.length > 0) {
-            res.status(200).send({
-                status: (res.statusCode = 200),
-                deals: result,
-            });
-        }
-
-    } catch (e) {
-        res.status(403).json({ Error: e.stack });
-    } finally {
-        client.release();
+      const dataLoad = [
+        Moratorium,
+        Coupon,
+        Duration,
+        Principal,
+        RepaymentFrequency,
+        IssueDate,
+        FirstCouponDate,
+        TakingFirstInterestEarly,
+        GuaranteeFeeRate,
+        DiscountFactor,
+        DealName,
+        DealID,
+        req.params.startdate,
+        req.params.enddate,
+      ];
+      console.log(dataLoad);
+      const budget_payload = await client.query(queryBody, dataLoad);
+      result.push(budget_payload.rows);
     }
-});
 
+    if (result.length > 0) {
+      res.status(200).send({
+        status: (res.statusCode = 200),
+        deals: result,
+      });
+    }
+  } catch (e) {
+    res.status(403).json({ Error: e.stack });
+  } finally {
+    client.release();
+  }
+});
 
 /*Fetch Amortizatiokn Schedule for a customer */
 router.get("/amortization_schedule/:dealid", async (req, res) => {
-    const client = await pool.connect();
+  const client = await pool.connect();
 
-    try {
-        const dealid = req.params.dealid;
+  try {
+    const dealid = req.params.dealid;
 
-        const amortz_sched = await client.query(
-            `SELECT * FROM TB_AMORTIZATION_SCHEDULE_MASTER WHERE dealid = $1;`,[dealid]
-        );
+    const amortz_sched = await client.query(
+      `SELECT * FROM TB_AMORTIZATION_SCHEDULE_MASTER WHERE dealid = $1;`,
+      [dealid]
+    );
 
-        if (amortz_sched) {
-            res.status(200).send({
-                status: (res.statusCode = 200),
-                amortization_schedule: amortz_sched.rows,
-            });
-        }
-    } catch (e) {
-        res.status(403).json({ Error: e.stack });
-    } finally {
-        client.release();
+    if (amortz_sched) {
+      res.status(200).send({
+        status: (res.statusCode = 200),
+        amortization_schedule: amortz_sched.rows,
+      });
     }
+  } catch (e) {
+    res.status(403).json({ Error: e.stack });
+  } finally {
+    client.release();
+  }
 });
-
 
 module.exports = router;

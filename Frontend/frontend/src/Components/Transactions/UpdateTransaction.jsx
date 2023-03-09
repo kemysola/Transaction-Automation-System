@@ -93,6 +93,12 @@ export default function UpdateTransactions() {
   const exceptedClose = useRef("");
   const actualClose = useRef("");
   const amount = useRef("");
+  const principal = useRef("");
+  const guaranteefeerate = useRef("");
+  const firstcoupondate = useRef("");
+  const takingfirstinterestearly = useRef("");
+  const issuedate = useRef("");
+  const discountfactor = useRef("");
   const advance = useRef("");
   const final = useRef("");
   const guarantee = useRef("");
@@ -1139,6 +1145,12 @@ export default function UpdateTransactions() {
       NBC_approval_date: new Date(nbcApprovalDate.current.value),
       NBC_submitted_date: new Date(nbcSubmittedDate.current.value),
       ccSubmissionDate: new Date(ccSubmissionDate.current.value),
+      principal:+principal.current.value,
+      guaranteefeerate:+guaranteefeerate.current.value,
+      issuedate : issuedate.current.value,
+      takingfirstinterestearly :takingfirstinterestearly.current.value,
+      discountfactor:+discountfactor.current.value,
+      firstcoupondate:firstcoupondate.current.value,
       structuringFeeAmount: +amount.current.value,
       structuringFeeAdvance: +advance.current.value,
       structuringFeeFinal: +final.current.value,
@@ -3517,6 +3529,81 @@ export default function UpdateTransactions() {
                         Next
                       </button> */}
                   </Tab>
+                  <Tab eventKey="" title="AMORTIZATION">
+                    <Container>
+                      <div>
+                        <Form.Label>Principal</Form.Label>
+                        <Form.Control
+                          type="text"
+                          // style={{ width: "30%", height: "10px" }}
+                          size="sm"
+                          defaultValue={deal[0].principal}
+                                id="principal"
+                                ref={principal}
+                        />
+                        <Form.Label>IssueDate</Form.Label>
+                        <Form.Control
+                          type="date"
+                          style={{ width: "30%", height: "10px" }}
+                          size="sm"
+                          defaultValue={
+                            deal[0].issuedate
+                              ? new Date(deal[0].issuedate)
+                                  .toISOString()
+                                  .split("T")[0]
+                              : ""
+                          }
+                          id="issuedate"
+                          ref={issuedate}
+                        />
+                        <Form.Label>FirstCouponDate</Form.Label>
+                        <Form.Control
+                          type="date"
+                          style={{ width: "30%", height: "10px" }}
+                          size="sm"
+                          defaultValue={
+                            deal[0].firstcoupondate
+                              ? new Date(deal[0].firstcoupondate)
+                                  .toISOString()
+                                  .split("T")[0]
+                              : ""
+                          }
+                          id="firstcoupondate"
+                          ref={firstcoupondate}
+                        />
+                        <Form.Label>TakingFirstInterestEarly</Form.Label>
+                        <Form.Control
+                          type="number"
+                          style={{ width: "30%", height: "10px" }}
+                          size="sm"
+                          defaultValue={
+                            deal[0].takingfirstinterestearly
+                          }
+                          id="takingfirstinterestearly"
+                          ref={takingfirstinterestearly}
+                        />
+                        <Form.Label>GuaranteeFeeRate</Form.Label>
+                        <Form.Control
+                          type="number"
+                          style={{ width: "30%", height: "10px" }}
+                          size="sm"
+                          defaultValue={deal[0].guaranteefeerate}
+                          id="guaranteefeerate"
+                          ref={guaranteefeerate}
+                        />
+                        <Form.Label>DiscountFactor</Form.Label>
+                        <Form.Control
+                          type="number"
+                          style={{ width: "30%", height: "10px" }}
+                          size="sm"
+                          defaultValue={deal[0].discountfactor}
+                          id="discountfactor"
+                          ref={discountfactor}
+                        />
+                      </div>
+                    </Container>
+                  </Tab>
+
                 </Tabs>
               </div>
 

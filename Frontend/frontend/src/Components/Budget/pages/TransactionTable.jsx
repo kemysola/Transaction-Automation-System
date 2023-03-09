@@ -164,7 +164,6 @@ export default function TransactionTable(props) {
   const retrieveDeals = async () => {
     await Service.getBudgetDeals()
       .then((response) => {
-        console.log(response?.data?.deals,'deals')
         setDeals(response.data.deals);
         setRawData(response.data.deals);
       })
@@ -206,8 +205,36 @@ const columns = useMemo(
         },
       },
       {
+        Header: "Discount Factor",
+        accessor: "discountfactor",
+      },
+      {
+        Header: "Issue Date",
+        accessor: "issuedate",
+      },
+      {
+        Header: "Taking First Interest",
+        accessor: "takingfirstinterestearly",
+      },
+      {
+        Header: "Principal",
+        accessor: "principal",
+      },
+      {
+        Header: "First Coupon Date",
+        accessor: "firstcoupondate",
+      },
+      {
+        Header: "Guarantee Fee Rate",
+        accessor: "guaranteefeerate",
+      },
+      {
         Header: "Coupon(%)",
         accessor: "coupon",
+      },
+      {
+        Header: "ID",
+        accessor: "transid",
       },
       {
         Header: "Tenor(yrs)",
@@ -463,7 +490,6 @@ const columns = useMemo(
       </ContainerWrapper>
       </Col>
       <Col lg={9} sm={12}>
-        {console.log(selectedFlatRows,'selectedFlatRows')}
       <BudgetAccruals data={ selectedFlatRows}/>
 
       </Col>

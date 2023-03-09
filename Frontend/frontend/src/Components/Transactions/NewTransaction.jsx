@@ -82,6 +82,12 @@ const NewTransaction = () => {
       nbc_submitted_date: null,
       creditApproval: null,
       feeLetter: null,
+      principal:"",
+      guaranteefeerate:"",
+      issuedate:null,
+      firstcoupondate:null,
+      takingfirstinterestearly:"",
+      discountfactor:"",
       expectedClose: null,
       actualClose: null,
       greenA: "false",
@@ -483,6 +489,9 @@ const NewTransaction = () => {
     if (activeTab === "eigth") {
       setActiveTab("ninth");
     }
+    if (activeTab === "ninth") {
+      setActiveTab("tenth");
+    }
   }
   function handlePrevChange() {
     if (activeTab === "second") {
@@ -505,6 +514,9 @@ const NewTransaction = () => {
     }
     if (activeTab === "ninth") {
       setActiveTab("eigth");
+    }
+    if (activeTab === "tenth") {
+      setActiveTab("ninth");
     }
   }
 
@@ -565,6 +577,16 @@ const NewTransaction = () => {
       dealSize: +reqdata.dealSize,
       coupon: +reqdata.coupon,
       tenor: +reqdata.tenor,
+      principal: +reqdata.principal,
+      guaranteefeerate:+reqdata.guaranteefeerate,
+      issuedate:`${
+        reqdata.issuedate ? reqdata.issuedate : 20221203
+      }`,
+      firstcoupondate:`${
+        reqdata.firstcoupondate ? reqdata.firstcoupondate : 20221203
+      }`,
+      takingfirstinterestearly:reqdata.takingfirstinterestearly,
+      discountfactor:+reqdata.discountfactor,
       mandateLetter: `${
         reqdata.mandateLetter ? reqdata.mandateLetter : 20221203
       }`,
@@ -2496,6 +2518,63 @@ const NewTransaction = () => {
                         <GrAdd onClick={handleKpiAdd} />
                       </p>
                     </div>
+                  </Tab>
+                  <Tab eventKey="" title="AMORTIZATION">
+                    <Container>
+                      <div>
+                        <Form.Label>Principal</Form.Label>
+                        <Form.Control
+                          type="number"
+                          // style={{ width: "30%", height: "10px" }}
+                          size="sm"
+                          {...register("principal", { required: true })}
+
+
+                        />
+                        <Form.Label>IssueDate</Form.Label>
+                        <Form.Control
+                          type="date"
+                          style={{ width: "30%", height: "10px" }}
+                          size="sm"
+                          {...register("issuedate", { required: true })}
+
+                        />
+                        <Form.Label>FirstCouponDate</Form.Label>
+                        <Form.Control
+                          type="date"
+                          style={{ width: "30%", height: "10px" }}
+                          size="sm"
+                          name="plis_status"
+                          {...register("firstcoupondate", { required: true })}
+
+                        />
+                        <Form.Label>TakingFirstInterestEarly</Form.Label>
+                        <Form.Control
+                          type="number"
+                          style={{ width: "30%", height: "10px" }}
+                          size="sm"
+                          {...register("takingfirstinterestearly", { required: true })}
+
+                        />
+                        <Form.Label>GuaranteeFeeRate</Form.Label>
+                        <Form.Control
+                          type="number"
+                          style={{ width: "30%", height: "10px" }}
+                          size="sm"
+                          {...register("guaranteefeerate", { required: true })}
+
+                          
+                        />
+                        <Form.Label>DiscountFactor</Form.Label>
+                        <Form.Control
+                          type="number"
+                          style={{ width: "30%", height: "10px" }}
+                          size="sm"
+                          {...register("discountfactor", { required: true })}
+
+                        />
+                      </div>
+                    </Container>
                   </Tab>
                 </Tabs>
 
