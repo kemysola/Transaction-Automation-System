@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useContext } from "react";
 import CartContext from "../../../context/cart/CartContext";
+import AmortizationSchedule from "./AmortizationSchedule";
 
 import {
   useTable,
@@ -29,7 +30,6 @@ import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import Divider from "@mui/material/Divider";
 import Chip from "@mui/material/Chip";
 import PrepareAnnualBudget from "./PrepareBudget/PrepareAnnualBudget";
-
 export const GlobalFilter = ({
   preGlobalFilteredRows,
   globalFilter,
@@ -65,7 +65,7 @@ export const GlobalFilter = ({
 };
 
 export default function BudgetAccruals(props) {
-  const { cartItems, removeItem, addToCart } = useContext(CartContext);
+  const { cartItems } = useContext(CartContext);
   const guaranteeFee = props.data.map((data) => data.original.guaranteefee);
   const structuringFee = props.data.map(
     (data) => data.original.structuringfeeamount
@@ -81,32 +81,45 @@ export default function BudgetAccruals(props) {
   });
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [dataResult, setDataResult] = useState([]);
   const postData = () => {};
   const addBudget = () => {
     setSubmitting(true);
     setSubmitted(false);
-    // addToCart({
-    //   guaranteeFee:guaranteeFees,
-    //   structuringFee:structuringFees,
-    //   monitoringFee:monitoringFees,
-    //   transid:id,
-    // });
-    toast.success("Budget has been submitted successfully.", {
-      duration: 4000,
-      position: "bottom-right",
-      // Styling
-      style: {},
-      className: "",
-      icon: "👏",
-      iconTheme: {
-        primary: "green",
-        secondary: "#fff",
-      },
-      ariaProps: {
-        role: "status",
-        "aria-live": "polite",
-      },
+    const clientName = props.data.map((data) => {
+      return data.original.transid;
     });
+    const propsData = props?.data.map((data) => data?.original);
+    const startDate = "20220202";
+    const endDate = "20231007";
+    Service.postAccruals(startDate, endDate, propsData).then((res) => {
+      const data = res?.data?.deals;
+      if (res?.data.status === 200) {
+        localStorage.setItem("budget", JSON.stringify(res?.data?.deals));
+        setDataResult(res?.data.deals);
+        toast.success("Budget has been submitted successfully.", {
+          duration: 4000,
+          position: "bottom-right",
+          // Styling
+          style: {},
+          className: "",
+          icon: "👏",
+          iconTheme: {
+            primary: "green",
+            secondary: "#fff",
+          },
+          ariaProps: {
+            role: "status",
+            "aria-live": "polite",
+          },
+        });
+      } else {
+        console.log("no");
+      }
+
+      console.log(res, "res");
+    });
+
     setSubmitted(true);
     setSubmitting(false);
   };
@@ -139,6 +152,50 @@ export default function BudgetAccruals(props) {
           const amount = parseInt(props.row.original["structuringfeeamount"]);
           return <div>{`${amount.toFixed(2)}`}</div>;
         },
+      },
+      {
+        Header: "Coupon(%)",
+        accessor: "coupon",
+      },
+      {
+        Header: "Tenor(yrs)",
+        accessor: "tenor",
+      },
+      {
+        Header: "Moratorium(yrs)",
+        accessor: "moratorium",
+      },
+      {
+        Header: "Repayment Frequency",
+        accessor: "repaymentfrequency",
+      },
+      {
+        Header: "Amortization Style",
+        accessor: "amortizationstyle",
+      },
+      {
+        Header: "Discount Factor",
+        accessor: "discountfactor",
+      },
+      {
+        Header: "Issue Date",
+        accessor: "issuedate",
+      },
+      {
+        Header: "Taking First Interest",
+        accessor: "takingfirstinterestearly",
+      },
+      {
+        Header: "Principal",
+        accessor: "principal",
+      },
+      {
+        Header: "First Coupon Date",
+        accessor: "firstcoupondate",
+      },
+      {
+        Header: "Guarantee Fee Rate",
+        accessor: "guaranteefeerate",
       },
     ],
     []
@@ -300,7 +357,7 @@ export default function BudgetAccruals(props) {
           />
         )}
       </div>
-      {/* <PrepareAnnualBudget/> */}
+      <PrepareAnnualBudget data={dataResult} />
     </div>
   );
 }

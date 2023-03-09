@@ -4,23 +4,17 @@ const pool = require("../database");
 const {verifyTokenAndAdmin, verifyTokenAndAuthorization} = require("../middleware"); 
 
 // create industry by authorized users
-router.post('/industry', verifyTokenAndAdmin, async (req, res) => {
-    
+router.post('/industry', verifyTokenAndAdmin, async (req, res) => { 
     const client = await pool.connect();
-
     try {
         const new_industry = { industry } = req.body
 
         const industry_data = [
             new_industry.industry
         ]
-
         await client.query('BEGIN')
-        
         const write_to_db = 
         `INSERT INTO TB_INFRCR_INDUSTRY(industry) VALUES ($1) RETURNING *`
-    
-        
         const res_ = await client.query(write_to_db, industry_data)
 
         await client.query('COMMIT')

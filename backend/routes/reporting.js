@@ -346,10 +346,14 @@ router.get('/quarterly/oands/:fy_quarter/:fin_year',verifyTokenAndAuthorization,
         WHERE ReportFYQuarter = $1
         AND COALESCE(ReportFY,(SELECT FY FROM tb_infrcr_financial_year WHERE FY_STATUS = 'Active')) = $2
         `,[quarter, fin_year]);
-  
+        let  reportsectioncontent = JSON.parse(quarterly_report.rows[0].reportsectioncontent)
+        let  reportfy = quarterly_report.rows[0].reportfy
+        let  reportquarter = quarterly_report.rows[0].reportfyquarter
         res.status(200).send({
             status: (res.statusCode = 200),
-            quarterly_report: quarterly_report.rows,
+            reportfy,
+            reportquarter,
+            quarterly_report: reportsectioncontent, 
         })
 } catch (e) {
     res.status(403).json({ Error: e.message });

@@ -12,7 +12,6 @@ import { FiDelete } from "react-icons/fi";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 
-
 //********************************* Material UI styled Components    **********************************/
 
 const ButtonWrapper = styled.button`
@@ -83,6 +82,12 @@ const NewTransaction = () => {
       nbc_submitted_date: null,
       creditApproval: null,
       feeLetter: null,
+      principal:"",
+      guaranteefeerate:"",
+      issuedate:null,
+      firstcoupondate:null,
+      takingfirstinterestearly:"",
+      discountfactor:"",
       expectedClose: null,
       actualClose: null,
       greenA: "false",
@@ -484,6 +489,9 @@ const NewTransaction = () => {
     if (activeTab === "eigth") {
       setActiveTab("ninth");
     }
+    if (activeTab === "ninth") {
+      setActiveTab("tenth");
+    }
   }
   function handlePrevChange() {
     if (activeTab === "second") {
@@ -506,6 +514,9 @@ const NewTransaction = () => {
     }
     if (activeTab === "ninth") {
       setActiveTab("eigth");
+    }
+    if (activeTab === "tenth") {
+      setActiveTab("ninth");
     }
   }
 
@@ -531,12 +542,11 @@ const NewTransaction = () => {
 
   const handleNoteRemove = (index) => {
     const list = [...noteList];
-    let deletedItem = list
+    let deletedItem = list;
     list.splice(index, 1);
     // setNoteList(list);
-    console.log(list[index])
+    console.log(list[index]);
     setNoteList((prev) => [...prev.filter((i) => i === list[i])]);
-
   };
 
   const handleInputChange = (event) => {
@@ -567,6 +577,16 @@ const NewTransaction = () => {
       dealSize: +reqdata.dealSize,
       coupon: +reqdata.coupon,
       tenor: +reqdata.tenor,
+      principal: +reqdata.principal,
+      guaranteefeerate:+reqdata.guaranteefeerate,
+      issuedate:`${
+        reqdata.issuedate ? reqdata.issuedate : 20221203
+      }`,
+      firstcoupondate:`${
+        reqdata.firstcoupondate ? reqdata.firstcoupondate : 20221203
+      }`,
+      takingfirstinterestearly:reqdata.takingfirstinterestearly,
+      discountfactor:+reqdata.discountfactor,
       mandateLetter: `${
         reqdata.mandateLetter ? reqdata.mandateLetter : 20221203
       }`,
@@ -627,7 +647,7 @@ const NewTransaction = () => {
           position: "bottom-right",
           // Styling
           style: {
-            fontSize:'16px'
+            fontSize: "16px",
           },
           className: "",
           icon: "👏",
@@ -648,7 +668,7 @@ const NewTransaction = () => {
           position: "bottom-right",
           // Styling
           style: {
-            fontSize:'16px'
+            fontSize: "16px",
           },
           className: "",
           icon: "👏",
@@ -669,17 +689,16 @@ const NewTransaction = () => {
   return (
     <React.Fragment>
       <Toaster
-          toastOptions={{
-            className: "",
-            style: {
-              border: "1px solid green",
-              padding: "8px",
-              color: "green",
-            },
-          }}
-        />
+        toastOptions={{
+          className: "",
+          style: {
+            border: "1px solid green",
+            padding: "8px",
+            color: "green",
+          },
+        }}
+      />
       <FormWrapper>
-      
         <Container fluid style={{ marginTop: "0" }}>
           {submitted ? (
             <div>
@@ -2500,6 +2519,63 @@ const NewTransaction = () => {
                       </p>
                     </div>
                   </Tab>
+                  <Tab eventKey="" title="AMORTIZATION">
+                    <Container>
+                      <div>
+                        <Form.Label>Principal</Form.Label>
+                        <Form.Control
+                          type="number"
+                          // style={{ width: "30%", height: "10px" }}
+                          size="sm"
+                          {...register("principal", { required: true })}
+
+
+                        />
+                        <Form.Label>IssueDate</Form.Label>
+                        <Form.Control
+                          type="date"
+                          style={{ width: "30%", height: "10px" }}
+                          size="sm"
+                          {...register("issuedate", { required: true })}
+
+                        />
+                        <Form.Label>FirstCouponDate</Form.Label>
+                        <Form.Control
+                          type="date"
+                          style={{ width: "30%", height: "10px" }}
+                          size="sm"
+                          name="plis_status"
+                          {...register("firstcoupondate", { required: true })}
+
+                        />
+                        <Form.Label>TakingFirstInterestEarly</Form.Label>
+                        <Form.Control
+                          type="number"
+                          style={{ width: "30%", height: "10px" }}
+                          size="sm"
+                          {...register("takingfirstinterestearly", { required: true })}
+
+                        />
+                        <Form.Label>GuaranteeFeeRate</Form.Label>
+                        <Form.Control
+                          type="number"
+                          style={{ width: "30%", height: "10px" }}
+                          size="sm"
+                          {...register("guaranteefeerate", { required: true })}
+
+                          
+                        />
+                        <Form.Label>DiscountFactor</Form.Label>
+                        <Form.Control
+                          type="number"
+                          style={{ width: "30%", height: "10px" }}
+                          size="sm"
+                          {...register("discountfactor", { required: true })}
+
+                        />
+                      </div>
+                    </Container>
+                  </Tab>
                 </Tabs>
 
                 <div
@@ -2529,15 +2605,10 @@ const NewTransaction = () => {
               <div className="d-flex justify-content-end">
                 <ButtonWrapper type="submit">Submit</ButtonWrapper>
                 <ButtonWrapper type="reset">Reset</ButtonWrapper>
-               
               </div>
-             
             </form>
-
           )}
-          
         </Container>
-       
       </FormWrapper>
     </React.Fragment>
   );

@@ -97,6 +97,10 @@ const downloadAllDeals = async() => { // get all deals, for privileged users onl
 const getActualGuarantee = (year) => { // Actual Guarantee: for only closed deals within the current FY
     return axios.get(`transaction/guarantee/actual/${year}`)
 }
+const postAccruals = (startDate,endDate,data) => {
+    return axios.post(`budget/compute_amortization/${startDate}/${endDate}`,data)
+}
+
 
 const getAllStaff = async() => { // get all staff, for privileged users only
     return await axios.get("staff/all_staff");
@@ -214,9 +218,13 @@ const getAllClosedDeals= async(financial_year) =>{
 const getAllReport= async(fy_quarter, fin_year) =>{
     return await axios.get(`report/quarterly/oands/${fy_quarter}/${fin_year}`)
 }
+const postReport = (data) => {
+    return axios.post(`report/quarterly/oands`,data)
+}
 
 const Services = {
     // FiY,
+    postReport,
     LoginStaff,
     registerStaff,
     updateStaff,
@@ -224,6 +232,7 @@ const Services = {
     getAllReport,
     updateDeal,
     getDealById,
+    postAccruals,
     getReimbursibles,
     getMyDealsByEmail,
     getMyDeals,

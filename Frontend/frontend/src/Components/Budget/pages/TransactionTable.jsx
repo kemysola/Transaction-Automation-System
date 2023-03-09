@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef, useContext } from "react";
 import { Row, Col, Spinner } from "react-bootstrap";
 import CartContext from "../../../context/cart/CartContext";
-
 import {
   useTable,
   useResizeColumns,
@@ -23,12 +22,6 @@ import BudgetAccruals from './BudgetAccruals';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import ImageIcon from '@mui/icons-material/Image';
-import WorkIcon from '@mui/icons-material/Work';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
-import Divider from '@mui/material/Divider';
 
 const ContainerWrapper = styled.div`
 `;
@@ -179,7 +172,6 @@ export default function TransactionTable(props) {
       });
   };
 
-  console.log('budget deals',deals)
   const retrieveStaffDeals = () => {
     setLoading(true);
     Service.getMyDealsByEmail(staffFilter, filteredStore)
@@ -211,6 +203,54 @@ const columns = useMemo(
           const amount = parseInt(props.row.original["dealsize"]);
           return <div>{`${amount.toFixed(2)}`}</div>;
         },
+      },
+      {
+        Header: "Discount Factor",
+        accessor: "discountfactor",
+      },
+      {
+        Header: "Issue Date",
+        accessor: "issuedate",
+      },
+      {
+        Header: "Taking First Interest",
+        accessor: "takingfirstinterestearly",
+      },
+      {
+        Header: "Principal",
+        accessor: "principal",
+      },
+      {
+        Header: "First Coupon Date",
+        accessor: "firstcoupondate",
+      },
+      {
+        Header: "Guarantee Fee Rate",
+        accessor: "guaranteefeerate",
+      },
+      {
+        Header: "Coupon(%)",
+        accessor: "coupon",
+      },
+      {
+        Header: "ID",
+        accessor: "transid",
+      },
+      {
+        Header: "Tenor(yrs)",
+        accessor: "tenor",
+      },
+      {
+        Header: "Moratorium(yrs)",
+        accessor: "moratorium",
+      },
+      {
+        Header: "Repayment Frequency",
+        accessor: "repaymentfrequency",
+      },
+      {
+        Header: "Amortization Style",
+        accessor: "amortizationstyle",
       },
 
       {
@@ -313,7 +353,7 @@ const columns = useMemo(
   return (
     <>
     <Row>
-      <Col lg={6} sm={12}>
+      <Col lg={3} sm={12}>
       <ContainerWrapper>
         <div >
         <List sx={style} component="nav" aria-label="mailbox folders" style={{fontWeight:"bold"}}>
@@ -338,19 +378,7 @@ const columns = useMemo(
               setGlobalFilter={setGlobalFilter}
             />  </ListItem> 
 </List>
-          {/* <div className="text-secondary" style={{fontSize: "15.5px"}}>
-            <pre className='text-success' style={{fontWeight:'bold'}}>Budget Fees</pre>
-            <pre className='text-success' style={{fontWeight:'bold'}}>Fee Forecast</pre>
-            <pre className='text-success' style={{fontWeight:'bold'}}>Financial Year </pre>
-
-
-            <small className="text-success"><GlobalFilter
-              preGlobalFilteredRows={preGlobalFilteredRows}
-              globalFilter={state.globalFilter}
-              setGlobalFilter={setGlobalFilter}
-            />
-            </small>
-          </div> */}
+          
         </div>
         {loading ? (
           <Spinner animation="border" role="status" variant="secondary">
@@ -461,7 +489,7 @@ const columns = useMemo(
         {/* )} */}
       </ContainerWrapper>
       </Col>
-      <Col lg={6} sm={12}>
+      <Col lg={9} sm={12}>
       <BudgetAccruals data={ selectedFlatRows}/>
 
       </Col>
