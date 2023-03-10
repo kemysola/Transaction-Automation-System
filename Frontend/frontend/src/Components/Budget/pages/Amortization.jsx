@@ -316,7 +316,7 @@ const Amortization = (props) => {
 
                 <Col sm={6}>
                     <form onSubmit={handleSearch}>
-                        <input type="text" className='py-1' style={{marginRight: '1em'}} value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} />
+                        <input type="text" placeholder='Enter account id' className='py-1' style={{marginRight: '1em'}} value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} />
                         <button className='bg-success text-light py-1' type="submit">Search</button>
                     </form>
                     {
