@@ -18,11 +18,11 @@ function GreenAndAnberCard() {
   const year = new Date().getFullYear();
   useEffect(() => {
     retrieveForecast();
-  }, []);
+  }, [filteredStore]);
 
   
   const retrieveForecast = async() => {
-    await Service.getForecast()
+    await Service.getForecast(filteredStore)
       .then((response) => {
         setCurrentForecast(response.data.forecast[0]);
       })

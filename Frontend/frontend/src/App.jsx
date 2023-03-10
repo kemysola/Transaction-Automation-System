@@ -37,6 +37,8 @@ import ComponentView from "./Components/Report/Reimbursible/ComponentView";
 import ClosedDeals from "./Components/Report/closedDeals/pages/ClosedDeals";
 import ClosedDealByFilter from "./Components/Report/closedDeals/pages/ClosedDealByFilter";
 import Budget_cash from "./Components/Budget/pages/Budget_cash";
+import AmortizationPage from "./Pages/Amortization/AmortizationPage";
+
 export default function App() {
   let location = useLocation()
   const parseJwt = (token) => {
@@ -109,7 +111,7 @@ export default function App() {
         <ProtectedRoute exact path="/closed_deals/filter" component={ClosedDealByFilter}/>
         {/* <ProtectedRoute exact path="/budget/id" component={Budget_cash}/> */}
         <ProtectedRoute exact path="/budget" component={Budget_cash}/>
-
+        <ProtectedRoute exact path="/amortization" component={AmortizationPage}/>
 
 
         
