@@ -603,10 +603,9 @@ router.get(
         `SELECT 
                 a.* 
             FROM TB_INFRCR_TRANSACTION a
-            WHERE DATE_PART('year', a.createdate)::varchar(10) = COALESCE($1, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
-            `,
-        [final_year_slice]
-      );
+            WHERE DATE_PART('year', a.createdate)::varchar(10) <= COALESCE($1, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
+            `,[final_year_slice]
+    );
 
       if (all_deals) {
         myArray = all_deals.rows;
@@ -651,10 +650,9 @@ router.get(
         `SELECT 
                 a.* 
             FROM TB_INFRCR_TRANSACTION a
-            WHERE DATE_PART('year', a.createdate)::varchar(10) = COALESCE($1, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
-            `,
-        [final_year_slice]
-      );
+            WHERE DATE_PART('year', a.createdate)::varchar(10) <= COALESCE($1, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
+            `,[final_year_slice]
+    );
 
       if (all_deals) {
         myArray = all_deals.rows;
@@ -705,7 +703,7 @@ router.get(
             WHERE a.closed = false
             AND (a.originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
             OR a.transactor = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1))
-            AND DATE_PART('year', a.createdate)::varchar(10) = COALESCE($2, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
+            AND DATE_PART('year', a.createdate)::varchar(10) <= COALESCE($2, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
             `,
         [current_user.Email, final_year_slice]
       );
@@ -755,7 +753,7 @@ router.get(
             WHERE a.closed = true
             AND (a.originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
             OR a.transactor = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1))
-            AND DATE_PART('year', a.createdate)::varchar(10) = COALESCE($2, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
+            AND DATE_PART('year', a.createdate)::varchar(10) <= COALESCE($2, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
             `,
         [current_user.Email, final_year_slice]
       );
@@ -799,9 +797,8 @@ router.get(
       const all_deals = await client.query(
         `SELECT createdate,transid,clientname,originator, transactor,transactionlegallead,industry,product, region,dealsize,tenor,repaymentfrequency,mandateletter, creditapproval,expectedclose, actualclose,guaranteefee,closed,deal_category,notes,nbc_approval_date, nbc_submitted_date 
         FROM TB_INFRCR_TRANSACTION
-        WHERE DATE_PART('year', a.createdate)::varchar(10) = COALESCE($1, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
-            `,
-        [final_year_slice]
+        WHERE DATE_PART('year', a.createdate)::varchar(10) <= COALESCE($1, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
+            `,[final_year_slice]
       );
 
       if (all_deals) {

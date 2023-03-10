@@ -23,12 +23,12 @@ function GuaranteePipeline() {
 
   useEffect(() => {
     retrieveForecast();
-  }, []);
+  }, [filteredStore]);
 
 
 // ******************************************  Axios call to get forecast *************************************************
   const retrieveForecast = async() => {
-    await Service.getForecast()
+    await Service.getForecast(filteredStore)
       .then((response) => {
         setCurrentForecast(response.data.forecast[0]);
         setNextForecast(response.data.forecast[0])

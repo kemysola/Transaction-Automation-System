@@ -37,7 +37,7 @@ export default function Progress() {
 
   useEffect(() => {
     retrieveForecast();
-  }, []);
+  }, [filteredStore]);
  
 
   // ******************************************  Axios :  get transactions  ****************************************
@@ -54,7 +54,7 @@ export default function Progress() {
   // ******************************************  Axios :  get forecast  ****************************************
 
   const retrieveForecast = async () => {
-    await Service.getForecast()
+    await Service.getForecast(filteredStore)
       .then((response) => {
         setForecast(response.data.forecast);
       })

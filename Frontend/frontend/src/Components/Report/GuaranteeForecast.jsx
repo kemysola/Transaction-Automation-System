@@ -24,7 +24,7 @@ function GuaranteeForecast() {
 
   useEffect(() => {
     retrieveForecast();
-  }, []);
+  }, [filteredStore]);
 
   const retrieveDeals = async () => {
     await Service.getAllDeals(filteredStore)
@@ -39,7 +39,7 @@ function GuaranteeForecast() {
   // ******************************************  Axios :  get forecast  ****************************************
 
   const retrieveForecast = async () => {
-    await Service.getForecast()
+    await Service.getForecast(filteredStore)
       .then((response) => {
         setForecast(response.data.forecast);
       })
