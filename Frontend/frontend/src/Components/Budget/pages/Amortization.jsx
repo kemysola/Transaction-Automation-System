@@ -81,21 +81,7 @@ export const GlobalFilter =({
 
   return (
       <span className=''>
-          {/* <input 
-              className="form-control "
-              style={{ outline: 'none', border: '1px solid black', padding: '1px 10px', marginTop: '2px', marginRight: '2px' , width:'170px'}}
-              value={value || ""}
-              onChange={e => {
-                  setValue(e.target.value);
-                  onChange(e.target.value);
-              }}
-              placeholder={`Search ${count} records`}
-          /> */}
-
-                {/* <form onSubmit={handleSearch}>
-                    <input type="text" value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} />
-                    <button type="submit">Search</button>
-                </form> */}
+   
       </span>
   )
 }
@@ -147,6 +133,7 @@ const Amortization = (props) => {
     await Service.getAmortization(searchTerm)
       .then((response) => {
         setDeals(response.data.amortization_schedule);
+        setCustomerAlert(false)
         if (response.data.amortization_schedule.length < 1) {
           setCustomerAlert(true)
         }
@@ -304,39 +291,7 @@ const Amortization = (props) => {
     useFlexLayout,
     useSortBy,
     usePagination,
-    // useRowSelect,
-    // hooks => {
-    //   hooks.allColumns.push(columns => [
-    //     // Let's make a column for selection
-    //     {
-    //       id: 'selection',
-    //       disableResizing: true,
-    //       minWidth: 20,
-    //       width: 35,
-    //       maxWidth: 35,
-    //       // The header can use the table's getToggleAllRowsSelectedProps method
-    //       // to render a checkbox
-    //       Header: ({ getToggleAllRowsSelectedProps }) => (
-    //         <div>
-    //           <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-    //         </div>
-    //       ),
-    //       // The cell can use the individual row's getToggleRowSelectedProps method
-    //       // to the render a checkbox
-    //       Cell: ({ row }) => (
-    //         <div>
-    //           <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-    //         </div>
-    //       ),
-    //     },
-    //     ...columns,
-    //   ])
-    //   hooks.useInstanceBeforeDimensions.push(({ headerGroups }) => {
-    //     // fix the parent group of the selection button to not be resizable
-    //     const selectionGroupHeader = headerGroups[0].headers[0]
-    //     selectionGroupHeader.canResize = false
-    //   })
-    // },
+
     
     );
   
@@ -344,10 +299,6 @@ const Amortization = (props) => {
   return (
     <React.Fragment>
       <ContainerWrapper>
-      {/* <form onSubmit={handleSearch}>
-                    <input type="text" value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} />
-                    <button type="submit">Search</button>
-        </form> */}
         <Row>
               <Col sm={2} className='d-sm-none d-lg-block d-md-block'>
                 <small style={{fontSize:'12px',paddingTop:'10px'}}>
@@ -355,18 +306,18 @@ const Amortization = (props) => {
                 </small>
               </Col>
 
-           
+{/*            
               <Col sm ={2} className='d-sm-none d-lg-block d-md-block'>
               <small style={{fontSize:'12px',paddingTop:'10px'}}>
               <button className='bg-success text-light py-1' onClick={downloadExcel}>Download</button>
               </small>
-              </Col>
+              </Col> */}
 
 
                 <Col sm={6}>
                     <form onSubmit={handleSearch}>
-                        <input type="text" value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} />
-                        <button type="submit">Search</button>
+                        <input type="text" className='py-1' style={{marginRight: '1em'}} value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} />
+                        <button className='bg-success text-light py-1' type="submit">Search</button>
                     </form>
                     {
                       customerAlert ? <div style={{color: 'red'}}>please check the id is correct</div> : null
