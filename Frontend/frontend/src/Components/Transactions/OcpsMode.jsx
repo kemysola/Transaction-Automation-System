@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Container, Form as Fm, Row, Col, ListGroup} from "react-bootstrap";
+import { Form as Fm, Row, Col, ListGroup} from "react-bootstrap";
 import styled from "styled-components";
 import { FiEdit, FiSave, FiTrash2 } from 'react-icons/fi'
 import { MdOutlineCancel } from 'react-icons/md'
@@ -20,7 +20,6 @@ function usePrevious(value) {
 }
 
 const Ocps = ((props) => {
-  // const [data, setData] = useState([])
   const [isEditing, setEditing] = useState(false);
   const [ocpsFactors, setocpsFactors] = useState(null);
   const [ocpsYesNo, setocpsYesNo] = useState(null);
@@ -28,13 +27,9 @@ const Ocps = ((props) => {
   const [ocpsExpected, setocpsExpected] = useState(null);
   const [ocpsRespParty, setocpsRespParty] = useState(null);
   const [ocpsStatus, setocpsStatus] = useState(null);
-
-
   const editFieldRef = useRef(null);
   const editButtonRef = useRef(null);
-  
   const wasEditing = usePrevious(isEditing);
-
   useEffect(() => {
     if (!wasEditing && isEditing) {
       editFieldRef.current.focus();
@@ -46,7 +41,6 @@ const Ocps = ((props) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-
     props.editOcps(props.id, props.transid, ocpsFactors, ocpsYesNo, ocpsConcern, ocpsExpected, ocpsRespParty, ocpsStatus);
     setocpsFactors(null);
     setocpsYesNo(null);
@@ -59,7 +53,6 @@ const Ocps = ((props) => {
 
   function handleDelete(e){
     e.preventDefault();
-
     props.deleteOcps(props.id, props.transid)
   }
 
@@ -68,7 +61,6 @@ const Ocps = ((props) => {
     {/* This file is the template for how each NBCFocus should look while in view mode and edit mode */}
       <ListGroup.Item>
         {isEditing ? 
-
           // view when updating NBCFocus
           <Fm>
             <div className="form-group">
@@ -76,7 +68,6 @@ const Ocps = ((props) => {
                 <Col sm={12}>
                   <Row>
                     <Col className="mt-1 mb-1">
-                      {/* <Fm.Label>Original</Fm.Label> */}
                       <Fm.Control
                         id={props.id}
                         className="todo-text"
@@ -96,7 +87,6 @@ const Ocps = ((props) => {
                         id={props.id}
                         className="todo-text"
                         type="text"
-                        // defaultValue={props.ocpsYesNo}
                         value={ocpsYesNo}
                         onChange={(e) => setocpsYesNo(e.target.value)}
                         size="sm"
@@ -120,12 +110,10 @@ const Ocps = ((props) => {
                     </Col>
 
                     <Col  className="mt-1 mb-1">
-                      {/* <Fm.Label>Concerns</Fm.Label> */}
                       <Fm.Select
                         id={props.id}
                         className="todo-text"
                         type="text"
-                        // defaultValue={props.ocpsConcern}
                         value={ocpsConcern}
                         onChange={(e) => setocpsConcern(e.target.value)}
                         size="sm"
@@ -171,13 +159,11 @@ const Ocps = ((props) => {
                     </Col>
 
                     <Col  className="mt-1 mb-1">
-                      {/* <Fm.Label>Original</Fm.Label> */}
                       <Fm.Control
                         id={props.id}
                         className="todo-text"
                         type="text"
                         defaultValue={props.ocpsRespParty}
-                        // value={ocpsRespParty}
                         onChange={(e) => setocpsRespParty(e.target.value)}
                         ref={editFieldRef}
                         size="sm"
@@ -186,13 +172,11 @@ const Ocps = ((props) => {
                     </Col>
 
                     <Col  className="mt-1 mb-1">
-                      {/* <Fm.Label>Methodology</Fm.Label> */}
                       <Fm.Control
                         id={props.id}
                         className="todo-text"
                         type="text"
                         defaultValue={props.ocpsStatus}
-                        // value={ocpsStatus}
                         onChange={(e) => setocpsStatus(e.target.value)}
                         ref={editFieldRef}
                         size="sm"

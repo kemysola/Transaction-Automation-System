@@ -11,15 +11,15 @@ import { Divider } from "@mui/material";
 import KeyStats from "./KeyStats";
 import Editable from "react-editable-title";
 import TitleContext from "../../context/TitleContext";
+// import AllReport from '../getReport/AllReportFiles'
+import AllReport from './getReport/AllReport'
 export default function AllPages() {
   const currentQuarter = (current) => {
     addCurrentQuarter(current);
   };
-
   const currentFY = (current) => {
     addCurrentFy(current);
   };
-
   const {
     addCurrentQuarter,
     addCurrentFy,
@@ -30,6 +30,8 @@ export default function AllPages() {
   return (
     <React.Fragment>
       <Navbar />
+      {/* <AllReport/> */}
+
       <div style={{ textAlign: "right", fontWeight: "bold" }}>
         Quarterly Report for :
         <Editable
@@ -56,7 +58,7 @@ export default function AllPages() {
         <Col sm={3} lg={2} className="">
           <Sidenav />
         </Col>
-        <Col sm={8} lg={9} className="my-3">
+        <Col sm={6} lg={9} className="my-3">
           <Container fluid>
             <CurrentGuarantee />
           </Container>
@@ -67,6 +69,7 @@ export default function AllPages() {
         </Container>
       </Row>
       <Container>
+
         <GuaranteePortGrowthVsTar />
         <FinancialYearGPipeline />
         <OriginationActivity />

@@ -985,8 +985,8 @@ BEGIN
 
   nRepaymentFrequency :=
     CASE
-      WHEN sParamsRepaymentFrequency = 'Semi-Annual' THEN 2
-      WHEN sParamsRepaymentFrequency = 'Annual' THEN 1
+      WHEN sParamsRepaymentFrequency = 'Semi-Annually' THEN 2
+      WHEN sParamsRepaymentFrequency = 'Annually' THEN 1
       WHEN sParamsRepaymentFrequency = 'Quarterly' THEN 4
       WHEN sParamsRepaymentFrequency = 'Monthly' THEN 12
     END;
@@ -1206,3 +1206,19 @@ $BODY$;
 
 --When the start and dates are not specified:
 --SELECT * FROM func_infr_amortization_schedule( 1,14.7,7,15000000000.00,'Semi-Annual'::text, '20220413'::date,'20221031'::date,0,2.2,14.7,'Asiko'::text,1002, NULL::date, NULL::date)
+-- Budget --Alter transaction TABLE
+ALTER TABLE tb_infrcr_transaction_audit
+ADD COLUMN Principal INT,
+ADD COLUMN FirstCouponDate DATE,
+ADD COLUMN TakingFirstInterestEarly INT,
+ADD COLUMN GuaranteeFeeRate INT,
+ADD COLUMN DiscountFactor INT,
+ADD COLUMN IssueDate DATE;
+
+ALTER TABLE tb_infrcr_transaction
+ADD COLUMN Principal INT,
+ADD COLUMN FirstCouponDate DATE,
+ADD COLUMN TakingFirstInterestEarly INT,
+ADD COLUMN GuaranteeFeeRate INT,
+ADD COLUMN DiscountFactor INT,
+ADD COLUMN IssueDate DATE;

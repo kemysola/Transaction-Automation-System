@@ -127,9 +127,9 @@ export default function GuaranteePortGrowthVsTar() {
             </p>
           </Stack>
         </div>
-        <div className="d-flex justify-content-start">
+        {/* <div className="d-flex justify-content-start">
           <GuaranteeForecast />
-        </div>
+        </div> */}
 
         <div className="my-2 pt-3">
           <Stack gap={1}>
@@ -157,7 +157,7 @@ export default function GuaranteePortGrowthVsTar() {
         </div>
         <div>
           <Row>
-            <Col sm={6} className="my-1">
+            <Col sm={12} className="my-1">
               <div
                 className="d-flex justify-content-end ml-2"
                 style={{ cursor: "pointer", height: "1rem" }}
@@ -281,7 +281,7 @@ export default function GuaranteePortGrowthVsTar() {
                 </tbody>
               </Table>
             </Col>
-            <Col sm={6} className="">
+            {/* <Col sm={6} className="">
               <div className="d-flex justify-content-center">
                 <p
                   classNmae="text-center"
@@ -289,16 +289,16 @@ export default function GuaranteePortGrowthVsTar() {
                 >
                   Expected Financial Close by Quarter (Cumm)
                 </p>
-              </div>
+              </div> */}
 
               {/* graph : q1 2022, q2 2022 q3 2022 q4 2022 */}
               <br />
-              <div className="d-flex justify-content-center">
+              {/* <div className="d-flex justify-content-center">
                 <BarChart width={300} height={200} data={data}>
                   <Bar dataKey="uv" fill="#8884d8" />
                 </BarChart>
-              </div>
-            </Col>
+              </div> */}
+            {/* </Col> */}
           </Row>
         </div>
       </Container>

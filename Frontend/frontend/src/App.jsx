@@ -38,6 +38,8 @@ import ClosedDeals from "./Components/Report/closedDeals/pages/ClosedDeals";
 import ClosedDealByFilter from "./Components/Report/closedDeals/pages/ClosedDealByFilter";
 import Budget_cash from "./Components/Budget/pages/Budget_cash";
 import AmortizationPage from "./Pages/Amortization/AmortizationPage";
+import AllReport from "./Components/Report/getReport/AllReport";
+
 
 export default function App() {
   let location = useLocation()
@@ -76,6 +78,9 @@ export default function App() {
         <Route exact path='/forgot_password'>
           <ForgotPassword/>
         </Route>
+        <Route exact path='/AllReport'>
+          <AllReport/>
+        </Route>
 
         <Route exact path="/transaction">
           <TransactionView />
@@ -95,6 +100,8 @@ export default function App() {
         <Route path="/org_dashboard"> <Origination /> </Route>
         <Route path="/staff_transaction_report"> <SingleView /> </Route>
         <Route path="/execution"> <Execution /> </Route>
+       
+
 
         <Route exact path="/landing" component={Landing} />
         <ProtectedRoute exact path="/create_user" component={StaffView}/>
