@@ -72,7 +72,7 @@ const AADParameters = {
   tenant: process.env.tenant,
   authorityHostUrl: "https://login.windows.net",
   clientId: process.env.clientID,
-  // redirectUri: "http://localhost:5001/api/v1/auath/app/login",
+  // redirectUri: "http://localhost:5001/api/v1/auth/app/login",
   redirectUri: "https://trms01-server.azurewebsites.net/api/v1/auth/app/login",
   clientSecret: process.env.value,
 };
