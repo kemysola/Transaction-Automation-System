@@ -2,6 +2,12 @@ const router = require("express").Router();
 const pool = require("../database");
 const {verifyTokenAndAuthorization} = require("../middleware"); 
 
+ //Use this to validate incoming financial year
+ const fy_validator = (fy)=>{
+    const reg = new RegExp('^[0-9]+$'); 
+    return reg.test(fy)
+  }
+
 // fetch all staff level by authorized users
 router.get('/level', verifyTokenAndAuthorization, async (req, res) => {
     const client = await pool.connect();
@@ -190,10 +196,40 @@ router.get('/staff_list', verifyTokenAndAuthorization, async (req, res) => {
 });
 
 // fetch all guarantee projection data  by authorized users
-router.get('/forecast', verifyTokenAndAuthorization, async (req, res) => {
+// --p(FY)
+// --update forecast status when year = FY
+// -- Deactivate when year != FY
+router.get('/forecast/:financial_year', verifyTokenAndAuthorization, async (req, res) => {
     const client = await pool.connect();
-
     try {
+        const financial_year = req.params.financial_year;
+         const fin_year = fy_validator(financial_year.slice(-4))
+
+         let final_year_slice = ''
+
+        if(fin_year){
+            final_year_slice = financial_year.slice(-4)
+            
+          }else{ 
+            res.status(404).send({
+              status: (res.statusCode = 404),
+              message: 'Invalid Financial Year',
+            });
+            return;
+          }
+
+        const projectionyear = await client.query(
+            `UPDATE TB_INFRCR_FORECAST
+            SET status = 'Active'
+            WHERE  projectionyear = $1;
+            `, [final_year_slice]);
+
+        const notProjectionyear = await client.query(
+            `UPDATE TB_INFRCR_FORECAST
+            SET status = 'Inactive'
+            WHERE  projectionyear != $1;
+            `, [final_year_slice]);
+
         const forecast = await client.query(
             `SELECT * FROM TB_INFRCR_FORECAST
             WHERE status = 'Active'

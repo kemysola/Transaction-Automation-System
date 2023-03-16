@@ -158,8 +158,8 @@ const getDealCategory = () => { // get all deal category
     return axios.get("configuration/category");
 }
 
-const getForecast = () => { // get all forecast
-    return axios.get("configuration/forecast");
+const getForecast = (fy) => { // get all forecast
+    return axios.get(`configuration/forecast/${fy}`);
 }
 
 // admin module endpoints
@@ -222,6 +222,10 @@ const postReport = (data) => {
     return axios.post(`report/quarterly/oands`,data)
 }
 
+const getAmortization = async(id) => {
+    return await axios.get(`budget/amortization_schedule/${id}`)
+}
+
 const Services = {
     // FiY,
     postReport,
@@ -278,7 +282,8 @@ const Services = {
     getFY,
     addFY,
     updateFY,
-    getCCReport
+    getCCReport,
+    getAmortization
 }
 
 
