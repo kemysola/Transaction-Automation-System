@@ -129,7 +129,6 @@ export default function StructuringExecution() {
 
   const submitData = async () => {
     await Service.postReport(postData);
-    // console.log(postData,'postData')
   };
 
   return (

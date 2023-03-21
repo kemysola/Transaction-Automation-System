@@ -20,7 +20,8 @@ export default function StaffView() {
                     <Col sm={3} style={{padding:'10px 10px 10px 0px'}}>
                         <Sidenav />
                     </Col>
-                    <Col sm={9} className=' d-flex justify-content-center mr-2'>
+                    <Col sm={9} className=' '>
+                        {/* d-flex justify-content-center mr-2 */}
                         <NewStaff />
                         
                     </Col>

@@ -20,8 +20,8 @@ export default function Updates() {
                     <Col sm={3} style={{padding:'10px 10px 10px 0px'}}>
                         <SideNav2/>
                     </Col>
-                    <Col sm={9} className=' d-flex justify-content-center' > 
-                    <div className='bg-light py-2' style={{borderRadius:'10px'}}>
+                    <Col sm={9} className=' ' > 
+                    <div className=' py-2'>
                     <UpdateStaffs />
                     </div>
                         

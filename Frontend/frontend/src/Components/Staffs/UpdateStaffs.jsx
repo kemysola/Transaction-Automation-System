@@ -8,27 +8,32 @@ import Tab from "react-bootstrap/Tab";
 import axios from "axios";
 
 const ButtonWrapper = styled.button`
-  color: white;
-  background: green;
-  border: 1px solid white;
-  padding: 2px 20px;
-  font-size: 13px;
-  margin: 10px;
-  border-radius: 3px;
+color: white;
+background: black;
+margin-right: 14px;
+border: 1px solid white;
+padding: 13px 23px;
+margin-top: 8px;
+margin-bottom: 8px;
+font-weight: bold;
+font-size: 10px;
+border-radius: 5px;
 `;
 
 const FormWrapper = styled.div`
-  padding: 0;
-  font-size: 2px;
-  margin: 0;
+padding: 0;
+font-size: 2px;
+margin: 0;
+border-radius: 5px;
+border: 1.2px dashed #e2e2e2;
 `;
 
 const Container1 = styled.div`
-  font-size: 10px;
-  padding: 3px 10px;
-  border-radius: 10px;
-  width: 52vw;
-  margin: 0;
+font-size: 10px;
+padding: 3px 2px;
+border-radius: 5px;
+margin: 0;
+border: 1.2px dashed #e2e2e2;
 `;
 
 const CancelWrapper = styled.button`
@@ -53,7 +58,6 @@ export default function UpdateStaffs() {
   const firstName = useRef("");
   const lastName = useRef("");
   const level = useRef("");
-  const hasOriginationTarget = useRef("");
   const originationAmount = useRef("");
   const guaranteePipeline = useRef("");
   const mandateLetter = useRef("");
@@ -226,8 +230,8 @@ export default function UpdateStaffs() {
               <div></div>
               <Tabs
                 onSelect={(k) => handleTabChange}
-                style={{ fontSize: "13px" }}
-              >
+                style={{ fontSize: "13px",background:'black',padding:'10px' }}
+                >
                 <Tab eventKey="first" title="USER">
                   <br />
                   <br />
@@ -242,7 +246,7 @@ export default function UpdateStaffs() {
                       {/*----------------------------------- Form ----------------------------------- */}
                       <Col sm={6} className="mt-1 pt-1">
                         <Form.Group className="mb-0 mt-2 pt-2 pb-1">
-                          <Form.Label className="pt-1">First Name</Form.Label>
+                          <Form.Label className="pt-1">* First Name</Form.Label>
                           <Form.Control
                             size="sm"
                             type="text"
@@ -257,7 +261,7 @@ export default function UpdateStaffs() {
 
                       <Col sm={6} className="mt-1 pt-1">
                         <Form.Group className="mb-0 mt-2 pt-2 pb-1">
-                          <Form.Label className="pt-1">Last Name</Form.Label>
+                          <Form.Label className="pt-1">* Last Name</Form.Label>
                           <Form.Control
                             size="sm"
                             type="text"
@@ -273,7 +277,7 @@ export default function UpdateStaffs() {
                       {/*--------------------------------- Form ----------------------------------------- */}
                       <Col sm={6} className="mt-1 pt-1">
                         <Form.Group>
-                          <Form.Label className="pt-1">Level</Form.Label>
+                          <Form.Label className="pt-1">* Level</Form.Label>
                           <Form.Select
                             size="sm"
                             value={staff.level}
@@ -303,7 +307,7 @@ export default function UpdateStaffs() {
 
                       <Col sm={6} className="mt-1 pt-1">
                         <Form.Group>
-                          <Form.Label className="pt-1">Status</Form.Label>
+                          <Form.Label className="pt-1">* Status</Form.Label>
                           <Form.Select
                             size="sm"
                             value={staff.status}
@@ -475,7 +479,6 @@ export default function UpdateStaffs() {
                     </Row>
                     <br />
                     <br />
-                    {/* <button onClick={e => toNextTab(e)} style={{ display: 'inlineBlock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button> */}
                   </Container1>
                   <br />
                 </Tab>
@@ -492,14 +495,9 @@ export default function UpdateStaffs() {
                     <Form.Group className="mb-0 mt-3 pt-1 pb-1">
                       <Row>
                         <Col sm={4} className="mt-3 pt-2">
-                          <Form.Label>Has Orignation Target?</Form.Label>
+                          <Form.Label>* Has Orignation Target?</Form.Label>
                         </Col>
                         <Col sm={4} className="mt-3 pt-2">
-                          {/* <Form.Check inline label="Yes" type="radio" name='target' value='Yes'  id='hasOriginationTarget' ref={hasOriginationTarget} /> */}
-                          {/* <Form.Check value={true} defaultChecked={staff[0].target === true} name="target" onChange={e => setHasTargets(e.target.value)}/> */}
-                          {/* <Form.Check value={false} defaultChecked={staff[0].target === false} name="target" onChange={e => setHasTargets(e.target.value)}/> */}
-
-                          {/* <Form.Check inline label="No" type="radio" name='target' value='No'  id='' ref={hasOriginationTarget} /> */}
                           <Form.Check
                             inline
                             label="Yes"
@@ -573,10 +571,7 @@ export default function UpdateStaffs() {
 
                     <br />
                     <br />
-                    {/* <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Prev</button>
-                                        <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button> */}
                   </Container1>
-
                   <br />
                 </Tab>
 
@@ -587,9 +582,10 @@ export default function UpdateStaffs() {
                       marginBottom: "2px",
                       paddingBottom: "6px",
                       fontSize: "13px",
+
                     }}
                   >
-                    <Row>
+                    <Row className='mt-3 pt-3'>
                       <Col sm={4}>
                         <p style={{ fontWeight: "bold", fontSize: "11px" }}>
                           % per milestone

@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import GeneralPie from "../GeneralPie";
+import { Divider } from 'antd';
 
 
 
@@ -14,11 +15,7 @@ export default function CurrentGPortfolio(props){
         { name: "North Soth Power", value: 14 },
         { name: "VIATHAN", value: 15 },
       ];
-      const data1 = [
-        { name: "GPC", value: 89 },
-        { name: "GELUL", value: 7 },
-        { name: "LFZC", value: 4 },
-      ];
+      
     
       // ******************************************  Color selection for the pie chart ****************************************
       const COLORS = ["#FF4500", "#FFBB28", "#00C49F", "GREEN", "BLUE", "PURPLE"];
@@ -82,16 +79,7 @@ export default function CurrentGPortfolio(props){
     return(
         <>
         <Container fluid>
-        <h3
-          style={{
-            fontWeight: "bold",
-            marginLeft: "",
-          }}
-        >
-            Current Guarantee  Portfolio
-          
-        </h3>
-
+        <Divider> Current Guarantee  Portfolio</Divider>
         <div className="pt-1">
           <p
             style={{
@@ -111,8 +99,7 @@ export default function CurrentGPortfolio(props){
               className="text-success text-center"
               style={{ fontWeight: "", fontSize: "12px" }}
             >
-              Analysis of Guarantee Transactions Since Inception of NGN77.6
-              Billion as at 31 December 2021.
+              Analysis of Guarantee Transactions Since Inception 
             </p>
             <ResponsiveContainer width="140%" height={270}>
               <PieChart margin={{ top: 3, right: 0, bottom: 0 }}>
@@ -146,8 +133,8 @@ export default function CurrentGPortfolio(props){
               className="text-success text-center"
               style={{ fontWeight: "", fontSize: "12px" }}
             >
-              Categorisation of NGN311.5 Billion of Mandated Transactions as at
-              31 December 2022.
+              Categorisation  of Mandated Transactions as at
+              Financial Year.
             </p>
             <GeneralPie />
           </Col>

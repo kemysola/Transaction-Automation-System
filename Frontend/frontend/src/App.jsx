@@ -100,9 +100,6 @@ export default function App() {
         <Route path="/org_dashboard"> <Origination /> </Route>
         <Route path="/staff_transaction_report"> <SingleView /> </Route>
         <Route path="/execution"> <Execution /> </Route>
-       
-
-
         <Route exact path="/landing" component={Landing} />
         <ProtectedRoute exact path="/create_user" component={StaffView}/>
         <ProtectedRoute exact path="/all_users" component={AllStaff} />
@@ -116,7 +113,6 @@ export default function App() {
         <ProtectedRoute exact path="/settings" component={Settings} />
         <ProtectedRoute exact path="/cc_report" component={CCReportView} />
         <ProtectedRoute exact path="/closed_deals/filter" component={ClosedDealByFilter}/>
-        {/* <ProtectedRoute exact path="/budget/id" component={Budget_cash}/> */}
         <ProtectedRoute exact path="/budget" component={Budget_cash}/>
         <ProtectedRoute exact path="/amortization" component={AmortizationPage}/>
 

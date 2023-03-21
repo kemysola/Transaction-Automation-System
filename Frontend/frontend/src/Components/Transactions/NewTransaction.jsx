@@ -15,7 +15,7 @@ import toast, { Toaster } from "react-hot-toast";
 //********************************* Material UI styled Components    **********************************/
 
 const ButtonWrapper = styled.button`
-  background: green;
+  background: black;
   border: 1px solid white;
   padding: 12px 21px;
   margin-top: 3px;
@@ -26,11 +26,13 @@ const ButtonWrapper = styled.button`
 `;
 const FormWrapper = styled.div`
   margin: 0;
+  border:1.2px dashed #E2E2E2;
   font-size: 5px;
   padding: 0;
 `;
 
 const Container1 = styled.div`
+  border:1.2px dashed #E2E2E2;
   font-size: 12px;
   padding: 1px 1rem;
   border-radius: 15px;
@@ -354,20 +356,6 @@ const NewTransaction = () => {
     list.splice(index, 1);
     setParties(list);
   };
-
-  //         nbc_focus_apprv_1_b: "",
-  //         nbc_focus_apprv_1_c: null,
-  //         nbc_focus_apprv_2_b: "",
-  //         nbc_focus_apprv_2_c: null,
-  //         nbc_focus_apprv_3_b: "",
-  //         nbc_focus_apprv_3_c: null,
-  //         nbc_focus_apprv_4_b: "",
-  //         nbc_focus_apprv_4_c: null,
-  //         nbc_focus_apprv_5_b: "",
-  //         nbc_focus_apprv_5_c: null,
-  //       },
-  //     ]);
-  //   };
 
   // **************************************************** Key Performance Indicators ************************//
   const handleKpiChange = (e, index) => {
@@ -721,13 +709,10 @@ const NewTransaction = () => {
               <PWrapper>
                 <h5 className="py-3 text-secondary">New Transaction</h5>
               </PWrapper>
-              <br />
-
               <div>
                 <Tabs
-                  //activeKey={activeTab}
                   onSelect={(k) => handleTabChange}
-                  style={{ fontSize: "12px" }}
+                  style={{ fontSize: "12px",background:'black',padding:'0.77rem 10px' }}
                 >
                   <Tab eventKey="first" title="CLIENT">
                     <Container1>
@@ -2520,61 +2505,72 @@ const NewTransaction = () => {
                     </div>
                   </Tab>
                   <Tab eventKey="" title="AMORTIZATION">
+                    <Container1>
                     <Container>
                       <div>
-                        <Form.Label>Principal</Form.Label>
+                        <Row className='mt-2 pt-2'>
+                          <Col sm={6}>
+                          <Form.Label>Principal</Form.Label>
                         <Form.Control
                           type="number"
-                          // style={{ width: "30%", height: "10px" }}
                           size="sm"
                           {...register("principal", { required: true })}
-
-
                         />
-                        <Form.Label>IssueDate</Form.Label>
+                          </Col>
+                          <Col sm={6}>
+                          <Form.Label>IssueDate</Form.Label>
                         <Form.Control
                           type="date"
-                          style={{ width: "30%", height: "10px" }}
                           size="sm"
                           {...register("issuedate", { required: true })}
-
                         />
-                        <Form.Label>FirstCouponDate</Form.Label>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col sm={6}>
+                          <Form.Label>FirstCouponDate</Form.Label>
                         <Form.Control
                           type="date"
-                          style={{ width: "30%", height: "10px" }}
                           size="sm"
                           name="plis_status"
                           {...register("firstcoupondate", { required: true })}
-
                         />
-                        <Form.Label>TakingFirstInterestEarly</Form.Label>
+                          </Col>
+                          <Col sm={6}>
+                          <Form.Label>TakingFirstInterestEarly</Form.Label>
                         <Form.Control
                           type="number"
-                          style={{ width: "30%", height: "10px" }}
                           size="sm"
                           {...register("takingfirstinterestearly", { required: true })}
-
                         />
-                        <Form.Label>GuaranteeFeeRate</Form.Label>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col sm={6}>
+                          <Form.Label>GuaranteeFeeRate</Form.Label>
                         <Form.Control
                           type="number"
-                          style={{ width: "30%", height: "10px" }}
                           size="sm"
                           {...register("guaranteefeerate", { required: true })}
-
-                          
                         />
-                        <Form.Label>DiscountFactor</Form.Label>
+
+                          </Col>
+                          <Col sm={6}>
+                          <Form.Label>DiscountFactor</Form.Label>
                         <Form.Control
                           type="number"
-                          style={{ width: "30%", height: "10px" }}
                           size="sm"
                           {...register("discountfactor", { required: true })}
-
                         />
+
+                          </Col>
+
+                        </Row>
+
                       </div>
                     </Container>
+                    </Container1>
+                    
                   </Tab>
                 </Tabs>
 
@@ -2604,7 +2600,7 @@ const NewTransaction = () => {
               </div>
               <div className="d-flex justify-content-end">
                 <ButtonWrapper type="submit">Submit</ButtonWrapper>
-                <ButtonWrapper type="reset">Reset</ButtonWrapper>
+                <ButtonWrapper type="reset" style={{color:'white !important'}}>Reset</ButtonWrapper>
               </div>
             </form>
           )}

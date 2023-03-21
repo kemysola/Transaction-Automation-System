@@ -20,7 +20,6 @@ function usePrevious(value) {
 }
 
 const Kpis = ((props) => {
-  // const [data, setData] = useState([])
   const [isEditing, setEditing] = useState(false);
   const [kpiFactors, setkpiFactors] = useState(null);
   const [kpiYesNo, setkpiYesNo] = useState(null);
@@ -28,11 +27,8 @@ const Kpis = ((props) => {
   const [kpiExpected, setkpiExpected] = useState(null);
   const [kpiRespParty, setkpiRespParty] = useState(null);
   const [kpiStatus, setkpiStatus] = useState(null);
-
-
   const editFieldRef = useRef(null);
   const editButtonRef = useRef(null);
-  
   const wasEditing = usePrevious(isEditing);
 
   useEffect(() => {
