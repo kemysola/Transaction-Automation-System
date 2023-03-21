@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { Container, Table, Form } from "react-bootstrap";
-import { GrAddCircle } from "react-icons/gr";
-import { FiDelete, FiSave } from "react-icons/fi";
+
 import { Col, Row, Stack } from "react-bootstrap";
 import { BarChart, Bar } from "recharts";
 import GuaranteeForecast from "../GuaranteeForecast";
+import { Divider } from 'antd';
 export default function PortGrowthAndTarget(props){
     const data = [
         {
@@ -55,10 +55,8 @@ export default function PortGrowthAndTarget(props){
         <>
         <Container>
         <div>
+        <Divider> Portfolio Growth vs Target</Divider>
           <Stack>
-            <p style={{ fontWeight: "bold" }} className=" mt-1 pt-2">
-                Portfolio Growth vs Target
-            </p>
           </Stack>
         </div>
         <div className="d-flex justify-content-start">
@@ -66,8 +64,10 @@ export default function PortGrowthAndTarget(props){
         </div>
 
         <div className="my-2 pt-3">
+          <Divider style={{fontWeiht:'bold'}}>Progress on Guarantee Target through Q4 2023 and Near-Term Forecast:</Divider>
+
           <Stack gap={1}>
-            <p style={{ fontWeight: "bold" }}>Progress on Guarantee Target through Q4 2023 and Near-Term Forecast:</p>
+            {/* <p style={{ fontWeight: "bold" }}>Progress on Guarantee Target through Q4 2023 and Near-Term Forecast:</p> */}
             <p>
             {props.header}
             </p>

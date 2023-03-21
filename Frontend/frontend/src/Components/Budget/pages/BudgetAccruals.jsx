@@ -1,22 +1,9 @@
 import React, { useState, useMemo, useContext } from "react";
 import CartContext from "../../../context/cart/CartContext";
-import AmortizationSchedule from "./AmortizationSchedule";
-
 import {
   useTable,
-  useResizeColumns,
-  useFlexLayout,
-  useRowSelect,
-  usePagination,
-  useGlobalFilter,
   useAsyncDebounce,
-  useFilters,
-  useGroupBy,
-  useSortBy,
-  useExpanded,
 } from "react-table";
-import { useHistory } from "react-router-dom";
-import styled from "styled-components";
 import Service from "../../../Services/Service";
 import toast, { Toaster } from "react-hot-toast";
 import List from "@mui/material/List";
@@ -29,7 +16,6 @@ import WorkIcon from "@mui/icons-material/Work";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import Divider from "@mui/material/Divider";
 import Chip from "@mui/material/Chip";
-import PrepareAnnualBudget from "./PrepareBudget/PrepareAnnualBudget";
 export const GlobalFilter = ({
   preGlobalFilteredRows,
   globalFilter,
@@ -66,34 +52,19 @@ export const GlobalFilter = ({
 
 export default function BudgetAccruals(props) {
   const { cartItems } = useContext(CartContext);
-  const guaranteeFee = props.data.map((data) => data.original.guaranteefee);
   const structuringFee = props.data.map(
     (data) => data.original.structuringfeeamount
   );
-  const monitoringFee = props.data.map((data) =>
-    parseInt(data.original.monitoringfee)
-  );
-  const id = props.data.map((data) => {
-    return data.original.transid;
-  });
-  const clientName = props.data.map((data) => {
-    return data.original.transid;
-  });
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [dataResult, setDataResult] = useState([]);
-  const postData = () => {};
   const addBudget = () => {
     setSubmitting(true);
-    setSubmitted(false);
-    const clientName = props.data.map((data) => {
-      return data.original.transid;
-    });
+    setSubmitted(true);
     const propsData = props?.data.map((data) => data?.original);
     const startDate = "20220202";
     const endDate = "20231007";
     Service.postAccruals(startDate, endDate, propsData).then((res) => {
-      const data = res?.data?.deals;
       if (res?.data.status === 200) {
         localStorage.setItem("budget", JSON.stringify(res?.data?.deals));
         setDataResult(res?.data.deals);
@@ -114,10 +85,10 @@ export default function BudgetAccruals(props) {
           },
         });
       } else {
-        console.log("no");
+        setSubmitted(false);
+        setSubmitting(false);
       }
 
-      console.log(res, "res");
     });
 
     setSubmitted(true);
@@ -357,7 +328,6 @@ export default function BudgetAccruals(props) {
           />
         )}
       </div>
-      <PrepareAnnualBudget data={dataResult} />
     </div>
   );
 }

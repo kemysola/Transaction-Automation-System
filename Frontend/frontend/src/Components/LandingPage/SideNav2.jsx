@@ -180,10 +180,30 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
                 </MenuItem>
               </SubMenu>
 
+              <SubMenu title="Budget" icon={<HiOutlineCalculator />}>
+                <MenuItem className="subMenu">
+                  <Link to="/budget" style={{ color: "#237cbf" }}>
+                    Prepare Budget
+                  </Link>
+                </MenuItem>
+
+                <MenuItem className="subMenu">
+                  <Link to="/amortization" style={{ color: "#237cbf" }}>
+                  Budget Amortization
+                  </Link>
+                </MenuItem>
+
+                <MenuItem className="subMenu">
+                  <Link to="/dashboard" style={{ color: "#237cbf" }}>
+                    Budget
+                  </Link>
+                </MenuItem>
+              </SubMenu>
+
               {/* ------------ Budget Menu --------------- */}
-              <MenuItem icon={<HiOutlineCalculator />}>
+              {/* <MenuItem icon={<HiOutlineCalculator />}>
                 <Link to="/budget">Budget</Link>
-              </MenuItem>
+              </MenuItem> */}
 
               {/* --------------- Settings Menu ----------------- */}
               <MenuItem icon={<FiSettings />}>

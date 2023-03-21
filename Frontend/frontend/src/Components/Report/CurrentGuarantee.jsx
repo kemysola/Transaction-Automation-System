@@ -91,14 +91,6 @@ export default function CurrentGuarantee() {
     return null;
   };
 
-  /**
-   * Save Year to Local Storage ....
-   */
-  const saveFy = () => {
-    localStorage.setItem("FinancialYear", JSON.stringify(2022));
-    alert("okay");
-  };
-
   return (
     <React.Fragment>
       <Container fluid>
@@ -108,15 +100,6 @@ export default function CurrentGuarantee() {
             marginLeft: "",
           }}
         >
-          {/* <div className="year">
-           
-            <input type='text'/>
-            <span onClick={saveFy}>
-              <HiSaveAs/>
-            </span>
-         
-          </div>
-           */}
           <Editable
             text={cartTitle}
             editButtonStyle={{ lineHeight: "unset" }}
@@ -146,56 +129,6 @@ export default function CurrentGuarantee() {
           </p>
         </div>
       </Container>
-
-      {/* <Container className="my-3">
-        <Row className="mt-1">
-          <Col sm={6}>
-            <p
-              className="text-success text-center"
-              style={{ fontWeight: "", fontSize: "12px" }}
-            >
-              Analysis of Guarantee Transactions Since Inception of NGN77.6
-              Billion as at 31 December 2021.
-            </p>
-            <ResponsiveContainer width="140%" height={270}>
-              <PieChart margin={{ top: 3, right: 0, bottom: 0 }}>
-                <Pie
-                  data={data}
-                  dataKey="value"
-                  nameKey="name"
-                  cx="40%"
-                  cy="40%"
-                  fill="#8884d8"
-                  innerRadius={75}
-                  outerRadius={220 / 2}
-                  paddingAngle={2}
-                  isAnimationActive={true}
-                  labelLine={false}
-                  label={renderCustomizedLabel}
-                >
-                  {data.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={COLORS[index % COLORS.length]}
-                    />
-                  ))}
-                </Pie>
-                <Tooltip content={customTooltip} />
-              </PieChart>
-            </ResponsiveContainer>
-          </Col>
-          <Col sm={6}>
-            <p
-              className="text-success text-center"
-              style={{ fontWeight: "", fontSize: "12px" }}
-            >
-              Categorisation of NGN311.5 Billion of Mandated Transactions as at
-              31 December 2022.
-            </p>
-            <GeneralPie />
-          </Col>
-        </Row>
-      </Container> */}
     </React.Fragment>
   );
 }

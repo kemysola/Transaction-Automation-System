@@ -5,13 +5,10 @@ import { FaBars } from 'react-icons/fa';
 import InfraCredit from '../../Images/InfraCredit.svg';
 import { Link } from 'react-router-dom';
 import MenuOption from './MenuOption';
-import { GlobalFilter } from '../Transactions/TransactionTable';
-
-
 const NavbarNav = styled.div`
 background:#eff1f1;
 // padding:1px 10px;
-margin: 25px 5px;
+margin: 15px 5px;
 // margin-bottom:0.1px;
 display:flex;
 // grid-template-columns: auto auto auto auto;

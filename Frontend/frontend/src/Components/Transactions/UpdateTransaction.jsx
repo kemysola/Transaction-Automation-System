@@ -14,12 +14,11 @@ import PlisMode from "./PlisMode";
 import OcpsMode from "./OcpsMode";
 import KpisMode from "./KpisMode";
 import { useForm } from "react-hook-form";
-// import Dropdown from 'react-bootstrap/Dropdown';
-// import DropdownButton from 'react-bootstrap/DropdownButton';
+import { Input } from "antd";
 
 const ButtonWrapper = styled.button`
   color: white;
-  background: green;
+  background: black;
   margin-right: 14px;
   border: 1px solid white;
   padding: 10px 23px;
@@ -33,17 +32,20 @@ const ButtonWrapper = styled.button`
 const FormWrapper = styled.div`
   margin: 0;
   font-size: 5px;
-  padding: 0;
+  padding: 1rem 0;
+  border: 1.3px dashed #e2e2e2;
 `;
 
 const Container1 = styled.div`
+  color: black;
+  background: none;
   font-size: 12px;
   padding: 1px 1rem;
   border-radius: 15px;
+  border: 1.3px dashed #e2e2e2;
 `;
 
 const PWrapper = styled.p`
-  // color:#1E2F97;
   font-weight: bold;
   font-size: 11px;
   margin: 0;
@@ -389,10 +391,6 @@ export default function UpdateTransactions() {
       value: false,
     },
   ];
-
-  // useEffect(() => {
-  //   retrieveDeal();
-  // }, [nbcChanged, partiesChanged, plisChanged, ocpsChanged, kpiChanged]);
 
   useEffect(() => {
     retrieveDeal();
@@ -1145,12 +1143,12 @@ export default function UpdateTransactions() {
       NBC_approval_date: new Date(nbcApprovalDate.current.value),
       NBC_submitted_date: new Date(nbcSubmittedDate.current.value),
       ccSubmissionDate: new Date(ccSubmissionDate.current.value),
-      principal:+principal.current.value,
-      guaranteefeerate:+guaranteefeerate.current.value,
-      issuedate : issuedate.current.value,
-      takingfirstinterestearly :takingfirstinterestearly.current.value,
-      discountfactor:+discountfactor.current.value,
-      firstcoupondate:firstcoupondate.current.value,
+      principal: +principal.current.value,
+      guaranteefeerate: +guaranteefeerate.current.value,
+      issuedate: issuedate.current.value,
+      takingfirstinterestearly: takingfirstinterestearly.current.value,
+      discountfactor: +discountfactor.current.value,
+      firstcoupondate: firstcoupondate.current.value,
       structuringFeeAmount: +amount.current.value,
       structuringFeeAdvance: +advance.current.value,
       structuringFeeFinal: +final.current.value,
@@ -1184,11 +1182,7 @@ export default function UpdateTransactions() {
 
     Service.updateDeal(id, data)
       .then((response) => {
-        // alert(response.data.message);
         setMessage(response.data.message);
-        // history.push({
-        //   pathname: "/transaction",
-        // });
       })
       .catch((error) => {
         setMessage("Failed to update deal");
@@ -1199,6 +1193,15 @@ export default function UpdateTransactions() {
   let ttrlegalLead = staffList.filter(
     (opt) => opt.istransactionlegallead === true
   );
+
+  const structuringData = {
+    structuringFeeAmount: +amount.current.value,
+    structuringFeeAdvance: +advance.current.value,
+  }
+  // const structuringFeeAmountsss =  amount.current.value,
+
+  const structuringFinal = 3000;
+  // console.log( structuringFeeAmountsss,'value' )
   return (
     <React.Fragment>
       {/* ---------------------- Update Transaction Forms ----------- */}
@@ -1211,17 +1214,19 @@ export default function UpdateTransactions() {
                   <h5 className="text-secondary pb-3 mb-2">
                     Update Transaction
                   </h5>
+                 
                 </Col>
+               
                 <Col
                   sm={6}
-                  style={{ fontSize: "16px" }}
-                  className="d-flex justify-content-end text-success"
+                  style={{ fontSize: "12px",color:'black' }}
+                  className="d-flex justify-content-end "
                 >
                   <Form.Check
                     inline
                     style={
                       deal[0].closed === false &&
-                      localStorage.getItem("admin") == "true"
+                      localStorage.getItem("admin") === "true"
                         ? { visibility: "visible" }
                         : { visibility: "hidden" }
                     }
@@ -1239,7 +1244,11 @@ export default function UpdateTransactions() {
                 <Tabs
                   //activeKey={activeTab}
                   onSelect={(k) => handleTabChange}
-                  style={{ fontSize: "12px" }}
+                  style={{
+                    fontSize: "12px",
+                    background: "black",
+                    padding: "1rem",
+                  }}
                 >
                   {/* ----------------------------------------- Client Data ------------------------------------ */}
                   <Tab eventKey="first" title="TRANSACTION">
@@ -1249,17 +1258,35 @@ export default function UpdateTransactions() {
                         <Row className="mt-3 pt-3">
                           <Col sm={6}>
                             <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                              { deal[0].clientname &&localStorage.getItem("admin") === "true"? <div>
                               <Form.Label>Client Name</Form.Label>
                               <Form.Control
-                                size="sm"
                                 type="text"
+                                size="sm"
+                                defaultValue={deal[0].clientname}
+                                id="client"
+                                ref={clientName}
+                                required
+                                // disabled
+                              />
+                              </div>:<div>
+                              <Form.Label>Client Name</Form.Label>
+                              <Form.Control
+                                type="text"
+                                size="sm"
                                 defaultValue={deal[0].clientname}
                                 id="client"
                                 ref={clientName}
                                 required
                                 disabled
                               />
-                            </Form.Group>
+
+                              </div>
+                              
+                              }
+                             
+                              
+                             </Form.Group>
                           </Col>
 
                           <Col sm={6}>
@@ -1270,18 +1297,6 @@ export default function UpdateTransactions() {
                                 id="originator"
                                 ref={originator}
                               >
-                                {/* {staffList.map((opt, i) => (
-                                  <option
-                                    key={staffList[i].email}
-                                    value={staffList[i].stafflist}
-                                    selected={
-                                      staffList[i].stafflist ===
-                                      deal[0].originator
-                                    }
-                                  >
-                                    {staffList[i].stafflist}
-                                  </option>
-                                ))} */}
                                 {originatorList.map((opt, i) => (
                                   <option
                                     key={opt.email}
@@ -1492,7 +1507,7 @@ export default function UpdateTransactions() {
 
                           <Col sm={6}>
                             <Form.Group className="pt-1">
-                              <Form.Label>Coupon(%)</Form.Label>
+                              <Form.Label>* Coupon(%)</Form.Label>
                               <Form.Control
                                 size="sm"
                                 type="text"
@@ -1505,7 +1520,7 @@ export default function UpdateTransactions() {
 
                           <Col sm={6}>
                             <Form.Group className="pt-1">
-                              <Form.Label>Tenor(yrs)</Form.Label>
+                              <Form.Label>* Tenor(yrs)</Form.Label>
                               <Form.Control
                                 size="sm"
                                 type="numeric"
@@ -1518,7 +1533,7 @@ export default function UpdateTransactions() {
 
                           <Col sm={6}>
                             <Form.Group className="pt-1">
-                              <Form.Label>Moratorium(yrs)</Form.Label>
+                              <Form.Label>* Moratorium(yrs)</Form.Label>
                               <Form.Control
                                 size="sm"
                                 type="text"
@@ -1533,7 +1548,7 @@ export default function UpdateTransactions() {
                         <Row className="mt-1">
                           <Col sm={6}>
                             <Form.Group className="">
-                              <Form.Label>Repayment Frequency</Form.Label>
+                              <Form.Label>* Repayment Frequency</Form.Label>
                               <Form.Select
                                 size="sm"
                                 id="frequency"
@@ -1557,7 +1572,7 @@ export default function UpdateTransactions() {
 
                           <Col sm={6}>
                             <Form.Group className="">
-                              <Form.Label>Amortisation Style</Form.Label>
+                              <Form.Label> * Amortisation Style</Form.Label>
                               <Form.Select
                                 size="sm"
                                 id="amortizationStyle"
@@ -1603,7 +1618,10 @@ export default function UpdateTransactions() {
 
                           <Col sm={6}>
                             <Form.Group className="pt-1">
-                              <Form.Label>Credit Approval</Form.Label>
+                              <Form.Label>
+                                * Credit
+                                Approval
+                              </Form.Label>
                               <Form.Control
                                 size="sm"
                                 type="date"
@@ -1616,6 +1634,7 @@ export default function UpdateTransactions() {
                                 }
                                 id="creditApproval"
                                 ref={creditApproval}
+                                required
                               />
                             </Form.Group>
                           </Col>
@@ -1751,7 +1770,7 @@ export default function UpdateTransactions() {
                               <Form.Label>Amount(₦'MN)</Form.Label>
                               <Form.Control
                                 size="sm"
-                                type="text"
+                                type="amount"
                                 defaultValue={deal[0].structuringfeeamount}
                                 id="amount"
                                 ref={amount}
@@ -1764,7 +1783,7 @@ export default function UpdateTransactions() {
                               <Form.Label>Advance(%)</Form.Label>
                               <Form.Control
                                 size="sm"
-                                type="text"
+                                type="number"
                                 defaultValue={deal[0].structuringfeeadvance}
                                 id="advance"
                                 ref={advance}
@@ -1777,11 +1796,11 @@ export default function UpdateTransactions() {
                               <Form.Label>Final(%)</Form.Label>
                               <Form.Control
                                 size="sm"
-                                type="text"
-                                defaultValue={deal[0].structuringfeefinal}
-                                id="final"
+                                type="number"
+                                value={(amount.current.value + advance.current.value)}
+                                // id="final"
                                 disabled
-                                ref={final}
+                                // ref={final}
                               />
                             </Form.Group>
                           </Col>
@@ -2829,7 +2848,7 @@ export default function UpdateTransactions() {
                           <p>Appointed</p>
                         </Col>
 
-                        <Col sm={3} className="mt-1 mb-1">
+                        <Col sm={2} className="mt-1 mb-1">
                           <p>Party</p>
                         </Col>
 
@@ -3166,7 +3185,7 @@ export default function UpdateTransactions() {
                         {OcpsList}
                       </Row>
 
-                      <Row className="py-1">
+                      <Row className="">
                         <Col sm={12}>
                           <Row className="d-flex justify-content-space-evenly">
                             <Col sm={2} className="mt-1 mb-1">
@@ -3498,112 +3517,87 @@ export default function UpdateTransactions() {
                         </div>
                       </Row>
                     </Container1>
-
-                    {/* <button
-                      onClick={(e) => toPrevTab(e)}
-                      style={{
-                        display: "inlineblock",
-                        fontSize: "13px",
-                        padding: "2px 20px",
-                        margin: "10px",
-                        background: "green",
-                        color: "white",
-                        borderRadius: "3px",
-                      }}
-                    >
-                      {" "}
-                      Prev
-                    </button> */}
-                    {/* <button
-                        onClick={(e) => toNextTab(e)}
-                        style={{
-                          display: "inlineblock",
-                          fontSize: "13px",
-                          padding: "2px 20px",
-                          margin: "10px",
-                          background: "green",
-                          color: "white",
-                          borderRadius: "3px",
-                        }}
-                      >
-                        Next
-                      </button> */}
                   </Tab>
                   <Tab eventKey="" title="AMORTIZATION">
-                    <Container>
-                      <div>
-                        <Form.Label>Principal</Form.Label>
-                        <Form.Control
-                          type="text"
-                          // style={{ width: "30%", height: "10px" }}
-                          size="sm"
-                          defaultValue={deal[0].principal}
+                    <Container1>
+                      <Container>
+                        <div>
+                          <Row className="mt-3">
+                            <Col sm="6">
+                              <Form.Label>*  Principal</Form.Label>
+                              <Form.Control
+                                type="text"
+                                defaultValue={deal[0].principal}
                                 id="principal"
                                 ref={principal}
-                        />
-                        <Form.Label>IssueDate</Form.Label>
-                        <Form.Control
-                          type="date"
-                          style={{ width: "30%", height: "10px" }}
-                          size="sm"
-                          defaultValue={
-                            deal[0].issuedate
-                              ? new Date(deal[0].issuedate)
-                                  .toISOString()
-                                  .split("T")[0]
-                              : ""
-                          }
-                          id="issuedate"
-                          ref={issuedate}
-                        />
-                        <Form.Label>FirstCouponDate</Form.Label>
-                        <Form.Control
-                          type="date"
-                          style={{ width: "30%", height: "10px" }}
-                          size="sm"
-                          defaultValue={
-                            deal[0].firstcoupondate
-                              ? new Date(deal[0].firstcoupondate)
-                                  .toISOString()
-                                  .split("T")[0]
-                              : ""
-                          }
-                          id="firstcoupondate"
-                          ref={firstcoupondate}
-                        />
-                        <Form.Label>TakingFirstInterestEarly</Form.Label>
-                        <Form.Control
-                          type="number"
-                          style={{ width: "30%", height: "10px" }}
-                          size="sm"
-                          defaultValue={
-                            deal[0].takingfirstinterestearly
-                          }
-                          id="takingfirstinterestearly"
-                          ref={takingfirstinterestearly}
-                        />
-                        <Form.Label>GuaranteeFeeRate</Form.Label>
-                        <Form.Control
-                          type="number"
-                          style={{ width: "30%", height: "10px" }}
-                          size="sm"
-                          defaultValue={deal[0].guaranteefeerate}
-                          id="guaranteefeerate"
-                          ref={guaranteefeerate}
-                        />
-                        <Form.Label>DiscountFactor</Form.Label>
-                        <Form.Control
-                          type="number"
-                          style={{ width: "30%", height: "10px" }}
-                          size="sm"
-                          defaultValue={deal[0].discountfactor}
-                          id="discountfactor"
-                          ref={discountfactor}
-                        />
-                      </div>
-                    </Container>
+                              />
+                            </Col>
+                            <Col sm="6">
+                              <Form.Label>* IssueDate</Form.Label>
+                              <Form.Control
+                                type="date"
+                                defaultValue={
+                                  deal[0].issuedate
+                                    ? new Date(deal[0].issuedate)
+                                        .toISOString()
+                                        .split("T")[0]
+                                    : ""
+                                }
+                                id="issuedate"
+                                ref={issuedate}
+                              />
+                            </Col>
+                          </Row>
+                          <Row className="mt-3">
+                            <Col sm="6">
+                              <Form.Label>* FirstCouponDate</Form.Label>
+                              <Form.Control
+                                type="date"
+                                defaultValue={
+                                  deal[0].firstcoupondate
+                                    ? new Date(deal[0].firstcoupondate)
+                                        .toISOString()
+                                        .split("T")[0]
+                                    : ""
+                                }
+                                id="firstcoupondate"
+                                ref={firstcoupondate}
+                              />
+                            </Col>
+                            <Col sm="6">
+                              <Form.Label>* TakingFirstInterestEarly</Form.Label>
+                              <Form.Control
+                                type="number"
+                                defaultValue={deal[0].takingfirstinterestearly}
+                                id="takingfirstinterestearly"
+                                ref={takingfirstinterestearly}
+                              />
+                            </Col>
+                          </Row>
+                          <Row className="mt-3">
+                            <Col sm="6">
+                              <Form.Label>* GuaranteeFeeRate</Form.Label>
+                              <Form.Control
+                                type="number"
+                                defaultValue={deal[0].guaranteefeerate}
+                                id="guaranteefeerate"
+                                ref={guaranteefeerate}
+                              />
+                            </Col>
+                            <Col sm="6">
+                              <Form.Label>* DiscountFactor</Form.Label>
+                              <Form.Control
+                                type="number"
+                                defaultValue={deal[0].discountfactor}
+                                id="discountfactor"
+                                ref={discountfactor}
+                              />
+                            </Col>
+                          </Row>
+                        </div>
+                      </Container>
+                    </Container1>
                   </Tab>
-
                 </Tabs>
               </div>
 

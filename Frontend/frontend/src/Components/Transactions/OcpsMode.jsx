@@ -67,13 +67,12 @@ const Ocps = ((props) => {
               <Row className="py-1 d-flex justify-content-space-evenly">
                 <Col sm={12}>
                   <Row>
-                    <Col className="mt-1 mb-1">
+                    <Col className="mt-1 mb-1" sm={3}>
                       <Fm.Control
                         id={props.id}
                         className="todo-text"
                         type="text"
                         defaultValue={props.ocpsFactors}
-                        // value={ocpsFactors}
                         onChange={(e) => setocpsFactors(e.target.value)}
                         ref={editFieldRef}
                         size="sm"
@@ -81,8 +80,7 @@ const Ocps = ((props) => {
                       />
                     </Col>
 
-                    <Col className="mt-1 mb-1">
-                      {/* <Fm.Label>Concerns</Fm.Label> */}
+                    <Col className="mt-1 mb-1" sm={2}>
                       <Fm.Select
                         id={props.id}
                         className="todo-text"
@@ -109,7 +107,7 @@ const Ocps = ((props) => {
                       </Fm.Select>
                     </Col>
 
-                    <Col  className="mt-1 mb-1">
+                    <Col  className="mt-1 mb-1" sm={2}>
                       <Fm.Select
                         id={props.id}
                         className="todo-text"
@@ -143,7 +141,7 @@ const Ocps = ((props) => {
                       </Fm.Select>
                     </Col>
 
-                    <Col className="mt-1 mb-1">
+                    <Col className="mt-1 mb-1" sm={2}>
                       {/* <Fm.Label>Date</Fm.Label> */}
                       <Fm.Control
                         id={props.id}
@@ -158,7 +156,7 @@ const Ocps = ((props) => {
                       />
                     </Col>
 
-                    <Col  className="mt-1 mb-1">
+                    <Col  className="mt-1 mb-1" sm={2}>
                       <Fm.Control
                         id={props.id}
                         className="todo-text"

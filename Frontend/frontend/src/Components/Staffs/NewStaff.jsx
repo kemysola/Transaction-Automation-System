@@ -6,43 +6,49 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 
 const ButtonWrapper = styled.button`
-  color: white;
-  background: green;
-  border: 1px solid white;
-  padding: 2px 20px;
-  font-size: 13px;
-  margin: 10px;
-  border-radius: 3px;
+color: white;
+background: black;
+margin-right: 14px;
+border: 1px solid white;
+padding: 13px 23px;
+margin-top: 8px;
+margin-bottom: 8px;
+font-weight: bold;
+font-size: 10px;
+border-radius: 5px;
 `;
 
 const FormWrapper = styled.div`
   padding: 0;
   font-size: 2px;
   margin: 0;
-  background: white;
   border-radius: 5px;
+  border: 1.2px dashed #e2e2e2;
 `;
 
 const Container1 = styled.div`
   font-size: 10px;
-  padding: 3px 10px;
+  padding: 3px 2px;
   border-radius: 5px;
-  width: 52vw;
   margin: 0;
+  border: 1.2px dashed #e2e2e2;
 `;
 
 const CancelWrapper = styled.button`
-  color: white;
-  background: grey;
-  border: 1px solid grey;
-  padding: 2px 20px;
-  font-size: 13px;
-  margin: 10px;
-  border-radius: 3px;
+color: black;
+background: white;
+margin-right: 14px;
+border: 1px solid white;
+padding: 13px 23px;
+margin-top: 8px;
+margin-bottom: 8px;
+font-weight: bold;
+font-size: 10px;
+border-radius: 5px;
 `;
 
 const PWrapper = styled.p`
-  color: #1e2f97;
+  // color: #1e2f97;
   font-weight: bold;
   margin: 1rem 0;
   padding: 0;
@@ -62,13 +68,12 @@ export default function NewStaff() {
     feeLetter: 10.0,
     financialClose: 80.0,
     isadmin: "false",
-    isOriginator:'false',
-    isTransactor:'false',
-    isTransactionLegalLead:'false'
+    isOriginator: "false",
+    isTransactor: "false",
+    isTransactionLegalLead: "false",
   };
 
-    // ******************************************  use state hook to store state ****************************************
-
+  // ******************************************  use state hook to store state ****************************************
 
   const [staff, setStaff] = useState(initialStaffState);
   const [submitted, setSubmitted] = useState(false);
@@ -76,31 +81,23 @@ export default function NewStaff() {
   const [target, setTarget] = useState();
   const [levels, setLevels] = useState([]);
 
-
-    // ******************************************  useEffect hook: componentDidMount and Receive - level ****************
-
+  // ******************************************  useEffect hook: componentDidMount and Receive - level ****************
 
   useEffect(() => {
     retrieveLevel();
   }, []);
 
-
-
-    // ******************************************  Axios call : get level ****************************************
-
+  // ******************************************  Axios call : get level ****************************************
 
   const retrieveLevel = () => {
     Services.getLevel()
       .then((response) => {
         setLevels(response.data.levels);
       })
-      .catch((e) => {
-     
-      });
+      .catch((e) => {});
   };
 
   const handleInputChange = (event) => {
-
     // function to assign user's input to staff state
     const { name, value } = event.target;
     setStaff({ ...staff, [name]: value });
@@ -129,12 +126,11 @@ export default function NewStaff() {
       feeLetter: +staff.feeLetter,
       status: "Inactive",
       isadmin: JSON.parse(staff.isadmin),
-      isOriginator:JSON.parse(staff.isOriginator),
-      isTransactor:JSON.parse(staff.isTransactor),
-      isTransactionLegalLead:JSON.parse(staff.isTransactionLegalLead),
+      isOriginator: JSON.parse(staff.isOriginator),
+      isTransactor: JSON.parse(staff.isTransactor),
+      isTransactionLegalLead: JSON.parse(staff.isTransactionLegalLead),
     };
     /// ******************************************  Axios post request  ****************************************
-
 
     Services.registerStaff(data)
       .then((response) => {
@@ -153,9 +149,7 @@ export default function NewStaff() {
     setSubmitted(false);
   };
 
-
   // ****************************************** Next and Previous Button ****************************************
-
 
   const [activeTab, setActiveTab] = useState("first");
   function toNextTab(e) {
@@ -195,222 +189,442 @@ export default function NewStaff() {
     }
   }
 
-    return (
-        <React.Fragment>
-            <FormWrapper>
-                <Container fluid>
-                    {submitted ? (
-                        <Container1>
-                            <p style={{ fontWeight: 'bold', fontSize: '12px', color: 'black', marginTop: '1rem' }}>{response}</p>
-                            <ButtonWrapper onClick={newStaff}>Create a New User</ButtonWrapper>
-                        </Container1>
+  return (
+    <React.Fragment>
+      <FormWrapper>
+        <Container fluid>
+          {submitted ? (
+            <Container1>
+              <p
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "12px",
+                  color: "black",
+                  marginTop: "1rem",
+                }}
+              >
+                {response}
+              </p>
+              <ButtonWrapper onClick={newStaff}>
+                Create a New User
+              </ButtonWrapper>
+            </Container1>
+          ) : (
+            <Form>
+              {/*----------------------------- Title -------------------------------------------------- */}
+              <h5 className="text-secondary py-2 mb-2 mt-1">
+                Create a New User
+              </h5>
+              <br />
+              <div>
+                <Tabs
+                  onSelect={(k) => handleTabChange}
+                  style={{ fontSize: "13px",background:'black',padding:'10px' }}
+                >
+                  <Tab eventKey="first" title="USER">
+                    <br />
+                    <br />
+                    <Container1
+                      style={{
+                        marginBottom: "3px",
+                        padding: "2px 20px",
+                        fontSize: "11px",
+                      }}
+                    >
+                      <Row>
+                        <Col sm={6} className="mt-1 pt-1">
+                          <Form.Group className="mb-0 mt-2 pt-2 pb-1">
+                            <Form.Label>* First Name</Form.Label>
+                            <Form.Control
+                              size="sm"
+                              type="text"
+                              value={staff.firstName}
+                              onChange={handleInputChange}
+                              name="firstName"
+                              required
+                            />
+                          </Form.Group>
+                        </Col>
 
-                    ) : (
-                        <Form>
+                        <Col sm={6} className="mt-1 pt-1">
+                          <Form.Group className="mb-0 mt-2 pt-2 pb-1">
+                            <Form.Label>* Last Name</Form.Label>
+                            <Form.Control
+                              size="sm"
+                              type="text"
+                              value={staff.lastName}
+                              onChange={handleInputChange}
+                              name="lastName"
+                              required
+                            />
+                          </Form.Group>
+                        </Col>
 
-                            {/*----------------------------- Title -------------------------------------------------- */}
-                            <h5 className='text-secondary py-2 mb-2 mt-1'>Create a New User</h5>
-                            <br />
-                            <div>
-                                <Tabs  onSelect={(k) => handleTabChange} style={{ fontSize: '13px' }}>
-                                    <Tab eventKey="first" title="USER">
-                                        <br />
-                                        <br />
-                                        <Container1 style={{ marginBottom: '3px', padding: '2px 20px', fontSize: '11px' }}>
-                                            <Row>
-                                                <Col sm={6} className='mt-1 pt-1'>
-                                                <Form.Group className="mb-0 mt-2 pt-2 pb-1">
-                                                    <Form.Label>First Name</Form.Label>
-                                                    <Form.Control size="sm" type="text" value={staff.firstName} onChange={handleInputChange} name='firstName' required/>
-                                                </Form.Group>
-                                                </Col>
+                        <Col sm={6} className="mt-1 pt-1">
+                          <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                            <Form.Label>* Email</Form.Label>
+                            <Form.Control
+                              size="sm"
+                              type="email"
+                              value={staff.email}
+                              name="email"
+                              onChange={handleInputChange}
+                              required
+                            />
+                          </Form.Group>
+                        </Col>
+                        <Col sm={6} className="mt-2 pt-2">
+                          <Form.Group>
+                            <Form.Label>* Level</Form.Label>
+                            <Form.Select
+                              size="sm"
+                              value={staff.level}
+                              name="level"
+                              onChange={handleInputChange}
+                              required
+                            >
+                              <option value="">Select</option>
+                              {levels.map((level, i) => (
+                                <option
+                                  key={levels[i].levelid}
+                                  value={levels[i].stafflevel}
+                                >
+                                  {levels[i].stafflevel}
+                                </option>
+                              ))}
+                            </Form.Select>
+                          </Form.Group>
+                        </Col>
 
-                                                <Col sm={6} className='mt-1 pt-1'>
-                                                <Form.Group className="mb-0 mt-2 pt-2 pb-1">
-                                                    <Form.Label>Last Name</Form.Label>
-                                                    <Form.Control size="sm" type="text" value={staff.lastName} onChange={handleInputChange} name='lastName' required/>
-                                                </Form.Group>
-                                                </Col>
+                      </Row>
+                      <Row>
+                        <Col sm={6}>
+                          <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                            <Row>
+                              <Col className="mt-3 pt-2">
+                                <Form.Label>Admin</Form.Label>
+                              </Col>
+                              <Col className="mt-3 pt-2">
+                                <Form.Check
+                                  inline
+                                  type="radio"
+                                  label="Yes"
+                                  value={true}
+                                  name="isadmin"
+                                  onChange={handleInputChange}
+                                />
+                                <Form.Check
+                                  inline
+                                  type="radio"
+                                  label="No"
+                                  value={false}
+                                  name="isadmin"
+                                  onChange={handleInputChange}
+                                  defaultChecked
+                                />
+                              </Col>
+                            </Row>
+                          </Form.Group>
+                        </Col>
+                        <Col sm={6}>
+                          <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                            <Row>
+                              <Col className="mt-3 pt-2">
+                                <Form.Label>Originator </Form.Label>
+                              </Col>
+                              <Col className="mt-3 pt-2">
+                                <Form.Check
+                                  inline
+                                  type="radio"
+                                  label="Yes"
+                                  value={true}
+                                  name="isOriginator"
+                                  onChange={handleInputChange}
+                                />
+                                <Form.Check
+                                  inline
+                                  type="radio"
+                                  label="No"
+                                  value={false}
+                                  name="isOriginator"
+                                  onChange={handleInputChange}
+                                  defaultChecked
+                                />
+                              </Col>
+                            </Row>
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col sm={6}>
+                          <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                            <Row>
+                              <Col className="mt-3 pt-2">
+                                <Form.Label>Transactor </Form.Label>
+                              </Col>
+                              <Col className="mt-3 pt-2">
+                                <Form.Check
+                                  inline
+                                  type="radio"
+                                  label="Yes"
+                                  value={true}
+                                  name="isTransactor"
+                                  onChange={handleInputChange}
+                                  defaultChecked
+                                />
+                                <Form.Check
+                                  inline
+                                  type="radio"
+                                  label="No"
+                                  value={false}
+                                  name="isTransactor"
+                                  onChange={handleInputChange}
+                                />
+                              </Col>
+                            </Row>
+                          </Form.Group>
+                        </Col>
+                        <Col sm={6}>
+                          <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                            <Row>
+                              <Col className="mt-3 pt-2">
+                                <Form.Label>Transactor Legal Lead </Form.Label>
+                              </Col>
+                              <Col className="mt-3 pt-2">
+                                <Form.Check
+                                  inline
+                                  type="radio"
+                                  label="Yes"
+                                  value={true}
+                                  name="isTransactionLegalLead"
+                                  onChange={handleInputChange}
+                                />
+                                <Form.Check
+                                  inline
+                                  type="radio"
+                                  label="No"
+                                  value={false}
+                                  name="isTransactionLegalLead"
+                                  onChange={handleInputChange}
+                                  defaultChecked
+                                />
+                              </Col>
+                            </Row>
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                    </Container1>
+                    <br />
+                  </Tab>
+                  <Tab eventKey="second" title="TARGETS">
+                    <Container1
+                      style={{
+                        marginBottom: "3px",
+                        padding: "2px 20px",
+                        fontSize: "11px",
+                      }}
+                    >
+                      <Form.Group className="mb-0 mt-3 pt-1 pb-1">
+                        <Row>
+                          <Col sm={4} className="mt-3 pt-2">
+                            <Form.Label>* Has Orignation Target?</Form.Label>
+                          </Col>
 
-                                                <Col sm={6}  className='mt-1 pt-1'>
-                                                    <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                        <Form.Label>Email</Form.Label>
-                                                        <Form.Control size="sm" type="email" value={staff.email} name='email' onChange={handleInputChange} required/>
-                                                    </Form.Group>
-                                                </Col>
-                                                <Col sm={6}  className='mt-2 pt-2'>
-                                                    <Form.Group>
-                                                        <Form.Label>Level</Form.Label>
-                                                        <Form.Select size="sm" value={staff.level}  name='level' onChange={handleInputChange} required>
-                                                            <option value="">Select</option>
-                                                            {levels.map((level, i) => (
-                                                                <option key={levels[i].levelid} value={levels[i].stafflevel}>{levels[i].stafflevel}</option>
-                                                            ))}
-                                                        </Form.Select>
-                                                    </Form.Group>
-                                                </Col>
+                          <Col sm={4} className="mt-3 pt-2">
+                            <Form.Check
+                              inline
+                              label="Yes"
+                              type="radio"
+                              name="target"
+                              value={true}
+                              onChange={handleRadioChange}
+                            />
+                            <Form.Check
+                              inline
+                              label="No"
+                              type="radio"
+                              name="target"
+                              value={false}
+                              onChange={handleRadioChange}
+                            />
+                          </Col>
+                        </Row>
+                      </Form.Group>
 
+                      <p
+                        style={{ fontWeight: "bold", fontSize: "11px" }}
+                        className="mb-0 mt-1 pt-1 pb-1"
+                      >
+                        Targets
+                      </p>
+                      <Row>
+                        <Col sm={6}>
+                          <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                            <Form.Label>Origination (₦'BN)</Form.Label>
+                            <Form.Control
+                              size="sm"
+                              type="text"
+                              value={staff.amount}
+                              name="amount"
+                              onChange={handleInputChange}
+                              disabled={target === "false"}
+                            />
+                          </Form.Group>
+                        </Col>
 
+                        <Col sm={6}>
+                          <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                            <Form.Label>Guarantee Pipeline (₦'BN)</Form.Label>
+                            <Form.Control
+                              size="sm"
+                              type="text"
+                              value={staff.guarantee}
+                              name="guarantee"
+                              onChange={handleInputChange}
+                            />
+                          </Form.Group>
+                        </Col>
+                      </Row>
 
-                                                <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                <Row>       
-                                                <Col sm={4}  className='mt-3 pt-2'>
-                                                        <Form.Label>Admin</Form.Label>
-                                                </Col>
-                                                <Col sm={4}  className='mt-3 pt-2'>
-                                                            <Form.Check inline type="radio" label="Yes"  value={true} name='isadmin' onChange={handleInputChange} />
-                                                            <Form.Check inline type="radio" label="No"  value={false} name='isadmin' onChange={handleInputChange} defaultChecked/>
-                
-                                                        </Col>
-                                                </Row> 
-                                            </Form.Group>
-                                            <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                <Row>       
-                                                <Col sm={4}  className='mt-3 pt-2'>
-                                                        <Form.Label>Originator </Form.Label>
-                                                </Col>
-                                                <Col sm={4}  className='mt-3 pt-2'>
-                                                            <Form.Check inline type="radio" label="Yes"  value={true} name='isOriginator' onChange={handleInputChange} />
-                                                            <Form.Check inline type="radio" label="No"  value={false} name='isOriginator' onChange={handleInputChange} defaultChecked/>
-                
-                                                        </Col>
-                                                </Row> 
-                                            </Form.Group>
-                                            <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                <Row>       
-                                                <Col sm={4}  className='mt-3 pt-2'>
-                                                        <Form.Label>Transactor </Form.Label>
-                                                </Col>
-                                                <Col sm={4}  className='mt-3 pt-2'>
-                                                            <Form.Check inline type="radio" label="Yes"  value={true} name='isTransactor' onChange={handleInputChange} />
-                                                            <Form.Check inline type="radio" label="No"  value={false} name='isTransactor' onChange={handleInputChange} defaultChecked/>
-                
-                                                        </Col>
-                                                </Row> 
-                                            </Form.Group>
-                                            <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                <Row>       
-                                                <Col sm={4}  className='mt-3 pt-2'>
-                                                        <Form.Label>Transactor Legal Lead </Form.Label>
-                                                </Col>
-                                                <Col sm={4}  className='mt-3 pt-2'>
-                                                            <Form.Check inline type="radio" label="Yes"  value={true} name='isTransactionLegalLead' onChange={handleInputChange} />
-                                                            <Form.Check inline type="radio" label="No"  value={false} name='isTransactionLegalLead' onChange={handleInputChange} defaultChecked/>
-                
-                                                        </Col>
-                                                </Row> 
-                                            </Form.Group>
+                      <br />
+                    </Container1>
 
-                            
-                                            </Row>
+                    <br />
+                  </Tab>
+                  <Tab eventKey="third" title="PERFORMANCE PAY">
+                    <Container1
+                      style={{
+                        marginBottom: "2px",
+                        padding: "2px 20px",
+                        fontSize: "11px",
+                      }}
+                    >
+                      <p
+                        style={{ fontWeight: "bold", fontSize: "12px" }}
+                        className="pt-2 my-2"
+                      >
+                        Performance Pay
+                      </p>
+                      <Row>
+                        <Col sm={4}>
+                          <p style={{ fontWeight: "bold", fontSize: "11px" }}>
+                            % per milestone
+                          </p>
+                        </Col>
 
-                                        </Container1>
-                                        <br />
-                                    </Tab>
-                                    <Tab eventKey="second" title="TARGETS">
-                                        <Container1 style={{ marginBottom: '3px', padding: '2px 20px', fontSize: '11px'}}>
-                                            <Form.Group className="mb-0 mt-3 pt-1 pb-1">
-                                                <Row>
-                                                    <Col sm={4}  className='mt-3 pt-2'>
-                                                        <Form.Label>Has Orignation Target?</Form.Label>
-                                                    </Col>
-                                                
-                                                    <Col sm={4}  className='mt-3 pt-2'>
-                                                        <Form.Check inline label="Yes" type="radio" name='target' value={true} onChange={handleRadioChange} />
-                                                        <Form.Check inline label="No" type="radio" name='target' value={false} onChange={handleRadioChange} />
-                                                    </Col>
-                                                </Row>
-                                            </Form.Group>
-                                       
-                                            <p style={{ fontWeight: 'bold', fontSize: '11px' }} className='mb-0 mt-1 pt-1 pb-1'>Targets</p>
-                                            <Row>
-                                                <Col sm={6}>
-                                                    <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                        <Form.Label>Origination (₦'BN)</Form.Label>
-                                                        <Form.Control size="sm" type="text" value={staff.amount} name='amount' onChange={handleInputChange} disabled={target === "false"}/>
-                                                    </Form.Group>
-                                                </Col>
+                        <Col sm={8}>
+                          <Form.Group as={Row} className="mt-2  pb-1 mb-1 pt-2">
+                            <Form.Label column sm="5">
+                              <p
+                                style={{
+                                  fontWeight: "normal",
+                                  fontSize: "11px",
+                                }}
+                              >
+                                Mandates Originated{" "}
+                              </p>
+                            </Form.Label>
+                            <Col sm="6">
+                              <Form.Control
+                                type="number"
+                                placeholder="0"
+                                size="sm"
+                                id="mandateLetter"
+                                value={staff.mandateLetter}
+                                name="mandateLetter"
+                                onChange={handleInputChange}
+                              />
+                            </Col>
+                          </Form.Group>
 
-                                                <Col sm={6}>
-                                                    <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                                                        <Form.Label>Guarantee Pipeline (₦'BN)</Form.Label>
-                                                        <Form.Control size="sm" type="text" value={staff.guarantee} name='guarantee' onChange={handleInputChange}/>
-                                                    </Form.Group>
-                                                </Col>
+                          <Form.Group as={Row} className="mt-2  pb-1 mb-1 pt-2">
+                            <Form.Label column sm="5">
+                              <p
+                                style={{
+                                  fontWeight: "normal",
+                                  fontSize: "11px",
+                                }}
+                              >
+                                Credit Committee Approval
+                              </p>
+                            </Form.Label>
+                            <Col sm="6">
+                              <Form.Control
+                                type="number"
+                                placeholder="0"
+                                size="sm"
+                                id="creditCommiteeApproval"
+                                value={staff.creditCommiteeApproval}
+                                name="creditCommiteeApproval"
+                                onChange={handleInputChange}
+                              />
+                            </Col>
+                          </Form.Group>
+                          <Form.Group as={Row} className="pb-1 mb-1 pt-2">
+                            <Form.Label column sm="5">
+                              <p
+                                style={{
+                                  fontWeight: "normal",
+                                  fontSize: "11px",
+                                }}
+                              >
+                                Fee Letter
+                              </p>
+                            </Form.Label>
+                            <Col sm="6">
+                              <Form.Control
+                                type="number"
+                                placeholder="0"
+                                size="sm"
+                                id="feeLetter"
+                                value={staff.feeLetter}
+                                name="feeLetter"
+                                onChange={handleInputChange}
+                              />
+                            </Col>
+                          </Form.Group>
+                          <Form.Group as={Row} className="">
+                            <Form.Label column sm="5">
+                              <p
+                                style={{
+                                  fontWeight: "normal",
+                                  fontSize: "11px",
+                                }}
+                              >
+                                Financial Close
+                              </p>
+                            </Form.Label>
+                            <Col sm="6">
+                              <Form.Control
+                                type="number"
+                                placeholder="0"
+                                size="sm"
+                                id="financialClose"
+                                value={staff.financialClose}
+                                name="financialClose"
+                                onChange={handleInputChange}
+                                disabled
+                              />
+                            </Col>
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                    </Container1>
+                    <br />
+                  </Tab>
+                </Tabs>
+                <div className="d-flex justify-content-end">
+                  <ButtonWrapper onClick={saveStaff}>Submit</ButtonWrapper>
+                  {/* <CancelWrapper>Cancel</CancelWrapper> */}
+                </div>
+              </div>
+            </Form>
+          )}
+          ;
+        </Container>
+      </FormWrapper>
 
-                            
-                                            </Row>
-
-                                            <br />
-                                        </Container1>
-
-                                        <br />
-                                    </Tab>
-                                    <Tab eventKey="third" title="PERFORMANCE PAY">
-                                        <Container1 style={{ marginBottom: '2px', padding: '2px 20px', fontSize: '11px' }}>
-                                            <p style={{ fontWeight: 'bold', fontSize: '12px' }} className='pt-2 my-2'>Performance Pay</p>
-                                            <Row>
-                                                <Col sm={4}>
-                                                    <p style={{ fontWeight: 'bold', fontSize: '11px' }}>% per milestone</p>
-                                                </Col>
-
-                                                <Col sm={8}  >
-                                                    <Form.Group as={Row} className='mt-2  pb-1 mb-1 pt-2'>
-                                                        <Form.Label column sm="5">
-                                                            <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Mandates Originated </p>
-                                                        </Form.Label>
-                                                        <Col sm="6">
-                                                            <Form.Control type="number" placeholder="0" size='sm' id='mandateLetter' value={staff.mandateLetter} name='mandateLetter' onChange={handleInputChange} />
-                                                        </Col>
-                                                    </Form.Group>
-
-                                                    <Form.Group as={Row} className='mt-2  pb-1 mb-1 pt-2'>
-                                                        <Form.Label column sm="5">
-                                                            <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Credit Committee Approval</p>
-                                                        </Form.Label>
-                                                        <Col sm="6">
-                                                            <Form.Control type="number" placeholder="0" size='sm' id='creditCommiteeApproval' value={staff.creditCommiteeApproval} name='creditCommiteeApproval' onChange={handleInputChange} />
-                                                        </Col>
-                                                    </Form.Group>
-                                                    <Form.Group as={Row} className='pb-1 mb-1 pt-2'>
-                                                        <Form.Label column sm="5">
-                                                            <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Fee Letter</p>
-                                                        </Form.Label>
-                                                        <Col sm="6">
-                                                            <Form.Control type="number" placeholder="0" size='sm' id='feeLetter' value={staff.feeLetter} name='feeLetter' onChange={handleInputChange} />
-                                                        </Col>
-                                                    </Form.Group>
-                                                    <Form.Group as={Row} className="">
-                                                        <Form.Label column sm="5">
-                                                            <p style={{ fontWeight: 'normal', fontSize: '11px' }}>Financial Close</p>
-                                                        </Form.Label>
-                                                        <Col sm="6">
-                                                            <Form.Control type="number" placeholder="0" size='sm' id='financialClose' value={staff.financialClose} name='financialClose' onChange={handleInputChange} disabled/>
-                                                        </Col>
-                                                    </Form.Group>
-                                                </Col>
-                                            </Row>
-                                        </Container1>
-                                        <br />
-                                       
-                                    </Tab>
-                                </Tabs>
-                                <div className='d-flex justify-content-end'>
-                                            <ButtonWrapper onClick={saveStaff} >
-                                                Submit
-                                            </ButtonWrapper>
-
-                                            <CancelWrapper>
-                                                Cancel
-                                            </CancelWrapper>
-                                        </div>
-                            </div>
-                        </Form>
-                    )};
-                </Container>
-            </FormWrapper>
-
-            {/*------------------------------------------ Close Form ----------------------------------------- */}
-        </React.Fragment >
-    )
+      {/*------------------------------------------ Close Form ----------------------------------------- */}
+    </React.Fragment>
+  );
 }

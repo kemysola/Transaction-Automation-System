@@ -17,10 +17,10 @@ export default function NewTransaction() {
             <Navbar/>
             <ViewWrapper>
             <Row>
-                <Col sm={3} style={{padding:'10px 10px 10px 0px'}}>
+                <Col  style={{padding:'10px 10px 10px 0px'}}>
                     <Sidenav/>
                 </Col>
-                <Col sm={7} className='bg-light py-3'> 
+                <Col sm={9} className=' py-2 my-1'> 
                     <UpdateTransaction />
                 </Col>
                 </Row>

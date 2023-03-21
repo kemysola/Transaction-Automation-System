@@ -12,7 +12,7 @@ import Services from "../../Services/Service";
 
 const NavbarNav = styled.div`
   background: #eff1f1;
-  margin: 25px 5px;
+  margin: 15px 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;

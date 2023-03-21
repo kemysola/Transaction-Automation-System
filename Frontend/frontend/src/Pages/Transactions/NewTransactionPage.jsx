@@ -17,10 +17,10 @@ export default function NewTransactionPage() {
             <Navbar />
             <ViewWrapper>
             <Row>
-                <Col sm={3} style={{padding:'10px 10px 10px 0px'}}>
+                <Col  style={{padding:'10px 10px 10px 0px'}}>
                     <SideNav2/>
                 </Col>
-                <Col sm={7} className='bg-light'> 
+                <Col sm={9} className=''> 
                     <NewTransaction/>
                 </Col>
                 </Row>
