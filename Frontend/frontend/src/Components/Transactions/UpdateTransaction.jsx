@@ -492,12 +492,12 @@ export default function UpdateTransactions() {
     // function to get deal by id from the database
     const data = await axios
       .get(
-        `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
-          localStorage.getItem("fy")
-        )}`,
-        // `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+        // `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
         //   localStorage.getItem("fy")
         // )}`,
+        `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+          localStorage.getItem("fy")
+        )}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
@@ -1399,37 +1399,35 @@ export default function UpdateTransactions() {
                                 +
                               </button>
                               {noteList.map((singleNote, index) => {
-                                
-                                return (
-                                <div class="input-group" key={index}>
-                                  {/* <input defaultValue={singleNote}  value={singleNote.note} name='note'/> */}
-
-                                  <Form.Control
-                                    style={{ margin: "0.8em", width: "60%" }}
-                                    size="sm"
-                                    as = "textarea"
-                                    defaultValue={singleNote}
-                                    value={singleNote.note}
-                                    name="note"
-                                    onChange={(e) => handleNoteChange(e, index)}
-                  
-                                  />
-                                  <button
-                                    type="button"
-                                    style={{
-                                      fontSize: "10px",
-                                      padding: "2px 10px",
-                                      margin: "8px",
-                                      background: "steelblue",
-                                      color: "white",
-                                      borderRadius: "3px",
-                                    }}
-                                    onClick={handleNoteRemove(index)}
-                                  >
-                                    x
-                                  </button>
-                                </div>
-                              )})}
+                            
+                            return (
+                              <div className="input-group" key={index}>
+                                <Form.Control
+                                  style={{ margin: "0.8em", width: "60%" }}
+                                  size="sm"
+                                  as = "textarea"
+                                  defaultValue={singleNote}
+                                  value={singleNote.note}
+                                  name="note"
+                                  onChange={(e) => handleNoteChange(e, index)}
+                                />
+                                <button
+                                  type="button"
+                                  style={{
+                                    fontSize: "10px",
+                                    padding: "2px 10px",
+                                    margin: "8px",
+                                    background: "steelblue",
+                                    color: "white",
+                                    borderRadius: "3px",
+                                  }}
+                                  onClick={() => handleNoteRemove(index)}
+                                >
+                                  x
+                                </button>
+                              </div>
+                            );
+                          })}
                             </Form.Group>
                           </Col>
                         </Row>
