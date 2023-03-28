@@ -43,10 +43,14 @@ const Plis = ((props) => {
     }
   }, [wasEditing, isEditing]);
 
+  
+  console.log("I am hide submit", props.hideSubmit)
+
   function handleSubmit(e) {
     e.preventDefault();
-
-
+    if (props.hideSubmit == true){
+      return null
+    }
 
     props.editPlis(props.id, props.transid, plisParticulars, plisConcern, plisWeighting, plisExpected, plisStatus);
     setplisParticulars(null);
@@ -178,10 +182,13 @@ const Plis = ((props) => {
                       />
                       <br />
                     
-                      <FiSave 
-                        onClick={handleSubmit} 
-                        style={{ height: "1rem", width: "1rem", marginTop: "7px", cursor: "pointer"}}
-                      />
+                    {
+                      props.hideSubmit ? null :  <FiSave 
+                      onClick={handleSubmit} 
+                      style={{ height: "1rem", width: "1rem", marginTop: "7px", cursor: "pointer"}}
+                    />
+                    }
+                     
                     </Col>
                   </Row>
                 </Col>

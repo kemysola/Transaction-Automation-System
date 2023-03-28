@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Form, Container, Row, Col } from "react-bootstrap";
+import { Form, Container, Row, Col, Alert } from "react-bootstrap";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import styled from "styled-components";
@@ -207,7 +207,18 @@ export default function UpdateTransactions() {
   const [redA, setRedA] = useState("");
   const [redB, setRedB] = useState("");
   const [redC, setRedC] = useState("");
-
+  const [nbcFocusApprv1b, setNbcFocusApprv1b] = useState("") 
+  const [nbcFocusApprv1c, setNbcFocusApprv1c] = useState("")
+  const [nbcFocusApprv2b, setNbcFocusApprv2b] = useState("")
+  const [nbcFocusApprv2c, setNbcFocusApprv2c] = useState("")
+  const [nbcFocusApprv3b, setNbcFocusApprv3b] = useState("")
+  const [nbcFocusApprv3c, setNbcFocusApprv3c] = useState("")
+  const [nbcFocusApprv4b, setNbcFocusApprv4b] = useState("")
+  const [nbcFocusApprv4c, setNbcFocusApprv4c] = useState("")
+  const [nbcFocusApprv5b, setNbcFocusApprv5b] = useState("")
+  const [nbcFocusApprv5c, setNbcFocusApprv5c] = useState("")
+  const [showAlert, setShowAlert] = useState(false)
+  const [hideSubmit, setHideSubmit] = useState(false)
   //**********************************************************   Key Performance Indicators **************** */
   const handleKpiChange = (e, index) => {
     const { name, value } = e.target;
@@ -382,7 +393,10 @@ export default function UpdateTransactions() {
 
   const handleNoteRemove = (index) => {
     const list = [...noteList];
+    console.log("I am delted item", list)
+    console.log("I am delted index", index)
     list.splice(index, 1);
+    
     setNoteList(list);
   };
 
@@ -528,9 +542,21 @@ export default function UpdateTransactions() {
     setRedB(data.data.dealInfo[0].redb);
     setRedC(data.data.dealInfo[0].redc);
     setisClosed(data.data.dealInfo[0].closed);
-
+    // setnbcFocusApprv1b(data.data.dealInfo[0].nbc_focus_apprv_1_b);
+    // setnbcFocusApprv1c(data.data.dealInfo[0].nbc_focus_apprv_1_c);
+    // setnbcFocusApprv2b(data.data.dealInfo[0].nbc_focus_apprv_2_b);
+    // setnbcFocusApprv2c(data.data.dealInfo[0].nbc_focus_apprv_2_c);
+    // setnbcFocusApprv3b(data.data.dealInfo[0].nbc_focus_apprv_3_b);
+    // setnbcFocusApprv3c(data.data.dealInfo[0].nbc_focus_apprv_3_c);
+    // setnbcFocusApprv4b(data.data.dealInfo[0].nbc_focus_apprv_4_b);
+    // setnbcFocusApprv4c(data.data.dealInfo[0].nbc_focus_apprv_4_c);
+    // setnbcFocusApprv5b(data.data.dealInfo[0].nbc_focus_apprv_4_b);
+    // setnbcFocusApprv5c(data.data.dealInfo[0].nbc_focus_apprv_4_c);
     //********************************** End Block                   *******************
   };
+
+
+  // console.log("I am all data", allData)
 
   const uniqueId = Array.from(new Set(allData.map((a) => a.nbcid))).map(
     (id) => {
@@ -826,6 +852,34 @@ export default function UpdateTransactions() {
 
   // **************************************** Plid List ***************************************************
 
+let checkValid 
+useEffect(() => {
+  if(showAlert == true && checkValid  == true){
+   setHideSubmit(true)
+  }else{
+    setHideSubmit(false)
+    setShowAlert(false)
+  }
+ //  setHideSubmit(false)
+ }, [showAlert]);
+  const validatePlisWeights = () => {
+    const totalWeight = pliid.reduce((acc, curr) => acc + Number(curr.plis_weighting), 0);
+    console.log("I am total Weights", totalWeight)
+    checkValid = false
+    if (totalWeight > 100) {
+      // setHideSubmit(true)
+      checkValid  = true
+      return (
+        <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
+          The sum of plis weights cannot be greater than 100%.
+        </Alert>
+      ) 
+    } else{
+      checkValid = false
+    }
+      
+  };
+
   const PlisList = pliid.map((item) => (
     <PlisMode
       transid={item.transid}
@@ -838,6 +892,7 @@ export default function UpdateTransactions() {
       key={item.plid}
       editPlis={editPlis}
       deletePlis={deletePlis}
+      hideSubmit = {hideSubmit}
     />
   ));
 
@@ -1124,14 +1179,6 @@ export default function UpdateTransactions() {
 
 
    // handle PLIs validation; return erroe when the sum of PLIs is greater than 100
- const validatePlisWeights = () => {
-  const totalWeight = plis.reduce((acc, curr) => acc + Number(curr.plis_weighting), 0);
-  console.log("I am weight", totalWeight)
-  if (totalWeight > 100) {
-    console.log("I am weight", totalWeight)
-    alert(`The sum of plis weights cannot be greater than 100% ${totalWeight}`); 
-  }
-};
 
 
 
@@ -2627,7 +2674,7 @@ export default function UpdateTransactions() {
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-                                  <Form.Check
+                                  {/* <Form.Check
                                     inline
                                     label="Yes"
                                     type="radio"
@@ -2643,20 +2690,36 @@ export default function UpdateTransactions() {
                                     name="nbc_focus_apprv_1_b"
                                     value={"No"}
                                     defaultChecked
+                                  /> */}
+
+                                   <input
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_apprv_1_b"
+                                    defaultValue={nbcFocusApprv1b}
+                                    value=""
                                   />
+                                  
                                 </Col>
                                 <Col sm={3}>
-                                  <Form.Control
+                                  {/* <Form.Control
                                     size="sm"
                                     type="date"
                                     value={deal.nbc_focus_apprv_1_c}
                                     // onChange={handleInputChange}
+                                    defaultValue={nbcFocusApprv1c}
                                     name="nbc_focus_apprv_1_c"
                                     style={{
                                       width: "80%",
                                       padding: "2px 1px",
                                       focus: "none",
                                     }}
+                                  /> */}
+                                   <input
+                                    type="date"
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_apprv_1_b"
+                                    defaultValue={nbcFocusApprv1c}
+                                    value=""
                                   />
                                 </Col>
                               </Row>
@@ -2679,6 +2742,7 @@ export default function UpdateTransactions() {
                                     type="radio"
                                     // onChange={handleInputChange}
                                     name="nbc_focus_apprv_2_b"
+                                    defaultValue={nbcFocusApprv2b}
                                     value={true}
                                   />
                                   <Form.Check
@@ -2687,6 +2751,7 @@ export default function UpdateTransactions() {
                                     type="radio"
                                     // onChange={handleInputChange}
                                     name="nbc_focus_apprv_2_b"
+                                    defaultValue={nbcFocusApprv2b}
                                     value={false}
                                     defaultChecked
                                   />
@@ -2695,9 +2760,10 @@ export default function UpdateTransactions() {
                                   <Form.Control
                                     size="sm"
                                     type="date"
-                                    value={deal.nbc_focus_apprv_2_c}
+                                    // value={deal.nbc_focus_apprv_2_c}
                                     // onChange={handleInputChange}
                                     name="nbc_focus_apprv_2_c"
+                                    defaultValue={nbcFocusApprv2c}
                                     style={{
                                       width: "80%",
                                       padding: "2px 1px",
@@ -2725,6 +2791,7 @@ export default function UpdateTransactions() {
                                     type="radio"
                                     // onChange={handleInputChange}
                                     name="nbc_focus_apprv_3_b"
+                                    defaultValue={nbcFocusApprv3b}
                                     value={true}
                                   />
                                   <Form.Check
@@ -2733,6 +2800,7 @@ export default function UpdateTransactions() {
                                     type="radio"
                                     // onChange={handleInputChange}
                                     name="nbc_focus_apprv_3_b"
+                                    defaultValue={nbcFocusApprv1b}
                                     value={false}
                                     defaultChecked
                                   />
@@ -3025,6 +3093,7 @@ export default function UpdateTransactions() {
                   >
                     <Container1>
                       <br />
+                      {showAlert && validatePlisWeights()}
                       <Row className="py-1 d-flex justify-content-space-evenly">
                         <Col className="mt-1 mb-1">
                           <p>Particulars</p>
@@ -3099,7 +3168,7 @@ export default function UpdateTransactions() {
                                     value={singleNote.plis}
                                     name="plis_weighting"
                                     onChange={(e) => handlePlisChange(e, index)}
-                                    onBlur={validatePlisWeights}
+                                    onBlur={() => setShowAlert(true)}
                                   />
                                 </div>
                               ))}
@@ -3155,9 +3224,10 @@ export default function UpdateTransactions() {
                                       border: "none",
                                     }}
                                   >
-                                    <i className="">
-                                      <FiSave />
-                                    </i>
+                                    {
+                                      hideSubmit ? null :  <i className=""> <FiSave /> </i>
+                                    }
+                                   
                                   </button>
                                 </div>
                               ))}
