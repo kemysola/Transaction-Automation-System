@@ -362,11 +362,18 @@ export default function UpdateTransactions() {
   };
 
   //************************************************************* Note Change ************************************************* */
-  const handleNoteChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...noteList];
-    list[index][name] = value;
-    setNoteList(list);
+  // const handleNoteChange = (e, index) => {
+  //   const { name, value } = e.target;
+  //   const list = [...noteList];
+  //   list[index][name] = value;
+  //   setNoteList(list);
+  // };
+
+  const handleNoteChange = (event, index) => {
+    const { name, value } = event.target;
+    const updatedList = [...noteList];
+    updatedList[index] = { ...updatedList[index], [name]: value };
+    setNoteList(updatedList);
   };
 
   const handleNoteAdd = () => {
@@ -836,7 +843,8 @@ export default function UpdateTransactions() {
 
   // ***************************************** Send Plis Values to DB ************************************
 
-  const addNewPlis = () => {
+  const addNewPlis = (e) => {
+    e.preventDefault()
     let data = {
       id: 1000000000,
       plis_particulars: plis[0].plis_particulars,
@@ -1113,9 +1121,23 @@ export default function UpdateTransactions() {
     });
   }
 
+
+
+   // handle PLIs validation; return erroe when the sum of PLIs is greater than 100
+ const validatePlisWeights = () => {
+  const totalWeight = plis.reduce((acc, curr) => acc + Number(curr.plis_weighting), 0);
+  console.log("I am weight", totalWeight)
+  if (totalWeight > 100) {
+    console.log("I am weight", totalWeight)
+    alert(`The sum of plis weights cannot be greater than 100% ${totalWeight}`); 
+  }
+};
+
+
+
   function postData(e) {
     e.preventDefault();
-    let allNotes = noteList.map(({ note }) => note);
+    let allNotes = noteList.map(( item ) => item.note || item);
     // let nbcNotes = nbcFocus.map()
     let note = allNotes.join("|");
 
@@ -1376,19 +1398,21 @@ export default function UpdateTransactions() {
                               >
                                 +
                               </button>
-                              {noteList.map((singleNote, index) => (
-                                <div class="input-group">
+                              {noteList.map((singleNote, index) => {
+                                
+                                return (
+                                <div class="input-group" key={index}>
                                   {/* <input defaultValue={singleNote}  value={singleNote.note} name='note'/> */}
 
                                   <Form.Control
                                     style={{ margin: "0.8em", width: "60%" }}
                                     size="sm"
-                                    type="text"
+                                    as = "textarea"
                                     defaultValue={singleNote}
                                     value={singleNote.note}
                                     name="note"
                                     onChange={(e) => handleNoteChange(e, index)}
-                                    required
+                  
                                   />
                                   <button
                                     type="button"
@@ -1400,12 +1424,12 @@ export default function UpdateTransactions() {
                                       color: "white",
                                       borderRadius: "3px",
                                     }}
-                                    onClick={handleNoteRemove}
+                                    onClick={handleNoteRemove(index)}
                                   >
                                     x
                                   </button>
                                 </div>
-                              ))}
+                              )})}
                             </Form.Group>
                           </Col>
                         </Row>
@@ -3077,6 +3101,7 @@ export default function UpdateTransactions() {
                                     value={singleNote.plis}
                                     name="plis_weighting"
                                     onChange={(e) => handlePlisChange(e, index)}
+                                    onBlur={validatePlisWeights}
                                   />
                                 </div>
                               ))}

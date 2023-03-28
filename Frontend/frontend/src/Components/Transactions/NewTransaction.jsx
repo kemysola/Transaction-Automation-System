@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
-import { Form, Container, Row, Col } from "react-bootstrap";
+import { Form, Container, Row, Col, Alert } from "react-bootstrap";
 import Box from "@mui/material/Box";
 import styled from "styled-components";
 import Services from "../../Services/Service";
@@ -229,6 +229,8 @@ const NewTransaction = () => {
   const [style, setStyle] = useState([]);
   const [staffList, setStaffList] = useState([]);
   const [staffLists, setStaffLists] = useState([]);
+  const [showAlert, setShowAlert] = useState(false);
+  const [hideSubmit, setHideSubmit] = useState(false)
 
   // ************************************ use Effect : ComponentDidMount - ComponentWillReceive ***********************************/
 
@@ -530,17 +532,34 @@ const NewTransaction = () => {
 
   const handleNoteRemove = (index) => {
     const list = [...noteList];
-    let deletedItem = list;
     list.splice(index, 1);
+    setNoteList(list);
     // setNoteList(list);
-    console.log(list[index]);
-    setNoteList((prev) => [...prev.filter((i) => i === list[i])]);
+    // console.log(list[index]);
+    // setNoteList((prev) => [...prev.filter((i) => i === list[i])]);
   };
 
   const handleInputChange = (event) => {
     // function to save user data to deal state
     const { name, value } = event.target;
     // setNbcFocus({ ...nbcFocus, [name]: value });
+  };
+
+ 
+
+  // handle PLIs validation; return erroe when the sum of PLIs is greater than 100
+  const validatePlisWeights = () => {
+    const totalWeight = plis.reduce((acc, curr) => acc + Number(curr.plis_weighting), 0);
+
+    if (totalWeight > 100) {
+      
+      return (
+        <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
+          The sum of plis weights cannot be greater than 100%.
+        </Alert>
+      );
+    }
+      
   };
   //********************************************************************* Handle Submit Function ********************************** */
   const onSubmit = (reqdata, e) => {
@@ -829,8 +848,9 @@ const NewTransaction = () => {
                             >
                               Add
                             </button>
-                            {noteList.map((singleNote, index) => (
-                              <div class="input-group">
+                            {noteList.map((singleNote, index) => {
+                              return (
+                              <div class="input-group" key={index}>
                                 <Form.Control
                                   as="textarea"
                                   style={{ margin: "0.8em", width: "60%" }}
@@ -839,7 +859,7 @@ const NewTransaction = () => {
                                   name="note"
                                   onChange={(e) => handleNoteChange(e, index)}
                                 />
-                                <button
+                               <button
                                   type="button"
                                   style={{
                                     fontSize: "10px",
@@ -849,12 +869,12 @@ const NewTransaction = () => {
                                     color: "white",
                                     borderRadius: "3px",
                                   }}
-                                  onClick={handleNoteRemove}
+                                  onClick={() => handleNoteRemove(index)}
                                 >
                                   x
                                 </button>
                               </div>
-                            ))}
+                            )})}
                           </Form.Group>
                         </Col>
                       </Row>
@@ -2107,6 +2127,7 @@ const NewTransaction = () => {
                   >
                     <Container1>
                       <br />
+                      {showAlert && validatePlisWeights()}
                       <Row className="py-1">
                         <Col sm={2} className="mt-1 mb-1">
                           <p>Particulars</p>
@@ -2145,6 +2166,7 @@ const NewTransaction = () => {
                             </Form.Select>
                           ))}
                         </Col>
+                        
                         <Col sm={2} className=" mb-1">
                           <p>Weight (%)</p>
                           {plis.map((singleNote, index) => (
@@ -2154,6 +2176,7 @@ const NewTransaction = () => {
                               value={singleNote.plis}
                               name="plis_weighting"
                               onChange={(e) => handlePlisChange(e, index)}
+                              onBlur={() => setShowAlert(true)}
                               variant="standard"
                             />
                           ))}
