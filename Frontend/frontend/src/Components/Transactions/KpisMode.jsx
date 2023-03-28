@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Container, Form as Fm, Row, Col, ListGroup} from "react-bootstrap";
+import {  Form as Fm, Row, Col, ListGroup} from "react-bootstrap";
 import styled from "styled-components";
 import { FiEdit, FiSave, FiTrash2 } from 'react-icons/fi'
 import { MdOutlineCancel } from 'react-icons/md'
+import {  Tooltip } from "antd";
+
 
 const LabelStyle = styled.label`
 border: 1px solid #d9d9d9;
@@ -201,6 +203,11 @@ const Kpis = ((props) => {
                         style={{ height: "1rem", width: "1rem", cursor: "pointer"}}
                       />
                       <br />
+                      <Tooltip
+                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
+                                      open
+                                      mouseLeaveDelay="0.4"
+                                    ></Tooltip>
                     
                       <FiSave 
                         onClick={handleSubmit} 

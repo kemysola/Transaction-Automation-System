@@ -2,6 +2,9 @@
     "name": "frontend",
     "version": "0.1.0",
     "private": true,
+    "license": "ISC",
+    "author":"Adekemi Awomolo",
+    "package":"MAJOR.MINOR.PATCH",
     "dependencies": {
         "@emotion/react": "^11.8.2",
         "@emotion/styled": "^11.8.1",
@@ -36,7 +39,7 @@
         "jspdf": "^2.5.1",
         "jwt-decode": "^3.1.2",
         "moment": "^2.29.4",
-        "react": "^17.0.2",
+        "react": "~17.0.2",
         "react-bootstrap": "^2.1.1",
         "react-client-session": "0.0.7",
         "react-csv": "^2.2.2",

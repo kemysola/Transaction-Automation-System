@@ -15,6 +15,8 @@ import OcpsMode from "./OcpsMode";
 import KpisMode from "./KpisMode";
 import { useForm } from "react-hook-form";
 import { Input } from "antd";
+import { Button, Divider, Space, Tour, Tooltip } from "antd";
+import { EllipsisOutlined } from "@ant-design/icons";
 
 const ButtonWrapper = styled.button`
   color: white;
@@ -485,12 +487,12 @@ export default function UpdateTransactions() {
     // function to get deal by id from the database
     const data = await axios
       .get(
-        `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
-          localStorage.getItem("fy")
-        )}`,
-        // `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+        // `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
         //   localStorage.getItem("fy")
         // )}`,
+        `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+          localStorage.getItem("fy")
+        )}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
@@ -835,7 +837,6 @@ export default function UpdateTransactions() {
   ));
 
   // ***************************************** Send Plis Values to DB ************************************
-
   const addNewPlis = () => {
     let data = {
       id: 1000000000,
@@ -1197,7 +1198,7 @@ export default function UpdateTransactions() {
   const structuringData = {
     structuringFeeAmount: +amount.current.value,
     structuringFeeAdvance: +advance.current.value,
-  }
+  };
   // const structuringFeeAmountsss =  amount.current.value,
 
   const structuringFinal = 3000;
@@ -1214,12 +1215,11 @@ export default function UpdateTransactions() {
                   <h5 className="text-secondary pb-3 mb-2">
                     Update Transaction
                   </h5>
-                 
                 </Col>
-               
+
                 <Col
                   sm={6}
-                  style={{ fontSize: "12px",color:'black' }}
+                  style={{ fontSize: "12px", color: "black" }}
                   className="d-flex justify-content-end "
                 >
                   <Form.Check
@@ -1258,35 +1258,35 @@ export default function UpdateTransactions() {
                         <Row className="mt-3 pt-3">
                           <Col sm={6}>
                             <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                              { deal[0].clientname &&localStorage.getItem("admin") === "true"? <div>
-                              <Form.Label>Client Name</Form.Label>
-                              <Form.Control
-                                type="text"
-                                size="sm"
-                                defaultValue={deal[0].clientname}
-                                id="client"
-                                ref={clientName}
-                                required
-                                // disabled
-                              />
-                              </div>:<div>
-                              <Form.Label>Client Name</Form.Label>
-                              <Form.Control
-                                type="text"
-                                size="sm"
-                                defaultValue={deal[0].clientname}
-                                id="client"
-                                ref={clientName}
-                                required
-                                disabled
-                              />
-
-                              </div>
-                              
-                              }
-                             
-                              
-                             </Form.Group>
+                              {deal[0].clientname &&
+                              localStorage.getItem("admin") === "true" ? (
+                                <div>
+                                  <Form.Label>Client Name</Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].clientname}
+                                    id="client"
+                                    ref={clientName}
+                                    required
+                                    // disabled
+                                  />
+                                </div>
+                              ) : (
+                                <div>
+                                  <Form.Label>Client Name</Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].clientname}
+                                    id="client"
+                                    ref={clientName}
+                                    required
+                                    disabled
+                                  />
+                                </div>
+                              )}
+                            </Form.Group>
                           </Col>
 
                           <Col sm={6}>
@@ -1618,10 +1618,7 @@ export default function UpdateTransactions() {
 
                           <Col sm={6}>
                             <Form.Group className="pt-1">
-                              <Form.Label>
-                                * Credit
-                                Approval
-                              </Form.Label>
+                              <Form.Label>* Credit Approval</Form.Label>
                               <Form.Control
                                 size="sm"
                                 type="date"
@@ -1797,7 +1794,9 @@ export default function UpdateTransactions() {
                               <Form.Control
                                 size="sm"
                                 type="number"
-                                value={(amount.current.value + advance.current.value)}
+                                value={
+                                  amount.current.value + advance.current.value
+                                }
                                 // id="final"
                                 disabled
                                 // ref={final}
@@ -2548,6 +2547,11 @@ export default function UpdateTransactions() {
                                       border: "none",
                                     }}
                                   >
+                                    <Tooltip
+                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
+                                      open
+                                      mouseLeaveDelay="0.4"
+                                    ></Tooltip>
                                     <i className="">
                                       <FiSave />
                                     </i>
@@ -2976,6 +2980,12 @@ export default function UpdateTransactions() {
                                       border: "none",
                                     }}
                                   >
+                                    <Tooltip
+                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
+                                      open
+                                      mouseLeaveDelay="0.4"
+                                    ></Tooltip>
+
                                     <i className="">
                                       <FiSave />
                                     </i>
@@ -3132,6 +3142,12 @@ export default function UpdateTransactions() {
                                       border: "none",
                                     }}
                                   >
+                                    <Tooltip
+                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
+                                      open
+                                      mouseLeaveDelay="0.4"
+                                    ></Tooltip>
+
                                     <i className="">
                                       <FiSave />
                                     </i>
@@ -3183,6 +3199,8 @@ export default function UpdateTransactions() {
                         </Col>
 
                         {OcpsList}
+                       
+                    
                       </Row>
 
                       <Row className="">
@@ -3316,6 +3334,12 @@ export default function UpdateTransactions() {
                                       border: "none",
                                     }}
                                   >
+                                    <Tooltip
+                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
+                                      open
+                                      mouseLeaveDelay="0.4"
+                                    ></Tooltip>
+
                                     <i className="">
                                       <FiSave />
                                     </i>
@@ -3331,6 +3355,11 @@ export default function UpdateTransactions() {
                           </p>
                         </div>
                       </Row>
+                      <Tooltip
+                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
+                                      open
+                                      mouseLeaveDelay="0.2"
+                                    ></Tooltip>
                     </Container1>
                   </Tab>
                   <Tab
@@ -3501,6 +3530,12 @@ export default function UpdateTransactions() {
                                       border: "none",
                                     }}
                                   >
+                                    <Tooltip
+                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
+                                      open
+                                      mouseLeaveDelay="0.4"
+                                    ></Tooltip>
+
                                     <i className="">
                                       <FiSave />
                                     </i>
@@ -3512,6 +3547,11 @@ export default function UpdateTransactions() {
                         </Col>
                         <div className="d-flex justify-content-end ml-2">
                           <p className="">
+                          <Tooltip
+                        title="Kindly Save using the save Icon to avoid losing data!!!!"
+                        open
+                        mouseLeaveDelay="0.4"
+                      ></Tooltip>
                             <GrAddCircle onClick={handleKpiAdd} />
                           </p>
                         </div>
@@ -3524,7 +3564,7 @@ export default function UpdateTransactions() {
                         <div>
                           <Row className="mt-3">
                             <Col sm="6">
-                              <Form.Label>*  Principal</Form.Label>
+                              <Form.Label>* Principal</Form.Label>
                               <Form.Control
                                 type="text"
                                 defaultValue={deal[0].principal}
@@ -3565,7 +3605,9 @@ export default function UpdateTransactions() {
                               />
                             </Col>
                             <Col sm="6">
-                              <Form.Label>* TakingFirstInterestEarly</Form.Label>
+                              <Form.Label>
+                                * TakingFirstInterestEarly
+                              </Form.Label>
                               <Form.Control
                                 type="number"
                                 defaultValue={deal[0].takingfirstinterestearly}
