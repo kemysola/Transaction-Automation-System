@@ -420,6 +420,7 @@ const NewTransaction = () => {
     const list = [...plis];
     list[index][name] = value;
     setPlis(list);
+    setShowAlert(false)
   };
 
   const handlePlisAdd = () => {
@@ -544,20 +545,36 @@ const NewTransaction = () => {
     const { name, value } = event.target;
     // setNbcFocus({ ...nbcFocus, [name]: value });
   };
+  
 
+  let checkValid 
+
+  useEffect(() => {
+   if(showAlert == true && checkValid  == true){
+    setHideSubmit(true)
+   }else{
+     setHideSubmit(false)
+     setShowAlert(false)
+   }
+  //  setHideSubmit(false)
+  }, [showAlert]);
  
 
   // handle PLIs validation; return erroe when the sum of PLIs is greater than 100
   const validatePlisWeights = () => {
     const totalWeight = plis.reduce((acc, curr) => acc + Number(curr.plis_weighting), 0);
-
+    
+    checkValid = false
     if (totalWeight > 100) {
-      
+      // setHideSubmit(true)
+      checkValid  = true
       return (
         <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
           The sum of plis weights cannot be greater than 100%.
         </Alert>
-      );
+      ) 
+    } else{
+       checkValid = false
     }
       
   };
@@ -2888,7 +2905,8 @@ const NewTransaction = () => {
                 </div>
               </div>
               <div className="d-flex justify-content-end">
-                <ButtonWrapper type="submit">Submit</ButtonWrapper>
+                {hideSubmit ? <ButtonWrapper type="" disabled={hideSubmit} style={{backgroundColor:'white', color: 'black'}}>Submit</ButtonWrapper> : <ButtonWrapper type="submit">Submit</ButtonWrapper>}
+                {/* <ButtonWrapper type="submit">Submit</ButtonWrapper> */}
                 <ButtonWrapper type="reset" style={{color:'white !important'}}>Reset</ButtonWrapper>
               </div>
             </form>
