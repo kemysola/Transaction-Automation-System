@@ -352,7 +352,7 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
       const sqlReq = `SELECT 
                             a.* ,
                             B.ID as ocps_ID, b.ocps_factors, b.ocps_yes_no, b.ocps_concern, b.ocps_expected, b.ocps_resp_party, b.ocps_status,
-                            c.ID as nbc_focus_ID, c.nbc_focus_original, c.nbc_focus_original_yes_no, c.nbc_focus_original_date, c.nbc_focus_original_methodology, c.nbc_focus_apprv_1_c, c.nbc_focus_apprv_2_b, c.nbc_focus_apprv_2_c, c.nbc_focus_apprv_3_b, c.nbc_focus_apprv_3_c,
+                            c.ID as nbc_focus_ID, c.nbc_focus_original, c.nbc_focus_original_yes_no, c.nbc_focus_original_date, c.nbc_focus_original_methodology, c.nbc_focus_apprv_1_b, c.nbc_focus_apprv_1_c, c.nbc_focus_apprv_2_b, c.nbc_focus_apprv_2_c, c.nbc_focus_apprv_3_b, c.nbc_focus_apprv_3_c,
                             c.nbc_focus_apprv_4_b, c.nbc_focus_apprv_4_c, c.nbc_focus_apprv_5_b, c.nbc_focus_apprv_5_c,
                             d.ID as parties_ID, d.parties_role, d.parties_party, d.parties_appointed, d.parties_status,
                             e.ID as plis_ID, e.plis_particulars, e.plis_concern, e.plis_weighting, e.plis_expected, e.plis_status,
@@ -416,7 +416,7 @@ router.get(
 
             b.id as ocid,b.ocps_factors, b.ocps_yes_no, b.ocps_concern, b.ocps_expected, b.ocps_resp_party, b.ocps_status,
 
-            c.id as nbcid,c.nbc_focus_original, c.nbc_focus_original_yes_no, c.nbc_focus_original_date, c.nbc_focus_original_methodology, c.nbc_focus_apprv_1_c, c.nbc_focus_apprv_2_b, c.nbc_focus_apprv_2_c, c.nbc_focus_apprv_3_b, c.nbc_focus_apprv_3_c,
+            c.id as nbcid,c.nbc_focus_original, c.nbc_focus_original_yes_no, c.nbc_focus_original_date, c.nbc_focus_original_methodology, c.nbc_focus_apprv_1_b, c.nbc_focus_apprv_1_c, c.nbc_focus_apprv_2_b, c.nbc_focus_apprv_2_c, c.nbc_focus_apprv_3_b, c.nbc_focus_apprv_3_c,
             c.nbc_focus_apprv_4_b, c.nbc_focus_apprv_4_c, c.nbc_focus_apprv_5_b, c.nbc_focus_apprv_5_c,
             
             d.id as pid,d.parties_role, d.parties_party, d.parties_appointed, d.parties_status,
@@ -936,7 +936,99 @@ router.put("/update/:dealID", verifyTokenAndAuthorization, async (req, res) => {
       ocps,
       kpi,
     } = req.body);
+
+    const updated_rec_nbc = ({ nbcFocus } = req.body);
+
+    // console.log("####", updated_rec_nbc.nbcFocus)
+      const updNBCFocus = updated_rec_nbc.nbcFocus;
+      //  console.log("####", updNBCFocus)
+      // UPDATE NBC FOCUS
+      // let funcNbcFocusUpdate = () => {
+        // console.log("####", updNBCFocus)
+          updNBCFocus.forEach(async (element) => {
+            var rows = [
+              req.params.dealID,
+              element.id,
+              element.nbc_focus_original,
+              element.nbc_focus_original_yes_no,
+              element.nbc_focus_original_date,
+              element.nbc_focus_original_methodology,
+              element.nbc_focus_apprv_1_b,
+              element.nbc_focus_apprv_1_c,
+              element.nbc_focus_apprv_2_b,
+              element.nbc_focus_apprv_2_c,
+              element.nbc_focus_apprv_3_b,
+              element.nbc_focus_apprv_3_c,
+              element.nbc_focus_apprv_4_b,
+              element.nbc_focus_apprv_4_c,
+              element.nbc_focus_apprv_5_b,
+              element.nbc_focus_apprv_5_c,
+            ];
   
+           console.log("####", rows)
+  
+            const res_check_rec = await client.query(
+              `SELECT * FROM TB_INFRCR_TRANSACTION_NBC_FOCUS WHERE id in ($1)`,
+              [rows[1]]
+            );
+  
+            if (res_check_rec.rows.length <= 0) {
+              var insert_rows = [
+                req.params.dealID,
+                element.nbc_focus_original,
+                element.nbc_focus_original_yes_no,
+                element.nbc_focus_original_date,
+                element.nbc_focus_original_methodology,
+                element.nbc_focus_apprv_1_b,
+                element.nbc_focus_apprv_1_c,
+                element.nbc_focus_apprv_2_b,
+                element.nbc_focus_apprv_2_c,
+                element.nbc_focus_apprv_3_b,
+                element.nbc_focus_apprv_3_c,
+                element.nbc_focus_apprv_4_b,
+                element.nbc_focus_apprv_4_c,
+                element.nbc_focus_apprv_5_b,
+                element.nbc_focus_apprv_5_c,
+              ];
+              const insert_to_nbcfocus = `
+                              INSERT INTO TB_INFRCR_TRANSACTION_NBC_FOCUS(transID, nbc_focus_original, nbc_focus_original_yes_no, nbc_focus_original_date, nbc_focus_original_methodology,  nbc_focus_apprv_1_b, nbc_focus_apprv_1_c, nbc_focus_apprv_2_b, nbc_focus_apprv_2_c, nbc_focus_apprv_3_b, nbc_focus_apprv_3_c, 
+                                nbc_focus_apprv_4_b, nbc_focus_apprv_4_c, nbc_focus_apprv_5_b, nbc_focus_apprv_5_c) 
+                              VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
+                              `;
+              const res_ins_nbc_focus = await client.query(
+                insert_to_nbcfocus,
+                insert_rows
+              );
+  
+              await client.query("COMMIT");
+            } else {
+              const update_to_nbcfocus = `
+                          UPDATE TB_INFRCR_TRANSACTION_NBC_FOCUS
+                          SET nbc_focus_original = coalesce($3, nbc_focus_original)
+                              ,nbc_focus_original_yes_no = coalesce($4, nbc_focus_original_yes_no)
+                              ,nbc_focus_original_date = coalesce($5, nbc_focus_original_date)
+                              ,nbc_focus_original_methodology = coalesce($6, nbc_focus_original_methodology),
+                              nbc_focus_apprv_1_b = coalesce($7, nbc_focus_apprv_1_b ),
+                              nbc_focus_apprv_1_c = coalesce($8, nbc_focus_apprv_1_c ), 
+                              nbc_focus_apprv_2_b = coalesce($9, nbc_focus_apprv_2_b ),
+                              nbc_focus_apprv_2_c = coalesce($10, nbc_focus_apprv_2_c), 
+                              nbc_focus_apprv_3_b = coalesce($11, nbc_focus_apprv_2_b ), 
+                              nbc_focus_apprv_3_c = coalesce($12, nbc_focus_apprv_3_c), 
+                              nbc_focus_apprv_4_b = coalesce($13, nbc_focus_apprv_4_b ), 
+                              nbc_focus_apprv_4_c = coalesce($14, nbc_focus_apprv_4_c ), 
+                              nbc_focus_apprv_5_b = coalesce($15, nbc_focus_apprv_5_b ), 
+                              nbc_focus_apprv_5_c = coalesce($16, nbc_focus_apprv_5_c )
+                          WHERE transID = $1 AND id = $2
+                      `;
+              const res_nbc_focus = await client.query(update_to_nbcfocus, rows);
+  
+              await client.query("COMMIT");
+  
+              return res_nbc_focus.rows[0];
+            }
+          });
+
+      // }
     const updated = [
       updated_rec.clientName,
       updated_rec.originator,
@@ -1007,6 +1099,7 @@ router.put("/update/:dealID", verifyTokenAndAuthorization, async (req, res) => {
       updated_rec.firstcoupondate,
 
     ];
+
     await client.query("BEGIN");
 
     const update_db = `UPDATE TB_INFRCR_TRANSACTION
@@ -1021,6 +1114,7 @@ router.put("/update/:dealID", verifyTokenAndAuthorization, async (req, res) => {
             WHERE transID = $37
         RETURNING *`;
     const res_ = await client.query(update_db, updated);
+
 
     await client.query("COMMIT");
 
@@ -1177,7 +1271,19 @@ router.put(
             element.nbc_focus_original_yes_no,
             element.nbc_focus_original_date,
             element.nbc_focus_original_methodology,
+            element.nbc_focus_apprv_1_b,
+            element.nbc_focus_apprv_1_c,
+            element.nbc_focus_apprv_2_b,
+            element.nbc_focus_apprv_2_c,
+            element.nbc_focus_apprv_3_b,
+            element.nbc_focus_apprv_3_c,
+            element.nbc_focus_apprv_4_b,
+            element.nbc_focus_apprv_4_c,
+            element.nbc_focus_apprv_5_b,
+            element.nbc_focus_apprv_5_c,
           ];
+
+  
 
           const res_check_rec = await client.query(
             `SELECT * FROM TB_INFRCR_TRANSACTION_NBC_FOCUS WHERE id in ($1)`,
@@ -1191,10 +1297,21 @@ router.put(
               element.nbc_focus_original_yes_no,
               element.nbc_focus_original_date,
               element.nbc_focus_original_methodology,
+              element.nbc_focus_apprv_1_b,
+              element.nbc_focus_apprv_1_c,
+              element.nbc_focus_apprv_2_b,
+              element.nbc_focus_apprv_2_c,
+              element.nbc_focus_apprv_3_b,
+              element.nbc_focus_apprv_3_c,
+              element.nbc_focus_apprv_4_b,
+              element.nbc_focus_apprv_4_c,
+              element.nbc_focus_apprv_5_b,
+              element.nbc_focus_apprv_5_c,
             ];
             const insert_to_nbcfocus = `
-                            INSERT INTO TB_INFRCR_TRANSACTION_NBC_FOCUS(transID, nbc_focus_original, nbc_focus_original_yes_no, nbc_focus_original_date, nbc_focus_original_methodology) 
-                            VALUES ($1, $2, $3, $4, $5)
+                            INSERT INTO TB_INFRCR_TRANSACTION_NBC_FOCUS(transID, nbc_focus_original, nbc_focus_original_yes_no, nbc_focus_original_date, nbc_focus_original_methodology,  nbc_focus_apprv_1_b, nbc_focus_apprv_1_c, nbc_focus_apprv_2_b, nbc_focus_apprv_2_c, nbc_focus_apprv_3_b, nbc_focus_apprv_3_c, 
+                              nbc_focus_apprv_4_b, nbc_focus_apprv_4_c, nbc_focus_apprv_5_b, nbc_focus_apprv_5_c) 
+                            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
                             `;
             const res_ins_nbc_focus = await client.query(
               insert_to_nbcfocus,
@@ -1208,7 +1325,17 @@ router.put(
                         SET nbc_focus_original = coalesce($3, nbc_focus_original)
                             ,nbc_focus_original_yes_no = coalesce($4, nbc_focus_original_yes_no)
                             ,nbc_focus_original_date = coalesce($5, nbc_focus_original_date)
-                            ,nbc_focus_original_methodology = coalesce($6, nbc_focus_original_methodology)
+                            ,nbc_focus_original_methodology = coalesce($6, nbc_focus_original_methodology),
+                            nbc_focus_apprv_1_b = coalesce($7, nbc_focus_apprv_1_b ),
+                            nbc_focus_apprv_1_c = coalesce($8, nbc_focus_apprv_1_c ), 
+                            nbc_focus_apprv_2_b = coalesce($9, nbc_focus_apprv_2_b ),
+                            nbc_focus_apprv_2_c = coalesce($10, nbc_focus_apprv_2_c), 
+                            nbc_focus_apprv_3_b = coalesce($11, nbc_focus_apprv_2_b ), 
+                            nbc_focus_apprv_3_c = coalesce($12, nbc_focus_apprv_3_c), 
+                            nbc_focus_apprv_4_b = coalesce($13, nbc_focus_apprv_4_b ), 
+                            nbc_focus_apprv_4_c = coalesce($14, nbc_focus_apprv_4_c ), 
+                            nbc_focus_apprv_5_b = coalesce($15, nbc_focus_apprv_5_b ), 
+                            nbc_focus_apprv_5_c = coalesce($16, nbc_focus_apprv_5_c )
                         WHERE transID = $1 AND id = $2
                     `;
             const res_nbc_focus = await client.query(update_to_nbcfocus, rows);

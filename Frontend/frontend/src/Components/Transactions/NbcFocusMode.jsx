@@ -28,6 +28,8 @@ const NBCFocus = ((props) => {
   const [nbcFocusOriginalYesNo, setnbcFocusOriginalYesNo] = useState(null);
   const [nbcFocusOriginalDate, setnbcFocusOriginalDate] = useState(null);
   const [nbcFocusOriginalMethod, setnbcFocusOriginalMethod] = useState(null);
+  const [nbcFocusApprv1b, setNbcFocusApprv1b] = useState(null);
+  const [nbcFocusApprv2b, setNbcFocusApprv2b] = useState(null);
 
   const editFieldRef = useRef(null);
   const editButtonRef = useRef(null);
@@ -45,7 +47,7 @@ const NBCFocus = ((props) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-
+    // props.validatePlisWeights()
     props.editNBCFocus(props.id, props.transid, nbcFocusOriginal, nbcFocusOriginalYesNo, nbcFocusOriginalDate, nbcFocusOriginalMethod);
     setnbcFocusOriginal(null);
     setnbcFocusOriginalYesNo(null);

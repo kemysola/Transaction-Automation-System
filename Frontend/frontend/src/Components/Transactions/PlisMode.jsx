@@ -43,8 +43,7 @@ const Plis = ((props) => {
     }
   }, [wasEditing, isEditing]);
 
-  
-  console.log("I am hide submit", props.hideSubmit)
+
 
   function handleSubmit(e) {
     e.preventDefault();
