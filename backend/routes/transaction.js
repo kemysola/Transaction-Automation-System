@@ -939,12 +939,9 @@ router.put("/update/:dealID", verifyTokenAndAuthorization, async (req, res) => {
 
     const updated_rec_nbc = ({ nbcFocus } = req.body);
 
-    // console.log("####", updated_rec_nbc.nbcFocus)
+    
       const updNBCFocus = updated_rec_nbc.nbcFocus;
-      //  console.log("####", updNBCFocus)
-      // UPDATE NBC FOCUS
-      // let funcNbcFocusUpdate = () => {
-        // console.log("####", updNBCFocus)
+   
           updNBCFocus.forEach(async (element) => {
             var rows = [
               req.params.dealID,
@@ -965,7 +962,7 @@ router.put("/update/:dealID", verifyTokenAndAuthorization, async (req, res) => {
               element.nbc_focus_apprv_5_c,
             ];
   
-           console.log("####", rows)
+          
   
             const res_check_rec = await client.query(
               `SELECT * FROM TB_INFRCR_TRANSACTION_NBC_FOCUS WHERE id in ($1)`,
