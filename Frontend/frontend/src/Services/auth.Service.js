@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-import axios from "../http-common";
+import axios from './api/http-common'
 
 const register = (username, email, password) => {
   return axios.post("auth/app/login" + "signup", {

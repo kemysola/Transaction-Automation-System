@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import axios from "../../../http-common";
+// import axios from "../../../Sevices/api/http-common";
+import axios from "../../../Services/api/http-common";
 import AuthService from "../../../Services/auth.Service";
 import ResetService from "../../../Services/reset.Services";
 import Form from "react-validation/build/form";

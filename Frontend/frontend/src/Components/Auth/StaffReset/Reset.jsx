@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import axios from "../../../http-common";
+import axios from "../../../Services/api/http-common";
 import AuthService from "../../../Services/auth.Service";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
@@ -8,7 +8,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import logo1 from "../../../Images/Infra.png";
 
 const user = JSON.parse(localStorage.getItem("user"));
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const required = (value) => {
   if (!value) {

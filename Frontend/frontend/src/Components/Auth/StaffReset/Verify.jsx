@@ -1,8 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import axios from '../../../http-common'
-import { useLocation } from 'react-router';
-
-
+import axios from "../../../Sevices/api/http-common";
 
 export default function Reset() {
     const [message, setMessage] = useState()
