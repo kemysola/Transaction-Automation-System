@@ -230,7 +230,7 @@ export default function UpdateStaffs() {
               <div></div>
               <Tabs
                 onSelect={(k) => handleTabChange}
-                style={{ fontSize: "13px",background:'black',padding:'10px' }}
+                style={{ fontSize: "13px",background:'#E2E2E2',padding:'10px' }}
                 >
                 <Tab eventKey="first" title="USER">
                   <br />

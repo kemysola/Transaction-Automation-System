@@ -14,7 +14,7 @@ import PlisMode from "./PlisMode";
 import OcpsMode from "./OcpsMode";
 import KpisMode from "./KpisMode";
 import { useForm } from "react-hook-form";
-import { Input } from "antd";
+import {  Tooltip } from "antd";
 
 const ButtonWrapper = styled.button`
   color: white;
@@ -56,26 +56,25 @@ export default function UpdateTransactions() {
   const {
     register,
     formState: {
-      errors,
-      isDirty,
-      dirtyFields,
-      isSubmitting,
-      touchedFields,
-      submitCount,
+      // errors,
+      // isDirty,
+      // dirtyFields,
+      // isSubmitting,
+      // touchedFields,
+      // submitCount,
     },
-    control,
-    handleSubmit,
-    setFocus,
-    reset,
-    watch,
-    getValues,
+    // control,
+    // handleSubmit,
+    // setFocus,
+    // reset,
+    // watch,
+    // getValues,
   } = useForm({
     defaultValues: {
       test: [{ note: "" }],
     },
   });
 
-  // form ref values
   const clientName = useRef("");
   const originator = useRef("");
   const transactor = useRef("");
@@ -207,18 +206,18 @@ export default function UpdateTransactions() {
   const [redA, setRedA] = useState("");
   const [redB, setRedB] = useState("");
   const [redC, setRedC] = useState("");
-  const [nbcFocusApprv1b, setNbcFocusApprv1b] = useState("") 
-  const [nbcFocusApprv1c, setNbcFocusApprv1c] = useState("")
-  const [nbcFocusApprv2b, setNbcFocusApprv2b] = useState("")
-  const [nbcFocusApprv2c, setNbcFocusApprv2c] = useState("")
-  const [nbcFocusApprv3b, setNbcFocusApprv3b] = useState("")
-  const [nbcFocusApprv3c, setNbcFocusApprv3c] = useState("")
-  const [nbcFocusApprv4b, setNbcFocusApprv4b] = useState("")
-  const [nbcFocusApprv4c, setNbcFocusApprv4c] = useState("")
-  const [nbcFocusApprv5b, setNbcFocusApprv5b] = useState("")
-  const [nbcFocusApprv5c, setNbcFocusApprv5c] = useState("")
-  const [showAlert, setShowAlert] = useState(false)
-  const [hideSubmit, setHideSubmit] = useState(false)
+  const [nbcFocusApprv1b, setNbcFocusApprv1b] = useState("");
+  const [nbcFocusApprv1c, setNbcFocusApprv1c] = useState("");
+  const [nbcFocusApprv2b, setNbcFocusApprv2b] = useState("");
+  const [nbcFocusApprv2c, setNbcFocusApprv2c] = useState("");
+  const [nbcFocusApprv3b, setNbcFocusApprv3b] = useState("");
+  const [nbcFocusApprv3c, setNbcFocusApprv3c] = useState("");
+  const [nbcFocusApprv4b, setNbcFocusApprv4b] = useState("");
+  const [nbcFocusApprv4c, setNbcFocusApprv4c] = useState("");
+  const [nbcFocusApprv5b, setNbcFocusApprv5b] = useState("");
+  const [nbcFocusApprv5c, setNbcFocusApprv5c] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [hideSubmit, setHideSubmit] = useState(false);
   //**********************************************************   Key Performance Indicators **************** */
   const handleKpiChange = (e, index) => {
     const { name, value } = e.target;
@@ -393,25 +392,11 @@ export default function UpdateTransactions() {
 
   const handleNoteRemove = (index) => {
     const list = [...noteList];
-    console.log("I am delted item", list)
-    console.log("I am delted index", index)
     list.splice(index, 1);
-    
+
     setNoteList(list);
   };
 
-  const concernGroup = ["High", "Medium", "Low"];
-
-  const optionsGroup = [
-    {
-      text: "Yes",
-      value: true,
-    },
-    {
-      text: "No",
-      value: false,
-    },
-  ];
 
   useEffect(() => {
     retrieveDeal();
@@ -506,12 +491,12 @@ export default function UpdateTransactions() {
     // function to get deal by id from the database
     const data = await axios
       .get(
-        // `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
-        //   localStorage.getItem("fy")
-        // )}`,
-        `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+        `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
           localStorage.getItem("fy")
         )}`,
+        // `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+        //   localStorage.getItem("fy")
+        // )}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
@@ -542,21 +527,9 @@ export default function UpdateTransactions() {
     setRedB(data.data.dealInfo[0].redb);
     setRedC(data.data.dealInfo[0].redc);
     setisClosed(data.data.dealInfo[0].closed);
-    // setnbcFocusApprv1b(data.data.dealInfo[0].nbc_focus_apprv_1_b);
-    // setnbcFocusApprv1c(data.data.dealInfo[0].nbc_focus_apprv_1_c);
-    // setnbcFocusApprv2b(data.data.dealInfo[0].nbc_focus_apprv_2_b);
-    // setnbcFocusApprv2c(data.data.dealInfo[0].nbc_focus_apprv_2_c);
-    // setnbcFocusApprv3b(data.data.dealInfo[0].nbc_focus_apprv_3_b);
-    // setnbcFocusApprv3c(data.data.dealInfo[0].nbc_focus_apprv_3_c);
-    // setnbcFocusApprv4b(data.data.dealInfo[0].nbc_focus_apprv_4_b);
-    // setnbcFocusApprv4c(data.data.dealInfo[0].nbc_focus_apprv_4_c);
-    // setnbcFocusApprv5b(data.data.dealInfo[0].nbc_focus_apprv_4_b);
-    // setnbcFocusApprv5c(data.data.dealInfo[0].nbc_focus_apprv_4_c);
     //********************************** End Block                   *******************
   };
 
-
-  // console.log("I am all data", allData)
 
   const uniqueId = Array.from(new Set(allData.map((a) => a.nbcid))).map(
     (id) => {
@@ -854,32 +827,31 @@ export default function UpdateTransactions() {
 
   // **************************************** Plid List ***************************************************
 
-let checkValid 
-useEffect(() => {
-  if(showAlert == true && checkValid  == true){
-   setHideSubmit(true)
-  }else{
-    setHideSubmit(false)
-    setShowAlert(false)
-  }
- //  setHideSubmit(false)
- }, [showAlert]);
+  let checkValid;
+  useEffect(() => {
+    if (showAlert == true && checkValid == true) {
+      setHideSubmit(true);
+    } else {
+      setHideSubmit(false);
+      setShowAlert(false);
+    }
+  }, [showAlert]);
   const validatePlisWeights = () => {
-    const totalWeight = pliid.reduce((acc, curr) => acc + Number(curr.plis_weighting), 0);
-    console.log("I am total Weights", totalWeight)
-    checkValid = false
+    const totalWeight = pliid.reduce(
+      (acc, curr) => acc + Number(curr.plis_weighting),
+      0
+    );
+    checkValid = false;
     if (totalWeight > 100) {
-      // setHideSubmit(true)
-      checkValid  = true
+      checkValid = true;
       return (
         <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
           The sum of plis weights cannot be greater than 100%.
         </Alert>
-      ) 
-    } else{
-      checkValid = false
+      );
+    } else {
+      checkValid = false;
     }
-      
   };
 
   const PlisList = pliid.map((item) => (
@@ -894,14 +866,14 @@ useEffect(() => {
       key={item.plid}
       editPlis={editPlis}
       deletePlis={deletePlis}
-      hideSubmit = {hideSubmit}
+      hideSubmit={hideSubmit}
     />
   ));
 
   // ***************************************** Send Plis Values to DB ************************************
 
   const addNewPlis = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     let data = {
       id: 1000000000,
       plis_particulars: plis[0].plis_particulars,
@@ -1102,17 +1074,6 @@ useEffect(() => {
   };
 
   // ******************************************  Next and Previous Function  ****************************************
-
-  function toNextTab(e) {
-    e.preventDefault();
-    handleTabChange();
-  }
-
-  function toPrevTab(e) {
-    e.preventDefault();
-    handlePrevChange();
-  }
-
   function handleTabChange() {
     if (activeTab === "first") {
       setActiveTab("second");
@@ -1180,16 +1141,11 @@ useEffect(() => {
     });
   }
 
-
-
-   // handle PLIs validation; return erroe when the sum of PLIs is greater than 100
-
-
+  // handle PLIs validation; return erroe when the sum of PLIs is greater than 100
 
   function postData(e) {
     e.preventDefault();
-    let allNotes = noteList.map(( item ) => item.note || item);
-    // let nbcNotes = nbcFocus.map()
+    let allNotes = noteList.map((item) => item.note || item);
     let note = allNotes.join("|");
 
     // ******************************************  Request body payload to the db  ***********************************
@@ -1244,7 +1200,6 @@ useEffect(() => {
       redB: JSON.parse(redB),
       redC: JSON.parse(redC),
       notes: note,
-      // nbcFocus: nbcFocus,
       parties: parties,
       plis: plis,
       ocps: ocps,
@@ -1258,7 +1213,7 @@ useEffect(() => {
         setMessage(response.data.message);
       })
       .catch((error) => {
-        setMessage("Failed to update deal");
+        setMessage("Failed to update deal,kindly fill in the required fields");
       });
   }
   let transactorList = staffList.filter((opt) => opt.istransactor === true);
@@ -1266,15 +1221,6 @@ useEffect(() => {
   let ttrlegalLead = staffList.filter(
     (opt) => opt.istransactionlegallead === true
   );
-
-  const structuringData = {
-    structuringFeeAmount: +amount.current.value,
-    structuringFeeAdvance: +advance.current.value,
-  }
-  // const structuringFeeAmountsss =  amount.current.value,
-
-  const structuringFinal = 3000;
-  // console.log( structuringFeeAmountsss,'value' )
   return (
     <React.Fragment>
       {/* ---------------------- Update Transaction Forms ----------- */}
@@ -1287,12 +1233,11 @@ useEffect(() => {
                   <h5 className="text-secondary pb-3 mb-2">
                     Update Transaction
                   </h5>
-                 
                 </Col>
-               
+
                 <Col
                   sm={6}
-                  style={{ fontSize: "12px",color:'black' }}
+                  style={{ fontSize: "12px", color: "black" }}
                   className="d-flex justify-content-end "
                 >
                   <Form.Check
@@ -1315,11 +1260,10 @@ useEffect(() => {
               <br />
               <div>
                 <Tabs
-                  //activeKey={activeTab}
                   onSelect={(k) => handleTabChange}
                   style={{
                     fontSize: "12px",
-                    background: "black",
+                    background: "#E2E2E2",
                     padding: "1rem",
                   }}
                 >
@@ -1331,35 +1275,34 @@ useEffect(() => {
                         <Row className="mt-3 pt-3">
                           <Col sm={6}>
                             <Form.Group className="mb-0 mt-1 pt-1 pb-1">
-                              { deal[0].clientname &&localStorage.getItem("admin") === "true"? <div>
-                              <Form.Label>Client Name</Form.Label>
-                              <Form.Control
-                                type="text"
-                                size="sm"
-                                defaultValue={deal[0].clientname}
-                                id="client"
-                                ref={clientName}
-                                required
-                                // disabled
-                              />
-                              </div>:<div>
-                              <Form.Label>Client Name</Form.Label>
-                              <Form.Control
-                                type="text"
-                                size="sm"
-                                defaultValue={deal[0].clientname}
-                                id="client"
-                                ref={clientName}
-                                required
-                                disabled
-                              />
-
-                              </div>
-                              
-                              }
-                             
-                              
-                             </Form.Group>
+                              {deal[0].clientname &&
+                              localStorage.getItem("admin") === "true" ? (
+                                <div>
+                                  <Form.Label>Client Name</Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].clientname}
+                                    id="client"
+                                    ref={clientName}
+                                    required
+                                  />
+                                </div>
+                              ) : (
+                                <div>
+                                  <Form.Label>Client Name</Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    size="sm"
+                                    defaultValue={deal[0].clientname}
+                                    id="client"
+                                    ref={clientName}
+                                    required
+                                    disabled
+                                  />
+                                </div>
+                              )}
+                            </Form.Group>
                           </Col>
 
                           <Col sm={6}>
@@ -1450,35 +1393,36 @@ useEffect(() => {
                                 +
                               </button>
                               {noteList.map((singleNote, index) => {
-                            
-                            return (
-                              <div className="input-group" key={index}>
-                                <Form.Control
-                                  style={{ margin: "0.8em", width: "60%" }}
-                                  size="sm"
-                                  as = "textarea"
-                                  defaultValue={singleNote}
-                                  value={singleNote.note}
-                                  name="note"
-                                  onChange={(e) => handleNoteChange(e, index)}
-                                />
-                                <button
-                                  type="button"
-                                  style={{
-                                    fontSize: "10px",
-                                    padding: "2px 10px",
-                                    margin: "8px",
-                                    background: "steelblue",
-                                    color: "white",
-                                    borderRadius: "3px",
-                                  }}
-                                  onClick={() => handleNoteRemove(index)}
-                                >
-                                  x
-                                </button>
-                              </div>
-                            );
-                          })}
+                                return (
+                                  <div className="input-group" key={index}>
+                                    <Form.Control
+                                      style={{ margin: "0.8em", width: "60%" }}
+                                      size="sm"
+                                      as="textarea"
+                                      defaultValue={singleNote}
+                                      value={singleNote.note}
+                                      name="note"
+                                      onChange={(e) =>
+                                        handleNoteChange(e, index)
+                                      }
+                                    />
+                                    <button
+                                      type="button"
+                                      style={{
+                                        fontSize: "10px",
+                                        padding: "2px 10px",
+                                        margin: "8px",
+                                        background: "steelblue",
+                                        color: "white",
+                                        borderRadius: "3px",
+                                      }}
+                                      onClick={() => handleNoteRemove(index)}
+                                    >
+                                      x
+                                    </button>
+                                  </div>
+                                );
+                              })}
                             </Form.Group>
                           </Col>
                         </Row>
@@ -1671,7 +1615,7 @@ useEffect(() => {
                         <Row className="mt-1 pt-3">
                           <Col sm={6}>
                             <Form.Group className="pt-1">
-                              <Form.Label>Mandate Letter</Form.Label>
+                              <Form.Label> * Mandate Letter</Form.Label>
                               <Form.Control
                                 size="sm"
                                 type="date"
@@ -1691,10 +1635,7 @@ useEffect(() => {
 
                           <Col sm={6}>
                             <Form.Group className="pt-1">
-                              <Form.Label>
-                                * Credit
-                                Approval
-                              </Form.Label>
+                              <Form.Label>* Credit Approval</Form.Label>
                               <Form.Control
                                 size="sm"
                                 type="date"
@@ -1714,7 +1655,7 @@ useEffect(() => {
 
                           <Col sm={6}>
                             <Form.Group className="pt-1">
-                              <Form.Label>Fee Letter</Form.Label>
+                              <Form.Label> Fee Letter</Form.Label>
                               <Form.Control
                                 size="sm"
                                 type="date"
@@ -1870,10 +1811,10 @@ useEffect(() => {
                               <Form.Control
                                 size="sm"
                                 type="number"
-                                value={(amount.current.value + advance.current.value)}
-                                // id="final"
+                                value={
+                                  amount.current.value + advance.current.value
+                                }
                                 disabled
-                                // ref={final}
                               />
                             </Form.Group>
                           </Col>
@@ -2621,6 +2562,11 @@ useEffect(() => {
                                       border: "none",
                                     }}
                                   >
+                                    <Tooltip
+                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
+                                      open
+                                      mouseLeaveDelay="0.4"
+                                    ></Tooltip>
                                     <i className="">
                                       <FiSave />
                                     </i>
@@ -2678,47 +2624,16 @@ useEffect(() => {
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-                                  {/* <Form.Check
-                                    inline
-                                    label="Yes"
-                                    type="radio"
-                                    // onChange={handleInputChange}
-                                    name="nbc_focus_apprv_1_b"
-                                    value={"Yes"}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="No"
-                                    type="radio"
-                                    // onChange={handleInputChange}
-                                    name="nbc_focus_apprv_1_b"
-                                    value={"No"}
-                                    defaultChecked
-                                  /> */}
-
-                                   <input
+                                  <input
                                     onChange={handleInputChange}
                                     name="nbc_focus_apprv_1_b"
                                     defaultValue={nbcFocusApprv1b}
                                     value=""
                                   />
-                                  
                                 </Col>
                                 <Col sm={3}>
-                                  {/* <Form.Control
-                                    size="sm"
-                                    type="date"
-                                    value={deal.nbc_focus_apprv_1_c}
-                                    // onChange={handleInputChange}
-                                    defaultValue={nbcFocusApprv1c}
-                                    name="nbc_focus_apprv_1_c"
-                                    style={{
-                                      width: "80%",
-                                      padding: "2px 1px",
-                                      focus: "none",
-                                    }}
-                                  /> */}
-                                   <input
+                                  
+                                  <input
                                     type="date"
                                     onChange={handleInputChange}
                                     name="nbc_focus_apprv_1_b"
@@ -2744,7 +2659,6 @@ useEffect(() => {
                                     inline
                                     label="Yes"
                                     type="radio"
-                                    // onChange={handleInputChange}
                                     name="nbc_focus_apprv_2_b"
                                     defaultValue={nbcFocusApprv2b}
                                     value={true}
@@ -2753,7 +2667,6 @@ useEffect(() => {
                                     inline
                                     label="No"
                                     type="radio"
-                                    // onChange={handleInputChange}
                                     name="nbc_focus_apprv_2_b"
                                     defaultValue={nbcFocusApprv2b}
                                     value={false}
@@ -2764,8 +2677,6 @@ useEffect(() => {
                                   <Form.Control
                                     size="sm"
                                     type="date"
-                                    // value={deal.nbc_focus_apprv_2_c}
-                                    // onChange={handleInputChange}
                                     name="nbc_focus_apprv_2_c"
                                     defaultValue={nbcFocusApprv2c}
                                     style={{
@@ -2793,7 +2704,6 @@ useEffect(() => {
                                     inline
                                     label="Yes"
                                     type="radio"
-                                    // onChange={handleInputChange}
                                     name="nbc_focus_apprv_3_b"
                                     defaultValue={nbcFocusApprv3b}
                                     value={true}
@@ -2802,7 +2712,6 @@ useEffect(() => {
                                     inline
                                     label="No"
                                     type="radio"
-                                    // onChange={handleInputChange}
                                     name="nbc_focus_apprv_3_b"
                                     defaultValue={nbcFocusApprv1b}
                                     value={false}
@@ -2814,7 +2723,6 @@ useEffect(() => {
                                     size="sm"
                                     type="date"
                                     value={deal.nbc_focus_apprv_3_c}
-                                    // onChange={handleInputChange}
                                     name="nbc_focus_apprv_3_c"
                                     style={{
                                       width: "80%",
@@ -2841,7 +2749,6 @@ useEffect(() => {
                                     inline
                                     label="Yes"
                                     type="radio"
-                                    // onChange={handleInputChange}
                                     name="nbc_focus_apprv_4_b"
                                     value={true}
                                   />
@@ -2849,7 +2756,6 @@ useEffect(() => {
                                     inline
                                     label="No"
                                     type="radio"
-                                    // onChange={handleInputChange}
                                     name="nbc_focus_apprv_4_b"
                                     value={false}
                                     defaultChecked
@@ -2860,7 +2766,6 @@ useEffect(() => {
                                     size="sm"
                                     type="date"
                                     value={deal.nbc_focus_apprv_4_c}
-                                    // onChange={handleInputChange}
                                     name="nbc_focus_apprv_4_c"
                                     style={{
                                       width: "80%",
@@ -2889,7 +2794,6 @@ useEffect(() => {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      // onChange={handleInputChange}
                                       name="nbc_focus_apprv_5_b"
                                       value={true}
                                     />
@@ -2897,7 +2801,6 @@ useEffect(() => {
                                       inline
                                       label="No"
                                       type="radio"
-                                      // onChange={handleInputChange}
                                       name="nbc_focus_apprv_5_b"
                                       value={false}
                                       defaultChecked
@@ -2908,7 +2811,6 @@ useEffect(() => {
                                       size="sm"
                                       type="date"
                                       value={deal.nbc_focus_apprv_5_c}
-                                      // onChange={handleInputChange}
                                       name="nbc_focus_apprv_5_c"
                                       style={{
                                         width: "80%",
@@ -2967,7 +2869,6 @@ useEffect(() => {
                                     }}
                                     type="text"
                                     size="sm"
-                                    // defaultValue={mst.parties_role}
                                     value={singleNote.parties}
                                     name="parties_role"
                                     onChange={(e) =>
@@ -2979,15 +2880,12 @@ useEffect(() => {
                               ))}
                             </Col>
                             <Col sm={2} className="mt-1 mb-1">
-                              {/* <p>Appointed</p> */}
                               {parties.map((singleNote, index) => (
                                 <div class="input-group mt-2 ">
                                   <Form.Select
-                                    // className="py-1 mt-1 "
                                     type="text"
                                     style={{
                                       width: "70%",
-                                      // height: "10px",
                                     }}
                                     size="sm"
                                     value={singleNote.parties}
@@ -3008,7 +2906,6 @@ useEffect(() => {
                               ))}
                             </Col>
                             <Col sm={3} className="mt-1 mb-1">
-                              {/* <p>Party</p> */}
                               {parties.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                                   <Form.Control
@@ -3018,7 +2915,6 @@ useEffect(() => {
                                     }}
                                     type="text"
                                     size="sm"
-                                    // default={mst.parties_party}
                                     value={singleNote.parties}
                                     name="parties_party"
                                     onChange={(e) =>
@@ -3036,11 +2932,9 @@ useEffect(() => {
                                     type="text"
                                     style={{
                                       width: "50%",
-                                      // height: "10px",
                                       marginRight: "3px",
                                     }}
                                     size="sm"
-                                    // defaultValue={mst.parties_status}
                                     value={singleNote.parties}
                                     name="parties_status"
                                     onChange={(e) =>
@@ -3070,6 +2964,12 @@ useEffect(() => {
                                       border: "none",
                                     }}
                                   >
+                                    <Tooltip
+                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
+                                      open
+                                      mouseLeaveDelay="0.4"
+                                    ></Tooltip>
+
                                     <i className="">
                                       <FiSave />
                                     </i>
@@ -3228,10 +3128,12 @@ useEffect(() => {
                                       border: "none",
                                     }}
                                   >
-                                    {
-                                      hideSubmit ? null :  <i className=""> <FiSave /> </i>
-                                    }
-                                   
+                                    {hideSubmit ? null : (
+                                      <i className="">
+                                        {" "}
+                                        <FiSave />{" "}
+                                      </i>
+                                    )}
                                   </button>
                                 </div>
                               ))}
@@ -3413,6 +3315,12 @@ useEffect(() => {
                                       border: "none",
                                     }}
                                   >
+                                    <Tooltip
+                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
+                                      open
+                                      mouseLeaveDelay="0.4"
+                                    ></Tooltip>
+
                                     <i className="">
                                       <FiSave />
                                     </i>
@@ -3428,6 +3336,11 @@ useEffect(() => {
                           </p>
                         </div>
                       </Row>
+                      <Tooltip
+                        title="Kindly Save using the save Icon to avoid losing data!!!!"
+                        open
+                        mouseLeaveDelay="0.2"
+                      ></Tooltip>
                     </Container1>
                   </Tab>
                   <Tab
@@ -3598,6 +3511,12 @@ useEffect(() => {
                                       border: "none",
                                     }}
                                   >
+                                    <Tooltip
+                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
+                                      open
+                                      mouseLeaveDelay="0.4"
+                                    ></Tooltip>
+
                                     <i className="">
                                       <FiSave />
                                     </i>
@@ -3609,6 +3528,11 @@ useEffect(() => {
                         </Col>
                         <div className="d-flex justify-content-end ml-2">
                           <p className="">
+                            <Tooltip
+                              title="Kindly Save using the save Icon to avoid losing data!!!!"
+                              open
+                              mouseLeaveDelay="0.4"
+                            ></Tooltip>
                             <GrAddCircle onClick={handleKpiAdd} />
                           </p>
                         </div>
@@ -3621,7 +3545,7 @@ useEffect(() => {
                         <div>
                           <Row className="mt-3">
                             <Col sm="6">
-                              <Form.Label>*  Principal</Form.Label>
+                              <Form.Label>* Principal</Form.Label>
                               <Form.Control
                                 type="text"
                                 defaultValue={deal[0].principal}
@@ -3662,7 +3586,9 @@ useEffect(() => {
                               />
                             </Col>
                             <Col sm="6">
-                              <Form.Label>* TakingFirstInterestEarly</Form.Label>
+                              <Form.Label>
+                                * TakingFirstInterestEarly
+                              </Form.Label>
                               <Form.Control
                                 type="number"
                                 defaultValue={deal[0].takingfirstinterestearly}

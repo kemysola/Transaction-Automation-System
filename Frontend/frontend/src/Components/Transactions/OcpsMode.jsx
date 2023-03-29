@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Form as Fm, Row, Col, ListGroup} from "react-bootstrap";
+import { Form as Fm, Row, Col, ListGroup } from "react-bootstrap";
 import styled from "styled-components";
-import { FiEdit, FiSave, FiTrash2 } from 'react-icons/fi'
-import { MdOutlineCancel } from 'react-icons/md'
+import { FiEdit, FiSave, FiTrash2 } from "react-icons/fi";
+import { MdOutlineCancel } from "react-icons/md";
+import { Tooltip } from "antd";
 
 const LabelStyle = styled.label`
-border: 1px solid #d9d9d9;
-padding: 3px;
-background-color: #f2f2f2;
-width: 100px;
-`
+  border: 1px solid #d9d9d9;
+  padding: 3px;
+  background-color: #f2f2f2;
+  width: 100px;
+`;
 
 function usePrevious(value) {
   const ref = useRef();
@@ -19,7 +20,7 @@ function usePrevious(value) {
   return ref.current;
 }
 
-const Ocps = ((props) => {
+const Ocps = (props) => {
   const [isEditing, setEditing] = useState(false);
   const [ocpsFactors, setocpsFactors] = useState(null);
   const [ocpsYesNo, setocpsYesNo] = useState(null);
@@ -41,7 +42,16 @@ const Ocps = ((props) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.editOcps(props.id, props.transid, ocpsFactors, ocpsYesNo, ocpsConcern, ocpsExpected, ocpsRespParty, ocpsStatus);
+    props.editOcps(
+      props.id,
+      props.transid,
+      ocpsFactors,
+      ocpsYesNo,
+      ocpsConcern,
+      ocpsExpected,
+      ocpsRespParty,
+      ocpsStatus
+    );
     setocpsFactors(null);
     setocpsYesNo(null);
     setocpsConcern(null);
@@ -51,16 +61,16 @@ const Ocps = ((props) => {
     setEditing(false);
   }
 
-  function handleDelete(e){
+  function handleDelete(e) {
     e.preventDefault();
-    props.deleteOcps(props.id, props.transid)
+    props.deleteOcps(props.id, props.transid);
   }
 
   return (
     <>
-    {/* This file is the template for how each NBCFocus should look while in view mode and edit mode */}
+      {/* This file is the template for how each NBCFocus should look while in view mode and edit mode */}
       <ListGroup.Item>
-        {isEditing ? 
+        {isEditing ? (
           // view when updating NBCFocus
           <Fm>
             <div className="form-group">
@@ -76,7 +86,7 @@ const Ocps = ((props) => {
                         onChange={(e) => setocpsFactors(e.target.value)}
                         ref={editFieldRef}
                         size="sm"
-                        style={{fontSize: "12px"}}
+                        style={{ fontSize: "12px" }}
                       />
                     </Col>
 
@@ -88,26 +98,20 @@ const Ocps = ((props) => {
                         value={ocpsYesNo}
                         onChange={(e) => setocpsYesNo(e.target.value)}
                         size="sm"
-                        style={{fontSize: "12px"}}
+                        style={{ fontSize: "12px" }}
                       >
                         <option value=""></option>
-                        <option 
-                          value={1}
-                          selected={props.ocpsYesNo === true}
-                        >
+                        <option value={1} selected={props.ocpsYesNo === true}>
                           Yes
                         </option>
 
-                        <option 
-                          value={0}
-                          selected={props.ocpsYesNo === false}
-                        >
+                        <option value={0} selected={props.ocpsYesNo === false}>
                           No
                         </option>
                       </Fm.Select>
                     </Col>
 
-                    <Col  className="mt-1 mb-1" sm={2}>
+                    <Col className="mt-1 mb-1" sm={2}>
                       <Fm.Select
                         id={props.id}
                         className="todo-text"
@@ -115,24 +119,24 @@ const Ocps = ((props) => {
                         value={ocpsConcern}
                         onChange={(e) => setocpsConcern(e.target.value)}
                         size="sm"
-                        style={{fontSize: "12px"}}
+                        style={{ fontSize: "12px" }}
                       >
                         <option value=""></option>
-                        <option 
+                        <option
                           value={"High"}
                           selected={props.ocpsConcern === "High"}
                         >
                           High
                         </option>
 
-                        <option 
+                        <option
                           value={"Medium"}
                           selected={props.ocpsConcern === "Medium"}
                         >
                           Medium
                         </option>
 
-                        <option 
+                        <option
                           value={"Low"}
                           selected={props.ocpsConcern === "Low"}
                         >
@@ -147,16 +151,22 @@ const Ocps = ((props) => {
                         id={props.id}
                         className="todo-text"
                         type="date"
-                        defaultValue={props.ocpsExpected ? new Date(props.ocpsExpected).toISOString().split("T")[0] : ""}
+                        defaultValue={
+                          props.ocpsExpected
+                            ? new Date(props.ocpsExpected)
+                                .toISOString()
+                                .split("T")[0]
+                            : ""
+                        }
                         // value={ocpsExpected}
                         onChange={(e) => setocpsExpected(e.target.value)}
                         ref={editFieldRef}
                         size="sm"
-                        style={{fontSize: "12px"}}
+                        style={{ fontSize: "12px" }}
                       />
                     </Col>
 
-                    <Col  className="mt-1 mb-1" sm={2}>
+                    <Col className="mt-1 mb-1" sm={2}>
                       <Fm.Control
                         id={props.id}
                         className="todo-text"
@@ -165,11 +175,11 @@ const Ocps = ((props) => {
                         onChange={(e) => setocpsRespParty(e.target.value)}
                         ref={editFieldRef}
                         size="sm"
-                        style={{fontSize: "12px"}}
+                        style={{ fontSize: "12px" }}
                       />
                     </Col>
 
-                    <Col  className="mt-1 mb-1">
+                    <Col className="mt-1 mb-1">
                       <Fm.Control
                         id={props.id}
                         className="todo-text"
@@ -178,20 +188,35 @@ const Ocps = ((props) => {
                         onChange={(e) => setocpsStatus(e.target.value)}
                         ref={editFieldRef}
                         size="sm"
-                        style={{fontSize: "12px"}}
+                        style={{ fontSize: "12px" }}
                       />
                     </Col>
 
-                    <Col style={{marginTop: "5px"}} >
-                      <MdOutlineCancel 
+                    <Col style={{ marginTop: "5px" }}>
+                      <MdOutlineCancel
                         onClick={() => setEditing(false)}
-                        style={{ height: "1rem", width: "1rem", cursor: "pointer"}}
+                        style={{
+                          height: "1rem",
+                          width: "1rem",
+                          cursor: "pointer",
+                        }}
                       />
                       <br />
-                    
-                      <FiSave 
-                        onClick={handleSubmit} 
-                        style={{ height: "1rem", width: "1rem", marginTop: "7px", cursor: "pointer"}}
+
+                      <Tooltip
+                        title="Kindly Save using the save Icon to avoid losing data!!!!"
+                        open
+                        mouseLeaveDelay="0.4"
+                      ></Tooltip>
+
+                      <FiSave
+                        onClick={handleSubmit}
+                        style={{
+                          height: "1rem",
+                          width: "1rem",
+                          marginTop: "7px",
+                          cursor: "pointer",
+                        }}
                       />
                     </Col>
                   </Row>
@@ -199,60 +224,86 @@ const Ocps = ((props) => {
               </Row>
             </div>
           </Fm>
-          :
+        ) : (
           // view when not updating forecast
 
-          <div className="d-flex justify-content-between" >
+          <div className="d-flex justify-content-between">
             <LabelStyle>
-              <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
+              <label
+                className="todo-label"
+                htmlFor={props.id}
+                ref={editButtonRef}
+              >
                 {props.ocpsFactors}
-              </label>
-            </LabelStyle>           
-
-            <LabelStyle>
-              <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-                {props.ocpsYesNo === true ? "Yes" : "No" }
               </label>
             </LabelStyle>
 
             <LabelStyle>
-              <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
+              <label
+                className="todo-label"
+                htmlFor={props.id}
+                ref={editButtonRef}
+              >
+                {props.ocpsYesNo === true ? "Yes" : "No"}
+              </label>
+            </LabelStyle>
+
+            <LabelStyle>
+              <label
+                className="todo-label"
+                htmlFor={props.id}
+                ref={editButtonRef}
+              >
                 {props.ocpsConcern}
               </label>
             </LabelStyle>
 
             <LabelStyle>
-              <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
-                {props.ocpsExpected ? new Date(props.ocpsExpected).toISOString().split("T")[0] : ""}
+              <label
+                className="todo-label"
+                htmlFor={props.id}
+                ref={editButtonRef}
+              >
+                {props.ocpsExpected
+                  ? new Date(props.ocpsExpected).toISOString().split("T")[0]
+                  : ""}
               </label>
             </LabelStyle>
 
             <LabelStyle>
-              <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
+              <label
+                className="todo-label"
+                htmlFor={props.id}
+                ref={editButtonRef}
+              >
                 {props.ocpsRespParty}
               </label>
             </LabelStyle>
 
             <LabelStyle>
-              <label className="todo-label" htmlFor={props.id} ref={editButtonRef}>
+              <label
+                className="todo-label"
+                htmlFor={props.id}
+                ref={editButtonRef}
+              >
                 {props.ocpsStatus}
               </label>
             </LabelStyle>
 
-            <FiTrash2 
+            <FiTrash2
               onClick={handleDelete}
-              style={{ marginTop: "3px", cursor: "pointer"}}
+              style={{ marginTop: "3px", cursor: "pointer" }}
             />
-            
-            <FiEdit 
+
+            <FiEdit
               onClick={() => setEditing(true)}
-              style={{ marginTop: "3px", cursor: "pointer"}}
+              style={{ marginTop: "3px", cursor: "pointer" }}
             />
           </div>
-        }
+        )}
       </ListGroup.Item>
     </>
-  )
-})
+  );
+};
 
 export default Ocps;
