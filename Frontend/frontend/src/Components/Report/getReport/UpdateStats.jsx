@@ -7,16 +7,8 @@ import Editable from "react-editable-title";
 import TitleContext from "../../../context/TitleContext";
 
 import { Divider } from "@mui/material";
-// import {
-//   useGetReportQuery,
-//   useAddReportMutation,
-//   // useUpdateReportMutation,
-// } from "../../Services/apiSlice";
-
 export default function UpdateStats() {
-  // const { data, isLoading, error, isError, isSuccess } = useGetReportQuery();
-  // console.log(data)
-  // const [addReport] = useAddReportMutation();
+  
   const handleKeyStatsTitle = (current) => {
     addkeyStats(current);
   };

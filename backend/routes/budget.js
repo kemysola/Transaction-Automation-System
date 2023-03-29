@@ -83,7 +83,6 @@ router.post("/compute_amortization/:startdate/:enddate", async (req, res) => {
         req.params.startdate,
         req.params.enddate,
       ];
-      console.log(dataLoad);
       const budget_payload = await client.query(queryBody, dataLoad);
       result.push(budget_payload.rows);
     }

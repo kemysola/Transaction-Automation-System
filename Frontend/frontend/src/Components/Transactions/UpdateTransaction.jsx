@@ -56,26 +56,25 @@ export default function UpdateTransactions() {
   const {
     register,
     formState: {
-      errors,
-      isDirty,
-      dirtyFields,
-      isSubmitting,
-      touchedFields,
-      submitCount,
+      // errors,
+      // isDirty,
+      // dirtyFields,
+      // isSubmitting,
+      // touchedFields,
+      // submitCount,
     },
-    control,
-    handleSubmit,
-    setFocus,
-    reset,
-    watch,
-    getValues,
+    // control,
+    // handleSubmit,
+    // setFocus,
+    // reset,
+    // watch,
+    // getValues,
   } = useForm({
     defaultValues: {
       test: [{ note: "" }],
     },
   });
 
-  // form ref values
   const clientName = useRef("");
   const originator = useRef("");
   const transactor = useRef("");
@@ -393,8 +392,6 @@ export default function UpdateTransactions() {
 
   const handleNoteRemove = (index) => {
     const list = [...noteList];
-    console.log("I am delted item", list);
-    console.log("I am delted index", index);
     list.splice(index, 1);
 
     setNoteList(list);
@@ -494,12 +491,12 @@ export default function UpdateTransactions() {
     // function to get deal by id from the database
     const data = await axios
       .get(
-        // `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
-        //   localStorage.getItem("fy")
-        // )}`,
-        `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+        `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
           localStorage.getItem("fy")
         )}`,
+        // `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+        //   localStorage.getItem("fy")
+        // )}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
@@ -530,20 +527,9 @@ export default function UpdateTransactions() {
     setRedB(data.data.dealInfo[0].redb);
     setRedC(data.data.dealInfo[0].redc);
     setisClosed(data.data.dealInfo[0].closed);
-    // setnbcFocusApprv1b(data.data.dealInfo[0].nbc_focus_apprv_1_b);
-    // setnbcFocusApprv1c(data.data.dealInfo[0].nbc_focus_apprv_1_c);
-    // setnbcFocusApprv2b(data.data.dealInfo[0].nbc_focus_apprv_2_b);
-    // setnbcFocusApprv2c(data.data.dealInfo[0].nbc_focus_apprv_2_c);
-    // setnbcFocusApprv3b(data.data.dealInfo[0].nbc_focus_apprv_3_b);
-    // setnbcFocusApprv3c(data.data.dealInfo[0].nbc_focus_apprv_3_c);
-    // setnbcFocusApprv4b(data.data.dealInfo[0].nbc_focus_apprv_4_b);
-    // setnbcFocusApprv4c(data.data.dealInfo[0].nbc_focus_apprv_4_c);
-    // setnbcFocusApprv5b(data.data.dealInfo[0].nbc_focus_apprv_4_b);
-    // setnbcFocusApprv5c(data.data.dealInfo[0].nbc_focus_apprv_4_c);
     //********************************** End Block                   *******************
   };
 
-  // console.log("I am all data", allData)
 
   const uniqueId = Array.from(new Set(allData.map((a) => a.nbcid))).map(
     (id) => {
@@ -849,17 +835,14 @@ export default function UpdateTransactions() {
       setHideSubmit(false);
       setShowAlert(false);
     }
-    //  setHideSubmit(false)
   }, [showAlert]);
   const validatePlisWeights = () => {
     const totalWeight = pliid.reduce(
       (acc, curr) => acc + Number(curr.plis_weighting),
       0
     );
-    console.log("I am total Weights", totalWeight);
     checkValid = false;
     if (totalWeight > 100) {
-      // setHideSubmit(true)
       checkValid = true;
       return (
         <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
@@ -1091,17 +1074,6 @@ export default function UpdateTransactions() {
   };
 
   // ******************************************  Next and Previous Function  ****************************************
-
-  function toNextTab(e) {
-    e.preventDefault();
-    handleTabChange();
-  }
-
-  function toPrevTab(e) {
-    e.preventDefault();
-    handlePrevChange();
-  }
-
   function handleTabChange() {
     if (activeTab === "first") {
       setActiveTab("second");
@@ -1174,7 +1146,6 @@ export default function UpdateTransactions() {
   function postData(e) {
     e.preventDefault();
     let allNotes = noteList.map((item) => item.note || item);
-    // let nbcNotes = nbcFocus.map()
     let note = allNotes.join("|");
 
     // ******************************************  Request body payload to the db  ***********************************
@@ -1229,7 +1200,6 @@ export default function UpdateTransactions() {
       redB: JSON.parse(redB),
       redC: JSON.parse(redC),
       notes: note,
-      // nbcFocus: nbcFocus,
       parties: parties,
       plis: plis,
       ocps: ocps,
@@ -1251,15 +1221,6 @@ export default function UpdateTransactions() {
   let ttrlegalLead = staffList.filter(
     (opt) => opt.istransactionlegallead === true
   );
-
-  const structuringData = {
-    structuringFeeAmount: +amount.current.value,
-    structuringFeeAdvance: +advance.current.value,
-  };
-  // const structuringFeeAmountsss =  amount.current.value,
-
-  const structuringFinal = 3000;
-  // console.log( structuringFeeAmountsss,'value' )
   return (
     <React.Fragment>
       {/* ---------------------- Update Transaction Forms ----------- */}
@@ -1299,7 +1260,6 @@ export default function UpdateTransactions() {
               <br />
               <div>
                 <Tabs
-                  //activeKey={activeTab}
                   onSelect={(k) => handleTabChange}
                   style={{
                     fontSize: "12px",
@@ -1326,7 +1286,6 @@ export default function UpdateTransactions() {
                                     id="client"
                                     ref={clientName}
                                     required
-                                    // disabled
                                   />
                                 </div>
                               ) : (
@@ -1855,9 +1814,7 @@ export default function UpdateTransactions() {
                                 value={
                                   amount.current.value + advance.current.value
                                 }
-                                // id="final"
                                 disabled
-                                // ref={final}
                               />
                             </Form.Group>
                           </Col>
@@ -2702,7 +2659,6 @@ export default function UpdateTransactions() {
                                     inline
                                     label="Yes"
                                     type="radio"
-                                    // onChange={handleInputChange}
                                     name="nbc_focus_apprv_2_b"
                                     defaultValue={nbcFocusApprv2b}
                                     value={true}
@@ -2711,7 +2667,6 @@ export default function UpdateTransactions() {
                                     inline
                                     label="No"
                                     type="radio"
-                                    // onChange={handleInputChange}
                                     name="nbc_focus_apprv_2_b"
                                     defaultValue={nbcFocusApprv2b}
                                     value={false}
@@ -2749,7 +2704,6 @@ export default function UpdateTransactions() {
                                     inline
                                     label="Yes"
                                     type="radio"
-                                    // onChange={handleInputChange}
                                     name="nbc_focus_apprv_3_b"
                                     defaultValue={nbcFocusApprv3b}
                                     value={true}
@@ -2758,7 +2712,6 @@ export default function UpdateTransactions() {
                                     inline
                                     label="No"
                                     type="radio"
-                                    // onChange={handleInputChange}
                                     name="nbc_focus_apprv_3_b"
                                     defaultValue={nbcFocusApprv1b}
                                     value={false}
@@ -2770,7 +2723,6 @@ export default function UpdateTransactions() {
                                     size="sm"
                                     type="date"
                                     value={deal.nbc_focus_apprv_3_c}
-                                    // onChange={handleInputChange}
                                     name="nbc_focus_apprv_3_c"
                                     style={{
                                       width: "80%",
@@ -2797,7 +2749,6 @@ export default function UpdateTransactions() {
                                     inline
                                     label="Yes"
                                     type="radio"
-                                    // onChange={handleInputChange}
                                     name="nbc_focus_apprv_4_b"
                                     value={true}
                                   />
@@ -2860,7 +2811,6 @@ export default function UpdateTransactions() {
                                       size="sm"
                                       type="date"
                                       value={deal.nbc_focus_apprv_5_c}
-                                      // onChange={handleInputChange}
                                       name="nbc_focus_apprv_5_c"
                                       style={{
                                         width: "80%",
@@ -2919,7 +2869,6 @@ export default function UpdateTransactions() {
                                     }}
                                     type="text"
                                     size="sm"
-                                    // defaultValue={mst.parties_role}
                                     value={singleNote.parties}
                                     name="parties_role"
                                     onChange={(e) =>
@@ -2931,15 +2880,12 @@ export default function UpdateTransactions() {
                               ))}
                             </Col>
                             <Col sm={2} className="mt-1 mb-1">
-                              {/* <p>Appointed</p> */}
                               {parties.map((singleNote, index) => (
                                 <div class="input-group mt-2 ">
                                   <Form.Select
-                                    // className="py-1 mt-1 "
                                     type="text"
                                     style={{
                                       width: "70%",
-                                      // height: "10px",
                                     }}
                                     size="sm"
                                     value={singleNote.parties}
@@ -2986,11 +2932,9 @@ export default function UpdateTransactions() {
                                     type="text"
                                     style={{
                                       width: "50%",
-                                      // height: "10px",
                                       marginRight: "3px",
                                     }}
                                     size="sm"
-                                    // defaultValue={mst.parties_status}
                                     value={singleNote.parties}
                                     name="parties_status"
                                     onChange={(e) =>
