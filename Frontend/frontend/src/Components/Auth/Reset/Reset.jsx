@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import axios from '../../../http-common';
+import axios from "../../../Sevices/api/http-common";
 import ResetService from '../../../Services/reset.Services';
 import {useParams} from 'react-router-dom'
 

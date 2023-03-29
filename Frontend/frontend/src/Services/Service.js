@@ -1,4 +1,4 @@
-import axios from '../http-common';
+import axios from './api/http-common'
 
 const LoginStaff = data => {
 

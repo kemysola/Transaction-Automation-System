@@ -1,4 +1,4 @@
-import axios from '../http-common';
+import axios from './api/http-common'
 
 // const resetPassword = (email, data) => { // update staff password
 //     return axios.put(`password_reset/${email}`, data);

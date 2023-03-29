@@ -1,4 +1,4 @@
-import axios from '../http-common';
+import axios from './api/http-common'
 
 const getDealByClientName = () => {
     return await axios.get(`report/:start_date/:end_date/:client_name`);
