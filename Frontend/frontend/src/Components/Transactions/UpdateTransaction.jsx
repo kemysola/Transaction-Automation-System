@@ -487,12 +487,12 @@ export default function UpdateTransactions() {
     // function to get deal by id from the database
     const data = await axios
       .get(
-        // `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
-        //   localStorage.getItem("fy")
-        // )}`,
-        `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+        `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
           localStorage.getItem("fy")
         )}`,
+        // `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+        //   localStorage.getItem("fy")
+        // )}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
@@ -1186,7 +1186,7 @@ export default function UpdateTransactions() {
         setMessage(response.data.message);
       })
       .catch((error) => {
-        setMessage("Failed to update deal");
+        setMessage("Failed to update deal,kindly fill in the required fields");
       });
   }
   let transactorList = staffList.filter((opt) => opt.istransactor === true);
@@ -1246,7 +1246,7 @@ export default function UpdateTransactions() {
                   onSelect={(k) => handleTabChange}
                   style={{
                     fontSize: "12px",
-                    background: "black",
+                    background: "#E2E2E2",
                     padding: "1rem",
                   }}
                 >
@@ -1598,7 +1598,7 @@ export default function UpdateTransactions() {
                         <Row className="mt-1 pt-3">
                           <Col sm={6}>
                             <Form.Group className="pt-1">
-                              <Form.Label>Mandate Letter</Form.Label>
+                              <Form.Label> * Mandate Letter</Form.Label>
                               <Form.Control
                                 size="sm"
                                 type="date"
@@ -1638,7 +1638,7 @@ export default function UpdateTransactions() {
 
                           <Col sm={6}>
                             <Form.Group className="pt-1">
-                              <Form.Label>Fee Letter</Form.Label>
+                              <Form.Label> Fee Letter</Form.Label>
                               <Form.Control
                                 size="sm"
                                 type="date"

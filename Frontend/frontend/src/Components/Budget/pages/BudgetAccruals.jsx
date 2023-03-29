@@ -1,9 +1,6 @@
 import React, { useState, useMemo, useContext } from "react";
 import CartContext from "../../../context/cart/CartContext";
-import {
-  useTable,
-  useAsyncDebounce,
-} from "react-table";
+import { useTable, useAsyncDebounce } from "react-table";
 import Service from "../../../Services/Service";
 import toast, { Toaster } from "react-hot-toast";
 import List from "@mui/material/List";
@@ -58,38 +55,42 @@ export default function BudgetAccruals(props) {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [dataResult, setDataResult] = useState([]);
+  const [fyStartDate, setFyStartData] = useState(null);
+  const [fyEndDate, setFyEndData] = useState(null);
+
   const addBudget = () => {
     setSubmitting(true);
     setSubmitted(true);
     const propsData = props?.data.map((data) => data?.original);
-    const startDate = "20220202";
-    const endDate = "20231007";
-    Service.postAccruals(startDate, endDate, propsData).then((res) => {
-      if (res?.data.status === 200) {
-        localStorage.setItem("budget", JSON.stringify(res?.data?.deals));
-        setDataResult(res?.data.deals);
-        toast.success("Budget has been submitted successfully.", {
-          duration: 4000,
-          position: "bottom-right",
-          // Styling
-          style: {},
-          className: "",
-          icon: "👏",
-          iconTheme: {
-            primary: "green",
-            secondary: "#fff",
-          },
-          ariaProps: {
-            role: "status",
-            "aria-live": "polite",
-          },
-        });
-      } else {
-        setSubmitted(false);
-        setSubmitting(false);
+    const formattedStartDate = fyStartDate.replace(/-/g, "");
+    const formattedEndDate = fyStartDate.replace(/-/g, "");
+    Service.postAccruals(formattedStartDate, formattedEndDate, propsData).then(
+      (res) => {
+        if (res?.data.status === 200) {
+          localStorage.setItem("budget", JSON.stringify(res?.data?.deals));
+          setDataResult(res?.data.deals);
+          toast.success("Budget has been submitted successfully.", {
+            duration: 4000,
+            position: "bottom-right",
+            // Styling
+            style: {},
+            className: "",
+            icon: "👏",
+            iconTheme: {
+              primary: "green",
+              secondary: "#fff",
+            },
+            ariaProps: {
+              role: "status",
+              "aria-live": "polite",
+            },
+          });
+        } else {
+          setSubmitted(false);
+          setSubmitting(false);
+        }
       }
-
-    });
+    );
 
     setSubmitted(true);
     setSubmitting(false);
@@ -282,6 +283,26 @@ export default function BudgetAccruals(props) {
             </ListItemText>
           </ListItem>
         </List>
+        <form>
+          <label style={{ paddingRight: "1rem",fontWeight:'bold' }}>Start Date: </label>
+          <input
+            type="date"
+            placeholder="Start Date"
+            className="py-1"
+            style={{ marginRight: "1em",border:'1px dashed #E2E2E2' }}
+            value={fyStartDate}
+            onChange={(event) => setFyStartData(event.target.value)}
+          />
+          <label style={{ paddingRight: "0.44rem",fontWeight:'bold' }}> - End Date </label>
+          <input
+            type="date"
+            placeholder="End Date"
+            className="py-1"
+            style={{ marginRight: "1em" ,border:'1px dashed #E2E2E2'}}
+            value={fyEndDate}
+            onChange={(event) => setFyEndData(event.target.value)}
+          />
+        </form>
       </div>
       <table
         {...getTableProps()}

@@ -51,6 +51,7 @@ let renderCount = 0;
 const NewTransaction = () => {
   //*********************************************** Instantiate useHistory hook **************************************** */
   const history = useHistory();
+  const {final,setFinal} = useState(0)
   //*****************************************    Use React-Use-fORM hook     ******************************************/
   const {
     register,
@@ -108,6 +109,8 @@ const NewTransaction = () => {
       redC: "false",
       notes: "",
       closed: "false",
+      structuringFeeAdvance:0,
+      structuringFeeAmount:0,
       nbcFocus: [
         {
           //  label: "", concern: "", date: "", methodology: "",
@@ -173,6 +176,11 @@ const NewTransaction = () => {
     name: "nbcFocus",
   });
 
+    const dataFields = getValues('structuringFeeAdvance')
+  const dataFieldAdvance = getValues('structuringFeeAmount')
+  const structuringDataFinal = parseInt(dataFields) + parseInt(dataFieldAdvance)
+  console.log(parseInt(structuringDataFinal))
+  
   //********************************************************* Deal Tracking features - state and functions ************************ */
 
   const [ocps, setOcps] = useState([
@@ -706,13 +714,14 @@ const NewTransaction = () => {
             </div>
           ) : (
             <form onSubmit={handleSubmit(onSubmit)}>
+
               <PWrapper>
                 <h5 className="py-3 text-secondary">New Transaction</h5>
               </PWrapper>
               <div>
                 <Tabs
                   onSelect={(k) => handleTabChange}
-                  style={{ fontSize: "12px",background:'black',padding:'0.77rem 10px' }}
+                  style={{ fontSize: "12px",background:'#E2E2E2',padding:'0.77rem 10px' }}
                 >
                   <Tab eventKey="first" title="CLIENT">
                     <Container1>
@@ -972,7 +981,7 @@ const NewTransaction = () => {
                               <Form.Label>Coupon(%)</Form.Label>
                               <Form.Control
                                 type="number"
-                                {...register("coupon", { required: false })}
+                                {...register("coupon", { required: true })}
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
@@ -980,6 +989,10 @@ const NewTransaction = () => {
                                 }}
                               />
                             </Form.Group>
+                            <div className="text-danger">
+                              {errors.coupon?.type === "required" &&
+                                "Coupon is required"}
+                            </div>
                           </Col>
 
                           <Col sm={6}>
@@ -987,7 +1000,7 @@ const NewTransaction = () => {
                               <Form.Label>Tenor(yrs)</Form.Label>
                               <Form.Control
                                 type="number"
-                                {...register("tenor", { required: false })}
+                                {...register("tenor", { required: true })}
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
@@ -995,6 +1008,10 @@ const NewTransaction = () => {
                                 }}
                               />
                             </Form.Group>
+                            <div className="text-danger">
+                              {errors.tenor?.type === "required" &&
+                                "Tenor is required"}
+                            </div>
                           </Col>
 
                           <Col sm={6}>
@@ -1002,20 +1019,24 @@ const NewTransaction = () => {
                               <Form.Label>Moratorium(yrs)</Form.Label>
                               <Form.Control
                                 type="number"
-                                {...register("moratorium", { required: false })}
+                                {...register("moratorium", { required: true })}
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
                                   focus: "none",
                                 }}
                               />
+                               <div className="text-danger">
+                              {errors.moratorium?.type === "required" &&
+                                "Moratorium is required"}
+                            </div>
                             </Form.Group>
                           </Col>
                           <Col sm={6}>
                             <Form.Group className="">
                               <Form.Label>Repayment Frequency</Form.Label>
                               <Form.Select
-                                {...register("repaymentFrequency")}
+                                {...register("repaymentFrequency", { required: true })}
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
@@ -1032,13 +1053,18 @@ const NewTransaction = () => {
                                   </option>
                                 ))}
                               </Form.Select>
+                              
                             </Form.Group>
+                            <div className="text-danger">
+                              {errors.repaymentFrequency?.type === "required" &&
+                                "This field  is required"}
+                            </div>
                           </Col>
                           <Col sm={6}>
                             <Form.Group className="pt-1">
                               <Form.Label>Amortization Style</Form.Label>
                               <Form.Select
-                                {...register("amortizationStyle")}
+                                {...register("amortizationStyle", { required: true })}
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
@@ -1056,6 +1082,10 @@ const NewTransaction = () => {
                                 ))}
                               </Form.Select>
                             </Form.Group>
+                            <div className="text-danger">
+                              {errors.amortizationStyle?.type === "required" &&
+                                "This field  is required"}
+                            </div>
                           </Col>
                           <Col sm={6}>
                             <Form.Group className="pt-1">
@@ -1210,7 +1240,7 @@ const NewTransaction = () => {
                               <Form.Label>Final (%)</Form.Label>
                               <Form.Control
                                 {...register("structuringFeeFinal")}
-                                defaultValue={getValues("structuringFeeAmount")}
+                                defaultValue={getValues('structuringAmount') }
                                 disabled
                                 style={{
                                   width: "100%",
@@ -2515,7 +2545,12 @@ const NewTransaction = () => {
                           type="number"
                           size="sm"
                           {...register("principal", { required: true })}
+
                         />
+                              <div className="text-danger">
+                              {errors.principal?.type === "required" &&
+                                "Principal is required"}
+                            </div>
                           </Col>
                           <Col sm={6}>
                           <Form.Label>IssueDate</Form.Label>
@@ -2524,6 +2559,10 @@ const NewTransaction = () => {
                           size="sm"
                           {...register("issuedate", { required: true })}
                         />
+                              <div className="text-danger">
+                              {errors.issuedate?.type === "required" &&
+                                "Issue Date is required"}
+                            </div>
                           </Col>
                         </Row>
                         <Row>
@@ -2535,6 +2574,10 @@ const NewTransaction = () => {
                           name="plis_status"
                           {...register("firstcoupondate", { required: true })}
                         />
+                              <div className="text-danger">
+                              {errors.firstcoupondate?.type === "required" &&
+                                "First Coupon Date is required"}
+                            </div>
                           </Col>
                           <Col sm={6}>
                           <Form.Label>TakingFirstInterestEarly</Form.Label>
@@ -2543,6 +2586,10 @@ const NewTransaction = () => {
                           size="sm"
                           {...register("takingfirstinterestearly", { required: true })}
                         />
+                         <div className="text-danger">
+                              {errors.takingfirstinterestearly?.type === "required" &&
+                                "This field is required"}
+                            </div>
                           </Col>
                         </Row>
                         <Row>
@@ -2553,6 +2600,10 @@ const NewTransaction = () => {
                           size="sm"
                           {...register("guaranteefeerate", { required: true })}
                         />
+                        <div className="text-danger">
+                              {errors.guaranteefeerate?.type === "required" &&
+                                "This field is required"}
+                            </div>
 
                           </Col>
                           <Col sm={6}>
@@ -2562,6 +2613,11 @@ const NewTransaction = () => {
                           size="sm"
                           {...register("discountfactor", { required: true })}
                         />
+                         <div className="text-danger">
+                              {errors.discountfactor?.type === "required" &&
+                                "This field is required"}
+                            </div>
+                        
 
                           </Col>
 
@@ -2590,8 +2646,18 @@ const NewTransaction = () => {
                       errors.originator ||
                       errors.transactionLegalLead ||
                       errors.industry ||
-                      errors.region ||
+                      errors.amortizationStyle ||
                       errors.mandateLetter ||
+                      errors.discountfactor ||
+                      errors.principal||
+                      errors.issuedate ||
+                      errors.repaymentFrequency||   
+                      errors.takingfirstinterestearly ||
+                      errors.guaranteefeerate ||
+                      errors.coupon ||
+                      errors.firstcoupondate ||
+                      errors.tenor ||
+                      errors.moratorium ||
                       errors.creditApproval) && (
                       <p>Kindly fill out all required fields.</p>
                     )}
