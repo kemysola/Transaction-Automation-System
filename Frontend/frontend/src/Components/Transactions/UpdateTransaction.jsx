@@ -527,7 +527,7 @@ export default function UpdateTransactions() {
     // set the deal and status stateA
 
     setAllData(data.data.dealInfo);
-    console.log(data?.data)
+   
     setNoteList(data?.data?.dealInfo[0].notes);
     setDeal(data.data.dealInfo);
     setStatus(true);
