@@ -43,18 +43,13 @@ const Plis = (props) => {
     }
   }, [wasEditing, isEditing]);
 
+
   function handleSubmit(e) {
     e.preventDefault();
-
-    props.editPlis(
-      props.id,
-      props.transid,
-      plisParticulars,
-      plisConcern,
-      plisWeighting,
-      plisExpected,
-      plisStatus
-    );
+    if (props.hideSubmit == true){
+      return null
+    }
+    props.editPlis(props.id, props.transid, plisParticulars, plisConcern, plisWeighting, plisExpected, plisStatus);
     setplisParticulars(null);
     setplisConcern(null);
     setplisWeighting(null);
@@ -192,20 +187,17 @@ const Plis = (props) => {
                         }}
                       />
                       <br />
-                      <Tooltip
-                        title="Kindly Save using the save Icon to avoid losing data!!!!"
-                        open
-                        mouseLeaveDelay="0.4"
-                      ></Tooltip>
-                      <FiSave
-                        onClick={handleSubmit}
-                        style={{
-                          height: "1rem",
-                          width: "1rem",
-                          marginTop: "7px",
-                          cursor: "pointer",
-                        }}
-                      />
+                    
+                    {
+                      props.hideSubmit ? null :  
+                      <Tooltip title="Kindly save using the save icon to avoid losing data!!!">
+                      <FiSave 
+                      onClick={handleSubmit} 
+                      style={{ height: "1rem", width: "1rem", marginTop: "7px", cursor: "pointer"}}
+                    />
+                    </Tooltip>
+                    }
+                     
                     </Col>
                   </Row>
                 </Col>

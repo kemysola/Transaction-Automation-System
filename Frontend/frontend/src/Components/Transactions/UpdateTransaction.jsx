@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Form, Container, Row, Col } from "react-bootstrap";
+import { Form, Container, Row, Col, Alert } from "react-bootstrap";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import styled from "styled-components";
@@ -14,9 +14,7 @@ import PlisMode from "./PlisMode";
 import OcpsMode from "./OcpsMode";
 import KpisMode from "./KpisMode";
 import { useForm } from "react-hook-form";
-import { Input } from "antd";
-import { Button, Divider, Space, Tour, Tooltip } from "antd";
-import { EllipsisOutlined } from "@ant-design/icons";
+import {  Tooltip } from "antd";
 
 const ButtonWrapper = styled.button`
   color: white;
@@ -209,7 +207,18 @@ export default function UpdateTransactions() {
   const [redA, setRedA] = useState("");
   const [redB, setRedB] = useState("");
   const [redC, setRedC] = useState("");
-
+  const [nbcFocusApprv1b, setNbcFocusApprv1b] = useState("");
+  const [nbcFocusApprv1c, setNbcFocusApprv1c] = useState("");
+  const [nbcFocusApprv2b, setNbcFocusApprv2b] = useState("");
+  const [nbcFocusApprv2c, setNbcFocusApprv2c] = useState("");
+  const [nbcFocusApprv3b, setNbcFocusApprv3b] = useState("");
+  const [nbcFocusApprv3c, setNbcFocusApprv3c] = useState("");
+  const [nbcFocusApprv4b, setNbcFocusApprv4b] = useState("");
+  const [nbcFocusApprv4c, setNbcFocusApprv4c] = useState("");
+  const [nbcFocusApprv5b, setNbcFocusApprv5b] = useState("");
+  const [nbcFocusApprv5c, setNbcFocusApprv5c] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [hideSubmit, setHideSubmit] = useState(false);
   //**********************************************************   Key Performance Indicators **************** */
   const handleKpiChange = (e, index) => {
     const { name, value } = e.target;
@@ -364,11 +373,18 @@ export default function UpdateTransactions() {
   };
 
   //************************************************************* Note Change ************************************************* */
-  const handleNoteChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...noteList];
-    list[index][name] = value;
-    setNoteList(list);
+  // const handleNoteChange = (e, index) => {
+  //   const { name, value } = e.target;
+  //   const list = [...noteList];
+  //   list[index][name] = value;
+  //   setNoteList(list);
+  // };
+
+  const handleNoteChange = (event, index) => {
+    const { name, value } = event.target;
+    const updatedList = [...noteList];
+    updatedList[index] = { ...updatedList[index], [name]: value };
+    setNoteList(updatedList);
   };
 
   const handleNoteAdd = () => {
@@ -377,22 +393,13 @@ export default function UpdateTransactions() {
 
   const handleNoteRemove = (index) => {
     const list = [...noteList];
+    console.log("I am delted item", list);
+    console.log("I am delted index", index);
     list.splice(index, 1);
+
     setNoteList(list);
   };
 
-  const concernGroup = ["High", "Medium", "Low"];
-
-  const optionsGroup = [
-    {
-      text: "Yes",
-      value: true,
-    },
-    {
-      text: "No",
-      value: false,
-    },
-  ];
 
   useEffect(() => {
     retrieveDeal();
@@ -487,12 +494,12 @@ export default function UpdateTransactions() {
     // function to get deal by id from the database
     const data = await axios
       .get(
-        `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
-          localStorage.getItem("fy")
-        )}`,
-        // `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+        // `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
         //   localStorage.getItem("fy")
         // )}`,
+        `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+          localStorage.getItem("fy")
+        )}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
@@ -523,9 +530,20 @@ export default function UpdateTransactions() {
     setRedB(data.data.dealInfo[0].redb);
     setRedC(data.data.dealInfo[0].redc);
     setisClosed(data.data.dealInfo[0].closed);
-
+    // setnbcFocusApprv1b(data.data.dealInfo[0].nbc_focus_apprv_1_b);
+    // setnbcFocusApprv1c(data.data.dealInfo[0].nbc_focus_apprv_1_c);
+    // setnbcFocusApprv2b(data.data.dealInfo[0].nbc_focus_apprv_2_b);
+    // setnbcFocusApprv2c(data.data.dealInfo[0].nbc_focus_apprv_2_c);
+    // setnbcFocusApprv3b(data.data.dealInfo[0].nbc_focus_apprv_3_b);
+    // setnbcFocusApprv3c(data.data.dealInfo[0].nbc_focus_apprv_3_c);
+    // setnbcFocusApprv4b(data.data.dealInfo[0].nbc_focus_apprv_4_b);
+    // setnbcFocusApprv4c(data.data.dealInfo[0].nbc_focus_apprv_4_c);
+    // setnbcFocusApprv5b(data.data.dealInfo[0].nbc_focus_apprv_4_b);
+    // setnbcFocusApprv5c(data.data.dealInfo[0].nbc_focus_apprv_4_c);
     //********************************** End Block                   *******************
   };
+
+  // console.log("I am all data", allData)
 
   const uniqueId = Array.from(new Set(allData.map((a) => a.nbcid))).map(
     (id) => {
@@ -821,6 +839,36 @@ export default function UpdateTransactions() {
 
   // **************************************** Plid List ***************************************************
 
+  let checkValid;
+  useEffect(() => {
+    if (showAlert == true && checkValid == true) {
+      setHideSubmit(true);
+    } else {
+      setHideSubmit(false);
+      setShowAlert(false);
+    }
+    //  setHideSubmit(false)
+  }, [showAlert]);
+  const validatePlisWeights = () => {
+    const totalWeight = pliid.reduce(
+      (acc, curr) => acc + Number(curr.plis_weighting),
+      0
+    );
+    console.log("I am total Weights", totalWeight);
+    checkValid = false;
+    if (totalWeight > 100) {
+      // setHideSubmit(true)
+      checkValid = true;
+      return (
+        <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
+          The sum of plis weights cannot be greater than 100%.
+        </Alert>
+      );
+    } else {
+      checkValid = false;
+    }
+  };
+
   const PlisList = pliid.map((item) => (
     <PlisMode
       transid={item.transid}
@@ -833,11 +881,14 @@ export default function UpdateTransactions() {
       key={item.plid}
       editPlis={editPlis}
       deletePlis={deletePlis}
+      hideSubmit={hideSubmit}
     />
   ));
 
   // ***************************************** Send Plis Values to DB ************************************
-  const addNewPlis = () => {
+
+  const addNewPlis = (e) => {
+    e.preventDefault();
     let data = {
       id: 1000000000,
       plis_particulars: plis[0].plis_particulars,
@@ -1114,9 +1165,11 @@ export default function UpdateTransactions() {
     });
   }
 
+  // handle PLIs validation; return erroe when the sum of PLIs is greater than 100
+
   function postData(e) {
     e.preventDefault();
-    let allNotes = noteList.map(({ note }) => note);
+    let allNotes = noteList.map((item) => item.note || item);
     // let nbcNotes = nbcFocus.map()
     let note = allNotes.join("|");
 
@@ -1376,36 +1429,37 @@ export default function UpdateTransactions() {
                               >
                                 +
                               </button>
-                              {noteList.map((singleNote, index) => (
-                                <div class="input-group">
-                                  {/* <input defaultValue={singleNote}  value={singleNote.note} name='note'/> */}
-
-                                  <Form.Control
-                                    style={{ margin: "0.8em", width: "60%" }}
-                                    size="sm"
-                                    type="text"
-                                    defaultValue={singleNote}
-                                    value={singleNote.note}
-                                    name="note"
-                                    onChange={(e) => handleNoteChange(e, index)}
-                                    required
-                                  />
-                                  <button
-                                    type="button"
-                                    style={{
-                                      fontSize: "10px",
-                                      padding: "2px 10px",
-                                      margin: "8px",
-                                      background: "steelblue",
-                                      color: "white",
-                                      borderRadius: "3px",
-                                    }}
-                                    onClick={handleNoteRemove}
-                                  >
-                                    x
-                                  </button>
-                                </div>
-                              ))}
+                              {noteList.map((singleNote, index) => {
+                                return (
+                                  <div className="input-group" key={index}>
+                                    <Form.Control
+                                      style={{ margin: "0.8em", width: "60%" }}
+                                      size="sm"
+                                      as="textarea"
+                                      defaultValue={singleNote}
+                                      value={singleNote.note}
+                                      name="note"
+                                      onChange={(e) =>
+                                        handleNoteChange(e, index)
+                                      }
+                                    />
+                                    <button
+                                      type="button"
+                                      style={{
+                                        fontSize: "10px",
+                                        padding: "2px 10px",
+                                        margin: "8px",
+                                        background: "steelblue",
+                                        color: "white",
+                                        borderRadius: "3px",
+                                      }}
+                                      onClick={() => handleNoteRemove(index)}
+                                    >
+                                      x
+                                    </button>
+                                  </div>
+                                );
+                              })}
                             </Form.Group>
                           </Col>
                         </Row>
@@ -2609,36 +2663,21 @@ export default function UpdateTransactions() {
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-                                  <Form.Check
-                                    inline
-                                    label="Yes"
-                                    type="radio"
-                                    // onChange={handleInputChange}
+                                  <input
+                                    onChange={handleInputChange}
                                     name="nbc_focus_apprv_1_b"
-                                    value={"Yes"}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="No"
-                                    type="radio"
-                                    // onChange={handleInputChange}
-                                    name="nbc_focus_apprv_1_b"
-                                    value={"No"}
-                                    defaultChecked
+                                    defaultValue={nbcFocusApprv1b}
+                                    value=""
                                   />
                                 </Col>
                                 <Col sm={3}>
-                                  <Form.Control
-                                    size="sm"
+                                  
+                                  <input
                                     type="date"
-                                    value={deal.nbc_focus_apprv_1_c}
-                                    // onChange={handleInputChange}
-                                    name="nbc_focus_apprv_1_c"
-                                    style={{
-                                      width: "80%",
-                                      padding: "2px 1px",
-                                      focus: "none",
-                                    }}
+                                    onChange={handleInputChange}
+                                    name="nbc_focus_apprv_1_b"
+                                    defaultValue={nbcFocusApprv1c}
+                                    value=""
                                   />
                                 </Col>
                               </Row>
@@ -2661,6 +2700,7 @@ export default function UpdateTransactions() {
                                     type="radio"
                                     // onChange={handleInputChange}
                                     name="nbc_focus_apprv_2_b"
+                                    defaultValue={nbcFocusApprv2b}
                                     value={true}
                                   />
                                   <Form.Check
@@ -2669,6 +2709,7 @@ export default function UpdateTransactions() {
                                     type="radio"
                                     // onChange={handleInputChange}
                                     name="nbc_focus_apprv_2_b"
+                                    defaultValue={nbcFocusApprv2b}
                                     value={false}
                                     defaultChecked
                                   />
@@ -2677,9 +2718,8 @@ export default function UpdateTransactions() {
                                   <Form.Control
                                     size="sm"
                                     type="date"
-                                    value={deal.nbc_focus_apprv_2_c}
-                                    // onChange={handleInputChange}
                                     name="nbc_focus_apprv_2_c"
+                                    defaultValue={nbcFocusApprv2c}
                                     style={{
                                       width: "80%",
                                       padding: "2px 1px",
@@ -2707,6 +2747,7 @@ export default function UpdateTransactions() {
                                     type="radio"
                                     // onChange={handleInputChange}
                                     name="nbc_focus_apprv_3_b"
+                                    defaultValue={nbcFocusApprv3b}
                                     value={true}
                                   />
                                   <Form.Check
@@ -2715,6 +2756,7 @@ export default function UpdateTransactions() {
                                     type="radio"
                                     // onChange={handleInputChange}
                                     name="nbc_focus_apprv_3_b"
+                                    defaultValue={nbcFocusApprv1b}
                                     value={false}
                                     defaultChecked
                                   />
@@ -2759,7 +2801,6 @@ export default function UpdateTransactions() {
                                     inline
                                     label="No"
                                     type="radio"
-                                    // onChange={handleInputChange}
                                     name="nbc_focus_apprv_4_b"
                                     value={false}
                                     defaultChecked
@@ -2770,7 +2811,6 @@ export default function UpdateTransactions() {
                                     size="sm"
                                     type="date"
                                     value={deal.nbc_focus_apprv_4_c}
-                                    // onChange={handleInputChange}
                                     name="nbc_focus_apprv_4_c"
                                     style={{
                                       width: "80%",
@@ -2799,7 +2839,6 @@ export default function UpdateTransactions() {
                                       inline
                                       label="Yes"
                                       type="radio"
-                                      // onChange={handleInputChange}
                                       name="nbc_focus_apprv_5_b"
                                       value={true}
                                     />
@@ -2807,7 +2846,6 @@ export default function UpdateTransactions() {
                                       inline
                                       label="No"
                                       type="radio"
-                                      // onChange={handleInputChange}
                                       name="nbc_focus_apprv_5_b"
                                       value={false}
                                       defaultChecked
@@ -2918,7 +2956,6 @@ export default function UpdateTransactions() {
                               ))}
                             </Col>
                             <Col sm={3} className="mt-1 mb-1">
-                              {/* <p>Party</p> */}
                               {parties.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                                   <Form.Control
@@ -2928,7 +2965,6 @@ export default function UpdateTransactions() {
                                     }}
                                     type="text"
                                     size="sm"
-                                    // default={mst.parties_party}
                                     value={singleNote.parties}
                                     name="parties_party"
                                     onChange={(e) =>
@@ -3013,6 +3049,7 @@ export default function UpdateTransactions() {
                   >
                     <Container1>
                       <br />
+                      {showAlert && validatePlisWeights()}
                       <Row className="py-1 d-flex justify-content-space-evenly">
                         <Col className="mt-1 mb-1">
                           <p>Particulars</p>
@@ -3087,6 +3124,7 @@ export default function UpdateTransactions() {
                                     value={singleNote.plis}
                                     name="plis_weighting"
                                     onChange={(e) => handlePlisChange(e, index)}
+                                    onBlur={() => setShowAlert(true)}
                                   />
                                 </div>
                               ))}
@@ -3142,15 +3180,12 @@ export default function UpdateTransactions() {
                                       border: "none",
                                     }}
                                   >
-                                    <Tooltip
-                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
-                                      open
-                                      mouseLeaveDelay="0.4"
-                                    ></Tooltip>
-
-                                    <i className="">
-                                      <FiSave />
-                                    </i>
+                                    {hideSubmit ? null : (
+                                      <i className="">
+                                        {" "}
+                                        <FiSave />{" "}
+                                      </i>
+                                    )}
                                   </button>
                                 </div>
                               ))}
@@ -3199,8 +3234,6 @@ export default function UpdateTransactions() {
                         </Col>
 
                         {OcpsList}
-                       
-                    
                       </Row>
 
                       <Row className="">
@@ -3356,10 +3389,10 @@ export default function UpdateTransactions() {
                         </div>
                       </Row>
                       <Tooltip
-                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
-                                      open
-                                      mouseLeaveDelay="0.2"
-                                    ></Tooltip>
+                        title="Kindly Save using the save Icon to avoid losing data!!!!"
+                        open
+                        mouseLeaveDelay="0.2"
+                      ></Tooltip>
                     </Container1>
                   </Tab>
                   <Tab
@@ -3547,11 +3580,11 @@ export default function UpdateTransactions() {
                         </Col>
                         <div className="d-flex justify-content-end ml-2">
                           <p className="">
-                          <Tooltip
-                        title="Kindly Save using the save Icon to avoid losing data!!!!"
-                        open
-                        mouseLeaveDelay="0.4"
-                      ></Tooltip>
+                            <Tooltip
+                              title="Kindly Save using the save Icon to avoid losing data!!!!"
+                              open
+                              mouseLeaveDelay="0.4"
+                            ></Tooltip>
                             <GrAddCircle onClick={handleKpiAdd} />
                           </p>
                         </div>
