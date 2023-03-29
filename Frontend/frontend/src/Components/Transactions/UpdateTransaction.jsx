@@ -690,7 +690,8 @@ export default function UpdateTransactions() {
 
   // ***************************************** Send New NBC Focus Values to DB ************************************
 
-  const addNewNBCFocus = () => {
+  const addNewNBCFocus = (e) => {
+    e.preventDefault()
     let data = {
       id: 1000000000,
       nbc_focus_original: nbcFocus[0].nbc_focus_original,
@@ -772,7 +773,8 @@ export default function UpdateTransactions() {
 
   // ***************************************** Send New Transaction Parties Values to DB ************************************
 
-  const addNewParties = () => {
+  const addNewParties = (e) => {
+    e.preventDefault()
     let data = {
       id: 1000000000,
       parties_role: parties[0].parties_role,
@@ -976,7 +978,8 @@ export default function UpdateTransactions() {
 
   // ***************************************** Send Ocps Values to DB ************************************
 
-  const addNewOcps = () => {
+  const addNewOcps = (e) => {
+    e.preventDefault()
     let data = {
       id: 1000000000,
       ocps_factors: ocps[0].ocps_factors,
@@ -1065,7 +1068,8 @@ export default function UpdateTransactions() {
 
   // ***************************************** Send Kpi Values to DB ************************************
 
-  const addNewKpis = () => {
+  const addNewKpis = (e) => {
+    e.preventDefault()
     let data = {
       id: 1000000000,
       kpi_factors: kpi[0].kpi_factors,
