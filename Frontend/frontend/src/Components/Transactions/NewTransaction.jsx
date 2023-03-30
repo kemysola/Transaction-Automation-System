@@ -145,7 +145,7 @@ const NewTransaction = () => {
         {
           plis_particulars: "",
           plis_concern: "",
-          plis_weighting: 10,
+          plis_weighting: 0,
           plis_expected: "2022-06-14",
           plis_status: "Active",
         },
@@ -179,7 +179,6 @@ const NewTransaction = () => {
     const dataFields = getValues('structuringFeeAdvance')
   const dataFieldAdvance = getValues('structuringFeeAmount')
   const structuringDataFinal = parseInt(dataFields) + parseInt(dataFieldAdvance)
-  console.log(parseInt(structuringDataFinal))
   
   //********************************************************* Deal Tracking features - state and functions ************************ */
 
@@ -198,7 +197,7 @@ const NewTransaction = () => {
     {
       plis_particulars: "",
       plis_concern: "",
-      plis_weighting: 10,
+      plis_weighting: 0,
       plis_expected: null,
       plis_status: "",
     },
@@ -427,6 +426,7 @@ const NewTransaction = () => {
     const { name, value } = e.target;
     const list = [...plis];
     list[index][name] = value;
+   
     setPlis(list);
     setShowAlert(false)
   };
@@ -437,7 +437,7 @@ const NewTransaction = () => {
       {
         plis_particulars: "",
         plis_concern: "",
-        plis_weighting: 10,
+        plis_weighting: 0,
         plis_expected: null,
         plis_status: "",
       },
@@ -695,7 +695,7 @@ const NewTransaction = () => {
         setSubmitted(true);
       })
       .catch((error) => {
-        toast.error(`Failed to Create Deal`, {
+        toast.error(`Failed to Create Deal, Cliename already exist`, {
           duration: 4000,
           position: "bottom-right",
           // Styling
@@ -2483,10 +2483,10 @@ const NewTransaction = () => {
                         <Col sm={2} className=" mb-1">
                           <p>Weight (%)</p>
                           {plis.map((singleNote, index) => (
-                            <Form.Control
+                            <Form.Control key={index}
                               type="text"
                               size="sm"
-                              pattern="[0-9]*"
+                            
                               value={singleNote.plis}
                               name="plis_weighting"
                               onChange={(e) => handlePlisChange(e, index)}

@@ -157,7 +157,7 @@ export default function UpdateTransactions() {
     {
       plis_particulars: "",
       plis_concern: "",
-      plis_weighting: 10,
+      plis_weighting: 0,
       plis_expected: null,
       plis_status: "",
     },
@@ -302,7 +302,7 @@ export default function UpdateTransactions() {
       {
         plis_particulars: "",
         plis_concern: "",
-        plis_weighting: 10,
+        plis_weighting: 0,
         plis_expected: null,
         plis_status: "",
       },
@@ -499,12 +499,12 @@ export default function UpdateTransactions() {
     // function to get deal by id from the database
     const data = await axios
       .get(
-        `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
-          localStorage.getItem("fy")
-        )}`,
-        // `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+        // `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
         //   localStorage.getItem("fy")
         // )}`,
+        `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+          localStorage.getItem("fy")
+        )}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
@@ -518,7 +518,7 @@ export default function UpdateTransactions() {
 
     setAllData(data.data.dealInfo);
    
-    setNoteList(data?.data?.dealInfo[0].notes);
+    setNoteList(data?.data?.dealInfo[0]?.notes);
     setDeal(data.data.dealInfo);
     setStatus(true);
     setGreenA(data.data.dealInfo[0].greena);
@@ -1246,7 +1246,7 @@ export default function UpdateTransactions() {
         setMessage(response.data.message);
       })
       .catch((error) => {
-        setMessage("Failed to update deal,kindly fill in the required fields");
+        setMessage("Failed to update deal, client name already exist");
       });
   }
   let transactorList = staffList.filter((opt) => opt.istransactor === true);
@@ -3444,7 +3444,7 @@ export default function UpdateTransactions() {
                               {plis.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                                   <Form.Control
-                                    type="number"
+                                    type="text"
                                     size="sm"
                                     value={singleNote.plis}
                                     name="plis_weighting"
