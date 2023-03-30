@@ -1112,7 +1112,6 @@ router.put("/update/:dealID", verifyTokenAndAuthorization, async (req, res) => {
 
     const clientCheck = await client.query('SELECT LOWER(trim(clientName)) FROM TB_INFRCR_TRANSACTION WHERE LOWER(trim(clientName)) = $1 AND transID != $2', [updated_rec.clientName.trim().toLowerCase(), req.params.dealID]);
     if(clientCheck.rows.length > 0){
-      console.log('Client already exist')
       res.status(404).send('Client already exist')
       return
     }

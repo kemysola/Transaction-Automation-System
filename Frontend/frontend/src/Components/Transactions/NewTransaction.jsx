@@ -734,7 +734,7 @@ const NewTransaction = () => {
         setSubmitted(true);
       })
       .catch((error) => {
-        toast.error(`Failed to Create Deal, Cliename already exist`, {
+        toast.error(`Failed to create deal, client name already exist`, {
           duration: 4000,
           position: "bottom-right",
           // Styling
@@ -1837,7 +1837,7 @@ const NewTransaction = () => {
                                           variant="standard"
                                         >
                                           <option value="">
-                                            <em>select</em>
+                                            
                                           </option>
                                           <option
                                             value={1}

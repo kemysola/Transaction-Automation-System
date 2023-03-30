@@ -114,7 +114,7 @@ export default function UpdateTransactions() {
   const [deal, setDeal] = useState([]);
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(false);
-  const [noteList, setNoteList] = useState([{ note: "" }]);
+  const [noteList, setNoteList] = useState([]);
   const [activeTab, setActiveTab] = useState("first");
   const [industries, setIndustries] = useState([]);
   const [products, setProducts] = useState([]);
@@ -416,6 +416,7 @@ export default function UpdateTransactions() {
     setNoteList([...noteList, { note: "" }]);
   };
 
+  
   const handleNoteRemove = (e, index) => {
       const list = [...noteList];
       list.splice(index, 1);
@@ -512,16 +513,28 @@ export default function UpdateTransactions() {
 
   const [allData, setAllData] = useState([]);
 
+  useEffect(() => {
+   
+    if (allData[0]?.notes) {
+      let ram = allData[0]?.notes
+      const dataBA = ram.map(note => ({ note: note }));
+      setNoteList(dataBA);
+    } else {
+      setNoteList([{ note: "" }]);
+    }
+  }, [allData]);
+  
+
   const retrieveDeal = async () => {
     // function to get deal by id from the database
     const data = await axios
       .get(
-        `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
-          localStorage.getItem("fy")
-        )}`,
-        // `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+        // `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
         //   localStorage.getItem("fy")
         // )}`,
+        `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+          localStorage.getItem("fy")
+        )}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
@@ -535,7 +548,7 @@ export default function UpdateTransactions() {
 
     setAllData(data.data.dealInfo);
    
-    setNoteList(data?.data?.dealInfo[0]?.notes);
+    // setNoteList(data?.data?.dealInfo[0]?.notes);
     setDeal(data.data.dealInfo);
     setStatus(true);
     setGreenA(data.data.dealInfo[0].greena);
