@@ -695,7 +695,7 @@ const NewTransaction = () => {
         setSubmitted(true);
       })
       .catch((error) => {
-        toast.error("Failed to Create Deal. Please Fill all required fields", {
+        toast.error(`Failed to Create Deal`, {
           duration: 4000,
           position: "bottom-right",
           // Styling
@@ -705,7 +705,7 @@ const NewTransaction = () => {
           className: "",
           icon: "👏",
           iconTheme: {
-            primary: "green",
+            primary: "red",
             secondary: "#fff",
           },
           ariaProps: {
@@ -1017,8 +1017,8 @@ const NewTransaction = () => {
                             <Form.Group className="pt-1">
                               <Form.Label>Coupon(%)</Form.Label>
                               <Form.Control
-                                type="number"
-                                {...register("coupon", { required: true })}
+                                type="text"
+                                {...register("coupon", { required: true, pattern: "\d+", message: 'Please enter only decimal values' })}
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
@@ -2484,8 +2484,9 @@ const NewTransaction = () => {
                           <p>Weight (%)</p>
                           {plis.map((singleNote, index) => (
                             <Form.Control
-                              type="number"
+                              type="text"
                               size="sm"
+                              pattern="[0-9]*"
                               value={singleNote.plis}
                               name="plis_weighting"
                               onChange={(e) => handlePlisChange(e, index)}
