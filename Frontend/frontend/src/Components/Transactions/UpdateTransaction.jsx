@@ -152,12 +152,21 @@ export default function UpdateTransactions() {
       nbc_focus_original_methodology: "",
     }
   ]);
+  const [nbcFocusForm, setNbcFocusForm] = useState([
+    {
+      id: nbcFocusId,
+      // nbc_focus_original: "",
+      // nbc_focus_original_yes_no: 0,
+      // nbc_focus_original_date: null,
+      // nbc_focus_original_methodology: "",
+    }
+  ]);
 
   const [plis, setPlis] = useState([
     {
       plis_particulars: "",
       plis_concern: "",
-      plis_weighting: 10,
+      plis_weighting: 0,
       plis_expected: null,
       plis_status: "",
     },
@@ -302,7 +311,7 @@ export default function UpdateTransactions() {
       {
         plis_particulars: "",
         plis_concern: "",
-        plis_weighting: 10,
+        plis_weighting: 0,
         plis_expected: null,
         plis_status: "",
       },
@@ -329,6 +338,14 @@ export default function UpdateTransactions() {
     const list = [...nbcFocus];
     list[index][name] = value;
     setNbcFocus(list);
+  };
+
+  const handleNbcChangeForm = (e, index) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    const list = [...nbcFocusForm];
+    list[index][name] = value;
+    setNbcFocusForm(list);
   };
 
   const handleInputChange = (event, index) => {
@@ -518,7 +535,7 @@ export default function UpdateTransactions() {
 
     setAllData(data.data.dealInfo);
    
-    setNoteList(data?.data?.dealInfo[0].notes);
+    setNoteList(data?.data?.dealInfo[0]?.notes);
     setDeal(data.data.dealInfo);
     setStatus(true);
     setGreenA(data.data.dealInfo[0].greena);
@@ -554,6 +571,7 @@ export default function UpdateTransactions() {
  useEffect(() => {
   // Update data state when uid changes
   setNbcFocus([{ id: nbcFocusId }]);
+  setNbcFocusForm([{ id: nbcFocusId }]);
 }, [nbcFocusId]);
 
 
@@ -1232,7 +1250,7 @@ export default function UpdateTransactions() {
       redB: JSON.parse(redB),
       redC: JSON.parse(redC),
       notes: note,
-      nbcFocus: nbcFocus,
+      nbcFocus: [...nbcFocusForm, ...nbcFocus],
       parties: parties,
       plis: plis,
       ocps: ocps,
@@ -1246,7 +1264,7 @@ export default function UpdateTransactions() {
         setMessage(response.data.message);
       })
       .catch((error) => {
-        setMessage("Failed to update deal,kindly fill in the required fields");
+        setMessage("Failed to update deal, client name already exist");
       });
   }
   let transactorList = staffList.filter((opt) => opt.istransactor === true);
@@ -2686,7 +2704,7 @@ export default function UpdateTransactions() {
 
                             <Col sm={3} className="mt-1 mb-1">
                               {/* <p>DATE</p> */}
-                              {nbcFocus.map((singleNote, index) => (
+                              {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-1">
                                   {/* <Form.Control
                                     type="date"
@@ -2697,7 +2715,7 @@ export default function UpdateTransactions() {
                                   /> */}
 
                                   <input
-                                    onChange={(e) => handleNbcChange(e, index)}
+                                    onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_1_b"
                                     defaultValue={deal[0].nbc_focus_apprv_1_b}
                                     value={deal.nbc_focus_apprv_1_b}
@@ -2725,7 +2743,7 @@ export default function UpdateTransactions() {
                                     }}
                                   /> */}
 
-                              {nbcFocus.map((singleNote, index) => (
+                              {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-1">
                                   {/* <Form.Control
                                     type="date"
@@ -2737,7 +2755,7 @@ export default function UpdateTransactions() {
 
                                   <input
                                     type="date"
-                                    onChange={(e) => handleNbcChange(e, index)}
+                                    onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_1_c"
                                     defaultValue={  deal[0].nbc_focus_apprv_1_c
                                       ? new Date(deal[0].nbc_focus_apprv_1_c)
@@ -2802,7 +2820,7 @@ export default function UpdateTransactions() {
                                    
                                   /> */}
 
-                              {nbcFocus.map((singleNote, index) => (
+                              {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                                   {/* <Form.Control
                                     type="date"
@@ -2813,7 +2831,7 @@ export default function UpdateTransactions() {
                                   /> */}
 
                                   <input
-                                    onChange={(e) => handleNbcChange(e, index)}
+                                    onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_2_b"
                                     defaultValue={deal[0].nbc_focus_apprv_2_b}
                                     value={deal.nbc_focus_apprv_2_b}
@@ -2851,11 +2869,11 @@ export default function UpdateTransactions() {
                                  
                                   /> */}
 
-                              {nbcFocus.map((singleNote, index) => (
+                              {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                        
                                   <input
-                                    onChange={(e) => handleNbcChange(e, index)}
+                                    onChange={(e) => handleNbcChangeForm(e, index)}
                                      value={deal.nbc_focus_apprv_2_c}
                                     // onChange={handleInputChange}
                                     type="date"
@@ -2911,7 +2929,7 @@ export default function UpdateTransactions() {
                                    
                                   /> */}
 
-                                {nbcFocus.map((singleNote, index) => (
+                                {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                        
                                   {/* <input
@@ -2929,7 +2947,7 @@ export default function UpdateTransactions() {
                                   /> */}
 
                                     <input
-                                      onChange={(e) => handleNbcChange(e, index)}
+                                      onChange={(e) => handleNbcChangeForm(e, index)}
                                       value={deal.nbc_focus_apprv_3_b}
                                       // onChange={handleInputChange}
                                       name="nbc_focus_apprv_3_b"
@@ -2952,11 +2970,11 @@ export default function UpdateTransactions() {
                                       focus: "none",
                                     }}
                                   /> */}
-                                     {nbcFocus.map((singleNote, index) => (
+                                     {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                        
                                   <input
-                                    onChange={(e) => handleNbcChange(e, index)}
+                                    onChange={(e) => handleNbcChangeForm(e, index)}
                                     value={deal.nbc_focus_apprv_3_c}
                                     // onChange={handleInputChange}
                                     type='date'
@@ -3015,11 +3033,11 @@ export default function UpdateTransactions() {
                                     defaultChecked
                                   /> */}
 
-                              {nbcFocus.map((singleNote, index) => (
+                              {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                        
                                   <input
-                                    onChange={(e) => handleNbcChange(e, index)}
+                                    onChange={(e) => handleNbcChangeForm(e, index)}
                                     value={deal.nbc_focus_apprv_4_b}
                                     // onChange={handleInputChange}
                                     name="nbc_focus_apprv_4_b"
@@ -3053,11 +3071,11 @@ export default function UpdateTransactions() {
                                     }}
                                   /> */}
 
-                                    {nbcFocus.map((singleNote, index) => (
+                                    {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                        
                                   <input
-                                    onChange={(e) => handleNbcChange(e, index)}
+                                    onChange={(e) => handleNbcChangeForm(e, index)}
                                     type="date"
                                     value={deal.nbc_focus_apprv_4_c}
                                     // onChange={handleInputChange}
@@ -3117,11 +3135,11 @@ export default function UpdateTransactions() {
                                       value={false}
                                       defaultChecked
                                     /> */}
-                                       {nbcFocus.map((singleNote, index) => (
+                                       {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                        
                                   <input
-                                    onChange={(e) => handleNbcChange(e, index)}
+                                    onChange={(e) => handleNbcChangeForm(e, index)}
                                     value={deal.nbc_focus_apprv_5_b}
                                     // onChange={handleInputChange}
                                     name="nbc_focus_apprv_5_b"
@@ -3154,7 +3172,7 @@ export default function UpdateTransactions() {
                                     /> */}
 
                                     
-                              {nbcFocus.map((singleNote, index) => (
+                              {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                                   {/* <Form.Control
                                     type="date"
@@ -3165,7 +3183,7 @@ export default function UpdateTransactions() {
                                   /> */}
 
                                   <input
-                                    onChange={(e) => handleNbcChange(e, index)}
+                                    onChange={(e) => handleNbcChangeForm(e, index)}
                                     type="date"
                                     value={deal.nbc_focus_apprv_5_c}
                                       // onChange={handleInputChange}
@@ -3444,7 +3462,7 @@ export default function UpdateTransactions() {
                               {plis.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                                   <Form.Control
-                                    type="number"
+                                    type="text"
                                     size="sm"
                                     value={singleNote.plis}
                                     name="plis_weighting"
