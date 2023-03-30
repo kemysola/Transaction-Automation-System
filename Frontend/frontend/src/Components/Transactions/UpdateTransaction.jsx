@@ -150,16 +150,6 @@ export default function UpdateTransactions() {
       nbc_focus_original_yes_no: 0,
       nbc_focus_original_date: null,
       nbc_focus_original_methodology: "",
-      // nbc_focus_apprv_1_b: "",
-      // nbc_focus_apprv_1_c: null,
-      // nbc_focus_apprv_2_b: "",
-      // nbc_focus_apprv_2_c: null,
-      // nbc_focus_apprv_3_b: "",
-      // nbc_focus_apprv_3_c: null,
-      // nbc_focus_apprv_4_b: "",
-      // nbc_focus_apprv_4_c: null,
-      // nbc_focus_apprv_5_b: "",
-      // nbc_focus_apprv_5_c: null,
     }
   ]);
 
@@ -361,7 +351,8 @@ export default function UpdateTransactions() {
     // setNbcFocusApprv5c(data.data.dealInfo[0].nbc_focus_apprv_5_c);
   };
 
-  const handleNbcAdd = () => {
+  const handleNbcAdd = (e) => {
+    e.preventDefault()
     setNbcFocus([
       ...nbcFocus,
       {
@@ -408,11 +399,10 @@ export default function UpdateTransactions() {
     setNoteList([...noteList, { note: "" }]);
   };
 
-  const handleNoteRemove = (index) => {
-    const list = [...noteList];
-    list.splice(index, 1);
-
-    setNoteList(list);
+  const handleNoteRemove = (e, index) => {
+      const list = [...noteList];
+      list.splice(index, 1);
+      setNoteList(list);
   };
 
 
@@ -873,10 +863,7 @@ export default function UpdateTransactions() {
     }
   }, [showAlert]);
   const validatePlisWeights = () => {
-    const totalWeight = pliid.reduce(
-      (acc, curr) => acc + Number(curr.plis_weighting),
-      0
-    );
+    const totalWeight = pliid.reduce((acc, curr) => acc + Number(curr.plis_weighting), 0);
     checkValid = false;
     if (totalWeight > 100) {
       checkValid = true;
@@ -918,6 +905,15 @@ export default function UpdateTransactions() {
       plis_expected: plis[0].plis_expected,
       plis_status: plis[0].plis_status,
     };
+
+    const totalWeight = pliid.reduce(
+      (acc, curr) => acc + Number(curr.plis_weighting),
+      0
+    );
+     if (parseFloat(data.plis_weighting) + totalWeight > 100) {
+        alert("PLI weight cannot be more than 100%");
+      return 
+     }
 
     Service.updatePlis(id, data)
       .then((res) => {
@@ -1431,8 +1427,8 @@ export default function UpdateTransactions() {
                               </button>
                               {noteList.map((singleNote, index) => {
                                 return (
-                                  <div className="input-group" key={index}>
-                                    <Form.Control
+                                  <div className="input-group">
+                                    <Form.Control key={index}
                                       style={{ margin: "0.8em", width: "60%" }}
                                       size="sm"
                                       as="textarea"
@@ -1453,7 +1449,7 @@ export default function UpdateTransactions() {
                                         color: "white",
                                         borderRadius: "3px",
                                       }}
-                                      onClick={() => handleNoteRemove(index)}
+                                      onClick={(e) => handleNoteRemove(e, index)}
                                     >
                                       x
                                     </button>
@@ -3500,6 +3496,7 @@ export default function UpdateTransactions() {
                                       <FiDelete />
                                     </i>
                                   </button>
+                                  {hideSubmit ? null : (
                                   <button
                                     onClick={addNewPlis}
                                     className="mt-1"
@@ -3509,13 +3506,14 @@ export default function UpdateTransactions() {
                                       border: "none",
                                     }}
                                   >
-                                    {hideSubmit ? null : (
+                                   
                                       <i className="">
                                         {" "}
                                         <FiSave />{" "}
                                       </i>
-                                    )}
+                                   
                                   </button>
+                                    )}
                                 </div>
                               ))}
                             </Col>

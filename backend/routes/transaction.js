@@ -199,7 +199,16 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
       new_transaction.discountfactor,
       new_transaction.issuedate,
     ];
+
     await client.query("BEGIN");
+
+    
+    const clientCheck = await client.query('SELECT COUNT(*) FROM TB_INFRCR_TRANSACTION WHERE LOWER(clientName) = $1', [new_transaction.clientName.trim().toLowerCase()]);
+
+    if(clientCheck.rows[0].count > 0){
+      res.status(404).send('Client already exist')
+      return
+    }
 
     const write_to_db = `INSERT INTO TB_INFRCR_TRANSACTION(
                     clientName, originator, transactor, industry, product,region,
