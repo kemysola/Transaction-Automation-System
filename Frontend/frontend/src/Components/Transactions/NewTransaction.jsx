@@ -642,9 +642,7 @@ const NewTransaction = () => {
 
 
     /**
-     * const handleRemoveFruit = (item) => {
-    setFruitsInBasket((prev) => [...prev.filter((i) => i !== item)]);
-  };
+
      */
     //****************************************************************** Object to handle request data to the server ***************** */
     const data = {
