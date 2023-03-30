@@ -631,10 +631,18 @@ const NewTransaction = () => {
     let allNotes = noteList.map(({ note }) => note);
     let note = allNotes.join("|");
 
+    const totalWeight = plis.reduce(
+      (acc, curr) => acc + Number(curr.plis_weighting),
+      0
+    );
+     if  (totalWeight > 100) {
+        alert("PLI weight cannot be more than 100%");
+      return 
+     }
+
+
     /**
-     * const handleRemoveFruit = (item) => {
-    setFruitsInBasket((prev) => [...prev.filter((i) => i !== item)]);
-  };
+
      */
     //****************************************************************** Object to handle request data to the server ***************** */
     const data = {
