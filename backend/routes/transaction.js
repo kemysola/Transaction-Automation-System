@@ -440,7 +440,7 @@ router.get(
             LEFT JOIN TB_INFRCR_TRANSACTION_PARTIES d ON d.transID = a.transID
             LEFT JOIN TB_INFRCR_TRANSACTION_PLIS e ON e.transID = a.transID
             LEFT JOIN TB_INFRCR_TRANSACTION_KPI f ON f.transID = a.transID WHERE a.transID = $1
-            AND DATE_PART('year', a.createdate)::varchar(10) = COALESCE($2, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
+            AND DATE_PART('year', a.createdate)::varchar(10) <= COALESCE($2, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
             ORDER BY b.id, c.id, d.id, e.id, f.id;`,
         [deal_record_id, final_year_slice]
       );
@@ -1020,7 +1020,7 @@ router.put("/update/:dealID", verifyTokenAndAuthorization, async (req, res) => {
                               nbc_focus_apprv_1_c = coalesce($8, nbc_focus_apprv_1_c ), 
                               nbc_focus_apprv_2_b = coalesce($9, nbc_focus_apprv_2_b ),
                               nbc_focus_apprv_2_c = coalesce($10, nbc_focus_apprv_2_c), 
-                              nbc_focus_apprv_3_b = coalesce($11, nbc_focus_apprv_2_b ), 
+                              nbc_focus_apprv_3_b = coalesce($11, nbc_focus_apprv_3_b ), 
                               nbc_focus_apprv_3_c = coalesce($12, nbc_focus_apprv_3_c), 
                               nbc_focus_apprv_4_b = coalesce($13, nbc_focus_apprv_4_b ), 
                               nbc_focus_apprv_4_c = coalesce($14, nbc_focus_apprv_4_c ), 
@@ -1344,7 +1344,7 @@ router.put(
                             nbc_focus_apprv_1_c = coalesce($8, nbc_focus_apprv_1_c ), 
                             nbc_focus_apprv_2_b = coalesce($9, nbc_focus_apprv_2_b ),
                             nbc_focus_apprv_2_c = coalesce($10, nbc_focus_apprv_2_c), 
-                            nbc_focus_apprv_3_b = coalesce($11, nbc_focus_apprv_2_b ), 
+                            nbc_focus_apprv_3_b = coalesce($11, nbc_focus_apprv_3_b ), 
                             nbc_focus_apprv_3_c = coalesce($12, nbc_focus_apprv_3_c), 
                             nbc_focus_apprv_4_b = coalesce($13, nbc_focus_apprv_4_b ), 
                             nbc_focus_apprv_4_c = coalesce($14, nbc_focus_apprv_4_c ), 
