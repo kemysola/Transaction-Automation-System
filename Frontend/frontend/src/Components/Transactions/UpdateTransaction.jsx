@@ -515,7 +515,7 @@ export default function UpdateTransactions() {
 
   useEffect(() => {
    
-    if (allData[0]?.notes) {
+    if (allData[0]?.notes.length > 0) {
       let ram = allData[0]?.notes
       const dataBA = ram.map(note => ({ note: note }));
       setNoteList(dataBA);
@@ -529,12 +529,12 @@ export default function UpdateTransactions() {
     // function to get deal by id from the database
     const data = await axios
       .get(
-        `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
-          localStorage.getItem("fy")
-        )}`,
-        // `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+        // `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
         //   localStorage.getItem("fy")
         // )}`,
+        `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+          localStorage.getItem("fy")
+        )}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
@@ -1208,8 +1208,10 @@ export default function UpdateTransactions() {
 
   function postData(e) {
     e.preventDefault();
-    let allNotes = noteList.map((item) => item.note || item);
+    
+    let allNotes = noteList.map((item) => item.note || (item.length == 0 ? item : item.note));
     let note = allNotes.join("|");
+ 
 
     // ******************************************  Request body payload to the db  ***********************************
 
@@ -2687,45 +2689,13 @@ export default function UpdateTransactions() {
                                     MROC Pre_NBC Approval ( Link to Doc)
                                   </Form.Label>
                                 </Col>
-                                {/* <Col sm={3}>
-                                  <input */}
-                                  {/* <Form.Check
-                                    inline
-                                    label="Yes"
-                                    type="radio"
-                                    // onChange={handleInputChange}
-                                    name="nbc_focus_apprv_1_b"
-                                    value={"Yes"}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="No"
-                                    type="radio"
-                                    // onChange={handleInputChange}
-                                    name="nbc_focus_apprv_1_b"
-                                    value={"No"}
-                                    defaultChecked
-                                  /> */}
-
-                                   {/* <input
-                                    onChange={handleInputChange}
-                                    name="nbc_focus_apprv_1_b"
-                                    defaultValue={deal[0].nbc_focus_apprv_1_b}
-                                    value={deal.nbc_focus_apprv_1_b}
-                                   
-                                  /> */}
+                  
 
                             <Col sm={3} className="mt-1 mb-1">
                               {/* <p>DATE</p> */}
                               {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-1">
-                                  {/* <Form.Control
-                                    type="date"
-                                    size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="nbc_focus_original_date"
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                  /> */}
+                   
 
                                   <input
                                     onChange={(e) => handleNbcChangeForm(e, index)}
@@ -2739,32 +2709,13 @@ export default function UpdateTransactions() {
                               ))}
                             </Col>
 
-                                  
-                                {/* </Col> */}
+                             
                                 <Col sm={3}>
-                                  {/* <Form.Control
-                                    size="sm"
-                                    type="date"
-                                    value={deal.nbc_focus_apprv_1_c}
-                                    // onChange={handleInputChange}
-                                    defaultValue={nbcFocusApprv1c}
-                                    name="nbc_focus_apprv_1_c"
-                                    style={{
-                                      width: "80%",
-                                      padding: "2px 1px",
-                                      focus: "none",
-                                    }}
-                                  /> */}
+             
 
                               {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-1">
-                                  {/* <Form.Control
-                                    type="date"
-                                    size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="nbc_focus_original_date"
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                  /> */}
+                      
 
                                   <input
                                     type="date"
@@ -2780,18 +2731,7 @@ export default function UpdateTransactions() {
                                 </div>
                               ))}
                                 
-                                   {/* <input
-                                    type="date"
-                                    onChange={handleInputChange}
-                                    name="nbc_focus_apprv_1_c"
-                                    defaultValue={  deal[0].nbc_focus_apprv_1_c
-                                      ? new Date(deal[0].nbc_focus_apprv_1_c)
-                                          .toISOString()
-                                          .split("T")[0]
-                                      : ""}
-                                    value={deal.nbc_focus_apprv_1_c}
-                                   
-                                  /> */}
+            
                                 </Col>
                               </Row>
                             </Form.Group>
@@ -2807,41 +2747,11 @@ export default function UpdateTransactions() {
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-                                  {/* <Form.Check
-                                    inline
-                                    label="Yes"
-                                    type="radio"
-                                    name="nbc_focus_apprv_2_b"
-                                    defaultValue={nbcFocusApprv2b}
-                                    value={true}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="No"
-                                    type="radio"
-                                    name="nbc_focus_apprv_2_b"
-                                    defaultValue={nbcFocusApprv2b}
-                                    value={false}
-                                    defaultChecked
-                                  /> */}
-                                   {/* <input
-                                    onChange={handleInputChange}
-                                    value={deal.nbc_focus_apprv_2_b}
-                                    onChange={handleInputChange}
-                                    name="nbc_focus_apprv_2_b"
-                                    defaultValue={deal[0].nbc_focus_apprv_2_b}
-                                   
-                                  /> */}
+                             
 
                               {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-2">
-                                  {/* <Form.Control
-                                    type="date"
-                                    size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="nbc_focus_original_date"
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                  /> */}
+                       
 
                                   <input
                                     onChange={(e) => handleNbcChangeForm(e, index)}
@@ -2857,30 +2767,7 @@ export default function UpdateTransactions() {
 
                                 </Col>
                                 <Col sm={3}>
-                                  {/* <Form.Control
-                                    size="sm"
-                                    type="date"
-                                    name="nbc_focus_apprv_2_c"
-                                    defaultValue={nbcFocusApprv2c}
-                                    style={{
-                                      width: "80%",
-                                      padding: "2px 1px",
-                                      focus: "none",
-                                    }}
-                                  /> */}
-                                   {/* <input
-                                    onChange={handleInputChange}
-                                     value={deal.nbc_focus_apprv_2_c}
-                                    onChange={handleInputChange}
-                                    type="date"
-                                    name="nbc_focus_apprv_2_c"
-                                    defaultValue={  deal[0].nbc_focus_apprv_2_c
-                                      ? new Date(deal[0].nbc_focus_apprv_2_c)
-                                          .toISOString()
-                                          .split("T")[0]
-                                      : ""}
-                                 
-                                  /> */}
+                            
 
                               {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-2">
@@ -2891,7 +2778,7 @@ export default function UpdateTransactions() {
                                     // onChange={handleInputChange}
                                     type="date"
                                     name="nbc_focus_apprv_2_c"
-                                    defaultValue={  deal[0].nbc_focus_apprv_2_c
+                                    defaultValue={deal[0].nbc_focus_apprv_2_c
                                       ? new Date(deal[0].nbc_focus_apprv_2_c)
                                           .toISOString()
                                           .split("T")[0]
@@ -2916,53 +2803,15 @@ export default function UpdateTransactions() {
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-                                  {/* <Form.Check
-                                    inline
-                                    label="Yes"
-                                    type="radio"
-                                    name="nbc_focus_apprv_3_b"
-                                    defaultValue={nbcFocusApprv3b}
-                                    value={true}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="No"
-                                    type="radio"
-                                    name="nbc_focus_apprv_3_b"
-                                    defaultValue={nbcFocusApprv1b}
-                                    value={false}
-                                    defaultChecked
-                                  /> */}
-                                     {/* <input
-                                      onChange={handleInputChange}
-                                      value={deal.nbc_focus_apprv_3_b}
-                                      onChange={handleInputChange}
-                                      name="nbc_focus_apprv_3_b"
-                                      defaultValue={deal[0].nbc_focus_apprv_3_b}
-                                   
-                                  /> */}
+                       
 
                                 {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                        
-                                  {/* <input
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                     value={deal.nbc_focus_apprv_2_c}
-                                    onChange={handleInputChange}
-                                    type="date"
-                                    name="nbc_focus_apprv_2_c"
-                                    defaultValue={  deal[0].nbc_focus_apprv_2_c
-                                      ? new Date(deal[0].nbc_focus_apprv_2_c)
-                                          .toISOString()
-                                          .split("T")[0]
-                                      : ""}
-                                 
-                                  /> */}
 
                                     <input
                                       onChange={(e) => handleNbcChangeForm(e, index)}
                                       value={deal.nbc_focus_apprv_3_b}
-                                      // onChange={handleInputChange}
                                       name="nbc_focus_apprv_3_b"
                                       defaultValue={deal[0].nbc_focus_apprv_3_b}
                                    
@@ -2972,24 +2821,13 @@ export default function UpdateTransactions() {
                               ))}
                                 </Col>
                                 <Col sm={3}>
-                                  {/* <Form.Control
-                                    size="sm"
-                                    type="date"
-                                    value={deal.nbc_focus_apprv_3_c}
-                                    name="nbc_focus_apprv_3_c"
-                                    style={{
-                                      width: "80%",
-                                      padding: "2px 1px",
-                                      focus: "none",
-                                    }}
-                                  /> */}
+                       
                                      {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                        
                                   <input
                                     onChange={(e) => handleNbcChangeForm(e, index)}
                                     value={deal.nbc_focus_apprv_3_c}
-                                    // onChange={handleInputChange}
                                     type='date'
                                     name="nbc_focus_apprv_3_c"
                                     defaultValue={  deal[0].nbc_focus_apprv_3_c
@@ -3002,19 +2840,6 @@ export default function UpdateTransactions() {
                                   
                                 </div>
                               ))}
-                                  {/* <input
-                                    onChange={handleInputChange}
-                                    value={deal.nbc_focus_apprv_3_c}
-                                    onChange={handleInputChange}
-                                    type='date'
-                                    name="nbc_focus_apprv_3_c"
-                                    defaultValue={  deal[0].nbc_focus_apprv_3_c
-                                      ? new Date(deal[0].nbc_focus_apprv_3_c)
-                                          .toISOString()
-                                          .split("T")[0]
-                                      : ""}
-                                   
-                                  /> */}
                                 </Col>
                               </Row>
                             </Form.Group>
@@ -3030,21 +2855,6 @@ export default function UpdateTransactions() {
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-                                  {/* <Form.Check
-                                    inline
-                                    label="Yes"
-                                    type="radio"
-                                    name="nbc_focus_apprv_4_b"
-                                    value={true}
-                                  />
-                                  <Form.Check
-                                    inline
-                                    label="No"
-                                    type="radio"
-                                    name="nbc_focus_apprv_4_b"
-                                    value={false}
-                                    defaultChecked
-                                  /> */}
 
                               {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-2">
@@ -3062,27 +2872,10 @@ export default function UpdateTransactions() {
                                 </div>
                               ))}
 
-                                  {/* <input
-                                    onChange={handleInputChange}
-                                    value={deal.nbc_focus_apprv_4_b}
-                                    onChange={handleInputChange}
-                                    name="nbc_focus_apprv_4_b"
-                                    defaultValue={deal[0].nbc_focus_apprv_4_b}
-                                   
-                                  /> */}
+                                 
                                 </Col>
                                 <Col sm={3}>
-                                  {/* <Form.Control
-                                    size="sm"
-                                    type="date"
-                                    value={deal.nbc_focus_apprv_4_c}
-                                    name="nbc_focus_apprv_4_c"
-                                    style={{
-                                      width: "80%",
-                                      padding: "2px 1px",
-                                      focus: "none",
-                                    }}
-                                  /> */}
+                               
 
                                     {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-2">
