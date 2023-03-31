@@ -582,19 +582,14 @@ const NewTransaction = () => {
     const list = [...noteList];
     list.splice(index, 1);
     setNoteList(list);
-    // setNoteList(list);
-    // console.log(list[index]);
-    // setNoteList((prev) => [...prev.filter((i) => i === list[i])]);
   };
 
   const handleInputChange = (event) => {
-    // function to save user data to deal state
     const { name, value } = event.target;
-    // setNbcFocus({ ...nbcFocus, [name]: value });
   };
   
 
-  let checkValid 
+  let checkValid;
 
   useEffect(() => {
    if(showAlert == true && checkValid  == true){
@@ -603,7 +598,6 @@ const NewTransaction = () => {
      setHideSubmit(false)
      setShowAlert(false)
    }
-  //  setHideSubmit(false)
   }, [showAlert]);
  
 
@@ -1928,12 +1922,10 @@ const NewTransaction = () => {
                                           type="text"
                                           {...field}
                                           variant="standard"
-                                          // style={{ marginLeft: "10px" }}
                                         />
                                         <button
                                           type="button"
                                           onClick={() => remove(index)}
-                                          // className="mt-3 pt-2"
                                           className="mt-1"
                                           style={{
                                             height: "25px",
@@ -1981,18 +1973,9 @@ const NewTransaction = () => {
                                 <Col sm={3}>
                                 {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-1">
-                                  {/* <Form.Control
-                                    type="date"
-                                    size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="nbc_focus_original_date"
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                  /> */}
-
                                   <input
                                     onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_1_b"
-                                    // defaultValue={deal[0].nbc_focus_apprv_1_b}
                                     value={singleNote.nbcFocus}
 
                                   />
@@ -2027,18 +2010,9 @@ const NewTransaction = () => {
                                 <Col sm={3}>
                                 {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-1">
-                                  {/* <Form.Control
-                                    type="date"
-                                    size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="nbc_focus_original_date"
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                  /> */}
-
                                   <input
                                     onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_2_b"
-                                    // defaultValue={deal[0].nbc_focus_apprv_1_b}
                                     value={singleNote.nbcFocus}
 
                                   />
@@ -2049,19 +2023,10 @@ const NewTransaction = () => {
                                 <Col sm={3}>
                                 {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-1">
-                                  {/* <Form.Control
-                                    type="date"
-                                    size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="nbc_focus_original_date"
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                  /> */}
-
                                   <input
                                     type="date"
                                     onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_2_c"
-                                    // defaultValue={deal[0].nbc_focus_apprv_1_b}
                                     value={singleNote.nbcFocus}
 
                                   />
@@ -2079,19 +2044,9 @@ const NewTransaction = () => {
                                 <Col sm={3}>
                                 {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-1">
-                                  {/* <Form.Control
-                                    type="date"
-                                    size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="nbc_focus_original_date"
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                  /> */}
-
                                   <input
-                                    
                                     onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_3_b"
-                                    // defaultValue={deal[0].nbc_focus_apprv_1_b}
                                     value={singleNote.nbcFocus}
 
                                   />
@@ -2102,19 +2057,10 @@ const NewTransaction = () => {
                                 <Col sm={3}>
                                 {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-1">
-                                  {/* <Form.Control
-                                    type="date"
-                                    size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="nbc_focus_original_date"
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                  /> */}
-
                                   <input
                                     type="date"
                                     onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_3_c"
-                                    // defaultValue={deal[0].nbc_focus_apprv_1_b}
                                     value={singleNote.nbcFocus}
 
                                   />
@@ -2132,18 +2078,10 @@ const NewTransaction = () => {
                                 <Col sm={3}>
                                 {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-1">
-                                  {/* <Form.Control
-                                    type="date"
-                                    size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="nbc_focus_original_date"
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                  /> */}
 
                                   <input
                                     onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_4_b"
-                                    // defaultValue={deal[0].nbc_focus_apprv_1_b}
                                     value={singleNote.nbcFocus}
 
                                   />
@@ -2154,19 +2092,10 @@ const NewTransaction = () => {
                                 <Col sm={3}>
                                 {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-1">
-                                  {/* <Form.Control
-                                    type="date"
-                                    size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="nbc_focus_original_date"
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                  /> */}
-
                                   <input
                                   type="date"
                                     onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_4_c"
-                                    // defaultValue={deal[0].nbc_focus_apprv_1_b}
                                     value={singleNote.nbcFocus}
 
                                   />
@@ -2185,18 +2114,9 @@ const NewTransaction = () => {
                                 <Col sm={3}>
                                 {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-1">
-                                  {/* <Form.Control
-                                    type="date"
-                                    size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="nbc_focus_original_date"
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                  /> */}
-
                                   <input
                                     onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_5_b"
-                                    // defaultValue={deal[0].nbc_focus_apprv_1_b}
                                     value={singleNote.nbcFocus}
 
                                   />
@@ -2207,19 +2127,10 @@ const NewTransaction = () => {
                                 <Col sm={3}>
                                 {nbcFocusForm.map((singleNote, index) => (
                                 <div class="input-group mt-1">
-                                  {/* <Form.Control
-                                    type="date"
-                                    size="sm"
-                                    value={singleNote.nbcFocus}
-                                    name="nbc_focus_original_date"
-                                    onChange={(e) => handleNbcChange(e, index)}
-                                  /> */}
-
                                   <input
                                   type="date"
                                     onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_5_c"
-                                    // defaultValue={deal[0].nbc_focus_apprv_1_b}
                                     value={singleNote.nbcFocus}
 
                                   />
