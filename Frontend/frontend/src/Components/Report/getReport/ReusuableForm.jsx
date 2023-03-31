@@ -83,7 +83,7 @@ const ReusuableForm = () => {
         setEditingKey('');
       }
     } catch (errInfo) {
-      console.log('Validate Failed:', errInfo);
+      console.log('Validation Failed:', errInfo);
     }
   };
 

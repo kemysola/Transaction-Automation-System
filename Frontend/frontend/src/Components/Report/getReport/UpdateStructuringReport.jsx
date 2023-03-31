@@ -23,7 +23,6 @@ export default function UpdateStructuringReport() {
 
 const getExecutionData = async() => {
   await Service.getAllReport('Q1','FY2024').then((res) => {
-    // console.log('hey', res.data?.quarterly_report.CurrentGuaranteePortfolio.body)
   })
 }
 const reportFy =localStorage.getItem("currentFy") ;
@@ -44,9 +43,6 @@ const currentFy = JSON.parse(reportFy)
  const progressBody = localStorage.getItem('progressBody')
  const guaranteeBody = localStorage.getItem('guarPYearTitle')
  const gPipelineReport = localStorage.getItem('pipelineReport')
-//  console.log(localStorage.getItem('titles'),'titles')
-//  const currentGuarateeBody =localStorage.getItem('titles')
-// console.log(JSON.parse(currentGuarateeBody)[0])
  let postData = {
   ReportFY: currentFy[0],
   ReportFYQuarter:currentFQt[0],
