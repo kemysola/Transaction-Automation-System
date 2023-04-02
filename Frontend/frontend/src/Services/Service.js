@@ -226,6 +226,10 @@ const getAmortization = async(id) => {
     return await axios.get(`budget/amortization_schedule/${id}`)
 }
 
+const deleteTransactions = async(id, password) => {
+    return await axios.delete(`transaction/delete/deal/${id}`, {data: {password: password}})
+}
+
 const Services = {
     // FiY,
     postReport,
@@ -283,7 +287,8 @@ const Services = {
     addFY,
     updateFY,
     getCCReport,
-    getAmortization
+    getAmortization,
+    deleteTransactions
 }
 
 

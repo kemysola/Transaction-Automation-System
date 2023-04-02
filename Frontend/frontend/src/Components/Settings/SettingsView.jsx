@@ -15,6 +15,7 @@ import UpdateLevel from './UpdateLevel';
 import UpdateForecast from './UpdateForecast';
 import UpdateFY from './UpdateFY';
 import StaffTable from '../Staffs/StaffTable';
+import DeleteTransactions from '../Transactions/DeleteTransactions'
 
 const ViewWrapper = styled.div`
   margin:0;
@@ -97,7 +98,26 @@ export default function Settings () {
                     </Styling>
                   </Accordion.Body>
                 </Accordion.Item>
+                <br />
+
+                <Accordion.Item eventKey="3">
+                  <Accordion.Header>Delete Transactions</Accordion.Header>
+                  <Accordion.Body>
+                    <Styling>
+                      <Row>
+                        <DeleteTransactions />
+                      </Row>
+                    </Styling>
+                  </Accordion.Body>
+                </Accordion.Item>
+            
               </Accordion>
+              
+
+                     {/* User Management Block */}
+
+                    
+              
             </Row>
       
             {/* <Row className='mb-2' style={{marginLeft: "16%"}} >
@@ -144,6 +164,7 @@ export default function Settings () {
                 </Styling>
               </Container>
             </Row> */}
+            
           </Row>
         </ViewWrapper>
       </>
