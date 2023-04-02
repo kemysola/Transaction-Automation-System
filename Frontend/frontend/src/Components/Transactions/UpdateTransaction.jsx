@@ -1880,7 +1880,7 @@ export default function UpdateTransactions() {
                                 size="sm"
                                 type="number"
                                 value={
-                                  amount.current.value + advance.current.value
+                                  parseInt(amount.current.value) + parseInt(advance.current.value)
                                 }
                                 disabled
                               />

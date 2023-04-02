@@ -54,6 +54,6 @@ export function decryptData(data) {
 
     return JSON.parse(decrytpedText) ;
   } catch (error) {
-    console.log({ error });
+    // console.log({ error });
   }
 }
