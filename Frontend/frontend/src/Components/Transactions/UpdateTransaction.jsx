@@ -15,6 +15,7 @@ import OcpsMode from "./OcpsMode";
 import KpisMode from "./KpisMode";
 import { useForm } from "react-hook-form";
 import {  Tooltip } from "antd";
+import toast, { Toaster } from "react-hot-toast";
 
 const ButtonWrapper = styled.button`
   color: white;
@@ -1279,7 +1280,8 @@ export default function UpdateTransactions() {
         setMessage(response.data.message);
       })
       .catch((error) => {
-        setMessage("Failed to update deal, client name already exist");
+       
+        setMessage(`Failed to update deal, ${error.response.data.message || "Please Fill all required fields"}`);
       });
   }
   let transactorList = staffList.filter((opt) => opt.istransactor === true);

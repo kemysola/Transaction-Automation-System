@@ -6,6 +6,7 @@ const {
   verifyTokenAndAdmin,
 } = require("../middleware");
 const { status } = require("express/lib/response");
+const CryptoJS = require("crypto-js");
 
 // This method computes the Structuring Fee Final value
 const structuringFeeFinalCompute = (
@@ -206,7 +207,11 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
     const clientCheck = await client.query('SELECT COUNT(*) FROM TB_INFRCR_TRANSACTION WHERE LOWER(clientName) = $1', [new_transaction.clientName.trim().toLowerCase()]);
 
     if(clientCheck.rows[0].count > 0){
-      res.status(404).send('Client already exist')
+      // res.status(404).send('Client already exist')
+      res.json({
+        status: (res.statusCode = 404),
+        message: "Client already exist",
+      });
       return
     }
 
@@ -1112,7 +1117,11 @@ router.put("/update/:dealID", verifyTokenAndAuthorization, async (req, res) => {
 
     const clientCheck = await client.query('SELECT LOWER(trim(clientName)) FROM TB_INFRCR_TRANSACTION WHERE LOWER(trim(clientName)) = $1 AND transID != $2', [updated_rec.clientName.trim().toLowerCase(), req.params.dealID]);
     if(clientCheck.rows.length > 0){
-      res.status(404).send('Client already exist')
+      // res.status(404).send('Client already exist')
+      res.json({
+        status: (res.statusCode = 404),
+        message: "client already exist",
+      });
       return
     }
 
@@ -1833,5 +1842,86 @@ router.get(
     }
   }
 );
+
+
+// DELETE Transaction
+
+router.delete("/delete/deal/:transid", verifyTokenAndAuthorization, async (req, res) => {
+  const client = await pool.connect();
+  // const userId = req.params.id;
+  const clientPassword  = req.body.password;
+  const transID = req.params.transid;
+  const userID = req.user.ID
+
+  try {
+  
+    const user = await client.query(
+      "SELECT * FROM TB_TRS_USERS WHERE userId = $1",
+      [userID]
+    );
+    
+    if (user && user.rows[0]["status"] === "Active") {
+      const hashedPassword = CryptoJS.AES.decrypt(
+        user.rows[0]["password"],
+        process.env.PASSWORD_SECRET_PASSPHRASE
+      );
+      const password = hashedPassword.toString(CryptoJS.enc.Utf8);
+
+      // Confirm that the client and database passwords match
+      if (clientPassword === password) {
+             // Delete rows from all tables using a CTE: This will delete Transactions from all tables associated with the trans id
+             const deleteTransaction = `
+             WITH deleted_rows AS (
+               DELETE FROM TB_INFRCR_TRANSACTION WHERE transID = $1 RETURNING transID
+             ), 
+             deleted_rows_other_cps AS (
+               DELETE FROM TB_INFRCR_TRANSACTION_OTHER_CPS WHERE transID IN (SELECT transID FROM deleted_rows) RETURNING transID
+             ),
+             deleted_rows_nbc_focus AS (
+               DELETE FROM TB_INFRCR_TRANSACTION_NBC_FOCUS WHERE transID IN (SELECT transID FROM deleted_rows) RETURNING transID
+             ),
+             deleted_rows_parties AS (
+               DELETE FROM TB_INFRCR_TRANSACTION_PARTIES WHERE transID IN (SELECT transID FROM deleted_rows) RETURNING transID
+             ),
+             deleted_rows_plis AS (
+               DELETE FROM TB_INFRCR_TRANSACTION_PLIS WHERE transID IN (SELECT transID FROM deleted_rows) RETURNING transID
+             ),
+             deleted_rows_kpi AS (
+               DELETE FROM TB_INFRCR_TRANSACTION_KPI WHERE transID IN (SELECT transID FROM deleted_rows) RETURNING transID
+             )
+             SELECT * FROM deleted_rows;
+           `;
+        const deleteResult = await client.query(deleteTransaction, [transID]);
+        await client.query('COMMIT'); // commit transaction
+
+        if (deleteResult.rows.length > 0){
+           res.json({
+           status: (res.statusCode = 200),
+           message: "Transaction deleted Successfully",
+         });
+       } else {
+         res.json({
+           status: (res.statusCode = 404),
+           message: "Unable to delete transaction",
+         })
+       };
+
+      } else {
+        // res.status(403).json({ Error: "Wrong Password" });
+        res.json({
+          status: (res.statusCode = 404),
+          message: "Wrong Password",
+        })
+      }
+    }
+ 
+  } catch (e) {
+    await client.query("ROLLBACK");
+    res.status(403).json({ Error: e.stack });
+  } finally {
+    client.release();
+  }
+});
+
 
 module.exports = router;

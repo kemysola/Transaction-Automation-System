@@ -740,9 +740,11 @@ const NewTransaction = () => {
           },
         });
         setSubmitted(true);
-      })
+      }
+      )
       .catch((error) => {
-        toast.error(`Failed to create deal, client name already exist`, {
+        console.log("I am error", error.response.data.message)
+        toast.error(`Failed to create deal, ${error.response.data.message || "Please Fill all required fields"}`, {
           duration: 4000,
           position: "bottom-right",
           // Styling
