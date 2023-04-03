@@ -1846,7 +1846,7 @@ router.get(
 
 // DELETE Transaction
 
-router.delete("/delete/deal/:transid", verifyTokenAndAuthorization, async (req, res) => {
+router.delete("/delete/deal/:transid", verifyTokenAndAdmin, async (req, res) => {
   const client = await pool.connect();
   // const userId = req.params.id;
   const clientPassword  = req.body.password;
