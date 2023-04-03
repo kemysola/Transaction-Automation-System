@@ -901,7 +901,7 @@ export default function UpdateTransactions() {
       checkValid = true;
       return (
         <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
-          The sum of plis weights cannot be greater than 100%.
+          Total plis weights cannot be greater than 100%.
         </Alert>
       );
     } else {
@@ -922,6 +922,7 @@ export default function UpdateTransactions() {
       editPlis={editPlis}
       deletePlis={deletePlis}
       hideSubmit={hideSubmit}
+      pliid={pliid}
     />
   ));
 
@@ -942,8 +943,9 @@ export default function UpdateTransactions() {
       (acc, curr) => acc + Number(curr.plis_weighting),
       0
     );
+    console.log(totalWeight)
      if (parseFloat(data.plis_weighting) + totalWeight > 100) {
-        alert("PLI weight cannot be more than 100%");
+        alert("Total PLI weight cannot be more than 100%");
       return 
      }
 
