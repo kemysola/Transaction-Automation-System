@@ -179,7 +179,6 @@ const NewTransaction = () => {
     const dataFields = getValues('structuringFeeAdvance')
   const dataFieldAdvance = getValues('structuringFeeAmount')
   const structuringDataFinal = parseInt(dataFields) + parseInt(dataFieldAdvance)
-  console.log(parseInt(structuringDataFinal))
   
   //********************************************************* Deal Tracking features - state and functions ************************ */
 
@@ -671,7 +670,8 @@ const NewTransaction = () => {
     };
 
     //********************************************************** Send data using rest api in a promise! **************************** */
-    Services.createDeal(data)
+    Services.create
+    (data)
       .then((res) => {
         setResponse(res.data.message);
         toast.success(res.data.message, {
