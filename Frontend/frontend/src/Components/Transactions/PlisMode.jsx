@@ -46,9 +46,16 @@ const Plis = (props) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (props.hideSubmit == true){
-      return null
-    }
+    const totalWeight = props.pliid.reduce(
+      (acc, curr) => acc + Number(curr.plis_weighting),
+      0
+    );
+    console.log(totalWeight)
+     if (parseFloat(plisWeighting) + totalWeight > 100) {
+        alert("Total PLI weight cannot be more than 100%");
+      return 
+     }
+
     props.editPlis(props.id, props.transid, plisParticulars, plisConcern, plisWeighting, plisExpected, plisStatus);
     setplisParticulars(null);
     setplisConcern(null);

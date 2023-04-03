@@ -6,6 +6,7 @@ const {
   verifyTokenAndAdmin,
 } = require("../middleware");
 const { status } = require("express/lib/response");
+const CryptoJS = require("crypto-js");
 
 // This method computes the Structuring Fee Final value
 const structuringFeeFinalCompute = (
@@ -199,7 +200,20 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
       new_transaction.discountfactor,
       new_transaction.issuedate,
     ];
+
     await client.query("BEGIN");
+
+    
+    const clientCheck = await client.query('SELECT COUNT(*) FROM TB_INFRCR_TRANSACTION WHERE LOWER(clientName) = $1', [new_transaction.clientName.trim().toLowerCase()]);
+
+    if(clientCheck.rows[0].count > 0){
+      // res.status(404).send('Client already exist')
+      res.json({
+        status: (res.statusCode = 404),
+        message: "Client already exist",
+      });
+      return
+    }
 
     const write_to_db = `INSERT INTO TB_INFRCR_TRANSACTION(
                     clientName, originator, transactor, industry, product,region,
@@ -352,7 +366,7 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
       const sqlReq = `SELECT 
                             a.* ,
                             B.ID as ocps_ID, b.ocps_factors, b.ocps_yes_no, b.ocps_concern, b.ocps_expected, b.ocps_resp_party, b.ocps_status,
-                            c.ID as nbc_focus_ID, c.nbc_focus_original, c.nbc_focus_original_yes_no, c.nbc_focus_original_date, c.nbc_focus_original_methodology, c.nbc_focus_apprv_1_c, c.nbc_focus_apprv_2_b, c.nbc_focus_apprv_2_c, c.nbc_focus_apprv_3_b, c.nbc_focus_apprv_3_c,
+                            c.ID as nbc_focus_ID, c.nbc_focus_original, c.nbc_focus_original_yes_no, c.nbc_focus_original_date, c.nbc_focus_original_methodology, c.nbc_focus_apprv_1_b, c.nbc_focus_apprv_1_c, c.nbc_focus_apprv_2_b, c.nbc_focus_apprv_2_c, c.nbc_focus_apprv_3_b, c.nbc_focus_apprv_3_c,
                             c.nbc_focus_apprv_4_b, c.nbc_focus_apprv_4_c, c.nbc_focus_apprv_5_b, c.nbc_focus_apprv_5_c,
                             d.ID as parties_ID, d.parties_role, d.parties_party, d.parties_appointed, d.parties_status,
                             e.ID as plis_ID, e.plis_particulars, e.plis_concern, e.plis_weighting, e.plis_expected, e.plis_status,
@@ -416,7 +430,7 @@ router.get(
 
             b.id as ocid,b.ocps_factors, b.ocps_yes_no, b.ocps_concern, b.ocps_expected, b.ocps_resp_party, b.ocps_status,
 
-            c.id as nbcid,c.nbc_focus_original, c.nbc_focus_original_yes_no, c.nbc_focus_original_date, c.nbc_focus_original_methodology, c.nbc_focus_apprv_1_c, c.nbc_focus_apprv_2_b, c.nbc_focus_apprv_2_c, c.nbc_focus_apprv_3_b, c.nbc_focus_apprv_3_c,
+            c.id as nbcid,c.nbc_focus_original, c.nbc_focus_original_yes_no, c.nbc_focus_original_date, c.nbc_focus_original_methodology, c.nbc_focus_apprv_1_b, c.nbc_focus_apprv_1_c, c.nbc_focus_apprv_2_b, c.nbc_focus_apprv_2_c, c.nbc_focus_apprv_3_b, c.nbc_focus_apprv_3_c,
             c.nbc_focus_apprv_4_b, c.nbc_focus_apprv_4_c, c.nbc_focus_apprv_5_b, c.nbc_focus_apprv_5_c,
             
             d.id as pid,d.parties_role, d.parties_party, d.parties_appointed, d.parties_status,
@@ -431,7 +445,7 @@ router.get(
             LEFT JOIN TB_INFRCR_TRANSACTION_PARTIES d ON d.transID = a.transID
             LEFT JOIN TB_INFRCR_TRANSACTION_PLIS e ON e.transID = a.transID
             LEFT JOIN TB_INFRCR_TRANSACTION_KPI f ON f.transID = a.transID WHERE a.transID = $1
-            AND DATE_PART('year', a.createdate)::varchar(10) = COALESCE($2, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
+            AND DATE_PART('year', a.createdate)::varchar(10) <= COALESCE($2, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
             ORDER BY b.id, c.id, d.id, e.id, f.id;`,
         [deal_record_id, final_year_slice]
       );
@@ -936,7 +950,98 @@ router.put("/update/:dealID", verifyTokenAndAuthorization, async (req, res) => {
       ocps,
       kpi,
     } = req.body);
+
+    
+
+    const updated_rec_nbc = ({ nbcFocus } = req.body);
+
+    
+      const updNBCFocus = updated_rec_nbc.nbcFocus;
+   
+          updNBCFocus.forEach(async (element) => {
+            var rows = [
+              req.params.dealID,
+              element.id,
+              element.nbc_focus_original,
+              element.nbc_focus_original_yes_no,
+              element.nbc_focus_original_date,
+              element.nbc_focus_original_methodology,
+              element.nbc_focus_apprv_1_b,
+              element.nbc_focus_apprv_1_c,
+              element.nbc_focus_apprv_2_b,
+              element.nbc_focus_apprv_2_c,
+              element.nbc_focus_apprv_3_b,
+              element.nbc_focus_apprv_3_c,
+              element.nbc_focus_apprv_4_b,
+              element.nbc_focus_apprv_4_c,
+              element.nbc_focus_apprv_5_b,
+              element.nbc_focus_apprv_5_c,
+            ];
   
+          
+  
+            const res_check_rec = await client.query(
+              `SELECT * FROM TB_INFRCR_TRANSACTION_NBC_FOCUS WHERE id in ($1)`,
+              [rows[1]]
+            );
+  
+            if (res_check_rec.rows.length <= 0) {
+              var insert_rows = [
+                req.params.dealID,
+                element.nbc_focus_original,
+                element.nbc_focus_original_yes_no,
+                element.nbc_focus_original_date,
+                element.nbc_focus_original_methodology,
+                element.nbc_focus_apprv_1_b,
+                element.nbc_focus_apprv_1_c,
+                element.nbc_focus_apprv_2_b,
+                element.nbc_focus_apprv_2_c,
+                element.nbc_focus_apprv_3_b,
+                element.nbc_focus_apprv_3_c,
+                element.nbc_focus_apprv_4_b,
+                element.nbc_focus_apprv_4_c,
+                element.nbc_focus_apprv_5_b,
+                element.nbc_focus_apprv_5_c,
+              ];
+              const insert_to_nbcfocus = `
+                              INSERT INTO TB_INFRCR_TRANSACTION_NBC_FOCUS(transID, nbc_focus_original, nbc_focus_original_yes_no, nbc_focus_original_date, nbc_focus_original_methodology,  nbc_focus_apprv_1_b, nbc_focus_apprv_1_c, nbc_focus_apprv_2_b, nbc_focus_apprv_2_c, nbc_focus_apprv_3_b, nbc_focus_apprv_3_c, 
+                                nbc_focus_apprv_4_b, nbc_focus_apprv_4_c, nbc_focus_apprv_5_b, nbc_focus_apprv_5_c) 
+                              VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
+                              `;
+              const res_ins_nbc_focus = await client.query(
+                insert_to_nbcfocus,
+                insert_rows
+              );
+  
+              await client.query("COMMIT");
+            } else {
+              const update_to_nbcfocus = `
+                          UPDATE TB_INFRCR_TRANSACTION_NBC_FOCUS
+                          SET nbc_focus_original = coalesce($3, nbc_focus_original)
+                              ,nbc_focus_original_yes_no = coalesce($4, nbc_focus_original_yes_no)
+                              ,nbc_focus_original_date = coalesce($5, nbc_focus_original_date)
+                              ,nbc_focus_original_methodology = coalesce($6, nbc_focus_original_methodology),
+                              nbc_focus_apprv_1_b = coalesce($7, nbc_focus_apprv_1_b ),
+                              nbc_focus_apprv_1_c = coalesce($8, nbc_focus_apprv_1_c ), 
+                              nbc_focus_apprv_2_b = coalesce($9, nbc_focus_apprv_2_b ),
+                              nbc_focus_apprv_2_c = coalesce($10, nbc_focus_apprv_2_c), 
+                              nbc_focus_apprv_3_b = coalesce($11, nbc_focus_apprv_3_b ), 
+                              nbc_focus_apprv_3_c = coalesce($12, nbc_focus_apprv_3_c), 
+                              nbc_focus_apprv_4_b = coalesce($13, nbc_focus_apprv_4_b ), 
+                              nbc_focus_apprv_4_c = coalesce($14, nbc_focus_apprv_4_c ), 
+                              nbc_focus_apprv_5_b = coalesce($15, nbc_focus_apprv_5_b ), 
+                              nbc_focus_apprv_5_c = coalesce($16, nbc_focus_apprv_5_c )
+                          WHERE transID = $1 AND id = $2
+                      `;
+              const res_nbc_focus = await client.query(update_to_nbcfocus, rows);
+  
+              await client.query("COMMIT");
+  
+              return res_nbc_focus.rows[0];
+            }
+          });
+
+      // }
     const updated = [
       updated_rec.clientName,
       updated_rec.originator,
@@ -1007,7 +1112,18 @@ router.put("/update/:dealID", verifyTokenAndAuthorization, async (req, res) => {
       updated_rec.firstcoupondate,
 
     ];
+
     await client.query("BEGIN");
+
+    const clientCheck = await client.query('SELECT LOWER(trim(clientName)) FROM TB_INFRCR_TRANSACTION WHERE LOWER(trim(clientName)) = $1 AND transID != $2', [updated_rec.clientName.trim().toLowerCase(), req.params.dealID]);
+    if(clientCheck.rows.length > 0){
+      // res.status(404).send('Client already exist')
+      res.json({
+        status: (res.statusCode = 404),
+        message: "client already exist",
+      });
+      return
+    }
 
     const update_db = `UPDATE TB_INFRCR_TRANSACTION
          SET clientName = $1, originator = $2, transactor = $3, industry = $4, product = $5,region = $6,
@@ -1021,6 +1137,7 @@ router.put("/update/:dealID", verifyTokenAndAuthorization, async (req, res) => {
             WHERE transID = $37
         RETURNING *`;
     const res_ = await client.query(update_db, updated);
+
 
     await client.query("COMMIT");
 
@@ -1177,7 +1294,19 @@ router.put(
             element.nbc_focus_original_yes_no,
             element.nbc_focus_original_date,
             element.nbc_focus_original_methodology,
+            element.nbc_focus_apprv_1_b,
+            element.nbc_focus_apprv_1_c,
+            element.nbc_focus_apprv_2_b,
+            element.nbc_focus_apprv_2_c,
+            element.nbc_focus_apprv_3_b,
+            element.nbc_focus_apprv_3_c,
+            element.nbc_focus_apprv_4_b,
+            element.nbc_focus_apprv_4_c,
+            element.nbc_focus_apprv_5_b,
+            element.nbc_focus_apprv_5_c,
           ];
+
+  
 
           const res_check_rec = await client.query(
             `SELECT * FROM TB_INFRCR_TRANSACTION_NBC_FOCUS WHERE id in ($1)`,
@@ -1191,10 +1320,21 @@ router.put(
               element.nbc_focus_original_yes_no,
               element.nbc_focus_original_date,
               element.nbc_focus_original_methodology,
+              element.nbc_focus_apprv_1_b,
+              element.nbc_focus_apprv_1_c,
+              element.nbc_focus_apprv_2_b,
+              element.nbc_focus_apprv_2_c,
+              element.nbc_focus_apprv_3_b,
+              element.nbc_focus_apprv_3_c,
+              element.nbc_focus_apprv_4_b,
+              element.nbc_focus_apprv_4_c,
+              element.nbc_focus_apprv_5_b,
+              element.nbc_focus_apprv_5_c,
             ];
             const insert_to_nbcfocus = `
-                            INSERT INTO TB_INFRCR_TRANSACTION_NBC_FOCUS(transID, nbc_focus_original, nbc_focus_original_yes_no, nbc_focus_original_date, nbc_focus_original_methodology) 
-                            VALUES ($1, $2, $3, $4, $5)
+                            INSERT INTO TB_INFRCR_TRANSACTION_NBC_FOCUS(transID, nbc_focus_original, nbc_focus_original_yes_no, nbc_focus_original_date, nbc_focus_original_methodology,  nbc_focus_apprv_1_b, nbc_focus_apprv_1_c, nbc_focus_apprv_2_b, nbc_focus_apprv_2_c, nbc_focus_apprv_3_b, nbc_focus_apprv_3_c, 
+                              nbc_focus_apprv_4_b, nbc_focus_apprv_4_c, nbc_focus_apprv_5_b, nbc_focus_apprv_5_c) 
+                            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
                             `;
             const res_ins_nbc_focus = await client.query(
               insert_to_nbcfocus,
@@ -1208,7 +1348,17 @@ router.put(
                         SET nbc_focus_original = coalesce($3, nbc_focus_original)
                             ,nbc_focus_original_yes_no = coalesce($4, nbc_focus_original_yes_no)
                             ,nbc_focus_original_date = coalesce($5, nbc_focus_original_date)
-                            ,nbc_focus_original_methodology = coalesce($6, nbc_focus_original_methodology)
+                            ,nbc_focus_original_methodology = coalesce($6, nbc_focus_original_methodology),
+                            nbc_focus_apprv_1_b = coalesce($7, nbc_focus_apprv_1_b ),
+                            nbc_focus_apprv_1_c = coalesce($8, nbc_focus_apprv_1_c ), 
+                            nbc_focus_apprv_2_b = coalesce($9, nbc_focus_apprv_2_b ),
+                            nbc_focus_apprv_2_c = coalesce($10, nbc_focus_apprv_2_c), 
+                            nbc_focus_apprv_3_b = coalesce($11, nbc_focus_apprv_3_b ), 
+                            nbc_focus_apprv_3_c = coalesce($12, nbc_focus_apprv_3_c), 
+                            nbc_focus_apprv_4_b = coalesce($13, nbc_focus_apprv_4_b ), 
+                            nbc_focus_apprv_4_c = coalesce($14, nbc_focus_apprv_4_c ), 
+                            nbc_focus_apprv_5_b = coalesce($15, nbc_focus_apprv_5_b ), 
+                            nbc_focus_apprv_5_c = coalesce($16, nbc_focus_apprv_5_c )
                         WHERE transID = $1 AND id = $2
                     `;
             const res_nbc_focus = await client.query(update_to_nbcfocus, rows);
@@ -1692,5 +1842,86 @@ router.get(
     }
   }
 );
+
+
+// DELETE Transaction
+
+router.delete("/delete/deal/:transid", verifyTokenAndAdmin, async (req, res) => {
+  const client = await pool.connect();
+  // const userId = req.params.id;
+  const clientPassword  = req.body.password;
+  const transID = req.params.transid;
+  const userID = req.user.ID
+
+  try {
+  
+    const user = await client.query(
+      "SELECT * FROM TB_TRS_USERS WHERE userId = $1",
+      [userID]
+    );
+    
+    if (user && user.rows[0]["status"] === "Active") {
+      const hashedPassword = CryptoJS.AES.decrypt(
+        user.rows[0]["password"],
+        process.env.PASSWORD_SECRET_PASSPHRASE
+      );
+      const password = hashedPassword.toString(CryptoJS.enc.Utf8);
+
+      // Confirm that the client and database passwords match
+      if (clientPassword === password) {
+             // Delete rows from all tables using a CTE: This will delete Transactions from all tables associated with the trans id
+             const deleteTransaction = `
+             WITH deleted_rows AS (
+               DELETE FROM TB_INFRCR_TRANSACTION WHERE transID = $1 RETURNING transID
+             ), 
+             deleted_rows_other_cps AS (
+               DELETE FROM TB_INFRCR_TRANSACTION_OTHER_CPS WHERE transID IN (SELECT transID FROM deleted_rows) RETURNING transID
+             ),
+             deleted_rows_nbc_focus AS (
+               DELETE FROM TB_INFRCR_TRANSACTION_NBC_FOCUS WHERE transID IN (SELECT transID FROM deleted_rows) RETURNING transID
+             ),
+             deleted_rows_parties AS (
+               DELETE FROM TB_INFRCR_TRANSACTION_PARTIES WHERE transID IN (SELECT transID FROM deleted_rows) RETURNING transID
+             ),
+             deleted_rows_plis AS (
+               DELETE FROM TB_INFRCR_TRANSACTION_PLIS WHERE transID IN (SELECT transID FROM deleted_rows) RETURNING transID
+             ),
+             deleted_rows_kpi AS (
+               DELETE FROM TB_INFRCR_TRANSACTION_KPI WHERE transID IN (SELECT transID FROM deleted_rows) RETURNING transID
+             )
+             SELECT * FROM deleted_rows;
+           `;
+        const deleteResult = await client.query(deleteTransaction, [transID]);
+        await client.query('COMMIT'); // commit transaction
+
+        if (deleteResult.rows.length > 0){
+           res.json({
+           status: (res.statusCode = 200),
+           message: "Transaction deleted Successfully",
+         });
+       } else {
+         res.json({
+           status: (res.statusCode = 404),
+           message: "Unable to delete transaction",
+         })
+       };
+
+      } else {
+        // res.status(403).json({ Error: "Wrong Password" });
+        res.json({
+          status: (res.statusCode = 404),
+          message: "Wrong Password",
+        })
+      }
+    }
+ 
+  } catch (e) {
+    await client.query("ROLLBACK");
+    res.status(403).json({ Error: e.stack });
+  } finally {
+    client.release();
+  }
+});
+
 
 module.exports = router;

@@ -118,7 +118,22 @@ const NewTransaction = () => {
           nbc_focus_original_yes_no: 0,
           nbc_focus_original_date: null,
           nbc_focus_original_methodology: "",
-            nbc_focus_apprv_1_b: "",
+            // nbc_focus_apprv_1_b: "",
+            // nbc_focus_apprv_1_c: null,
+            // nbc_focus_apprv_2_b: "",
+            // nbc_focus_apprv_2_c: null,
+            // nbc_focus_apprv_3_b: "",
+            // nbc_focus_apprv_3_c: null,
+            // nbc_focus_apprv_4_b: "",
+            // nbc_focus_apprv_4_c: null,
+            // nbc_focus_apprv_5_b: "",
+            // nbc_focus_apprv_5_c: null,
+        },
+      ],
+
+      nbcFocusForm: [
+        {
+           nbc_focus_apprv_1_b: "",
             nbc_focus_apprv_1_c: null,
             nbc_focus_apprv_2_b: "",
             nbc_focus_apprv_2_c: null,
@@ -145,7 +160,7 @@ const NewTransaction = () => {
         {
           plis_particulars: "",
           plis_concern: "",
-          plis_weighting: 10,
+          plis_weighting: 0,
           plis_expected: "2022-06-14",
           plis_status: "Active",
         },
@@ -176,11 +191,35 @@ const NewTransaction = () => {
     name: "nbcFocus",
   });
 
+
     const dataFields = getValues('structuringFeeAdvance')
   const dataFieldAdvance = getValues('structuringFeeAmount')
   const structuringDataFinal = parseInt(dataFields) + parseInt(dataFieldAdvance)
   
   //********************************************************* Deal Tracking features - state and functions ************************ */
+
+  const [nbcFocusForm, setNbcFocusForm] = useState([
+    {
+      nbc_focus_apprv_1_b: "",
+       nbc_focus_apprv_1_c: null,
+       nbc_focus_apprv_2_b: "",
+       nbc_focus_apprv_2_c: null,
+       nbc_focus_apprv_3_b: "",
+       nbc_focus_apprv_3_c: null,
+       nbc_focus_apprv_4_b: "",
+       nbc_focus_apprv_4_c: null,
+       nbc_focus_apprv_5_b: "",
+       nbc_focus_apprv_5_c: null,
+   },
+  ]);
+
+  const handleNbcChangeForm = (e, index) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    const list = [...nbcFocusForm];
+    list[index][name] = value;
+    setNbcFocusForm(list);
+  };
 
   const [ocps, setOcps] = useState([
     {
@@ -197,7 +236,7 @@ const NewTransaction = () => {
     {
       plis_particulars: "",
       plis_concern: "",
-      plis_weighting: 10,
+      plis_weighting: 0,
       plis_expected: null,
       plis_status: "",
     },
@@ -426,6 +465,7 @@ const NewTransaction = () => {
     const { name, value } = e.target;
     const list = [...plis];
     list[index][name] = value;
+   
     setPlis(list);
     setShowAlert(false)
   };
@@ -436,7 +476,7 @@ const NewTransaction = () => {
       {
         plis_particulars: "",
         plis_concern: "",
-        plis_weighting: 10,
+        plis_weighting: 0,
         plis_expected: null,
         plis_status: "",
       },
@@ -542,19 +582,14 @@ const NewTransaction = () => {
     const list = [...noteList];
     list.splice(index, 1);
     setNoteList(list);
-    // setNoteList(list);
-    // console.log(list[index]);
-    // setNoteList((prev) => [...prev.filter((i) => i === list[i])]);
   };
 
   const handleInputChange = (event) => {
-    // function to save user data to deal state
     const { name, value } = event.target;
-    // setNbcFocus({ ...nbcFocus, [name]: value });
   };
   
 
-  let checkValid 
+  let checkValid;
 
   useEffect(() => {
    if(showAlert == true && checkValid  == true){
@@ -563,7 +598,6 @@ const NewTransaction = () => {
      setHideSubmit(false)
      setShowAlert(false)
    }
-  //  setHideSubmit(false)
   }, [showAlert]);
  
 
@@ -591,10 +625,18 @@ const NewTransaction = () => {
     let allNotes = noteList.map(({ note }) => note);
     let note = allNotes.join("|");
 
+    const totalWeight = plis.reduce(
+      (acc, curr) => acc + Number(curr.plis_weighting),
+      0
+    );
+     if  (totalWeight > 100) {
+        alert("PLI weight cannot be more than 100%");
+      return 
+     }
+
+
     /**
-     * const handleRemoveFruit = (item) => {
-    setFruitsInBasket((prev) => [...prev.filter((i) => i !== item)]);
-  };
+
      */
     //****************************************************************** Object to handle request data to the server ***************** */
     const data = {
@@ -662,7 +704,7 @@ const NewTransaction = () => {
       reimbursible: +reqdata.reimbursible,
       closed: false,
       notes: note,
-      nbcFocus: reqdata.nbcFocus,
+      nbcFocus: [...nbcFocusForm, ...reqdata.nbcFocus], 
       parties,
       kpi,
       plis,
@@ -693,19 +735,22 @@ const NewTransaction = () => {
           },
         });
         setSubmitted(true);
-      })
+      }
+      )
       .catch((error) => {
-        toast.error("Failed to Create Deal. Please Fill all required fields", {
+        
+        toast.error(`Failed to create deal, ${error.response.data.message || "Please Fill all required fields"}`, {
           duration: 4000,
           position: "bottom-right",
           // Styling
           style: {
             fontSize: "16px",
+            color:"red"
           },
           className: "",
-          icon: "👏",
+          icon: "",
           iconTheme: {
-            primary: "green",
+            primary: "red",
             secondary: "#fff",
           },
           ariaProps: {
@@ -713,7 +758,7 @@ const NewTransaction = () => {
             "aria-live": "polite",
           },
         });
-        setResponse("Failed to Create Deal. Please Fill all required fields");
+        setResponse(`Failed to create deal, ${error.response.data.message || "Please Fill all required fields"}`);
         setSubmitted(false);
       });
   };
@@ -1017,8 +1062,8 @@ const NewTransaction = () => {
                             <Form.Group className="pt-1">
                               <Form.Label>Coupon(%)</Form.Label>
                               <Form.Control
-                                type="number"
-                                {...register("coupon", { required: true })}
+                                type="text"
+                                {...register("coupon", { required: true, pattern: "\d+", message: 'Please enter only decimal values' })}
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
@@ -1798,7 +1843,7 @@ const NewTransaction = () => {
                                           variant="standard"
                                         >
                                           <option value="">
-                                            <em>select</em>
+                                            
                                           </option>
                                           <option
                                             value={1}
@@ -1881,12 +1926,10 @@ const NewTransaction = () => {
                                           type="text"
                                           {...field}
                                           variant="standard"
-                                          // style={{ marginLeft: "10px" }}
                                         />
                                         <button
                                           type="button"
                                           onClick={() => remove(index)}
-                                          // className="mt-3 pt-2"
                                           className="mt-1"
                                           style={{
                                             height: "25px",
@@ -1932,78 +1975,34 @@ const NewTransaction = () => {
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-                                  {/* <input
-                                    onChange={handleInputChange}
+                                {nbcFocusForm.map((singleNote, index) => (
+                                <div class="input-group mt-1">
+                                  <input
+                                    onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_1_b"
-                                    value=""
-                                  /> */}
-                                   {fields.map((item, index) => {
-                              return (
-                                <Controller
-                                  render={({ field }) => (
-                                    <Box
-                                      component="div"
-                                      // sx={{
-                                      //   "& > :not(style)": {
-                                      //     m: 1,
-                                      //     width: "11ch",
-                                      //   },
-                                      // }}
-                                      // noValidate
-                                      // autoComplete="off"
-                                    >
-                                      <input
-                                        // style={{ height: "30px" }}
-                                        {...field}
-                                      />
-                                    </Box>
-                                  )}
-                                  name={`nbcFocus.${index}.nbc_focus_apprv_1_b`}
-                                  control={control}
-                                />
-                              );
-                            })}
+                                    value={singleNote.nbcFocus}
+
+                                  />
+                                  
+                                </div>
+                              ))}
                                 </Col>
                                 <Col sm={3}>
-                                  {/* <input
-                                    size="sm"
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                  <div class="input-group mt-1">
+           
+                             
+
+                                  <input
                                     type="date"
-                                  
-                                    onChange={handleInputChange}
+                                    onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_1_c"
-                                    style={{
-                                      width: "80%",
-                                      padding: "2px 1px",
-                                      focus: "none",
-                                    }}
-                                  /> */}
-                                   {fields.map((item, index) => {
-                              return (
-                                <Controller
-                                  render={({ field }) => (
-                                    <Box
-                                      component="div"
-                                      // sx={{
-                                      //   "& > :not(style)": {
-                                      //     m: 1,
-                                      //     width: "11ch",
-                                      //   },
-                                      // }}
-                                      // noValidate
-                                      // autoComplete="off"
-                                    >
-                                      <input
-                                        // style={{ height: "30px" }}
-                                        type="date"
-                                        {...field}
-                                      />
-                                    </Box>
-                                  )}
-                                  name={`nbcFocus.${index}.nbc_focus_apprv_1_c`}
-                                  control={control}
-                                />
-                              );
-                            })}
+                            
+                                    value={singleNote.nbcFocus}
+                                  />
+                                  
+                                </div>
+                              ))}
                                 </Col>
                               </Row>
                               <Row>
@@ -2013,78 +2012,31 @@ const NewTransaction = () => {
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-                                  {/* <input
-                                    onChange={handleInputChange}
+                                {nbcFocusForm.map((singleNote, index) => (
+                                <div class="input-group mt-1">
+                                  <input
+                                    onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_2_b"
-                                    value=""
-                                  /> */}
-                                   {fields.map((item, index) => {
-                              return (
-                                <Controller
-                                  render={({ field }) => (
-                                    <Box
-                                      component="div"
-                                      // sx={{
-                                      //   "& > :not(style)": {
-                                      //     m: 1,
-                                      //     width: "11ch",
-                                      //   },
-                                      // }}
-                                      // noValidate
-                                      // autoComplete="off"
-                                    >
-                                      <input
-                                        // style={{ height: "30px" }}
-                                        {...field}
-                                      />
-                                    </Box>
-                                  )}
-                                  name={`nbcFocus.${index}.nbc_focus_apprv_2_b`}
-                                  control={control}
-                                />
-                              );
-                            })}
+                                    value={singleNote.nbcFocus}
+
+                                  />
+                                  
+                                </div>
+                              ))}
                                 </Col>
                                 <Col sm={3}>
-                                  {/* <input
-                                    size="sm"
+                                {nbcFocusForm.map((singleNote, index) => (
+                                <div class="input-group mt-1">
+                                  <input
                                     type="date"
-                                    // value={deal.nbc_focus_apprv_1_c}
-                                    onChange={handleInputChange}
+                                    onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_2_c"
-                                    style={{
-                                      width: "80%",
-                                      padding: "2px 1px",
-                                      focus: "none",
-                                    }}
-                                  /> */}
-                                   {fields.map((item, index) => {
-                              return (
-                                <Controller
-                                  render={({ field }) => (
-                                    <Box
-                                      component="div"
-                                      // sx={{
-                                      //   "& > :not(style)": {
-                                      //     m: 1,
-                                      //     width: "11ch",
-                                      //   },
-                                      // }}
-                                      // noValidate
-                                      // autoComplete="off"
-                                    >
-                                      <input
-                                        // style={{ height: "30px" }}
-                                        type="date"
-                                        {...field}
-                                      />
-                                    </Box>
-                                  )}
-                                  name={`nbcFocus.${index}.nbc_focus_apprv_2_c`}
-                                  control={control}
-                                />
-                              );
-                            })}
+                                    value={singleNote.nbcFocus}
+
+                                  />
+                                  
+                                </div>
+                              ))}
                                 </Col>
                               </Row>
                               <Row>
@@ -2094,78 +2046,31 @@ const NewTransaction = () => {
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-                                  {/* <input
-                                    onChange={handleInputChange}
+                                {nbcFocusForm.map((singleNote, index) => (
+                                <div class="input-group mt-1">
+                                  <input
+                                    onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_3_b"
-                                    value=""
-                                  /> */}
-                                   {fields.map((item, index) => {
-                              return (
-                                <Controller
-                                  render={({ field }) => (
-                                    <Box
-                                      component="div"
-                                      // sx={{
-                                      //   "& > :not(style)": {
-                                      //     m: 1,
-                                      //     width: "11ch",
-                                      //   },
-                                      // }}
-                                      // noValidate
-                                      // autoComplete="off"
-                                    >
-                                      <input
-                                        // style={{ height: "30px" }}
-                                        {...field}
-                                      />
-                                    </Box>
-                                  )}
-                                  name={`nbcFocus.${index}.nbc_focus_apprv_3_b`}
-                                  control={control}
-                                />
-                              );
-                            })}
+                                    value={singleNote.nbcFocus}
+
+                                  />
+                                  
+                                </div>
+                              ))}
                                 </Col>
                                 <Col sm={3}>
-                                  {/* <input
-                                    size="sm"
+                                {nbcFocusForm.map((singleNote, index) => (
+                                <div class="input-group mt-1">
+                                  <input
                                     type="date"
-                                    // value={deal.nbc_focus_apprv_1_c}
-                                    onChange={handleInputChange}
+                                    onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_3_c"
-                                    style={{
-                                      width: "80%",
-                                      padding: "2px 1px",
-                                      focus: "none",
-                                    }}
-                                  /> */}
-                                   {fields.map((item, index) => {
-                              return (
-                                <Controller
-                                  render={({ field }) => (
-                                    <Box
-                                      component="div"
-                                      // sx={{
-                                      //   "& > :not(style)": {
-                                      //     m: 1,
-                                      //     width: "11ch",
-                                      //   },
-                                      // }}
-                                      // noValidate
-                                      // autoComplete="off"
-                                    >
-                                      <input
-                                        // style={{ height: "30px" }}
-                                        type="date"
-                                        {...field}
-                                      />
-                                    </Box>
-                                  )}
-                                  name={`nbcFocus.${index}.nbc_focus_apprv_3_c`}
-                                  control={control}
-                                />
-                              );
-                            })}
+                                    value={singleNote.nbcFocus}
+
+                                  />
+                                  
+                                </div>
+                              ))}
                                 </Col>
                               </Row>
                               <Row>
@@ -2175,78 +2080,32 @@ const NewTransaction = () => {
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-                                  {/* <input
-                                    onChange={handleInputChange}
+                                {nbcFocusForm.map((singleNote, index) => (
+                                <div class="input-group mt-1">
+
+                                  <input
+                                    onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_4_b"
-                                    value=""
-                                  /> */}
-                                   {fields.map((item, index) => {
-                              return (
-                                <Controller
-                                  render={({ field }) => (
-                                    <Box
-                                      component="div"
-                                      // sx={{
-                                      //   "& > :not(style)": {
-                                      //     m: 1,
-                                      //     width: "11ch",
-                                      //   },
-                                      // }}
-                                      // noValidate
-                                      // autoComplete="off"
-                                    >
-                                      <input
-                                        // style={{ height: "30px" }}
-                                        {...field}
-                                      />
-                                    </Box>
-                                  )}
-                                  name={`nbcFocus.${index}.nbc_focus_apprv_4_b`}
-                                  control={control}
-                                />
-                              );
-                            })}
+                                    value={singleNote.nbcFocus}
+
+                                  />
+                                  
+                                </div>
+                              ))}
                                 </Col>
                                 <Col sm={3}>
-                                  {/* <input
-                                    size="sm"
-                                    type="date"
-                                    // value={deal.nbc_focus_apprv_1_c}
-                                    onChange={handleInputChange}
+                                {nbcFocusForm.map((singleNote, index) => (
+                                <div class="input-group mt-1">
+                                  <input
+                                  type="date"
+                                    onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_4_c"
-                                    style={{
-                                      width: "80%",
-                                      padding: "2px 1px",
-                                      focus: "none",
-                                    }}
-                                  /> */}
-                                   {fields.map((item, index) => {
-                              return (
-                                <Controller
-                                  render={({ field }) => (
-                                    <Box
-                                      component="div"
-                                      // sx={{
-                                      //   "& > :not(style)": {
-                                      //     m: 1,
-                                      //     width: "11ch",
-                                      //   },
-                                      // }}
-                                      // noValidate
-                                      // autoComplete="off"
-                                    >
-                                      <input
-                                      type="date"
-                                        // style={{ height: "30px" }}
-                                        {...field}
-                                      />
-                                    </Box>
-                                  )}
-                                  name={`nbcFocus.${index}.nbc_focus_apprv_4_c`}
-                                  control={control}
-                                />
-                              );
-                            })}
+                                    value={singleNote.nbcFocus}
+
+                                  />
+                                  
+                                </div>
+                              ))}
                                 </Col>
                               </Row>
                               <Row>
@@ -2257,79 +2116,31 @@ const NewTransaction = () => {
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-                                  {/* <input
-                                    onChange={handleInputChange}
+                                {nbcFocusForm.map((singleNote, index) => (
+                                <div class="input-group mt-1">
+                                  <input
+                                    onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_5_b"
-                                    value=""
-                                  /> */}
-                                   {fields.map((item, index) => {
-                              return (
-                                <Controller
-                                  render={({ field }) => (
-                                    <Box
-                                      component="div"
-                                      // sx={{
-                                      //   "& > :not(style)": {
-                                      //     m: 1,
-                                      //     width: "11ch",
-                                      //   },
-                                      // }}
-                                      // noValidate
-                                      // autoComplete="off"
-                                    >
-                                      <input
-                                       
-                                        // style={{ height: "30px" }}
-                                        {...field}
-                                      />
-                                    </Box>
-                                  )}
-                                  name={`nbcFocus.${index}.nbc_focus_apprv_5_b`}
-                                  control={control}
-                                />
-                              );
-                            })}
+                                    value={singleNote.nbcFocus}
+
+                                  />
+                                  
+                                </div>
+                              ))}
                                 </Col>
                                 <Col sm={3}>
-                                  {/* <input
-                                    size="sm"
-                                    type="date"
-                                    // value={deal.nbc_focus_apprv_1_c}
-                                    onChange={handleInputChange}
+                                {nbcFocusForm.map((singleNote, index) => (
+                                <div class="input-group mt-1">
+                                  <input
+                                  type="date"
+                                    onChange={(e) => handleNbcChangeForm(e, index)}
                                     name="nbc_focus_apprv_5_c"
-                                    style={{
-                                      width: "80%",
-                                      padding: "2px 1px",
-                                      focus: "none",
-                                    }}
-                                  /> */}
-                                   {fields.map((item, index) => {
-                              return (
-                                <Controller
-                                  render={({ field }) => (
-                                    <Box
-                                      component="div"
-                                      // sx={{
-                                      //   "& > :not(style)": {
-                                      //     m: 1,
-                                      //     width: "11ch",
-                                      //   },
-                                      // }}
-                                      // noValidate
-                                      // autoComplete="off"
-                                    >
-                                      <input
-                                        type="date"
-                                        // style={{ height: "30px" }}
-                                        {...field}
-                                      />
-                                    </Box>
-                                  )}
-                                  name={`nbcFocus.${index}.nbc_focus_nbc_focus_apprv_5_c`}
-                                  control={control}
-                                />
-                              );
-                            })}
+                                    value={singleNote.nbcFocus}
+
+                                  />
+                                  
+                                </div>
+                              ))}
                                 </Col>
                               </Row>
                             </Form.Group>
@@ -2483,9 +2294,10 @@ const NewTransaction = () => {
                         <Col sm={2} className=" mb-1">
                           <p>Weight (%)</p>
                           {plis.map((singleNote, index) => (
-                            <Form.Control
-                              type="number"
+                            <Form.Control key={index}
+                              type="text"
                               size="sm"
+                            
                               value={singleNote.plis}
                               name="plis_weighting"
                               onChange={(e) => handlePlisChange(e, index)}

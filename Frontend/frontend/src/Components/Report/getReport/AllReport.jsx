@@ -44,7 +44,6 @@ export default function AllReport() {
       financialQuarter:'Q7',
       // originator.current.value
     }
-    console.log(data?.financialYear,'fy')
     await Service.getAllReport(data?.financialQuarter, data?.financialYear).then((res) => {
       if (res) {
         setQuarter(res.data.reportquarter);
