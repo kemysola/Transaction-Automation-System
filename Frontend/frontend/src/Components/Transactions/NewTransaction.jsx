@@ -734,17 +734,20 @@ const NewTransaction = () => {
           },
         });
         setSubmitted(true);
-      })
+      }
+      )
       .catch((error) => {
-        toast.error(`Failed to create deal, client name already exist`, {
+        
+        toast.error(`Failed to create deal, ${error.response.data.message || "Please Fill all required fields"}`, {
           duration: 4000,
           position: "bottom-right",
           // Styling
           style: {
             fontSize: "16px",
+            color:"red"
           },
           className: "",
-          icon: "👏",
+          icon: "",
           iconTheme: {
             primary: "red",
             secondary: "#fff",
@@ -754,7 +757,7 @@ const NewTransaction = () => {
             "aria-live": "polite",
           },
         });
-        setResponse("Failed to Create Deal. Please Fill all required fields");
+        setResponse(`Failed to create deal, ${error.response.data.message || "Please Fill all required fields"}`);
         setSubmitted(false);
       });
   };
