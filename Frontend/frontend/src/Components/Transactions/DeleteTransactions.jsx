@@ -19,9 +19,9 @@ import { GrStatusDisabled } from "react-icons/gr";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Service from "../../Services/Service";
-import TransactionCards from "./AllDealsCard";
+import TransactionCards from "./DeleteAllDealsCard";
 import TitleContext from "../../context/TitleContext";
-import {Alert} from 'antd'
+import {Alert, Result, Modal as ModalView} from 'antd'
 import * as XLSX from "xlsx";
 
 const Icon = () => null;
@@ -135,9 +135,39 @@ const DeleteDeals = (props) => {
   const [deleteInputVaue, setDeleteInputValue] = useState("")
   const [deleteItemIndex, setDeleteItemIndex] = useState("")
   const [showAlertNote, setAlertNote] = useState(true)
+  const [showResultNotification, SetShowResultNotification] = useState(false)
+  const [visible, setVisible] = useState(false);// for antd
+  const [statusCode, setStatusCode] = useState("")
+  const [loadingDelete, setLoadingDelete] = useState(false);
+  // const [deletedDealName, setDeletedDealName] = useState('')
+
 
   const dealsRef = useRef();
   dealsRef.current = deals;
+
+
+
+
+
+  // handle antd modal
+  const showAntModal = () => {
+    setVisible(true);
+    setTimeout(() => {
+      setVisible(false);
+    }, 5000);
+    setStatusCode("")
+    // SetShowResultNotification(false)
+  };
+
+  const handleOk = () => {
+    setVisible(false);
+    setStatusCode("")
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
+    setStatusCode("")
+  };
   // ******************************************  useEffect hook *******************************************************
   useEffect(() => {
     retrieveDeals();
@@ -286,23 +316,36 @@ const DeleteDeals = (props) => {
 
   // delete function
   const deleteClickedDeal = async(transId) => {
+    setLoadingDelete(true);
         let deletePassword = deleteInputVaue
          await Service.deleteTransactions(transId, deletePassword)
         .then((response) => {
+          // console.log(response.data.status)
+          setStatusCode(response.data.status)
             setDeleteMessage(response.data.message);
             setReload(true)
-            showAlertNote(true)
+            // showAlertNote(true)
+            SetShowResultNotification(true)
+            showAntModal()
+            // setStatusCode("")
         })
         .catch((e) => {
             setDeleteMessage(e.response.data.message);
-            showAlertNote(false)
+            setStatusCode(e.response.data.status)
+            SetShowResultNotification(true)
+            showAntModal()
+
             console.log(e);
-        });
+        })   
+        .finally(() => setLoadingDelete(false));;
   };
 
 
 
-  const deleteDeal = (rowIndex) => {
+  const deleteDeal = (rowIndex, dealNameY) => {
+    // console.log(rowIndex) 
+    // console.log(deletedDealName) 
+    // setDeletedDealName(dealNameY)
     setShowModal(true)
     setDeleteItemIndex(rowIndex)
   };
@@ -334,9 +377,10 @@ const handleContinueClick = () => {
   // Delete click button
   const handleDeleteClick = () => {
     deleteClickedDeal(deleteItemIndex)
-    // setShowModal(false);
+    setShowModal(false);
     setShowInputPassword(false);
     setDeleteInputValue("")
+    // setDeletedDealName("") 
   };
 
   
@@ -344,6 +388,8 @@ const handleContinueClick = () => {
   const handleCancelClick = () => {
     setShowInputPassword(false);
     setShowModal(false);
+    // setDeletedDealName("")
+    setStatusCode("")
   };
 
   const handleDeleteInput = (e) => {
@@ -376,10 +422,12 @@ const handleContinueClick = () => {
         disableSortBy: true,
         Cell: (props) => {
           const rowIdx = props.row.original["transid"];
+          const dealNameY= props.row.original["clientname"]
           return (
             <div>
               <span
-                onClick={() => deleteDeal(rowIdx)}
+            
+                onClick={() => deleteDeal(rowIdx, dealNameY)}
                 style={{ cursor: "pointer" }}
               >
                 <AiOutlineDelete />
@@ -647,15 +695,17 @@ const handleContinueClick = () => {
 
   return (
     <React.Fragment>
+    
       <TransactionCards
         closedStatus={closedStatus}
         staffFilter={staffFilter}
         status={status}
+        reload={reload}
       />
       <ContainerWrapper>
-      {showAlertNote &&  <Alert message={deleteMessage} type="success" showIcon />}
+      {/* {showAlertNote &&  <Alert message={deleteMessage} type="success" showIcon />} */}
         <Row className="d-flex justify-content-space-evenly">
-        {showAlertNote &&  <Alert message={deleteMessage} type="success" showIcon />}
+        {/* {showAlertNote &&  <Alert message={deleteMessage} type="success" showIcon />} */}
           {/* <Col sm={2} className="d-sm-none d-lg-block d-md-block">
             <small style={{ fontSize: "12px", paddingTop: "10px" }}>
               All ({deals.length})
@@ -865,8 +915,8 @@ const handleContinueClick = () => {
                 <Icon />
               </div>
               <div className="section-message-content">
-                <h4 className="section-message-title">This Trasaction is related to deal name</h4>
-                <p>Deals will not be delted until your password is confirmed.</p>
+                <h4 className="section-message-title">You are about to delete a transaction</h4>
+                <p>Deals will not be deleted until your password is confirmed.</p>
                 
               </div>
             </div>
@@ -874,7 +924,7 @@ const handleContinueClick = () => {
               Are you sure you want to delete <b>deal</b>? This will cause a permanent loss of all its contents.
             </p>
             <div>
-               {showInputPassword && <input type='password' name='delete-password' onChange={handleDeleteInput} placeholder='please confirm your password' style={{width: '50%'}} value = {deleteInputVaue} required/>} 
+               {showInputPassword && <input type='password' name='delete-password' onChange={handleDeleteInput} placeholder='Please confirm your password' style={{width: '50%'}} value = {deleteInputVaue} required/>} 
         
             </div>
           </div>
@@ -897,7 +947,31 @@ const handleContinueClick = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-
+      {loadingDelete ? (
+        <ModalView title="" visible={true} footer={null} closable={false}>
+          <div className="d-flex justify-content-center align-items-center">
+            <Spinner animation="border" variant="primary" />
+          </div>
+        </ModalView>
+      ) : (
+      
+        showResultNotification && (
+      
+        <ModalView
+            title="Delete Transaction" 
+            visible={visible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+     
+          >
+            <Result
+              status = {deleteMessage == "Transaction deleted Successfully" ? "success" : "error"}
+              title={deleteMessage}
+            />
+          </ModalView>
+        )
+      )
+    }
         {/* )} */}
       </ContainerWrapper>
     </React.Fragment>
