@@ -417,17 +417,17 @@ const handleContinueClick = () => {
         accessor: "delete",
         disableResizing: true,
         minWidth: 35,
-        width: 40,
-        maxWidth: 40,
+        width: 50,
+        maxWidth: 55,
         disableSortBy: true,
         Cell: (props) => {
           const rowIdx = props.row.original["transid"];
-          const dealNameY= props.row.original["clientname"]
+          // const dealNameY= props.row.original["clientname"]
           return (
             <div>
               <span
             
-                onClick={() => deleteDeal(rowIdx, dealNameY)}
+                onClick={() => deleteDeal(rowIdx)}
                 style={{ cursor: "pointer" }}
               >
                 <AiOutlineDelete />
