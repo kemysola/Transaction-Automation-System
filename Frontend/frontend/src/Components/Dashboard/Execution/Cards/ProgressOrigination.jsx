@@ -23,7 +23,6 @@ export default function ProgressOrigination() {
 
   let user_email = window.location.search.split("?")[1];
   //edit user_email
-
   //let name = user_email.toUpperCase()
   const retrieveDeals = async () => {
     await Service.getMyDealsByEmail(user_email, filteredStore)

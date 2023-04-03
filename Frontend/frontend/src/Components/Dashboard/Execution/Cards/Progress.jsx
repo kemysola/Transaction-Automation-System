@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import TitleContext from '../../../../context/TitleContext';
+import TitleContext from "../../../../context/TitleContext";
 
 import {
   Container,
@@ -14,6 +14,7 @@ import {
 } from "react-bootstrap";
 import styled from "styled-components";
 import Table from "../Table";
+import TableFilter from "../TableFilter";
 import Service from "../../../../Services/Service";
 import PieCard from "./PieCard";
 import {
@@ -51,7 +52,7 @@ const ModalDiv = styled.div`
 `;
 
 export default function Progress() {
-  const { filteredStore, addFtYear} = useContext(TitleContext)
+  const { filteredStore, addFtYear } = useContext(TitleContext);
   const [data, setData] = useState([]);
   const [rawData, setRawData] = useState([]);
   const [staffData, setStaffData] = useState([]);
@@ -60,6 +61,9 @@ export default function Progress() {
   const [indFilter, setIndFilter] = useState("Value");
   const [prdFilter, setPrdFilter] = useState("Value");
   const [dealFilter, setDealFilter] = useState("All");
+  const [dealGreenFilter, setGreenDealFilter] = useState("");
+  const [dealRedFilter, setRedDealFilter] = useState("");
+  const [dealYellowFilter, setYellowDealFilter] = useState("");
   const [staffFilter, setStaffFilter] = useState("All");
   const [staffName, setStaffName] = useState("All");
   const [show, setShow] = useState(false);
@@ -68,28 +72,43 @@ export default function Progress() {
   const [financialClose, setFinancialClose] = useState([]);
   const [cca, setCca] = useState([]);
   const [feeLetter, setFeeLetter] = useState([]);
+  const [checkedItems, setCheckedItems] = useState({});
+  const [selectedFilters, setSelectedFilters] = useState([]);
+
   useEffect(() => {
     if (dealFilter === "All" && staffFilter === "All") {
       retrieveDeals();
       retrieveGuranteePipeline();
     }
-    if (dealFilter !== "All" && staffFilter === "All") {
-      retrieveGuranteePipeline();
-      setLoading(true);
-      filterData(dealFilter);
-    }
+    // if (dealFilter !== "All" && staffFilter === "All") {
+    //   retrieveGuranteePipeline();
+    //   // setLoading(true);
+    //   filterData(dealFilter);
+    // }
+
     if (dealFilter === "All" && staffFilter !== "All") {
       retrieveStaffDeals();
       retrieveStaffTarget();
     }
-    if (dealFilter !== "All" && staffFilter !== "All") {
+    if (staffFilter !== "All") {
       retrieveStaffDeals();
       retrieveStaffTarget();
       setLoading(true);
-      filterStaffData(dealFilter);
+      // filterStaffData(dealFilter);
     }
   }, [dealFilter, staffFilter, filteredStore]);
 
+  const handleFilterChange = (event) => {
+    const category = event.target.value;
+    if (selectedFilters.includes(category)) {
+      setSelectedFilters(selectedFilters.filter((c) => c !== category));
+    } else {
+      setSelectedFilters([...selectedFilters, category]);
+    }
+  };
+  const filteredItemsDta = rawData?.filter((item) =>
+    selectedFilters.includes(item.deal_category)
+  );
   useEffect(() => {
     if (show) {
       document.body.style.overflow = "auto";
@@ -108,7 +127,7 @@ export default function Progress() {
   const filterData = (dealFilter) => {
     setLoading(true);
     const filteredData = rawData.filter((item) => {
-      return item.deal_category === dealFilter;
+      return item.deal_category === "Green" || item.deal_category === "Yellow";
     });
     setData(filteredData);
     setLoading(false);
@@ -117,18 +136,15 @@ export default function Progress() {
 
   // Filter Individual Staff Data by Deal Category
   let filterTimeout;
-  const filterStaffData = (dealFilter) => {
+  const filterStaffData = (filteredItemsDta) => {
     clearTimeout(filterTimeout);
     setLoading(true);
-
     filterTimeout = setTimeout(() => {
       const filteredData = staffData.filter((item) => {
-        return item.deal_category === dealFilter;
+        return item.deal_category === filteredItemsDta;
       });
       setData(
-        staffData.filter((item) => {
-          return item.deal_category === dealFilter;
-        })
+        staffData.includes.filteredItemsDta   
       );
       setLoading(false);
       return filteredData;
@@ -159,7 +175,7 @@ export default function Progress() {
   };
 
   // Get deals by staff email
-  const retrieveStaffDeals = async() => {
+  const retrieveStaffDeals = async () => {
     setLoading(true);
     await Service.getMyDealsByEmail(staffFilter, filteredStore)
       .then((res) => {
@@ -172,7 +188,7 @@ export default function Progress() {
       });
   };
 
-  const retrieveGuranteePipeline = async() => {
+  const retrieveGuranteePipeline = async () => {
     await Service.getAllStaff()
       .then((response) => {
         setTarget(response.data.staff);
@@ -182,8 +198,8 @@ export default function Progress() {
       });
   };
 
-  const retrieveStaffTarget = async() => {
-   await Service.getOneStaff(staffFilter)
+  const retrieveStaffTarget = async () => {
+    await Service.getOneStaff(staffFilter)
       .then((response) => {
         setTarget(response.data.staffInfo);
         setMandate(response.data.staffInfo[0].mandateletter);
@@ -828,45 +844,46 @@ export default function Progress() {
                     <Form.Check
                       inline
                       label="All"
-                      type="radio"
+                      type="checkbox"
                       name="dealFilter"
                       value="All"
                       onClick={(e) => setDealFilter(e.target.value)}
                       defaultChecked
                     />
                   </Col>
-
                   <Col sm={2} lg={2}>
-                    <Form.Check
-                      inline
-                      label="Green"
-                      type="radio"
-                      name="dealFilter"
-                      value="Green"
-                      onClick={(e) => setDealFilter(e.target.value)}
-                    />
+                    <label>
+                      <input
+                        type="checkbox"
+                        name="Green"
+                        onChange={handleFilterChange}
+                        value="Green"
+                      />{" "}
+                      Green
+                    </label>
                   </Col>
-
                   <Col sm={2} lg={2}>
-                    <Form.Check
-                      inline
-                      label="Amber"
-                      type="radio"
-                      name="dealFilter"
-                      value="Yellow"
-                      onClick={(e) => setDealFilter(e.target.value)}
-                    />
+                  <label>
+                      <input
+                        type="checkbox"
+                        name="Red"
+                        onChange={handleFilterChange}
+                        value="Red"
+                      />{" "}
+                      Red
+                    </label>
+                   
                   </Col>
-
                   <Col sm={2} lg={2}>
-                    <Form.Check
-                      inline
-                      label="Red"
-                      type="radio"
-                      name="dealFilter"
-                      value="Red"
-                      onClick={(e) => setDealFilter(e.target.value)}
-                    />
+                  <label>
+                      <input
+                        type="checkbox"
+                        name="Yellow"
+                        onChange={handleFilterChange}
+                        value="Yellow"
+                      />{" "}
+                      Amber
+                    </label>
                   </Col>
                 </Row>
               </Card.Text>
@@ -939,7 +956,8 @@ export default function Progress() {
             <Row style={{ marginTop: "15px" }}>
               {/* Deal Category PieChart */}
               <Col sm={12} lg={4} md={12} className="my-1">
-                <PieCard dealFilter={dealFilter} staffFilter={staffFilter} />
+                {dealFilter === 'All'? <PieCard dealFilter={dealFilter} staffFilter={staffFilter} />:  <PieCard dealFilter={filteredItemsDta} staffFilter={staffFilter} /> }
+                {/* <PieCard dealFilter={dealFilter} staffFilter={staffFilter} /> */}
               </Col>
 
               {/* Industry Bar Chart */}
@@ -1241,7 +1259,8 @@ export default function Progress() {
         </Container>
 
         {/* ---------- Exxecution Dashboard Table ----------- */}
-        <Table dealFilter={dealFilter} staffFilter={staffFilter} />
+        {/* <Table dealFilter={dealFilter} staffFilter={staffFilter} filteredData={fil teredItemsDta} /> */}
+        <TableFilter filteredItemsDta={filteredItemsDta} />
 
         <br />
       </Container>

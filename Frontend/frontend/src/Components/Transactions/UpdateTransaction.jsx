@@ -548,8 +548,7 @@ export default function UpdateTransactions() {
     // set the deal and status stateA
 
     setAllData(data.data.dealInfo);
-   
-    // setNoteList(data?.data?.dealInfo[0]?.notes);
+    setNoteList(data?.data?.dealInfo[0].notes);
     setDeal(data.data.dealInfo);
     setStatus(true);
     setGreenA(data.data.dealInfo[0].greena);
@@ -1211,7 +1210,6 @@ export default function UpdateTransactions() {
 
   function postData(e) {
     e.preventDefault();
-
     let allNotes = noteList.map((item) => item.note || (item.length == 0 ? item : item.note));
     let note = allNotes.join("|");
  
@@ -1227,7 +1225,7 @@ export default function UpdateTransactions() {
       product: product.current.value,
       region: region.current.value,
       dealSize: +dealSize.current.value,
-      coupon: +coupon.current.value,
+      coupon: parseInt(coupon.current.value),
       tenor: +tenor.current.value,
       moratorium: +moratorium.current.value,
       repaymentFrequency: repaymentFreq.current.value,
@@ -1583,7 +1581,7 @@ export default function UpdateTransactions() {
                               <Form.Label>Deal Size (₦'BN)</Form.Label>
                               <Form.Control
                                 size="sm"
-                                type="text"
+                                type="number"
                                 defaultValue={deal[0].dealsize}
                                 id="dealSize"
                                 ref={dealSize}
@@ -1597,7 +1595,7 @@ export default function UpdateTransactions() {
                               <Form.Label>* Coupon(%)</Form.Label>
                               <Form.Control
                                 size="sm"
-                                type="text"
+                                type="number"
                                 defaultValue={deal[0].coupon}
                                 id="coupon"
                                 ref={coupon}
@@ -1610,7 +1608,7 @@ export default function UpdateTransactions() {
                               <Form.Label>* Tenor(yrs)</Form.Label>
                               <Form.Control
                                 size="sm"
-                                type="numeric"
+                                type="number"
                                 defaultValue={deal[0].tenor}
                                 id="tenor"
                                 ref={tenor}
@@ -1623,7 +1621,7 @@ export default function UpdateTransactions() {
                               <Form.Label>* Moratorium(yrs)</Form.Label>
                               <Form.Control
                                 size="sm"
-                                type="text"
+                                type="number"
                                 defaultValue={deal[0].moratorium}
                                 id="moratorium"
                                 ref={moratorium}
@@ -1894,7 +1892,7 @@ export default function UpdateTransactions() {
                               <Form.Label>Guarantee (%)</Form.Label>
                               <Form.Control
                                 size="sm"
-                                type="text"
+                                type="number"
                                 defaultValue={deal[0].guaranteefee}
                                 id="guarantee"
                                 ref={guarantee}
@@ -1907,7 +1905,7 @@ export default function UpdateTransactions() {
                               <Form.Label>Monitoring(₦'MN)</Form.Label>
                               <Form.Control
                                 size="sm"
-                                type="text"
+                                type="number"
                                 defaultValue={deal[0].monitoringfee}
                                 id="monitoring"
                                 ref={monitoring}
@@ -1920,7 +1918,7 @@ export default function UpdateTransactions() {
                               <Form.Label>Reimbursible(₦'MN)</Form.Label>
                               <Form.Control
                                 size="sm"
-                                type="text"
+                                type="number"
                                 defaultValue={deal[0].reimbursible}
                                 id="reimbursible"
                                 ref={reimbursible}
