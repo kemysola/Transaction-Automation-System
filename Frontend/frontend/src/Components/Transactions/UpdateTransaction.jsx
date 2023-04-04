@@ -109,6 +109,8 @@ export default function UpdateTransactions() {
   const nbcApprovalDate = useRef("");
   const nbcSubmittedDate = useRef("");
   const ccSubmissionDate = useRef("");
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+
 
   let id = window.location.search.split("?")[1];
   const history = useHistory();
@@ -356,17 +358,6 @@ export default function UpdateTransactions() {
     const list = [...plis];
     list[index][name] = value;
     setNbcFocus(list);
-    // setNbcFocus({ ...nbcFocus, [name]: value });
-    // setNbcFocusApprv1b(data.data.dealInfo[0].nbc_focus_apprv_1_b);
-    // setNbcFocusApprv1c(data.data.dealInfo[0].nbc_focus_apprv_1_c);
-    // setNbcFocusApprv2b(data.data.dealInfo[0].nbc_focus_apprv_2_b);
-    // setNbcFocusApprv2c(data.data.dealInfo[0].nbc_focus_apprv_2_c);
-    // setNbcFocusApprv3b(data.data.dealInfo[0].nbc_focus_apprv_3_b);
-    // setNbcFocusApprv3c(data.data.dealInfo[0].nbc_focus_apprv_3_c);
-    // setNbcFocusApprv4b(data.data.dealInfo[0].nbc_focus_apprv_4_b);
-    // setNbcFocusApprv4c(data.data.dealInfo[0].nbc_focus_apprv_4_c);
-    // setNbcFocusApprv5b(data.data.dealInfo[0].nbc_focus_apprv_5_b);
-    // setNbcFocusApprv5c(data.data.dealInfo[0].nbc_focus_apprv_5_c);
   };
 
   const handleNbcAdd = (e) => {
@@ -378,16 +369,6 @@ export default function UpdateTransactions() {
         nbc_focus_original_yes_no: 0,
         nbc_focus_original_date: null,
         nbc_focus_original_methodology: "",
-        // nbc_focus_apprv_1_b: "",
-        // nbc_focus_apprv_1_c: null,
-        // nbc_focus_apprv_2_b: "",
-        // nbc_focus_apprv_2_c: null,
-        // nbc_focus_apprv_3_b: "",
-        // nbc_focus_apprv_3_c: null,
-        // nbc_focus_apprv_4_b: "",
-        // nbc_focus_apprv_4_c: null,
-        // nbc_focus_apprv_5_b: "",
-        // nbc_focus_apprv_5_c: null,
       },
     ]);
   };
@@ -399,11 +380,8 @@ export default function UpdateTransactions() {
   };
 
   //************************************************************* Note Change ************************************************* */
-  // const handleNoteChange = (e, index) => {
-  //   const { name, value } = e.target;
-  //   const list = [...noteList];
-  //   list[index][name] = value;
-  //   setNoteList(list);
+  // const handleInputChanges = () => {
+  //   setIsSubmitDisabled(!dealSize.current.value || !coupon.current.value);
   // };
 
   const handleNoteChange = (event, index) => {
@@ -530,12 +508,12 @@ export default function UpdateTransactions() {
     // function to get deal by id from the database
     const data = await axios
       .get(
-        `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
-          localStorage.getItem("fy")
-        )}`,
-        // `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+        // `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
         //   localStorage.getItem("fy")
         // )}`,
+        `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+          localStorage.getItem("fy")
+        )}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
@@ -1274,8 +1252,8 @@ export default function UpdateTransactions() {
     };
 
     // ******************************************  Axios :  put request  ****************************************
-
-    Service.updateDeal(id, data)
+if(dealSize.current.value  && coupon.current.value && moratorium.current.value && tenor.current.value){
+  Service.updateDeal(id, data)
       .then((response) => {
         setMessage(response.data.message);
       })
@@ -1283,6 +1261,12 @@ export default function UpdateTransactions() {
        
         setMessage(`Failed to update deal, ${error.response.data.message || "Please Fill all required fields"}`);
       });
+}
+else{
+  setMessage("Please Fill all required fields");
+  
+}
+    
   }
   let transactorList = staffList.filter((opt) => opt.istransactor === true);
   let originatorList = staffList.filter((opt) => opt.isoriginator === true);
@@ -1578,7 +1562,7 @@ export default function UpdateTransactions() {
                         <Row className="mt-1">
                           <Col sm={6}>
                             <Form.Group className="pt-1">
-                              <Form.Label>Deal Size (₦'BN)</Form.Label>
+                              <Form.Label>* Deal Size (₦'BN)</Form.Label>
                               <Form.Control
                                 size="sm"
                                 type="number"
@@ -3006,21 +2990,6 @@ export default function UpdateTransactions() {
                                   
                                 </div>
                               ))}
-
-
-                                      {/* <input
-                                      type="date"
-                                      onChange={handleInputChange}
-                                      value={deal.nbc_focus_apprv_5_c}
-                                      onChange={handleInputChange}
-                                      name="nbc_focus_apprv_5_c"
-                                      defaultValue={  deal[0].nbc_focus_apprv_5_c
-                                        ? new Date(deal[0].nbc_focus_apprv_5_c)
-                                            .toISOString()
-                                            .split("T")[0]
-                                        : ""}
-                                   
-                                  /> */}
                                   </Col>
                                 </Row>
                               </Form.Group>
