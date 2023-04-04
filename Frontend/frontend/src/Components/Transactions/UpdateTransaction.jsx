@@ -220,6 +220,7 @@ export default function UpdateTransactions() {
   const [nbcFocusApprv5c, setNbcFocusApprv5c] = useState("")
   const [showAlert, setShowAlert] = useState(false)
   const [hideSubmit, setHideSubmit] = useState(false)
+  const [hideUpdateButton, setHideUpdateButton] = useState(false)
   // const [nbcFocusId, setNbcFocusId] = useState("0")
   //**********************************************************   Key Performance Indicators **************** */
   const handleKpiChange = (e, index) => {
@@ -530,12 +531,12 @@ export default function UpdateTransactions() {
     // function to get deal by id from the database
     const data = await axios
       .get(
-        `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
-          localStorage.getItem("fy")
-        )}`,
-        // `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+        // `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
         //   localStorage.getItem("fy")
         // )}`,
+        `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+          localStorage.getItem("fy")
+        )}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
@@ -602,6 +603,7 @@ export default function UpdateTransactions() {
   const pliid = Array.from(new Set(allData.map((a) => a.plid))).map((id) => {
     return allData.find((a) => a.plid === id);
   });
+ 
   const uId = Array.from(new Set(allData.map((a) => a.kid))).map((id) => {
     return allData.find((a) => a.kid === id);
   });
@@ -775,8 +777,13 @@ export default function UpdateTransactions() {
     Service.updateParties(transid, data)
       .then((res) => {
         setPartiesChanged("success");
+        setShowAlert(false)
+        setHideUpdateButton(false)
       })
-      .catch(() => {
+      .catch((e) => {
+        setShowAlert(true)
+        setHideUpdateButton(true)
+        // validatePlisWeights(e.response.data.message)
         console.log("an error occured");
       });
   }
@@ -856,11 +863,18 @@ export default function UpdateTransactions() {
       plis_status: plisStatus,
     };
 
+  
+
     Service.updatePlis(transid, data)
       .then((res) => {
         setPlisChanged("success");
+        setShowAlert(false)
+        setHideUpdateButton(false)
       })
-      .catch(() => {
+      .catch((e) => {
+        setShowAlert(true)
+        setHideUpdateButton(true)
+        // validatePlisWeights(e.response.data.message)
         console.log("an error occured");
       });
   }
@@ -884,28 +898,28 @@ export default function UpdateTransactions() {
 
   // **************************************** Plid List ***************************************************
 
-  let checkValid;
-  useEffect(() => {
-    if (showAlert == true && checkValid == true) {
-      setHideSubmit(true);
-    } else {
-      setHideSubmit(false);
-      setShowAlert(false);
-    }
-  }, [showAlert]);
-  const validatePlisWeights = () => {
-    const totalWeight = pliid.reduce((acc, curr) => acc + Number(curr.plis_weighting), 0);
-    checkValid = false;
-    if (totalWeight > 100) {
-      checkValid = true;
+  // let checkValid;
+  // useEffect(() => {
+  //   if (showAlert == true && checkValid == true) {
+  //     setHideSubmit(true);
+  //   } else {
+  //     setHideSubmit(false);
+  //     setShowAlert(false);
+  //   }
+  // }, [showAlert]);
+  const validatePlisWeights = (mssg) => {
+    // const totalWeight = pliid.reduce((acc, curr) => acc + Number(curr.plis_weighting), 0);
+    // checkValid = false;
+    // if (totalWeight > 100) {
+    //   checkValid = true;
       return (
         <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
-          Total plis weights cannot be greater than 100%.
+         Total PLIs cannot be greater than 100%
         </Alert>
       );
-    } else {
-      checkValid = false;
-    }
+    // } else {
+    //   checkValid = false;
+    // }
   };
 
   const PlisList = pliid.map((item) => (
@@ -929,6 +943,7 @@ export default function UpdateTransactions() {
 
   const addNewPlis = (e) => {
     e.preventDefault();
+
     let data = {
       id: 1000000000,
       plis_particulars: plis[0].plis_particulars,
@@ -937,23 +952,28 @@ export default function UpdateTransactions() {
       plis_expected: plis[0].plis_expected,
       plis_status: plis[0].plis_status,
     };
-
-    const totalWeight = pliid.reduce(
-      (acc, curr) => acc + Number(curr.plis_weighting),
-      0
-    );
-    console.log(totalWeight)
-     if (parseFloat(data.plis_weighting) + totalWeight > 100) {
-        alert("Total PLI weight cannot be more than 100%");
-      return 
-     }
+ 
+    // const totalWeight = pliid.reduce(
+    //   (acc, curr) => acc + Number(curr.plis_weighting),
+    //   0
+    // );
+    // console.log(totalWeight)
+    //  if (parseFloat(data.plis_weighting) + totalWeight > 100) {
+    //     alert("Total PLI weight cannot be more than 100%");
+    //   return 
+    //  }
 
     Service.updatePlis(id, data)
       .then((res) => {
         setPlisChanged("success");
         setPlis([]);
+        setShowAlert(false)
+        setHideUpdateButton(false)
       })
-      .catch(() => {
+      .catch((e) => {
+        setShowAlert(true)
+        setHideUpdateButton(true)
+        // validatePlisWeights(e.response.data.message)
         console.log("an error occured");
       });
   };
@@ -3275,7 +3295,7 @@ export default function UpdateTransactions() {
                                     value={singleNote.plis}
                                     name="plis_weighting"
                                     onChange={(e) => handlePlisChange(e, index)}
-                                    onBlur={() => setShowAlert(true)}
+                                    // onBlur={() => setShowAlert(true)}
                                   />
                                 </div>
                               ))}
@@ -3847,14 +3867,29 @@ export default function UpdateTransactions() {
                 >
                   Back
                 </ButtonWrapper>
-
-                <ButtonWrapper
+                {
+                  hideUpdateButton
+                  ?
+                  <>
+                  {/* <p style={{color: 'red'}}>Total PLI weights cannot be greater than 100%</p> */}
+                  <ButtonWrapper
+                  type=""
+                  style={{backgroundColor:'white', color: 'black'}}
+                  disabled={hideUpdateButton}
+                >
+                  Update
+                </ButtonWrapper>
+                </>
+                  :
+                  <ButtonWrapper
                   type="submit"
                   className="d-flex justify-content-end"
                   onClick={postData}
                 >
                   Update
                 </ButtonWrapper>
+                }
+                
               </div>
               <Row>
                 {/* <Col sm={2}  className='mt-3 pt-2'> */}

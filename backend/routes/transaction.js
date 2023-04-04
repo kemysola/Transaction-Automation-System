@@ -1550,6 +1550,50 @@ router.put(
       const updated_rec = ({ plis } = req.body);
       const updPLIs = [updated_rec];
 
+      
+
+      /****************************Start: Validation for PLI weights ********************** */
+
+      const geDataWithoutId = await client.query(`SELECT id, plis_weighting FROM TB_INFRCR_TRANSACTION_PLIS WHERE transid = $1 AND id != $2`, [req.params.dealID, updated_rec.id])
+      let totalWeight = geDataWithoutId.rows.reduce((v, i) => v + parseFloat(i.plis_weighting), 0)
+
+      if (totalWeight > 100){
+        res.json({
+          status: (res.statusCode = 404),
+          message: "Total weight cannot be greater than 100%",
+        })
+        return
+      }
+      
+     
+      if (parseFloat(updated_rec.plis_weighting) + totalWeight  > 100){
+        res.json({
+          status: (res.statusCode = 404),
+          message: "Total weight cannot be greater than 100%",
+        })
+        return
+      }
+
+      if (updated_rec.plis_weighting === null){
+        const geDataWithId = await client.query(`SELECT id, plis_weighting FROM TB_INFRCR_TRANSACTION_PLIS WHERE transid = $1 AND id = $2`, [req.params.dealID, updated_rec.id])
+        let totalWeight2 = geDataWithId.rows[0].plis_weighting
+  
+  
+        if (parseFloat(totalWeight2) + totalWeight > 100){
+          res.json({
+            status: (res.statusCode = 404),
+            message: "Total weight cannot be greater than 100%",
+          })
+          return
+        }
+
+      }
+
+     
+  
+       /****************************END: Validation for PLI weights ********************** */
+
+
       let funcPLIsUpdate = () => {
         updPLIs.forEach(async (element) => {
           var rows = [
@@ -1601,6 +1645,8 @@ router.put(
         });
       };
       var vfuncPLIsUpdate = funcPLIsUpdate();
+
+      
 
       res.json({
         status: (res.statusCode = 200),

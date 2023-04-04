@@ -712,8 +712,7 @@ const NewTransaction = () => {
     };
 
     //********************************************************** Send data using rest api in a promise! **************************** */
-    Services.create
-    (data)
+    Services.createDeal(data)
       .then((res) => {
         setResponse(res.data.message);
         toast.success(res.data.message, {
@@ -2297,7 +2296,6 @@ const NewTransaction = () => {
                             <Form.Control key={index}
                               type="text"
                               size="sm"
-                            
                               value={singleNote.plis}
                               name="plis_weighting"
                               onChange={(e) => handlePlisChange(e, index)}
