@@ -108,9 +108,6 @@ export default function UpdateTransactions() {
   const nbcApprovalDate = useRef("");
   const nbcSubmittedDate = useRef("");
   const ccSubmissionDate = useRef("");
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
-
-
   let id = window.location.search.split("?")[1];
   const history = useHistory();
   const [deal, setDeal] = useState([]);
@@ -379,9 +376,7 @@ export default function UpdateTransactions() {
   };
 
   //************************************************************* Note Change ************************************************* */
-  // const handleInputChanges = () => {
-  //   setIsSubmitDisabled(!dealSize.current.value || !coupon.current.value);
-  // };
+ 
 
   const handleNoteChange = (event, index) => {
     const { name, value } = event.target;
@@ -1262,7 +1257,6 @@ if(dealSize.current.value  && coupon.current.value && moratorium.current.value &
 }
 else{
   setMessage("Please Fill all required fields");
-  
 }
     
   }
@@ -1862,7 +1856,7 @@ else{
                                 size="sm"
                                 type="number"
                                 value={
-                                  parseInt(amount.current.value) + parseInt(advance.current.value)
+                                  parseInt(amount.current.value) - parseInt(advance.current.value)
                                 }
                                 disabled
                               />
@@ -3819,6 +3813,7 @@ else{
                   type="submit"
                   className="d-flex justify-content-end"
                   onClick={postData}
+
                 >
                   Update
                 </ButtonWrapper>

@@ -712,8 +712,7 @@ const NewTransaction = () => {
     };
 
     //********************************************************** Send data using rest api in a promise! **************************** */
-    Services.create
-    (data)
+    Services.createDeal(data)
       .then((res) => {
         setResponse(res.data.message);
         toast.success(res.data.message, {
