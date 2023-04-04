@@ -220,6 +220,7 @@ export default function UpdateTransactions() {
   const [nbcFocusApprv5c, setNbcFocusApprv5c] = useState("")
   const [showAlert, setShowAlert] = useState(false)
   const [hideSubmit, setHideSubmit] = useState(false)
+  
   // const [nbcFocusId, setNbcFocusId] = useState("0")
   //**********************************************************   Key Performance Indicators **************** */
   const handleKpiChange = (e, index) => {

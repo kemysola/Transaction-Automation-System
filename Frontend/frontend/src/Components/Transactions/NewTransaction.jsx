@@ -1043,7 +1043,7 @@ const NewTransaction = () => {
                             <Form.Group className="pt-1">
                               <Form.Label>Deal Size(₦'BN): </Form.Label>
                               <Form.Control
-                                type="number"
+                                type="text"
                                 {...register("dealSize", { required: true })}
                                 style={{
                                   width: "100%",
@@ -1081,7 +1081,7 @@ const NewTransaction = () => {
                             <Form.Group className="pt-1">
                               <Form.Label>Tenor(yrs)</Form.Label>
                               <Form.Control
-                                type="number"
+                                type="text"
                                 {...register("tenor", { required: true })}
                                 style={{
                                   width: "100%",
@@ -1100,7 +1100,7 @@ const NewTransaction = () => {
                             <Form.Group className="pt-1">
                               <Form.Label>Moratorium(yrs)</Form.Label>
                               <Form.Control
-                                type="number"
+                                type="text"
                                 {...register("moratorium", { required: true })}
                                 style={{
                                   width: "100%",
