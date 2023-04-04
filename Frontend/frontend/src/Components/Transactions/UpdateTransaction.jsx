@@ -498,12 +498,12 @@ export default function UpdateTransactions() {
     // function to get deal by id from the database
     const data = await axios
       .get(
-        // `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
-        //   localStorage.getItem("fy")
-        // )}`,
-        `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+        `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
           localStorage.getItem("fy")
         )}`,
+        // `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+        //   localStorage.getItem("fy")
+        // )}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
@@ -3263,11 +3263,13 @@ export default function UpdateTransactions() {
                               {plis.map((singleNote, index) => (
                                 <div class="input-group mt-2">
                                   <Form.Control
-                                    type="text"
+                                    type="number"
                                     size="sm"
                                     value={singleNote.plis}
                                     name="plis_weighting"
                                     onChange={(e) => handlePlisChange(e, index)}
+                                    step="any"
+                                    onKeyPress={handleKeyPress}
                                     // onBlur={() => setShowAlert(true)}
                                   />
                                 </div>
@@ -3853,20 +3855,7 @@ export default function UpdateTransactions() {
                 >
                   Back
                 </ButtonWrapper>
-                {
-                  hideUpdateButton
-                  ?
-                  <>
-                  {/* <p style={{color: 'red'}}>Total PLI weights cannot be greater than 100%</p> */}
-                  <ButtonWrapper
-                  type=""
-                  style={{backgroundColor:'white', color: 'black'}}
-                  disabled={hideUpdateButton}
-                >
-                  Update
-                </ButtonWrapper>
-                </>
-                  :
+            
                   <ButtonWrapper
                   type="submit"
                   className="d-flex justify-content-end"
@@ -3874,7 +3863,7 @@ export default function UpdateTransactions() {
                 >
                   Update
                 </ButtonWrapper>
-                }
+                
                 
               </div>
               <Row>
