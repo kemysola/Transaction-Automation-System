@@ -15,7 +15,6 @@ import OcpsMode from "./OcpsMode";
 import KpisMode from "./KpisMode";
 import { useForm } from "react-hook-form";
 import {  Tooltip } from "antd";
-import toast, { Toaster } from "react-hot-toast";
 
 const ButtonWrapper = styled.button`
   color: white;
@@ -109,7 +108,6 @@ export default function UpdateTransactions() {
   const nbcApprovalDate = useRef("");
   const nbcSubmittedDate = useRef("");
   const ccSubmissionDate = useRef("");
-
   let id = window.location.search.split("?")[1];
   const history = useHistory();
   const [deal, setDeal] = useState([]);
@@ -357,17 +355,6 @@ export default function UpdateTransactions() {
     const list = [...plis];
     list[index][name] = value;
     setNbcFocus(list);
-    // setNbcFocus({ ...nbcFocus, [name]: value });
-    // setNbcFocusApprv1b(data.data.dealInfo[0].nbc_focus_apprv_1_b);
-    // setNbcFocusApprv1c(data.data.dealInfo[0].nbc_focus_apprv_1_c);
-    // setNbcFocusApprv2b(data.data.dealInfo[0].nbc_focus_apprv_2_b);
-    // setNbcFocusApprv2c(data.data.dealInfo[0].nbc_focus_apprv_2_c);
-    // setNbcFocusApprv3b(data.data.dealInfo[0].nbc_focus_apprv_3_b);
-    // setNbcFocusApprv3c(data.data.dealInfo[0].nbc_focus_apprv_3_c);
-    // setNbcFocusApprv4b(data.data.dealInfo[0].nbc_focus_apprv_4_b);
-    // setNbcFocusApprv4c(data.data.dealInfo[0].nbc_focus_apprv_4_c);
-    // setNbcFocusApprv5b(data.data.dealInfo[0].nbc_focus_apprv_5_b);
-    // setNbcFocusApprv5c(data.data.dealInfo[0].nbc_focus_apprv_5_c);
   };
 
   const handleNbcAdd = (e) => {
@@ -379,16 +366,6 @@ export default function UpdateTransactions() {
         nbc_focus_original_yes_no: 0,
         nbc_focus_original_date: null,
         nbc_focus_original_methodology: "",
-        // nbc_focus_apprv_1_b: "",
-        // nbc_focus_apprv_1_c: null,
-        // nbc_focus_apprv_2_b: "",
-        // nbc_focus_apprv_2_c: null,
-        // nbc_focus_apprv_3_b: "",
-        // nbc_focus_apprv_3_c: null,
-        // nbc_focus_apprv_4_b: "",
-        // nbc_focus_apprv_4_c: null,
-        // nbc_focus_apprv_5_b: "",
-        // nbc_focus_apprv_5_c: null,
       },
     ]);
   };
@@ -400,12 +377,7 @@ export default function UpdateTransactions() {
   };
 
   //************************************************************* Note Change ************************************************* */
-  // const handleNoteChange = (e, index) => {
-  //   const { name, value } = e.target;
-  //   const list = [...noteList];
-  //   list[index][name] = value;
-  //   setNoteList(list);
-  // };
+ 
 
   const handleNoteChange = (event, index) => {
     const { name, value } = event.target;
@@ -943,7 +915,6 @@ export default function UpdateTransactions() {
       (acc, curr) => acc + Number(curr.plis_weighting),
       0
     );
-    console.log(totalWeight)
      if (parseFloat(data.plis_weighting) + totalWeight > 100) {
         alert("Total PLI weight cannot be more than 100%");
       return 
@@ -1225,6 +1196,7 @@ export default function UpdateTransactions() {
       industry: industry.current.value,
       product: product.current.value,
       region: region.current.value,
+      //regex  .replace('/e', '')
       dealSize: +dealSize.current.value,
       coupon: parseInt(coupon.current.value),
       tenor: +tenor.current.value,
@@ -1239,10 +1211,10 @@ export default function UpdateTransactions() {
       NBC_approval_date: new Date(nbcApprovalDate.current.value),
       NBC_submitted_date: new Date(nbcSubmittedDate.current.value),
       ccSubmissionDate: new Date(ccSubmissionDate.current.value),
-      principal: +principal.current.value,
+      principal: +dealSize.current.value,
       guaranteefeerate: +guaranteefeerate.current.value,
       issuedate: issuedate.current.value,
-      takingfirstinterestearly: takingfirstinterestearly.current.value,
+      takingfirstinterestearly: +takingfirstinterestearly.current.value,
       discountfactor: +discountfactor.current.value,
       firstcoupondate: firstcoupondate.current.value,
       structuringFeeAmount: +amount.current.value,
@@ -1275,8 +1247,8 @@ export default function UpdateTransactions() {
     };
 
     // ******************************************  Axios :  put request  ****************************************
-
-    Service.updateDeal(id, data)
+if(dealSize.current.value  && coupon.current.value && moratorium.current.value && tenor.current.value){
+  Service.updateDeal(id, data)
       .then((response) => {
         setMessage(response.data.message);
       })
@@ -1284,6 +1256,11 @@ export default function UpdateTransactions() {
        
         setMessage(`Failed to update deal, ${error.response.data.message || "Please Fill all required fields"}`);
       });
+}
+else{
+  setMessage("Please Fill all required fields");
+}
+    
   }
   let transactorList = staffList.filter((opt) => opt.istransactor === true);
   let originatorList = staffList.filter((opt) => opt.isoriginator === true);
@@ -1579,7 +1556,7 @@ export default function UpdateTransactions() {
                         <Row className="mt-1">
                           <Col sm={6}>
                             <Form.Group className="pt-1">
-                              <Form.Label>Deal Size (₦'BN)</Form.Label>
+                              <Form.Label>* Deal Size (₦'BN)</Form.Label>
                               <Form.Control
                                 size="sm"
                                 type="number"
@@ -1870,6 +1847,7 @@ export default function UpdateTransactions() {
                                 defaultValue={deal[0].structuringfeeadvance}
                                 id="advance"
                                 ref={advance}
+                                max='100'
                               />
                             </Form.Group>
                           </Col>
@@ -1881,7 +1859,7 @@ export default function UpdateTransactions() {
                                 size="sm"
                                 type="number"
                                 value={
-                                  parseInt(amount.current.value) + parseInt(advance.current.value)
+                                  parseInt(100) - parseInt(advance.current.value)
                                 }
                                 disabled
                               />
@@ -3007,21 +2985,6 @@ export default function UpdateTransactions() {
                                   
                                 </div>
                               ))}
-
-
-                                      {/* <input
-                                      type="date"
-                                      onChange={handleInputChange}
-                                      value={deal.nbc_focus_apprv_5_c}
-                                      onChange={handleInputChange}
-                                      name="nbc_focus_apprv_5_c"
-                                      defaultValue={  deal[0].nbc_focus_apprv_5_c
-                                        ? new Date(deal[0].nbc_focus_apprv_5_c)
-                                            .toISOString()
-                                            .split("T")[0]
-                                        : ""}
-                                   
-                                  /> */}
                                   </Col>
                                 </Row>
                               </Form.Group>
@@ -3751,13 +3714,20 @@ export default function UpdateTransactions() {
                         <div>
                           <Row className="mt-3">
                             <Col sm="6">
-                              <Form.Label>* Principal</Form.Label>
+                             <Form.Label>* FirstCouponDate</Form.Label>
                               <Form.Control
-                                type="text"
-                                defaultValue={deal[0].principal}
-                                id="principal"
-                                ref={principal}
+                                type="date"
+                                defaultValue={
+                                  deal[0].firstcoupondate
+                                    ? new Date(deal[0].firstcoupondate)
+                                        .toISOString()
+                                        .split("T")[0]
+                                    : ""
+                                }
+                                id="firstcoupondate"
+                                ref={firstcoupondate}
                               />
+                             
                             </Col>
                             <Col sm="6">
                               <Form.Label>* IssueDate</Form.Label>
@@ -3777,30 +3747,51 @@ export default function UpdateTransactions() {
                           </Row>
                           <Row className="mt-3">
                             <Col sm="6">
-                              <Form.Label>* FirstCouponDate</Form.Label>
+                            <Form.Label>* DiscountFactor</Form.Label>
                               <Form.Control
-                                type="date"
-                                defaultValue={
-                                  deal[0].firstcoupondate
-                                    ? new Date(deal[0].firstcoupondate)
-                                        .toISOString()
-                                        .split("T")[0]
-                                    : ""
-                                }
-                                id="firstcoupondate"
-                                ref={firstcoupondate}
+                                type="number"
+                                defaultValue={deal[0].discountfactor}
+                                id="discountfactor"
+                                ref={discountfactor}
                               />
                             </Col>
                             <Col sm="6">
                               <Form.Label>
                                 * TakingFirstInterestEarly
                               </Form.Label>
-                              <Form.Control
+                              {/* <Form.Control
                                 type="number"
                                 defaultValue={deal[0].takingfirstinterestearly}
                                 id="takingfirstinterestearly"
                                 ref={takingfirstinterestearly}
                               />
+                               */}
+                              <Form.Select
+                                size="sm"
+                                id="takingfirstinterestearly"
+                                ref={takingfirstinterestearly}
+                              >
+                                <option></option>
+                                  <option
+                                    key={1}
+                                    value={1}
+                                    selected={   
+                                      deal[0].takingfirstinterestearly === 1
+                                    }
+                                    
+                                  > Yes
+                                  </option>
+                                  <option
+                                    key={0}
+                                    value={0}
+                                     selected={   
+                                      deal[0].takingfirstinterestearly === 0
+                                    }
+                                  > No
+                                  </option>
+                                
+                              </Form.Select>
+                              
                             </Col>
                           </Row>
                           <Row className="mt-3">
@@ -3814,13 +3805,7 @@ export default function UpdateTransactions() {
                               />
                             </Col>
                             <Col sm="6">
-                              <Form.Label>* DiscountFactor</Form.Label>
-                              <Form.Control
-                                type="number"
-                                defaultValue={deal[0].discountfactor}
-                                id="discountfactor"
-                                ref={discountfactor}
-                              />
+                             
                             </Col>
                           </Row>
                         </div>
@@ -3853,6 +3838,7 @@ export default function UpdateTransactions() {
                   type="submit"
                   className="d-flex justify-content-end"
                   onClick={postData}
+
                 >
                   Update
                 </ButtonWrapper>
