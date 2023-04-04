@@ -15,7 +15,6 @@ import OcpsMode from "./OcpsMode";
 import KpisMode from "./KpisMode";
 import { useForm } from "react-hook-form";
 import {  Tooltip } from "antd";
-import toast, { Toaster } from "react-hot-toast";
 
 const ButtonWrapper = styled.button`
   color: white;
@@ -508,12 +507,12 @@ export default function UpdateTransactions() {
     // function to get deal by id from the database
     const data = await axios
       .get(
-        // `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
-        //   localStorage.getItem("fy")
-        // )}`,
-        `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+        `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
           localStorage.getItem("fy")
         )}`,
+        // `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+        //   localStorage.getItem("fy")
+        // )}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
@@ -920,7 +919,6 @@ export default function UpdateTransactions() {
       (acc, curr) => acc + Number(curr.plis_weighting),
       0
     );
-    console.log(totalWeight)
      if (parseFloat(data.plis_weighting) + totalWeight > 100) {
         alert("Total PLI weight cannot be more than 100%");
       return 
