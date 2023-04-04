@@ -1,10 +1,8 @@
 import React from 'react';
-// import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import {Row, Col, Container} from 'react-bootstrap';
 import SideNav2 from '../LandingPage/SideNav2';
 import TransactionTable from './AllDealsTable';
-// import TransactionCards from './AllDealsCard';
 import Navbar from '../LandingPage/Navbar';
 
 
