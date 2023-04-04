@@ -18,7 +18,7 @@ import {ADD_TITLE,
   ADD_CURRENT_FINANACIAL_YEAR,
   ADD_CURRENT_FINANACIAL_QUARTER,
 }from './Types'
-
+const getDate = new Date().getFullYear()
 const TitleState = ({ children }) => {
     const initalState = {
       showTitle: true,
@@ -27,7 +27,7 @@ const TitleState = ({ children }) => {
       reportStore:JSON.parse(localStorage.getItem('pipelineReport')) || "   The Origination & Structuring team is actively engaged in assessing new credit enhancement opportunities and diversifying the guarantee portfolio, which are at various stages of evaluation. As at 31 December 2021, InfraCredit’s pipeline of potential guarantee transactions totaled N311.5 Billion from 35 transactions, composed of N255.0 Billion of standard guarantees and N56.5 Billion of contingent refinancing guarantees. Of the 35 transactions, 34 are first-time clients with executed Mandate Letters and one (1) transaction involves follow-on debt instruments for LFZC.",
       progressHeaderStore:JSON.parse(localStorage.getItem("headerTitle")) || 'Progress on Guarantee Target through 31 December 2021 and Near-Term Forecast:',
       tableStore:JSON.parse(localStorage.getItem("header")) || 'Progress on Guarantee Target through 31 December 2021 and Near-Term Forecast:',
-      filteredStore:JSON.parse(localStorage.getItem('fy')) ||"FY2022",
+      filteredStore:JSON.parse(localStorage.getItem('fy')) ||`FY${getDate}` ,
       tableStore:JSON.parse(localStorage.getItem("header")) || 'Progress on Guarantee Target through 31 December 2021 and Near-Term Forecast:',
       keyTitleStore :JSON.parse(localStorage.getItem("keyStatsTitle")) ||'Key Statistics on O & S Activity - Inception till Date:',
       guaranteeTargetStore :JSON.parse(localStorage.getItem("growthTargetTitle")) ||'Guarantee Portfolio Growth Vs. Target',

@@ -14,7 +14,7 @@ import PlisMode from "./PlisMode";
 import OcpsMode from "./OcpsMode";
 import KpisMode from "./KpisMode";
 import { useForm } from "react-hook-form";
-import {  Tooltip } from "antd";
+import { Tooltip } from "antd";
 
 const ButtonWrapper = styled.button`
   color: white;
@@ -128,7 +128,7 @@ export default function UpdateTransactions() {
   const [plisChanged, setPlisChanged] = useState("");
   const [ocpsChanged, setOcpsChanged] = useState("");
   const [kpiChanged, setKpiChanged] = useState("");
-  // const [nbcFocusChanged, setNbcFocusChanged] = useSate("") 
+  // const [nbcFocusChanged, setNbcFocusChanged] = useSate("")
 
   const [ocps, setOcps] = useState([
     {
@@ -140,8 +140,8 @@ export default function UpdateTransactions() {
       ocps_status: "Active",
     },
   ]);
-  
-  const [nbcFocusId, setNbcFocusId] = useState("0")
+
+  const [nbcFocusId, setNbcFocusId] = useState("0");
   const [nbcFocus, setNbcFocus] = useState([
     {
       id: nbcFocusId,
@@ -149,7 +149,7 @@ export default function UpdateTransactions() {
       nbc_focus_original_yes_no: 0,
       nbc_focus_original_date: null,
       nbc_focus_original_methodology: "",
-    }
+    },
   ]);
   const [nbcFocusForm, setNbcFocusForm] = useState([
     {
@@ -158,7 +158,7 @@ export default function UpdateTransactions() {
       // nbc_focus_original_yes_no: 0,
       // nbc_focus_original_date: null,
       // nbc_focus_original_methodology: "",
-    }
+    },
   ]);
 
   const [plis, setPlis] = useState([
@@ -206,18 +206,18 @@ export default function UpdateTransactions() {
   const [redA, setRedA] = useState("");
   const [redB, setRedB] = useState("");
   const [redC, setRedC] = useState("");
-  const [nbcFocusApprv1b, setNbcFocusApprv1b] = useState("") 
-  const [nbcFocusApprv1c, setNbcFocusApprv1c] = useState("")
-  const [nbcFocusApprv2b, setNbcFocusApprv2b] = useState("")
-  const [nbcFocusApprv2c, setNbcFocusApprv2c] = useState("")
-  const [nbcFocusApprv3b, setNbcFocusApprv3b] = useState("")
-  const [nbcFocusApprv3c, setNbcFocusApprv3c] = useState("")
-  const [nbcFocusApprv4b, setNbcFocusApprv4b] = useState("")
-  const [nbcFocusApprv4c, setNbcFocusApprv4c] = useState("")
-  const [nbcFocusApprv5b, setNbcFocusApprv5b] = useState("")
-  const [nbcFocusApprv5c, setNbcFocusApprv5c] = useState("")
-  const [showAlert, setShowAlert] = useState(false)
-  const [hideSubmit, setHideSubmit] = useState(false)
+  const [nbcFocusApprv1b, setNbcFocusApprv1b] = useState("");
+  const [nbcFocusApprv1c, setNbcFocusApprv1c] = useState("");
+  const [nbcFocusApprv2b, setNbcFocusApprv2b] = useState("");
+  const [nbcFocusApprv2c, setNbcFocusApprv2c] = useState("");
+  const [nbcFocusApprv3b, setNbcFocusApprv3b] = useState("");
+  const [nbcFocusApprv3c, setNbcFocusApprv3c] = useState("");
+  const [nbcFocusApprv4b, setNbcFocusApprv4b] = useState("");
+  const [nbcFocusApprv4c, setNbcFocusApprv4c] = useState("");
+  const [nbcFocusApprv5b, setNbcFocusApprv5b] = useState("");
+  const [nbcFocusApprv5c, setNbcFocusApprv5c] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [hideSubmit, setHideSubmit] = useState(false);
   // const [nbcFocusId, setNbcFocusId] = useState("0")
   //**********************************************************   Key Performance Indicators **************** */
   const handleKpiChange = (e, index) => {
@@ -357,7 +357,7 @@ export default function UpdateTransactions() {
   };
 
   const handleNbcAdd = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setNbcFocus([
       ...nbcFocus,
       {
@@ -376,7 +376,6 @@ export default function UpdateTransactions() {
   };
 
   //************************************************************* Note Change ************************************************* */
- 
 
   const handleNoteChange = (event, index) => {
     const { name, value } = event.target;
@@ -389,13 +388,11 @@ export default function UpdateTransactions() {
     setNoteList([...noteList, { note: "" }]);
   };
 
-  
   const handleNoteRemove = (e, index) => {
-      const list = [...noteList];
-      list.splice(index, 1);
-      setNoteList(list);
+    const list = [...noteList];
+    list.splice(index, 1);
+    setNoteList(list);
   };
-
 
   useEffect(() => {
     retrieveDeal();
@@ -487,16 +484,14 @@ export default function UpdateTransactions() {
   const [allData, setAllData] = useState([]);
 
   useEffect(() => {
-   
     if (allData[0]?.notes.length > 0) {
-      let ram = allData[0]?.notes
-      const dataBA = ram.map(note => ({ note: note }));
+      let ram = allData[0]?.notes;
+      const dataBA = ram.map((note) => ({ note: note }));
       setNoteList(dataBA);
     } else {
       setNoteList([{ note: "" }]);
     }
   }, [allData]);
-  
 
   const retrieveDeal = async () => {
     // function to get deal by id from the database
@@ -548,17 +543,15 @@ export default function UpdateTransactions() {
     setNbcFocusApprv4c(data.data.dealInfo[0].nbc_focus_apprv_4_c);
     setNbcFocusApprv5b(data.data.dealInfo[0].nbc_focus_apprv_5_b);
     setNbcFocusApprv5c(data.data.dealInfo[0].nbc_focus_apprv_5_c);
-    setNbcFocusId(data.data.dealInfo[0].nbcid)
+    setNbcFocusId(data.data.dealInfo[0].nbcid);
     //********************************** End Block                   *******************
   };
 
-
- useEffect(() => {
-  // Update data state when uid changes
-  setNbcFocus([{ id: nbcFocusId }]);
-  setNbcFocusForm([{ id: nbcFocusId }]);
-}, [nbcFocusId]);
-
+  useEffect(() => {
+    // Update data state when uid changes
+    setNbcFocus([{ id: nbcFocusId }]);
+    setNbcFocusForm([{ id: nbcFocusId }]);
+  }, [nbcFocusId]);
 
   const uniqueId = Array.from(new Set(allData.map((a) => a.nbcid))).map(
     (id) => {
@@ -706,7 +699,7 @@ export default function UpdateTransactions() {
   // ***************************************** Send New NBC Focus Values to DB ************************************
 
   const addNewNBCFocus = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     let data = {
       id: 1000000000,
       nbc_focus_original: nbcFocus[0].nbc_focus_original,
@@ -789,7 +782,7 @@ export default function UpdateTransactions() {
   // ***************************************** Send New Transaction Parties Values to DB ************************************
 
   const addNewParties = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     let data = {
       id: 1000000000,
       parties_role: parties[0].parties_role,
@@ -866,7 +859,10 @@ export default function UpdateTransactions() {
     }
   }, [showAlert]);
   const validatePlisWeights = () => {
-    const totalWeight = pliid.reduce((acc, curr) => acc + Number(curr.plis_weighting), 0);
+    const totalWeight = pliid.reduce(
+      (acc, curr) => acc + Number(curr.plis_weighting),
+      0
+    );
     checkValid = false;
     if (totalWeight > 100) {
       checkValid = true;
@@ -914,10 +910,10 @@ export default function UpdateTransactions() {
       (acc, curr) => acc + Number(curr.plis_weighting),
       0
     );
-     if (parseFloat(data.plis_weighting) + totalWeight > 100) {
-        alert("Total PLI weight cannot be more than 100%");
-      return 
-     }
+    if (parseFloat(data.plis_weighting) + totalWeight > 100) {
+      alert("Total PLI weight cannot be more than 100%");
+      return;
+    }
 
     Service.updatePlis(id, data)
       .then((res) => {
@@ -998,7 +994,7 @@ export default function UpdateTransactions() {
   // ***************************************** Send Ocps Values to DB ************************************
 
   const addNewOcps = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     let data = {
       id: 1000000000,
       ocps_factors: ocps[0].ocps_factors,
@@ -1088,7 +1084,7 @@ export default function UpdateTransactions() {
   // ***************************************** Send Kpi Values to DB ************************************
 
   const addNewKpis = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     let data = {
       id: 1000000000,
       kpi_factors: kpi[0].kpi_factors,
@@ -1168,7 +1164,13 @@ export default function UpdateTransactions() {
   }
 
   // ******************************************  EndFunction  ****************************************
+  // ******************************************  Handle Keypress  ****************************************
 
+  const handleKeyPress = (e) => {
+    if (e.key === "e") {
+      e.preventDefault();
+    }
+  };
   // ******************************************  Back function  ****************************************
 
   function handleBack() {
@@ -1181,9 +1183,10 @@ export default function UpdateTransactions() {
 
   function postData(e) {
     e.preventDefault();
-    let allNotes = noteList.map((item) => item.note || (item.length == 0 ? item : item.note));
+    let allNotes = noteList.map(
+      (item) => item.note || (item.length == 0 ? item : item.note)
+    );
     let note = allNotes.join("|");
- 
 
     // ******************************************  Request body payload to the db  ***********************************
 
@@ -1246,20 +1249,26 @@ export default function UpdateTransactions() {
     };
 
     // ******************************************  Axios :  put request  ****************************************
-if(dealSize.current.value  && coupon.current.value && moratorium.current.value && tenor.current.value){
-  Service.updateDeal(id, data)
-      .then((response) => {
-        setMessage(response.data.message);
-      })
-      .catch((error) => {
-       
-        setMessage(`Failed to update deal, ${error.response.data.message || "Please Fill all required fields"}`);
-      });
-}
-else{
-  setMessage("Please Fill all required fields");
-}
-    
+    if (
+      dealSize.current.value &&
+      coupon.current.value &&
+      moratorium.current.value &&
+      tenor.current.value
+    ) {
+      Service.updateDeal(id, data)
+        .then((response) => {
+          setMessage(response.data.message);
+        })
+        .catch((error) => {
+          setMessage(
+            `Failed to update deal, ${
+              error.response.data.message || "Please Fill all required fields"
+            }`
+          );
+        });
+    } else {
+      setMessage("Please Fill all required fields");
+    }
   }
   let transactorList = staffList.filter((opt) => opt.istransactor === true);
   let originatorList = staffList.filter((opt) => opt.isoriginator === true);
@@ -1440,7 +1449,8 @@ else{
                               {noteList.map((singleNote, index) => {
                                 return (
                                   <div className="input-group">
-                                    <Form.Control key={index}
+                                    <Form.Control
+                                      key={index}
                                       style={{ margin: "0.8em", width: "60%" }}
                                       size="sm"
                                       as="textarea"
@@ -1461,7 +1471,9 @@ else{
                                         color: "white",
                                         borderRadius: "3px",
                                       }}
-                                      onClick={(e) => handleNoteRemove(e, index)}
+                                      onClick={(e) =>
+                                        handleNoteRemove(e, index)
+                                      }
                                     >
                                       x
                                     </button>
@@ -1562,6 +1574,7 @@ else{
                                 defaultValue={deal[0].dealsize}
                                 id="dealSize"
                                 ref={dealSize}
+                                onKeyPress={handleKeyPress}
                                 required
                               />
                             </Form.Group>
@@ -1576,6 +1589,7 @@ else{
                                 defaultValue={deal[0].coupon}
                                 id="coupon"
                                 ref={coupon}
+                                onKeyPress={handleKeyPress}
                               />
                             </Form.Group>
                           </Col>
@@ -1589,6 +1603,7 @@ else{
                                 defaultValue={deal[0].tenor}
                                 id="tenor"
                                 ref={tenor}
+                                onKeyPress={handleKeyPress}
                               />
                             </Form.Group>
                           </Col>
@@ -1602,6 +1617,7 @@ else{
                                 defaultValue={deal[0].moratorium}
                                 id="moratorium"
                                 ref={moratorium}
+                                onKeyPress={handleKeyPress}
                               />
                             </Form.Group>
                           </Col>
@@ -1833,6 +1849,7 @@ else{
                                 defaultValue={deal[0].structuringfeeamount}
                                 id="amount"
                                 ref={amount}
+                                onKeyPress={handleKeyPress}
                               />
                             </Form.Group>
                           </Col>
@@ -1846,7 +1863,7 @@ else{
                                 defaultValue={deal[0].structuringfeeadvance}
                                 id="advance"
                                 ref={advance}
-                                max='100'
+                                onKeyPress={handleKeyPress}
                               />
                             </Form.Group>
                           </Col>
@@ -1858,7 +1875,8 @@ else{
                                 size="sm"
                                 type="number"
                                 value={
-                                  parseInt(100) - parseInt(advance.current.value)
+                                  parseInt(100) -
+                                  parseInt(advance.current.value)
                                 }
                                 disabled
                               />
@@ -1874,6 +1892,7 @@ else{
                                 defaultValue={deal[0].guaranteefee}
                                 id="guarantee"
                                 ref={guarantee}
+                                onKeyPress={handleKeyPress}
                               />
                             </Form.Group>
                           </Col>
@@ -1887,6 +1906,7 @@ else{
                                 defaultValue={deal[0].monitoringfee}
                                 id="monitoring"
                                 ref={monitoring}
+                                onKeyPress={handleKeyPress}
                               />
                             </Form.Group>
                           </Col>
@@ -1900,13 +1920,12 @@ else{
                                 defaultValue={deal[0].reimbursible}
                                 id="reimbursible"
                                 ref={reimbursible}
+                                onKeyPress={handleKeyPress}
                               />
                             </Form.Group>
                           </Col>
                         </Row>
                         <br />
-                        {/* <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button> */}
-                        {/* <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button> */}
                       </Container1>
                     </div>
                   </Tab>
@@ -1920,11 +1939,6 @@ else{
                     title="DEAL CATEGORY"
                     style={{ fontSize: "12px" }}
                   >
-                    {/* <br/>
-          
-        <Tabs defaultActiveKey="first1" className='text-secondary'>
-        <Tab eventKey="first1" title="RED TRANSACTION CATEGORY" >
-            <br/> */}
                     <Container1>
                       <div id="redCategory" className="pt-2 mt-1 mb-3 pb-3">
                         {/* <br/> */}
@@ -2669,49 +2683,47 @@ else{
                                     MROC Pre_NBC Approval ( Link to Doc)
                                   </Form.Label>
                                 </Col>
-                  
 
-                            <Col sm={3} className="mt-1 mb-1">
-                              {/* <p>DATE</p> */}
-                              {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-1">
-                   
+                                <Col sm={3} className="mt-1 mb-1">
+                                  {/* <p>DATE</p> */}
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-1">
+                                      <input
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        name="nbc_focus_apprv_1_b"
+                                        defaultValue={
+                                          deal[0].nbc_focus_apprv_1_b
+                                        }
+                                        value={deal.nbc_focus_apprv_1_b}
+                                      />
+                                    </div>
+                                  ))}
+                                </Col>
 
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    name="nbc_focus_apprv_1_b"
-                                    defaultValue={deal[0].nbc_focus_apprv_1_b}
-                                    value={deal.nbc_focus_apprv_1_b}
-
-                                  />
-                                  
-                                </div>
-                              ))}
-                            </Col>
-
-                             
                                 <Col sm={3}>
-             
-
-                              {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-1">
-                      
-
-                                  <input
-                                    type="date"
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    name="nbc_focus_apprv_1_c"
-                                    defaultValue={  deal[0].nbc_focus_apprv_1_c
-                                      ? new Date(deal[0].nbc_focus_apprv_1_c)
-                                          .toISOString()
-                                          .split("T")[0]
-                                      : ""}
-                                    value={deal.nbc_focus_apprv_1_c}
-                                  />
-                                </div>
-                              ))}
-                                
-            
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-1">
+                                      <input
+                                        type="date"
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        name="nbc_focus_apprv_1_c"
+                                        defaultValue={
+                                          deal[0].nbc_focus_apprv_1_c
+                                            ? new Date(
+                                                deal[0].nbc_focus_apprv_1_c
+                                              )
+                                                .toISOString()
+                                                .split("T")[0]
+                                            : ""
+                                        }
+                                        value={deal.nbc_focus_apprv_1_c}
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                               </Row>
                             </Form.Group>
@@ -2727,47 +2739,44 @@ else{
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-                             
-
-                              {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                       
-
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    name="nbc_focus_apprv_2_b"
-                                    defaultValue={deal[0].nbc_focus_apprv_2_b}
-                                    value={deal.nbc_focus_apprv_2_b}
-
-                                  />
-                                  
-                                </div>
-                              ))}
-
-
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-2">
+                                      <input
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        name="nbc_focus_apprv_2_b"
+                                        defaultValue={
+                                          deal[0].nbc_focus_apprv_2_b
+                                        }
+                                        value={deal.nbc_focus_apprv_2_b}
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                                 <Col sm={3}>
-                            
-
-                              {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                       
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                     value={deal.nbc_focus_apprv_2_c}
-                                    // onChange={handleInputChange}
-                                    type="date"
-                                    name="nbc_focus_apprv_2_c"
-                                    defaultValue={deal[0].nbc_focus_apprv_2_c
-                                      ? new Date(deal[0].nbc_focus_apprv_2_c)
-                                          .toISOString()
-                                          .split("T")[0]
-                                      : ""}
-                                 
-                                  />
-                                  
-                                </div>
-                              ))}
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-2">
+                                      <input
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        value={deal.nbc_focus_apprv_2_c}
+                                        // onChange={handleInputChange}
+                                        type="date"
+                                        name="nbc_focus_apprv_2_c"
+                                        defaultValue={
+                                          deal[0].nbc_focus_apprv_2_c
+                                            ? new Date(
+                                                deal[0].nbc_focus_apprv_2_c
+                                              )
+                                                .toISOString()
+                                                .split("T")[0]
+                                            : ""
+                                        }
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                               </Row>
                             </Form.Group>
@@ -2783,43 +2792,43 @@ else{
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-                       
-
-                                {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                       
-
-                                    <input
-                                      onChange={(e) => handleNbcChangeForm(e, index)}
-                                      value={deal.nbc_focus_apprv_3_b}
-                                      name="nbc_focus_apprv_3_b"
-                                      defaultValue={deal[0].nbc_focus_apprv_3_b}
-                                   
-                                  />
-                                  
-                                </div>
-                              ))}
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-2">
+                                      <input
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        value={deal.nbc_focus_apprv_3_b}
+                                        name="nbc_focus_apprv_3_b"
+                                        defaultValue={
+                                          deal[0].nbc_focus_apprv_3_b
+                                        }
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                                 <Col sm={3}>
-                       
-                                     {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                       
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    value={deal.nbc_focus_apprv_3_c}
-                                    type='date'
-                                    name="nbc_focus_apprv_3_c"
-                                    defaultValue={  deal[0].nbc_focus_apprv_3_c
-                                      ? new Date(deal[0].nbc_focus_apprv_3_c)
-                                          .toISOString()
-                                          .split("T")[0]
-                                      : ""}
-                                 
-                                  />
-                                  
-                                </div>
-                              ))}
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-2">
+                                      <input
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        value={deal.nbc_focus_apprv_3_c}
+                                        type="date"
+                                        name="nbc_focus_apprv_3_c"
+                                        defaultValue={
+                                          deal[0].nbc_focus_apprv_3_c
+                                            ? new Date(
+                                                deal[0].nbc_focus_apprv_3_c
+                                              )
+                                                .toISOString()
+                                                .split("T")[0]
+                                            : ""
+                                        }
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                               </Row>
                             </Form.Group>
@@ -2835,48 +2844,47 @@ else{
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-
-                              {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                       
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    value={deal.nbc_focus_apprv_4_b}
-                                    // onChange={handleInputChange}
-                                    name="nbc_focus_apprv_4_b"
-                                    defaultValue={deal[0].nbc_focus_apprv_4_b}
-                                   
-                                 
-                                  />
-                                  
-                                </div>
-                              ))}
-
-                                 
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-2">
+                                      <input
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        value={deal.nbc_focus_apprv_4_b}
+                                        // onChange={handleInputChange}
+                                        name="nbc_focus_apprv_4_b"
+                                        defaultValue={
+                                          deal[0].nbc_focus_apprv_4_b
+                                        }
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                                 <Col sm={3}>
-                               
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-2">
+                                      <input
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        type="date"
+                                        value={deal.nbc_focus_apprv_4_c}
+                                        // onChange={handleInputChange}
+                                        name="nbc_focus_apprv_4_c"
+                                        defaultValue={
+                                          deal[0].nbc_focus_apprv_4_c
+                                            ? new Date(
+                                                deal[0].nbc_focus_apprv_4_c
+                                              )
+                                                .toISOString()
+                                                .split("T")[0]
+                                            : ""
+                                        }
+                                      />
+                                    </div>
+                                  ))}
 
-                                    {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                       
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    type="date"
-                                    value={deal.nbc_focus_apprv_4_c}
-                                    // onChange={handleInputChange}
-                                    name="nbc_focus_apprv_4_c"
-                                    defaultValue={  deal[0].nbc_focus_apprv_4_c
-                                      ? new Date(deal[0].nbc_focus_apprv_4_c)
-                                          .toISOString()
-                                          .split("T")[0]
-                                      : ""}
-                                  />
-                                  
-                                </div>
-                              ))}
-
-                                    {/* <input
+                                  {/* <input
                                     type='date'
                                     onChange={handleInputChange}
                                     value={deal.nbc_focus_apprv_4_c}
@@ -2921,21 +2929,22 @@ else{
                                       value={false}
                                       defaultChecked
                                     /> */}
-                                       {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                       
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    value={deal.nbc_focus_apprv_5_b}
-                                    // onChange={handleInputChange}
-                                    name="nbc_focus_apprv_5_b"
-                                    defaultValue={deal[0].nbc_focus_apprv_5_b}
-                                 
-                                  />
-                                  
-                                </div>
-                              ))}
-                                      {/* <input
+                                    {nbcFocusForm.map((singleNote, index) => (
+                                      <div class="input-group mt-2">
+                                        <input
+                                          onChange={(e) =>
+                                            handleNbcChangeForm(e, index)
+                                          }
+                                          value={deal.nbc_focus_apprv_5_b}
+                                          // onChange={handleInputChange}
+                                          name="nbc_focus_apprv_5_b"
+                                          defaultValue={
+                                            deal[0].nbc_focus_apprv_5_b
+                                          }
+                                        />
+                                      </div>
+                                    ))}
+                                    {/* <input
                                     onChange={handleInputChange}
                                     value={deal.nbc_focus_apprv_5_b}
                                     onChange={handleInputChange}
@@ -2957,10 +2966,9 @@ else{
                                       }}
                                     /> */}
 
-                                    
-                              {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                                  {/* <Form.Control
+                                    {nbcFocusForm.map((singleNote, index) => (
+                                      <div class="input-group mt-2">
+                                        {/* <Form.Control
                                     type="date"
                                     size="sm"
                                     value={singleNote.nbcFocus}
@@ -2968,22 +2976,26 @@ else{
                                     onChange={(e) => handleNbcChange(e, index)}
                                   /> */}
 
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    type="date"
-                                    value={deal.nbc_focus_apprv_5_c}
-                                      // onChange={handleInputChange}
-                                      name="nbc_focus_apprv_5_c"
-                                      defaultValue={  deal[0].nbc_focus_apprv_5_c
-                                        ? new Date(deal[0].nbc_focus_apprv_5_c)
-                                            .toISOString()
-                                            .split("T")[0]
-                                        : ""}
-
-                                  />
-                                  
-                                </div>
-                              ))}
+                                        <input
+                                          onChange={(e) =>
+                                            handleNbcChangeForm(e, index)
+                                          }
+                                          type="date"
+                                          value={deal.nbc_focus_apprv_5_c}
+                                          // onChange={handleInputChange}
+                                          name="nbc_focus_apprv_5_c"
+                                          defaultValue={
+                                            deal[0].nbc_focus_apprv_5_c
+                                              ? new Date(
+                                                  deal[0].nbc_focus_apprv_5_c
+                                                )
+                                                  .toISOString()
+                                                  .split("T")[0]
+                                              : ""
+                                          }
+                                        />
+                                      </div>
+                                    ))}
                                   </Col>
                                 </Row>
                               </Form.Group>
@@ -3286,23 +3298,21 @@ else{
                                     </i>
                                   </button>
                                   {hideSubmit ? null : (
-                                  <button
-                                    onClick={addNewPlis}
-                                    className="mt-1"
-                                    style={{
-                                      height: "25px",
-                                      width: "20%",
-                                      border: "none",
-                                    }}
-                                  >
-                                   
+                                    <button
+                                      onClick={addNewPlis}
+                                      className="mt-1"
+                                      style={{
+                                        height: "25px",
+                                        width: "20%",
+                                        border: "none",
+                                      }}
+                                    >
                                       <i className="">
                                         {" "}
                                         <FiSave />{" "}
                                       </i>
-                                   
-                                  </button>
-                                    )}
+                                    </button>
+                                  )}
                                 </div>
                               ))}
                             </Col>
@@ -3713,7 +3723,7 @@ else{
                         <div>
                           <Row className="mt-3">
                             <Col sm="6">
-                             <Form.Label>* FirstCouponDate</Form.Label>
+                              <Form.Label>* FirstCouponDate</Form.Label>
                               <Form.Control
                                 type="date"
                                 defaultValue={
@@ -3726,7 +3736,6 @@ else{
                                 id="firstcoupondate"
                                 ref={firstcoupondate}
                               />
-                             
                             </Col>
                             <Col sm="6">
                               <Form.Label>* IssueDate</Form.Label>
@@ -3746,51 +3755,46 @@ else{
                           </Row>
                           <Row className="mt-3">
                             <Col sm="6">
-                            <Form.Label>* DiscountFactor</Form.Label>
+                              <Form.Label>* DiscountFactor</Form.Label>
                               <Form.Control
                                 type="number"
                                 defaultValue={deal[0].discountfactor}
                                 id="discountfactor"
                                 ref={discountfactor}
+                                onKeyPress={handleKeyPress}
                               />
                             </Col>
                             <Col sm="6">
                               <Form.Label>
                                 * TakingFirstInterestEarly
                               </Form.Label>
-                              {/* <Form.Control
-                                type="number"
-                                defaultValue={deal[0].takingfirstinterestearly}
-                                id="takingfirstinterestearly"
-                                ref={takingfirstinterestearly}
-                              />
-                               */}
                               <Form.Select
                                 size="sm"
                                 id="takingfirstinterestearly"
                                 ref={takingfirstinterestearly}
                               >
                                 <option></option>
-                                  <option
-                                    key={1}
-                                    value={1}
-                                    selected={   
-                                      deal[0].takingfirstinterestearly === 1
-                                    }
-                                    
-                                  > Yes
-                                  </option>
-                                  <option
-                                    key={0}
-                                    value={0}
-                                     selected={   
-                                      deal[0].takingfirstinterestearly === 0
-                                    }
-                                  > No
-                                  </option>
-                                
+                                <option
+                                  key={1}
+                                  value={1}
+                                  selected={
+                                    deal[0].takingfirstinterestearly === 1
+                                  }
+                                >
+                                  {" "}
+                                  Yes
+                                </option>
+                                <option
+                                  key={0}
+                                  value={0}
+                                  selected={
+                                    deal[0].takingfirstinterestearly === 0
+                                  }
+                                >
+                                  {" "}
+                                  No
+                                </option>
                               </Form.Select>
-                              
                             </Col>
                           </Row>
                           <Row className="mt-3">
@@ -3801,11 +3805,10 @@ else{
                                 defaultValue={deal[0].guaranteefeerate}
                                 id="guaranteefeerate"
                                 ref={guaranteefeerate}
+                                onKeyPress={handleKeyPress}
                               />
                             </Col>
-                            <Col sm="6">
-                             
-                            </Col>
+                            <Col sm="6"></Col>
                           </Row>
                         </div>
                       </Container>
@@ -3837,7 +3840,6 @@ else{
                   type="submit"
                   className="d-flex justify-content-end"
                   onClick={postData}
-
                 >
                   Update
                 </ButtonWrapper>

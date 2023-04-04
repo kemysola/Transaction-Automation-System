@@ -766,6 +766,11 @@ const NewTransaction = () => {
       });
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "e") {
+      e.preventDefault();
+    }
+  };
   return (
     <React.Fragment>
       <Toaster
@@ -1052,6 +1057,7 @@ const NewTransaction = () => {
                               <Form.Control
                                 type="number"
                                 {...register("dealSize", { required: true })}
+                                onKeyPress={handleKeyPress}
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
@@ -1069,7 +1075,7 @@ const NewTransaction = () => {
                             <Form.Group className="pt-1">
                               <Form.Label>Coupon(%)</Form.Label>
                               <Form.Control
-                                type="text"
+                                type="number"
                                 {...register("coupon", {
                                   required: true,
                                   pattern: "d+",
@@ -1080,6 +1086,7 @@ const NewTransaction = () => {
                                   padding: "4px 1px",
                                   focus: "none",
                                 }}
+                                onKeyPress={handleKeyPress}
                               />
                             </Form.Group>
                             <div className="text-danger">
@@ -1094,6 +1101,7 @@ const NewTransaction = () => {
                               <Form.Control
                                 type="number"
                                 {...register("tenor", { required: true })}
+                                onKeyPress={handleKeyPress}
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
@@ -1113,6 +1121,7 @@ const NewTransaction = () => {
                               <Form.Control
                                 type="number"
                                 {...register("moratorium", { required: true })}
+                                onKeyPress={handleKeyPress}
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
@@ -1310,6 +1319,7 @@ const NewTransaction = () => {
                               <Form.Label>Amount (₦'MN)</Form.Label>
                               <Form.Control
                                 {...register("structuringFeeAmount")}
+                                onKeyPress={handleKeyPress}
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
@@ -1323,6 +1333,7 @@ const NewTransaction = () => {
                               <Form.Label>Advance (%)</Form.Label>
                               <Form.Control
                                 {...register("structuringFeeAdvance")}
+                                onKeyPress={handleKeyPress}
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
@@ -1337,6 +1348,7 @@ const NewTransaction = () => {
                               <Form.Control
                                 {...register("structuringFeeFinal")}
                                 defaultValue={getValues("structuringAmount")}
+                                onKeyPress={handleKeyPress}
                                 disabled
                                 style={{
                                   width: "100%",
@@ -1351,6 +1363,7 @@ const NewTransaction = () => {
                               <Form.Label>Guarantee(%)</Form.Label>
                               <Form.Control
                                 {...register("guaranteeFee")}
+                                onKeyPress={handleKeyPress}
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
@@ -1364,6 +1377,7 @@ const NewTransaction = () => {
                               <Form.Label>Monitoring(₦'MN)</Form.Label>
                               <Form.Control
                                 {...register("monitoringFee")}
+                                onKeyPress={handleKeyPress}
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
@@ -1378,6 +1392,7 @@ const NewTransaction = () => {
 
                               <Form.Control
                                 {...register("reimbursible")}
+                                onKeyPress={handleKeyPress}
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
@@ -2673,6 +2688,7 @@ const NewTransaction = () => {
                                 {...register("discountfactor", {
                                   required: true,
                                 })}
+                                onKeyPress={handleKeyPress}
                               />
                               <div className="text-danger">
                                 {errors.discountfactor?.type === "required" &&
@@ -2693,7 +2709,7 @@ const NewTransaction = () => {
                             </Col>
                           </Row>
                           <Row>
-                            <Col sm={6} className='pt-1'>
+                            <Col sm={6} className="pt-1">
                               <Form.Label>FirstCouponDate</Form.Label>
                               <Form.Control
                                 type="date"
@@ -2747,6 +2763,7 @@ const NewTransaction = () => {
                                 {...register("guaranteefeerate", {
                                   required: true,
                                 })}
+                                onKeyPress={handleKeyPress}
                               />
                               <div className="text-danger">
                                 {errors.guaranteefeerate?.type === "required" &&
