@@ -14,8 +14,7 @@ import PlisMode from "./PlisMode";
 import OcpsMode from "./OcpsMode";
 import KpisMode from "./KpisMode";
 import { useForm } from "react-hook-form";
-import {  Tooltip } from "antd";
-import toast, { Toaster } from "react-hot-toast";
+import { Tooltip } from "antd";
 
 const ButtonWrapper = styled.button`
   color: white;
@@ -109,7 +108,6 @@ export default function UpdateTransactions() {
   const nbcApprovalDate = useRef("");
   const nbcSubmittedDate = useRef("");
   const ccSubmissionDate = useRef("");
-
   let id = window.location.search.split("?")[1];
   const history = useHistory();
   const [deal, setDeal] = useState([]);
@@ -130,7 +128,7 @@ export default function UpdateTransactions() {
   const [plisChanged, setPlisChanged] = useState("");
   const [ocpsChanged, setOcpsChanged] = useState("");
   const [kpiChanged, setKpiChanged] = useState("");
-  // const [nbcFocusChanged, setNbcFocusChanged] = useSate("") 
+  // const [nbcFocusChanged, setNbcFocusChanged] = useSate("")
 
   const [ocps, setOcps] = useState([
     {
@@ -142,8 +140,8 @@ export default function UpdateTransactions() {
       ocps_status: "Active",
     },
   ]);
-  
-  const [nbcFocusId, setNbcFocusId] = useState("0")
+
+  const [nbcFocusId, setNbcFocusId] = useState("0");
   const [nbcFocus, setNbcFocus] = useState([
     {
       id: nbcFocusId,
@@ -151,7 +149,7 @@ export default function UpdateTransactions() {
       nbc_focus_original_yes_no: 0,
       nbc_focus_original_date: null,
       nbc_focus_original_methodology: "",
-    }
+    },
   ]);
   const [nbcFocusForm, setNbcFocusForm] = useState([
     {
@@ -160,7 +158,7 @@ export default function UpdateTransactions() {
       // nbc_focus_original_yes_no: 0,
       // nbc_focus_original_date: null,
       // nbc_focus_original_methodology: "",
-    }
+    },
   ]);
 
   const [plis, setPlis] = useState([
@@ -357,21 +355,10 @@ export default function UpdateTransactions() {
     const list = [...plis];
     list[index][name] = value;
     setNbcFocus(list);
-    // setNbcFocus({ ...nbcFocus, [name]: value });
-    // setNbcFocusApprv1b(data.data.dealInfo[0].nbc_focus_apprv_1_b);
-    // setNbcFocusApprv1c(data.data.dealInfo[0].nbc_focus_apprv_1_c);
-    // setNbcFocusApprv2b(data.data.dealInfo[0].nbc_focus_apprv_2_b);
-    // setNbcFocusApprv2c(data.data.dealInfo[0].nbc_focus_apprv_2_c);
-    // setNbcFocusApprv3b(data.data.dealInfo[0].nbc_focus_apprv_3_b);
-    // setNbcFocusApprv3c(data.data.dealInfo[0].nbc_focus_apprv_3_c);
-    // setNbcFocusApprv4b(data.data.dealInfo[0].nbc_focus_apprv_4_b);
-    // setNbcFocusApprv4c(data.data.dealInfo[0].nbc_focus_apprv_4_c);
-    // setNbcFocusApprv5b(data.data.dealInfo[0].nbc_focus_apprv_5_b);
-    // setNbcFocusApprv5c(data.data.dealInfo[0].nbc_focus_apprv_5_c);
   };
 
   const handleNbcAdd = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setNbcFocus([
       ...nbcFocus,
       {
@@ -379,16 +366,6 @@ export default function UpdateTransactions() {
         nbc_focus_original_yes_no: 0,
         nbc_focus_original_date: null,
         nbc_focus_original_methodology: "",
-        // nbc_focus_apprv_1_b: "",
-        // nbc_focus_apprv_1_c: null,
-        // nbc_focus_apprv_2_b: "",
-        // nbc_focus_apprv_2_c: null,
-        // nbc_focus_apprv_3_b: "",
-        // nbc_focus_apprv_3_c: null,
-        // nbc_focus_apprv_4_b: "",
-        // nbc_focus_apprv_4_c: null,
-        // nbc_focus_apprv_5_b: "",
-        // nbc_focus_apprv_5_c: null,
       },
     ]);
   };
@@ -400,12 +377,6 @@ export default function UpdateTransactions() {
   };
 
   //************************************************************* Note Change ************************************************* */
-  // const handleNoteChange = (e, index) => {
-  //   const { name, value } = e.target;
-  //   const list = [...noteList];
-  //   list[index][name] = value;
-  //   setNoteList(list);
-  // };
 
   const handleNoteChange = (event, index) => {
     const { name, value } = event.target;
@@ -418,13 +389,11 @@ export default function UpdateTransactions() {
     setNoteList([...noteList, { note: "" }]);
   };
 
-  
   const handleNoteRemove = (e, index) => {
-      const list = [...noteList];
-      list.splice(index, 1);
-      setNoteList(list);
+    const list = [...noteList];
+    list.splice(index, 1);
+    setNoteList(list);
   };
-
 
   useEffect(() => {
     retrieveDeal();
@@ -516,16 +485,14 @@ export default function UpdateTransactions() {
   const [allData, setAllData] = useState([]);
 
   useEffect(() => {
-   
     if (allData[0]?.notes.length > 0) {
-      let ram = allData[0]?.notes
-      const dataBA = ram.map(note => ({ note: note }));
+      let ram = allData[0]?.notes;
+      const dataBA = ram.map((note) => ({ note: note }));
       setNoteList(dataBA);
     } else {
       setNoteList([{ note: "" }]);
     }
   }, [allData]);
-  
 
   const retrieveDeal = async () => {
     // function to get deal by id from the database
@@ -577,17 +544,15 @@ export default function UpdateTransactions() {
     setNbcFocusApprv4c(data.data.dealInfo[0].nbc_focus_apprv_4_c);
     setNbcFocusApprv5b(data.data.dealInfo[0].nbc_focus_apprv_5_b);
     setNbcFocusApprv5c(data.data.dealInfo[0].nbc_focus_apprv_5_c);
-    setNbcFocusId(data.data.dealInfo[0].nbcid)
+    setNbcFocusId(data.data.dealInfo[0].nbcid);
     //********************************** End Block                   *******************
   };
 
-
- useEffect(() => {
-  // Update data state when uid changes
-  setNbcFocus([{ id: nbcFocusId }]);
-  setNbcFocusForm([{ id: nbcFocusId }]);
-}, [nbcFocusId]);
-
+  useEffect(() => {
+    // Update data state when uid changes
+    setNbcFocus([{ id: nbcFocusId }]);
+    setNbcFocusForm([{ id: nbcFocusId }]);
+  }, [nbcFocusId]);
 
   const uniqueId = Array.from(new Set(allData.map((a) => a.nbcid))).map(
     (id) => {
@@ -736,7 +701,7 @@ export default function UpdateTransactions() {
   // ***************************************** Send New NBC Focus Values to DB ************************************
 
   const addNewNBCFocus = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     let data = {
       id: 1000000000,
       nbc_focus_original: nbcFocus[0].nbc_focus_original,
@@ -824,7 +789,7 @@ export default function UpdateTransactions() {
   // ***************************************** Send New Transaction Parties Values to DB ************************************
 
   const addNewParties = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     let data = {
       id: 1000000000,
       parties_role: parties[0].parties_role,
@@ -1047,7 +1012,7 @@ export default function UpdateTransactions() {
   // ***************************************** Send Ocps Values to DB ************************************
 
   const addNewOcps = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     let data = {
       id: 1000000000,
       ocps_factors: ocps[0].ocps_factors,
@@ -1137,7 +1102,7 @@ export default function UpdateTransactions() {
   // ***************************************** Send Kpi Values to DB ************************************
 
   const addNewKpis = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     let data = {
       id: 1000000000,
       kpi_factors: kpi[0].kpi_factors,
@@ -1217,7 +1182,13 @@ export default function UpdateTransactions() {
   }
 
   // ******************************************  EndFunction  ****************************************
+  // ******************************************  Handle Keypress  ****************************************
 
+  const handleKeyPress = (e) => {
+    if (e.key === "e") {
+      e.preventDefault();
+    }
+  };
   // ******************************************  Back function  ****************************************
 
   function handleBack() {
@@ -1230,9 +1201,10 @@ export default function UpdateTransactions() {
 
   function postData(e) {
     e.preventDefault();
-    let allNotes = noteList.map((item) => item.note || (item.length == 0 ? item : item.note));
+    let allNotes = noteList.map(
+      (item) => item.note || (item.length == 0 ? item : item.note)
+    );
     let note = allNotes.join("|");
- 
 
     // ******************************************  Request body payload to the db  ***********************************
 
@@ -1244,10 +1216,11 @@ export default function UpdateTransactions() {
       industry: industry.current.value,
       product: product.current.value,
       region: region.current.value,
-      dealSize: +dealSize.current.value,
+      //regex  .replace('/e', '')
+      dealSize: parseInt(dealSize.current.value),
       coupon: parseInt(coupon.current.value),
-      tenor: +tenor.current.value,
-      moratorium: +moratorium.current.value,
+      tenor: parseInt(tenor.current.value),
+      moratorium: parseInt(moratorium.current.value),
       repaymentFrequency: repaymentFreq.current.value,
       amortizationStyle: amortizationStyle.current.value,
       mandateLetter: new Date(mandateLetter.current.value),
@@ -1258,13 +1231,13 @@ export default function UpdateTransactions() {
       NBC_approval_date: new Date(nbcApprovalDate.current.value),
       NBC_submitted_date: new Date(nbcSubmittedDate.current.value),
       ccSubmissionDate: new Date(ccSubmissionDate.current.value),
-      principal: +principal.current.value,
+      principal: +dealSize.current.value,
       guaranteefeerate: +guaranteefeerate.current.value,
       issuedate: issuedate.current.value,
-      takingfirstinterestearly: takingfirstinterestearly.current.value,
+      takingfirstinterestearly: +takingfirstinterestearly.current.value,
       discountfactor: +discountfactor.current.value,
       firstcoupondate: firstcoupondate.current.value,
-      structuringFeeAmount: +amount.current.value,
+      structuringFeeAmount: parseInt(amount.current.value),
       structuringFeeAdvance: +advance.current.value,
       structuringFeeFinal: +final.current.value,
       guaranteeFee: +guarantee.current.value,
@@ -1294,15 +1267,26 @@ export default function UpdateTransactions() {
     };
 
     // ******************************************  Axios :  put request  ****************************************
-
-    Service.updateDeal(id, data)
-      .then((response) => {
-        setMessage(response.data.message);
-      })
-      .catch((error) => {
-       
-        setMessage(`Failed to update deal, ${error.response.data.message || "Please Fill all required fields"}`);
-      });
+    if (
+      dealSize.current.value &&
+      coupon.current.value &&
+      moratorium.current.value &&
+      tenor.current.value
+    ) {
+      Service.updateDeal(id, data)
+        .then((response) => {
+          setMessage(response.data.message);
+        })
+        .catch((error) => {
+          setMessage(
+            `Failed to update deal, ${
+              error.response.data.message || "Please Fill all required fields"
+            }`
+          );
+        });
+    } else {
+      setMessage("Please Fill all required fields");
+    }
   }
   let transactorList = staffList.filter((opt) => opt.istransactor === true);
   let originatorList = staffList.filter((opt) => opt.isoriginator === true);
@@ -1483,7 +1467,8 @@ export default function UpdateTransactions() {
                               {noteList.map((singleNote, index) => {
                                 return (
                                   <div className="input-group">
-                                    <Form.Control key={index}
+                                    <Form.Control
+                                      key={index}
                                       style={{ margin: "0.8em", width: "60%" }}
                                       size="sm"
                                       as="textarea"
@@ -1504,7 +1489,9 @@ export default function UpdateTransactions() {
                                         color: "white",
                                         borderRadius: "3px",
                                       }}
-                                      onClick={(e) => handleNoteRemove(e, index)}
+                                      onClick={(e) =>
+                                        handleNoteRemove(e, index)
+                                      }
                                     >
                                       x
                                     </button>
@@ -1598,14 +1585,14 @@ export default function UpdateTransactions() {
                         <Row className="mt-1">
                           <Col sm={6}>
                             <Form.Group className="pt-1">
-                              <Form.Label>Deal Size (₦'BN)</Form.Label>
+                              <Form.Label>* Deal Size (₦'BN)</Form.Label>
                               <Form.Control
                                 size="sm"
                                 type="number"
                                 defaultValue={deal[0].dealsize}
                                 id="dealSize"
                                 ref={dealSize}
-                                required
+                                onKeyPress={handleKeyPress}
                               />
                             </Form.Group>
                           </Col>
@@ -1619,6 +1606,7 @@ export default function UpdateTransactions() {
                                 defaultValue={deal[0].coupon}
                                 id="coupon"
                                 ref={coupon}
+                                onKeyPress={handleKeyPress}
                               />
                             </Form.Group>
                           </Col>
@@ -1632,6 +1620,7 @@ export default function UpdateTransactions() {
                                 defaultValue={deal[0].tenor}
                                 id="tenor"
                                 ref={tenor}
+                                onKeyPress={handleKeyPress}
                               />
                             </Form.Group>
                           </Col>
@@ -1645,6 +1634,7 @@ export default function UpdateTransactions() {
                                 defaultValue={deal[0].moratorium}
                                 id="moratorium"
                                 ref={moratorium}
+                                onKeyPress={handleKeyPress}
                               />
                             </Form.Group>
                           </Col>
@@ -1872,10 +1862,12 @@ export default function UpdateTransactions() {
                               <Form.Label>Amount(₦'MN)</Form.Label>
                               <Form.Control
                                 size="sm"
-                                type="amount"
+                                type="number"
+                                step="any"
                                 defaultValue={deal[0].structuringfeeamount}
                                 id="amount"
                                 ref={amount}
+                                onKeyPress={handleKeyPress}
                               />
                             </Form.Group>
                           </Col>
@@ -1889,6 +1881,7 @@ export default function UpdateTransactions() {
                                 defaultValue={deal[0].structuringfeeadvance}
                                 id="advance"
                                 ref={advance}
+                                onKeyPress={handleKeyPress}
                               />
                             </Form.Group>
                           </Col>
@@ -1900,7 +1893,8 @@ export default function UpdateTransactions() {
                                 size="sm"
                                 type="number"
                                 value={
-                                  parseInt(amount.current.value) + parseInt(advance.current.value)
+                                  parseInt(100) -
+                                  parseInt(advance.current.value)
                                 }
                                 disabled
                               />
@@ -1916,6 +1910,7 @@ export default function UpdateTransactions() {
                                 defaultValue={deal[0].guaranteefee}
                                 id="guarantee"
                                 ref={guarantee}
+                                onKeyPress={handleKeyPress}
                               />
                             </Form.Group>
                           </Col>
@@ -1929,6 +1924,7 @@ export default function UpdateTransactions() {
                                 defaultValue={deal[0].monitoringfee}
                                 id="monitoring"
                                 ref={monitoring}
+                                onKeyPress={handleKeyPress}
                               />
                             </Form.Group>
                           </Col>
@@ -1942,13 +1938,12 @@ export default function UpdateTransactions() {
                                 defaultValue={deal[0].reimbursible}
                                 id="reimbursible"
                                 ref={reimbursible}
+                                onKeyPress={handleKeyPress}
                               />
                             </Form.Group>
                           </Col>
                         </Row>
                         <br />
-                        {/* <button onClick={e => toPrevTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}> Prev</button> */}
-                        {/* <button onClick={e => toNextTab(e)} style={{ display: 'inlineblock', fontSize: '13px', padding: '2px 20px', margin: '10px', background: 'green', color: 'white', borderRadius: '3px' }}>Next</button> */}
                       </Container1>
                     </div>
                   </Tab>
@@ -1962,11 +1957,6 @@ export default function UpdateTransactions() {
                     title="DEAL CATEGORY"
                     style={{ fontSize: "12px" }}
                   >
-                    {/* <br/>
-          
-        <Tabs defaultActiveKey="first1" className='text-secondary'>
-        <Tab eventKey="first1" title="RED TRANSACTION CATEGORY" >
-            <br/> */}
                     <Container1>
                       <div id="redCategory" className="pt-2 mt-1 mb-3 pb-3">
                         {/* <br/> */}
@@ -2711,49 +2701,47 @@ export default function UpdateTransactions() {
                                     MROC Pre_NBC Approval ( Link to Doc)
                                   </Form.Label>
                                 </Col>
-                  
 
-                            <Col sm={3} className="mt-1 mb-1">
-                              {/* <p>DATE</p> */}
-                              {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-1">
-                   
+                                <Col sm={3} className="mt-1 mb-1">
+                                  {/* <p>DATE</p> */}
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-1">
+                                      <input
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        name="nbc_focus_apprv_1_b"
+                                        defaultValue={
+                                          deal[0].nbc_focus_apprv_1_b
+                                        }
+                                        value={deal.nbc_focus_apprv_1_b}
+                                      />
+                                    </div>
+                                  ))}
+                                </Col>
 
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    name="nbc_focus_apprv_1_b"
-                                    defaultValue={deal[0].nbc_focus_apprv_1_b}
-                                    value={deal.nbc_focus_apprv_1_b}
-
-                                  />
-                                  
-                                </div>
-                              ))}
-                            </Col>
-
-                             
                                 <Col sm={3}>
-             
-
-                              {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-1">
-                      
-
-                                  <input
-                                    type="date"
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    name="nbc_focus_apprv_1_c"
-                                    defaultValue={  deal[0].nbc_focus_apprv_1_c
-                                      ? new Date(deal[0].nbc_focus_apprv_1_c)
-                                          .toISOString()
-                                          .split("T")[0]
-                                      : ""}
-                                    value={deal.nbc_focus_apprv_1_c}
-                                  />
-                                </div>
-                              ))}
-                                
-            
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-1">
+                                      <input
+                                        type="date"
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        name="nbc_focus_apprv_1_c"
+                                        defaultValue={
+                                          deal[0].nbc_focus_apprv_1_c
+                                            ? new Date(
+                                                deal[0].nbc_focus_apprv_1_c
+                                              )
+                                                .toISOString()
+                                                .split("T")[0]
+                                            : ""
+                                        }
+                                        value={deal.nbc_focus_apprv_1_c}
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                               </Row>
                             </Form.Group>
@@ -2769,47 +2757,44 @@ export default function UpdateTransactions() {
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-                             
-
-                              {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                       
-
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    name="nbc_focus_apprv_2_b"
-                                    defaultValue={deal[0].nbc_focus_apprv_2_b}
-                                    value={deal.nbc_focus_apprv_2_b}
-
-                                  />
-                                  
-                                </div>
-                              ))}
-
-
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-2">
+                                      <input
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        name="nbc_focus_apprv_2_b"
+                                        defaultValue={
+                                          deal[0].nbc_focus_apprv_2_b
+                                        }
+                                        value={deal.nbc_focus_apprv_2_b}
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                                 <Col sm={3}>
-                            
-
-                              {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                       
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                     value={deal.nbc_focus_apprv_2_c}
-                                    // onChange={handleInputChange}
-                                    type="date"
-                                    name="nbc_focus_apprv_2_c"
-                                    defaultValue={deal[0].nbc_focus_apprv_2_c
-                                      ? new Date(deal[0].nbc_focus_apprv_2_c)
-                                          .toISOString()
-                                          .split("T")[0]
-                                      : ""}
-                                 
-                                  />
-                                  
-                                </div>
-                              ))}
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-2">
+                                      <input
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        value={deal.nbc_focus_apprv_2_c}
+                                        // onChange={handleInputChange}
+                                        type="date"
+                                        name="nbc_focus_apprv_2_c"
+                                        defaultValue={
+                                          deal[0].nbc_focus_apprv_2_c
+                                            ? new Date(
+                                                deal[0].nbc_focus_apprv_2_c
+                                              )
+                                                .toISOString()
+                                                .split("T")[0]
+                                            : ""
+                                        }
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                               </Row>
                             </Form.Group>
@@ -2825,43 +2810,43 @@ export default function UpdateTransactions() {
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-                       
-
-                                {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                       
-
-                                    <input
-                                      onChange={(e) => handleNbcChangeForm(e, index)}
-                                      value={deal.nbc_focus_apprv_3_b}
-                                      name="nbc_focus_apprv_3_b"
-                                      defaultValue={deal[0].nbc_focus_apprv_3_b}
-                                   
-                                  />
-                                  
-                                </div>
-                              ))}
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-2">
+                                      <input
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        value={deal.nbc_focus_apprv_3_b}
+                                        name="nbc_focus_apprv_3_b"
+                                        defaultValue={
+                                          deal[0].nbc_focus_apprv_3_b
+                                        }
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                                 <Col sm={3}>
-                       
-                                     {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                       
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    value={deal.nbc_focus_apprv_3_c}
-                                    type='date'
-                                    name="nbc_focus_apprv_3_c"
-                                    defaultValue={  deal[0].nbc_focus_apprv_3_c
-                                      ? new Date(deal[0].nbc_focus_apprv_3_c)
-                                          .toISOString()
-                                          .split("T")[0]
-                                      : ""}
-                                 
-                                  />
-                                  
-                                </div>
-                              ))}
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-2">
+                                      <input
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        value={deal.nbc_focus_apprv_3_c}
+                                        type="date"
+                                        name="nbc_focus_apprv_3_c"
+                                        defaultValue={
+                                          deal[0].nbc_focus_apprv_3_c
+                                            ? new Date(
+                                                deal[0].nbc_focus_apprv_3_c
+                                              )
+                                                .toISOString()
+                                                .split("T")[0]
+                                            : ""
+                                        }
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                               </Row>
                             </Form.Group>
@@ -2877,48 +2862,47 @@ export default function UpdateTransactions() {
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-
-                              {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                       
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    value={deal.nbc_focus_apprv_4_b}
-                                    // onChange={handleInputChange}
-                                    name="nbc_focus_apprv_4_b"
-                                    defaultValue={deal[0].nbc_focus_apprv_4_b}
-                                   
-                                 
-                                  />
-                                  
-                                </div>
-                              ))}
-
-                                 
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-2">
+                                      <input
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        value={deal.nbc_focus_apprv_4_b}
+                                        // onChange={handleInputChange}
+                                        name="nbc_focus_apprv_4_b"
+                                        defaultValue={
+                                          deal[0].nbc_focus_apprv_4_b
+                                        }
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                                 <Col sm={3}>
-                               
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-2">
+                                      <input
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        type="date"
+                                        value={deal.nbc_focus_apprv_4_c}
+                                        // onChange={handleInputChange}
+                                        name="nbc_focus_apprv_4_c"
+                                        defaultValue={
+                                          deal[0].nbc_focus_apprv_4_c
+                                            ? new Date(
+                                                deal[0].nbc_focus_apprv_4_c
+                                              )
+                                                .toISOString()
+                                                .split("T")[0]
+                                            : ""
+                                        }
+                                      />
+                                    </div>
+                                  ))}
 
-                                    {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                       
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    type="date"
-                                    value={deal.nbc_focus_apprv_4_c}
-                                    // onChange={handleInputChange}
-                                    name="nbc_focus_apprv_4_c"
-                                    defaultValue={  deal[0].nbc_focus_apprv_4_c
-                                      ? new Date(deal[0].nbc_focus_apprv_4_c)
-                                          .toISOString()
-                                          .split("T")[0]
-                                      : ""}
-                                  />
-                                  
-                                </div>
-                              ))}
-
-                                    {/* <input
+                                  {/* <input
                                     type='date'
                                     onChange={handleInputChange}
                                     value={deal.nbc_focus_apprv_4_c}
@@ -2963,21 +2947,22 @@ export default function UpdateTransactions() {
                                       value={false}
                                       defaultChecked
                                     /> */}
-                                       {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                       
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    value={deal.nbc_focus_apprv_5_b}
-                                    // onChange={handleInputChange}
-                                    name="nbc_focus_apprv_5_b"
-                                    defaultValue={deal[0].nbc_focus_apprv_5_b}
-                                 
-                                  />
-                                  
-                                </div>
-                              ))}
-                                      {/* <input
+                                    {nbcFocusForm.map((singleNote, index) => (
+                                      <div class="input-group mt-2">
+                                        <input
+                                          onChange={(e) =>
+                                            handleNbcChangeForm(e, index)
+                                          }
+                                          value={deal.nbc_focus_apprv_5_b}
+                                          // onChange={handleInputChange}
+                                          name="nbc_focus_apprv_5_b"
+                                          defaultValue={
+                                            deal[0].nbc_focus_apprv_5_b
+                                          }
+                                        />
+                                      </div>
+                                    ))}
+                                    {/* <input
                                     onChange={handleInputChange}
                                     value={deal.nbc_focus_apprv_5_b}
                                     onChange={handleInputChange}
@@ -2999,10 +2984,9 @@ export default function UpdateTransactions() {
                                       }}
                                     /> */}
 
-                                    
-                              {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-2">
-                                  {/* <Form.Control
+                                    {nbcFocusForm.map((singleNote, index) => (
+                                      <div class="input-group mt-2">
+                                        {/* <Form.Control
                                     type="date"
                                     size="sm"
                                     value={singleNote.nbcFocus}
@@ -3010,37 +2994,26 @@ export default function UpdateTransactions() {
                                     onChange={(e) => handleNbcChange(e, index)}
                                   /> */}
 
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    type="date"
-                                    value={deal.nbc_focus_apprv_5_c}
-                                      // onChange={handleInputChange}
-                                      name="nbc_focus_apprv_5_c"
-                                      defaultValue={  deal[0].nbc_focus_apprv_5_c
-                                        ? new Date(deal[0].nbc_focus_apprv_5_c)
-                                            .toISOString()
-                                            .split("T")[0]
-                                        : ""}
-
-                                  />
-                                  
-                                </div>
-                              ))}
-
-
-                                      {/* <input
-                                      type="date"
-                                      onChange={handleInputChange}
-                                      value={deal.nbc_focus_apprv_5_c}
-                                      onChange={handleInputChange}
-                                      name="nbc_focus_apprv_5_c"
-                                      defaultValue={  deal[0].nbc_focus_apprv_5_c
-                                        ? new Date(deal[0].nbc_focus_apprv_5_c)
-                                            .toISOString()
-                                            .split("T")[0]
-                                        : ""}
-                                   
-                                  /> */}
+                                        <input
+                                          onChange={(e) =>
+                                            handleNbcChangeForm(e, index)
+                                          }
+                                          type="date"
+                                          value={deal.nbc_focus_apprv_5_c}
+                                          // onChange={handleInputChange}
+                                          name="nbc_focus_apprv_5_c"
+                                          defaultValue={
+                                            deal[0].nbc_focus_apprv_5_c
+                                              ? new Date(
+                                                  deal[0].nbc_focus_apprv_5_c
+                                                )
+                                                  .toISOString()
+                                                  .split("T")[0]
+                                              : ""
+                                          }
+                                        />
+                                      </div>
+                                    ))}
                                   </Col>
                                 </Row>
                               </Form.Group>
@@ -3343,23 +3316,21 @@ export default function UpdateTransactions() {
                                     </i>
                                   </button>
                                   {hideSubmit ? null : (
-                                  <button
-                                    onClick={addNewPlis}
-                                    className="mt-1"
-                                    style={{
-                                      height: "25px",
-                                      width: "20%",
-                                      border: "none",
-                                    }}
-                                  >
-                                   
+                                    <button
+                                      onClick={addNewPlis}
+                                      className="mt-1"
+                                      style={{
+                                        height: "25px",
+                                        width: "20%",
+                                        border: "none",
+                                      }}
+                                    >
                                       <i className="">
                                         {" "}
                                         <FiSave />{" "}
                                       </i>
-                                   
-                                  </button>
-                                    )}
+                                    </button>
+                                  )}
                                 </div>
                               ))}
                             </Col>
@@ -3770,12 +3741,18 @@ export default function UpdateTransactions() {
                         <div>
                           <Row className="mt-3">
                             <Col sm="6">
-                              <Form.Label>* Principal</Form.Label>
+                              <Form.Label>* FirstCouponDate</Form.Label>
                               <Form.Control
-                                type="text"
-                                defaultValue={deal[0].principal}
-                                id="principal"
-                                ref={principal}
+                                type="date"
+                                defaultValue={
+                                  deal[0].firstcoupondate
+                                    ? new Date(deal[0].firstcoupondate)
+                                        .toISOString()
+                                        .split("T")[0]
+                                    : ""
+                                }
+                                id="firstcoupondate"
+                                ref={firstcoupondate}
                               />
                             </Col>
                             <Col sm="6">
@@ -3796,30 +3773,46 @@ export default function UpdateTransactions() {
                           </Row>
                           <Row className="mt-3">
                             <Col sm="6">
-                              <Form.Label>* FirstCouponDate</Form.Label>
+                              <Form.Label>* DiscountFactor</Form.Label>
                               <Form.Control
-                                type="date"
-                                defaultValue={
-                                  deal[0].firstcoupondate
-                                    ? new Date(deal[0].firstcoupondate)
-                                        .toISOString()
-                                        .split("T")[0]
-                                    : ""
-                                }
-                                id="firstcoupondate"
-                                ref={firstcoupondate}
+                                type="number"
+                                defaultValue={deal[0].discountfactor}
+                                id="discountfactor"
+                                ref={discountfactor}
+                                onKeyPress={handleKeyPress}
                               />
                             </Col>
                             <Col sm="6">
                               <Form.Label>
                                 * TakingFirstInterestEarly
                               </Form.Label>
-                              <Form.Control
-                                type="number"
-                                defaultValue={deal[0].takingfirstinterestearly}
+                              <Form.Select
+                                size="sm"
                                 id="takingfirstinterestearly"
                                 ref={takingfirstinterestearly}
-                              />
+                              >
+                                <option></option>
+                                <option
+                                  key={1}
+                                  value={1}
+                                  selected={
+                                    deal[0].takingfirstinterestearly === 1
+                                  }
+                                >
+                                  {" "}
+                                  Yes
+                                </option>
+                                <option
+                                  key={0}
+                                  value={0}
+                                  selected={
+                                    deal[0].takingfirstinterestearly === 0
+                                  }
+                                >
+                                  {" "}
+                                  No
+                                </option>
+                              </Form.Select>
                             </Col>
                           </Row>
                           <Row className="mt-3">
@@ -3830,17 +3823,10 @@ export default function UpdateTransactions() {
                                 defaultValue={deal[0].guaranteefeerate}
                                 id="guaranteefeerate"
                                 ref={guaranteefeerate}
+                                onKeyPress={handleKeyPress}
                               />
                             </Col>
-                            <Col sm="6">
-                              <Form.Label>* DiscountFactor</Form.Label>
-                              <Form.Control
-                                type="number"
-                                defaultValue={deal[0].discountfactor}
-                                id="discountfactor"
-                                ref={discountfactor}
-                              />
-                            </Col>
+                            <Col sm="6"></Col>
                           </Row>
                         </div>
                       </Container>

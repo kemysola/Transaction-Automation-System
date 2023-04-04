@@ -9,14 +9,10 @@ export default function deleteModal(props) {
   const [showModal, setShowModal] = useState(false);
 
   const handleDeleteClick = () => {
-    // Handle delete click here
-    console.log('Delete clicked');
     setShowModal(false);
   };
 
   const handleCancelClick = () => {
-    // Handle cancel click here
-    console.log('Cancel clicked');
     setShowModal(false);
   };
 
