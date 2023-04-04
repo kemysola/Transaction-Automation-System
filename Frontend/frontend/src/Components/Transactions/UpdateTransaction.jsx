@@ -1200,10 +1200,10 @@ export default function UpdateTransactions() {
       product: product.current.value,
       region: region.current.value,
       //regex  .replace('/e', '')
-      dealSize: +dealSize.current.value,
+      dealSize: parseInt(dealSize.current.value),
       coupon: parseInt(coupon.current.value),
-      tenor: +tenor.current.value,
-      moratorium: +moratorium.current.value,
+      tenor: parseInt(tenor.current.value),
+      moratorium: parseInt(moratorium.current.value),
       repaymentFrequency: repaymentFreq.current.value,
       amortizationStyle: amortizationStyle.current.value,
       mandateLetter: new Date(mandateLetter.current.value),
@@ -1220,7 +1220,7 @@ export default function UpdateTransactions() {
       takingfirstinterestearly: +takingfirstinterestearly.current.value,
       discountfactor: +discountfactor.current.value,
       firstcoupondate: firstcoupondate.current.value,
-      structuringFeeAmount: +amount.current.value,
+      structuringFeeAmount: parseInt(amount.current.value),
       structuringFeeAdvance: +advance.current.value,
       structuringFeeFinal: +final.current.value,
       guaranteeFee: +guarantee.current.value,
@@ -1576,7 +1576,6 @@ export default function UpdateTransactions() {
                                 id="dealSize"
                                 ref={dealSize}
                                 onKeyPress={handleKeyPress}
-                                required
                               />
                             </Form.Group>
                           </Col>
@@ -1846,7 +1845,8 @@ export default function UpdateTransactions() {
                               <Form.Label>Amount(₦'MN)</Form.Label>
                               <Form.Control
                                 size="sm"
-                                type="amount"
+                                type="number"
+                                step="any"
                                 defaultValue={deal[0].structuringfeeamount}
                                 id="amount"
                                 ref={amount}

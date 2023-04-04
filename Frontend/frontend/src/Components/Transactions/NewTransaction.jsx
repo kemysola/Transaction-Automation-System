@@ -1055,7 +1055,8 @@ const NewTransaction = () => {
                             <Form.Group className="pt-1">
                               <Form.Label>Deal Size(₦'BN): </Form.Label>
                               <Form.Control
-                                type="text"
+                                type="number"
+                                step="any" 
                                 {...register("dealSize", { required: true })}
                                 onKeyPress={handleKeyPress}
                                 style={{
@@ -1076,6 +1077,7 @@ const NewTransaction = () => {
                               <Form.Label>Coupon(%)</Form.Label>
                               <Form.Control
                                 type="number"
+                                step="any" 
                                 {...register("coupon", {
                                   required: true,
                                   pattern: "d+",
@@ -1099,8 +1101,9 @@ const NewTransaction = () => {
                             <Form.Group className="pt-1">
                               <Form.Label>Tenor(yrs)</Form.Label>
                               <Form.Control
-                                type="text"
+                                type="number"
                                 {...register("tenor", { required: true })}
+                                step="any" 
                                 onKeyPress={handleKeyPress}
                                 style={{
                                   width: "100%",
@@ -1119,8 +1122,9 @@ const NewTransaction = () => {
                             <Form.Group className="pt-1">
                               <Form.Label>Moratorium(yrs)</Form.Label>
                               <Form.Control
-                                type="text"
+                                type="number"
                                 {...register("moratorium", { required: true })}
+                                step="any" 
                                 onKeyPress={handleKeyPress}
                                 style={{
                                   width: "100%",
@@ -1320,6 +1324,8 @@ const NewTransaction = () => {
                               <Form.Control
                                 {...register("structuringFeeAmount")}
                                 onKeyPress={handleKeyPress}
+                                step="any" 
+                                type="number"
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
@@ -1333,6 +1339,8 @@ const NewTransaction = () => {
                               <Form.Label>Advance (%)</Form.Label>
                               <Form.Control
                                 {...register("structuringFeeAdvance")}
+                                type="number"
+                                step="any" 
                                 onKeyPress={handleKeyPress}
                                 style={{
                                   width: "100%",
@@ -1363,6 +1371,8 @@ const NewTransaction = () => {
                               <Form.Label>Guarantee(%)</Form.Label>
                               <Form.Control
                                 {...register("guaranteeFee")}
+                                type="number"
+                                step="any" 
                                 onKeyPress={handleKeyPress}
                                 style={{
                                   width: "100%",
@@ -1377,6 +1387,8 @@ const NewTransaction = () => {
                               <Form.Label>Monitoring(₦'MN)</Form.Label>
                               <Form.Control
                                 {...register("monitoringFee")}
+                                type="number"
+                                step="any" 
                                 onKeyPress={handleKeyPress}
                                 style={{
                                   width: "100%",
@@ -1389,9 +1401,10 @@ const NewTransaction = () => {
                           <Col sm={6} className="my-0 py-0">
                             <Form.Group>
                               <Form.Label>Reimbursible(₦'MN)</Form.Label>
-
                               <Form.Control
                                 {...register("reimbursible")}
+                                type="number"
+                                step="any" 
                                 onKeyPress={handleKeyPress}
                                 style={{
                                   width: "100%",
