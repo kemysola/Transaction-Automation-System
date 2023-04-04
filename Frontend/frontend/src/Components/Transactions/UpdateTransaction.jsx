@@ -206,18 +206,19 @@ export default function UpdateTransactions() {
   const [redA, setRedA] = useState("");
   const [redB, setRedB] = useState("");
   const [redC, setRedC] = useState("");
-  const [nbcFocusApprv1b, setNbcFocusApprv1b] = useState("");
-  const [nbcFocusApprv1c, setNbcFocusApprv1c] = useState("");
-  const [nbcFocusApprv2b, setNbcFocusApprv2b] = useState("");
-  const [nbcFocusApprv2c, setNbcFocusApprv2c] = useState("");
-  const [nbcFocusApprv3b, setNbcFocusApprv3b] = useState("");
-  const [nbcFocusApprv3c, setNbcFocusApprv3c] = useState("");
-  const [nbcFocusApprv4b, setNbcFocusApprv4b] = useState("");
-  const [nbcFocusApprv4c, setNbcFocusApprv4c] = useState("");
-  const [nbcFocusApprv5b, setNbcFocusApprv5b] = useState("");
-  const [nbcFocusApprv5c, setNbcFocusApprv5c] = useState("");
-  const [showAlert, setShowAlert] = useState(false);
-  const [hideSubmit, setHideSubmit] = useState(false);
+  const [nbcFocusApprv1b, setNbcFocusApprv1b] = useState("") 
+  const [nbcFocusApprv1c, setNbcFocusApprv1c] = useState("")
+  const [nbcFocusApprv2b, setNbcFocusApprv2b] = useState("")
+  const [nbcFocusApprv2c, setNbcFocusApprv2c] = useState("")
+  const [nbcFocusApprv3b, setNbcFocusApprv3b] = useState("")
+  const [nbcFocusApprv3c, setNbcFocusApprv3c] = useState("")
+  const [nbcFocusApprv4b, setNbcFocusApprv4b] = useState("")
+  const [nbcFocusApprv4c, setNbcFocusApprv4c] = useState("")
+  const [nbcFocusApprv5b, setNbcFocusApprv5b] = useState("")
+  const [nbcFocusApprv5c, setNbcFocusApprv5c] = useState("")
+  const [showAlert, setShowAlert] = useState(false)
+  const [hideSubmit, setHideSubmit] = useState(false)
+  
   // const [nbcFocusId, setNbcFocusId] = useState("0")
   //**********************************************************   Key Performance Indicators **************** */
   const handleKpiChange = (e, index) => {
