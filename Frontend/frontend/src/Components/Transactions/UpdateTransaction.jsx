@@ -1195,6 +1195,7 @@ export default function UpdateTransactions() {
       industry: industry.current.value,
       product: product.current.value,
       region: region.current.value,
+      //regex  .replace('/e', '')
       dealSize: +dealSize.current.value,
       coupon: parseInt(coupon.current.value),
       tenor: +tenor.current.value,
@@ -1209,10 +1210,10 @@ export default function UpdateTransactions() {
       NBC_approval_date: new Date(nbcApprovalDate.current.value),
       NBC_submitted_date: new Date(nbcSubmittedDate.current.value),
       ccSubmissionDate: new Date(ccSubmissionDate.current.value),
-      principal: +principal.current.value,
+      principal: +dealSize.current.value,
       guaranteefeerate: +guaranteefeerate.current.value,
       issuedate: issuedate.current.value,
-      takingfirstinterestearly: takingfirstinterestearly.current.value,
+      takingfirstinterestearly: +takingfirstinterestearly.current.value,
       discountfactor: +discountfactor.current.value,
       firstcoupondate: firstcoupondate.current.value,
       structuringFeeAmount: +amount.current.value,
@@ -1845,6 +1846,7 @@ else{
                                 defaultValue={deal[0].structuringfeeadvance}
                                 id="advance"
                                 ref={advance}
+                                max='100'
                               />
                             </Form.Group>
                           </Col>
@@ -1856,7 +1858,7 @@ else{
                                 size="sm"
                                 type="number"
                                 value={
-                                  parseInt(amount.current.value) - parseInt(advance.current.value)
+                                  parseInt(100) - parseInt(advance.current.value)
                                 }
                                 disabled
                               />
@@ -3711,13 +3713,20 @@ else{
                         <div>
                           <Row className="mt-3">
                             <Col sm="6">
-                              <Form.Label>* Principal</Form.Label>
+                             <Form.Label>* FirstCouponDate</Form.Label>
                               <Form.Control
-                                type="text"
-                                defaultValue={deal[0].principal}
-                                id="principal"
-                                ref={principal}
+                                type="date"
+                                defaultValue={
+                                  deal[0].firstcoupondate
+                                    ? new Date(deal[0].firstcoupondate)
+                                        .toISOString()
+                                        .split("T")[0]
+                                    : ""
+                                }
+                                id="firstcoupondate"
+                                ref={firstcoupondate}
                               />
+                             
                             </Col>
                             <Col sm="6">
                               <Form.Label>* IssueDate</Form.Label>
@@ -3737,30 +3746,51 @@ else{
                           </Row>
                           <Row className="mt-3">
                             <Col sm="6">
-                              <Form.Label>* FirstCouponDate</Form.Label>
+                            <Form.Label>* DiscountFactor</Form.Label>
                               <Form.Control
-                                type="date"
-                                defaultValue={
-                                  deal[0].firstcoupondate
-                                    ? new Date(deal[0].firstcoupondate)
-                                        .toISOString()
-                                        .split("T")[0]
-                                    : ""
-                                }
-                                id="firstcoupondate"
-                                ref={firstcoupondate}
+                                type="number"
+                                defaultValue={deal[0].discountfactor}
+                                id="discountfactor"
+                                ref={discountfactor}
                               />
                             </Col>
                             <Col sm="6">
                               <Form.Label>
                                 * TakingFirstInterestEarly
                               </Form.Label>
-                              <Form.Control
+                              {/* <Form.Control
                                 type="number"
                                 defaultValue={deal[0].takingfirstinterestearly}
                                 id="takingfirstinterestearly"
                                 ref={takingfirstinterestearly}
                               />
+                               */}
+                              <Form.Select
+                                size="sm"
+                                id="takingfirstinterestearly"
+                                ref={takingfirstinterestearly}
+                              >
+                                <option></option>
+                                  <option
+                                    key={1}
+                                    value={1}
+                                    selected={   
+                                      deal[0].takingfirstinterestearly === 1
+                                    }
+                                    
+                                  > Yes
+                                  </option>
+                                  <option
+                                    key={0}
+                                    value={0}
+                                     selected={   
+                                      deal[0].takingfirstinterestearly === 0
+                                    }
+                                  > No
+                                  </option>
+                                
+                              </Form.Select>
+                              
                             </Col>
                           </Row>
                           <Row className="mt-3">
@@ -3774,13 +3804,7 @@ else{
                               />
                             </Col>
                             <Col sm="6">
-                              <Form.Label>* DiscountFactor</Form.Label>
-                              <Form.Control
-                                type="number"
-                                defaultValue={deal[0].discountfactor}
-                                id="discountfactor"
-                                ref={discountfactor}
-                              />
+                             
                             </Col>
                           </Row>
                         </div>

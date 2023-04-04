@@ -26,13 +26,13 @@ const ButtonWrapper = styled.button`
 `;
 const FormWrapper = styled.div`
   margin: 0;
-  border:1.2px dashed #E2E2E2;
+  border: 1.2px dashed #e2e2e2;
   font-size: 5px;
   padding: 0;
 `;
 
 const Container1 = styled.div`
-  border:1.2px dashed #E2E2E2;
+  border: 1.2px dashed #e2e2e2;
   font-size: 12px;
   padding: 1px 1rem;
   border-radius: 15px;
@@ -51,7 +51,7 @@ let renderCount = 0;
 const NewTransaction = () => {
   //*********************************************** Instantiate useHistory hook **************************************** */
   const history = useHistory();
-  const {final,setFinal} = useState(0)
+  const { final, setFinal } = useState(0);
   //*****************************************    Use React-Use-fORM hook     ******************************************/
   const {
     register,
@@ -85,12 +85,12 @@ const NewTransaction = () => {
       nbc_submitted_date: null,
       creditApproval: null,
       feeLetter: null,
-      principal:"",
-      guaranteefeerate:"",
-      issuedate:null,
-      firstcoupondate:null,
-      takingfirstinterestearly:"",
-      discountfactor:"",
+      principal: "",
+      guaranteefeerate: "",
+      issuedate: null,
+      firstcoupondate: null,
+      takingfirstinterestearly: "",
+      discountfactor: "",
       expectedClose: null,
       actualClose: null,
       greenA: "false",
@@ -109,8 +109,8 @@ const NewTransaction = () => {
       redC: "false",
       notes: "",
       closed: "false",
-      structuringFeeAdvance:0,
-      structuringFeeAmount:0,
+      structuringFeeAdvance: 0,
+      structuringFeeAmount: 0,
       nbcFocus: [
         {
           //  label: "", concern: "", date: "", methodology: "",
@@ -118,31 +118,31 @@ const NewTransaction = () => {
           nbc_focus_original_yes_no: 0,
           nbc_focus_original_date: null,
           nbc_focus_original_methodology: "",
-            // nbc_focus_apprv_1_b: "",
-            // nbc_focus_apprv_1_c: null,
-            // nbc_focus_apprv_2_b: "",
-            // nbc_focus_apprv_2_c: null,
-            // nbc_focus_apprv_3_b: "",
-            // nbc_focus_apprv_3_c: null,
-            // nbc_focus_apprv_4_b: "",
-            // nbc_focus_apprv_4_c: null,
-            // nbc_focus_apprv_5_b: "",
-            // nbc_focus_apprv_5_c: null,
+          // nbc_focus_apprv_1_b: "",
+          // nbc_focus_apprv_1_c: null,
+          // nbc_focus_apprv_2_b: "",
+          // nbc_focus_apprv_2_c: null,
+          // nbc_focus_apprv_3_b: "",
+          // nbc_focus_apprv_3_c: null,
+          // nbc_focus_apprv_4_b: "",
+          // nbc_focus_apprv_4_c: null,
+          // nbc_focus_apprv_5_b: "",
+          // nbc_focus_apprv_5_c: null,
         },
       ],
 
       nbcFocusForm: [
         {
-           nbc_focus_apprv_1_b: "",
-            nbc_focus_apprv_1_c: null,
-            nbc_focus_apprv_2_b: "",
-            nbc_focus_apprv_2_c: null,
-            nbc_focus_apprv_3_b: "",
-            nbc_focus_apprv_3_c: null,
-            nbc_focus_apprv_4_b: "",
-            nbc_focus_apprv_4_c: null,
-            nbc_focus_apprv_5_b: "",
-            nbc_focus_apprv_5_c: null,
+          nbc_focus_apprv_1_b: "",
+          nbc_focus_apprv_1_c: null,
+          nbc_focus_apprv_2_b: "",
+          nbc_focus_apprv_2_c: null,
+          nbc_focus_apprv_3_b: "",
+          nbc_focus_apprv_3_c: null,
+          nbc_focus_apprv_4_b: "",
+          nbc_focus_apprv_4_c: null,
+          nbc_focus_apprv_5_b: "",
+          nbc_focus_apprv_5_c: null,
         },
       ],
 
@@ -191,26 +191,26 @@ const NewTransaction = () => {
     name: "nbcFocus",
   });
 
+  const dataFields = getValues("structuringFeeAdvance");
+  const dataFieldAdvance = getValues("structuringFeeAmount");
+  const structuringDataFinal =
+    parseInt(dataFields) + parseInt(dataFieldAdvance);
 
-    const dataFields = getValues('structuringFeeAdvance')
-  const dataFieldAdvance = getValues('structuringFeeAmount')
-  const structuringDataFinal = parseInt(dataFields) + parseInt(dataFieldAdvance)
-  
   //********************************************************* Deal Tracking features - state and functions ************************ */
 
   const [nbcFocusForm, setNbcFocusForm] = useState([
     {
       nbc_focus_apprv_1_b: "",
-       nbc_focus_apprv_1_c: null,
-       nbc_focus_apprv_2_b: "",
-       nbc_focus_apprv_2_c: null,
-       nbc_focus_apprv_3_b: "",
-       nbc_focus_apprv_3_c: null,
-       nbc_focus_apprv_4_b: "",
-       nbc_focus_apprv_4_c: null,
-       nbc_focus_apprv_5_b: "",
-       nbc_focus_apprv_5_c: null,
-   },
+      nbc_focus_apprv_1_c: null,
+      nbc_focus_apprv_2_b: "",
+      nbc_focus_apprv_2_c: null,
+      nbc_focus_apprv_3_b: "",
+      nbc_focus_apprv_3_c: null,
+      nbc_focus_apprv_4_b: "",
+      nbc_focus_apprv_4_c: null,
+      nbc_focus_apprv_5_b: "",
+      nbc_focus_apprv_5_c: null,
+    },
   ]);
 
   const handleNbcChangeForm = (e, index) => {
@@ -276,7 +276,7 @@ const NewTransaction = () => {
   const [staffList, setStaffList] = useState([]);
   const [staffLists, setStaffLists] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
-  const [hideSubmit, setHideSubmit] = useState(false)
+  const [hideSubmit, setHideSubmit] = useState(false);
 
   // ************************************ use Effect : ComponentDidMount - ComponentWillReceive ***********************************/
 
@@ -465,9 +465,9 @@ const NewTransaction = () => {
     const { name, value } = e.target;
     const list = [...plis];
     list[index][name] = value;
-   
+
     setPlis(list);
-    setShowAlert(false)
+    setShowAlert(false);
   };
 
   const handlePlisAdd = () => {
@@ -587,37 +587,37 @@ const NewTransaction = () => {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
   };
-  
 
   let checkValid;
 
   useEffect(() => {
-   if(showAlert == true && checkValid  == true){
-    setHideSubmit(true)
-   }else{
-     setHideSubmit(false)
-     setShowAlert(false)
-   }
+    if (showAlert == true && checkValid == true) {
+      setHideSubmit(true);
+    } else {
+      setHideSubmit(false);
+      setShowAlert(false);
+    }
   }, [showAlert]);
- 
 
   // handle PLIs validation; return erroe when the sum of PLIs is greater than 100
   const validatePlisWeights = () => {
-    const totalWeight = plis.reduce((acc, curr) => acc + Number(curr.plis_weighting), 0);
-    
-    checkValid = false
+    const totalWeight = plis.reduce(
+      (acc, curr) => acc + Number(curr.plis_weighting),
+      0
+    );
+
+    checkValid = false;
     if (totalWeight > 100) {
       // setHideSubmit(true)
-      checkValid  = true
+      checkValid = true;
       return (
         <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
           The sum of plis weights cannot be greater than 100%.
         </Alert>
-      ) 
-    } else{
-       checkValid = false
+      );
+    } else {
+      checkValid = false;
     }
-      
   };
   //********************************************************************* Handle Submit Function ********************************** */
   const onSubmit = (reqdata, e) => {
@@ -629,11 +629,10 @@ const NewTransaction = () => {
       (acc, curr) => acc + Number(curr.plis_weighting),
       0
     );
-     if  (totalWeight > 100) {
-        alert("PLI weight cannot be more than 100%");
-      return 
-     }
-
+    if (totalWeight > 100) {
+      alert("PLI weight cannot be more than 100%");
+      return;
+    }
 
     /**
 
@@ -650,16 +649,14 @@ const NewTransaction = () => {
       dealSize: +reqdata.dealSize,
       coupon: +reqdata.coupon,
       tenor: +reqdata.tenor,
-      principal: +reqdata.principal,
-      guaranteefeerate:+reqdata.guaranteefeerate,
-      issuedate:`${
-        reqdata.issuedate ? reqdata.issuedate : 20221203
-      }`,
-      firstcoupondate:`${
+      principal: +reqdata.dealSize,
+      guaranteefeerate: +reqdata.guaranteefeerate,
+      issuedate: `${reqdata.issuedate ? reqdata.issuedate : 20221203}`,
+      firstcoupondate: `${
         reqdata.firstcoupondate ? reqdata.firstcoupondate : 20221203
       }`,
-      takingfirstinterestearly:reqdata.takingfirstinterestearly,
-      discountfactor:+reqdata.discountfactor,
+      takingfirstinterestearly: +reqdata.takingfirstinterestearly,
+      discountfactor: +reqdata.discountfactor,
       mandateLetter: `${
         reqdata.mandateLetter ? reqdata.mandateLetter : 20221203
       }`,
@@ -704,7 +701,7 @@ const NewTransaction = () => {
       reimbursible: +reqdata.reimbursible,
       closed: false,
       notes: note,
-      nbcFocus: [...nbcFocusForm, ...reqdata.nbcFocus], 
+      nbcFocus: [...nbcFocusForm, ...reqdata.nbcFocus],
       parties,
       kpi,
       plis,
@@ -734,30 +731,37 @@ const NewTransaction = () => {
           },
         });
         setSubmitted(true);
-      }
-      )
+      })
       .catch((error) => {
-        
-        toast.error(`Failed to create deal, ${error.response.data.message || "Please Fill all required fields"}`, {
-          duration: 4000,
-          position: "bottom-right",
-          // Styling
-          style: {
-            fontSize: "16px",
-            color:"red"
-          },
-          className: "",
-          icon: "",
-          iconTheme: {
-            primary: "red",
-            secondary: "#fff",
-          },
-          ariaProps: {
-            role: "status",
-            "aria-live": "polite",
-          },
-        });
-        setResponse(`Failed to create deal, ${error.response.data.message || "Please Fill all required fields"}`);
+        toast.error(
+          `Failed to create deal, ${
+            error.response.data.message || "Please Fill all required fields"
+          }`,
+          {
+            duration: 4000,
+            position: "bottom-right",
+            // Styling
+            style: {
+              fontSize: "16px",
+              color: "red",
+            },
+            className: "",
+            icon: "",
+            iconTheme: {
+              primary: "red",
+              secondary: "#fff",
+            },
+            ariaProps: {
+              role: "status",
+              "aria-live": "polite",
+            },
+          }
+        );
+        setResponse(
+          `Failed to create deal, ${
+            error.response.data.message || "Please Fill all required fields"
+          }`
+        );
         setSubmitted(false);
       });
   };
@@ -794,14 +798,17 @@ const NewTransaction = () => {
             </div>
           ) : (
             <form onSubmit={handleSubmit(onSubmit)}>
-
               <PWrapper>
                 <h5 className="py-3 text-secondary">New Transaction</h5>
               </PWrapper>
               <div>
                 <Tabs
                   onSelect={(k) => handleTabChange}
-                  style={{ fontSize: "12px",background:'#E2E2E2',padding:'0.77rem 10px' }}
+                  style={{
+                    fontSize: "12px",
+                    background: "#E2E2E2",
+                    padding: "0.77rem 10px",
+                  }}
                 >
                   <Tab eventKey="first" title="CLIENT">
                     <Container1>
@@ -920,31 +927,32 @@ const NewTransaction = () => {
                             </button>
                             {noteList.map((singleNote, index) => {
                               return (
-                              <div class="input-group" key={index}>
-                                <Form.Control
-                                  as="textarea"
-                                  style={{ margin: "0.8em", width: "60%" }}
-                                  size="sm"
-                                  value={singleNote.note}
-                                  name="note"
-                                  onChange={(e) => handleNoteChange(e, index)}
-                                />
-                               <button
-                                  type="button"
-                                  style={{
-                                    fontSize: "10px",
-                                    padding: "2px 10px",
-                                    margin: "8px",
-                                    background: "steelblue",
-                                    color: "white",
-                                    borderRadius: "3px",
-                                  }}
-                                  onClick={() => handleNoteRemove(index)}
-                                >
-                                  x
-                                </button>
-                              </div>
-                            )})}
+                                <div class="input-group" key={index}>
+                                  <Form.Control
+                                    as="textarea"
+                                    style={{ margin: "0.8em", width: "60%" }}
+                                    size="sm"
+                                    value={singleNote.note}
+                                    name="note"
+                                    onChange={(e) => handleNoteChange(e, index)}
+                                  />
+                                  <button
+                                    type="button"
+                                    style={{
+                                      fontSize: "10px",
+                                      padding: "2px 10px",
+                                      margin: "8px",
+                                      background: "steelblue",
+                                      color: "white",
+                                      borderRadius: "3px",
+                                    }}
+                                    onClick={() => handleNoteRemove(index)}
+                                  >
+                                    x
+                                  </button>
+                                </div>
+                              );
+                            })}
                           </Form.Group>
                         </Col>
                       </Row>
@@ -1062,7 +1070,11 @@ const NewTransaction = () => {
                               <Form.Label>Coupon(%)</Form.Label>
                               <Form.Control
                                 type="text"
-                                {...register("coupon", { required: true, pattern: "\d+", message: 'Please enter only decimal values' })}
+                                {...register("coupon", {
+                                  required: true,
+                                  pattern: "d+",
+                                  message: "Please enter only decimal values",
+                                })}
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
@@ -1107,17 +1119,19 @@ const NewTransaction = () => {
                                   focus: "none",
                                 }}
                               />
-                               <div className="text-danger">
-                              {errors.moratorium?.type === "required" &&
-                                "Moratorium is required"}
-                            </div>
+                              <div className="text-danger">
+                                {errors.moratorium?.type === "required" &&
+                                  "Moratorium is required"}
+                              </div>
                             </Form.Group>
                           </Col>
                           <Col sm={6}>
                             <Form.Group className="">
                               <Form.Label>Repayment Frequency</Form.Label>
                               <Form.Select
-                                {...register("repaymentFrequency", { required: true })}
+                                {...register("repaymentFrequency", {
+                                  required: true,
+                                })}
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
@@ -1134,7 +1148,6 @@ const NewTransaction = () => {
                                   </option>
                                 ))}
                               </Form.Select>
-                              
                             </Form.Group>
                             <div className="text-danger">
                               {errors.repaymentFrequency?.type === "required" &&
@@ -1145,7 +1158,9 @@ const NewTransaction = () => {
                             <Form.Group className="pt-1">
                               <Form.Label>Amortization Style</Form.Label>
                               <Form.Select
-                                {...register("amortizationStyle", { required: true })}
+                                {...register("amortizationStyle", {
+                                  required: true,
+                                })}
                                 style={{
                                   width: "100%",
                                   padding: "4px 1px",
@@ -1321,7 +1336,7 @@ const NewTransaction = () => {
                               <Form.Label>Final (%)</Form.Label>
                               <Form.Control
                                 {...register("structuringFeeFinal")}
-                                defaultValue={getValues('structuringAmount') }
+                                defaultValue={getValues("structuringAmount")}
                                 disabled
                                 style={{
                                   width: "100%",
@@ -1841,9 +1856,7 @@ const NewTransaction = () => {
                                           {...field}
                                           variant="standard"
                                         >
-                                          <option value="">
-                                            
-                                          </option>
+                                          <option value=""></option>
                                           <option
                                             value={1}
                                             selected={
@@ -1974,34 +1987,31 @@ const NewTransaction = () => {
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-                                {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-1">
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    name="nbc_focus_apprv_1_b"
-                                    value={singleNote.nbcFocus}
-
-                                  />
-                                  
-                                </div>
-                              ))}
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-1">
+                                      <input
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        name="nbc_focus_apprv_1_b"
+                                        value={singleNote.nbcFocus}
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                                 <Col sm={3}>
                                   {nbcFocusForm.map((singleNote, index) => (
-                                  <div class="input-group mt-1">
-           
-                             
-
-                                  <input
-                                    type="date"
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    name="nbc_focus_apprv_1_c"
-                            
-                                    value={singleNote.nbcFocus}
-                                  />
-                                  
-                                </div>
-                              ))}
+                                    <div class="input-group mt-1">
+                                      <input
+                                        type="date"
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        name="nbc_focus_apprv_1_c"
+                                        value={singleNote.nbcFocus}
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                               </Row>
                               <Row>
@@ -2011,31 +2021,31 @@ const NewTransaction = () => {
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-                                {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-1">
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    name="nbc_focus_apprv_2_b"
-                                    value={singleNote.nbcFocus}
-
-                                  />
-                                  
-                                </div>
-                              ))}
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-1">
+                                      <input
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        name="nbc_focus_apprv_2_b"
+                                        value={singleNote.nbcFocus}
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                                 <Col sm={3}>
-                                {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-1">
-                                  <input
-                                    type="date"
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    name="nbc_focus_apprv_2_c"
-                                    value={singleNote.nbcFocus}
-
-                                  />
-                                  
-                                </div>
-                              ))}
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-1">
+                                      <input
+                                        type="date"
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        name="nbc_focus_apprv_2_c"
+                                        value={singleNote.nbcFocus}
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                               </Row>
                               <Row>
@@ -2045,31 +2055,31 @@ const NewTransaction = () => {
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-                                {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-1">
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    name="nbc_focus_apprv_3_b"
-                                    value={singleNote.nbcFocus}
-
-                                  />
-                                  
-                                </div>
-                              ))}
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-1">
+                                      <input
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        name="nbc_focus_apprv_3_b"
+                                        value={singleNote.nbcFocus}
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                                 <Col sm={3}>
-                                {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-1">
-                                  <input
-                                    type="date"
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    name="nbc_focus_apprv_3_c"
-                                    value={singleNote.nbcFocus}
-
-                                  />
-                                  
-                                </div>
-                              ))}
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-1">
+                                      <input
+                                        type="date"
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        name="nbc_focus_apprv_3_c"
+                                        value={singleNote.nbcFocus}
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                               </Row>
                               <Row>
@@ -2079,32 +2089,31 @@ const NewTransaction = () => {
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-                                {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-1">
-
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    name="nbc_focus_apprv_4_b"
-                                    value={singleNote.nbcFocus}
-
-                                  />
-                                  
-                                </div>
-                              ))}
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-1">
+                                      <input
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        name="nbc_focus_apprv_4_b"
+                                        value={singleNote.nbcFocus}
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                                 <Col sm={3}>
-                                {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-1">
-                                  <input
-                                  type="date"
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    name="nbc_focus_apprv_4_c"
-                                    value={singleNote.nbcFocus}
-
-                                  />
-                                  
-                                </div>
-                              ))}
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-1">
+                                      <input
+                                        type="date"
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        name="nbc_focus_apprv_4_c"
+                                        value={singleNote.nbcFocus}
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                               </Row>
                               <Row>
@@ -2115,31 +2124,31 @@ const NewTransaction = () => {
                                   </Form.Label>
                                 </Col>
                                 <Col sm={3}>
-                                {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-1">
-                                  <input
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    name="nbc_focus_apprv_5_b"
-                                    value={singleNote.nbcFocus}
-
-                                  />
-                                  
-                                </div>
-                              ))}
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-1">
+                                      <input
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        name="nbc_focus_apprv_5_b"
+                                        value={singleNote.nbcFocus}
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                                 <Col sm={3}>
-                                {nbcFocusForm.map((singleNote, index) => (
-                                <div class="input-group mt-1">
-                                  <input
-                                  type="date"
-                                    onChange={(e) => handleNbcChangeForm(e, index)}
-                                    name="nbc_focus_apprv_5_c"
-                                    value={singleNote.nbcFocus}
-
-                                  />
-                                  
-                                </div>
-                              ))}
+                                  {nbcFocusForm.map((singleNote, index) => (
+                                    <div class="input-group mt-1">
+                                      <input
+                                        type="date"
+                                        onChange={(e) =>
+                                          handleNbcChangeForm(e, index)
+                                        }
+                                        name="nbc_focus_apprv_5_c"
+                                        value={singleNote.nbcFocus}
+                                      />
+                                    </div>
+                                  ))}
                                 </Col>
                               </Row>
                             </Form.Group>
@@ -2289,14 +2298,14 @@ const NewTransaction = () => {
                             </Form.Select>
                           ))}
                         </Col>
-                        
+
                         <Col sm={2} className=" mb-1">
                           <p>Weight (%)</p>
                           {plis.map((singleNote, index) => (
-                            <Form.Control key={index}
+                            <Form.Control
+                              key={index}
                               type="text"
                               size="sm"
-                            
                               value={singleNote.plis}
                               name="plis_weighting"
                               onChange={(e) => handlePlisChange(e, index)}
@@ -2653,97 +2662,102 @@ const NewTransaction = () => {
                   </Tab>
                   <Tab eventKey="" title="AMORTIZATION">
                     <Container1>
-                    <Container>
-                      <div>
-                        <Row className='mt-2 pt-2'>
-                          <Col sm={6}>
-                          <Form.Label>Principal</Form.Label>
-                        <Form.Control
-                          type="number"
-                          size="sm"
-                          {...register("principal", { required: true })}
-
-                        />
+                      <Container>
+                        <div>
+                          <Row className="mt-2 pt-2 mb-2 pb-2">
+                            <Col sm={6}>
+                              <Form.Label>DiscountFactor</Form.Label>
+                              <Form.Control
+                                type="number"
+                                size="sm"
+                                {...register("discountfactor", {
+                                  required: true,
+                                })}
+                              />
                               <div className="text-danger">
-                              {errors.principal?.type === "required" &&
-                                "Principal is required"}
-                            </div>
-                          </Col>
-                          <Col sm={6}>
-                          <Form.Label>IssueDate</Form.Label>
-                        <Form.Control
-                          type="date"
-                          size="sm"
-                          {...register("issuedate", { required: true })}
-                        />
+                                {errors.discountfactor?.type === "required" &&
+                                  "This field is required"}
+                              </div>
+                            </Col>
+                            <Col sm={6}>
+                              <Form.Label>IssueDate</Form.Label>
+                              <Form.Control
+                                type="date"
+                                size="sm"
+                                {...register("issuedate", { required: true })}
+                              />
                               <div className="text-danger">
-                              {errors.issuedate?.type === "required" &&
-                                "Issue Date is required"}
-                            </div>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col sm={6}>
-                          <Form.Label>FirstCouponDate</Form.Label>
-                        <Form.Control
-                          type="date"
-                          size="sm"
-                          name="plis_status"
-                          {...register("firstcoupondate", { required: true })}
-                        />
+                                {errors.issuedate?.type === "required" &&
+                                  "Issue Date is required"}
+                              </div>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col sm={6} className='pt-1'>
+                              <Form.Label>FirstCouponDate</Form.Label>
+                              <Form.Control
+                                type="date"
+                                size="sm"
+                                name="plis_status"
+                                {...register("firstcoupondate", {
+                                  required: true,
+                                })}
+                              />
                               <div className="text-danger">
-                              {errors.firstcoupondate?.type === "required" &&
-                                "First Coupon Date is required"}
-                            </div>
-                          </Col>
-                          <Col sm={6}>
-                          <Form.Label>TakingFirstInterestEarly</Form.Label>
-                        <Form.Control
-                          type="number"
-                          size="sm"
-                          {...register("takingfirstinterestearly", { required: true })}
-                        />
-                         <div className="text-danger">
-                              {errors.takingfirstinterestearly?.type === "required" &&
-                                "This field is required"}
-                            </div>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col sm={6}>
-                          <Form.Label>GuaranteeFeeRate</Form.Label>
-                        <Form.Control
-                          type="number"
-                          size="sm"
-                          {...register("guaranteefeerate", { required: true })}
-                        />
-                        <div className="text-danger">
-                              {errors.guaranteefeerate?.type === "required" &&
-                                "This field is required"}
-                            </div>
+                                {errors.firstcoupondate?.type === "required" &&
+                                  "First Coupon Date is required"}
+                              </div>
+                            </Col>
+                            <Col sm={6}>
+                              <Form.Label>TakingFirstInterestEarly</Form.Label>
+                              <Form.Select
+                                {...register("takingfirstinterestearly", {
+                                  required: true,
+                                })}
+                                style={{
+                                  width: "100%",
+                                  padding: "4px 2px",
+                                  focus: "none",
+                                }}
+                              >
+                                {" "}
+                                <option></option>
+                                <option key={1} value={1}>
+                                  {" "}
+                                  Yes
+                                </option>
+                                <option key={0} value={0}>
+                                  {" "}
+                                  No
+                                </option>
+                              </Form.Select>
 
-                          </Col>
-                          <Col sm={6}>
-                          <Form.Label>DiscountFactor</Form.Label>
-                        <Form.Control
-                          type="number"
-                          size="sm"
-                          {...register("discountfactor", { required: true })}
-                        />
-                         <div className="text-danger">
-                              {errors.discountfactor?.type === "required" &&
-                                "This field is required"}
-                            </div>
-                        
-
-                          </Col>
-
-                        </Row>
-
-                      </div>
-                    </Container>
+                              <div className="text-danger">
+                                {errors.takingfirstinterestearly?.type ===
+                                  "required" && "This field is required"}
+                              </div>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col sm={6}>
+                              <Form.Label>GuaranteeFeeRate</Form.Label>
+                              <Form.Control
+                                type="number"
+                                size="sm"
+                                {...register("guaranteefeerate", {
+                                  required: true,
+                                })}
+                              />
+                              <div className="text-danger">
+                                {errors.guaranteefeerate?.type === "required" &&
+                                  "This field is required"}
+                              </div>
+                            </Col>
+                            <Col sm={6}></Col>
+                          </Row>
+                        </div>
+                      </Container>
                     </Container1>
-                    
                   </Tab>
                 </Tabs>
 
@@ -2766,9 +2780,8 @@ const NewTransaction = () => {
                       errors.amortizationStyle ||
                       errors.mandateLetter ||
                       errors.discountfactor ||
-                      errors.principal||
                       errors.issuedate ||
-                      errors.repaymentFrequency||   
+                      errors.repaymentFrequency ||
                       errors.takingfirstinterestearly ||
                       errors.guaranteefeerate ||
                       errors.coupon ||
@@ -2782,9 +2795,24 @@ const NewTransaction = () => {
                 </div>
               </div>
               <div className="d-flex justify-content-end">
-                {hideSubmit ? <ButtonWrapper type="" disabled={hideSubmit} style={{backgroundColor:'white', color: 'black'}}>Submit</ButtonWrapper> : <ButtonWrapper type="submit">Submit</ButtonWrapper>}
+                {hideSubmit ? (
+                  <ButtonWrapper
+                    type=""
+                    disabled={hideSubmit}
+                    style={{ backgroundColor: "white", color: "black" }}
+                  >
+                    Submit
+                  </ButtonWrapper>
+                ) : (
+                  <ButtonWrapper type="submit">Submit</ButtonWrapper>
+                )}
                 {/* <ButtonWrapper type="submit">Submit</ButtonWrapper> */}
-                <ButtonWrapper type="reset" style={{color:'white !important'}}>Reset</ButtonWrapper>
+                <ButtonWrapper
+                  type="reset"
+                  style={{ color: "white !important" }}
+                >
+                  Reset
+                </ButtonWrapper>
               </div>
             </form>
           )}
