@@ -134,20 +134,13 @@ const DeleteDeals = (props) => {
   const [showInputPassword, setShowInputPassword] = useState(false)
   const [deleteInputVaue, setDeleteInputValue] = useState("")
   const [deleteItemIndex, setDeleteItemIndex] = useState("")
-  const [showAlertNote, setAlertNote] = useState(true)
+  // const [showAlertNote, setAlertNote] = useState(true)
   const [showResultNotification, SetShowResultNotification] = useState(false)
   const [visible, setVisible] = useState(false);// for antd
   const [statusCode, setStatusCode] = useState("")
   const [loadingDelete, setLoadingDelete] = useState(false);
-  // const [deletedDealName, setDeletedDealName] = useState('')
-
-
   const dealsRef = useRef();
   dealsRef.current = deals;
-
-
-
-
 
   // handle antd modal
   const showAntModal = () => {
@@ -156,7 +149,6 @@ const DeleteDeals = (props) => {
       setVisible(false);
     }, 5000);
     setStatusCode("")
-    // SetShowResultNotification(false)
   };
 
   const handleOk = () => {
@@ -320,14 +312,11 @@ const DeleteDeals = (props) => {
         let deletePassword = deleteInputVaue
          await Service.deleteTransactions(transId, deletePassword)
         .then((response) => {
-          // console.log(response.data.status)
           setStatusCode(response.data.status)
             setDeleteMessage(response.data.message);
             setReload(true)
-            // showAlertNote(true)
             SetShowResultNotification(true)
             showAntModal()
-            // setStatusCode("")
         })
         .catch((e) => {
             setDeleteMessage(e.response.data.message);
@@ -343,9 +332,6 @@ const DeleteDeals = (props) => {
 
 
   const deleteDeal = (rowIndex, dealNameY) => {
-    // console.log(rowIndex) 
-    // console.log(deletedDealName) 
-    // setDeletedDealName(dealNameY)
     setShowModal(true)
     setDeleteItemIndex(rowIndex)
   };
@@ -354,22 +340,6 @@ const DeleteDeals = (props) => {
  
 
   // ******************************************  Download Function  ****** ****************************************
-
-//   const downloadExcel = () => {
-//     const newData = deals.map((row) => {
-//       delete row.tableData;
-//       return row;
-//     });
-//     const workSheet = XLSX.utils.json_to_sheet(newData);
-//     const workBook = XLSX.utils.book_new();
-//     XLSX.utils.book_append_sheet(workBook, workSheet, "Transaction_report");
-//     //Buffer
-//     let buf = XLSX.write(workBook, { bookType: "xlsx", type: "buffer" });
-//     XLSX.write(workBook, { bookType: "xlsx", type: "binary" });
-//     XLSX.writeFile(workBook, "Transaction_report.xlsx");
-//   };
-
-//continue button
 const handleContinueClick = () => {
     setShowInputPassword(true);
   };
@@ -380,7 +350,6 @@ const handleContinueClick = () => {
     setShowModal(false);
     setShowInputPassword(false);
     setDeleteInputValue("")
-    // setDeletedDealName("") 
   };
 
   
@@ -388,7 +357,6 @@ const handleContinueClick = () => {
   const handleCancelClick = () => {
     setShowInputPassword(false);
     setShowModal(false);
-    // setDeletedDealName("")
     setStatusCode("")
   };
 
@@ -422,7 +390,6 @@ const handleContinueClick = () => {
         disableSortBy: true,
         Cell: (props) => {
           const rowIdx = props.row.original["transid"];
-          // const dealNameY= props.row.original["clientname"]
           return (
             <div>
               <span
@@ -658,7 +625,6 @@ const handleContinueClick = () => {
   const {
     getTableProps,
     getTableBodyProps,
-    getRowProps,
     headerGroups,
     prepareRow,
     page,
@@ -703,91 +669,7 @@ const handleContinueClick = () => {
         reload={reload}
       />
       <ContainerWrapper>
-      {/* {showAlertNote &&  <Alert message={deleteMessage} type="success" showIcon />} */}
         <Row className="d-flex justify-content-space-evenly">
-        {/* {showAlertNote &&  <Alert message={deleteMessage} type="success" showIcon />} */}
-          {/* <Col sm={2} className="d-sm-none d-lg-block d-md-block">
-            <small style={{ fontSize: "12px", paddingTop: "10px" }}>
-              All ({deals.length})
-            </small>
-          </Col> */}
-
-          {/* <Col sm={2} className='d-sm-none d-lg-block d-md-block'>
-            <small style={{fontSize:'12px',paddingTop:'10px'}}>
-              Trash (0) 
-            </small>
-          </Col> */}
-
-          {/* <Col sm={2} className='d-sm-none d-lg-block '>
-            <small style={{fontSize:'12px',paddingTop:'10px'}}>
-              Bulk Actions
-            </small>
-          </Col> */}
-
-          {/* {!loading &&  */}
-          {/* <Col>
-            <Form.Check
-              label="Portfolio"
-              type="radio"
-              name="closedStatus"
-              value={true}
-              checked={closedStatus === "true"}
-              onClick={(e) => setClosedStatus(e.target.value)}
-            />
-            <Form.Check
-              label="Pipeline"
-              type="radio"
-              name="closedStatus"
-              value={false}
-              checked={closedStatus === "false"}
-              onClick={(e) => setClosedStatus(e.target.value)}
-            />
-          </Col> */}
-          {/*  } */}
-{/* 
-          <Col>
-            <Form.Select
-              size="sm"
-              name="staff"
-              onChange={handleInputChange}
-              value={staffFilter}
-            >
-              <option value="All">All</option>
-              {staffList.map((opt, i) => (
-                <option
-                  key={staffList[i].email}
-                  name={staffList[i].stafflist}
-                  value={staffList[i].email}
-                >
-                  {staffList[i].stafflist}
-                </option>
-              ))}
-            </Form.Select>
-          </Col> */}
-
-          {/* <Col>
-            <MdOutlineRefresh
-              onClick={resetFilterValues}
-              style={{
-                height: "1rem",
-                width: "1rem",
-                marginTop: "5px",
-                cursor: "pointer",
-              }}
-            />
-          </Col> */}
-{/* 
-          <Col sm={2} className="d-sm-none d-lg-block d-md-block">
-            <small style={{ fontSize: "12px", paddingTop: "10px" }}>
-              <button
-                className="bg-success text-light py-1"
-                onClick={downloadExcel}
-              >
-                Download
-              </button>
-            </small>
-          </Col> */}
-
           <Col sm={3}>
             <GlobalFilter
               preGlobalFilteredRows={preGlobalFilteredRows}
@@ -965,14 +847,13 @@ const handleContinueClick = () => {
      
           >
             <Result
-              status = {deleteMessage == "Transaction deleted Successfully" ? "success" : "error"}
+              status = {deleteMessage === "Transaction deleted Successfully" ? "success" : "error"}
               title={deleteMessage}
             />
           </ModalView>
         )
       )
     }
-        {/* )} */}
       </ContainerWrapper>
     </React.Fragment>
   );

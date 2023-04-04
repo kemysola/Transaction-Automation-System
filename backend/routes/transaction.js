@@ -661,11 +661,19 @@ router.get(
 
     try {
       const all_deals = await client.query(
-        `SELECT 
+        `
+        SELECT 
                 a.* 
-            FROM TB_INFRCR_TRANSACTION a
-            WHERE DATE_PART('year', a.createdate)::varchar(10) <= COALESCE($1, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
-            `,[final_year_slice]
+FROM TB_INFRCR_TRANSACTION a
+WHERE DATE_PART('year', a.createdate)::varchar(10) <= COALESCE($1, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
+and closed = false
+union
+SELECT 
+                a.* 
+FROM TB_INFRCR_TRANSACTION a
+WHERE DATE_PART('year', a.createdate)::varchar(10) = COALESCE($1, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
+and closed = true
+        `,[final_year_slice]
     );
 
       if (all_deals) {
@@ -767,7 +775,7 @@ router.get(
             WHERE a.closed = true
             AND (a.originator = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1)
             OR a.transactor = (SELECT CONCAT(firstname,' ',lastname) FROM TB_TRS_USERS where email = $1))
-            AND DATE_PART('year', a.createdate)::varchar(10) <= COALESCE($2, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
+            AND DATE_PART('year', a.createdate)::varchar(10) = COALESCE($2, (SELECT RIGHT(fy, 4) FROM tb_infrcr_financial_year WHERE fy_status = 'Active'))
             `,
         [current_user.Email, final_year_slice]
       );
@@ -1724,9 +1732,7 @@ router.delete("/delete/:dealID", async (req, res) => {
       const insert_to_parties =
         `DELETE FROM ` + targetTable + ` WHERE transID = $1 AND id = $2`;
       const del_cols = [rows[0], rows[1]];
-
       const res_ins_parties = await client.query(insert_to_parties, del_cols);
-
       await client.query("COMMIT");
 
       res.json({

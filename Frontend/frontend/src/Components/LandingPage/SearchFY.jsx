@@ -4,7 +4,7 @@ import Service from '../../Services/Service';
 import TitleContext from '../../context/TitleContext';
 import Services from '../../Services/Service';
 import Alert from 'react-bootstrap/Alert';
-import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import axios from 'axios';
 export default function SearchFY() {
   const { data, isLoading ,error} = useQuery(['user'], Services.getFY, {
