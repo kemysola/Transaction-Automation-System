@@ -1207,35 +1207,33 @@ $BODY$;
 --When the start and dates are not specified:
 --SELECT * FROM func_infr_amortization_schedule( 1,14.7,7,15000000000.00,'Semi-Annual'::text, '20220413'::date,'20221031'::date,0,2.2,14.7,'Asiko'::text,1002, NULL::date, NULL::date)
 -- Budget --Alter transaction TABLE
-ALTER TABLE tb_infrcr_transaction_audit
-ADD COLUMN Principal INT,
+ALTER TABLE tb_infrcr_transaction
 ADD COLUMN FirstCouponDate DATE,
-ADD COLUMN TakingFirstInterestEarly INT,
-ADD COLUMN GuaranteeFeeRate INT,
-ADD COLUMN DiscountFactor INT,
+ADD COLUMN TakingFirstInterestEarly NUMERIC,
+ADD COLUMN GuaranteeFeeRate NUMERIC,
+ADD COLUMN DiscountFactor NUMERIC,
 ADD COLUMN IssueDate DATE;
 
-ALTER TABLE tb_infrcr_transaction
-ADD COLUMN Principal INT,
+ALTER TABLE tb_infrcr_transaction_audit
 ADD COLUMN FirstCouponDate DATE,
-ADD COLUMN TakingFirstInterestEarly INT,
-ADD COLUMN GuaranteeFeeRate INT,
-ADD COLUMN DiscountFactor INT,
+ADD COLUMN TakingFirstInterestEarly NUMERIC,
+ADD COLUMN GuaranteeFeeRate NUMERIC,
+ADD COLUMN DiscountFactor NUMERIC,
 ADD COLUMN IssueDate DATE;
 
 
 ALTER TABLE TB_INFRCR_TRANSACTION
-   ALTER COLUMN clientName TYPE VARCHAR(225) USING clientName::VARCHAR(225), ALTER COLUMN clientName SET NOT NULL, ADD CONSTRAINT clientName_unique UNIQUE (clientName);
-   ALTER COLUMN tenor SET DATA TYPE NUMERIC,
-   ALTER COLUMN moratorium SET DATA TYPE NUMERIC,
-   ALTER COLUMN structuringFeeAdvance SET DATA TYPE NUMERIC,
-   ALTER COLUMN structuringFeeFinal SET DATA TYPE NUMERIC
+  ALTER COLUMN clientName TYPE VARCHAR(225) USING clientName::VARCHAR(225), ALTER COLUMN clientName SET NOT NULL, ADD CONSTRAINT clientName_unique UNIQUE (clientName),
+  ALTER COLUMN tenor SET DATA TYPE NUMERIC,
+  ALTER COLUMN moratorium SET DATA TYPE NUMERIC,
+  ALTER COLUMN structuringFeeAdvance SET DATA TYPE NUMERIC,
+  ALTER COLUMN structuringFeeFinal SET DATA TYPE numeric;
 
 
 ALTER TABLE TB_INFRCR_TRANSACTION_AUDIT
-  ALTER COLUMN clientName TYPE VARCHAR(225), 
-   ALTER COLUMN tenor SET DATA TYPE NUMERIC,
-   ALTER COLUMN moratorium SET DATA TYPE NUMERIC,
-   ALTER COLUMN structuringFeeAdvance SET DATA TYPE NUMERIC,
-   ALTER COLUMN structuringFeeFinal SET DATA TYPE NUMERIC
+ ALTER COLUMN clientName TYPE VARCHAR(225), 
+  ALTER COLUMN tenor SET DATA TYPE NUMERIC,
+  ALTER COLUMN moratorium SET DATA TYPE NUMERIC,
+  ALTER COLUMN structuringFeeAdvance SET DATA TYPE NUMERIC,
+  ALTER COLUMN structuringFeeFinal SET DATA TYPE numeric;
    
