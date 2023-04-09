@@ -366,7 +366,8 @@ router.get('/:user_email',verifyTokenAndAuthorization, async (req, res) => {
 
           res.status(200).send({
               status: (res.statusCode = 200),
-              staffInfo: staff.rows
+              staffInfo: staff.rows,
+
           })
       }
       
