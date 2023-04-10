@@ -390,6 +390,7 @@ router.get('/origination_structuring_users/all', verifyTokenAndAdmin, async (req
           SELECT * 
           FROM TB_TRS_USERS 
           WHERE CONCAT(firstname,' ',lastname) IN (
+                              -- check if it's a back office user
                               SELECT originator 
                               FROM TB_INFRCR_TRANSACTION 
                               UNION 
