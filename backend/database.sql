@@ -1251,5 +1251,6 @@ ALTER TABLE TB_INFRCR_TRANSACTION_AUDIT
      ALTER TABLE TB_TRS_USERS_AUDIT
    ADD COLUMN office_type varchar(200)
 
-    UPDATE TB_TRS_USERS
+-- update a user
+  UPDATE TB_TRS_USERS
    SET office_type = 'Front Office'
