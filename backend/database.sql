@@ -1245,3 +1245,13 @@ ALTER TABLE TB_INFRCR_TRANSACTION_AUDIT
    ALTER COLUMN discountfactor SET DATA TYPE NUMERIC
    ALTER COLUMN principal SET DATA TYPE NUMERIC
    
+
+-- Add a new colum to users table
+    ALTER TABLE TB_TRS_USERS
+   ADD COLUMN office_type varchar(200)
+   
+     ALTER TABLE TB_TRS_USERS_AUDIT
+   ADD COLUMN office_type varchar(200)
+
+    UPDATE TB_TRS_USERS
+   SET office_type = 'Front Office'

@@ -77,7 +77,36 @@ export default function UpdateStaffs() {
   const [istransactor, setIsTransactor] = useState("");
   const [istransactionlegallead, setIsTransactionLegalLead] = useState("");
   const [targs, setTargs] = useState("");
+  const [officeType, setOfficeType] = useState("")
+  const [showOffice, setShowOffice] = useState(false)
   // const [mands, setMands] = useState(0);
+
+
+
+  // ************************************************** Display Office Type **************************************
+//  console.log(staff)
+ 
+  // if (staff.length > 0 && staff[0].isadmin === true) {
+  //   setShowOffice(true)
+  // }
+
+const displayOfficeType = () => {
+  setShowOffice(true)
+}
+
+const offDisplayOfficeType = () => {
+  setShowOffice(false)
+}
+
+
+useEffect(() => {
+  if (staff.length > 0 && staff[0].isadmin === true) {
+    setShowOffice(true)
+  } else
+  setShowOffice(false)
+}, [staff]);
+
+// *********************************************
 
   const history = useHistory();
 
@@ -113,8 +142,8 @@ export default function UpdateStaffs() {
   const retrieveStaff = async () => {
     const staff_data = await axios
       .get(
-        // `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
-        `http://localhost:5001/api/v1/staff/${user_email}`,
+        `https://trms01-server.azurewebsites.net/api/v1/staff/${user_email}`,
+        // `http://localhost:5001/api/v1/staff/${user_email}`,
 
         {
           headers: {
@@ -135,6 +164,7 @@ export default function UpdateStaffs() {
     );
     setTargs(staff_data.data.staffInfo[0].hasoriginationtarget);
     setSaved(true);
+    setOfficeType(staff_data.data.staffInfo[0].office_type)
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -164,6 +194,7 @@ export default function UpdateStaffs() {
       isOriginator: JSON.parse(isoriginator),
       isTransactor: JSON.parse(istransactor),
       isTransactionLegalLead: JSON.parse(istransactionlegallead),
+      office_type: officeType
     };
     Service.updateStaff(user_email, reqData)
       .then((response) => {
@@ -350,6 +381,7 @@ export default function UpdateStaffs() {
                                 defaultChecked={staff[0].isadmin === true}
                                 name="isadmin"
                                 onChange={(e) => setisAdmin(e.target.value)}
+                                onClick={displayOfficeType}
                               />
                               <Form.Check
                                 inline
@@ -359,6 +391,7 @@ export default function UpdateStaffs() {
                                 defaultChecked={staff[0].isadmin === false}
                                 name="isadmin"
                                 onChange={(e) => setisAdmin(e.target.value)}
+                                onClick={offDisplayOfficeType}
                               />
                             </Col>
                           </Row>
@@ -400,6 +433,41 @@ export default function UpdateStaffs() {
                           </Row>
                         </Form.Group>
                       </Col>
+                      {showOffice ?
+                      <Row>
+                      <Col sm={6} className="mt-1 pt-1">
+                          <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                            <Row>
+                              {/* <Col className="pt-1"> */}
+                                <Form.Label>Office Type</Form.Label>
+                              {/* </Col> */}
+                              <Col sm={12}>
+                                <Form.Check
+                                  inline
+                                  type="radio"
+                                  label="Front Office"
+                                  value="Front Office"
+                                  name="office_type"
+                                  onChange={(e) => setOfficeType(e.target.value)}
+                                  defaultChecked={staff[0].office_type === 'Front Office'}
+                                />
+                                <Form.Check
+                                  inline
+                                  type="radio"
+                                  label="Back Office"
+                                  value="Back Office"
+                                  name="office_type"
+                                  onChange={(e) => setOfficeType(e.target.value)}
+                                  defaultChecked={staff[0].office_type === 'Back Office'}
+                                />
+                              </Col>
+                            </Row>
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                      :
+                      null
+                      }
                       <Col sm={6} className="mt-1 pt-1">
                         <Form.Group className="mb-0 mt-1 pt-1 pb-1">
                           <Row>
