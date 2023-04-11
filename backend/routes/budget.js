@@ -40,16 +40,20 @@ router.get("/get_all_deals", verifyTokenAndAuthorization, async (req, res) => {
 router.post("/compute_amortization/:startdate/:enddate", async (req, res) => {
   const client = await pool.connect();
 
+  console.log("I am here")
   // Get the details of candidate transactions for budget & iterate to compute
 
   try {
     const payload = req.body;
+    console.log("I am payload", payload)
     // const payload = [
     //             {"Moratorium": 1 ,"Coupon": 14.7,"Duration": 7,"Principal": 1500000000.00,"RepaymentFrequency": 'Semi-Annual',"IssueDate": '20220413',"FirstCouponDate":'20221031',"TakingFirstInterestEarly": 0,"GuaranteeFeeRate": 2.2,"DiscountFactor": 14.7,"DealName": 'Asiko',"DealID": 1002},
     //             {"Moratorium": 5 ,"Coupon": 13.25,"Duration": 20,"Principal": 25000000000.00,"RepaymentFrequency": 'Semi-Annual',"IssueDate": '20220510',"FirstCouponDate":'20220916',"TakingFirstInterestEarly": 1,"GuaranteeFeeRate": 2.5,"DiscountFactor": 13.25,"DealName": 'LFCZ',"DealID": 1001}
     //         ]
 
     const queryBody = `SELECT * FROM FUNC_INFR_AMORTIZATION_SCHEDULE($1::int,$2::numeric,$3::int,$4::numeric,$5::varchar(100),$6::date,$7::date,$8::int,$9::numeric,$10::numeric,$11::varchar(150),$12::int,$13::date,$14::date)`;
+
+    console.log("I am queryBody", queryBody)
 
     const result = [];
 
@@ -67,6 +71,9 @@ router.post("/compute_amortization/:startdate/:enddate", async (req, res) => {
       const DealName = payload[i].clientname;
       const DealID = payload[i].transid;
 
+      console.log("I am result", Moratorium)
+
+
       const dataLoad = [
         Moratorium,
         Coupon,
@@ -83,9 +90,14 @@ router.post("/compute_amortization/:startdate/:enddate", async (req, res) => {
         req.params.startdate,
         req.params.enddate,
       ];
+      console.log("I am data load", dataLoad)
       const budget_payload = await client.query(queryBody, dataLoad);
+      console.log("I am payload", budget_payload)
       result.push(budget_payload.rows);
+      
     }
+
+    console.log("I am result", result)
 
     if (result.length > 0) {
       res.status(200).send({

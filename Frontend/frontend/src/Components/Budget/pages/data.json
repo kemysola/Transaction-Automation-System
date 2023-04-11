@@ -1,0 +1,58 @@
+{
+    "status": 200,
+    "deals": [
+        [
+            {
+                "ndealid": 6,
+                "ddate": "2022-04-13T00:00:00.000Z",
+                "noutstanding_bond_balance": "25000000000.00",
+                "nguaranteefees": "550000000.00",
+                "ndiscountfactor": "1.000000000",
+                "npresentvalue": "550000000",
+                "ninterestincome": "0",
+                "clientName": "Asiko"
+            },
+            {
+                "ndealid": 6,
+                "ddate": "2022-10-31T00:00:00.000Z",
+                "noutstanding_bond_balance": "25000000000.00",
+                "nguaranteefees": "0",
+                "ndiscountfactor": "0",
+                "npresentvalue": "0",
+                "ninterestincome": "0",
+                "clientName": "NSB"
+            },
+            {
+                "ndealid": 6,
+                "ddate": "2023-04-01T00:00:00.000Z",
+                "noutstanding_bond_balance": "25000000000.00",
+                "nguaranteefees": "550000000.00",
+                "ndiscountfactor": "0.871839582",
+                "npresentvalue": "479511770",
+                "ninterestincome": "70488230",
+                "clientName": "Pan"
+            },
+            {
+                "ndealid": 6,
+                "ddate": "2023-10-01T00:00:00.000Z",
+                "noutstanding_bond_balance": "25000000000.00",
+                "nguaranteefees": "0",
+                "ndiscountfactor": "0",
+                "npresentvalue": "0",
+                "ninterestincome": "0",
+                "clientName": "Joydon"
+            },
+            {
+                "ndealid": 6,
+                "ddate": "2024-10-01T00:00:00.000Z",
+                "noutstanding_bond_balance": "25000000000.00",
+                "nguaranteefees": "0",
+                "ndiscountfactor": "0",
+                "npresentvalue": "0",
+                "ninterestincome": "0",
+                "clientName": "Zoi"
+            }
+        ]
+    ]
+  }
+  

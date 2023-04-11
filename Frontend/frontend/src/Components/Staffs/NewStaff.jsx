@@ -71,6 +71,7 @@ export default function NewStaff() {
     isOriginator: "false",
     isTransactor: "false",
     isTransactionLegalLead: "false",
+    office_type: ""
   };
 
   // ******************************************  use state hook to store state ****************************************
@@ -80,6 +81,7 @@ export default function NewStaff() {
   const [response, setResponse] = useState(false);
   const [target, setTarget] = useState();
   const [levels, setLevels] = useState([]);
+  const [showOffice, setShowOffice] = useState(false)
 
   // ******************************************  useEffect hook: componentDidMount and Receive - level ****************
 
@@ -107,6 +109,16 @@ export default function NewStaff() {
     setTarget(event.target.value);
   };
 
+// ************************************************** Display Office Type **************************************
+
+const displayOfficeType = () => {
+  setShowOffice(true)
+}
+
+const offDisplayOfficeType = () => {
+  setShowOffice(false)
+}
+
   const saveStaff = (e) => {
     // function to save user data and post to db
     e.preventDefault();
@@ -129,6 +141,7 @@ export default function NewStaff() {
       isOriginator: JSON.parse(staff.isOriginator),
       isTransactor: JSON.parse(staff.isTransactor),
       isTransactionLegalLead: JSON.parse(staff.isTransactionLegalLead),
+      office_type: staff.office_type
     };
     /// ******************************************  Axios post request  ****************************************
 
@@ -312,6 +325,7 @@ export default function NewStaff() {
                                   value={true}
                                   name="isadmin"
                                   onChange={handleInputChange}
+                                  onClick={displayOfficeType}
                                 />
                                 <Form.Check
                                   inline
@@ -320,6 +334,7 @@ export default function NewStaff() {
                                   value={false}
                                   name="isadmin"
                                   onChange={handleInputChange}
+                                  onClick={offDisplayOfficeType}
                                   defaultChecked
                                 />
                               </Col>
@@ -355,6 +370,38 @@ export default function NewStaff() {
                           </Form.Group>
                         </Col>
                       </Row>
+                      {showOffice && 
+                      <Row>
+                      <Col sm={6}>
+                          <Form.Group className="mb-0 mt-1 pt-1 pb-1">
+                            <Row>
+                              <Col className="mt-3 pt-2">
+                                <Form.Label>Office Type</Form.Label>
+                              </Col>
+                              <Col className="mt-3 pt-2">
+                                <Form.Check
+                                  inline
+                                  type="radio"
+                                  label="Front Office"
+                                  value="Front Office"
+                                  name="office_type"
+                                  onChange={handleInputChange}
+                                  defaultChecked
+                                />
+                                <Form.Check
+                                  inline
+                                  type="radio"
+                                  label="Back Office"
+                                  value="Back Office"
+                                  name="office_type"
+                                  onChange={handleInputChange}
+                                />
+                              </Col>
+                            </Row>
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                      }
                       <Row>
                         <Col sm={6}>
                           <Form.Group className="mb-0 mt-1 pt-1 pb-1">

@@ -43,7 +43,7 @@ const Sidenav = ({ toggled, handleToggleSidebar }) => {
 
   return (
     <>
-      <div id="header">
+      <div id="header" style={{zIndex: "100"}}>
         {/* collapsed props to change menu size using menucollapse state */}
         <ProSidebar collapsed={menuCollapse}>
           <SidebarHeader>

@@ -39,6 +39,8 @@ import ClosedDealByFilter from "./Components/Report/closedDeals/pages/ClosedDeal
 import Budget_cash from "./Components/Budget/pages/Budget_cash";
 import AmortizationPage from "./Pages/Amortization/AmortizationPage";
 import AllReport from "./Components/Report/getReport/AllReport";
+import BudgetView from "./Components/Budget/pages/BudgetView";
+
 
 
 export default function App() {
@@ -95,6 +97,8 @@ export default function App() {
         <Route path="/update_transactions">
           <UpdateTransaction />
         </Route>
+
+        <Route path="/budgetview"><BudgetView /></Route>
 
         <Route path="/dashboard"> <MgtView /> </Route>
         <Route path="/org_dashboard"> <Origination /> </Route>

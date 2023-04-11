@@ -1472,7 +1472,7 @@ export default function UpdateTransactions() {
                                       style={{ margin: "0.8em", width: "60%" }}
                                       size="sm"
                                       as="textarea"
-                                      defaultValue={singleNote}
+                                      defaultValue={singleNote.note}
                                       value={singleNote.note}
                                       name="note"
                                       onChange={(e) =>
