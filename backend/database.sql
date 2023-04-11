@@ -1207,20 +1207,18 @@ $BODY$;
 --When the start and dates are not specified:
 --SELECT * FROM func_infr_amortization_schedule( 1,14.7,7,15000000000.00,'Semi-Annual'::text, '20220413'::date,'20221031'::date,0,2.2,14.7,'Asiko'::text,1002, NULL::date, NULL::date)
 -- Budget --Alter transaction TABLE
-ALTER TABLE tb_infrcr_transaction_audit
-ADD COLUMN Principal INT,
+ALTER TABLE tb_infrcr_transaction
 ADD COLUMN FirstCouponDate DATE,
-ADD COLUMN TakingFirstInterestEarly INT,
-ADD COLUMN GuaranteeFeeRate INT,
-ADD COLUMN DiscountFactor INT,
+ADD COLUMN TakingFirstInterestEarly NUMERIC,
+ADD COLUMN GuaranteeFeeRate NUMERIC,
+ADD COLUMN DiscountFactor NUMERIC,
 ADD COLUMN IssueDate DATE;
 
-ALTER TABLE tb_infrcr_transaction
-ADD COLUMN Principal INT,
+ALTER TABLE tb_infrcr_transaction_audit
 ADD COLUMN FirstCouponDate DATE,
-ADD COLUMN TakingFirstInterestEarly INT,
-ADD COLUMN GuaranteeFeeRate INT,
-ADD COLUMN DiscountFactor INT,
+ADD COLUMN TakingFirstInterestEarly NUMERIC,
+ADD COLUMN GuaranteeFeeRate NUMERIC,
+ADD COLUMN DiscountFactor NUMERIC,
 ADD COLUMN IssueDate DATE;
 
 
