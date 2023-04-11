@@ -354,18 +354,15 @@ router.post(
     try {
       const report = ({ ReportFYQuarter, ReportFY, ReportSectionContent } =
         req.body);
-
       const report_data = [
         report.ReportFYQuarter,
         report.ReportFY,
         report.ReportSectionContent,
       ];
       await client.query("BEGIN");
-
-      const write_to_db = `INSERT INTO TB_INFRCR_OANDS_QUARTERLY(ReportFYQuarter, ReportFY, ReportSectionContent) VALUES ($1, $2, $3) RETURNING *`;
-
+      const write_to_db = `INSERT INTO TB_INFRCR_OANDS_QUARTERLY(
+        ReportFYQuarter, ReportFY, ReportSectionContent) VALUES ($1, $2, $3) RETURNING *`;
       const res_ = await client.query(write_to_db, report_data);
-
       await client.query("COMMIT");
 
       res.json({
@@ -380,6 +377,9 @@ router.post(
     }
   }
 );
+
+//create columns for each individual items -key and value;
+
 
 router.get(
   "/quarterly/oands/:fy_quarter/:fin_year",
@@ -433,7 +433,6 @@ router.put(
       ];
 
       await client.query("BEGIN");
-
       const quarterly_report_update = `
         UPDATE TB_INFRCR_OANDS_QUARTERLY
         SET ReportSectionContent = $1

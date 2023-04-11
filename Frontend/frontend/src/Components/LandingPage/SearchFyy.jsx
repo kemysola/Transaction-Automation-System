@@ -34,8 +34,6 @@ function useLocalStorage(key) {
 
 const SearchFYY = (props) => {
     const { filteredStore, addFtYear} = useContext(TitleContext) 
-    console.log(filteredStore)
-      // set dropdown value and have initial of none
       const [item, setItem] = useLocalStorage("fy")
       const [value, setValue] = useState(localStorage.getItem("fy"));
       // const [value, setValue] = (localStorage.getItem("fy"))
@@ -63,7 +61,7 @@ const SearchFYY = (props) => {
           });
       };
       const handleChange = async(e) => {
-        setValue(e.currentTarget.value)
+        setValue(e.currentTarget.value)z
         setShow(true)
       }
 

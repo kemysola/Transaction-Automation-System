@@ -177,7 +177,7 @@ router.get('/staff_list', verifyTokenAndAuthorization, async (req, res) => {
     try {
         const staff = await client.query(
             `
-            SELECT CONCAT(firstname,' ',lastname) AS stafflist, email, isOriginator, isTransactor, isTransactionLegalLead
+            SELECT CONCAT(firstname,' ',lastname) AS stafflist, email, isOriginator, isTransactor, isTransactionLegalLead,mandateletter,financialclose,creditcommiteeapproval,feeletter,financialclose,guaranteepipeline
             FROM TB_TRS_USERS
             `);
         if (staff) {
