@@ -71,7 +71,7 @@ export default function NewStaff() {
     isOriginator: "false",
     isTransactor: "false",
     isTransactionLegalLead: "false",
-    office_type: ""
+    office_type: "Front Office"
   };
 
   // ******************************************  use state hook to store state ****************************************
