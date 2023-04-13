@@ -42,7 +42,7 @@ router.post("/onboard", verifyTokenAndAdmin, async (req, res) => {
     // Destrucuring the request body to grab required fields
     const new_user = { email, firstName, lastName, level, hasOriginationTarget, originationAmount, guaranteePipeline, greenTransaction,
       amberTransaction, mandateLetter, creditCommiteeApproval, feeLetter, status, isadmin,
-      isOriginator, isTransactor, isTransactionLegalLead} = req.body;
+      isOriginator, isTransactor, isTransactionLegalLead, office_type} = req.body;
 
     // create confirmation token for account activation: 2022-Feb-15th
     const activationToken = jwt.sign(
@@ -77,7 +77,8 @@ router.post("/onboard", verifyTokenAndAdmin, async (req, res) => {
       activationToken,
       new_user.isOriginator, 
       new_user.isTransactor, 
-      new_user.isTransactionLegalLead
+      new_user.isTransactionLegalLead,
+      new_user.office_type
     ]
 
     await client.query('BEGIN')
@@ -85,8 +86,8 @@ router.post("/onboard", verifyTokenAndAdmin, async (req, res) => {
       `INSERT INTO TB_TRS_USERS(
         email, password, firstName, lastName, level, hasOriginationTarget, originationAmount, guaranteePipeline,
         greenTransaction, amberTransaction, mandateLetter, creditCommiteeApproval, feeLetter, financialClose, record_entry, status, isadmin, 
-        activationCode, isOriginator, isTransactor, isTransactionLegalLead, userID
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, nextval('trms.user_id_seq') ) RETURNING *`
+        activationCode, isOriginator, isTransactor, isTransactionLegalLead, office_type, userID
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, nextval('trms.user_id_seq') ) RETURNING *`
 
     const res_ = await client.query(write_to_db, user_data)              
     
@@ -130,13 +131,13 @@ router.put('/update/:user_email', verifyTokenAndAuthorization,async (req, res) =
   const client = await pool.connect();
   try {
       const user_rec = { firstName, lastName, level, hasOriginationTarget, originationAmount, guaranteePipeline, greenTransaction,
-    amberTransaction, mandateLetter, creditCommiteeApproval, feeLetter, isadmin, status, isOriginator, isTransactor, isTransactionLegalLead} = req.body;
+    amberTransaction, mandateLetter, creditCommiteeApproval, feeLetter, isadmin, status, isOriginator, isTransactor, isTransactionLegalLead, office_type} = req.body;
 
   const user_data = [
                 user_rec.firstName, user_rec.lastName, user_rec.level, user_rec.hasOriginationTarget, user_rec.originationAmount,
                 user_rec.guaranteePipeline, user_rec.greenTransaction, user_rec.amberTransaction , user_rec.mandateLetter,
                 user_rec.creditCommiteeApproval, user_rec.feeLetter, 
-        funcFinancialClose(user_rec.mandateLetter, user_rec.creditCommiteeApproval, user_rec.feeLetter), user_rec.isadmin, req.params.user_email, user_rec.status,user_rec.isOriginator, user_rec.isTransactor, user_rec.isTransactionLegalLead
+        funcFinancialClose(user_rec.mandateLetter, user_rec.creditCommiteeApproval, user_rec.feeLetter), user_rec.isadmin, req.params.user_email, user_rec.status,user_rec.isOriginator, user_rec.isTransactor, user_rec.isTransactionLegalLead, user_rec.office_type
               ]
       
       await client.query('BEGIN')
@@ -145,7 +146,7 @@ router.put('/update/:user_email', verifyTokenAndAuthorization,async (req, res) =
        SET  	firstName = coalesce($1,firstName), lastName = coalesce($2,lastName), level = coalesce($3,level), hasOriginationTarget = coalesce($4,hasOriginationTarget), originationAmount = coalesce($5, originationAmount),
               guaranteePipeline = coalesce($6,guaranteePipeline), greenTransaction = coalesce($7,greenTransaction), amberTransaction = coalesce($8,amberTransaction),
               mandateLetter = coalesce($9,mandateLetter), creditCommiteeApproval = coalesce($10,creditCommiteeApproval), feeLetter = coalesce($11,feeLetter), financialClose = coalesce($12,financialClose), isadmin = coalesce($13,isadmin), status = coalesce($15,status),
-              isOriginator = coalesce($16,isOriginator), isTransactor = coalesce($17,isTransactor), isTransactionLegalLead = coalesce($18,isTransactionLegalLead)
+              isOriginator = coalesce($16,isOriginator), isTransactor = coalesce($17,isTransactor), isTransactionLegalLead = coalesce($18,isTransactionLegalLead), office_type = coalesce($19,office_type)
           WHERE email = $14
       RETURNING *`
       const res_ = await client.query(update_db, user_data)                   
@@ -331,11 +332,32 @@ router.post('/forgotPassword', async (req, res) => {
 /*Fetch all Staffs(Priviledged Users only) */
 router.get('/all_staff', verifyTokenAndAuthorization, async (req, res) => {
   const client = await pool.connect();
+  const userID = req.user.ID
+
 
   try {
+      // const all_staff = await client.query(
+      //     `SELECT * FROM TB_TRS_USERS
+      //     `);
+
       const all_staff = await client.query(
-          `SELECT * FROM TB_TRS_USERS
-          `);
+        `WITH all_users AS (
+          SELECT *
+          FROM TB_TRS_USERS
+          
+      )
+      SELECT 
+          *
+      FROM all_users
+      WHERE status =
+          CASE
+              WHEN (SELECT office_type FROM TB_TRS_USERS WHERE userid = $1) = 'Back Office' 
+                  THEN status
+              WHEN (SELECT office_type FROM TB_TRS_USERS WHERE userid = $1) = 'Front Office'
+                  THEN 'Active'
+          END`,
+          [userID]
+      )
 
       if (all_staff) { 
          
@@ -384,20 +406,47 @@ router.get('/:user_email',verifyTokenAndAuthorization, async (req, res) => {
 /*Fetch Origination and Structuring Staff(Priviledged Users only) */
 router.get('/origination_structuring_users/all', verifyTokenAndAdmin, async (req, res) => {
   const client = await pool.connect();
+  const userID = req.user.ID
 
   try {
+      // const OandSTeam = await client.query(
+      //     `
+      //     SELECT * 
+      //     FROM TB_TRS_USERS 
+      //     WHERE CONCAT(firstname,' ',lastname) IN (
+      //                         -- check if it's a back office user
+      //                         SELECT originator 
+      //                         FROM TB_INFRCR_TRANSACTION 
+      //                         UNION 
+      //                         SELECT transactor 
+      //                         FROM TB_INFRCR_TRANSACTION
+      //                         )
+      //     `);
+
       const OandSTeam = await client.query(
-          `
-          SELECT * 
-          FROM TB_TRS_USERS 
-          WHERE CONCAT(firstname,' ',lastname) IN (
-                              SELECT originator 
-                              FROM TB_INFRCR_TRANSACTION 
-                              UNION 
-                              SELECT transactor 
-                              FROM TB_INFRCR_TRANSACTION
-                              )
-          `);
+        `
+            WITH all_users AS (
+              SELECT *
+              FROM TB_TRS_USERS
+              WHERE CONCAT(firstname, ' ', lastname) IN (
+                  SELECT originator FROM TB_INFRCR_TRANSACTION
+                  UNION 
+                  SELECT transactor FROM TB_INFRCR_TRANSACTION
+              )
+          )
+          SELECT 
+              *
+          FROM all_users
+          WHERE status =
+              CASE
+                  WHEN (SELECT office_type FROM TB_TRS_USERS WHERE userid = $1) = 'Back Office' 
+                      THEN status
+                  WHEN (SELECT office_type FROM TB_TRS_USERS WHERE userid = $1) = 'Front Office'
+                      THEN 'Active'
+              END
+        `,
+        [userID]
+      )
             
       if (OandSTeam) { 
          

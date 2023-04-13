@@ -13,6 +13,8 @@ import WorkIcon from "@mui/icons-material/Work";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import Divider from "@mui/material/Divider";
 import Chip from "@mui/material/Chip";
+import BudgetView from "./BudgetView";
+import {Modal} from "antd";
 export const GlobalFilter = ({
   preGlobalFilteredRows,
   globalFilter,
@@ -57,18 +59,32 @@ export default function BudgetAccruals(props) {
   const [dataResult, setDataResult] = useState([]);
   const [fyStartDate, setFyStartData] = useState(null);
   const [fyEndDate, setFyEndData] = useState(null);
+  const [displayBudgetData, setDisplayBudgetData] = useState(false)
+  const [rawBudgetData, setRawBudgetData] = useState([])
+  const [open, setOpen] = useState(false);
 
   const addBudget = () => {
     setSubmitting(true);
     setSubmitted(true);
-    const propsData = props?.data.map((data) => data?.original);
+//     console.log("I am data",  props?.data)
+//     const multipliedData = data.map(obj => ({...obj, a: obj.a * 300}));
+// console.log(multipliedData);
+// Output: [{a: 3000, b: 'joy'}]
+
+   
+    const propsData = props?.data.map(data => ({...data.original, principal: data.original.principal * 1000000000}));
+
+    console.log("I am props data", propsData)
     const formattedStartDate = fyStartDate.replace(/-/g, "");
-    const formattedEndDate = fyStartDate.replace(/-/g, "");
+    const formattedEndDate = fyEndDate.replace(/-/g, "");
     Service.postAccruals(formattedStartDate, formattedEndDate, propsData).then(
       (res) => {
         if (res?.data.status === 200) {
           localStorage.setItem("budget", JSON.stringify(res?.data?.deals));
           setDataResult(res?.data.deals);
+          setRawBudgetData(res?.data)
+          setDisplayBudgetData(true)
+          setOpen(true)
           toast.success("Budget has been submitted successfully.", {
             duration: 4000,
             position: "bottom-right",
@@ -217,6 +233,25 @@ export default function BudgetAccruals(props) {
 
   return (
     <div className="table-responsive  pt-1">
+     {displayBudgetData && 
+     
+  //    <Button type="primary" onClick={() => setOpen(true)}>
+  //    Open Modal of 1000px width
+  //  </Button>
+   <Modal
+     title="Budget Summary View"
+     centered
+     open={open}
+     onOk={() => setOpen(false)}
+     onCancel={() => setOpen(false)}
+     width={1100}
+     style={{zIndex: '1000'}}
+   >
+     <BudgetView budgetData={dataResult} budgetRaw={rawBudgetData}/>
+   </Modal>
+    //  <BudgetView budgetData={dataResult} budgetRaw={rawBudgetData}/>
+     
+     } 
       <div>
         <Toaster
           toastOptions={{
@@ -342,7 +377,7 @@ export default function BudgetAccruals(props) {
         ) : (
           <Chip
             label="Submit"
-            disabled={submitted}
+            // disabled={submitted}
             onClick={addBudget}
             className="py-3"
             color="success"

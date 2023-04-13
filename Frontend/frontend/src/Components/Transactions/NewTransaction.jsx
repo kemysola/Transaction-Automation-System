@@ -2332,12 +2332,14 @@ const NewTransaction = () => {
                           {plis.map((singleNote, index) => (
                             <Form.Control
                               key={index}
-                              type="text"
+                              type="number"
                               size="sm"
                               value={singleNote.plis}
                               name="plis_weighting"
                               onChange={(e) => handlePlisChange(e, index)}
                               onBlur={() => setShowAlert(true)}
+                              step="any"
+                              onKeyPress={handleKeyPress}
                               variant="standard"
                             />
                           ))}
