@@ -94,7 +94,6 @@ export default function UpdateTransactions() {
   const exceptedClose = useRef("");
   const actualClose = useRef("");
   const amount = useRef("");
-  const principal = useRef("");
   const guaranteefeerate = useRef("");
   const firstcoupondate = useRef("");
   const takingfirstinterestearly = useRef("");
@@ -206,19 +205,19 @@ export default function UpdateTransactions() {
   const [redA, setRedA] = useState("");
   const [redB, setRedB] = useState("");
   const [redC, setRedC] = useState("");
-  const [nbcFocusApprv1b, setNbcFocusApprv1b] = useState("") 
-  const [nbcFocusApprv1c, setNbcFocusApprv1c] = useState("")
-  const [nbcFocusApprv2b, setNbcFocusApprv2b] = useState("")
-  const [nbcFocusApprv2c, setNbcFocusApprv2c] = useState("")
-  const [nbcFocusApprv3b, setNbcFocusApprv3b] = useState("")
-  const [nbcFocusApprv3c, setNbcFocusApprv3c] = useState("")
-  const [nbcFocusApprv4b, setNbcFocusApprv4b] = useState("")
-  const [nbcFocusApprv4c, setNbcFocusApprv4c] = useState("")
-  const [nbcFocusApprv5b, setNbcFocusApprv5b] = useState("")
-  const [nbcFocusApprv5c, setNbcFocusApprv5c] = useState("")
-  const [showAlert, setShowAlert] = useState(false)
-  const [hideSubmit, setHideSubmit] = useState(false)
-  const [hideUpdateButton, setHideUpdateButton] = useState(false)
+  const [nbcFocusApprv1b, setNbcFocusApprv1b] = useState("");
+  const [nbcFocusApprv1c, setNbcFocusApprv1c] = useState("");
+  const [nbcFocusApprv2b, setNbcFocusApprv2b] = useState("");
+  const [nbcFocusApprv2c, setNbcFocusApprv2c] = useState("");
+  const [nbcFocusApprv3b, setNbcFocusApprv3b] = useState("");
+  const [nbcFocusApprv3c, setNbcFocusApprv3c] = useState("");
+  const [nbcFocusApprv4b, setNbcFocusApprv4b] = useState("");
+  const [nbcFocusApprv4c, setNbcFocusApprv4c] = useState("");
+  const [nbcFocusApprv5b, setNbcFocusApprv5b] = useState("");
+  const [nbcFocusApprv5c, setNbcFocusApprv5c] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [hideSubmit, setHideSubmit] = useState(false);
+  const [hideUpdateButton, setHideUpdateButton] = useState(false);
   // const [nbcFocusId, setNbcFocusId] = useState("0")
   //**********************************************************   Key Performance Indicators **************** */
   const handleKpiChange = (e, index) => {
@@ -568,7 +567,7 @@ export default function UpdateTransactions() {
   const pliid = Array.from(new Set(allData.map((a) => a.plid))).map((id) => {
     return allData.find((a) => a.plid === id);
   });
- 
+
   const uId = Array.from(new Set(allData.map((a) => a.kid))).map((id) => {
     return allData.find((a) => a.kid === id);
   });
@@ -742,12 +741,12 @@ export default function UpdateTransactions() {
     Service.updateParties(transid, data)
       .then((res) => {
         setPartiesChanged("success");
-        setShowAlert(false)
-        setHideUpdateButton(false)
+        setShowAlert(false);
+        setHideUpdateButton(false);
       })
       .catch((e) => {
-        setShowAlert(true)
-        setHideUpdateButton(true)
+        setShowAlert(true);
+        setHideUpdateButton(true);
         // validatePlisWeights(e.response.data.message)
         console.log("an error occured");
       });
@@ -828,17 +827,15 @@ export default function UpdateTransactions() {
       plis_status: plisStatus,
     };
 
-  
-
     Service.updatePlis(transid, data)
       .then((res) => {
         setPlisChanged("success");
-        setShowAlert(false)
-        setHideUpdateButton(false)
+        setShowAlert(false);
+        setHideUpdateButton(false);
       })
       .catch((e) => {
-        setShowAlert(true)
-        setHideUpdateButton(true)
+        setShowAlert(true);
+        setHideUpdateButton(true);
         // validatePlisWeights(e.response.data.message)
         console.log("an error occured");
       });
@@ -877,11 +874,11 @@ export default function UpdateTransactions() {
     // checkValid = false;
     // if (totalWeight > 100) {
     //   checkValid = true;
-      return (
-        <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
-         Total PLIs cannot be greater than 100%
-        </Alert>
-      );
+    return (
+      <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
+        Total PLIs cannot be greater than 100%
+      </Alert>
+    );
     // } else {
     //   checkValid = false;
     // }
@@ -917,7 +914,7 @@ export default function UpdateTransactions() {
       plis_expected: plis[0].plis_expected,
       plis_status: plis[0].plis_status,
     };
- 
+
     // const totalWeight = pliid.reduce(
     //   (acc, curr) => acc + Number(curr.plis_weighting),
     //   0
@@ -925,19 +922,19 @@ export default function UpdateTransactions() {
     // console.log(totalWeight)
     //  if (parseFloat(data.plis_weighting) + totalWeight > 100) {
     //     alert("Total PLI weight cannot be more than 100%");
-    //   return 
+    //   return
     //  }
 
     Service.updatePlis(id, data)
       .then((res) => {
         setPlisChanged("success");
         setPlis([]);
-        setShowAlert(false)
-        setHideUpdateButton(false)
+        setShowAlert(false);
+        setHideUpdateButton(false);
       })
       .catch((e) => {
-        setShowAlert(true)
-        setHideUpdateButton(true)
+        setShowAlert(true);
+        setHideUpdateButton(true);
         // validatePlisWeights(e.response.data.message)
         console.log("an error occured");
       });
@@ -1193,7 +1190,7 @@ export default function UpdateTransactions() {
 
   function handleBack() {
     history.push({
-      pathname: "/transaction",
+      pathname: "/all_transactions_portfolio",
     });
   }
 
@@ -1231,7 +1228,6 @@ export default function UpdateTransactions() {
       NBC_approval_date: new Date(nbcApprovalDate.current.value),
       NBC_submitted_date: new Date(nbcSubmittedDate.current.value),
       ccSubmissionDate: new Date(ccSubmissionDate.current.value),
-      principal: +dealSize.current.value,
       guaranteefeerate: +guaranteefeerate.current.value,
       issuedate: issuedate.current.value,
       takingfirstinterestearly: +takingfirstinterestearly.current.value,
@@ -3855,16 +3851,14 @@ export default function UpdateTransactions() {
                 >
                   Back
                 </ButtonWrapper>
-            
-                  <ButtonWrapper
+
+                <ButtonWrapper
                   type="submit"
                   className="d-flex justify-content-end"
                   onClick={postData}
                 >
                   Update
                 </ButtonWrapper>
-                
-                
               </div>
               <Row>
                 {/* <Col sm={2}  className='mt-3 pt-2'> */}

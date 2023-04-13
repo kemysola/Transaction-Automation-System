@@ -124,7 +124,6 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
       ocps,
       kpi,
       ccSubmissionDate,
-      principal,
       firstcoupondate,
       takingfirstinterestearly,
       guaranteefeerate,
@@ -193,7 +192,6 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
       new_transaction.monitoringFee,
       new_transaction.reimbursible,
       new_transaction.ccSubmissionDate,
-      new_transaction.principal,
       new_transaction.firstcoupondate,
       new_transaction.takingfirstinterestearly,
       new_transaction.guaranteefeerate,
@@ -222,9 +220,9 @@ router.post("/createdeal", verifyTokenAndAuthorization, async (req, res) => {
                     greenA, greenB, greenC, greenD, greenE, greenF, amberA,  amberB, amberC, 
                     amberD, amberE, redA, redB, redC, redD, redE, structuringFeeAmount,structuringFeeAdvance,
                     structuringFeeFinal, guaranteeFee, deal_category, record_entry, transactionLegalLead, notes, closed, 
-                    monitoringFee, reimbursible, ccSubmissionDate,principal,
+                    monitoringFee, reimbursible, ccSubmissionDate,
                     firstcoupondate,takingfirstinterestearly,guaranteefeerate,discountfactor,issuedate
-                  ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38, $39, $40, $41, $42, $43, $44, $45, $46, $47,$48,$49,$50,$51,$52, $53)   
+                  ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38, $39, $40, $41, $42, $43, $44, $45, $46, $47,$48,$49,$50,$51,$52)   
         ON CONFLICT(clientName,originator,transactor,transactionLegalLead,industry, product,region,dealSize,tenor,moratorium,repaymentFrequency,amortizationStyle,mandateLetter,creditApproval,feeLetter,expectedClose,actualClose) DO NOTHING
         RETURNING *`;
 
@@ -946,7 +944,6 @@ router.put("/update/:dealID", verifyTokenAndAuthorization, async (req, res) => {
       monitoringFee,
       reimbursible,
       ccSubmissionDate,
-      principal,
       guaranteefeerate,
       issuedate,
       takingfirstinterestearly,
@@ -1112,7 +1109,6 @@ router.put("/update/:dealID", verifyTokenAndAuthorization, async (req, res) => {
       updated_rec.monitoringFee,
       updated_rec.reimbursible,
       updated_rec.ccSubmissionDate,
-      updated_rec.principal,
       updated_rec.guaranteefeerate,
       updated_rec.issuedate,
       updated_rec.takingfirstinterestearly,
@@ -1141,7 +1137,7 @@ router.put("/update/:dealID", verifyTokenAndAuthorization, async (req, res) => {
             amberD = $27, amberE = $28, redA = $29, redB = $30, redC = $31, redD = $32 , redE = $33, structuringFeeAmount = $34,
             structuringFeeAdvance = $35,  structuringFeeFinal = $36, record_entry = $38, deal_category = $39, transactionLegalLead = $40, notes = $41, 
             closed = $42, guaranteeFee = $43, nbc_approval_date = $44, nbc_submitted_date = $45, monitoringFee = $46, reimbursible = $47, ccSubmissionDate = $48,
-            principal =$49,guaranteefeerate = $50,issuedate =$51,takingfirstinterestearly = $52, discountfactor = $53,firstcoupondate = $54
+            guaranteefeerate = $49,issuedate =$50,takingfirstinterestearly = $51, discountfactor = $52,firstcoupondate = $53
             WHERE transID = $37
         RETURNING *`;
     const res_ = await client.query(update_db, updated);
