@@ -13,11 +13,17 @@ import Editable from "react-editable-title";
 import TitleContext from "../../context/TitleContext";
 import AllReport from "./getReport/AllReport";
 import { Card } from "antd";
+import './index.css';
+import { Button, Space } from 'antd';
+import { Switch, Route, Link } from 'react-router-dom';
+
 
 export default function AllPages() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [activeTabKey1, setActiveTabKey1] = useState("tab1");
   const [activeTabKey2, setActiveTabKey2] = useState("app");
+  const [showForm, setShowForm] = useState(false);
+
 
   const onTab1Change = (key) => {
     setActiveTabKey1(key);
@@ -110,6 +116,9 @@ export default function AllPages() {
       </div>
     ),
   };
+  const handleClick = () => {
+    setShowForm(true);
+  };
 
   return (
     <React.Fragment>
@@ -123,15 +132,15 @@ export default function AllPages() {
         <Col sm={8} className="my-3 pt-2" style={{border:'1.2px dashed #E2E2E2',borderRadius:'15px'}}>
         <div style={{ textAlign: "right", fontWeight: "bold" }}>
         Quarterly Report for :
-        <Editable
+        {/* <Editable
           text={currentFyStore}
           editButtonStyle={{ lineHeight: "unset" }}
           editButton
           editControlButtons
           placeholder="Type here"
           cb={currentFY}
-        />
-        <span>
+        /> */}
+        {/* <span>
           Quarter :
           <Editable
             text={currentQuarterStore}
@@ -141,10 +150,10 @@ export default function AllPages() {
             placeholder="Type here"
             cb={currentQuarter}
           />
-        </span>{" "}
+        </span>{" "} */}
       </div>
           <br />
-          <Card
+          {/* <Card
           headStyle={{backgroundColor:'white',}}
             style={{ background: "none", color: "" }}
             tabList={tabListNoTitle}
@@ -153,9 +162,9 @@ export default function AllPages() {
             onTabChange={onTab2Change}
           >
             {contentListNoTitle[activeTabKey2]}
-          </Card>
+          </Card> */}
           <div>
-          <StructuringExecution />
+          {/* <StructuringExecution /> */}
 
           </div>
 
@@ -198,6 +207,65 @@ export default function AllPages() {
         <StructuringExecution />
       </Container> */}
       {/* </ApiProvider> */}
+      <Container>
+        <Container>
+          <Row style={{marginLeft:'0.8em'}}>
+            <Col lg={2}>
+            
+            
+            </Col>
+            <Col lg={10}>
+            <div className="space-align-container">
+    <div className="space-align-block">
+      <Space align="center">
+        Guarantee Portfolio
+        <button onClick={handleClick}>Show Form</button>
+      </Space>
+    </div>
+    <div className="space-align-block">
+      <Space align="center">
+       Origination Activity
+        <span className="mock-block">Add</span>
+      </Space>
+    </div>
+    <div className="space-align-block">
+      <Space align="center">
+         structuring reports 
+        <span className="mock-block">Add</span>
+        <Link to='/reports'>Add</Link>
+      </Space>
+    </div>
+    <div className="space-align-block">
+      <Space align="center">
+        Execution Report 
+        <span className="mock-block">Add</span>
+      </Space>
+    </div>
+    <div className="space-align-block">
+      <Space align="center">
+        Execution Report 
+      </Space>
+    </div>
+    
+   
+  </div>
+  {showForm && (
+    <div>                <CurrentGuarantee />
+    <button onClick={() => setShowForm(false)}>Close</button>
+    </div>
+
+      )}
+
+
+         
+            </Col>
+          </Row>
+         
+
+     
+        </Container>
+      </Container>
+      
     </React.Fragment>
   );
 }
