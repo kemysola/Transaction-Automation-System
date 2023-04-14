@@ -352,7 +352,7 @@ router.post(
     const client = await pool.connect();
 
     try {
-      const report = ({ ReportFYQuarter, ReportFY, ReportSectionContent } =
+      const report = ({ ReportFYQuarter, ReportFY } =
         req.body);
       const report_data = [
         report.ReportFYQuarter,
@@ -379,6 +379,39 @@ router.post(
 );
 
 //create columns for each individual items -key and value;
+//CurrentGuaranteePortfolio,GuaranteePortfolioGrowth
+router.post(
+  "/quarterly/oands/CurrentGuaranteePortfolio/",
+  verifyTokenAndAuthorization,
+  async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+      const report = ({ ReportFYQuarter, ReportFY } =req.body);
+      const report_data = [
+        report.ReportFYQuarter,
+        report.ReportFY,
+        report.ReportSectionContent,
+        report.ReportSectionTitle,
+      ];
+      await client.query("BEGIN");
+      const write_to_db = `INSERT INTO TB_INFRCR_OANDS_QUARTERLY_CurrentGuaranteePortfolio(
+        ReportFYQuarter, ReportFY, ReportSectionContent,ReportSectionTitle) VALUES ($1, $2, $3, $4) RETURNING *`;
+      const res_ = await client.query(write_to_db, report_data);
+      await client.query("COMMIT");
+
+      res.json({
+        status: (res.statusCode = 200),
+        message: "Quarterly Report Created Successfully",
+        quarterly_report: res_.rows[0],
+      });
+    } catch (e) {
+      res.status(403).json({ Error: e.message });
+    } finally {
+      client.release();
+    }
+  }
+);
 
 
 router.get(

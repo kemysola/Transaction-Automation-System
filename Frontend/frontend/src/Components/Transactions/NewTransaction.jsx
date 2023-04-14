@@ -85,7 +85,6 @@ const NewTransaction = () => {
       nbc_submitted_date: null,
       creditApproval: null,
       feeLetter: null,
-      principal: "",
       guaranteefeerate: "",
       issuedate: null,
       firstcoupondate: null,
@@ -649,7 +648,6 @@ const NewTransaction = () => {
       dealSize: +reqdata.dealSize,
       coupon: +reqdata.coupon,
       tenor: +reqdata.tenor,
-      principal: +reqdata.dealSize,
       guaranteefeerate: +reqdata.guaranteefeerate,
       issuedate: `${reqdata.issuedate ? reqdata.issuedate : 20221203}`,
       firstcoupondate: `${
