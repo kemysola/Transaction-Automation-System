@@ -2698,6 +2698,7 @@ const NewTransaction = () => {
                               <Form.Control
                                 type="number"
                                 size="sm"
+                                step="any"
                                 {...register("discountfactor", {
                                   required: true,
                                 })}
@@ -2773,6 +2774,7 @@ const NewTransaction = () => {
                               <Form.Control
                                 type="number"
                                 size="sm"
+                                step="any"
                                 {...register("guaranteefeerate", {
                                   required: true,
                                 })}
