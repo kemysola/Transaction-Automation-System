@@ -14,7 +14,8 @@ import PlisMode from "./PlisMode";
 import OcpsMode from "./OcpsMode";
 import KpisMode from "./KpisMode";
 import { useForm } from "react-hook-form";
-import { Tooltip } from "antd";
+import { Tooltip, notification } from "antd";
+
 
 const ButtonWrapper = styled.button`
   color: white;
@@ -497,12 +498,12 @@ export default function UpdateTransactions() {
     // function to get deal by id from the database
     const data = await axios
       .get(
-        `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
-          localStorage.getItem("fy")
-        )}`,
-        // `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+        // `https://trms01-server.azurewebsites.net/api/v1/transaction/item/${id}/${JSON.parse(
         //   localStorage.getItem("fy")
         // )}`,
+        `http://localhost:5001/api/v1/transaction/item/${id}/${JSON.parse(
+          localStorage.getItem("fy")
+        )}`,
         {
           headers: {
             token: `Bearer ${localStorage.getItem("token")}`,
@@ -1262,6 +1263,86 @@ export default function UpdateTransactions() {
       kpi: kpi,
     };
 
+    // let emptyFields = [];
+
+    // if (!dealSize.current.value) {
+    //   emptyFields.push("Deal Size");
+    // }
+
+    // if (!coupon.current.value) {
+    //   emptyFields.push("Coupon");
+    // }
+
+    // if (!moratorium.current.value) { 
+    //   emptyFields.push("Moratorium");
+    // }
+
+    // if (!tenor.current.value) {
+    //   emptyFields.push("Tenor");
+    // }
+
+    // if (!creditApproval.current.value){
+    //   emptyFields.push("Credit Approval");
+    // }
+
+    // if (emptyFields.length > 0) {
+    //   alert("Please fill in the following required fields: " + emptyFields.join(", "));
+    //   return
+    // }
+
+    const emptyFields = [];
+
+    const requiredFields = [
+      { name: "Deal Size", val: dealSize },
+      { name: "Coupon", val: coupon },
+      { name: "Moratorium", val: moratorium },
+      { name: "Tenor", val: tenor },
+      { name: "Credit Approval", val: creditApproval },
+      { name: "Mandate Letter", val: mandateLetter},
+      { name: "Repayment Frequency", val: repaymentFreq},
+      { name: "Amortization Style", val: amortizationStyle},
+      { name: "First coupon date", val: firstcoupondate },
+      { name: "Discount Factor", val: discountfactor},
+      { name: "Taking first interest early", val: takingfirstinterestearly},
+      { name: "Issue date", val: issuedate},
+      { name: "Guarantee fee rate", val: guaranteefeerate}
+    ];
+
+    requiredFields.forEach(field => {
+      if (!field.val.current.value) {
+        emptyFields.push(field.name);
+      }
+    });
+
+    if (emptyFields.length > 0) {
+      const errorMessage = (
+        <ul>
+          {emptyFields.map(field => (
+            <li key={field}>{field}</li>
+          ))}
+        </ul>
+      );
+      notification.error({
+        message: 'Required fields are missing',
+        // type: 'danger',
+        description: (
+          <div style={{ backgroundColor: '#fff1f0', color: '#f5222d', padding: '8px', borderRadius: '4px' }}>
+            {/* <p>The following fields are empty:</p> */}
+            {errorMessage}
+          </div>
+        ),
+        // duration: 0,
+        style: {
+          backgroundColor: '#fff1f0',
+          color: '#f5222d',
+          borderRadius: '8px',
+          border: 'none'
+        }
+      });
+      return;
+    }
+
+
     // ******************************************  Axios :  put request  ****************************************
     if (
       dealSize.current.value &&
@@ -1274,6 +1355,7 @@ export default function UpdateTransactions() {
           setMessage(response.data.message);
         })
         .catch((error) => {
+          console.log("I am error", error)
           setMessage(
             `Failed to update deal, ${
               error.response.data.message || "Please Fill all required fields"
@@ -1281,7 +1363,7 @@ export default function UpdateTransactions() {
           );
         });
     } else {
-      setMessage("Please Fill all required fields");
+      setMessage("Please Fill all required fields Now");
     }
   }
   let transactorList = staffList.filter((opt) => opt.istransactor === true);
