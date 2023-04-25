@@ -122,6 +122,7 @@ export default function UpdateTransactions() {
   const [style, setStyle] = useState([]);
   const [staffList, setStaffList] = useState([]);
   const [closed, setisClosed] = useState("");
+  const [visible, setVisible] = useState(true);
 
   const [nbcChanged, setNbcChanged] = useState("");
   const [partiesChanged, setPartiesChanged] = useState("");
@@ -229,6 +230,7 @@ export default function UpdateTransactions() {
   };
 
   const handleKpiAdd = () => {
+    setVisible(true);
     setKpi([
       ...kpi,
       {
@@ -258,6 +260,7 @@ export default function UpdateTransactions() {
   };
 
   const handlePartyAdd = () => {
+    setVisible(true);
     setParties([
       ...parties,
       {
@@ -278,6 +281,7 @@ export default function UpdateTransactions() {
   };
 
   const handleOcpsAdd = () => {
+    setVisible(true);
     setOcps([
       ...ocps,
       {
@@ -306,6 +310,7 @@ export default function UpdateTransactions() {
   };
 
   const handlePlisAdd = () => {
+    setVisible(true);
     setPlis([
       ...plis,
       {
@@ -359,6 +364,7 @@ export default function UpdateTransactions() {
 
   const handleNbcAdd = (e) => {
     e.preventDefault();
+    setVisible(true);
     setNbcFocus([
       ...nbcFocus,
       {
@@ -375,6 +381,9 @@ export default function UpdateTransactions() {
     list.splice(index, 1);
     setNbcFocus(list);
   };
+
+
+
 
   //************************************************************* Note Change ************************************************* */
 
@@ -1180,6 +1189,25 @@ export default function UpdateTransactions() {
   }
 
   // ******************************************  EndFunction  ****************************************
+  useEffect(() => {
+    if (visible) {
+      setTimeout(() => {
+        setVisible(false);
+      }, 3000); // Timeout set to 3 seconds
+    } else {
+      setVisible(false);
+    }
+  }, [visible]);
+
+  const handleVisibleChange = (visible) => {
+    if (visible) {
+      setTimeout(() => {
+        setVisible(false);
+      }, 3000); // Timeout set to 3 seconds
+    } else {
+      setVisible(false);
+    }
+  };
   // ******************************************  Handle Keypress  ****************************************
 
   const handleKeyPress = (e) => {
@@ -1305,7 +1333,11 @@ export default function UpdateTransactions() {
       { name: "Discount Factor", val: discountfactor},
       { name: "Taking first interest early", val: takingfirstinterestearly},
       { name: "Issue date", val: issuedate},
-      { name: "Guarantee fee rate", val: guaranteefeerate}
+      { name: "Guarantee fee rate", val: guaranteefeerate},
+      { name: "Originator", val: originator},
+      { name: "Transactor", val: transactor},
+      { name: "Transaction  Legal Lead", val: transactionLegalLead}
+
     ];
 
     requiredFields.forEach(field => {
@@ -1358,12 +1390,12 @@ export default function UpdateTransactions() {
           console.log("I am error", error)
           setMessage(
             `Failed to update deal, ${
-              error.response.data.message || "Please Fill all required fields"
+              error.response.data.message || "try refreshing the page and trying again"
             }`
           );
         });
     } else {
-      setMessage("Please Fill all required fields Now");
+      setMessage("Please Fill all required fields");
     }
   }
   let transactorList = staffList.filter((opt) => opt.istransactor === true);
@@ -2720,8 +2752,10 @@ export default function UpdateTransactions() {
                                   >
                                     <Tooltip
                                       title="Kindly Save using the save Icon to avoid losing data!!!!"
-                                      open
+                                      // open
                                       mouseLeaveDelay="0.4"
+                                      visible={visible} 
+                                      // onVisibleChange={handleVisibleChange}
                                     ></Tooltip>
                                     <i className="">
                                       <FiSave />
@@ -3240,8 +3274,10 @@ export default function UpdateTransactions() {
                                   >
                                     <Tooltip
                                       title="Kindly Save using the save Icon to avoid losing data!!!!"
-                                      open
+                                      // open
                                       mouseLeaveDelay="0.4"
+                                      visible={visible} 
+                                      // onVisibleChange={handleVisibleChange}
                                     ></Tooltip>
 
                                     <i className="">
@@ -3405,11 +3441,19 @@ export default function UpdateTransactions() {
                                         border: "none",
                                       }}
                                     >
+                                       <Tooltip
+                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
+                                      // open
+                                      mouseLeaveDelay="0.4"
+                                      visible={visible} 
+                                      // onVisibleChange={handleVisibleChange}
+                                    ></Tooltip>
                                       <i className="">
                                         {" "}
                                         <FiSave />{" "}
                                       </i>
                                     </button>
+                                    
                                   )}
                                 </div>
                               ))}
@@ -3593,8 +3637,10 @@ export default function UpdateTransactions() {
                                   >
                                     <Tooltip
                                       title="Kindly Save using the save Icon to avoid losing data!!!!"
-                                      open
+                                      // open
                                       mouseLeaveDelay="0.4"
+                                      visible={visible} 
+                                      onVisibleChange={handleVisibleChange}
                                     ></Tooltip>
 
                                     <i className="">
@@ -3614,8 +3660,10 @@ export default function UpdateTransactions() {
                       </Row>
                       <Tooltip
                         title="Kindly Save using the save Icon to avoid losing data!!!!"
-                        open
+                        // open
                         mouseLeaveDelay="0.2"
+                        visible={visible} 
+                        onVisibleChange={handleVisibleChange}
                       ></Tooltip>
                     </Container1>
                   </Tab>
@@ -3789,8 +3837,10 @@ export default function UpdateTransactions() {
                                   >
                                     <Tooltip
                                       title="Kindly Save using the save Icon to avoid losing data!!!!"
-                                      open
+                                      // open
                                       mouseLeaveDelay="0.4"
+                                      visible={visible} 
+                                      onVisibleChange={handleVisibleChange}
                                     ></Tooltip>
 
                                     <i className="">
@@ -3806,8 +3856,10 @@ export default function UpdateTransactions() {
                           <p className="">
                             <Tooltip
                               title="Kindly Save using the save Icon to avoid losing data!!!!"
-                              open
+                              // open
                               mouseLeaveDelay="0.4"
+                              visible={visible} 
+                              onVisibleChange={handleVisibleChange}
                             ></Tooltip>
                             <GrAddCircle onClick={handleKpiAdd} />
                           </p>
