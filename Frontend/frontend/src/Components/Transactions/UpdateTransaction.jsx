@@ -1390,12 +1390,12 @@ export default function UpdateTransactions() {
           console.log("I am error", error)
           setMessage(
             `Failed to update deal, ${
-              error.response.data.message || "try refreshing the page and trying again"
+              error.response.data.message || "refresh the page and try again"
             }`
           );
         });
     } else {
-      setMessage("Please Fill all required fields");
+      setMessage("Please Fill all required fields"); 
     }
   }
   let transactorList = staffList.filter((opt) => opt.istransactor === true);
