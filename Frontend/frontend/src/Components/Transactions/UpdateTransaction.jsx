@@ -1189,6 +1189,13 @@ export default function UpdateTransactions() {
   }
 
   // ******************************************  EndFunction  ****************************************
+
+  const overlayStyle = {
+    left: '50%', // Set the left position of the Tooltip to the center of the target element
+    top: 'calc(100% + 10px)', // Set the top position of the Tooltip to 10 pixels below the target element
+    transform: 'translate(-50%, 0)', // Center the Tooltip horizontally
+  };
+  
   useEffect(() => {
     if (visible) {
       setTimeout(() => {
@@ -2751,10 +2758,13 @@ export default function UpdateTransactions() {
                                     }}
                                   >
                                     <Tooltip
-                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
+                                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                                      title="Kindly Save using the save Icon to avoid losing data"
+                                      
                                       // open
                                       mouseLeaveDelay="0.4"
-                                      visible={visible} 
+                                      // visible={visible} 
+                                      open={visible} 
                                       // onVisibleChange={handleVisibleChange}
                                     ></Tooltip>
                                     <i className="">
@@ -3273,10 +3283,12 @@ export default function UpdateTransactions() {
                                     }}
                                   >
                                     <Tooltip
-                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
+                                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                                      title="Kindly Save using the save Icon to avoid losing data"
                                       // open
                                       mouseLeaveDelay="0.4"
-                                      visible={visible} 
+                                      // visible={visible}
+                                      open={visible}  
                                       // onVisibleChange={handleVisibleChange}
                                     ></Tooltip>
 
@@ -3442,10 +3454,12 @@ export default function UpdateTransactions() {
                                       }}
                                     >
                                        <Tooltip
-                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
+                                       getPopupContainer={triggerNode => triggerNode.parentNode}
+                                      title="Kindly Save using the save Icon to avoid losing data"
                                       // open
                                       mouseLeaveDelay="0.4"
-                                      visible={visible} 
+                                      // visible={visible} 
+                                      open={visible} 
                                       // onVisibleChange={handleVisibleChange}
                                     ></Tooltip>
                                       <i className="">
@@ -3636,11 +3650,13 @@ export default function UpdateTransactions() {
                                     }}
                                   >
                                     <Tooltip
-                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
+                                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                                      title="Kindly Save using the save Icon to avoid losing data"
                                       // open
                                       mouseLeaveDelay="0.4"
-                                      visible={visible} 
-                                      onVisibleChange={handleVisibleChange}
+                                      // visible={visible} 
+                                      open={visible} 
+                                      // onVisibleChange={handleVisibleChange}
                                     ></Tooltip>
 
                                     <i className="">
@@ -3659,11 +3675,13 @@ export default function UpdateTransactions() {
                         </div>
                       </Row>
                       <Tooltip
-                        title="Kindly Save using the save Icon to avoid losing data!!!!"
+                        getPopupContainer={triggerNode => triggerNode.parentNode}
+                        title="Kindly Save using the save Icon to avoid losing data"
                         // open
                         mouseLeaveDelay="0.2"
-                        visible={visible} 
-                        onVisibleChange={handleVisibleChange}
+                        // visible={visible}
+                        open={visible} 
+                        // onVisibleChange={handleVisibleChange}
                       ></Tooltip>
                     </Container1>
                   </Tab>
@@ -3836,11 +3854,13 @@ export default function UpdateTransactions() {
                                     }}
                                   >
                                     <Tooltip
-                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
+                                    getPopupContainer={triggerNode => triggerNode.parentNode}
+                                      title="Kindly Save using the save Icon to avoid losing data"
                                       // open
                                       mouseLeaveDelay="0.4"
-                                      visible={visible} 
-                                      onVisibleChange={handleVisibleChange}
+                                      // visible={visible}
+                                      open={visible}  
+                                      // onVisibleChange={handleVisibleChange}
                                     ></Tooltip>
 
                                     <i className="">
@@ -3855,11 +3875,13 @@ export default function UpdateTransactions() {
                         <div className="d-flex justify-content-end ml-2">
                           <p className="">
                             <Tooltip
-                              title="Kindly Save using the save Icon to avoid losing data!!!!"
+                            getPopupContainer={triggerNode => triggerNode.parentNode}
+                              title="Kindly Save using the save Icon to avoid losing data"
                               // open
                               mouseLeaveDelay="0.4"
-                              visible={visible} 
-                              onVisibleChange={handleVisibleChange}
+                              // visible={visible} 
+                              open={visible} 
+                              // onVisibleChange={handleVisibleChange}
                             ></Tooltip>
                             <GrAddCircle onClick={handleKpiAdd} />
                           </p>
