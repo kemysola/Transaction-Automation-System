@@ -1343,7 +1343,8 @@ export default function UpdateTransactions() {
       { name: "Guarantee fee rate", val: guaranteefeerate},
       { name: "Originator", val: originator},
       { name: "Transactor", val: transactor},
-      { name: "Transaction  Legal Lead", val: transactionLegalLead}
+      { name: "Transaction  Legal Lead", val: transactionLegalLead},
+      { name: "Client Name", val: clientName}
 
     ];
 
