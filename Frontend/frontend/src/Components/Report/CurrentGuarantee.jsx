@@ -1,99 +1,72 @@
-import React, { useContext } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import React, { useContext, useState } from "react";
+import { Container } from "react-bootstrap";
 import Editable from "react-editable-title";
 import TitleContext from "../../context/TitleContext";
-import GeneralPie from "./GeneralPie";
+import Service from "../../Services/Service";
+import toast, { Toaster } from "react-hot-toast";
 
-export default function CurrentGuarantee() {
+
+export default function CurrentGuarantee({ fy, qt }) {
+  const [message, setMessage] = useState("");
   const handleTextUpdate = (current) => {
     addTitle(current);
   };
+
   const handleTextUpdates = (current) => {
     addGuarantees(current);
   };
 
+  function currentReportPost(e) {
+    e.preventDefault();
+    const data = {
+      ReportFYQuarter: qt,
+      ReportFY: fy,
+      ReportSectionContent: cartTitle,
+      ReportSectionTitle: guaranteeStore,
+    };
+    Service.postGuarantee(data)
+      .then((response) => {
+        // setMessage(response?.data?.message)
+        toast.success(response?.data?.message, {
+          duration: 4000,
+          position: "bottom-right",
+          // Styling
+          style: {},
+          className: "",
+          icon: "👏",
+          iconTheme: {
+            primary: "green",
+            secondary: "#fff",
+          },
+          ariaProps: {
+            role: "status",
+            "aria-live": "polite",
+          },
+        });
+      })
+      .catch((error) => {
+        if (error?.status !== "200") {
+          setMessage(`Failed to post ${error?.message}`);
+        }
+      });
+  }
+
   const { addTitle, cartTitle, guaranteeStore, addGuarantees } =
     useContext(TitleContext);
 
-  // ******************************************  static data shared  ****************************************
-
-  const data = [
-    { name: "GPC", value: 26 },
-    { name: "GELUL", value: 17 },
-    { name: "LFZC", value: 13 },
-    { name: "TSL", value: 15 },
-    { name: "North Soth Power", value: 14 },
-    { name: "VIATHAN", value: 15 },
-  ];
-  const data1 = [
-    { name: "GPC", value: 89 },
-    { name: "GELUL", value: 7 },
-    { name: "LFZC", value: 4 },
-  ];
-
-  // ******************************************  Color selection for the pie chart ****************************************
-  const COLORS = ["#FF4500", "#FFBB28", "#00C49F", "GREEN", "BLUE", "PURPLE"];
-
-  const RADIAN = Math.PI / 180;
-  const renderCustomizedLabel = ({
-    cx,
-    cy,
-    midAngle,
-    innerRadius,
-    outerRadius,
-    percent,
-    index,
-  }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.3;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-    return (
-      <>
-        <text x={cx} y={cy} dy={8} textAnchor="left"></text>
-        <text
-          x={x}
-          y={y}
-          fill="black"
-          textAnchor={x > cx ? "start" : "end"}
-          dominantBaseline="central"
-        >
-          {`${(percent * 100).toFixed(0)}%`}
-        </text>
-      </>
-    );
-  };
-
-  // ....................... Recharts customTooltip .........................................
-
-  const customTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-      return (
-        <div
-          className="custom-tooltip"
-          style={{
-            backgroundColor: "white",
-            height: "30px",
-            padding: "2px 2px",
-          }}
-        >
-          <p className="label">
-            {`${payload[0].name} : 
-            ₦${payload[0].value.toLocaleString("en-US", {
-              minimumFractionDigits: 1,
-              maximumFractionDigits: 2,
-            })}bn`}
-          </p>
-        </div>
-      );
-    }
-    return null;
-  };
-
   return (
     <React.Fragment>
-      <Container fluid>
+      <Container>
+      <Toaster
+          toastOptions={{
+            className: "",
+            style: {
+              border: "1px solid green",
+              padding: "8px",
+              color: "green",
+            },
+          }}
+        />
         <p
           style={{
             fontWeight: "bold",
@@ -127,6 +100,8 @@ export default function CurrentGuarantee() {
               cb={handleTextUpdates}
             />
           </p>
+          <button onClick={currentReportPost} className="bg-success text-light py-1" >Save</button>
+          <p className="text-secondary">{message}</p>
         </div>
       </Container>
     </React.Fragment>

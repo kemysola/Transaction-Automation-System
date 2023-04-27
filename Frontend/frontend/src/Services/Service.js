@@ -230,9 +230,38 @@ const deleteTransactions = async(id, password) => {
     return await axios.delete(`transaction/delete/deal/${id}`, {data: {password: password}})
 }
 
+
+const postGuarantee = async(data) => {
+    return await axios.post(`report/quarterly/oands/CurrentGuaranteePortfolio/`, data)
+}
+
+
+const postPortfolioGrowth = async(data) => {
+    return await axios.post(`report/quarterly/oands/GuaranteePortfolioGrowth/`, data)
+}
+
+const postGuaranteePortfolioGrowth_Table = async(data) => {
+    return await axios.post(`report/quarterly/oands/GuaranteePortfolioGrowth_Table/`, data)
+}
+
+const postoriginationActivity = async(data) => {
+    return await axios.post(`report/quarterly/oands/ORIGINATIONACTIVITY/`, data)
+}
+const postguaranteePipelines = async(data) => {
+    return await axios.post(`report/quarterly/oands/guaranteePipeline/`, data)
+}
+const poststructuringandExecution = async(data) => {
+    return await axios.post(`report/quarterly/oands/STRUCTURINGANDEXECUTIONACTIVITIES/`, data)
+}
+
 const Services = {
-    // FiY,
+    poststructuringandExecution,
+    postoriginationActivity,
+    postguaranteePipelines,
+    postPortfolioGrowth,
+    postGuaranteePortfolioGrowth_Table,
     postReport,
+    postGuarantee,
     LoginStaff,
     registerStaff,
     updateStaff,

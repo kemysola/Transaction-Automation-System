@@ -8,7 +8,7 @@ import Editable from "react-editable-title";
 import TitleContext from "../../context/TitleContext";
 import Service from "../../Services/Service";
 
-export default function StructuringExecution() {
+export default function StructuringExecution({qt,fy}) {
   const currentYear = localStorage.getItem("currentFy");
   const handleStatsYear = (current) => {
     addStructuring(current);
@@ -16,7 +16,6 @@ export default function StructuringExecution() {
   const { structuringDev, addStructuring } = useContext(TitleContext);
   useEffect(() => {
     getExecutionData();
-    submitData();
   }, []);
 
   const getExecutionData = async () => {
@@ -128,7 +127,18 @@ export default function StructuringExecution() {
   };
 
   const submitData = async () => {
-    await Service.postReport(postData);
+    const dueDiligence = localStorage.getItem("structInput")
+    const structuring =localStorage.getItem("structStructuring")
+    const execution =localStorage.getItem("structExecution")
+
+    const data={
+      ReportFYQuarter:qt,
+      ReportFY:fy,
+      DUEDILIGENCE:dueDiligence,
+      EXECUTION:execution,
+      STRUCTURING:structuring,
+    }
+    await Service.poststructuringandExecution(data).then((res) => console.log(res)).catch((err) => console.log(err))
   };
 
   return (
@@ -136,7 +146,7 @@ export default function StructuringExecution() {
       <br />
 
       <Container className="my-3 pt-2">
-        <Stack gap={1} style={{ fontWeight: "bold", fontSize: "18px" }}>
+        <Stack gap={1} style={{ fontWeight: "bold", fontSize: "18px" }} className='text-success'>
           {/* <Editable
             text={structuringDev}
             editButtonStyle={{ lineHeight: "unset" }}
@@ -145,22 +155,22 @@ export default function StructuringExecution() {
             placeholder="Type here"
             cb={handleStatsYear}
           /> */}
-          NBC Submissions and Mandate Status – {currentFQt[0]}{" "}
-          {JSON.parse(currentYear)[0]} Update
+          NBC Submissions and Mandate Status – {qt}{" "}
+          {fy} Update
         </Stack>
         <div>
-          <p style={{ fontWeight: "bold" }}>
+          <p style={{ fontWeight: "bold" }} className='text-success'>
             Structuring & Execution Activities
           </p>
-          <p style={{ fontWeight: "bold" }}>Progress on Due Diligence</p>
+          <p style={{ fontWeight: "bold" }} className='text-success'>Progress on Due Diligence</p>
           <StructuringItem />
         </div>
         <div className="mt-3">
-          <p style={{ fontWeight: "bold" }}>Progress on Structuring</p>
+          <p style={{ fontWeight: "bold" }} className='text-success'>Progress on Structuring</p>
           <StructuringItem2 />
         </div>
         <div className="mt-3">
-          <p style={{ fontWeight: "bold" }}>Progress on Execution</p>
+          <p style={{ fontWeight: "bold" }} className='text-success'>Progress on Execution</p>
           <StructuringItem3 />
         </div>
       </Container>

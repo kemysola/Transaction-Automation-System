@@ -1,13 +1,14 @@
-import React from "react";
+import React,{useState} from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import ReactDOM from "react-dom";
 
 
 
 export default function StructuringItem3() {
+  const [isDisabled, setIsDisabled] = useState(false);
   const { register, control, handleSubmit, reset, watch } = useForm({
     defaultValues: {
-      test: [{ firstName: ""}]
+      execution: [{ execution: ""}]
     }
   });
   const {
@@ -16,14 +17,14 @@ export default function StructuringItem3() {
     remove,
   } = useFieldArray({
     control,
-    name: "test"
+    name: "execution"
   });
 
   const onSubmit = (data) => {
+    setIsDisabled(true);
     localStorage.setItem('structExecution',JSON.stringify(data))
   }
 
-  
 
 
   return (
@@ -32,7 +33,7 @@ export default function StructuringItem3() {
         {fields.map((item, index) => {
           return (
             <li key={item.id}>
-              <input {...register(`test.${index}.firstName`)}  style={{width:'80%',border:'none'}}/>
+              <input {...register(`execution.${index}.execution`)}  style={{width:'80%',border:'none'}}/>
 
               <button type="button" onClick={() => remove(index)}>
                 Delete
@@ -45,7 +46,7 @@ export default function StructuringItem3() {
         <button
           type="button"
           onClick={() => {
-            append({ firstName: "" });
+            append({ execution: "" });
           }}
         >
           append
@@ -57,7 +58,7 @@ export default function StructuringItem3() {
           type="button"
           onClick={() =>
             reset({
-              test: [{ firstName: "Bill", lastName: "Luo" }]
+              execution: [{ execution: "" }]
             })
           }
         >
@@ -65,7 +66,7 @@ export default function StructuringItem3() {
         </button>
       </section>
 
-      <input type="submit" />
+      <button type="submit" disabled={isDisabled}>save</button>
     </form>
   );
 }
