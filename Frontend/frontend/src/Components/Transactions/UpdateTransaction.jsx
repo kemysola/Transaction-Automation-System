@@ -14,7 +14,8 @@ import PlisMode from "./PlisMode";
 import OcpsMode from "./OcpsMode";
 import KpisMode from "./KpisMode";
 import { useForm } from "react-hook-form";
-import { Tooltip } from "antd";
+import { Tooltip, notification } from "antd";
+
 
 const ButtonWrapper = styled.button`
   color: white;
@@ -121,6 +122,7 @@ export default function UpdateTransactions() {
   const [style, setStyle] = useState([]);
   const [staffList, setStaffList] = useState([]);
   const [closed, setisClosed] = useState("");
+  const [visible, setVisible] = useState(true);
 
   const [nbcChanged, setNbcChanged] = useState("");
   const [partiesChanged, setPartiesChanged] = useState("");
@@ -228,6 +230,7 @@ export default function UpdateTransactions() {
   };
 
   const handleKpiAdd = () => {
+    setVisible(true);
     setKpi([
       ...kpi,
       {
@@ -257,6 +260,7 @@ export default function UpdateTransactions() {
   };
 
   const handlePartyAdd = () => {
+    setVisible(true);
     setParties([
       ...parties,
       {
@@ -277,6 +281,7 @@ export default function UpdateTransactions() {
   };
 
   const handleOcpsAdd = () => {
+    setVisible(true);
     setOcps([
       ...ocps,
       {
@@ -305,6 +310,7 @@ export default function UpdateTransactions() {
   };
 
   const handlePlisAdd = () => {
+    setVisible(true);
     setPlis([
       ...plis,
       {
@@ -358,6 +364,7 @@ export default function UpdateTransactions() {
 
   const handleNbcAdd = (e) => {
     e.preventDefault();
+    setVisible(true);
     setNbcFocus([
       ...nbcFocus,
       {
@@ -374,6 +381,9 @@ export default function UpdateTransactions() {
     list.splice(index, 1);
     setNbcFocus(list);
   };
+
+
+
 
   //************************************************************* Note Change ************************************************* */
 
@@ -1179,6 +1189,32 @@ export default function UpdateTransactions() {
   }
 
   // ******************************************  EndFunction  ****************************************
+
+  const overlayStyle = {
+    left: '50%', // Set the left position of the Tooltip to the center of the target element
+    top: 'calc(100% + 10px)', // Set the top position of the Tooltip to 10 pixels below the target element
+    transform: 'translate(-50%, 0)', // Center the Tooltip horizontally
+  };
+  
+  useEffect(() => {
+    if (visible) {
+      setTimeout(() => {
+        setVisible(false);
+      }, 3000); // Timeout set to 3 seconds
+    } else {
+      setVisible(false);
+    }
+  }, [visible]);
+
+  const handleVisibleChange = (visible) => {
+    if (visible) {
+      setTimeout(() => {
+        setVisible(false);
+      }, 3000); // Timeout set to 3 seconds
+    } else {
+      setVisible(false);
+    }
+  };
   // ******************************************  Handle Keypress  ****************************************
 
   const handleKeyPress = (e) => {
@@ -1214,10 +1250,10 @@ export default function UpdateTransactions() {
       product: product.current.value,
       region: region.current.value,
       //regex  .replace('/e', '')
-      dealSize: parseInt(dealSize.current.value),
-      coupon: parseInt(coupon.current.value),
-      tenor: parseInt(tenor.current.value),
-      moratorium: parseInt(moratorium.current.value),
+      dealSize: parseFloat(dealSize.current.value),
+      coupon: parseFloat(coupon.current.value),
+      tenor: parseFloat(tenor.current.value),
+      moratorium: parseFloat(moratorium.current.value),
       repaymentFrequency: repaymentFreq.current.value,
       amortizationStyle: amortizationStyle.current.value,
       mandateLetter: new Date(mandateLetter.current.value),
@@ -1233,7 +1269,7 @@ export default function UpdateTransactions() {
       takingfirstinterestearly: +takingfirstinterestearly.current.value,
       discountfactor: +discountfactor.current.value,
       firstcoupondate: firstcoupondate.current.value,
-      structuringFeeAmount: parseInt(amount.current.value),
+      structuringFeeAmount: parseFloat(amount.current.value),
       structuringFeeAdvance: +advance.current.value,
       structuringFeeFinal: +final.current.value,
       guaranteeFee: +guarantee.current.value,
@@ -1262,6 +1298,91 @@ export default function UpdateTransactions() {
       kpi: kpi,
     };
 
+    // let emptyFields = [];
+
+    // if (!dealSize.current.value) {
+    //   emptyFields.push("Deal Size");
+    // }
+
+    // if (!coupon.current.value) {
+    //   emptyFields.push("Coupon");
+    // }
+
+    // if (!moratorium.current.value) { 
+    //   emptyFields.push("Moratorium");
+    // }
+
+    // if (!tenor.current.value) {
+    //   emptyFields.push("Tenor");
+    // }
+
+    // if (!creditApproval.current.value){
+    //   emptyFields.push("Credit Approval");
+    // }
+
+    // if (emptyFields.length > 0) {
+    //   alert("Please fill in the following required fields: " + emptyFields.join(", "));
+    //   return
+    // }
+
+    const emptyFields = [];
+
+    const requiredFields = [
+      { name: "Deal Size", val: dealSize },
+      { name: "Coupon", val: coupon },
+      { name: "Moratorium", val: moratorium },
+      { name: "Tenor", val: tenor },
+      { name: "Credit Approval", val: creditApproval },
+      { name: "Mandate Letter", val: mandateLetter},
+      { name: "Repayment Frequency", val: repaymentFreq},
+      { name: "Amortization Style", val: amortizationStyle},
+      { name: "First coupon date", val: firstcoupondate },
+      { name: "Discount Factor", val: discountfactor},
+      { name: "Taking first interest early", val: takingfirstinterestearly},
+      { name: "Issue date", val: issuedate},
+      { name: "Guarantee fee rate", val: guaranteefeerate},
+      { name: "Originator", val: originator},
+      { name: "Transactor", val: transactor},
+      { name: "Transaction  Legal Lead", val: transactionLegalLead},
+      { name: "Client Name", val: clientName}
+
+    ];
+
+    requiredFields.forEach(field => {
+      if (!field.val.current.value) {
+        emptyFields.push(field.name);
+      }
+    });
+
+    if (emptyFields.length > 0) {
+      const errorMessage = (
+        <ul>
+          {emptyFields.map(field => (
+            <li key={field}>{field}</li>
+          ))}
+        </ul>
+      );
+      notification.error({
+        message: 'Required field(s) are missing',
+        // type: 'danger',
+        description: (
+          <div style={{ backgroundColor: '#fff1f0', color: '#f5222d', padding: '8px', borderRadius: '4px' }}>
+            {/* <p>The following fields are empty:</p> */}
+            {errorMessage}
+          </div>
+        ),
+        // duration: 0,
+        style: {
+          backgroundColor: '#fff1f0',
+          color: '#f5222d',
+          borderRadius: '8px',
+          border: 'none'
+        }
+      });
+      return;
+    }
+
+
     // ******************************************  Axios :  put request  ****************************************
     if (
       dealSize.current.value &&
@@ -1274,14 +1395,15 @@ export default function UpdateTransactions() {
           setMessage(response.data.message);
         })
         .catch((error) => {
+          console.log("I am error", error)
           setMessage(
             `Failed to update deal, ${
-              error.response.data.message || "Please Fill all required fields"
+              error.response.data.message || "refresh the page and try again"
             }`
           );
         });
     } else {
-      setMessage("Please Fill all required fields");
+      setMessage("Please Fill all required fields"); 
     }
   }
   let transactorList = staffList.filter((opt) => opt.istransactor === true);
@@ -2637,9 +2759,14 @@ export default function UpdateTransactions() {
                                     }}
                                   >
                                     <Tooltip
-                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
-                                      open
+                                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                                      title="Kindly Save using the save Icon to avoid losing data"
+                                      
+                                      // open
                                       mouseLeaveDelay="0.4"
+                                      // visible={visible} 
+                                      open={visible} 
+                                      // onVisibleChange={handleVisibleChange}
                                     ></Tooltip>
                                     <i className="">
                                       <FiSave />
@@ -3157,9 +3284,13 @@ export default function UpdateTransactions() {
                                     }}
                                   >
                                     <Tooltip
-                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
-                                      open
+                                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                                      title="Kindly Save using the save Icon to avoid losing data"
+                                      // open
                                       mouseLeaveDelay="0.4"
+                                      // visible={visible}
+                                      open={visible}  
+                                      // onVisibleChange={handleVisibleChange}
                                     ></Tooltip>
 
                                     <i className="">
@@ -3323,11 +3454,21 @@ export default function UpdateTransactions() {
                                         border: "none",
                                       }}
                                     >
+                                       <Tooltip
+                                       getPopupContainer={triggerNode => triggerNode.parentNode}
+                                      title="Kindly Save using the save Icon to avoid losing data"
+                                      // open
+                                      mouseLeaveDelay="0.4"
+                                      // visible={visible} 
+                                      open={visible} 
+                                      // onVisibleChange={handleVisibleChange}
+                                    ></Tooltip>
                                       <i className="">
                                         {" "}
                                         <FiSave />{" "}
                                       </i>
                                     </button>
+                                    
                                   )}
                                 </div>
                               ))}
@@ -3510,9 +3651,13 @@ export default function UpdateTransactions() {
                                     }}
                                   >
                                     <Tooltip
-                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
-                                      open
+                                      getPopupContainer={triggerNode => triggerNode.parentNode}
+                                      title="Kindly Save using the save Icon to avoid losing data"
+                                      // open
                                       mouseLeaveDelay="0.4"
+                                      // visible={visible} 
+                                      open={visible} 
+                                      // onVisibleChange={handleVisibleChange}
                                     ></Tooltip>
 
                                     <i className="">
@@ -3531,9 +3676,13 @@ export default function UpdateTransactions() {
                         </div>
                       </Row>
                       <Tooltip
-                        title="Kindly Save using the save Icon to avoid losing data!!!!"
-                        open
+                        getPopupContainer={triggerNode => triggerNode.parentNode}
+                        title="Kindly Save using the save Icon to avoid losing data"
+                        // open
                         mouseLeaveDelay="0.2"
+                        // visible={visible}
+                        open={visible} 
+                        // onVisibleChange={handleVisibleChange}
                       ></Tooltip>
                     </Container1>
                   </Tab>
@@ -3706,9 +3855,13 @@ export default function UpdateTransactions() {
                                     }}
                                   >
                                     <Tooltip
-                                      title="Kindly Save using the save Icon to avoid losing data!!!!"
-                                      open
+                                    getPopupContainer={triggerNode => triggerNode.parentNode}
+                                      title="Kindly Save using the save Icon to avoid losing data"
+                                      // open
                                       mouseLeaveDelay="0.4"
+                                      // visible={visible}
+                                      open={visible}  
+                                      // onVisibleChange={handleVisibleChange}
                                     ></Tooltip>
 
                                     <i className="">
@@ -3723,9 +3876,13 @@ export default function UpdateTransactions() {
                         <div className="d-flex justify-content-end ml-2">
                           <p className="">
                             <Tooltip
-                              title="Kindly Save using the save Icon to avoid losing data!!!!"
-                              open
+                            getPopupContainer={triggerNode => triggerNode.parentNode}
+                              title="Kindly Save using the save Icon to avoid losing data"
+                              // open
                               mouseLeaveDelay="0.4"
+                              // visible={visible} 
+                              open={visible} 
+                              // onVisibleChange={handleVisibleChange}
                             ></Tooltip>
                             <GrAddCircle onClick={handleKpiAdd} />
                           </p>
