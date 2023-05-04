@@ -850,10 +850,11 @@ CREATE TABLE TB_INFRCR_OANDS_QUARTERLY_GuaranteePortfolioGrowth(
 	ReportFY	VARCHAR NOT NULL,
 	ReportSectionContent VARCHAR NOT NULL,
     ReportSectionTitle VARCHAR NOT NULL,
+    ReportBODY VARCHAR NOT NULL,
     UNIQUE (ReportFYQuarter, ReportFY)
 );
 
-CREATE TABLE TB_INFRCR_OANDS_QUARTERLY_TB_INFRCR_OANDS_QUARTERLY_GuaranteePortfolioGrowth_AUDIT(
+CREATE TABLE TB_INFRCR_OANDS_QUARTERLY_GuaranteePortfolioGrowth_AUDIT(
     operation         char(1)   NOT NULL,
     stamp             timestamp NOT NULL,
     performed_by            text      NOT NULL,
@@ -861,6 +862,7 @@ CREATE TABLE TB_INFRCR_OANDS_QUARTERLY_TB_INFRCR_OANDS_QUARTERLY_GuaranteePortfo
     ReportFYQuarter VARCHAR NOT NULL,
 	ReportFY	VARCHAR NOT NULL,
 	ReportSectionContent VARCHAR NOT NULL,
+    ReportBODY VARCHAR NOT NULL,
     ReportSectionTitle VARCHAR NOT NULL,
 
 );
@@ -869,7 +871,6 @@ CREATE TABLE TB_INFRCR_OANDS_QUARTERLY_GuaranteePortfolioGrowth_Table(
 	ID  INT GENERATED ALWAYS AS IDENTITY,
 	ReportFYQuarter VARCHAR NOT NULL,
 	ReportFY	VARCHAR NOT NULL,
-	ID INT,
     infrastureEntity VARCHAR NOT NULL,
 	infrastureActivity	VARCHAR NOT NULL,
 	size Numeric NOT NULL,
@@ -893,10 +894,9 @@ CREATE TABLE TB_INFRCR_OANDS_QUARTERLY_ORIGINATIONACTIVITY(
 	ID  INT GENERATED ALWAYS AS IDENTITY,
 	ReportFYQuarter VARCHAR NOT NULL,
 	ReportFY	VARCHAR NOT NULL,
-	ID INT,
     infrastureEntity VARCHAR NOT NULL,
 	infrastureActivity	VARCHAR NOT NULL,
-	size Numeric NOT NULL,
+	size VARCHAR NOT NULL,
     description VARCHAR,
     status VARCHAR NOT NULL,
     originationActivity VARCHAR NOT NULL,
@@ -910,7 +910,7 @@ CREATE TABLE TB_INFRCR_OANDS_QUARTERLY_ORIGINATIONACTIVITY_audit(
 	ID INT,
     infrastureEntity VARCHAR NOT NULL,
 	infrastureActivity	VARCHAR NOT NULL,
-	size Numeric NOT NULL,
+	size VARCHAR NOT NULL,
     description VARCHAR,
     status VARCHAR NOT NULL,
     originationActivity VARCHAR NOT NULL,

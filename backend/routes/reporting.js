@@ -378,8 +378,6 @@ router.post(
   }
 );
 
-//create columns for each individual items -key and value;
-//CurrentGuaranteePortfolio,GuaranteePortfolioGrowth
 router.post(
   "/quarterly/oands/CurrentGuaranteePortfolio/",
   verifyTokenAndAuthorization,
@@ -389,10 +387,10 @@ router.post(
     try {
       const report = ({ ReportFYQuarter, ReportFY } =req.body);
       const report_data = [
-        report.ReportFYQuarter,
-        report.ReportFY,
-        report.ReportSectionContent,
-        report.ReportSectionTitle,
+        report?.ReportFYQuarter,
+        report?.ReportFY,
+        report?.ReportSectionContent,
+        report?.ReportSectionTitle,
       ];
       await client.query("BEGIN");
       const write_to_db = `INSERT INTO TB_INFRCR_OANDS_QUARTERLY_CurrentGuaranteePortfolio(
@@ -406,13 +404,192 @@ router.post(
         quarterly_report: res_.rows[0],
       });
     } catch (e) {
-      res.status(403).json({ Error: e.message });
+      res.status(403).json({ Error: e.message,message:"duplicate report year and quarter " });
     } finally {
       client.release();
     }
   }
 );
 
+
+router.post(
+  "/quarterly/oands/GuaranteePortfolioGrowth/",
+  verifyTokenAndAuthorization,
+  async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+      const report = ({ ReportFYQuarter, ReportFY } =req.body);
+      const report_data = [
+        report?.ReportFYQuarter,
+        report?.ReportFY,
+        report?.ReportSectionTitle,
+        report?.ReportSectionContent,
+        report?.ReportBody,
+      ];
+      await client.query("BEGIN");
+      const write_to_db = `INSERT INTO TB_INFRCR_OANDS_QUARTERLY_GuaranteePortfolioGrowth(
+        ReportFYQuarter, ReportFY, ReportSectionContent,ReportSectionTitle,ReportBODY) VALUES ($1, $2, $3, $4,$5) RETURNING *`;
+      const res_ = await client.query(write_to_db, report_data);
+      await client.query("COMMIT");
+
+      res.json({
+        status: (res.statusCode = 200),
+        message: "Quarterly Report Created Successfully",
+        quarterly_report: res_.rows[0],
+      });
+    } catch (e) {
+      res.status(403).json({ Error: e.message,message:"duplicate report year and quarter " });
+    } finally {
+      client.release();
+    }
+  }
+);
+
+router.post(
+  "/quarterly/oands/GuaranteePortfolioGrowth_Table/",
+  verifyTokenAndAuthorization,
+  async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+      const report = ({ ReportFYQuarter, ReportFY } =req.body);
+      const report_data = [
+        report?.ReportFYQuarter,
+        report?.ReportFY,
+        report?.infrastureEntity,
+        report?.infrastureActivity,
+        report?.size,
+
+
+      ];
+      await client.query("BEGIN");
+      const write_to_db = `INSERT INTO TB_INFRCR_OANDS_QUARTERLY_GuaranteePortfolioGrowth(
+        ReportFYQuarter, ReportFY, infrastureEntity,infrastureActivity,size) VALUES ($1, $2, $3, $4,$5) RETURNING *`;
+      const res_ = await client.query(write_to_db, report_data);
+      await client.query("COMMIT");
+
+      res.json({
+        status: (res.statusCode = 200),
+        message: "Quarterly Report Created Successfully",
+        quarterly_report: res_.rows[0],
+      });
+    } catch (e) {
+      res.status(403).json({ Error: e.message,message:"duplicate report year and quarter " });
+    } finally {
+      client.release();
+    }
+  }
+);
+
+
+
+router.post(
+  "/quarterly/oands/guaranteePipeline/",
+  verifyTokenAndAuthorization,
+  async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+      const report = ({ ReportFYQuarter, ReportFY } =req.body);
+      const report_data = [
+        report?.ReportFYQuarter,
+        report?.ReportFY,
+        report?.ReportSectionTitle,
+        report?.ReportSectionBODY
+      ];
+      await client.query("BEGIN");
+      const write_to_db = `INSERT INTO TB_INFRCR_OANDS_QUARTERLY_GUARANTEEPIPELINE(
+        ReportFYQuarter, ReportFY,ReportSectionTitle,ReportSectionBODY) VALUES ($1, $2, $3, $4) RETURNING *`;
+      const res_ = await client.query(write_to_db, report_data);
+      await client.query("COMMIT");
+
+      res.json({
+        status: (res.statusCode = 200),
+        message: "Quarterly Report Created Successfully",
+        quarterly_report: res_.rows[0],
+      });
+    } catch (e) {
+      res.status(403).json({ Error: e.message,message:"duplicate report year and quarter " });
+    } finally {
+      client.release();
+    }
+  }
+);
+
+
+router.post(
+  "/quarterly/oands/ORIGINATIONACTIVITY/",
+  verifyTokenAndAuthorization,
+  async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+      const report = ({ ReportFYQuarter, ReportFY } =req.body);
+      const report_data = [
+        report?.ReportFYQuarter,
+        report?.ReportFY,
+        report?.infrastureEntity,
+        report?.infrastureActivity,
+        report?.size,
+        report?.description,
+        report?.status,
+        report?.originationActivity,
+
+
+      ];
+      await client.query("BEGIN");
+      const write_to_db = `INSERT INTO TB_INFRCR_OANDS_QUARTERLY_ORIGINATIONACTIVITY(
+        ReportFYQuarter, ReportFY, infrastureEntity,infrastureActivity,size,description,status,originationActivity) VALUES ($1, $2, $3, $4,$5,$6,$7,$8) RETURNING *`;
+      const res_ = await client.query(write_to_db, report_data);
+      await client.query("COMMIT");
+
+      res.json({
+        status: (res.statusCode = 200),
+        message: "Quarterly Report Created Successfully",
+        quarterly_report: res_.rows[0],
+      });
+    } catch (e) {
+      res.status(403).json({ Error: e.message,message:"duplicate report year and quarter " });
+    } finally {
+      client.release();
+    }
+  }
+);
+
+router.post(
+  "/quarterly/oands/STRUCTURINGANDEXECUTIONACTIVITIES/",
+  verifyTokenAndAuthorization,
+  async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+      const report = ({ ReportFYQuarter, ReportFY } =req.body);
+      const report_data = [
+        report?.ReportFYQuarter,
+        report?.ReportFY,
+        report?.DUEDILIGENCE,
+        report?.EXECUTION,
+        report?.STRUCTURING,
+      ];
+      await client.query("BEGIN");
+      const write_to_db = `INSERT INTO TB_INFRCR_OANDS_QUARTERLY_STRUCTURINGANDEXECUTIONACTIVITIES(
+        ReportFYQuarter, ReportFY, DUEDILIGENCE,EXECUTION,STRUCTURING) VALUES ($1, $2, $3, $4,$5) RETURNING *`;
+      const res_ = await client.query(write_to_db, report_data);
+      await client.query("COMMIT");
+
+      res.json({
+        status: (res.statusCode = 200),
+        message: "Quarterly Report Created Successfully",
+        quarterly_report: res_.rows[0],
+      });
+    } catch (e) {
+      res.status(403).json({ Error: e.message,message:"duplicate report year and quarter " });
+    } finally {
+      client.release();
+    }
+  }
+);
 
 router.get(
   "/quarterly/oands/:fy_quarter/:fin_year",

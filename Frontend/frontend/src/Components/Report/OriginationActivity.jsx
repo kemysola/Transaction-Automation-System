@@ -8,8 +8,12 @@ import { GrAddCircle } from "react-icons/gr";
 import { FiDelete, FiSave } from "react-icons/fi";
 import Editable from "react-editable-title";
 import TitleContext from "../../context/TitleContext";
+import Service from "../../Services/Service";
+import toast, { Toaster } from "react-hot-toast";
 
-export default function OriginationActivity() {
+
+export default function OriginationActivity({ fy, qt }) {
+  const [message, setMessage] =useState("")
   // const handleYearUpdates = (current) => {
   //   addReportYear(current);
   // };
@@ -22,11 +26,11 @@ export default function OriginationActivity() {
     useContext(TitleContext);
   const [nbcInfo, setNbcInfo] = useState([
     {
-      summaryOfActivity: "",
-      2017: 0,
-      2020: 0,
-      2021: 0,
-      2022: 0,
+      infrastrureentity: "",
+      infrastrureactivity: "",
+      size: 0,
+      description: "",
+      status: "",
     },
   ]);
 
@@ -41,11 +45,11 @@ export default function OriginationActivity() {
     setNbcInfo([
       ...nbcInfo,
       {
-        summaryOfActivity: "",
-        2017: 0,
-        2020: 0,
-        2021: 0,
-        2022: 0,
+        infrastrureentity: "",
+        infrastrureactivity: "",
+        size: 0,
+        description: "",
+        status: "",
       },
     ]);
   };
@@ -74,27 +78,73 @@ export default function OriginationActivity() {
     control,
     name: "test",
   });
-  const reportFy = localStorage.getItem("currentFy");
-  const currentFy = JSON.parse(reportFy);
-  const reportQt = localStorage.getItem("currentQuarter");
-  const currentFQt = JSON.parse(reportQt);
-
   const onSubmit = (data) => {
-    localStorage.setItem("originationInput", JSON.stringify(data));
+    const status = nbcInfo.map((data) => data?.status)
+    const size = nbcInfo.map((data) => +data?.size)
+    const description = nbcInfo.map((data) => data?.description)
+    const entity = nbcInfo.map((data) => data?.infrastrureentity)
+    const activity = nbcInfo.map((data) => data?.infrastrureactivity)
+    const mappedArray = Object.keys(data).map(key => {
+      return data[key];
+    })
+
+    const postdata = {
+      ReportFYQuarter: qt,
+      ReportFY: fy,
+      infrastureEntity: entity,
+      infrastureActivity: activity,
+      size: size,
+      description:description,
+      status:status,
+      originationActivity:mappedArray,
+    };
+
+   Service.postoriginationActivity(postdata).then((res) => {
+    toast.success(res?.data?.message, {
+      duration: 4000,
+      position: "bottom-right",
+      // Styling
+      style: {},
+      className: "",
+      icon: "👏",
+      iconTheme: {
+        primary: "green",
+        secondary: "#fff",
+      },
+      ariaProps: {
+        role: "status",
+        "aria-live": "polite",
+      },
+    });
+   }
+   
+   ).catch((err) => console.log(err))  
   };
   return (
     <React.Fragment>
-      <Container>
+      <Container fluid>
+      <Toaster
+          toastOptions={{
+            className: "",
+            style: {
+              border: "1px solid green",
+              padding: "8px",
+              color: "green",
+            },
+          }}
+        />
         <Stack gap={2}>
-          <p className="" style={{ fontWeight: "bold" }}>
-            Origination Activity – {currentFQt[0]} {currentFy[0]}
+          <p className="text-success" style={{ fontWeight: "bold" }}>
+            Origination Activity – <span>{qt}</span> <span> {fy}</span>
           </p>
         </Stack>
         <div>
-          <p style={{ fontWeight: "bold" }}>
-            NBC Submissions and Mandate Status – {currentFQt[0]} {currentFy[0]}{" "}
+          <p style={{ fontWeight: "bold" }} className='text-success'>
+            NBC Submissions and Mandate Status – <span>{qt}</span> <span> {fy}</span>{" "}
             Update
           </p>
+
+          
           <form onSubmit={handleSubmit(onSubmit)}>
             <ul>
               {fields.map((item, index) => {
@@ -120,6 +170,7 @@ export default function OriginationActivity() {
                 );
               })}
             </ul>
+          
             <section>
               <button
                 type="button"
@@ -136,11 +187,8 @@ export default function OriginationActivity() {
                 <CgAdd />
               </button>
 
-              <button type="submit">
-                <IoIosSave />
-              </button>
+             
             </section>
-          </form>
           <div
             className="d-flex justify-content-end ml-2"
             style={{ cursor: "pointer", height: "1rem" }}
@@ -150,6 +198,8 @@ export default function OriginationActivity() {
               style={{ width: "1rem", height: "1rem" }}
             />
           </div>
+
+         
           <Table striped bordered hover>
             <thead style={{ fontSize: "12px" }}>
               <tr>
@@ -169,9 +219,9 @@ export default function OriginationActivity() {
                       <Form.Control
                         type="text"
                         size="sm"
-                        placeholder="Summary of Key Activities"
+                        placeholder="Infrastructure Entity"
                         value={singleNote.nbcInfo}
-                        name="nbc_focus_original_date"
+                        name="infrastrureentity"
                         onChange={(e) => handleNbcChange(e, index)}
                       />
                     </div>
@@ -183,9 +233,9 @@ export default function OriginationActivity() {
                       <Form.Control
                         type="text"
                         size="sm"
-                        placeholder="2017-2017"
+                        placeholder="Infrastructure Activity"
                         value={singleNote.nbcInfo}
-                        name="nbc_focus_original_date"
+                        name="infrastrureactivity"
                         onChange={(e) => handleNbcChange(e, index)}
                       />
                     </div>
@@ -197,9 +247,23 @@ export default function OriginationActivity() {
                       <Form.Control
                         type="text"
                         size="sm"
-                        placeholder="2020"
+                        placeholder=""
                         value={singleNote.nbcInfo}
-                        name="nbc_focus_original_date"
+                        name="description"
+                        onChange={(e) => handleNbcChange(e, index)}
+                      />
+                    </div>
+                  ))}
+                </td>
+                <td>
+                  {nbcInfo.map((singleNote, index) => (
+                    <div class="input-group mt-2">
+                      <Form.Control
+                        type="number"
+                        size="sm"
+                        placeholder=""
+                        value={singleNote.nbcInfo}
+                        name="size"
                         onChange={(e) => handleNbcChange(e, index)}
                       />
                     </div>
@@ -211,23 +275,9 @@ export default function OriginationActivity() {
                       <Form.Control
                         type="text"
                         size="sm"
-                        placeholder="2021"
+                        placeholder=""
                         value={singleNote.nbcInfo}
-                        name="nbc_focus_original_date"
-                        onChange={(e) => handleNbcChange(e, index)}
-                      />
-                    </div>
-                  ))}
-                </td>
-                <td>
-                  {nbcInfo.map((singleNote, index) => (
-                    <div class="input-group mt-2">
-                      <Form.Control
-                        type="text"
-                        size="sm"
-                        placeholder="2022"
-                        value={singleNote.nbcInfo}
-                        name="nbc_focus_original_date"
+                        name="status"
                         onChange={(e) => handleNbcChange(e, index)}
                       />
                     </div>
@@ -254,32 +304,18 @@ export default function OriginationActivity() {
                 </td>
                 <td style={{ background: "none" }}>
                   {nbcInfo.map((singleNote, index) => (
-                    <div>
-                      <button
-                        className="mt-2 mb-2"
-                        style={{
-                          height: "23px",
-                          border: "none",
-                          marginRight: "3px",
-                        }}
-                      >
-                        <i className="">
-                          <FiSave
-                            onClick={() => {
-                              localStorage.setItem(
-                                "nbcActivities",
-                                JSON.stringify(nbcInfo)
-                              );
-                            }}
-                          />
-                        </i>
-                      </button>
-                    </div>
+                    <div></div>
                   ))}
                 </td>
               </tr>
             </tbody>
           </Table>
+
+          <button type="submit">
+                submit
+              </button>
+              {/* <p>{message}</p> */}
+          </form>
         </div>
       </Container>
     </React.Fragment>

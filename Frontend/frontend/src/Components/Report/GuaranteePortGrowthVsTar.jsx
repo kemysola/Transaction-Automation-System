@@ -7,8 +7,13 @@ import { BarChart, Bar } from "recharts";
 import GuaranteeForecast from "./GuaranteeForecast";
 import Editable from "react-editable-title";
 import TitleContext from "../../context/TitleContext";
+import Service from "../../Services/Service";
+import toast, { Toaster } from "react-hot-toast";
 
-export default function GuaranteePortGrowthVsTar() {
+export default function GuaranteePortGrowthVsTar({ fy, qt }) {
+  const [message, setMessage] = useState("");
+  const [isDisabled, setIsDisabled] = useState(false);
+
   const handleTextUpdate = (current) => {
     addguaranteeTargets(current);
   };
@@ -18,8 +23,14 @@ export default function GuaranteePortGrowthVsTar() {
   const handleBodyUpdate = (current) => {
     addProgressBody(current);
   };
-  const { addguaranteeTargets, guaranteeTargetStore,tableStore,addHeader,progressBodyStore,addProgressBody } =
-    useContext(TitleContext);
+  const {
+    addguaranteeTargets,
+    guaranteeTargetStore,
+    tableStore,
+    addHeader,
+    progressBodyStore,
+    addProgressBody,
+  } = useContext(TitleContext);
 
   const [nbcInfo, setNbcInfo] = useState([
     {
@@ -56,8 +67,6 @@ export default function GuaranteePortGrowthVsTar() {
     setNbcInfo(list);
   };
 
-  
-
   const [currentGt, setCurrentGt] = useState(
     "InfraCredit’s projected guarantee portfolio growth (indicative) is based on the assumption that initial operations were expected to commence at a conservative level, with the Company able to underwrite an initial transaction with NGN10 Billion face value, then progressively ramp up scale to over NGN500 Billion over a 5-year period. Throughout the past 3 years, management built a sizeable pipeline of mandated transactions, providing a base to achieve future growth targets."
   );
@@ -65,54 +74,80 @@ export default function GuaranteePortGrowthVsTar() {
     setCurrentGt(current);
     // addTitle(current)
   };
-  const data = [
-    {
-      name: "Page A",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: "Page B",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: "Page C",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: "Page D",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: "Page E",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: "Page F",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: "Page G",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-  ];
+
+  function currentReportPost(e) {
+    e.preventDefault();
+    setIsDisabled(true);
+
+    const data = {
+      ReportFYQuarter: qt,
+      ReportFY: fy,
+      ReportSectionContent: guaranteeTargetStore[0],
+      ReportSectionTitle: tableStore[0],
+      ReportBody: progressBodyStore[0],
+    };
+    Service.postPortfolioGrowth(data)
+      .then((response) => {
+        setMessage(response?.data?.message);
+        toast.success(response?.data?.message, {
+          duration: 4000,
+          position: "bottom-right",
+          // Styling
+          style: {},
+          className: "",
+          icon: "👏",
+          iconTheme: {
+            primary: "green",
+            secondary: "#fff",
+          },
+          ariaProps: {
+            role: "status",
+            "aria-live": "polite",
+          },
+        });
+      })
+      .catch((error) => {
+        if (error?.status !== "200") {
+          console.log(error?.message);
+          setMessage(`Failed to post ${error?.message}`);
+          setIsDisabled(false);
+        }
+      });
+  }
+
+  function currentReportPosts(e) {
+    e.preventDefault();
+    const data = {
+      ReportFYQuarter: "Q2",
+      ReportFY: "2013",
+      infrastureEntity: "infrastureEntity",
+      infrastureActivity: "infrastureActivity",
+      size: 10,
+      expectedClosing: "2022-02-02",
+    };
+    Service.postGuaranteePortfolioGrowth_Table(data)
+      .then((response) => setMessage(response?.data?.message))
+      .catch((error) => {
+        if (error?.status !== "200") {
+          console.log(error?.message);
+          setMessage(`Failed to post ${error?.message}`);
+        }
+      });
+  }
 
   return (
     <React.Fragment>
       <Container>
+        <Toaster
+          toastOptions={{
+            className: "",
+            style: {
+              border: "1px solid green",
+              padding: "8px",
+              color: "green",
+            },
+          }}
+        />
         <div>
           <Stack>
             <p style={{ fontWeight: "bold" }} className=" mt-1 pt-2">
@@ -127,9 +162,8 @@ export default function GuaranteePortGrowthVsTar() {
             </p>
           </Stack>
         </div>
-        {/* <div className="d-flex justify-content-start">
-          <GuaranteeForecast />
-        </div> */}
+
+        {/* <GuaranteeForecast /> */}
 
         <div className="my-2 pt-3">
           <Stack gap={1}>
@@ -145,20 +179,29 @@ export default function GuaranteePortGrowthVsTar() {
             </p>
           </Stack>
           <p>
-             <Editable
-                text={progressBodyStore}
-                editButtonStyle={{ lineHeight: "unset" }}
-                editButton
-                editControlButtons
-                placeholder="Type here"
-                cb={handleBodyUpdate}
-              />
+            <Editable
+              text={progressBodyStore}
+              editButtonStyle={{ lineHeight: "unset" }}
+              editButton
+              editControlButtons
+              placeholder="Type here"
+              cb={handleBodyUpdate}
+            />
           </p>
         </div>
         <div>
+          <button
+            onClick={currentReportPost}
+            className="bg-success text-light py-1"
+            disabled={isDisabled}
+          >
+            Save
+          </button>
+          <p className="text-secondary">{message}</p>
+
           <Row>
             <Col sm={12} className="my-1">
-              <div
+              {/* <div
                 className="d-flex justify-content-end ml-2"
                 style={{ cursor: "pointer", height: "1rem" }}
               >
@@ -166,9 +209,9 @@ export default function GuaranteePortGrowthVsTar() {
                   onClick={handleNbcAdd}
                   style={{ width: "1rem", height: "1rem" }}
                 />
-              </div>
+              </div> */}
 
-              <Table striped bordered hover>
+              {/* <Table striped bordered hover>
                 <thead style={{ fontSize: "12px" }}>
                   <tr>
                     <th>Infrastructure Entity</th>
@@ -271,7 +314,7 @@ export default function GuaranteePortGrowthVsTar() {
                             }}
                           >
                             <i className="">
-                              <FiSave />
+                              <FiSave  onClick={currentReportPosts}/>
                             </i>
                           </button>
                         </div>
@@ -279,7 +322,7 @@ export default function GuaranteePortGrowthVsTar() {
                     </td>
                   </tr>
                 </tbody>
-              </Table>
+              </Table> */}
             </Col>
             {/* <Col sm={6} className="">
               <div className="d-flex justify-content-center">
@@ -291,9 +334,9 @@ export default function GuaranteePortGrowthVsTar() {
                 </p>
               </div> */}
 
-              {/* graph : q1 2022, q2 2022 q3 2022 q4 2022 */}
-              <br />
-              {/* <div className="d-flex justify-content-center">
+            {/* graph : q1 2022, q2 2022 q3 2022 q4 2022 */}
+            <br />
+            {/* <div className="d-flex justify-content-center">
                 <BarChart width={300} height={200} data={data}>
                   <Bar dataKey="uv" fill="#8884d8" />
                 </BarChart>

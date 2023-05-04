@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 
 export default function StructuringItem2() {
+  const [isDisabled, setIsDisabled] = useState(false);
   const { register, control, handleSubmit, reset } = useForm({
     defaultValues: {
-      test: [{ firstName: "" }],
+      structuring: [{ structuring: "" }],
     },
   });
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "test",
+    name: "structuring",
   });
 
   const onSubmit = (data) => {
+    setIsDisabled(true);
     localStorage.setItem("structStructuring", JSON.stringify(data));
   };
 
@@ -23,7 +25,7 @@ export default function StructuringItem2() {
           return (
             <li key={item.id}>
               <input
-                {...register(`test.${index}.firstName`)}
+                {...register(`structuring.${index}.structuring`)}
                 style={{ width: "80%", border: "none" }}
               />
 
@@ -38,7 +40,7 @@ export default function StructuringItem2() {
         <button
           type="button"
           onClick={() => {
-            append({ firstName: "" });
+            append({ structuring: "" });
           }}
         >
           append
@@ -46,17 +48,19 @@ export default function StructuringItem2() {
 
         <button
           type="button"
-          onClick={() =>
+          onClick={() => {
             reset({
-              test: [{ firstName: "Bill", lastName: "Luo" }],
-            })
-          }
+              structuring: [{ structuring: "" }],
+            });
+            setIsDisabled(false);
+          }}
         >
           reset
         </button>
       </section>
-
-      <input type="submit" />
+      <button type="submit" disabled={isDisabled}>
+        Save
+      </button>
     </form>
   );
 }
